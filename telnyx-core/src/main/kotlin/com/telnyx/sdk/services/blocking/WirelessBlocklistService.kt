@@ -76,22 +76,35 @@ interface WirelessBlocklistService {
         retrieve(id, WirelessBlocklistRetrieveParams.none(), requestOptions)
 
     /** Update a Wireless Blocklist. */
-    fun update(): WirelessBlocklistUpdateResponse = update(WirelessBlocklistUpdateParams.none())
+    fun update(id: String): WirelessBlocklistUpdateResponse =
+        update(id, WirelessBlocklistUpdateParams.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WirelessBlocklistUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see update */
+    fun update(
+        id: String,
+        params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+    ): WirelessBlocklistUpdateResponse = update(id, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: WirelessBlocklistUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WirelessBlocklistUpdateResponse
 
     /** @see update */
-    fun update(
-        params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none()
-    ): WirelessBlocklistUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: WirelessBlocklistUpdateParams): WirelessBlocklistUpdateResponse =
+        update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(requestOptions: RequestOptions): WirelessBlocklistUpdateResponse =
-        update(WirelessBlocklistUpdateParams.none(), requestOptions)
+    fun update(id: String, requestOptions: RequestOptions): WirelessBlocklistUpdateResponse =
+        update(id, WirelessBlocklistUpdateParams.none(), requestOptions)
 
     /** Get all Wireless Blocklists belonging to the user. */
     fun list(): WirelessBlocklistListPage = list(WirelessBlocklistListParams.none())
@@ -221,32 +234,50 @@ interface WirelessBlocklistService {
             retrieve(id, WirelessBlocklistRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /wireless_blocklists`, but is otherwise the same
-         * as [WirelessBlocklistService.update].
+         * Returns a raw HTTP response for `patch /wireless_blocklists/{id}`, but is otherwise the
+         * same as [WirelessBlocklistService.update].
          */
         @MustBeClosed
-        fun update(): HttpResponseFor<WirelessBlocklistUpdateResponse> =
-            update(WirelessBlocklistUpdateParams.none())
+        fun update(id: String): HttpResponseFor<WirelessBlocklistUpdateResponse> =
+            update(id, WirelessBlocklistUpdateParams.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
+            id: String,
             params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WirelessBlocklistUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            id: String,
+            params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+        ): HttpResponseFor<WirelessBlocklistUpdateResponse> =
+            update(id, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: WirelessBlocklistUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WirelessBlocklistUpdateResponse>
 
         /** @see update */
         @MustBeClosed
         fun update(
-            params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none()
+            params: WirelessBlocklistUpdateParams
         ): HttpResponseFor<WirelessBlocklistUpdateResponse> = update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            requestOptions: RequestOptions
+            id: String,
+            requestOptions: RequestOptions,
         ): HttpResponseFor<WirelessBlocklistUpdateResponse> =
-            update(WirelessBlocklistUpdateParams.none(), requestOptions)
+            update(id, WirelessBlocklistUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wireless_blocklists`, but is otherwise the same as
