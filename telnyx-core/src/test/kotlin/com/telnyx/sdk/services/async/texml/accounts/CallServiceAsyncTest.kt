@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async.texml.accounts
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveParams
@@ -72,56 +73,68 @@ internal class CallServiceAsyncTest {
             callServiceAsync.calls(
                 CallCallsParams.builder()
                     .accountSid("account_sid")
-                    .applicationSid("example-app-sid")
-                    .from("+13120001234")
-                    .to("+13121230000")
-                    .asyncAmd(true)
-                    .asyncAmdStatusCallback("https://www.example.com/callback")
-                    .asyncAmdStatusCallbackMethod(CallCallsParams.AsyncAmdStatusCallbackMethod.GET)
-                    .callerId("Info")
-                    .cancelPlaybackOnDetectMessageEnd(false)
-                    .cancelPlaybackOnMachineDetection(false)
-                    .addCustomHeader(
-                        CallCallsParams.CustomHeader.builder()
-                            .name("X-Custom-Header")
-                            .value("custom-value")
+                    .body(
+                        CallCallsParams.Body.WithUrl.builder()
+                            .url("https://www.example.com/texml.xml")
+                            .applicationSid("example-app-sid")
+                            .asyncAmd(true)
+                            .asyncAmdStatusCallback("https://www.example.com/callback")
+                            .asyncAmdStatusCallbackMethod(
+                                CallCallsParams.Body.WithUrl.AsyncAmdStatusCallbackMethod.GET
+                            )
+                            .callerId("Info")
+                            .cancelPlaybackOnDetectMessageEnd(false)
+                            .cancelPlaybackOnMachineDetection(false)
+                            .addCustomHeader(
+                                CallCallsParams.Body.WithUrl.CustomHeader.builder()
+                                    .name("X-Custom-Header")
+                                    .value("custom-value")
+                                    .build()
+                            )
+                            .detectionMode(CallCallsParams.Body.WithUrl.DetectionMode.PREMIUM)
+                            .fallbackUrl("https://www.example.com/instructions-fallback.xml")
+                            .from("+13120001234")
+                            .machineDetection(CallCallsParams.Body.WithUrl.MachineDetection.ENABLE)
+                            .machineDetectionSilenceTimeout(2000L)
+                            .machineDetectionSpeechEndThreshold(2000L)
+                            .machineDetectionSpeechThreshold(2000L)
+                            .machineDetectionTimeout(5000L)
+                            .mediaEncryption(CallCallsParams.Body.WithUrl.MediaEncryption.DISABLED)
+                            .preferredCodecs("PCMA,PCMU")
+                            .record(false)
+                            .recordingChannels(CallCallsParams.Body.WithUrl.RecordingChannels.DUAL)
+                            .recordingStatusCallback(
+                                "https://example.com/recording_status_callback"
+                            )
+                            .recordingStatusCallbackEvent("in-progress completed absent")
+                            .recordingStatusCallbackMethod(
+                                CallCallsParams.Body.WithUrl.RecordingStatusCallbackMethod.GET
+                            )
+                            .recordingTimeout(5L)
+                            .recordingTrack(CallCallsParams.Body.WithUrl.RecordingTrack.INBOUND)
+                            .sendRecordingUrl(false)
+                            .sipAuthPassword("1234")
+                            .sipAuthUsername("user")
+                            .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
+                            .statusCallback("https://www.example.com/statuscallback-listener")
+                            .statusCallbackEvent(
+                                CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED
+                            )
+                            .statusCallbackMethod(
+                                CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET
+                            )
+                            .superviseCallSid(
+                                "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                            )
+                            .supervisingRole(CallCallsParams.Body.WithUrl.SupervisingRole.MONITOR)
+                            .texml(JsonValue.from(mapOf<String, Any>()))
+                            .timeLimit(3600L)
+                            .timeout(60L)
+                            .to("+13121230000")
+                            .trim(CallCallsParams.Body.WithUrl.Trim.TRIM_SILENCE)
+                            .urlMethod(CallCallsParams.Body.WithUrl.UrlMethod.GET)
                             .build()
                     )
-                    .detectionMode(CallCallsParams.DetectionMode.PREMIUM)
-                    .fallbackUrl("https://www.example.com/instructions-fallback.xml")
-                    .machineDetection(CallCallsParams.MachineDetection.ENABLE)
-                    .machineDetectionSilenceTimeout(2000L)
-                    .machineDetectionSpeechEndThreshold(2000L)
-                    .machineDetectionSpeechThreshold(2000L)
-                    .machineDetectionTimeout(5000L)
-                    .mediaEncryption(CallCallsParams.MediaEncryption.DISABLED)
-                    .preferredCodecs("PCMA,PCMU")
-                    .record(false)
-                    .recordingChannels(CallCallsParams.RecordingChannels.DUAL)
-                    .recordingStatusCallback("https://example.com/recording_status_callback")
-                    .recordingStatusCallbackEvent("in-progress completed absent")
-                    .recordingStatusCallbackMethod(
-                        CallCallsParams.RecordingStatusCallbackMethod.GET
-                    )
-                    .recordingTimeout(5L)
-                    .recordingTrack(CallCallsParams.RecordingTrack.INBOUND)
-                    .sendRecordingUrl(false)
-                    .sipAuthPassword("1234")
-                    .sipAuthUsername("user")
-                    .sipRegion(CallCallsParams.SipRegion.CANADA)
-                    .statusCallback("https://www.example.com/statuscallback-listener")
-                    .statusCallbackEvent(CallCallsParams.StatusCallbackEvent.INITIATED)
-                    .statusCallbackMethod(CallCallsParams.StatusCallbackMethod.GET)
-                    .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
-                    .supervisingRole(CallCallsParams.SupervisingRole.MONITOR)
-                    .texml(
-                        "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
-                    )
-                    .timeLimit(3600L)
-                    .timeout(60L)
-                    .trim(CallCallsParams.Trim.TRIM_SILENCE)
-                    .url("https://www.example.com/texml.xml")
-                    .urlMethod(CallCallsParams.UrlMethod.GET)
                     .build()
             )
 
