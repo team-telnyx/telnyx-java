@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.calls
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.Assistant
+import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -103,6 +104,33 @@ internal class ActionServiceAsyncTest {
             actionServiceAsync.answer(
                 ActionAnswerParams.builder()
                     .callControlId("call_control_id")
+                    .assistant(
+                        ActionAnswerParams.Assistant.builder()
+                            .id("asst_123")
+                            .dynamicVariables(
+                                ActionAnswerParams.Assistant.DynamicVariables.builder()
+                                    .putAdditionalProperty("customer_name", JsonValue.from("John"))
+                                    .putAdditionalProperty(
+                                        "account_id",
+                                        JsonValue.from("ACC-12345"),
+                                    )
+                                    .build()
+                            )
+                            .externalLlm(JsonValue.from(mapOf<String, Any>()))
+                            .fallbackConfig(JsonValue.from(mapOf<String, Any>()))
+                            .greeting("Hi, I'm your assistant. How can I help?")
+                            .instructions("You are a friendly voice assistant.")
+                            .llmApiKeyRef("my_llm_api_key")
+                            .addMcpServer(JsonValue.from(mapOf<String, Any>()))
+                            .model("gpt-4o")
+                            .name("name")
+                            .observabilitySettings(JsonValue.from(mapOf<String, Any>()))
+                            .openaiApiKeyRef("my_openai_api_key")
+                            .addHangupTool(
+                                HangupToolParams.builder().description("description").build()
+                            )
+                            .build()
+                    )
                     .billingGroupId("f5586561-8ff0-4291-a0ac-84fe544797bd")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -685,8 +713,35 @@ internal class ActionServiceAsyncTest {
                     .assistant(
                         ActionStartAiAssistantParams.Assistant.builder()
                             .id("id")
+                            .dynamicVariables(
+                                ActionStartAiAssistantParams.Assistant.DynamicVariables.builder()
+                                    .putAdditionalProperty("customer_name", JsonValue.from("John"))
+                                    .putAdditionalProperty(
+                                        "account_id",
+                                        JsonValue.from("ACC-12345"),
+                                    )
+                                    .build()
+                            )
+                            .externalLlm(JsonValue.from(mapOf<String, Any>()))
+                            .fallbackConfig(JsonValue.from(mapOf<String, Any>()))
+                            .greeting("greeting")
                             .instructions("You are a friendly voice assistant.")
-                            .openaiApiKeyRef("openai_api_key_ref")
+                            .llmApiKeyRef("my_llm_api_key")
+                            .addMcpServer(JsonValue.from(mapOf<String, Any>()))
+                            .model("gpt-4o")
+                            .name("name")
+                            .observabilitySettings(JsonValue.from(mapOf<String, Any>()))
+                            .openaiApiKeyRef("my_openai_api_key")
+                            .addBookAppointmentTool(
+                                ActionStartAiAssistantParams.Assistant.Tool.BookAppointmentTool
+                                    .BookAppointment
+                                    .builder()
+                                    .apiKeyRef("my_calcom_api_key")
+                                    .eventTypeId(0L)
+                                    .attendeeName("attendee_name")
+                                    .attendeeTimezone("attendee_timezone")
+                                    .build()
+                            )
                             .build()
                     )
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")

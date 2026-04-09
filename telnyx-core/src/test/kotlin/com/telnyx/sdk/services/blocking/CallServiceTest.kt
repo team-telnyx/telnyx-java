@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.calls.CallDialParams
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
@@ -46,6 +47,39 @@ internal class CallServiceTest {
                             .maximumWordLengthMillis(2000)
                             .silenceThreshold(512)
                             .totalAnalysisTimeMillis(5000)
+                            .build()
+                    )
+                    .assistant(
+                        CallDialParams.Assistant.builder()
+                            .id("id")
+                            .dynamicVariables(
+                                CallDialParams.Assistant.DynamicVariables.builder()
+                                    .putAdditionalProperty("customer_name", JsonValue.from("John"))
+                                    .putAdditionalProperty(
+                                        "account_id",
+                                        JsonValue.from("ACC-12345"),
+                                    )
+                                    .build()
+                            )
+                            .externalLlm(JsonValue.from(mapOf<String, Any>()))
+                            .fallbackConfig(JsonValue.from(mapOf<String, Any>()))
+                            .greeting("greeting")
+                            .instructions("You are a friendly voice assistant.")
+                            .llmApiKeyRef("my_llm_api_key")
+                            .addMcpServer(JsonValue.from(mapOf<String, Any>()))
+                            .model("gpt-4o")
+                            .name("name")
+                            .observabilitySettings(JsonValue.from(mapOf<String, Any>()))
+                            .openaiApiKeyRef("my_openai_api_key")
+                            .addBookAppointmentTool(
+                                CallDialParams.Assistant.Tool.BookAppointmentTool.BookAppointment
+                                    .builder()
+                                    .apiKeyRef("my_calcom_api_key")
+                                    .eventTypeId(0L)
+                                    .attendeeName("attendee_name")
+                                    .attendeeTimezone("attendee_timezone")
+                                    .build()
+                            )
                             .build()
                     )
                     .audioUrl("http://www.example.com/sounds/greeting.wav")
