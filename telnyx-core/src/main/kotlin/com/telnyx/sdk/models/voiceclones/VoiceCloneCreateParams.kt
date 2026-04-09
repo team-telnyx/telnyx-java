@@ -881,7 +881,7 @@ private constructor(
 
                     @JvmField val TELNYX = of("telnyx")
 
-                    @JvmField val TELNYX = of("Telnyx")
+                    @JvmField val MINIMAX = of("minimax")
 
                     @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
                 }
@@ -889,7 +889,7 @@ private constructor(
                 /** An enum containing [Provider]'s known values. */
                 enum class Known {
                     TELNYX,
-                    TELNYX,
+                    MINIMAX,
                 }
 
                 /**
@@ -903,7 +903,7 @@ private constructor(
                  */
                 enum class Value {
                     TELNYX,
-                    TELNYX,
+                    MINIMAX,
                     /**
                      * An enum member indicating that [Provider] was instantiated with an unknown
                      * value.
@@ -921,7 +921,7 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         TELNYX -> Value.TELNYX
-                        TELNYX -> Value.TELNYX
+                        MINIMAX -> Value.MINIMAX
                         else -> Value._UNKNOWN
                     }
 
@@ -937,7 +937,7 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         TELNYX -> Known.TELNYX
-                        TELNYX -> Known.TELNYX
+                        MINIMAX -> Known.MINIMAX
                         else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
                     }
 
@@ -1487,16 +1487,16 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val MINIMAX = of("minimax")
+                    @JvmField val TELNYX = of("telnyx")
 
-                    @JvmField val MINIMAX = of("Minimax")
+                    @JvmField val MINIMAX = of("minimax")
 
                     @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
                 }
 
                 /** An enum containing [Provider]'s known values. */
                 enum class Known {
-                    MINIMAX,
+                    TELNYX,
                     MINIMAX,
                 }
 
@@ -1510,7 +1510,7 @@ private constructor(
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
-                    MINIMAX,
+                    TELNYX,
                     MINIMAX,
                     /**
                      * An enum member indicating that [Provider] was instantiated with an unknown
@@ -1528,7 +1528,7 @@ private constructor(
                  */
                 fun value(): Value =
                     when (this) {
-                        MINIMAX -> Value.MINIMAX
+                        TELNYX -> Value.TELNYX
                         MINIMAX -> Value.MINIMAX
                         else -> Value._UNKNOWN
                     }
@@ -1544,7 +1544,7 @@ private constructor(
                  */
                 fun known(): Known =
                     when (this) {
-                        MINIMAX -> Known.MINIMAX
+                        TELNYX -> Known.TELNYX
                         MINIMAX -> Known.MINIMAX
                         else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
                     }
