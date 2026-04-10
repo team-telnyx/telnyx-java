@@ -4,8 +4,10 @@ package com.telnyx.sdk.services.async.calls
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
+import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -105,10 +107,10 @@ internal class ActionServiceAsyncTest {
                 ActionAnswerParams.builder()
                     .callControlId("call_control_id")
                     .assistant(
-                        ActionAnswerParams.Assistant.builder()
+                        CallAssistantRequest.builder()
                             .id("asst_123")
                             .dynamicVariables(
-                                ActionAnswerParams.Assistant.DynamicVariables.builder()
+                                CallAssistantRequest.DynamicVariables.builder()
                                     .putAdditionalProperty("customer_name", JsonValue.from("John"))
                                     .putAdditionalProperty(
                                         "account_id",
@@ -116,15 +118,31 @@ internal class ActionServiceAsyncTest {
                                     )
                                     .build()
                             )
-                            .externalLlm(JsonValue.from(mapOf<String, Any>()))
-                            .fallbackConfig(JsonValue.from(mapOf<String, Any>()))
+                            .externalLlm(
+                                CallAssistantRequest.ExternalLlm.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .fallbackConfig(
+                                CallAssistantRequest.FallbackConfig.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .greeting("Hi, I'm your assistant. How can I help?")
                             .instructions("You are a friendly voice assistant.")
                             .llmApiKeyRef("my_llm_api_key")
-                            .addMcpServer(JsonValue.from(mapOf<String, Any>()))
+                            .addMcpServer(
+                                CallAssistantRequest.McpServer.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .model("gpt-4o")
                             .name("name")
-                            .observabilitySettings(JsonValue.from(mapOf<String, Any>()))
+                            .observabilitySettings(
+                                CallAssistantRequest.ObservabilitySettings.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .openaiApiKeyRef("my_openai_api_key")
                             .addHangupTool(
                                 HangupToolParams.builder().description("description").build()
@@ -342,7 +360,7 @@ internal class ActionServiceAsyncTest {
                             .model("Qwen/Qwen3-235B-A22B")
                             .openaiApiKeyRef("my_openai_api_key")
                             .addBookAppointmentTool(
-                                Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                                BookAppointmentToolParams.builder()
                                     .apiKeyRef("my_calcom_api_key")
                                     .eventTypeId(0L)
                                     .attendeeName("attendee_name")
@@ -711,10 +729,10 @@ internal class ActionServiceAsyncTest {
                 ActionStartAiAssistantParams.builder()
                     .callControlId("call_control_id")
                     .assistant(
-                        ActionStartAiAssistantParams.Assistant.builder()
+                        CallAssistantRequest.builder()
                             .id("id")
                             .dynamicVariables(
-                                ActionStartAiAssistantParams.Assistant.DynamicVariables.builder()
+                                CallAssistantRequest.DynamicVariables.builder()
                                     .putAdditionalProperty("customer_name", JsonValue.from("John"))
                                     .putAdditionalProperty(
                                         "account_id",
@@ -722,20 +740,34 @@ internal class ActionServiceAsyncTest {
                                     )
                                     .build()
                             )
-                            .externalLlm(JsonValue.from(mapOf<String, Any>()))
-                            .fallbackConfig(JsonValue.from(mapOf<String, Any>()))
+                            .externalLlm(
+                                CallAssistantRequest.ExternalLlm.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .fallbackConfig(
+                                CallAssistantRequest.FallbackConfig.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .greeting("greeting")
                             .instructions("You are a friendly voice assistant.")
                             .llmApiKeyRef("my_llm_api_key")
-                            .addMcpServer(JsonValue.from(mapOf<String, Any>()))
+                            .addMcpServer(
+                                CallAssistantRequest.McpServer.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .model("gpt-4o")
                             .name("name")
-                            .observabilitySettings(JsonValue.from(mapOf<String, Any>()))
+                            .observabilitySettings(
+                                CallAssistantRequest.ObservabilitySettings.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .openaiApiKeyRef("my_openai_api_key")
                             .addBookAppointmentTool(
-                                ActionStartAiAssistantParams.Assistant.Tool.BookAppointmentTool
-                                    .BookAppointment
-                                    .builder()
+                                BookAppointmentToolParams.builder()
                                     .apiKeyRef("my_calcom_api_key")
                                     .eventTypeId(0L)
                                     .attendeeName("attendee_name")

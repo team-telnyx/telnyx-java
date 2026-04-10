@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.calls.actions
 
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +28,7 @@ internal class ActionGatherUsingAiParamsTest {
                     .model("Qwen/Qwen3-235B-A22B")
                     .openaiApiKeyRef("my_openai_api_key")
                     .addBookAppointmentTool(
-                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        BookAppointmentToolParams.builder()
                             .apiKeyRef("my_calcom_api_key")
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
@@ -107,7 +108,7 @@ internal class ActionGatherUsingAiParamsTest {
                         .model("Qwen/Qwen3-235B-A22B")
                         .openaiApiKeyRef("my_openai_api_key")
                         .addBookAppointmentTool(
-                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                            BookAppointmentToolParams.builder()
                                 .apiKeyRef("my_calcom_api_key")
                                 .eventTypeId(0L)
                                 .attendeeName("attendee_name")
@@ -166,7 +167,7 @@ internal class ActionGatherUsingAiParamsTest {
                     .model("Qwen/Qwen3-235B-A22B")
                     .openaiApiKeyRef("my_openai_api_key")
                     .addBookAppointmentTool(
-                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        BookAppointmentToolParams.builder()
                             .apiKeyRef("my_calcom_api_key")
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
