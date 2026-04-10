@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadResponse
 import java.util.function.Consumer
@@ -26,6 +28,38 @@ interface PhotoService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhotoService
+
+    /** Get Whatsapp profile photo */
+    fun retrieve(phoneNumber: String): PhotoRetrieveResponse =
+        retrieve(phoneNumber, PhotoRetrieveParams.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        phoneNumber: String,
+        params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhotoRetrieveResponse =
+        retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see retrieve */
+    fun retrieve(
+        phoneNumber: String,
+        params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+    ): PhotoRetrieveResponse = retrieve(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        params: PhotoRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhotoRetrieveResponse
+
+    /** @see retrieve */
+    fun retrieve(params: PhotoRetrieveParams): PhotoRetrieveResponse =
+        retrieve(params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(phoneNumber: String, requestOptions: RequestOptions): PhotoRetrieveResponse =
+        retrieve(phoneNumber, PhotoRetrieveParams.none(), requestOptions)
 
     /** Delete Whatsapp profile photo */
     fun delete(phoneNumber: String) = delete(phoneNumber, PhotoDeleteParams.none())
@@ -82,6 +116,52 @@ interface PhotoService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhotoService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /v2/whatsapp/phone_numbers/{phone_number}/profile/photo`, but is otherwise the same as
+         * [PhotoService.retrieve].
+         */
+        @MustBeClosed
+        fun retrieve(phoneNumber: String): HttpResponseFor<PhotoRetrieveResponse> =
+            retrieve(phoneNumber, PhotoRetrieveParams.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            phoneNumber: String,
+            params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhotoRetrieveResponse> =
+            retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            phoneNumber: String,
+            params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+        ): HttpResponseFor<PhotoRetrieveResponse> =
+            retrieve(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            params: PhotoRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhotoRetrieveResponse>
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(params: PhotoRetrieveParams): HttpResponseFor<PhotoRetrieveResponse> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            phoneNumber: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhotoRetrieveResponse> =
+            retrieve(phoneNumber, PhotoRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete

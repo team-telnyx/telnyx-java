@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadResponse
 import java.util.concurrent.CompletableFuture
@@ -26,6 +28,42 @@ interface PhotoServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhotoServiceAsync
+
+    /** Get Whatsapp profile photo */
+    fun retrieve(phoneNumber: String): CompletableFuture<PhotoRetrieveResponse> =
+        retrieve(phoneNumber, PhotoRetrieveParams.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        phoneNumber: String,
+        params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhotoRetrieveResponse> =
+        retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see retrieve */
+    fun retrieve(
+        phoneNumber: String,
+        params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+    ): CompletableFuture<PhotoRetrieveResponse> =
+        retrieve(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        params: PhotoRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhotoRetrieveResponse>
+
+    /** @see retrieve */
+    fun retrieve(params: PhotoRetrieveParams): CompletableFuture<PhotoRetrieveResponse> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        phoneNumber: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhotoRetrieveResponse> =
+        retrieve(phoneNumber, PhotoRetrieveParams.none(), requestOptions)
 
     /** Delete Whatsapp profile photo */
     fun delete(phoneNumber: String): CompletableFuture<Void?> =
@@ -94,6 +132,50 @@ interface PhotoServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PhotoServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /v2/whatsapp/phone_numbers/{phone_number}/profile/photo`, but is otherwise the same as
+         * [PhotoServiceAsync.retrieve].
+         */
+        fun retrieve(
+            phoneNumber: String
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>> =
+            retrieve(phoneNumber, PhotoRetrieveParams.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            phoneNumber: String,
+            params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>> =
+            retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+        /** @see retrieve */
+        fun retrieve(
+            phoneNumber: String,
+            params: PhotoRetrieveParams = PhotoRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>> =
+            retrieve(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            params: PhotoRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>>
+
+        /** @see retrieve */
+        fun retrieve(
+            params: PhotoRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            phoneNumber: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhotoRetrieveResponse>> =
+            retrieve(phoneNumber, PhotoRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete
