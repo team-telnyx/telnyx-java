@@ -19,6 +19,8 @@ import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo.PhotoUploadResponse
 import java.util.function.Consumer
@@ -36,6 +38,13 @@ class PhotoServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhotoService =
         PhotoServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun retrieve(
+        params: PhotoRetrieveParams,
+        requestOptions: RequestOptions,
+    ): PhotoRetrieveResponse =
+        // get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo
+        withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun delete(params: PhotoDeleteParams, requestOptions: RequestOptions) {
         // delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo
@@ -61,6 +70,43 @@ class PhotoServiceImpl internal constructor(private val clientOptions: ClientOpt
             PhotoServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val retrieveHandler: Handler<PhotoRetrieveResponse> =
+            jsonHandler<PhotoRetrieveResponse>(clientOptions.jsonMapper)
+
+        override fun retrieve(
+            params: PhotoRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhotoRetrieveResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "v2",
+                        "whatsapp",
+                        "phone_numbers",
+                        params._pathParam(0),
+                        "profile",
+                        "photo",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val deleteHandler: Handler<Void?> = emptyHandler()
 
