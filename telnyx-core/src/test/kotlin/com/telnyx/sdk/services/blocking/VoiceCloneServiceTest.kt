@@ -88,17 +88,21 @@ internal class VoiceCloneServiceTest {
 
         val response =
             voiceCloneService.createFromUpload(
-                VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.builder()
+                VoiceCloneCreateFromUploadParams.UploadParams.TelnyxQwen3TtsClone.builder()
                     .audioFile("Example data".byteInputStream())
-                    .gender(VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Gender.MALE)
+                    .gender(
+                        VoiceCloneCreateFromUploadParams.UploadParams.TelnyxQwen3TtsClone.Gender
+                            .MALE
+                    )
                     .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
                     .name("name")
                     .provider(
-                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Provider.TELNYX
+                        VoiceCloneCreateFromUploadParams.UploadParams.TelnyxQwen3TtsClone.Provider
+                            .TELNYX
                     )
                     .label("label")
                     .modelId(
-                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.ModelId
+                        VoiceCloneCreateFromUploadParams.UploadParams.TelnyxQwen3TtsClone.ModelId
                             .QWEN3_TTS
                     )
                     .refText("ref_text")
