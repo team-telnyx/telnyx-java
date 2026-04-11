@@ -6,7 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.errors.TelnyxWebhookException
-import java.time.Instant
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -27,10 +26,8 @@ internal class WebhookServiceTest {
     @Test
     fun unwrapMissingHeadersThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
-        val client = TelnyxOkHttpClient.builder()
-            .apiKey("My API Key")
-            .publicKey(publicKeyBase64)
-            .build()
+        val client =
+            TelnyxOkHttpClient.builder().apiKey("My API Key").publicKey(publicKeyBase64).build()
         val webhookService = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -39,10 +36,7 @@ internal class WebhookServiceTest {
         assertThrows<TelnyxWebhookException> {
             val badHeaders = Headers.builder().build()
             webhookService.unwrap(
-                UnwrapWebhookParams.builder()
-                    .body(payload)
-                    .headers(badHeaders)
-                    .build()
+                UnwrapWebhookParams.builder().body(payload).headers(badHeaders).build()
             )
         }
     }
@@ -50,10 +44,8 @@ internal class WebhookServiceTest {
     @Test
     fun unwrapExpiredTimestampThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
-        val client = TelnyxOkHttpClient.builder()
-            .apiKey("My API Key")
-            .publicKey(publicKeyBase64)
-            .build()
+        val client =
+            TelnyxOkHttpClient.builder().apiKey("My API Key").publicKey(publicKeyBase64).build()
         val webhookService = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -70,10 +62,7 @@ internal class WebhookServiceTest {
                     )
                     .build()
             webhookService.unwrap(
-                UnwrapWebhookParams.builder()
-                    .body(payload)
-                    .headers(headers)
-                    .build()
+                UnwrapWebhookParams.builder().body(payload).headers(headers).build()
             )
         }
     }

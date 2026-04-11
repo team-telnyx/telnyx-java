@@ -6,8 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.errors.TelnyxWebhookException
-import java.time.Instant
-import java.util.Base64
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -28,10 +26,11 @@ internal class WebhookServiceAsyncTest {
     @Test
     fun unwrapMissingHeadersThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
-        val client = TelnyxOkHttpClientAsync.builder()
-            .apiKey("My API Key")
-            .publicKey(publicKeyBase64)
-            .build()
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .apiKey("My API Key")
+                .publicKey(publicKeyBase64)
+                .build()
         val webhookServiceAsync = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -40,10 +39,7 @@ internal class WebhookServiceAsyncTest {
         assertThrows<TelnyxWebhookException> {
             val badHeaders = Headers.builder().build()
             webhookServiceAsync.unwrap(
-                UnwrapWebhookParams.builder()
-                    .body(payload)
-                    .headers(badHeaders)
-                    .build()
+                UnwrapWebhookParams.builder().body(payload).headers(badHeaders).build()
             )
         }
     }
@@ -51,10 +47,11 @@ internal class WebhookServiceAsyncTest {
     @Test
     fun unwrapExpiredTimestampThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
-        val client = TelnyxOkHttpClientAsync.builder()
-            .apiKey("My API Key")
-            .publicKey(publicKeyBase64)
-            .build()
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .apiKey("My API Key")
+                .publicKey(publicKeyBase64)
+                .build()
         val webhookServiceAsync = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -71,10 +68,7 @@ internal class WebhookServiceAsyncTest {
                     )
                     .build()
             webhookServiceAsync.unwrap(
-                UnwrapWebhookParams.builder()
-                    .body(payload)
-                    .headers(headers)
-                    .build()
+                UnwrapWebhookParams.builder().body(payload).headers(headers).build()
             )
         }
     }
