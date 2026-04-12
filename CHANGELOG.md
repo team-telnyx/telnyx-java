@@ -1,5 +1,61 @@
 # Changelog
 
+## 6.41.0 (2026-04-12)
+
+Full Changelog: [v6.40.0...v6.41.0](https://github.com/team-telnyx/telnyx-java/compare/v6.40.0...v6.41.0)
+
+### Features
+
+* Add ai_calls endpoint documentation to OpenAPI spec ([1582a7b](https://github.com/team-telnyx/telnyx-java/commit/1582a7b5a7483b6cd6ddc3a8ad62efa2cf0d60d8))
+* add enabled boolean to recording_settings [AI-2178] ([7f840a4](https://github.com/team-telnyx/telnyx-java/commit/7f840a42f9633df58b215183c56ecce426655258))
+* Add oneOf constraint for Url/Texml mutual exclusivity in InitiateCallRequest ([4d6793a](https://github.com/team-telnyx/telnyx-java/commit/4d6793a71aafae7846c6c61d31db96afcf91c04f))
+* add shared CallAssistantRequest schema for call-control assistant object ([afeccc0](https://github.com/team-telnyx/telnyx-java/commit/afeccc0821df3377cd2a643ac214614444ffdf70))
+* AI-2180: Add message_template to SendMessageTool schema ([0bb9f6f](https://github.com/team-telnyx/telnyx-java/commit/0bb9f6f7845c3ce5454e5436e2fa8c86cb2b0f75))
+* **api:** manual updates ([4c3c057](https://github.com/team-telnyx/telnyx-java/commit/4c3c0577ec3a17558b6c55b076dddf8f688f4060))
+* **api:** manual updates ([aee048f](https://github.com/team-telnyx/telnyx-java/commit/aee048f4c19b159399a32bde85ec2ddedc27673c))
+* **api:** Merge pull request [#39](https://github.com/team-telnyx/telnyx-java/issues/39) from stainless-sdks/revert-a988c49-stainless-changes ([f7fa765](https://github.com/team-telnyx/telnyx-java/commit/f7fa7658d5c6445f56ce04d437a769775dfba2d8))
+* **api:** Merge pull request [#46](https://github.com/team-telnyx/telnyx-java/issues/46) from stainless-sdks/FixModelRecommendation ([382ec57](https://github.com/team-telnyx/telnyx-java/commit/382ec5736f7b963eca610e04ee3f88b4228cdee2))
+* Assistants: add observability ([7ff159f](https://github.com/team-telnyx/telnyx-java/commit/7ff159f2bcd69f15b2ec7105272cab30226f4db0))
+* CW-3815 fix PATCH /wirelss_blocklists/{id} endpoint ([57b8551](https://github.com/team-telnyx/telnyx-java/commit/57b8551f26d97065acf4b7f56af6648099076b84))
+* MSG-6666: Add template and text properties to WhatsApp send message schema ([2a8431b](https://github.com/team-telnyx/telnyx-java/commit/2a8431b5ed7374bc3635b35a0c2d9b65cc94925e))
+* MSG-6673: Add WhatsApp verification endpoint and profile settings ([4782b32](https://github.com/team-telnyx/telnyx-java/commit/4782b32f469f3c33dfade87aa2d1a6f9a6c2e73b))
+* MSG-6846: add GET /profile/photo docs for whatsapp API ([0b42006](https://github.com/team-telnyx/telnyx-java/commit/0b4200615028404b44234405e6f0f7150d895d85))
+* TELAPPS-5689: Pronunciation dictionaries API docs ([5a42538](https://github.com/team-telnyx/telnyx-java/commit/5a42538d94f63108a9c84bfbf2139cfc87022ec2))
+* TELAPPS-5707: Add privacy parameter to Call Control dial and transfer ([66042e7](https://github.com/team-telnyx/telnyx-java/commit/66042e7c66b6e232f4afa18fe62e2825512c968c))
+
+
+### Bug Fixes
+
+* replace _uploadParams() with MultipartField.of(uploadParams) in VoiceCloneCreateFromUploadParams ([16758e9](https://github.com/team-telnyx/telnyx-java/commit/16758e99077cd9ef27d3a321b9a758d7a8d09dcb))
+* resolve VoiceCloneCreateFromUploadParams compilation error ([9a63dd4](https://github.com/team-telnyx/telnyx-java/commit/9a63dd42c3e8ded45ffb42f6a2d0d48e12acbece))
+* set additionalProperties=false on VoiceCloneUploadRequest to prevent codegen errors ([dece3ba](https://github.com/team-telnyx/telnyx-java/commit/dece3ba6adce11da5c8b02d028c76242ffd89b05))
+* update generated webhook tests from StandardWebhooks to ED25519 ([6ddbe66](https://github.com/team-telnyx/telnyx-java/commit/6ddbe66218522eb602e8cb7fcddaf3f7ba5f8da0))
+* update webhook tests from StandardWebhooks to ED25519 ([bde26d0](https://github.com/team-telnyx/telnyx-java/commit/bde26d0c9dd1a20fac3e9b34c074c005357449d4))
+
+
+### Reverts
+
+* restore stainless.yml SDK generation fixes ([f7fa765](https://github.com/team-telnyx/telnyx-java/commit/f7fa7658d5c6445f56ce04d437a769775dfba2d8))
+* restore stainless.yml to pre-6a6df5b state ([8f71218](https://github.com/team-telnyx/telnyx-java/commit/8f7121879c3f6bee0457e77aca550c4ec873fc36))
+* revert stainless.yml changes from 9c5e8d8 ([28e2dbc](https://github.com/team-telnyx/telnyx-java/commit/28e2dbc149a036718c3b463566b2661a45fff60f))
+* revert stainless.yml changes from pronunciation dictionaries commit ([f75db72](https://github.com/team-telnyx/telnyx-java/commit/f75db7205557bea5b6f60c478d873c13472a8c63))
+
+
+### Documentation
+
+* improve examples ([1c429a6](https://github.com/team-telnyx/telnyx-java/commit/1c429a6d4f531fe710e302da67089d0f2eaca943))
+* update voice clone schemas to match Ultra/model_id implementation ([49f21f9](https://github.com/team-telnyx/telnyx-java/commit/49f21f92918e23d0232599deb47999b60918e9a9))
+
+
+### Styles
+
+* ktfmt format webhook test files ([68f2ead](https://github.com/team-telnyx/telnyx-java/commit/68f2ead29daee63d5a98098eba954a6436bf75cf))
+
+
+### Refactors
+
+* **lib:** move webhook tests to telnyx-lib for codegen safety ([9c3fd66](https://github.com/team-telnyx/telnyx-java/commit/9c3fd66fa2434ccfca3426c80e8743647003bd20))
+
 ## 6.40.0 (2026-04-01)
 
 Full Changelog: [v6.39.0...v6.40.0](https://github.com/team-telnyx/telnyx-java/compare/v6.39.0...v6.40.0)
