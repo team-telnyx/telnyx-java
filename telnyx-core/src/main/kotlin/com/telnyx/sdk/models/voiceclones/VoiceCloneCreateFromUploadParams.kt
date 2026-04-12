@@ -184,9 +184,7 @@ private constructor(
     }
 
     fun _body(): Map<String, MultipartField<*>> =
-        (mapOf("upload_params" to _uploadParams()) +
-                _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
-            .toImmutable()
+        mapOf("upload_params" to _uploadParams()).toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
 
