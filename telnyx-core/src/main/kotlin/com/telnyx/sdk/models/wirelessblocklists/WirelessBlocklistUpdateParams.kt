@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -25,10 +24,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a Wireless Blocklist. */
 class WirelessBlocklistUpdateParams
 private constructor(
+    private val id: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun id(): Optional<String> = Optional.ofNullable(id)
 
     /**
      * The name of the Wireless Blocklist.
@@ -37,14 +39,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = body.name()
-
-    /**
-     * The type of wireless blocklist.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun type(): Optional<Type> = body.type()
 
     /**
      * Values to block. The values here depend on the `type` of Wireless Blocklist.
@@ -60,13 +54,6 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
-
-    /**
-     * Returns the raw JSON value of [type].
-     *
-     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _type(): JsonField<Type> = body._type()
 
     /**
      * Returns the raw JSON value of [values].
@@ -99,16 +86,23 @@ private constructor(
     /** A builder for [WirelessBlocklistUpdateParams]. */
     class Builder internal constructor() {
 
+        private var id: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(wirelessBlocklistUpdateParams: WirelessBlocklistUpdateParams) = apply {
+            id = wirelessBlocklistUpdateParams.id
             body = wirelessBlocklistUpdateParams.body.toBuilder()
             additionalHeaders = wirelessBlocklistUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = wirelessBlocklistUpdateParams.additionalQueryParams.toBuilder()
         }
+
+        fun id(id: String?) = apply { this.id = id }
+
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<String>) = id(id.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -116,7 +110,6 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
-         * - [type]
          * - [values]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -131,17 +124,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
-
-        /** The type of wireless blocklist. */
-        fun type(type: Type) = apply { body.type(type) }
-
-        /**
-         * Sets [Builder.type] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun type(type: JsonField<Type>) = apply { body.type(type) }
 
         /** Values to block. The values here depend on the `type` of Wireless Blocklist. */
         fun values(values: List<String>) = apply { body.values(values) }
@@ -286,6 +268,7 @@ private constructor(
          */
         fun build(): WirelessBlocklistUpdateParams =
             WirelessBlocklistUpdateParams(
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -293,6 +276,12 @@ private constructor(
     }
 
     fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -302,7 +291,6 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
-        private val type: JsonField<Type>,
         private val values: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -310,11 +298,10 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             @JsonProperty("values")
             @ExcludeMissing
             values: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(name, type, values, mutableMapOf())
+        ) : this(name, values, mutableMapOf())
 
         /**
          * The name of the Wireless Blocklist.
@@ -323,14 +310,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * The type of wireless blocklist.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun type(): Optional<Type> = type.getOptional("type")
 
         /**
          * Values to block. The values here depend on the `type` of Wireless Blocklist.
@@ -346,13 +325,6 @@ private constructor(
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         /**
          * Returns the raw JSON value of [values].
@@ -383,14 +355,12 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String> = JsonMissing.of()
-            private var type: JsonField<Type> = JsonMissing.of()
             private var values: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 name = body.name
-                type = body.type
                 values = body.values.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -406,18 +376,6 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** The type of wireless blocklist. */
-            fun type(type: Type) = type(JsonField.of(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             /** Values to block. The values here depend on the `type` of Wireless Blocklist. */
             fun values(values: List<String>) = values(JsonField.of(values))
@@ -472,7 +430,6 @@ private constructor(
             fun build(): Body =
                 Body(
                     name,
-                    type,
                     (values ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
@@ -486,7 +443,6 @@ private constructor(
             }
 
             name()
-            type().ifPresent { it.validate() }
             values()
             validated = true
         }
@@ -507,9 +463,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (name.asKnown().isPresent) 1 else 0) +
-                (type.asKnown().getOrNull()?.validity() ?: 0) +
-                (values.asKnown().getOrNull()?.size ?: 0)
+            (if (name.asKnown().isPresent) 1 else 0) + (values.asKnown().getOrNull()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -518,149 +472,16 @@ private constructor(
 
             return other is Body &&
                 name == other.name &&
-                type == other.type &&
                 values == other.values &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(name, type, values, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(name, values, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, type=$type, values=$values, additionalProperties=$additionalProperties}"
-    }
-
-    /** The type of wireless blocklist. */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val COUNTRY = of("country")
-
-            @JvmField val MCC = of("mcc")
-
-            @JvmField val PLMN = of("plmn")
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        /** An enum containing [Type]'s known values. */
-        enum class Known {
-            COUNTRY,
-            MCC,
-            PLMN,
-        }
-
-        /**
-         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            COUNTRY,
-            MCC,
-            PLMN,
-            /** An enum member indicating that [Type] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                COUNTRY -> Value.COUNTRY
-                MCC -> Value.MCC
-                PLMN -> Value.PLMN
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                COUNTRY -> Known.COUNTRY
-                MCC -> Known.MCC
-                PLMN -> Known.PLMN
-                else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): Type = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
+            "Body{name=$name, values=$values, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -669,13 +490,14 @@ private constructor(
         }
 
         return other is WirelessBlocklistUpdateParams &&
+            id == other.id &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "WirelessBlocklistUpdateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "WirelessBlocklistUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

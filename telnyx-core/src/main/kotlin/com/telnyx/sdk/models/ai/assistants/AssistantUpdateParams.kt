@@ -130,6 +130,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun observabilitySettings(): Optional<ObservabilityReq> = body.observabilitySettings()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun privacySettings(): Optional<PrivacySettings> = body.privacySettings()
 
     /**
@@ -260,6 +266,14 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [observabilitySettings].
+     *
+     * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _observabilitySettings(): JsonField<ObservabilityReq> = body._observabilitySettings()
 
     /**
      * Returns the raw JSON value of [privacySettings].
@@ -552,6 +566,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        fun observabilitySettings(observabilitySettings: ObservabilityReq) = apply {
+            body.observabilitySettings(observabilitySettings)
+        }
+
+        /**
+         * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.observabilitySettings] with a well-typed
+         * [ObservabilityReq] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
+            body.observabilitySettings(observabilitySettings)
+        }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
             body.privacySettings(privacySettings)
@@ -991,6 +1020,7 @@ private constructor(
         private val messagingSettings: JsonField<MessagingSettings>,
         private val model: JsonField<String>,
         private val name: JsonField<String>,
+        private val observabilitySettings: JsonField<ObservabilityReq>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
@@ -1033,6 +1063,9 @@ private constructor(
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
             @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("observability_settings")
+            @ExcludeMissing
+            observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1069,6 +1102,7 @@ private constructor(
             messagingSettings,
             model,
             name,
+            observabilitySettings,
             privacySettings,
             telephonySettings,
             toolIds,
@@ -1093,6 +1127,7 @@ private constructor(
                 .messagingSettings(messagingSettings)
                 .model(model)
                 .name(name)
+                .observabilitySettings(observabilitySettings)
                 .privacySettings(privacySettings)
                 .telephonySettings(telephonySettings)
                 .toolIds(toolIds)
@@ -1198,6 +1233,13 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun observabilitySettings(): Optional<ObservabilityReq> =
+            observabilitySettings.getOptional("observability_settings")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1359,6 +1401,16 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
+         * Returns the raw JSON value of [observabilitySettings].
+         *
+         * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("observability_settings")
+        @ExcludeMissing
+        fun _observabilitySettings(): JsonField<ObservabilityReq> = observabilitySettings
+
+        /**
          * Returns the raw JSON value of [privacySettings].
          *
          * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected
@@ -1465,6 +1517,7 @@ private constructor(
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
@@ -1488,6 +1541,7 @@ private constructor(
                 messagingSettings = body.messagingSettings
                 model = body.model
                 name = body.name
+                observabilitySettings = body.observabilitySettings
                 privacySettings = body.privacySettings
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
@@ -1684,6 +1738,20 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun observabilitySettings(observabilitySettings: ObservabilityReq) =
+                observabilitySettings(JsonField.of(observabilitySettings))
+
+            /**
+             * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.observabilitySettings] with a well-typed
+             * [ObservabilityReq] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
+                this.observabilitySettings = observabilitySettings
+            }
 
             fun privacySettings(privacySettings: PrivacySettings) =
                 privacySettings(JsonField.of(privacySettings))
@@ -2023,6 +2091,7 @@ private constructor(
                     messagingSettings,
                     model,
                     name,
+                    observabilitySettings,
                     privacySettings,
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -2053,6 +2122,7 @@ private constructor(
             messagingSettings().ifPresent { it.validate() }
             model()
             name()
+            observabilitySettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
             telephonySettings().ifPresent { it.validate() }
             toolIds()
@@ -2091,6 +2161,7 @@ private constructor(
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (model.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
+                (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
@@ -2117,6 +2188,7 @@ private constructor(
                 messagingSettings == other.messagingSettings &&
                 model == other.model &&
                 name == other.name &&
+                observabilitySettings == other.observabilitySettings &&
                 privacySettings == other.privacySettings &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
@@ -2141,6 +2213,7 @@ private constructor(
                 messagingSettings,
                 model,
                 name,
+                observabilitySettings,
                 privacySettings,
                 telephonySettings,
                 toolIds,
@@ -2156,7 +2229,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

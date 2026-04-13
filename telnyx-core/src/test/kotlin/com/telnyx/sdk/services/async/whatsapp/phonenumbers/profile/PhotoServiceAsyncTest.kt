@@ -11,6 +11,18 @@ internal class PhotoServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun retrieve() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val photoServiceAsync = client.whatsapp().phoneNumbers().profile().photo()
+
+        val photoFuture = photoServiceAsync.retrieve("phone_number")
+
+        val photo = photoFuture.get()
+        photo.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun delete() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val photoServiceAsync = client.whatsapp().phoneNumbers().profile().photo()

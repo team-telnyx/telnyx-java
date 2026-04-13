@@ -47,6 +47,14 @@ internal class InferenceEmbeddingTest {
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
                 )
+                .observabilitySettings(
+                    Observability.builder()
+                        .host("host")
+                        .publicKeyRef("public_key_ref")
+                        .secretKeyRef("secret_key_ref")
+                        .status(Observability.Status.ENABLED)
+                        .build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -61,6 +69,7 @@ internal class InferenceEmbeddingTest {
                         .recordingSettings(
                             TelephonySettings.RecordingSettings.builder()
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
                                 .build()
                         )
@@ -263,6 +272,15 @@ internal class InferenceEmbeddingTest {
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
             )
+        assertThat(inferenceEmbedding.observabilitySettings())
+            .contains(
+                Observability.builder()
+                    .host("host")
+                    .publicKeyRef("public_key_ref")
+                    .secretKeyRef("secret_key_ref")
+                    .status(Observability.Status.ENABLED)
+                    .build()
+            )
         assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(inferenceEmbedding.telephonySettings())
@@ -279,6 +297,7 @@ internal class InferenceEmbeddingTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )
@@ -509,6 +528,14 @@ internal class InferenceEmbeddingTest {
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
                 )
+                .observabilitySettings(
+                    Observability.builder()
+                        .host("host")
+                        .publicKeyRef("public_key_ref")
+                        .secretKeyRef("secret_key_ref")
+                        .status(Observability.Status.ENABLED)
+                        .build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -523,6 +550,7 @@ internal class InferenceEmbeddingTest {
                         .recordingSettings(
                             TelephonySettings.RecordingSettings.builder()
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
                                 .build()
                         )

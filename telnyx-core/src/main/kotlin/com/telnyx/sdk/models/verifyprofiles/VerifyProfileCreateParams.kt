@@ -79,6 +79,12 @@ private constructor(
     fun webhookUrl(): Optional<String> = body.webhookUrl()
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun whatsapp(): Optional<Whatsapp> = body.whatsapp()
+
+    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -134,6 +140,13 @@ private constructor(
      * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _webhookUrl(): JsonField<String> = body._webhookUrl()
+
+    /**
+     * Returns the raw JSON value of [whatsapp].
+     *
+     * Unlike [whatsapp], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _whatsapp(): JsonField<Whatsapp> = body._whatsapp()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -272,6 +285,17 @@ private constructor(
          * value.
          */
         fun webhookUrl(webhookUrl: JsonField<String>) = apply { body.webhookUrl(webhookUrl) }
+
+        fun whatsapp(whatsapp: Whatsapp) = apply { body.whatsapp(whatsapp) }
+
+        /**
+         * Sets [Builder.whatsapp] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.whatsapp] with a well-typed [Whatsapp] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun whatsapp(whatsapp: JsonField<Whatsapp>) = apply { body.whatsapp(whatsapp) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -427,6 +451,7 @@ private constructor(
         private val sms: JsonField<Sms>,
         private val webhookFailoverUrl: JsonField<String>,
         private val webhookUrl: JsonField<String>,
+        private val whatsapp: JsonField<Whatsapp>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -448,6 +473,9 @@ private constructor(
             @JsonProperty("webhook_url")
             @ExcludeMissing
             webhookUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("whatsapp")
+            @ExcludeMissing
+            whatsapp: JsonField<Whatsapp> = JsonMissing.of(),
         ) : this(
             name,
             call,
@@ -457,6 +485,7 @@ private constructor(
             sms,
             webhookFailoverUrl,
             webhookUrl,
+            whatsapp,
             mutableMapOf(),
         )
 
@@ -508,6 +537,12 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun whatsapp(): Optional<Whatsapp> = whatsapp.getOptional("whatsapp")
 
         /**
          * Returns the raw JSON value of [name].
@@ -572,6 +607,13 @@ private constructor(
         @ExcludeMissing
         fun _webhookUrl(): JsonField<String> = webhookUrl
 
+        /**
+         * Returns the raw JSON value of [whatsapp].
+         *
+         * Unlike [whatsapp], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("whatsapp") @ExcludeMissing fun _whatsapp(): JsonField<Whatsapp> = whatsapp
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -608,6 +650,7 @@ private constructor(
             private var sms: JsonField<Sms> = JsonMissing.of()
             private var webhookFailoverUrl: JsonField<String> = JsonMissing.of()
             private var webhookUrl: JsonField<String> = JsonMissing.of()
+            private var whatsapp: JsonField<Whatsapp> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -620,6 +663,7 @@ private constructor(
                 sms = body.sms
                 webhookFailoverUrl = body.webhookFailoverUrl
                 webhookUrl = body.webhookUrl
+                whatsapp = body.whatsapp
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -714,6 +758,17 @@ private constructor(
              */
             fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
 
+            fun whatsapp(whatsapp: Whatsapp) = whatsapp(JsonField.of(whatsapp))
+
+            /**
+             * Sets [Builder.whatsapp] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.whatsapp] with a well-typed [Whatsapp] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun whatsapp(whatsapp: JsonField<Whatsapp>) = apply { this.whatsapp = whatsapp }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -755,6 +810,7 @@ private constructor(
                     sms,
                     webhookFailoverUrl,
                     webhookUrl,
+                    whatsapp,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -774,6 +830,7 @@ private constructor(
             sms().ifPresent { it.validate() }
             webhookFailoverUrl()
             webhookUrl()
+            whatsapp().ifPresent { it.validate() }
             validated = true
         }
 
@@ -800,7 +857,8 @@ private constructor(
                 (rcs.asKnown().getOrNull()?.validity() ?: 0) +
                 (sms.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
-                (if (webhookUrl.asKnown().isPresent) 1 else 0)
+                (if (webhookUrl.asKnown().isPresent) 1 else 0) +
+                (whatsapp.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -816,6 +874,7 @@ private constructor(
                 sms == other.sms &&
                 webhookFailoverUrl == other.webhookFailoverUrl &&
                 webhookUrl == other.webhookUrl &&
+                whatsapp == other.whatsapp &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -829,6 +888,7 @@ private constructor(
                 sms,
                 webhookFailoverUrl,
                 webhookUrl,
+                whatsapp,
                 additionalProperties,
             )
         }
@@ -836,7 +896,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, call=$call, flashcall=$flashcall, language=$language, rcs=$rcs, sms=$sms, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, call=$call, flashcall=$flashcall, language=$language, rcs=$rcs, sms=$sms, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whatsapp=$whatsapp, additionalProperties=$additionalProperties}"
     }
 
     class Call
@@ -2277,6 +2337,276 @@ private constructor(
 
         override fun toString() =
             "Sms{alphaSender=$alphaSender, appName=$appName, codeLength=$codeLength, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, messagingTemplateId=$messagingTemplateId, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+    }
+
+    class Whatsapp
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val appName: JsonField<String>,
+        private val defaultVerificationTimeoutSecs: JsonField<Long>,
+        private val whitelistedDestinations: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("app_name") @ExcludeMissing appName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("default_verification_timeout_secs")
+            @ExcludeMissing
+            defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("whitelisted_destinations")
+            @ExcludeMissing
+            whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(appName, defaultVerificationTimeoutSecs, whitelistedDestinations, mutableMapOf())
+
+        /**
+         * The name that identifies the application requesting 2fa in the verification message.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun appName(): Optional<String> = appName.getOptional("app_name")
+
+        /**
+         * For every request that is initiated via this Verify profile, this sets the number of
+         * seconds before a verification request code expires. Once the verification request
+         * expires, the user cannot use the code to verify their identity.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun defaultVerificationTimeoutSecs(): Optional<Long> =
+            defaultVerificationTimeoutSecs.getOptional("default_verification_timeout_secs")
+
+        /**
+         * Enabled country destinations to send verification codes. The elements in the list must be
+         * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
+         * allowed.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun whitelistedDestinations(): Optional<List<String>> =
+            whitelistedDestinations.getOptional("whitelisted_destinations")
+
+        /**
+         * Returns the raw JSON value of [appName].
+         *
+         * Unlike [appName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("app_name") @ExcludeMissing fun _appName(): JsonField<String> = appName
+
+        /**
+         * Returns the raw JSON value of [defaultVerificationTimeoutSecs].
+         *
+         * Unlike [defaultVerificationTimeoutSecs], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("default_verification_timeout_secs")
+        @ExcludeMissing
+        fun _defaultVerificationTimeoutSecs(): JsonField<Long> = defaultVerificationTimeoutSecs
+
+        /**
+         * Returns the raw JSON value of [whitelistedDestinations].
+         *
+         * Unlike [whitelistedDestinations], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("whitelisted_destinations")
+        @ExcludeMissing
+        fun _whitelistedDestinations(): JsonField<List<String>> = whitelistedDestinations
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Whatsapp]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Whatsapp]. */
+        class Builder internal constructor() {
+
+            private var appName: JsonField<String> = JsonMissing.of()
+            private var defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of()
+            private var whitelistedDestinations: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(whatsapp: Whatsapp) = apply {
+                appName = whatsapp.appName
+                defaultVerificationTimeoutSecs = whatsapp.defaultVerificationTimeoutSecs
+                whitelistedDestinations =
+                    whatsapp.whitelistedDestinations.map { it.toMutableList() }
+                additionalProperties = whatsapp.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The name that identifies the application requesting 2fa in the verification message.
+             */
+            fun appName(appName: String) = appName(JsonField.of(appName))
+
+            /**
+             * Sets [Builder.appName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.appName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun appName(appName: JsonField<String>) = apply { this.appName = appName }
+
+            /**
+             * For every request that is initiated via this Verify profile, this sets the number of
+             * seconds before a verification request code expires. Once the verification request
+             * expires, the user cannot use the code to verify their identity.
+             */
+            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: Long) =
+                defaultVerificationTimeoutSecs(JsonField.of(defaultVerificationTimeoutSecs))
+
+            /**
+             * Sets [Builder.defaultVerificationTimeoutSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.defaultVerificationTimeoutSecs] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: JsonField<Long>) =
+                apply {
+                    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs
+                }
+
+            /**
+             * Enabled country destinations to send verification codes. The elements in the list
+             * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
+             * will be allowed.
+             */
+            fun whitelistedDestinations(whitelistedDestinations: List<String>) =
+                whitelistedDestinations(JsonField.of(whitelistedDestinations))
+
+            /**
+             * Sets [Builder.whitelistedDestinations] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.whitelistedDestinations] with a well-typed
+             * `List<String>` value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun whitelistedDestinations(whitelistedDestinations: JsonField<List<String>>) = apply {
+                this.whitelistedDestinations = whitelistedDestinations.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [whitelistedDestinations].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addWhitelistedDestination(whitelistedDestination: String) = apply {
+                whitelistedDestinations =
+                    (whitelistedDestinations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("whitelistedDestinations", it).add(whitelistedDestination)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Whatsapp].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Whatsapp =
+                Whatsapp(
+                    appName,
+                    defaultVerificationTimeoutSecs,
+                    (whitelistedDestinations ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Whatsapp = apply {
+            if (validated) {
+                return@apply
+            }
+
+            appName()
+            defaultVerificationTimeoutSecs()
+            whitelistedDestinations()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (appName.asKnown().isPresent) 1 else 0) +
+                (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
+                (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Whatsapp &&
+                appName == other.appName &&
+                defaultVerificationTimeoutSecs == other.defaultVerificationTimeoutSecs &&
+                whitelistedDestinations == other.whitelistedDestinations &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                appName,
+                defaultVerificationTimeoutSecs,
+                whitelistedDestinations,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Whatsapp{appName=$appName, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -31,6 +31,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.AzureVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.RimeVoiceSettings
+import com.telnyx.sdk.models.calls.CallAssistantRequest
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -54,12 +55,13 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * AI Assistant configuration
+     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+     * configuration will be used as fallback for any omitted fields.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun assistant(): Optional<Assistant> = body.assistant()
+    fun assistant(): Optional<CallAssistantRequest> = body.assistant()
 
     /**
      * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded
@@ -173,7 +175,7 @@ private constructor(
      *
      * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _assistant(): JsonField<Assistant> = body._assistant()
+    fun _assistant(): JsonField<CallAssistantRequest> = body._assistant()
 
     /**
      * Returns the raw JSON value of [clientState].
@@ -303,17 +305,22 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** AI Assistant configuration */
-        fun assistant(assistant: Assistant) = apply { body.assistant(assistant) }
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         */
+        fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
 
         /**
          * Sets [Builder.assistant] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.assistant] with a well-typed [Assistant] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun assistant(assistant: JsonField<Assistant>) = apply { body.assistant(assistant) }
+        fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+            body.assistant(assistant)
+        }
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -735,7 +742,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val assistant: JsonField<Assistant>,
+        private val assistant: JsonField<CallAssistantRequest>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val greeting: JsonField<String>,
@@ -753,7 +760,7 @@ private constructor(
         private constructor(
             @JsonProperty("assistant")
             @ExcludeMissing
-            assistant: JsonField<Assistant> = JsonMissing.of(),
+            assistant: JsonField<CallAssistantRequest> = JsonMissing.of(),
             @JsonProperty("client_state")
             @ExcludeMissing
             clientState: JsonField<String> = JsonMissing.of(),
@@ -798,12 +805,13 @@ private constructor(
         )
 
         /**
-         * AI Assistant configuration
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun assistant(): Optional<Assistant> = assistant.getOptional("assistant")
+        fun assistant(): Optional<CallAssistantRequest> = assistant.getOptional("assistant")
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -925,7 +933,7 @@ private constructor(
          */
         @JsonProperty("assistant")
         @ExcludeMissing
-        fun _assistant(): JsonField<Assistant> = assistant
+        fun _assistant(): JsonField<CallAssistantRequest> = assistant
 
         /**
          * Returns the raw JSON value of [clientState].
@@ -1038,7 +1046,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var assistant: JsonField<Assistant> = JsonMissing.of()
+            private var assistant: JsonField<CallAssistantRequest> = JsonMissing.of()
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
@@ -1067,17 +1075,22 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** AI Assistant configuration */
-            fun assistant(assistant: Assistant) = assistant(JsonField.of(assistant))
+            /**
+             * AI Assistant configuration. All fields except `id` are optional — the assistant's
+             * stored configuration will be used as fallback for any omitted fields.
+             */
+            fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
 
             /**
              * Sets [Builder.assistant] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.assistant] with a well-typed [Assistant] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun assistant(assistant: JsonField<Assistant>) = apply { this.assistant = assistant }
+            fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+                this.assistant = assistant
+            }
 
             /**
              * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -1498,240 +1511,6 @@ private constructor(
 
         override fun toString() =
             "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, messageHistory=$messageHistory, participants=$participants, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, transcription=$transcription, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
-    }
-
-    /** AI Assistant configuration */
-    class Assistant
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val instructions: JsonField<String>,
-        private val openaiApiKeyRef: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("instructions")
-            @ExcludeMissing
-            instructions: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("openai_api_key_ref")
-            @ExcludeMissing
-            openaiApiKeyRef: JsonField<String> = JsonMissing.of(),
-        ) : this(id, instructions, openaiApiKeyRef, mutableMapOf())
-
-        /**
-         * The identifier of the AI assistant to use
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun id(): Optional<String> = id.getOptional("id")
-
-        /**
-         * The system instructions that the voice assistant uses during the start assistant command.
-         * This will overwrite the instructions set in the assistant configuration.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun instructions(): Optional<String> = instructions.getOptional("instructions")
-
-        /**
-         * Reference to the OpenAI API key. Required only when using OpenAI models
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun openaiApiKeyRef(): Optional<String> = openaiApiKeyRef.getOptional("openai_api_key_ref")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [instructions].
-         *
-         * Unlike [instructions], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("instructions")
-        @ExcludeMissing
-        fun _instructions(): JsonField<String> = instructions
-
-        /**
-         * Returns the raw JSON value of [openaiApiKeyRef].
-         *
-         * Unlike [openaiApiKeyRef], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("openai_api_key_ref")
-        @ExcludeMissing
-        fun _openaiApiKeyRef(): JsonField<String> = openaiApiKeyRef
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Assistant]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Assistant]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String> = JsonMissing.of()
-            private var instructions: JsonField<String> = JsonMissing.of()
-            private var openaiApiKeyRef: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(assistant: Assistant) = apply {
-                id = assistant.id
-                instructions = assistant.instructions
-                openaiApiKeyRef = assistant.openaiApiKeyRef
-                additionalProperties = assistant.additionalProperties.toMutableMap()
-            }
-
-            /** The identifier of the AI assistant to use */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /**
-             * The system instructions that the voice assistant uses during the start assistant
-             * command. This will overwrite the instructions set in the assistant configuration.
-             */
-            fun instructions(instructions: String) = instructions(JsonField.of(instructions))
-
-            /**
-             * Sets [Builder.instructions] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.instructions] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun instructions(instructions: JsonField<String>) = apply {
-                this.instructions = instructions
-            }
-
-            /** Reference to the OpenAI API key. Required only when using OpenAI models */
-            fun openaiApiKeyRef(openaiApiKeyRef: String) =
-                openaiApiKeyRef(JsonField.of(openaiApiKeyRef))
-
-            /**
-             * Sets [Builder.openaiApiKeyRef] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.openaiApiKeyRef] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun openaiApiKeyRef(openaiApiKeyRef: JsonField<String>) = apply {
-                this.openaiApiKeyRef = openaiApiKeyRef
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Assistant].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Assistant =
-                Assistant(id, instructions, openaiApiKeyRef, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Assistant = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            instructions()
-            openaiApiKeyRef()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (if (instructions.asKnown().isPresent) 1 else 0) +
-                (if (openaiApiKeyRef.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Assistant &&
-                id == other.id &&
-                instructions == other.instructions &&
-                openaiApiKeyRef == other.openaiApiKeyRef &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(id, instructions, openaiApiKeyRef, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Assistant{id=$id, instructions=$instructions, openaiApiKeyRef=$openaiApiKeyRef, additionalProperties=$additionalProperties}"
     }
 
     /** Messages sent by an end user */

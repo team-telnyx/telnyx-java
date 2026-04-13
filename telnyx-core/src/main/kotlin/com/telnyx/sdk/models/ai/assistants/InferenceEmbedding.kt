@@ -38,6 +38,7 @@ private constructor(
     private val insightSettings: JsonField<InsightSettings>,
     private val llmApiKeyRef: JsonField<String>,
     private val messagingSettings: JsonField<MessagingSettings>,
+    private val observabilitySettings: JsonField<Observability>,
     private val privacySettings: JsonField<PrivacySettings>,
     private val telephonySettings: JsonField<TelephonySettings>,
     private val tools: JsonField<List<AssistantTool>>,
@@ -83,6 +84,9 @@ private constructor(
         @JsonProperty("messaging_settings")
         @ExcludeMissing
         messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
+        @JsonProperty("observability_settings")
+        @ExcludeMissing
+        observabilitySettings: JsonField<Observability> = JsonMissing.of(),
         @JsonProperty("privacy_settings")
         @ExcludeMissing
         privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -116,6 +120,7 @@ private constructor(
         insightSettings,
         llmApiKeyRef,
         messagingSettings,
+        observabilitySettings,
         privacySettings,
         telephonySettings,
         tools,
@@ -239,6 +244,13 @@ private constructor(
      */
     fun messagingSettings(): Optional<MessagingSettings> =
         messagingSettings.getOptional("messaging_settings")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun observabilitySettings(): Optional<Observability> =
+        observabilitySettings.getOptional("observability_settings")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -404,6 +416,16 @@ private constructor(
     fun _messagingSettings(): JsonField<MessagingSettings> = messagingSettings
 
     /**
+     * Returns the raw JSON value of [observabilitySettings].
+     *
+     * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("observability_settings")
+    @ExcludeMissing
+    fun _observabilitySettings(): JsonField<Observability> = observabilitySettings
+
+    /**
      * Returns the raw JSON value of [privacySettings].
      *
      * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected type.
@@ -502,6 +524,7 @@ private constructor(
         private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
         private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
         private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
+        private var observabilitySettings: JsonField<Observability> = JsonMissing.of()
         private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
         private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
         private var tools: JsonField<MutableList<AssistantTool>>? = null
@@ -526,6 +549,7 @@ private constructor(
             insightSettings = inferenceEmbedding.insightSettings
             llmApiKeyRef = inferenceEmbedding.llmApiKeyRef
             messagingSettings = inferenceEmbedding.messagingSettings
+            observabilitySettings = inferenceEmbedding.observabilitySettings
             privacySettings = inferenceEmbedding.privacySettings
             telephonySettings = inferenceEmbedding.telephonySettings
             tools = inferenceEmbedding.tools.map { it.toMutableList() }
@@ -747,6 +771,20 @@ private constructor(
          */
         fun messagingSettings(messagingSettings: JsonField<MessagingSettings>) = apply {
             this.messagingSettings = messagingSettings
+        }
+
+        fun observabilitySettings(observabilitySettings: Observability) =
+            observabilitySettings(JsonField.of(observabilitySettings))
+
+        /**
+         * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.observabilitySettings] with a well-typed [Observability]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun observabilitySettings(observabilitySettings: JsonField<Observability>) = apply {
+            this.observabilitySettings = observabilitySettings
         }
 
         fun privacySettings(privacySettings: PrivacySettings) =
@@ -1052,6 +1090,7 @@ private constructor(
                 insightSettings,
                 llmApiKeyRef,
                 messagingSettings,
+                observabilitySettings,
                 privacySettings,
                 telephonySettings,
                 (tools ?: JsonMissing.of()).map { it.toImmutable() },
@@ -1083,6 +1122,7 @@ private constructor(
         insightSettings().ifPresent { it.validate() }
         llmApiKeyRef()
         messagingSettings().ifPresent { it.validate() }
+        observabilitySettings().ifPresent { it.validate() }
         privacySettings().ifPresent { it.validate() }
         telephonySettings().ifPresent { it.validate() }
         tools().ifPresent { it.forEach { it.validate() } }
@@ -1121,6 +1161,7 @@ private constructor(
             (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
             (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
+            (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1248,6 +1289,7 @@ private constructor(
             insightSettings == other.insightSettings &&
             llmApiKeyRef == other.llmApiKeyRef &&
             messagingSettings == other.messagingSettings &&
+            observabilitySettings == other.observabilitySettings &&
             privacySettings == other.privacySettings &&
             telephonySettings == other.telephonySettings &&
             tools == other.tools &&
@@ -1273,6 +1315,7 @@ private constructor(
             insightSettings,
             llmApiKeyRef,
             messagingSettings,
+            observabilitySettings,
             privacySettings,
             telephonySettings,
             tools,
@@ -1286,5 +1329,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbedding{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+        "InferenceEmbedding{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
 }

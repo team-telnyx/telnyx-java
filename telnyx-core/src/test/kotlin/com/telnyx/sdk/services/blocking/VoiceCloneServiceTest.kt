@@ -9,7 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -29,12 +29,12 @@ internal class VoiceCloneServiceTest {
 
         val voiceClone =
             voiceCloneService.create(
-                VoiceCloneCreateParams.builder()
-                    .gender(VoiceCloneCreateParams.Gender.MALE)
+                VoiceCloneCreateParams.Params.TelnyxDesignClone.builder()
+                    .gender(VoiceCloneCreateParams.Params.TelnyxDesignClone.Gender.MALE)
                     .language("en")
                     .name("clone-narrator")
                     .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                    .provider(VoiceCloneCreateParams.Provider.TELNYX)
+                    .provider(VoiceCloneCreateParams.Params.TelnyxDesignClone.Provider.TELNYX)
                     .build()
             )
 
@@ -86,18 +86,7 @@ internal class VoiceCloneServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceCloneService = client.voiceClones()
 
-        val response =
-            voiceCloneService.createFromUpload(
-                VoiceCloneCreateFromUploadParams.builder()
-                    .audioFile("Example data".byteInputStream())
-                    .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
-                    .name("name")
-                    .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
-                    .label("label")
-                    .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
-                    .refText("ref_text")
-                    .build()
-            )
+        val response = voiceCloneService.createFromUpload(JsonValue.from(mapOf<String, Any>()))
 
         response.validate()
     }

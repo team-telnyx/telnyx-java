@@ -35,6 +35,14 @@ internal class AssistantUpdateParamsTest {
             )
             .model("model")
             .name("name")
+            .observabilitySettings(
+                ObservabilityReq.builder()
+                    .host("host")
+                    .publicKeyRef("public_key_ref")
+                    .secretKeyRef("secret_key_ref")
+                    .status(ObservabilityReq.Status.ENABLED)
+                    .build()
+            )
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
             .telephonySettings(
                 TelephonySettings.builder()
@@ -49,6 +57,7 @@ internal class AssistantUpdateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )
@@ -252,6 +261,14 @@ internal class AssistantUpdateParamsTest {
                 )
                 .model("model")
                 .name("name")
+                .observabilitySettings(
+                    ObservabilityReq.builder()
+                        .host("host")
+                        .publicKeyRef("public_key_ref")
+                        .secretKeyRef("secret_key_ref")
+                        .status(ObservabilityReq.Status.ENABLED)
+                        .build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -266,6 +283,7 @@ internal class AssistantUpdateParamsTest {
                         .recordingSettings(
                             TelephonySettings.RecordingSettings.builder()
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
                                 .build()
                         )
@@ -460,6 +478,15 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.model()).contains("model")
         assertThat(body.name()).contains("name")
+        assertThat(body.observabilitySettings())
+            .contains(
+                ObservabilityReq.builder()
+                    .host("host")
+                    .publicKeyRef("public_key_ref")
+                    .secretKeyRef("secret_key_ref")
+                    .status(ObservabilityReq.Status.ENABLED)
+                    .build()
+            )
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(body.telephonySettings())
@@ -476,6 +503,7 @@ internal class AssistantUpdateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )

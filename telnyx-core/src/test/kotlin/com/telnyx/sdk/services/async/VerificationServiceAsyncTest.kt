@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.verifications.VerificationTriggerCallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerFlashcallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerSmsParams
+import com.telnyx.sdk.models.verifications.VerificationTriggerWhatsappVerificationParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -73,6 +74,26 @@ internal class VerificationServiceAsyncTest {
         val createVerificationResponseFuture =
             verificationServiceAsync.triggerSms(
                 VerificationTriggerSmsParams.builder()
+                    .phoneNumber("+13035551234")
+                    .verifyProfileId("12ade33a-21c0-473b-b055-b3c836e1c292")
+                    .customCode("43612")
+                    .timeoutSecs(300L)
+                    .build()
+            )
+
+        val createVerificationResponse = createVerificationResponseFuture.get()
+        createVerificationResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun triggerWhatsappVerification() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val verificationServiceAsync = client.verifications()
+
+        val createVerificationResponseFuture =
+            verificationServiceAsync.triggerWhatsappVerification(
+                VerificationTriggerWhatsappVerificationParams.builder()
                     .phoneNumber("+13035551234")
                     .verifyProfileId("12ade33a-21c0-473b-b055-b3c836e1c292")
                     .customCode("43612")

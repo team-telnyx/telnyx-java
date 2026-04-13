@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,12 +16,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.texml.TexmlInitiateAiCallParams
+import com.telnyx.sdk.models.texml.TexmlInitiateAiCallResponse
 import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.async.texml.AccountServiceAsync
 import com.telnyx.sdk.services.async.texml.AccountServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
 
 /** TeXML REST Commands */
 class TexmlServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +43,13 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     /** TeXML REST Commands */
     override fun accounts(): AccountServiceAsync = accounts
+
+    override fun initiateAiCall(
+        params: TexmlInitiateAiCallParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<TexmlInitiateAiCallResponse> =
+        // post /texml/ai_calls/{connection_id}
+        withRawResponse().initiateAiCall(params, requestOptions).thenApply { it.parse() }
 
     override fun secrets(
         params: TexmlSecretsParams,
@@ -66,6 +77,40 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
         /** TeXML REST Commands */
         override fun accounts(): AccountServiceAsync.WithRawResponse = accounts
+
+        private val initiateAiCallHandler: Handler<TexmlInitiateAiCallResponse> =
+            jsonHandler<TexmlInitiateAiCallResponse>(clientOptions.jsonMapper)
+
+        override fun initiateAiCall(
+            params: TexmlInitiateAiCallParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<TexmlInitiateAiCallResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("connectionId", params.connectionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("texml", "ai_calls", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { initiateAiCallHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
 
         private val secretsHandler: Handler<TexmlSecretsResponse> =
             jsonHandler<TexmlSecretsResponse>(clientOptions.jsonMapper)

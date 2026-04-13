@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.BookAppointmentTool
+import com.telnyx.sdk.models.BookAppointmentToolParams
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +20,7 @@ internal class AssistantTest {
                 .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
-                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                    BookAppointmentToolParams.builder()
                         .apiKeyRef("my_calcom_api_key")
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")
@@ -33,15 +35,16 @@ internal class AssistantTest {
         assertThat(assistant.tools().getOrNull())
             .containsExactly(
                 Assistant.Tool.ofBookAppointment(
-                    Assistant.Tool.BookAppointmentTool.builder()
+                    BookAppointmentTool.builder()
                         .bookAppointment(
-                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                            BookAppointmentToolParams.builder()
                                 .apiKeyRef("my_calcom_api_key")
                                 .eventTypeId(0L)
                                 .attendeeName("attendee_name")
                                 .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
+                        .type(BookAppointmentTool.Type.BOOK_APPOINTMENT)
                         .build()
                 )
             )
@@ -56,7 +59,7 @@ internal class AssistantTest {
                 .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
-                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                    BookAppointmentToolParams.builder()
                         .apiKeyRef("my_calcom_api_key")
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")

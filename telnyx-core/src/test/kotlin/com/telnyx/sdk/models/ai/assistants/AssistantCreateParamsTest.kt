@@ -33,6 +33,14 @@ internal class AssistantCreateParamsTest {
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
             )
+            .observabilitySettings(
+                ObservabilityReq.builder()
+                    .host("host")
+                    .publicKeyRef("public_key_ref")
+                    .secretKeyRef("secret_key_ref")
+                    .status(ObservabilityReq.Status.ENABLED)
+                    .build()
+            )
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
             .telephonySettings(
                 TelephonySettings.builder()
@@ -47,6 +55,7 @@ internal class AssistantCreateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )
@@ -239,6 +248,14 @@ internal class AssistantCreateParamsTest {
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
                 )
+                .observabilitySettings(
+                    ObservabilityReq.builder()
+                        .host("host")
+                        .publicKeyRef("public_key_ref")
+                        .secretKeyRef("secret_key_ref")
+                        .status(ObservabilityReq.Status.ENABLED)
+                        .build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -253,6 +270,7 @@ internal class AssistantCreateParamsTest {
                         .recordingSettings(
                             TelephonySettings.RecordingSettings.builder()
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
                                 .build()
                         )
@@ -446,6 +464,15 @@ internal class AssistantCreateParamsTest {
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
             )
+        assertThat(body.observabilitySettings())
+            .contains(
+                ObservabilityReq.builder()
+                    .host("host")
+                    .publicKeyRef("public_key_ref")
+                    .secretKeyRef("secret_key_ref")
+                    .status(ObservabilityReq.Status.ENABLED)
+                    .build()
+            )
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(body.telephonySettings())
@@ -462,6 +489,7 @@ internal class AssistantCreateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )

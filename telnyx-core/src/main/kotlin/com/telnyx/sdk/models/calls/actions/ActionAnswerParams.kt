@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -49,6 +50,15 @@ private constructor(
 ) : Params {
 
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
+
+    /**
+     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+     * configuration will be used as fallback for any omitted fields.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun assistant(): Optional<CallAssistantRequest> = body.assistant()
 
     /**
      * Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing
@@ -301,6 +311,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> = body.webhookUrlsMethod()
+
+    /**
+     * Returns the raw JSON value of [assistant].
+     *
+     * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _assistant(): JsonField<CallAssistantRequest> = body._assistant()
 
     /**
      * Returns the raw JSON value of [billingGroupId].
@@ -565,14 +582,31 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [assistant]
          * - [billingGroupId]
          * - [clientState]
          * - [commandId]
          * - [customHeaders]
-         * - [preferredCodecs]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         */
+        fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
+
+        /**
+         * Sets [Builder.assistant] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+            body.assistant(assistant)
+        }
 
         /**
          * Use this field to set the Billing Group ID for the call. Must be a valid and existing
@@ -1210,6 +1244,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val assistant: JsonField<CallAssistantRequest>,
         private val billingGroupId: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
@@ -1244,6 +1279,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("assistant")
+            @ExcludeMissing
+            assistant: JsonField<CallAssistantRequest> = JsonMissing.of(),
             @JsonProperty("billing_group_id")
             @ExcludeMissing
             billingGroupId: JsonField<String> = JsonMissing.of(),
@@ -1331,6 +1369,7 @@ private constructor(
             @ExcludeMissing
             webhookUrlsMethod: JsonField<WebhookUrlsMethod> = JsonMissing.of(),
         ) : this(
+            assistant,
             billingGroupId,
             clientState,
             commandId,
@@ -1362,6 +1401,15 @@ private constructor(
             webhookUrlsMethod,
             mutableMapOf(),
         )
+
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun assistant(): Optional<CallAssistantRequest> = assistant.getOptional("assistant")
 
         /**
          * Use this field to set the Billing Group ID for the call. Must be a valid and existing
@@ -1626,6 +1674,15 @@ private constructor(
          */
         fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> =
             webhookUrlsMethod.getOptional("webhook_urls_method")
+
+        /**
+         * Returns the raw JSON value of [assistant].
+         *
+         * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("assistant")
+        @ExcludeMissing
+        fun _assistant(): JsonField<CallAssistantRequest> = assistant
 
         /**
          * Returns the raw JSON value of [billingGroupId].
@@ -1923,6 +1980,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var assistant: JsonField<CallAssistantRequest> = JsonMissing.of()
             private var billingGroupId: JsonField<String> = JsonMissing.of()
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
@@ -1959,6 +2017,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                assistant = body.assistant
                 billingGroupId = body.billingGroupId
                 clientState = body.clientState
                 commandId = body.commandId
@@ -1989,6 +2048,23 @@ private constructor(
                 webhookUrls = body.webhookUrls
                 webhookUrlsMethod = body.webhookUrlsMethod
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * AI Assistant configuration. All fields except `id` are optional — the assistant's
+             * stored configuration will be used as fallback for any omitted fields.
+             */
+            fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
+
+            /**
+             * Sets [Builder.assistant] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+                this.assistant = assistant
             }
 
             /**
@@ -2512,6 +2588,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
+                    assistant,
                     billingGroupId,
                     clientState,
                     commandId,
@@ -2552,6 +2629,7 @@ private constructor(
                 return@apply
             }
 
+            assistant().ifPresent { it.validate() }
             billingGroupId()
             clientState()
             commandId()
@@ -2600,7 +2678,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (billingGroupId.asKnown().isPresent) 1 else 0) +
+            (assistant.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (billingGroupId.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -2636,6 +2715,7 @@ private constructor(
             }
 
             return other is Body &&
+                assistant == other.assistant &&
                 billingGroupId == other.billingGroupId &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
@@ -2670,6 +2750,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                assistant,
                 billingGroupId,
                 clientState,
                 commandId,
@@ -2706,7 +2787,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{billingGroupId=$billingGroupId, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipHeaders=$sipHeaders, soundModifications=$soundModifications, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, billingGroupId=$billingGroupId, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipHeaders=$sipHeaders, soundModifications=$soundModifications, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

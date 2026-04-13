@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.verifications.VerificationRetrieveResponse
 import com.telnyx.sdk.models.verifications.VerificationTriggerCallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerFlashcallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerSmsParams
+import com.telnyx.sdk.models.verifications.VerificationTriggerWhatsappVerificationParams
 import com.telnyx.sdk.services.async.verifications.ActionServiceAsync
 import com.telnyx.sdk.services.async.verifications.ActionServiceAsyncImpl
 import com.telnyx.sdk.services.async.verifications.ByPhoneNumberServiceAsync
@@ -82,6 +83,15 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
     ): CompletableFuture<CreateVerificationResponse> =
         // post /verifications/sms
         withRawResponse().triggerSms(params, requestOptions).thenApply { it.parse() }
+
+    override fun triggerWhatsappVerification(
+        params: VerificationTriggerWhatsappVerificationParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CreateVerificationResponse> =
+        // post /verifications/whatsapp
+        withRawResponse().triggerWhatsappVerification(params, requestOptions).thenApply {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VerificationServiceAsync.WithRawResponse {
@@ -227,6 +237,37 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     errorHandler.handle(response).parseable {
                         response
                             .use { triggerSmsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val triggerWhatsappVerificationHandler: Handler<CreateVerificationResponse> =
+            jsonHandler<CreateVerificationResponse>(clientOptions.jsonMapper)
+
+        override fun triggerWhatsappVerification(
+            params: VerificationTriggerWhatsappVerificationParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CreateVerificationResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("verifications", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { triggerWhatsappVerificationHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

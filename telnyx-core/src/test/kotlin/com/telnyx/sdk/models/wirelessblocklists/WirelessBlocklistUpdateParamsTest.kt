@@ -11,19 +11,31 @@ internal class WirelessBlocklistUpdateParamsTest {
     @Test
     fun create() {
         WirelessBlocklistUpdateParams.builder()
+            .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .name("My Wireless Blocklist")
-            .type(WirelessBlocklistUpdateParams.Type.COUNTRY)
             .addValue("CA")
             .addValue("US")
             .build()
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            WirelessBlocklistUpdateParams.builder()
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             WirelessBlocklistUpdateParams.builder()
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .name("My Wireless Blocklist")
-                .type(WirelessBlocklistUpdateParams.Type.COUNTRY)
                 .addValue("CA")
                 .addValue("US")
                 .build()
@@ -31,13 +43,15 @@ internal class WirelessBlocklistUpdateParamsTest {
         val body = params._body()
 
         assertThat(body.name()).contains("My Wireless Blocklist")
-        assertThat(body.type()).contains(WirelessBlocklistUpdateParams.Type.COUNTRY)
         assertThat(body.values().getOrNull()).containsExactly("CA", "US")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = WirelessBlocklistUpdateParams.builder().build()
+        val params =
+            WirelessBlocklistUpdateParams.builder()
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .build()
 
         val body = params._body()
     }

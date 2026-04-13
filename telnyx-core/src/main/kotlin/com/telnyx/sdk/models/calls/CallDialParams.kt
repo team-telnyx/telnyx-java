@@ -119,6 +119,15 @@ private constructor(
         body.answeringMachineDetectionConfig()
 
     /**
+     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+     * configuration will be used as fallback for any omitted fields.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun assistant(): Optional<CallAssistantRequest> = body.assistant()
+
+    /**
      * The URL of a file to be played back to the callee when the call is answered. The URL can
      * point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one
      * request.
@@ -267,6 +276,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun preventDoubleBridge(): Optional<Boolean> = body.preventDoubleBridge()
+
+    /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun privacy(): Optional<Privacy> = body.privacy()
 
     /**
      * Start recording automatically after an event. Disabled by default.
@@ -591,6 +610,13 @@ private constructor(
         body._answeringMachineDetectionConfig()
 
     /**
+     * Returns the raw JSON value of [assistant].
+     *
+     * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _assistant(): JsonField<CallAssistantRequest> = body._assistant()
+
+    /**
      * Returns the raw JSON value of [audioUrl].
      *
      * Unlike [audioUrl], this method doesn't throw if the JSON field has an unexpected type.
@@ -713,6 +739,13 @@ private constructor(
      * type.
      */
     fun _preventDoubleBridge(): JsonField<Boolean> = body._preventDoubleBridge()
+
+    /**
+     * Returns the raw JSON value of [privacy].
+     *
+     * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _privacy(): JsonField<Privacy> = body._privacy()
 
     /**
      * Returns the raw JSON value of [record].
@@ -1111,6 +1144,23 @@ private constructor(
         ) = apply { body.answeringMachineDetectionConfig(answeringMachineDetectionConfig) }
 
         /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         */
+        fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
+
+        /**
+         * Sets [Builder.assistant] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+            body.assistant(assistant)
+        }
+
+        /**
          * The URL of a file to be played back to the callee when the call is answered. The URL can
          * point to either a WAV or MP3 file. media_name and audio_url cannot be used together in
          * one request.
@@ -1400,6 +1450,21 @@ private constructor(
         fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
             body.preventDoubleBridge(preventDoubleBridge)
         }
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         */
+        fun privacy(privacy: Privacy) = apply { body.privacy(privacy) }
+
+        /**
+         * Sets [Builder.privacy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun privacy(privacy: JsonField<Privacy>) = apply { body.privacy(privacy) }
 
         /** Start recording automatically after an event. Disabled by default. */
         fun record(record: Record) = apply { body.record(record) }
@@ -2083,6 +2148,7 @@ private constructor(
         private val to: JsonField<To>,
         private val answeringMachineDetection: JsonField<AnsweringMachineDetection>,
         private val answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig>,
+        private val assistant: JsonField<CallAssistantRequest>,
         private val audioUrl: JsonField<String>,
         private val billingGroupId: JsonField<String>,
         private val bridgeIntent: JsonField<Boolean>,
@@ -2100,6 +2166,7 @@ private constructor(
         private val parkAfterUnbridge: JsonField<String>,
         private val preferredCodecs: JsonField<String>,
         private val preventDoubleBridge: JsonField<Boolean>,
+        private val privacy: JsonField<Privacy>,
         private val record: JsonField<Record>,
         private val recordChannels: JsonField<RecordChannels>,
         private val recordCustomFileName: JsonField<String>,
@@ -2149,6 +2216,9 @@ private constructor(
             @ExcludeMissing
             answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig> =
                 JsonMissing.of(),
+            @JsonProperty("assistant")
+            @ExcludeMissing
+            assistant: JsonField<CallAssistantRequest> = JsonMissing.of(),
             @JsonProperty("audio_url")
             @ExcludeMissing
             audioUrl: JsonField<String> = JsonMissing.of(),
@@ -2198,6 +2268,7 @@ private constructor(
             @JsonProperty("prevent_double_bridge")
             @ExcludeMissing
             preventDoubleBridge: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("privacy") @ExcludeMissing privacy: JsonField<Privacy> = JsonMissing.of(),
             @JsonProperty("record") @ExcludeMissing record: JsonField<Record> = JsonMissing.of(),
             @JsonProperty("record_channels")
             @ExcludeMissing
@@ -2300,6 +2371,7 @@ private constructor(
             to,
             answeringMachineDetection,
             answeringMachineDetectionConfig,
+            assistant,
             audioUrl,
             billingGroupId,
             bridgeIntent,
@@ -2317,6 +2389,7 @@ private constructor(
             parkAfterUnbridge,
             preferredCodecs,
             preventDoubleBridge,
+            privacy,
             record,
             recordChannels,
             recordCustomFileName,
@@ -2409,6 +2482,15 @@ private constructor(
          */
         fun answeringMachineDetectionConfig(): Optional<AnsweringMachineDetectionConfig> =
             answeringMachineDetectionConfig.getOptional("answering_machine_detection_config")
+
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun assistant(): Optional<CallAssistantRequest> = assistant.getOptional("assistant")
 
         /**
          * The URL of a file to be played back to the callee when the call is answered. The URL can
@@ -2567,6 +2649,16 @@ private constructor(
          */
         fun preventDoubleBridge(): Optional<Boolean> =
             preventDoubleBridge.getOptional("prevent_double_bridge")
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun privacy(): Optional<Privacy> = privacy.getOptional("privacy")
 
         /**
          * Start recording automatically after an event. Disabled by default.
@@ -2909,6 +3001,15 @@ private constructor(
             answeringMachineDetectionConfig
 
         /**
+         * Returns the raw JSON value of [assistant].
+         *
+         * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("assistant")
+        @ExcludeMissing
+        fun _assistant(): JsonField<CallAssistantRequest> = assistant
+
+        /**
          * Returns the raw JSON value of [audioUrl].
          *
          * Unlike [audioUrl], this method doesn't throw if the JSON field has an unexpected type.
@@ -3064,6 +3165,13 @@ private constructor(
         @JsonProperty("prevent_double_bridge")
         @ExcludeMissing
         fun _preventDoubleBridge(): JsonField<Boolean> = preventDoubleBridge
+
+        /**
+         * Returns the raw JSON value of [privacy].
+         *
+         * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("privacy") @ExcludeMissing fun _privacy(): JsonField<Privacy> = privacy
 
         /**
          * Returns the raw JSON value of [record].
@@ -3413,6 +3521,7 @@ private constructor(
             private var answeringMachineDetectionConfig:
                 JsonField<AnsweringMachineDetectionConfig> =
                 JsonMissing.of()
+            private var assistant: JsonField<CallAssistantRequest> = JsonMissing.of()
             private var audioUrl: JsonField<String> = JsonMissing.of()
             private var billingGroupId: JsonField<String> = JsonMissing.of()
             private var bridgeIntent: JsonField<Boolean> = JsonMissing.of()
@@ -3430,6 +3539,7 @@ private constructor(
             private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
             private var preferredCodecs: JsonField<String> = JsonMissing.of()
             private var preventDoubleBridge: JsonField<Boolean> = JsonMissing.of()
+            private var privacy: JsonField<Privacy> = JsonMissing.of()
             private var record: JsonField<Record> = JsonMissing.of()
             private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
             private var recordCustomFileName: JsonField<String> = JsonMissing.of()
@@ -3476,6 +3586,7 @@ private constructor(
                 to = body.to
                 answeringMachineDetection = body.answeringMachineDetection
                 answeringMachineDetectionConfig = body.answeringMachineDetectionConfig
+                assistant = body.assistant
                 audioUrl = body.audioUrl
                 billingGroupId = body.billingGroupId
                 bridgeIntent = body.bridgeIntent
@@ -3493,6 +3604,7 @@ private constructor(
                 parkAfterUnbridge = body.parkAfterUnbridge
                 preferredCodecs = body.preferredCodecs
                 preventDoubleBridge = body.preventDoubleBridge
+                privacy = body.privacy
                 record = body.record
                 recordChannels = body.recordChannels
                 recordCustomFileName = body.recordCustomFileName
@@ -3630,6 +3742,23 @@ private constructor(
             fun answeringMachineDetectionConfig(
                 answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig>
             ) = apply { this.answeringMachineDetectionConfig = answeringMachineDetectionConfig }
+
+            /**
+             * AI Assistant configuration. All fields except `id` are optional — the assistant's
+             * stored configuration will be used as fallback for any omitted fields.
+             */
+            fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
+
+            /**
+             * Sets [Builder.assistant] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+                this.assistant = assistant
+            }
 
             /**
              * The URL of a file to be played back to the callee when the call is answered. The URL
@@ -3922,6 +4051,22 @@ private constructor(
             fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
                 this.preventDoubleBridge = preventDoubleBridge
             }
+
+            /**
+             * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+             * information (name and number) will be hidden from the called party. When set to
+             * `none` or omitted, caller ID will be shown normally.
+             */
+            fun privacy(privacy: Privacy) = privacy(JsonField.of(privacy))
+
+            /**
+             * Sets [Builder.privacy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun privacy(privacy: JsonField<Privacy>) = apply { this.privacy = privacy }
 
             /** Start recording automatically after an event. Disabled by default. */
             fun record(record: Record) = record(JsonField.of(record))
@@ -4496,6 +4641,7 @@ private constructor(
                     checkRequired("to", to),
                     answeringMachineDetection,
                     answeringMachineDetectionConfig,
+                    assistant,
                     audioUrl,
                     billingGroupId,
                     bridgeIntent,
@@ -4513,6 +4659,7 @@ private constructor(
                     parkAfterUnbridge,
                     preferredCodecs,
                     preventDoubleBridge,
+                    privacy,
                     record,
                     recordChannels,
                     recordCustomFileName,
@@ -4561,6 +4708,7 @@ private constructor(
             to().validate()
             answeringMachineDetection().ifPresent { it.validate() }
             answeringMachineDetectionConfig().ifPresent { it.validate() }
+            assistant().ifPresent { it.validate() }
             audioUrl()
             billingGroupId()
             bridgeIntent()
@@ -4578,6 +4726,7 @@ private constructor(
             parkAfterUnbridge()
             preferredCodecs()
             preventDoubleBridge()
+            privacy().ifPresent { it.validate() }
             record().ifPresent { it.validate() }
             recordChannels().ifPresent { it.validate() }
             recordCustomFileName()
@@ -4634,6 +4783,7 @@ private constructor(
                 (to.asKnown().getOrNull()?.validity() ?: 0) +
                 (answeringMachineDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (answeringMachineDetectionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (assistant.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (audioUrl.asKnown().isPresent) 1 else 0) +
                 (if (billingGroupId.asKnown().isPresent) 1 else 0) +
                 (if (bridgeIntent.asKnown().isPresent) 1 else 0) +
@@ -4651,6 +4801,7 @@ private constructor(
                 (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                 (if (preventDoubleBridge.asKnown().isPresent) 1 else 0) +
+                (privacy.asKnown().getOrNull()?.validity() ?: 0) +
                 (record.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recordCustomFileName.asKnown().isPresent) 1 else 0) +
@@ -4695,6 +4846,7 @@ private constructor(
                 to == other.to &&
                 answeringMachineDetection == other.answeringMachineDetection &&
                 answeringMachineDetectionConfig == other.answeringMachineDetectionConfig &&
+                assistant == other.assistant &&
                 audioUrl == other.audioUrl &&
                 billingGroupId == other.billingGroupId &&
                 bridgeIntent == other.bridgeIntent &&
@@ -4712,6 +4864,7 @@ private constructor(
                 parkAfterUnbridge == other.parkAfterUnbridge &&
                 preferredCodecs == other.preferredCodecs &&
                 preventDoubleBridge == other.preventDoubleBridge &&
+                privacy == other.privacy &&
                 record == other.record &&
                 recordChannels == other.recordChannels &&
                 recordCustomFileName == other.recordCustomFileName &&
@@ -4754,6 +4907,7 @@ private constructor(
                 to,
                 answeringMachineDetection,
                 answeringMachineDetectionConfig,
+                assistant,
                 audioUrl,
                 billingGroupId,
                 bridgeIntent,
@@ -4771,6 +4925,7 @@ private constructor(
                 parkAfterUnbridge,
                 preferredCodecs,
                 preventDoubleBridge,
+                privacy,
                 record,
                 recordChannels,
                 recordCustomFileName,
@@ -4810,7 +4965,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -6991,6 +7146,136 @@ private constructor(
             }
 
             return other is MediaEncryption && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     */
+    class Privacy @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ID = of("id")
+
+            @JvmField val NONE = of("none")
+
+            @JvmStatic fun of(value: String) = Privacy(JsonField.of(value))
+        }
+
+        /** An enum containing [Privacy]'s known values. */
+        enum class Known {
+            ID,
+            NONE,
+        }
+
+        /**
+         * An enum containing [Privacy]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Privacy] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ID,
+            NONE,
+            /** An enum member indicating that [Privacy] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ID -> Value.ID
+                NONE -> Value.NONE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ID -> Known.ID
+                NONE -> Known.NONE
+                else -> throw TelnyxInvalidDataException("Unknown Privacy: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Privacy = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Privacy && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

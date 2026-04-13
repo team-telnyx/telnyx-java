@@ -127,6 +127,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun observabilitySettings(): Optional<ObservabilityReq> = body.observabilitySettings()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun privacySettings(): Optional<PrivacySettings> = body.privacySettings()
 
     /**
@@ -249,6 +255,14 @@ private constructor(
      * type.
      */
     fun _messagingSettings(): JsonField<MessagingSettings> = body._messagingSettings()
+
+    /**
+     * Returns the raw JSON value of [observabilitySettings].
+     *
+     * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _observabilitySettings(): JsonField<ObservabilityReq> = body._observabilitySettings()
 
     /**
      * Returns the raw JSON value of [privacySettings].
@@ -532,6 +546,21 @@ private constructor(
          */
         fun messagingSettings(messagingSettings: JsonField<MessagingSettings>) = apply {
             body.messagingSettings(messagingSettings)
+        }
+
+        fun observabilitySettings(observabilitySettings: ObservabilityReq) = apply {
+            body.observabilitySettings(observabilitySettings)
+        }
+
+        /**
+         * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.observabilitySettings] with a well-typed
+         * [ObservabilityReq] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
+            body.observabilitySettings(observabilitySettings)
         }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
@@ -958,6 +987,7 @@ private constructor(
         private val insightSettings: JsonField<InsightSettings>,
         private val llmApiKeyRef: JsonField<String>,
         private val messagingSettings: JsonField<MessagingSettings>,
+        private val observabilitySettings: JsonField<ObservabilityReq>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
@@ -999,6 +1029,9 @@ private constructor(
             @JsonProperty("messaging_settings")
             @ExcludeMissing
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
+            @JsonProperty("observability_settings")
+            @ExcludeMissing
+            observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1032,6 +1065,7 @@ private constructor(
             insightSettings,
             llmApiKeyRef,
             messagingSettings,
+            observabilitySettings,
             privacySettings,
             telephonySettings,
             toolIds,
@@ -1138,6 +1172,13 @@ private constructor(
          */
         fun messagingSettings(): Optional<MessagingSettings> =
             messagingSettings.getOptional("messaging_settings")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun observabilitySettings(): Optional<ObservabilityReq> =
+            observabilitySettings.getOptional("observability_settings")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1291,6 +1332,16 @@ private constructor(
         fun _messagingSettings(): JsonField<MessagingSettings> = messagingSettings
 
         /**
+         * Returns the raw JSON value of [observabilitySettings].
+         *
+         * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("observability_settings")
+        @ExcludeMissing
+        fun _observabilitySettings(): JsonField<ObservabilityReq> = observabilitySettings
+
+        /**
          * Returns the raw JSON value of [privacySettings].
          *
          * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected
@@ -1395,6 +1446,7 @@ private constructor(
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
+            private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
@@ -1417,6 +1469,7 @@ private constructor(
                 insightSettings = body.insightSettings
                 llmApiKeyRef = body.llmApiKeyRef
                 messagingSettings = body.messagingSettings
+                observabilitySettings = body.observabilitySettings
                 privacySettings = body.privacySettings
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
@@ -1610,6 +1663,20 @@ private constructor(
              */
             fun messagingSettings(messagingSettings: JsonField<MessagingSettings>) = apply {
                 this.messagingSettings = messagingSettings
+            }
+
+            fun observabilitySettings(observabilitySettings: ObservabilityReq) =
+                observabilitySettings(JsonField.of(observabilitySettings))
+
+            /**
+             * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.observabilitySettings] with a well-typed
+             * [ObservabilityReq] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
+                this.observabilitySettings = observabilitySettings
             }
 
             fun privacySettings(privacySettings: PrivacySettings) =
@@ -1942,6 +2009,7 @@ private constructor(
                     insightSettings,
                     llmApiKeyRef,
                     messagingSettings,
+                    observabilitySettings,
                     privacySettings,
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -1971,6 +2039,7 @@ private constructor(
             insightSettings().ifPresent { it.validate() }
             llmApiKeyRef()
             messagingSettings().ifPresent { it.validate() }
+            observabilitySettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
             telephonySettings().ifPresent { it.validate() }
             toolIds()
@@ -2008,6 +2077,7 @@ private constructor(
                 (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
@@ -2033,6 +2103,7 @@ private constructor(
                 insightSettings == other.insightSettings &&
                 llmApiKeyRef == other.llmApiKeyRef &&
                 messagingSettings == other.messagingSettings &&
+                observabilitySettings == other.observabilitySettings &&
                 privacySettings == other.privacySettings &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
@@ -2056,6 +2127,7 @@ private constructor(
                 insightSettings,
                 llmApiKeyRef,
                 messagingSettings,
+                observabilitySettings,
                 privacySettings,
                 telephonySettings,
                 toolIds,
@@ -2070,7 +2142,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

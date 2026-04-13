@@ -61,7 +61,7 @@ class WirelessBlocklistServiceImpl internal constructor(private val clientOption
         params: WirelessBlocklistUpdateParams,
         requestOptions: RequestOptions,
     ): WirelessBlocklistUpdateResponse =
-        // patch /wireless_blocklists
+        // patch /wireless_blocklists/{id}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
@@ -156,11 +156,14 @@ class WirelessBlocklistServiceImpl internal constructor(private val clientOption
             params: WirelessBlocklistUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WirelessBlocklistUpdateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("wireless_blocklists")
+                    .addPathSegments("wireless_blocklists", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
