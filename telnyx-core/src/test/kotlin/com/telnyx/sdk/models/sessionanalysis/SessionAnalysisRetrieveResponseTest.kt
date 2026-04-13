@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.sessionanalysis
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -21,7 +20,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                         .total("total")
                         .build()
                 )
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .meta(
                     SessionAnalysisRetrieveResponse.Meta.builder()
                         .eventCount(0L)
@@ -62,8 +60,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                         .build()
                 )
                 .sessionId("session_id")
-                .status("status")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         assertThat(sessionAnalysisRetrieveResponse.cost())
@@ -73,8 +69,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                     .total("total")
                     .build()
             )
-        assertThat(sessionAnalysisRetrieveResponse.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(sessionAnalysisRetrieveResponse.meta())
             .isEqualTo(
                 SessionAnalysisRetrieveResponse.Meta.builder()
@@ -117,9 +111,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                     .build()
             )
         assertThat(sessionAnalysisRetrieveResponse.sessionId()).isEqualTo("session_id")
-        assertThat(sessionAnalysisRetrieveResponse.status()).isEqualTo("status")
-        assertThat(sessionAnalysisRetrieveResponse.completedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
@@ -133,7 +124,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                         .total("total")
                         .build()
                 )
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .meta(
                     SessionAnalysisRetrieveResponse.Meta.builder()
                         .eventCount(0L)
@@ -174,8 +164,6 @@ internal class SessionAnalysisRetrieveResponseTest {
                         .build()
                 )
                 .sessionId("session_id")
-                .status("status")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val roundtrippedSessionAnalysisRetrieveResponse =
