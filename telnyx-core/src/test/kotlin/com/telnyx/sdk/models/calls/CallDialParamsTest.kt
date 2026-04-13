@@ -193,8 +193,29 @@ internal class CallDialParamsTest {
                     .transcriptionTracks("both")
                     .build()
             )
+            .webhookRetriesPolicies(
+                CallDialParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
             .webhookUrl("https://www.example.com/server-b/")
             .webhookUrlMethod(CallDialParams.WebhookUrlMethod.POST)
+            .webhookUrls(
+                CallDialParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .putAdditionalProperty(
+                        "call.bridge",
+                        JsonValue.from("https://www.example.com/webhooks/bridge"),
+                    )
+                    .build()
+            )
+            .webhookUrlsMethod(CallDialParams.WebhookUrlsMethod.POST)
             .build()
     }
 
@@ -379,8 +400,29 @@ internal class CallDialParamsTest {
                         .transcriptionTracks("both")
                         .build()
                 )
+                .webhookRetriesPolicies(
+                    CallDialParams.WebhookRetriesPolicies.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                        )
+                        .build()
+                )
                 .webhookUrl("https://www.example.com/server-b/")
                 .webhookUrlMethod(CallDialParams.WebhookUrlMethod.POST)
+                .webhookUrls(
+                    CallDialParams.WebhookUrls.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        )
+                        .putAdditionalProperty(
+                            "call.bridge",
+                            JsonValue.from("https://www.example.com/webhooks/bridge"),
+                        )
+                        .build()
+                )
+                .webhookUrlsMethod(CallDialParams.WebhookUrlsMethod.POST)
                 .build()
 
         val body = params._body()
@@ -578,8 +620,31 @@ internal class CallDialParamsTest {
                     .transcriptionTracks("both")
                     .build()
             )
+        assertThat(body.webhookRetriesPolicies())
+            .contains(
+                CallDialParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
         assertThat(body.webhookUrl()).contains("https://www.example.com/server-b/")
         assertThat(body.webhookUrlMethod()).contains(CallDialParams.WebhookUrlMethod.POST)
+        assertThat(body.webhookUrls())
+            .contains(
+                CallDialParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .putAdditionalProperty(
+                        "call.bridge",
+                        JsonValue.from("https://www.example.com/webhooks/bridge"),
+                    )
+                    .build()
+            )
+        assertThat(body.webhookUrlsMethod()).contains(CallDialParams.WebhookUrlsMethod.POST)
     }
 
     @Test
