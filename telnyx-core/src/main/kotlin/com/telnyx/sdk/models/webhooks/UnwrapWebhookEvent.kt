@@ -32,6 +32,8 @@ private constructor(
     private val callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent? =
         null,
     private val callCost: CallCostWebhookEvent? = null,
+    private val callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent? = null,
+    private val callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent? = null,
     private val callDtmfReceived: CallDtmfReceivedWebhookEvent? = null,
     private val callEnqueued: CallEnqueuedWebhookEvent? = null,
     private val callForkStarted: CallForkStartedWebhookEvent? = null,
@@ -119,6 +121,12 @@ private constructor(
         Optional.ofNullable(callConversationInsightsGenerated)
 
     fun callCost(): Optional<CallCostWebhookEvent> = Optional.ofNullable(callCost)
+
+    fun callDeepfakeDetectionError(): Optional<CallDeepfakeDetectionErrorWebhookEvent> =
+        Optional.ofNullable(callDeepfakeDetectionError)
+
+    fun callDeepfakeDetectionResult(): Optional<CallDeepfakeDetectionResultWebhookEvent> =
+        Optional.ofNullable(callDeepfakeDetectionResult)
 
     fun callDtmfReceived(): Optional<CallDtmfReceivedWebhookEvent> =
         Optional.ofNullable(callDtmfReceived)
@@ -285,6 +293,10 @@ private constructor(
 
     fun isCallCost(): Boolean = callCost != null
 
+    fun isCallDeepfakeDetectionError(): Boolean = callDeepfakeDetectionError != null
+
+    fun isCallDeepfakeDetectionResult(): Boolean = callDeepfakeDetectionResult != null
+
     fun isCallDtmfReceived(): Boolean = callDtmfReceived != null
 
     fun isCallEnqueued(): Boolean = callEnqueued != null
@@ -412,6 +424,12 @@ private constructor(
         callConversationInsightsGenerated.getOrThrow("callConversationInsightsGenerated")
 
     fun asCallCost(): CallCostWebhookEvent = callCost.getOrThrow("callCost")
+
+    fun asCallDeepfakeDetectionError(): CallDeepfakeDetectionErrorWebhookEvent =
+        callDeepfakeDetectionError.getOrThrow("callDeepfakeDetectionError")
+
+    fun asCallDeepfakeDetectionResult(): CallDeepfakeDetectionResultWebhookEvent =
+        callDeepfakeDetectionResult.getOrThrow("callDeepfakeDetectionResult")
 
     fun asCallDtmfReceived(): CallDtmfReceivedWebhookEvent =
         callDtmfReceived.getOrThrow("callDtmfReceived")
@@ -575,6 +593,10 @@ private constructor(
             callConversationInsightsGenerated != null ->
                 visitor.visitCallConversationInsightsGenerated(callConversationInsightsGenerated)
             callCost != null -> visitor.visitCallCost(callCost)
+            callDeepfakeDetectionError != null ->
+                visitor.visitCallDeepfakeDetectionError(callDeepfakeDetectionError)
+            callDeepfakeDetectionResult != null ->
+                visitor.visitCallDeepfakeDetectionResult(callDeepfakeDetectionResult)
             callDtmfReceived != null -> visitor.visitCallDtmfReceived(callDtmfReceived)
             callEnqueued != null -> visitor.visitCallEnqueued(callEnqueued)
             callForkStarted != null -> visitor.visitCallForkStarted(callForkStarted)
@@ -699,6 +721,18 @@ private constructor(
 
                 override fun visitCallCost(callCost: CallCostWebhookEvent) {
                     callCost.validate()
+                }
+
+                override fun visitCallDeepfakeDetectionError(
+                    callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent
+                ) {
+                    callDeepfakeDetectionError.validate()
+                }
+
+                override fun visitCallDeepfakeDetectionResult(
+                    callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent
+                ) {
+                    callDeepfakeDetectionResult.validate()
                 }
 
                 override fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) {
@@ -1024,6 +1058,14 @@ private constructor(
 
                 override fun visitCallCost(callCost: CallCostWebhookEvent) = callCost.validity()
 
+                override fun visitCallDeepfakeDetectionError(
+                    callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent
+                ) = callDeepfakeDetectionError.validity()
+
+                override fun visitCallDeepfakeDetectionResult(
+                    callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent
+                ) = callDeepfakeDetectionResult.validity()
+
                 override fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) =
                     callDtmfReceived.validity()
 
@@ -1230,6 +1272,8 @@ private constructor(
             callConversationEnded == other.callConversationEnded &&
             callConversationInsightsGenerated == other.callConversationInsightsGenerated &&
             callCost == other.callCost &&
+            callDeepfakeDetectionError == other.callDeepfakeDetectionError &&
+            callDeepfakeDetectionResult == other.callDeepfakeDetectionResult &&
             callDtmfReceived == other.callDtmfReceived &&
             callEnqueued == other.callEnqueued &&
             callForkStarted == other.callForkStarted &&
@@ -1295,6 +1339,8 @@ private constructor(
             callConversationEnded,
             callConversationInsightsGenerated,
             callCost,
+            callDeepfakeDetectionError,
+            callDeepfakeDetectionResult,
             callDtmfReceived,
             callEnqueued,
             callForkStarted,
@@ -1364,6 +1410,10 @@ private constructor(
             callConversationInsightsGenerated != null ->
                 "UnwrapWebhookEvent{callConversationInsightsGenerated=$callConversationInsightsGenerated}"
             callCost != null -> "UnwrapWebhookEvent{callCost=$callCost}"
+            callDeepfakeDetectionError != null ->
+                "UnwrapWebhookEvent{callDeepfakeDetectionError=$callDeepfakeDetectionError}"
+            callDeepfakeDetectionResult != null ->
+                "UnwrapWebhookEvent{callDeepfakeDetectionResult=$callDeepfakeDetectionResult}"
             callDtmfReceived != null -> "UnwrapWebhookEvent{callDtmfReceived=$callDtmfReceived}"
             callEnqueued != null -> "UnwrapWebhookEvent{callEnqueued=$callEnqueued}"
             callForkStarted != null -> "UnwrapWebhookEvent{callForkStarted=$callForkStarted}"
@@ -1488,6 +1538,16 @@ private constructor(
 
         @JvmStatic
         fun ofCallCost(callCost: CallCostWebhookEvent) = UnwrapWebhookEvent(callCost = callCost)
+
+        @JvmStatic
+        fun ofCallDeepfakeDetectionError(
+            callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent
+        ) = UnwrapWebhookEvent(callDeepfakeDetectionError = callDeepfakeDetectionError)
+
+        @JvmStatic
+        fun ofCallDeepfakeDetectionResult(
+            callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent
+        ) = UnwrapWebhookEvent(callDeepfakeDetectionResult = callDeepfakeDetectionResult)
 
         @JvmStatic
         fun ofCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) =
@@ -1749,6 +1809,14 @@ private constructor(
 
         fun visitCallCost(callCost: CallCostWebhookEvent): T
 
+        fun visitCallDeepfakeDetectionError(
+            callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent
+        ): T
+
+        fun visitCallDeepfakeDetectionResult(
+            callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent
+        ): T
+
         fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent): T
 
         fun visitCallEnqueued(callEnqueued: CallEnqueuedWebhookEvent): T
@@ -1948,6 +2016,20 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallCostWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callCost = it, _json = json)
                         },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<CallDeepfakeDetectionErrorWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnwrapWebhookEvent(callDeepfakeDetectionError = it, _json = json)
+                            },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<CallDeepfakeDetectionResultWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnwrapWebhookEvent(callDeepfakeDetectionResult = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<CallDtmfReceivedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callDtmfReceived = it, _json = json)
                         },
@@ -2202,6 +2284,10 @@ private constructor(
                 value.callConversationInsightsGenerated != null ->
                     generator.writeObject(value.callConversationInsightsGenerated)
                 value.callCost != null -> generator.writeObject(value.callCost)
+                value.callDeepfakeDetectionError != null ->
+                    generator.writeObject(value.callDeepfakeDetectionError)
+                value.callDeepfakeDetectionResult != null ->
+                    generator.writeObject(value.callDeepfakeDetectionResult)
                 value.callDtmfReceived != null -> generator.writeObject(value.callDtmfReceived)
                 value.callEnqueued != null -> generator.writeObject(value.callEnqueued)
                 value.callForkStarted != null -> generator.writeObject(value.callForkStarted)

@@ -110,6 +110,13 @@ internal class CallDialParamsTest {
             )
             .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
             .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+            .deepfakeDetection(
+                CallDialParams.DeepfakeDetection.builder()
+                    .enabled(true)
+                    .rtpTimeout(30)
+                    .timeout(15)
+                    .build()
+            )
             .dialogflowConfig(
                 DialogflowConfig.builder()
                     .analyzeSentiment(false)
@@ -317,6 +324,13 @@ internal class CallDialParamsTest {
                 )
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .deepfakeDetection(
+                    CallDialParams.DeepfakeDetection.builder()
+                        .enabled(true)
+                        .rtpTimeout(30)
+                        .timeout(15)
+                        .build()
+                )
                 .dialogflowConfig(
                     DialogflowConfig.builder()
                         .analyzeSentiment(false)
@@ -528,6 +542,14 @@ internal class CallDialParamsTest {
             .containsExactly(
                 CustomSipHeader.builder().name("head_1").value("val_1").build(),
                 CustomSipHeader.builder().name("head_2").value("val_2").build(),
+            )
+        assertThat(body.deepfakeDetection())
+            .contains(
+                CallDialParams.DeepfakeDetection.builder()
+                    .enabled(true)
+                    .rtpTimeout(30)
+                    .timeout(15)
+                    .build()
             )
         assertThat(body.dialogflowConfig())
             .contains(

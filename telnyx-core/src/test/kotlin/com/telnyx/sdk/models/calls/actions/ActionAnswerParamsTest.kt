@@ -65,6 +65,13 @@ internal class ActionAnswerParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
             .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+            .deepfakeDetection(
+                ActionAnswerParams.DeepfakeDetection.builder()
+                    .enabled(true)
+                    .rtpTimeout(30)
+                    .timeout(15)
+                    .build()
+            )
             .preferredCodecs(ActionAnswerParams.PreferredCodecs.G722_PCMU_PCMA_G729_OPUS_VP8_H264)
             .record(ActionAnswerParams.Record.RECORD_FROM_ANSWER)
             .recordChannels(ActionAnswerParams.RecordChannels.SINGLE)
@@ -208,6 +215,13 @@ internal class ActionAnswerParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .deepfakeDetection(
+                    ActionAnswerParams.DeepfakeDetection.builder()
+                        .enabled(true)
+                        .rtpTimeout(30)
+                        .timeout(15)
+                        .build()
+                )
                 .preferredCodecs(
                     ActionAnswerParams.PreferredCodecs.G722_PCMU_PCMA_G729_OPUS_VP8_H264
                 )
@@ -341,6 +355,14 @@ internal class ActionAnswerParamsTest {
             .containsExactly(
                 CustomSipHeader.builder().name("head_1").value("val_1").build(),
                 CustomSipHeader.builder().name("head_2").value("val_2").build(),
+            )
+        assertThat(body.deepfakeDetection())
+            .contains(
+                ActionAnswerParams.DeepfakeDetection.builder()
+                    .enabled(true)
+                    .rtpTimeout(30)
+                    .timeout(15)
+                    .build()
             )
         assertThat(body.preferredCodecs())
             .contains(ActionAnswerParams.PreferredCodecs.G722_PCMU_PCMA_G729_OPUS_VP8_H264)
