@@ -193,6 +193,13 @@ internal class ServiceParamsTest {
                 )
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .deepfakeDetection(
+                    CallDialParams.DeepfakeDetection.builder()
+                        .enabled(true)
+                        .rtpTimeout(30)
+                        .timeout(15)
+                        .build()
+                )
                 .dialogflowConfig(
                     DialogflowConfig.builder()
                         .analyzeSentiment(false)

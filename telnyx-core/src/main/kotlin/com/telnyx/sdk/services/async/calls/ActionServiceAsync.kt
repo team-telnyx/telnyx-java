@@ -152,6 +152,8 @@ interface ActionServiceAsync {
      *
      * **Expected Webhooks:**
      * - `call.answered`
+     * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+     * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
      * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
      *
      * When the `record` parameter is set to `record-from-answer`, the response will include a
