@@ -973,7 +973,8 @@ private constructor(
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
          * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed.
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1127,7 +1128,9 @@ private constructor(
             /**
              * Enabled country destinations to send verification codes. The elements in the list
              * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed.
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
              */
             fun whitelistedDestinations(whitelistedDestinations: List<String>) =
                 whitelistedDestinations(JsonField.of(whitelistedDestinations))
@@ -1300,7 +1303,8 @@ private constructor(
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
          * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed.
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1407,7 +1411,9 @@ private constructor(
             /**
              * Enabled country destinations to send verification codes. The elements in the list
              * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed.
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
              */
             fun whitelistedDestinations(whitelistedDestinations: List<String>) =
                 whitelistedDestinations(JsonField.of(whitelistedDestinations))
@@ -1615,7 +1621,8 @@ private constructor(
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
          * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed.
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1794,7 +1801,9 @@ private constructor(
             /**
              * Enabled country destinations to send verification codes. The elements in the list
              * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed.
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
              */
             fun whitelistedDestinations(whitelistedDestinations: List<String>) =
                 whitelistedDestinations(JsonField.of(whitelistedDestinations))
@@ -2018,7 +2027,8 @@ private constructor(
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
          * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed.
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2203,7 +2213,9 @@ private constructor(
             /**
              * Enabled country destinations to send verification codes. The elements in the list
              * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed.
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
              */
             fun whitelistedDestinations(whitelistedDestinations: List<String>) =
                 whitelistedDestinations(JsonField.of(whitelistedDestinations))
@@ -2381,7 +2393,8 @@ private constructor(
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
          * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed.
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2488,7 +2501,9 @@ private constructor(
             /**
              * Enabled country destinations to send verification codes. The elements in the list
              * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed.
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
              */
             fun whitelistedDestinations(whitelistedDestinations: List<String>) =
                 whitelistedDestinations(JsonField.of(whitelistedDestinations))
