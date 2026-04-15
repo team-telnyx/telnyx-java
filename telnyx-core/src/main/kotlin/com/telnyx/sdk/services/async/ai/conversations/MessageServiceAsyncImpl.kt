@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPageAsync
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPageResponse
 import com.telnyx.sdk.models.ai.conversations.messages.MessageListParams
-import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -37,7 +38,7 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: MessageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         // get /ai/conversations/{conversation_id}/messages
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -54,13 +55,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MessageListResponse> =
-            jsonHandler<MessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessageListPageResponse> =
+            jsonHandler<MessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conversationId", params.conversationId().getOrNull())
@@ -82,6 +83,14 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MessageListPageAsync.builder()
+                                    .service(MessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

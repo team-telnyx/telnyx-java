@@ -14,9 +14,9 @@ internal class MessageServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.ai().conversations().messages()
 
-        val messagesFuture = messageServiceAsync.list("conversation_id")
+        val pageFuture = messageServiceAsync.list("conversation_id")
 
-        val messages = messagesFuture.get()
-        messages.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

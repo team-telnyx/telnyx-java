@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPage
 import com.telnyx.sdk.models.ai.conversations.messages.MessageListParams
-import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.function.Consumer
 
 /** Manage historical AI assistant conversations */
@@ -28,7 +28,7 @@ interface MessageService {
     /**
      * Retrieve messages for a specific conversation, including tool calls made by the assistant.
      */
-    fun list(conversationId: String): MessageListResponse =
+    fun list(conversationId: String): MessageListPage =
         list(conversationId, MessageListParams.none())
 
     /** @see list */
@@ -36,26 +36,26 @@ interface MessageService {
         conversationId: String,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessageListResponse =
+    ): MessageListPage =
         list(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
     /** @see list */
     fun list(
         conversationId: String,
         params: MessageListParams = MessageListParams.none(),
-    ): MessageListResponse = list(conversationId, params, RequestOptions.none())
+    ): MessageListPage = list(conversationId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessageListResponse
+    ): MessageListPage
 
     /** @see list */
-    fun list(params: MessageListParams): MessageListResponse = list(params, RequestOptions.none())
+    fun list(params: MessageListParams): MessageListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(conversationId: String, requestOptions: RequestOptions): MessageListResponse =
+    fun list(conversationId: String, requestOptions: RequestOptions): MessageListPage =
         list(conversationId, MessageListParams.none(), requestOptions)
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
@@ -73,7 +73,7 @@ interface MessageService {
          * is otherwise the same as [MessageService.list].
          */
         @MustBeClosed
-        fun list(conversationId: String): HttpResponseFor<MessageListResponse> =
+        fun list(conversationId: String): HttpResponseFor<MessageListPage> =
             list(conversationId, MessageListParams.none())
 
         /** @see list */
@@ -82,7 +82,7 @@ interface MessageService {
             conversationId: String,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessageListResponse> =
+        ): HttpResponseFor<MessageListPage> =
             list(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
         /** @see list */
@@ -90,19 +90,18 @@ interface MessageService {
         fun list(
             conversationId: String,
             params: MessageListParams = MessageListParams.none(),
-        ): HttpResponseFor<MessageListResponse> =
-            list(conversationId, params, RequestOptions.none())
+        ): HttpResponseFor<MessageListPage> = list(conversationId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessageListResponse>
+        ): HttpResponseFor<MessageListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: MessageListParams): HttpResponseFor<MessageListResponse> =
+        fun list(params: MessageListParams): HttpResponseFor<MessageListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -110,7 +109,7 @@ interface MessageService {
         fun list(
             conversationId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessageListResponse> =
+        ): HttpResponseFor<MessageListPage> =
             list(conversationId, MessageListParams.none(), requestOptions)
     }
 }
