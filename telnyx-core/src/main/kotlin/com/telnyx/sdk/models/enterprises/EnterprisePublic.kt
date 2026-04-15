@@ -1065,32 +1065,32 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1_10 = of("1-10")
+            @JvmField val NUMBER_OF_EMPLOYEES_1_10 = of("1-10")
 
-            @JvmField val _11_50 = of("11-50")
+            @JvmField val NUMBER_OF_EMPLOYEES_11_50 = of("11-50")
 
-            @JvmField val _51_200 = of("51-200")
+            @JvmField val NUMBER_OF_EMPLOYEES_51_200 = of("51-200")
 
-            @JvmField val _201_500 = of("201-500")
+            @JvmField val NUMBER_OF_EMPLOYEES_201_500 = of("201-500")
 
-            @JvmField val _501_2000 = of("501-2000")
+            @JvmField val NUMBER_OF_EMPLOYEES_501_2000 = of("501-2000")
 
-            @JvmField val _2001_10000 = of("2001-10000")
+            @JvmField val NUMBER_OF_EMPLOYEES_2001_10000 = of("2001-10000")
 
-            @JvmField val _10001_PLUS = of("10001+")
+            @JvmField val NUMBER_OF_EMPLOYEES_10001_PLUS = of("10001+")
 
             @JvmStatic fun of(value: String) = NumberOfEmployees(JsonField.of(value))
         }
 
         /** An enum containing [NumberOfEmployees]'s known values. */
         enum class Known {
-            _1_10,
-            _11_50,
-            _51_200,
-            _201_500,
-            _501_2000,
-            _2001_10000,
-            _10001_PLUS,
+            NUMBER_OF_EMPLOYEES_1_10,
+            NUMBER_OF_EMPLOYEES_11_50,
+            NUMBER_OF_EMPLOYEES_51_200,
+            NUMBER_OF_EMPLOYEES_201_500,
+            NUMBER_OF_EMPLOYEES_501_2000,
+            NUMBER_OF_EMPLOYEES_2001_10000,
+            NUMBER_OF_EMPLOYEES_10001_PLUS,
         }
 
         /**
@@ -1103,13 +1103,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1_10,
-            _11_50,
-            _51_200,
-            _201_500,
-            _501_2000,
-            _2001_10000,
-            _10001_PLUS,
+            NUMBER_OF_EMPLOYEES_1_10,
+            NUMBER_OF_EMPLOYEES_11_50,
+            NUMBER_OF_EMPLOYEES_51_200,
+            NUMBER_OF_EMPLOYEES_201_500,
+            NUMBER_OF_EMPLOYEES_501_2000,
+            NUMBER_OF_EMPLOYEES_2001_10000,
+            NUMBER_OF_EMPLOYEES_10001_PLUS,
             /**
              * An enum member indicating that [NumberOfEmployees] was instantiated with an unknown
              * value.
@@ -1126,13 +1126,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1_10 -> Value._1_10
-                _11_50 -> Value._11_50
-                _51_200 -> Value._51_200
-                _201_500 -> Value._201_500
-                _501_2000 -> Value._501_2000
-                _2001_10000 -> Value._2001_10000
-                _10001_PLUS -> Value._10001_PLUS
+                NUMBER_OF_EMPLOYEES_1_10 -> Value.NUMBER_OF_EMPLOYEES_1_10
+                NUMBER_OF_EMPLOYEES_11_50 -> Value.NUMBER_OF_EMPLOYEES_11_50
+                NUMBER_OF_EMPLOYEES_51_200 -> Value.NUMBER_OF_EMPLOYEES_51_200
+                NUMBER_OF_EMPLOYEES_201_500 -> Value.NUMBER_OF_EMPLOYEES_201_500
+                NUMBER_OF_EMPLOYEES_501_2000 -> Value.NUMBER_OF_EMPLOYEES_501_2000
+                NUMBER_OF_EMPLOYEES_2001_10000 -> Value.NUMBER_OF_EMPLOYEES_2001_10000
+                NUMBER_OF_EMPLOYEES_10001_PLUS -> Value.NUMBER_OF_EMPLOYEES_10001_PLUS
                 else -> Value._UNKNOWN
             }
 
@@ -1147,13 +1147,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1_10 -> Known._1_10
-                _11_50 -> Known._11_50
-                _51_200 -> Known._51_200
-                _201_500 -> Known._201_500
-                _501_2000 -> Known._501_2000
-                _2001_10000 -> Known._2001_10000
-                _10001_PLUS -> Known._10001_PLUS
+                NUMBER_OF_EMPLOYEES_1_10 -> Known.NUMBER_OF_EMPLOYEES_1_10
+                NUMBER_OF_EMPLOYEES_11_50 -> Known.NUMBER_OF_EMPLOYEES_11_50
+                NUMBER_OF_EMPLOYEES_51_200 -> Known.NUMBER_OF_EMPLOYEES_51_200
+                NUMBER_OF_EMPLOYEES_201_500 -> Known.NUMBER_OF_EMPLOYEES_201_500
+                NUMBER_OF_EMPLOYEES_501_2000 -> Known.NUMBER_OF_EMPLOYEES_501_2000
+                NUMBER_OF_EMPLOYEES_2001_10000 -> Known.NUMBER_OF_EMPLOYEES_2001_10000
+                NUMBER_OF_EMPLOYEES_10001_PLUS -> Known.NUMBER_OF_EMPLOYEES_10001_PLUS
                 else -> throw TelnyxInvalidDataException("Unknown NumberOfEmployees: $value")
             }
 

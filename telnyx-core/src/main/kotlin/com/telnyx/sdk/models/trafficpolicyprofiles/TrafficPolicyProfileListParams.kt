@@ -415,11 +415,11 @@ private constructor(
 
             @JvmField val SERVICE = of("service")
 
-            @JvmField val minus_SERVICE = of("-service")
+            @JvmField val DESC_SERVICE = of("-service")
 
             @JvmField val TYPE = of("type")
 
-            @JvmField val minus_TYPE = of("-type")
+            @JvmField val DESC_TYPE = of("-type")
 
             @JvmStatic fun of(value: String) = Sort(JsonField.of(value))
         }
@@ -427,9 +427,9 @@ private constructor(
         /** An enum containing [Sort]'s known values. */
         enum class Known {
             SERVICE,
-            minus_SERVICE,
+            DESC_SERVICE,
             TYPE,
-            minus_TYPE,
+            DESC_TYPE,
         }
 
         /**
@@ -443,9 +443,9 @@ private constructor(
          */
         enum class Value {
             SERVICE,
-            minus_SERVICE,
+            DESC_SERVICE,
             TYPE,
-            minus_TYPE,
+            DESC_TYPE,
             /** An enum member indicating that [Sort] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -460,9 +460,9 @@ private constructor(
         fun value(): Value =
             when (this) {
                 SERVICE -> Value.SERVICE
-                minus_SERVICE -> Value.minus_SERVICE
+                DESC_SERVICE -> Value.DESC_SERVICE
                 TYPE -> Value.TYPE
-                minus_TYPE -> Value.minus_TYPE
+                DESC_TYPE -> Value.DESC_TYPE
                 else -> Value._UNKNOWN
             }
 
@@ -478,9 +478,9 @@ private constructor(
         fun known(): Known =
             when (this) {
                 SERVICE -> Known.SERVICE
-                minus_SERVICE -> Known.minus_SERVICE
+                DESC_SERVICE -> Known.DESC_SERVICE
                 TYPE -> Known.TYPE
-                minus_TYPE -> Known.minus_TYPE
+                DESC_TYPE -> Known.DESC_TYPE
                 else -> throw TelnyxInvalidDataException("Unknown Sort: $value")
             }
 

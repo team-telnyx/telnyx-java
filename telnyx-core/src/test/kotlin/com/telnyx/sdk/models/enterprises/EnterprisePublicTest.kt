@@ -42,7 +42,7 @@ internal class EnterprisePublicTest {
                 .fein("fein")
                 .industry("industry")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                .numberOfEmployees(EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
                 .organizationContact(
                     OrganizationContact.builder()
                         .email("jane.smith@acme.com")
@@ -104,7 +104,7 @@ internal class EnterprisePublicTest {
         assertThat(enterprisePublic.industry()).contains("industry")
         assertThat(enterprisePublic.legalName()).contains("Acme Corp Inc.")
         assertThat(enterprisePublic.numberOfEmployees())
-            .contains(EnterprisePublic.NumberOfEmployees._1_10)
+            .contains(EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
         assertThat(enterprisePublic.organizationContact())
             .contains(
                 OrganizationContact.builder()
@@ -173,7 +173,7 @@ internal class EnterprisePublicTest {
                 .fein("fein")
                 .industry("industry")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                .numberOfEmployees(EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
                 .organizationContact(
                     OrganizationContact.builder()
                         .email("jane.smith@acme.com")
