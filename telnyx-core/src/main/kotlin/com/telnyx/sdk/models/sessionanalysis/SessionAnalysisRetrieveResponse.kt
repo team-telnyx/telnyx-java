@@ -14,53 +14,33 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class SessionAnalysisRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val cost: JsonField<Cost>,
-    private val createdAt: JsonField<OffsetDateTime>,
     private val meta: JsonField<Meta>,
     private val root: JsonField<EventNode>,
     private val sessionId: JsonField<String>,
-    private val status: JsonField<String>,
-    private val completedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("cost") @ExcludeMissing cost: JsonField<Cost> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
         @JsonProperty("root") @ExcludeMissing root: JsonField<EventNode> = JsonMissing.of(),
         @JsonProperty("session_id") @ExcludeMissing sessionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("completed_at")
-        @ExcludeMissing
-        completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(cost, createdAt, meta, root, sessionId, status, completedAt, mutableMapOf())
+    ) : this(cost, meta, root, sessionId, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun cost(): Cost = cost.getRequired("cost")
-
-    /**
-     * When the session started.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -83,36 +63,11 @@ private constructor(
     fun sessionId(): String = sessionId.getRequired("session_id")
 
     /**
-     * Analysis status (e.g. "completed").
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun status(): String = status.getRequired("status")
-
-    /**
-     * When the session completed.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun completedAt(): Optional<OffsetDateTime> = completedAt.getOptional("completed_at")
-
-    /**
      * Returns the raw JSON value of [cost].
      *
      * Unlike [cost], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("cost") @ExcludeMissing fun _cost(): JsonField<Cost> = cost
-
-    /**
-     * Returns the raw JSON value of [createdAt].
-     *
-     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * Returns the raw JSON value of [meta].
@@ -135,22 +90,6 @@ private constructor(
      */
     @JsonProperty("session_id") @ExcludeMissing fun _sessionId(): JsonField<String> = sessionId
 
-    /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
-
-    /**
-     * Returns the raw JSON value of [completedAt].
-     *
-     * Unlike [completedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("completed_at")
-    @ExcludeMissing
-    fun _completedAt(): JsonField<OffsetDateTime> = completedAt
-
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -172,11 +111,9 @@ private constructor(
          * The following fields are required:
          * ```java
          * .cost()
-         * .createdAt()
          * .meta()
          * .root()
          * .sessionId()
-         * .status()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -186,24 +123,18 @@ private constructor(
     class Builder internal constructor() {
 
         private var cost: JsonField<Cost>? = null
-        private var createdAt: JsonField<OffsetDateTime>? = null
         private var meta: JsonField<Meta>? = null
         private var root: JsonField<EventNode>? = null
         private var sessionId: JsonField<String>? = null
-        private var status: JsonField<String>? = null
-        private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(sessionAnalysisRetrieveResponse: SessionAnalysisRetrieveResponse) =
             apply {
                 cost = sessionAnalysisRetrieveResponse.cost
-                createdAt = sessionAnalysisRetrieveResponse.createdAt
                 meta = sessionAnalysisRetrieveResponse.meta
                 root = sessionAnalysisRetrieveResponse.root
                 sessionId = sessionAnalysisRetrieveResponse.sessionId
-                status = sessionAnalysisRetrieveResponse.status
-                completedAt = sessionAnalysisRetrieveResponse.completedAt
                 additionalProperties =
                     sessionAnalysisRetrieveResponse.additionalProperties.toMutableMap()
             }
@@ -217,18 +148,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun cost(cost: JsonField<Cost>) = apply { this.cost = cost }
-
-        /** When the session started. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * Sets [Builder.createdAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun meta(meta: Meta) = meta(JsonField.of(meta))
 
@@ -262,36 +181,6 @@ private constructor(
          */
         fun sessionId(sessionId: JsonField<String>) = apply { this.sessionId = sessionId }
 
-        /** Analysis status (e.g. "completed"). */
-        fun status(status: String) = status(JsonField.of(status))
-
-        /**
-         * Sets [Builder.status] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.status] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun status(status: JsonField<String>) = apply { this.status = status }
-
-        /** When the session completed. */
-        fun completedAt(completedAt: OffsetDateTime?) =
-            completedAt(JsonField.ofNullable(completedAt))
-
-        /** Alias for calling [Builder.completedAt] with `completedAt.orElse(null)`. */
-        fun completedAt(completedAt: Optional<OffsetDateTime>) =
-            completedAt(completedAt.getOrNull())
-
-        /**
-         * Sets [Builder.completedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.completedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun completedAt(completedAt: JsonField<OffsetDateTime>) = apply {
-            this.completedAt = completedAt
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -319,11 +208,9 @@ private constructor(
          * The following fields are required:
          * ```java
          * .cost()
-         * .createdAt()
          * .meta()
          * .root()
          * .sessionId()
-         * .status()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -331,12 +218,9 @@ private constructor(
         fun build(): SessionAnalysisRetrieveResponse =
             SessionAnalysisRetrieveResponse(
                 checkRequired("cost", cost),
-                checkRequired("createdAt", createdAt),
                 checkRequired("meta", meta),
                 checkRequired("root", root),
                 checkRequired("sessionId", sessionId),
-                checkRequired("status", status),
-                completedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -349,12 +233,9 @@ private constructor(
         }
 
         cost().validate()
-        createdAt()
         meta().validate()
         root().validate()
         sessionId()
-        status()
-        completedAt()
         validated = true
     }
 
@@ -374,12 +255,9 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (cost.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (createdAt.asKnown().isPresent) 1 else 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0) +
             (root.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (sessionId.asKnown().isPresent) 1 else 0) +
-            (if (status.asKnown().isPresent) 1 else 0) +
-            (if (completedAt.asKnown().isPresent) 1 else 0)
+            (if (sessionId.asKnown().isPresent) 1 else 0)
 
     class Cost
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -807,30 +685,18 @@ private constructor(
 
         return other is SessionAnalysisRetrieveResponse &&
             cost == other.cost &&
-            createdAt == other.createdAt &&
             meta == other.meta &&
             root == other.root &&
             sessionId == other.sessionId &&
-            status == other.status &&
-            completedAt == other.completedAt &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(
-            cost,
-            createdAt,
-            meta,
-            root,
-            sessionId,
-            status,
-            completedAt,
-            additionalProperties,
-        )
+        Objects.hash(cost, meta, root, sessionId, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SessionAnalysisRetrieveResponse{cost=$cost, createdAt=$createdAt, meta=$meta, root=$root, sessionId=$sessionId, status=$status, completedAt=$completedAt, additionalProperties=$additionalProperties}"
+        "SessionAnalysisRetrieveResponse{cost=$cost, meta=$meta, root=$root, sessionId=$sessionId, additionalProperties=$additionalProperties}"
 }

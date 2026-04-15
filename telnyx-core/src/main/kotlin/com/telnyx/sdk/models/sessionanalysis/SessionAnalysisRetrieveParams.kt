@@ -36,7 +36,10 @@ private constructor(
 
     fun eventId(): Optional<String> = Optional.ofNullable(eventId)
 
-    /** ISO 8601 timestamp to narrow index selection for faster lookups. */
+    /**
+     * ISO 8601 timestamp or date to narrow index selection for faster lookups. Accepts full
+     * datetime (e.g., 2026-03-17T10:00:00Z) or date-only format (e.g., 2026-03-17).
+     */
     fun dateTime(): Optional<OffsetDateTime> = Optional.ofNullable(dateTime)
 
     /** Controls what data to expand on each event node. */
@@ -101,7 +104,10 @@ private constructor(
         /** Alias for calling [Builder.eventId] with `eventId.orElse(null)`. */
         fun eventId(eventId: Optional<String>) = eventId(eventId.getOrNull())
 
-        /** ISO 8601 timestamp to narrow index selection for faster lookups. */
+        /**
+         * ISO 8601 timestamp or date to narrow index selection for faster lookups. Accepts full
+         * datetime (e.g., 2026-03-17T10:00:00Z) or date-only format (e.g., 2026-03-17).
+         */
         fun dateTime(dateTime: OffsetDateTime?) = apply { this.dateTime = dateTime }
 
         /** Alias for calling [Builder.dateTime] with `dateTime.orElse(null)`. */
