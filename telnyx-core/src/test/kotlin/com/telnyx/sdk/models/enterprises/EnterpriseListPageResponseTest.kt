@@ -46,7 +46,9 @@ internal class EnterpriseListPageResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(
+                            EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10
+                        )
                         .organizationContact(
                             OrganizationContact.builder()
                                 .email("jane.smith@acme.com")
@@ -116,7 +118,7 @@ internal class EnterpriseListPageResponseTest {
                     .fein("fein")
                     .industry("industry")
                     .legalName("Acme Corp Inc.")
-                    .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                    .numberOfEmployees(EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
                     .organizationContact(
                         OrganizationContact.builder()
                             .email("jane.smith@acme.com")
@@ -191,7 +193,9 @@ internal class EnterpriseListPageResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(
+                            EnterprisePublic.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10
+                        )
                         .organizationContact(
                             OrganizationContact.builder()
                                 .email("jane.smith@acme.com")

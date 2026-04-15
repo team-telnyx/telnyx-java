@@ -46,7 +46,9 @@ internal class EnterpriseServiceTest {
                     .fein("12-3456789")
                     .industry("technology")
                     .legalName("Acme Corp Inc.")
-                    .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
+                    .numberOfEmployees(
+                        EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200
+                    )
                     .organizationContact(
                         OrganizationContact.builder()
                             .email("jane.smith@acme.com")
@@ -127,7 +129,9 @@ internal class EnterpriseServiceTest {
                     .fein("fein")
                     .industry("industry")
                     .legalName("xxx")
-                    .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
+                    .numberOfEmployees(
+                        EnterpriseUpdateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10
+                    )
                     .organizationContact(
                         OrganizationContact.builder()
                             .email("jane.smith@acme.com")
