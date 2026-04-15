@@ -14,8 +14,8 @@ internal class MessageServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.ai().conversations().messages()
 
-        val messages = messageService.list("conversation_id")
+        val page = messageService.list("conversation_id")
 
-        messages.validate()
+        page.response().validate()
     }
 }

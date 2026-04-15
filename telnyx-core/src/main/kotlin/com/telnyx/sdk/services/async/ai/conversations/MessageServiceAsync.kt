@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.ai.conversations
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPageAsync
 import com.telnyx.sdk.models.ai.conversations.messages.MessageListParams
-import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,7 +28,7 @@ interface MessageServiceAsync {
     /**
      * Retrieve messages for a specific conversation, including tool calls made by the assistant.
      */
-    fun list(conversationId: String): CompletableFuture<MessageListResponse> =
+    fun list(conversationId: String): CompletableFuture<MessageListPageAsync> =
         list(conversationId, MessageListParams.none())
 
     /** @see list */
@@ -36,30 +36,30 @@ interface MessageServiceAsync {
         conversationId: String,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
     /** @see list */
     fun list(
         conversationId: String,
         params: MessageListParams = MessageListParams.none(),
-    ): CompletableFuture<MessageListResponse> = list(conversationId, params, RequestOptions.none())
+    ): CompletableFuture<MessageListPageAsync> = list(conversationId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessageListResponse>
+    ): CompletableFuture<MessageListPageAsync>
 
     /** @see list */
-    fun list(params: MessageListParams): CompletableFuture<MessageListResponse> =
+    fun list(params: MessageListParams): CompletableFuture<MessageListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         conversationId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(conversationId, MessageListParams.none(), requestOptions)
 
     /**
@@ -80,7 +80,7 @@ interface MessageServiceAsync {
          * Returns a raw HTTP response for `get /ai/conversations/{conversation_id}/messages`, but
          * is otherwise the same as [MessageServiceAsync.list].
          */
-        fun list(conversationId: String): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        fun list(conversationId: String): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(conversationId, MessageListParams.none())
 
         /** @see list */
@@ -88,33 +88,33 @@ interface MessageServiceAsync {
             conversationId: String,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
         /** @see list */
         fun list(
             conversationId: String,
             params: MessageListParams = MessageListParams.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(conversationId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>>
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessageListParams
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             conversationId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(conversationId, MessageListParams.none(), requestOptions)
     }
 }
