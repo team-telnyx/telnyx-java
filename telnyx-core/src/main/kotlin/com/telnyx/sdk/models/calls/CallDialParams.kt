@@ -48,6 +48,8 @@ import kotlin.jvm.optionals.getOrNull
  * - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
  * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested
  *   and a beep was detected
+ * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+ * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
  * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
  *
  * When the `record` parameter is set to `record-from-answer`, the response will include a
@@ -198,6 +200,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
+
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun deepfakeDetection(): Optional<DeepfakeDetection> = body.deepfakeDetection()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -554,6 +566,16 @@ private constructor(
     fun transcriptionConfig(): Optional<TranscriptionStartRequest> = body.transcriptionConfig()
 
     /**
+     * A map of event types to retry policies. Each retry policy contains an array of `retries_ms`
+     * specifying the delays between retry attempts in milliseconds. Maximum 5 retries, total delay
+     * cannot exceed 60 seconds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookRetriesPolicies(): Optional<WebhookRetriesPolicies> = body.webhookRetriesPolicies()
+
+    /**
      * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this
      * call.
      *
@@ -569,6 +591,24 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun webhookUrlMethod(): Optional<WebhookUrlMethod> = body.webhookUrlMethod()
+
+    /**
+     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
+     * URL associated with that event type will be called instead of the default webhook URL. Events
+     * not mapped here will use the default webhook URL.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrls(): Optional<WebhookUrls> = body.webhookUrls()
+
+    /**
+     * HTTP request method to invoke `webhook_urls`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> = body.webhookUrlsMethod()
 
     /**
      * Returns the raw JSON value of [connectionId].
@@ -672,6 +712,14 @@ private constructor(
      * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
+
+    /**
+     * Returns the raw JSON value of [deepfakeDetection].
+     *
+     * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _deepfakeDetection(): JsonField<DeepfakeDetection> = body._deepfakeDetection()
 
     /**
      * Returns the raw JSON value of [dialogflowConfig].
@@ -975,6 +1023,15 @@ private constructor(
     fun _transcriptionConfig(): JsonField<TranscriptionStartRequest> = body._transcriptionConfig()
 
     /**
+     * Returns the raw JSON value of [webhookRetriesPolicies].
+     *
+     * Unlike [webhookRetriesPolicies], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _webhookRetriesPolicies(): JsonField<WebhookRetriesPolicies> =
+        body._webhookRetriesPolicies()
+
+    /**
      * Returns the raw JSON value of [webhookUrl].
      *
      * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
@@ -988,6 +1045,21 @@ private constructor(
      * type.
      */
     fun _webhookUrlMethod(): JsonField<WebhookUrlMethod> = body._webhookUrlMethod()
+
+    /**
+     * Returns the raw JSON value of [webhookUrls].
+     *
+     * Unlike [webhookUrls], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _webhookUrls(): JsonField<WebhookUrls> = body._webhookUrls()
+
+    /**
+     * Returns the raw JSON value of [webhookUrlsMethod].
+     *
+     * Unlike [webhookUrlsMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _webhookUrlsMethod(): JsonField<WebhookUrlsMethod> = body._webhookUrlsMethod()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -1296,6 +1368,26 @@ private constructor(
          */
         fun addCustomHeader(customHeader: CustomSipHeader) = apply {
             body.addCustomHeader(customHeader)
+        }
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         */
+        fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) = apply {
+            body.deepfakeDetection(deepfakeDetection)
+        }
+
+        /**
+         * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deepfakeDetection] with a well-typed [DeepfakeDetection]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+            body.deepfakeDetection(deepfakeDetection)
         }
 
         fun dialogflowConfig(dialogflowConfig: DialogflowConfig) = apply {
@@ -1969,6 +2061,27 @@ private constructor(
         }
 
         /**
+         * A map of event types to retry policies. Each retry policy contains an array of
+         * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+         * retries, total delay cannot exceed 60 seconds.
+         */
+        fun webhookRetriesPolicies(webhookRetriesPolicies: WebhookRetriesPolicies) = apply {
+            body.webhookRetriesPolicies(webhookRetriesPolicies)
+        }
+
+        /**
+         * Sets [Builder.webhookRetriesPolicies] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookRetriesPolicies] with a well-typed
+         * [WebhookRetriesPolicies] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun webhookRetriesPolicies(webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>) =
+            apply {
+                body.webhookRetriesPolicies(webhookRetriesPolicies)
+            }
+
+        /**
          * Use this field to override the URL for which Telnyx will send subsequent webhooks to for
          * this call.
          */
@@ -1997,6 +2110,40 @@ private constructor(
          */
         fun webhookUrlMethod(webhookUrlMethod: JsonField<WebhookUrlMethod>) = apply {
             body.webhookUrlMethod(webhookUrlMethod)
+        }
+
+        /**
+         * A map of event types to webhook URLs. When an event of the specified type occurs, the
+         * webhook URL associated with that event type will be called instead of the default webhook
+         * URL. Events not mapped here will use the default webhook URL.
+         */
+        fun webhookUrls(webhookUrls: WebhookUrls) = apply { body.webhookUrls(webhookUrls) }
+
+        /**
+         * Sets [Builder.webhookUrls] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrls] with a well-typed [WebhookUrls] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun webhookUrls(webhookUrls: JsonField<WebhookUrls>) = apply {
+            body.webhookUrls(webhookUrls)
+        }
+
+        /** HTTP request method to invoke `webhook_urls`. */
+        fun webhookUrlsMethod(webhookUrlsMethod: WebhookUrlsMethod) = apply {
+            body.webhookUrlsMethod(webhookUrlsMethod)
+        }
+
+        /**
+         * Sets [Builder.webhookUrlsMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrlsMethod] with a well-typed [WebhookUrlsMethod]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun webhookUrlsMethod(webhookUrlsMethod: JsonField<WebhookUrlsMethod>) = apply {
+            body.webhookUrlsMethod(webhookUrlsMethod)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -2157,6 +2304,7 @@ private constructor(
         private val commandId: JsonField<String>,
         private val conferenceConfig: JsonField<ConferenceConfig>,
         private val customHeaders: JsonField<List<CustomSipHeader>>,
+        private val deepfakeDetection: JsonField<DeepfakeDetection>,
         private val dialogflowConfig: JsonField<DialogflowConfig>,
         private val enableDialogflow: JsonField<Boolean>,
         private val fromDisplayName: JsonField<String>,
@@ -2197,8 +2345,11 @@ private constructor(
         private val timeoutSecs: JsonField<Int>,
         private val transcription: JsonField<Boolean>,
         private val transcriptionConfig: JsonField<TranscriptionStartRequest>,
+        private val webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>,
         private val webhookUrl: JsonField<String>,
         private val webhookUrlMethod: JsonField<WebhookUrlMethod>,
+        private val webhookUrls: JsonField<WebhookUrls>,
+        private val webhookUrlsMethod: JsonField<WebhookUrlsMethod>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2243,6 +2394,9 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
+            @JsonProperty("deepfake_detection")
+            @ExcludeMissing
+            deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
             @JsonProperty("dialogflow_config")
             @ExcludeMissing
             dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of(),
@@ -2359,12 +2513,21 @@ private constructor(
             @JsonProperty("transcription_config")
             @ExcludeMissing
             transcriptionConfig: JsonField<TranscriptionStartRequest> = JsonMissing.of(),
+            @JsonProperty("webhook_retries_policies")
+            @ExcludeMissing
+            webhookRetriesPolicies: JsonField<WebhookRetriesPolicies> = JsonMissing.of(),
             @JsonProperty("webhook_url")
             @ExcludeMissing
             webhookUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("webhook_url_method")
             @ExcludeMissing
             webhookUrlMethod: JsonField<WebhookUrlMethod> = JsonMissing.of(),
+            @JsonProperty("webhook_urls")
+            @ExcludeMissing
+            webhookUrls: JsonField<WebhookUrls> = JsonMissing.of(),
+            @JsonProperty("webhook_urls_method")
+            @ExcludeMissing
+            webhookUrlsMethod: JsonField<WebhookUrlsMethod> = JsonMissing.of(),
         ) : this(
             connectionId,
             from,
@@ -2380,6 +2543,7 @@ private constructor(
             commandId,
             conferenceConfig,
             customHeaders,
+            deepfakeDetection,
             dialogflowConfig,
             enableDialogflow,
             fromDisplayName,
@@ -2420,8 +2584,11 @@ private constructor(
             timeoutSecs,
             transcription,
             transcriptionConfig,
+            webhookRetriesPolicies,
             webhookUrl,
             webhookUrlMethod,
+            webhookUrls,
+            webhookUrlsMethod,
             mutableMapOf(),
         )
 
@@ -2565,6 +2732,17 @@ private constructor(
          */
         fun customHeaders(): Optional<List<CustomSipHeader>> =
             customHeaders.getOptional("custom_headers")
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun deepfakeDetection(): Optional<DeepfakeDetection> =
+            deepfakeDetection.getOptional("deepfake_detection")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -2937,6 +3115,17 @@ private constructor(
             transcriptionConfig.getOptional("transcription_config")
 
         /**
+         * A map of event types to retry policies. Each retry policy contains an array of
+         * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+         * retries, total delay cannot exceed 60 seconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookRetriesPolicies(): Optional<WebhookRetriesPolicies> =
+            webhookRetriesPolicies.getOptional("webhook_retries_policies")
+
+        /**
          * Use this field to override the URL for which Telnyx will send subsequent webhooks to for
          * this call.
          *
@@ -2953,6 +3142,25 @@ private constructor(
          */
         fun webhookUrlMethod(): Optional<WebhookUrlMethod> =
             webhookUrlMethod.getOptional("webhook_url_method")
+
+        /**
+         * A map of event types to webhook URLs. When an event of the specified type occurs, the
+         * webhook URL associated with that event type will be called instead of the default webhook
+         * URL. Events not mapped here will use the default webhook URL.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrls(): Optional<WebhookUrls> = webhookUrls.getOptional("webhook_urls")
+
+        /**
+         * HTTP request method to invoke `webhook_urls`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> =
+            webhookUrlsMethod.getOptional("webhook_urls_method")
 
         /**
          * Returns the raw JSON value of [connectionId].
@@ -3081,6 +3289,16 @@ private constructor(
         @JsonProperty("custom_headers")
         @ExcludeMissing
         fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
+
+        /**
+         * Returns the raw JSON value of [deepfakeDetection].
+         *
+         * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("deepfake_detection")
+        @ExcludeMissing
+        fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
 
         /**
          * Returns the raw JSON value of [dialogflowConfig].
@@ -3465,6 +3683,16 @@ private constructor(
         fun _transcriptionConfig(): JsonField<TranscriptionStartRequest> = transcriptionConfig
 
         /**
+         * Returns the raw JSON value of [webhookRetriesPolicies].
+         *
+         * Unlike [webhookRetriesPolicies], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("webhook_retries_policies")
+        @ExcludeMissing
+        fun _webhookRetriesPolicies(): JsonField<WebhookRetriesPolicies> = webhookRetriesPolicies
+
+        /**
          * Returns the raw JSON value of [webhookUrl].
          *
          * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
@@ -3482,6 +3710,25 @@ private constructor(
         @JsonProperty("webhook_url_method")
         @ExcludeMissing
         fun _webhookUrlMethod(): JsonField<WebhookUrlMethod> = webhookUrlMethod
+
+        /**
+         * Returns the raw JSON value of [webhookUrls].
+         *
+         * Unlike [webhookUrls], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("webhook_urls")
+        @ExcludeMissing
+        fun _webhookUrls(): JsonField<WebhookUrls> = webhookUrls
+
+        /**
+         * Returns the raw JSON value of [webhookUrlsMethod].
+         *
+         * Unlike [webhookUrlsMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("webhook_urls_method")
+        @ExcludeMissing
+        fun _webhookUrlsMethod(): JsonField<WebhookUrlsMethod> = webhookUrlsMethod
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3530,6 +3777,7 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var conferenceConfig: JsonField<ConferenceConfig> = JsonMissing.of()
             private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
+            private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
             private var dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of()
             private var enableDialogflow: JsonField<Boolean> = JsonMissing.of()
             private var fromDisplayName: JsonField<String> = JsonMissing.of()
@@ -3575,8 +3823,11 @@ private constructor(
             private var timeoutSecs: JsonField<Int> = JsonMissing.of()
             private var transcription: JsonField<Boolean> = JsonMissing.of()
             private var transcriptionConfig: JsonField<TranscriptionStartRequest> = JsonMissing.of()
+            private var webhookRetriesPolicies: JsonField<WebhookRetriesPolicies> = JsonMissing.of()
             private var webhookUrl: JsonField<String> = JsonMissing.of()
             private var webhookUrlMethod: JsonField<WebhookUrlMethod> = JsonMissing.of()
+            private var webhookUrls: JsonField<WebhookUrls> = JsonMissing.of()
+            private var webhookUrlsMethod: JsonField<WebhookUrlsMethod> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -3595,6 +3846,7 @@ private constructor(
                 commandId = body.commandId
                 conferenceConfig = body.conferenceConfig
                 customHeaders = body.customHeaders.map { it.toMutableList() }
+                deepfakeDetection = body.deepfakeDetection
                 dialogflowConfig = body.dialogflowConfig
                 enableDialogflow = body.enableDialogflow
                 fromDisplayName = body.fromDisplayName
@@ -3635,8 +3887,11 @@ private constructor(
                 timeoutSecs = body.timeoutSecs
                 transcription = body.transcription
                 transcriptionConfig = body.transcriptionConfig
+                webhookRetriesPolicies = body.webhookRetriesPolicies
                 webhookUrl = body.webhookUrl
                 webhookUrlMethod = body.webhookUrlMethod
+                webhookUrls = body.webhookUrls
+                webhookUrlsMethod = body.webhookUrlsMethod
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -3902,6 +4157,25 @@ private constructor(
                     (customHeaders ?: JsonField.of(mutableListOf())).also {
                         checkKnown("customHeaders", it).add(customHeader)
                     }
+            }
+
+            /**
+             * Enables deepfake detection on the call. When enabled, audio from the remote party is
+             * streamed to a detection service that analyzes whether the voice is AI-generated.
+             * Results are delivered via the `call.deepfake_detection.result` webhook.
+             */
+            fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                deepfakeDetection(JsonField.of(deepfakeDetection))
+
+            /**
+             * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.deepfakeDetection] with a well-typed
+             * [DeepfakeDetection] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                this.deepfakeDetection = deepfakeDetection
             }
 
             fun dialogflowConfig(dialogflowConfig: DialogflowConfig) =
@@ -4572,6 +4846,26 @@ private constructor(
                 }
 
             /**
+             * A map of event types to retry policies. Each retry policy contains an array of
+             * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+             * retries, total delay cannot exceed 60 seconds.
+             */
+            fun webhookRetriesPolicies(webhookRetriesPolicies: WebhookRetriesPolicies) =
+                webhookRetriesPolicies(JsonField.of(webhookRetriesPolicies))
+
+            /**
+             * Sets [Builder.webhookRetriesPolicies] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookRetriesPolicies] with a well-typed
+             * [WebhookRetriesPolicies] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun webhookRetriesPolicies(webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>) =
+                apply {
+                    this.webhookRetriesPolicies = webhookRetriesPolicies
+                }
+
+            /**
              * Use this field to override the URL for which Telnyx will send subsequent webhooks to
              * for this call.
              */
@@ -4599,6 +4893,39 @@ private constructor(
              */
             fun webhookUrlMethod(webhookUrlMethod: JsonField<WebhookUrlMethod>) = apply {
                 this.webhookUrlMethod = webhookUrlMethod
+            }
+
+            /**
+             * A map of event types to webhook URLs. When an event of the specified type occurs, the
+             * webhook URL associated with that event type will be called instead of the default
+             * webhook URL. Events not mapped here will use the default webhook URL.
+             */
+            fun webhookUrls(webhookUrls: WebhookUrls) = webhookUrls(JsonField.of(webhookUrls))
+
+            /**
+             * Sets [Builder.webhookUrls] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrls] with a well-typed [WebhookUrls] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun webhookUrls(webhookUrls: JsonField<WebhookUrls>) = apply {
+                this.webhookUrls = webhookUrls
+            }
+
+            /** HTTP request method to invoke `webhook_urls`. */
+            fun webhookUrlsMethod(webhookUrlsMethod: WebhookUrlsMethod) =
+                webhookUrlsMethod(JsonField.of(webhookUrlsMethod))
+
+            /**
+             * Sets [Builder.webhookUrlsMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrlsMethod] with a well-typed
+             * [WebhookUrlsMethod] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun webhookUrlsMethod(webhookUrlsMethod: JsonField<WebhookUrlsMethod>) = apply {
+                this.webhookUrlsMethod = webhookUrlsMethod
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -4650,6 +4977,7 @@ private constructor(
                     commandId,
                     conferenceConfig,
                     (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    deepfakeDetection,
                     dialogflowConfig,
                     enableDialogflow,
                     fromDisplayName,
@@ -4690,8 +5018,11 @@ private constructor(
                     timeoutSecs,
                     transcription,
                     transcriptionConfig,
+                    webhookRetriesPolicies,
                     webhookUrl,
                     webhookUrlMethod,
+                    webhookUrls,
+                    webhookUrlsMethod,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -4717,6 +5048,7 @@ private constructor(
             commandId()
             conferenceConfig().ifPresent { it.validate() }
             customHeaders().ifPresent { it.forEach { it.validate() } }
+            deepfakeDetection().ifPresent { it.validate() }
             dialogflowConfig().ifPresent { it.validate() }
             enableDialogflow()
             fromDisplayName()
@@ -4757,8 +5089,11 @@ private constructor(
             timeoutSecs()
             transcription()
             transcriptionConfig().ifPresent { it.validate() }
+            webhookRetriesPolicies().ifPresent { it.validate() }
             webhookUrl()
             webhookUrlMethod().ifPresent { it.validate() }
+            webhookUrls().ifPresent { it.validate() }
+            webhookUrlsMethod().ifPresent { it.validate() }
             validated = true
         }
 
@@ -4792,6 +5127,7 @@ private constructor(
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (conferenceConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (dialogflowConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (enableDialogflow.asKnown().isPresent) 1 else 0) +
                 (if (fromDisplayName.asKnown().isPresent) 1 else 0) +
@@ -4832,8 +5168,11 @@ private constructor(
                 (if (timeoutSecs.asKnown().isPresent) 1 else 0) +
                 (if (transcription.asKnown().isPresent) 1 else 0) +
                 (transcriptionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookRetriesPolicies.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (webhookUrl.asKnown().isPresent) 1 else 0) +
-                (webhookUrlMethod.asKnown().getOrNull()?.validity() ?: 0)
+                (webhookUrlMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookUrls.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookUrlsMethod.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -4855,6 +5194,7 @@ private constructor(
                 commandId == other.commandId &&
                 conferenceConfig == other.conferenceConfig &&
                 customHeaders == other.customHeaders &&
+                deepfakeDetection == other.deepfakeDetection &&
                 dialogflowConfig == other.dialogflowConfig &&
                 enableDialogflow == other.enableDialogflow &&
                 fromDisplayName == other.fromDisplayName &&
@@ -4895,8 +5235,11 @@ private constructor(
                 timeoutSecs == other.timeoutSecs &&
                 transcription == other.transcription &&
                 transcriptionConfig == other.transcriptionConfig &&
+                webhookRetriesPolicies == other.webhookRetriesPolicies &&
                 webhookUrl == other.webhookUrl &&
                 webhookUrlMethod == other.webhookUrlMethod &&
+                webhookUrls == other.webhookUrls &&
+                webhookUrlsMethod == other.webhookUrlsMethod &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -4916,6 +5259,7 @@ private constructor(
                 commandId,
                 conferenceConfig,
                 customHeaders,
+                deepfakeDetection,
                 dialogflowConfig,
                 enableDialogflow,
                 fromDisplayName,
@@ -4956,8 +5300,11 @@ private constructor(
                 timeoutSecs,
                 transcription,
                 transcriptionConfig,
+                webhookRetriesPolicies,
                 webhookUrl,
                 webhookUrlMethod,
+                webhookUrls,
+                webhookUrlsMethod,
                 additionalProperties,
             )
         }
@@ -4965,7 +5312,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -7017,6 +7364,250 @@ private constructor(
             "ConferenceConfig{id=$id, beepEnabled=$beepEnabled, conferenceName=$conferenceName, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, hold=$hold, holdAudioUrl=$holdAudioUrl, holdMediaName=$holdMediaName, mute=$mute, softEndConferenceOnExit=$softEndConferenceOnExit, startConferenceOnCreate=$startConferenceOnCreate, startConferenceOnEnter=$startConferenceOnEnter, supervisorRole=$supervisorRole, whisperCallControlIds=$whisperCallControlIds, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     */
+    class DeepfakeDetection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val enabled: JsonField<Boolean>,
+        private val rtpTimeout: JsonField<Int>,
+        private val timeout: JsonField<Int>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("rtp_timeout")
+            @ExcludeMissing
+            rtpTimeout: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Int> = JsonMissing.of(),
+        ) : this(enabled, rtpTimeout, timeout, mutableMapOf())
+
+        /**
+         * Whether deepfake detection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun enabled(): Boolean = enabled.getRequired("enabled")
+
+        /**
+         * Maximum time in seconds to wait for RTP audio before timing out. If no audio is received
+         * within this window, detection stops with an error.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun rtpTimeout(): Optional<Int> = rtpTimeout.getOptional("rtp_timeout")
+
+        /**
+         * Maximum time in seconds to wait for a detection result before timing out.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeout(): Optional<Int> = timeout.getOptional("timeout")
+
+        /**
+         * Returns the raw JSON value of [enabled].
+         *
+         * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
+
+        /**
+         * Returns the raw JSON value of [rtpTimeout].
+         *
+         * Unlike [rtpTimeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rtp_timeout") @ExcludeMissing fun _rtpTimeout(): JsonField<Int> = rtpTimeout
+
+        /**
+         * Returns the raw JSON value of [timeout].
+         *
+         * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Int> = timeout
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DeepfakeDetection].
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DeepfakeDetection]. */
+        class Builder internal constructor() {
+
+            private var enabled: JsonField<Boolean>? = null
+            private var rtpTimeout: JsonField<Int> = JsonMissing.of()
+            private var timeout: JsonField<Int> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(deepfakeDetection: DeepfakeDetection) = apply {
+                enabled = deepfakeDetection.enabled
+                rtpTimeout = deepfakeDetection.rtpTimeout
+                timeout = deepfakeDetection.timeout
+                additionalProperties = deepfakeDetection.additionalProperties.toMutableMap()
+            }
+
+            /** Whether deepfake detection is enabled. */
+            fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+            /**
+             * Sets [Builder.enabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enabled] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+            /**
+             * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+             * received within this window, detection stops with an error.
+             */
+            fun rtpTimeout(rtpTimeout: Int) = rtpTimeout(JsonField.of(rtpTimeout))
+
+            /**
+             * Sets [Builder.rtpTimeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rtpTimeout] with a well-typed [Int] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rtpTimeout(rtpTimeout: JsonField<Int>) = apply { this.rtpTimeout = rtpTimeout }
+
+            /** Maximum time in seconds to wait for a detection result before timing out. */
+            fun timeout(timeout: Int) = timeout(JsonField.of(timeout))
+
+            /**
+             * Sets [Builder.timeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeout] with a well-typed [Int] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun timeout(timeout: JsonField<Int>) = apply { this.timeout = timeout }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DeepfakeDetection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DeepfakeDetection =
+                DeepfakeDetection(
+                    checkRequired("enabled", enabled),
+                    rtpTimeout,
+                    timeout,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DeepfakeDetection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            enabled()
+            rtpTimeout()
+            timeout()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (enabled.asKnown().isPresent) 1 else 0) +
+                (if (rtpTimeout.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DeepfakeDetection &&
+                enabled == other.enabled &&
+                rtpTimeout == other.rtpTimeout &&
+                timeout == other.timeout &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(enabled, rtpTimeout, timeout, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DeepfakeDetection{enabled=$enabled, rtpTimeout=$rtpTimeout, timeout=$timeout, additionalProperties=$additionalProperties}"
+    }
+
     /** Defines whether media should be encrypted on the call. */
     class MediaEncryption @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -8486,6 +9077,115 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A map of event types to retry policies. Each retry policy contains an array of `retries_ms`
+     * specifying the delays between retry attempts in milliseconds. Maximum 5 retries, total delay
+     * cannot exceed 60 seconds.
+     */
+    class WebhookRetriesPolicies
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [WebhookRetriesPolicies].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [WebhookRetriesPolicies]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(webhookRetriesPolicies: WebhookRetriesPolicies) = apply {
+                additionalProperties = webhookRetriesPolicies.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [WebhookRetriesPolicies].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): WebhookRetriesPolicies =
+                WebhookRetriesPolicies(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): WebhookRetriesPolicies = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookRetriesPolicies &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "WebhookRetriesPolicies{additionalProperties=$additionalProperties}"
+    }
+
     /** HTTP request type used for `webhook_url`. */
     class WebhookUrlMethod @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -8609,6 +9309,240 @@ private constructor(
             }
 
             return other is WebhookUrlMethod && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
+     * URL associated with that event type will be called instead of the default webhook URL. Events
+     * not mapped here will use the default webhook URL.
+     */
+    class WebhookUrls
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [WebhookUrls]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [WebhookUrls]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(webhookUrls: WebhookUrls) = apply {
+                additionalProperties = webhookUrls.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [WebhookUrls].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): WebhookUrls = WebhookUrls(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): WebhookUrls = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookUrls && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "WebhookUrls{additionalProperties=$additionalProperties}"
+    }
+
+    /** HTTP request method to invoke `webhook_urls`. */
+    class WebhookUrlsMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val POST = of("POST")
+
+            @JvmField val GET = of("GET")
+
+            @JvmStatic fun of(value: String) = WebhookUrlsMethod(JsonField.of(value))
+        }
+
+        /** An enum containing [WebhookUrlsMethod]'s known values. */
+        enum class Known {
+            POST,
+            GET,
+        }
+
+        /**
+         * An enum containing [WebhookUrlsMethod]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [WebhookUrlsMethod] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            POST,
+            GET,
+            /**
+             * An enum member indicating that [WebhookUrlsMethod] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                POST -> Value.POST
+                GET -> Value.GET
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                POST -> Known.POST
+                GET -> Known.GET
+                else -> throw TelnyxInvalidDataException("Unknown WebhookUrlsMethod: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): WebhookUrlsMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookUrlsMethod && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

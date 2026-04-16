@@ -13,11 +13,19 @@ import kotlin.jvm.optionals.getOrNull
 class MessageListParams
 private constructor(
     private val conversationId: String?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun conversationId(): Optional<String> = Optional.ofNullable(conversationId)
+
+    /** The page number to retrieve. */
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    /** The number of messages to return per page. */
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -39,12 +47,16 @@ private constructor(
     class Builder internal constructor() {
 
         private var conversationId: String? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(messageListParams: MessageListParams) = apply {
             conversationId = messageListParams.conversationId
+            pageNumber = messageListParams.pageNumber
+            pageSize = messageListParams.pageSize
             additionalHeaders = messageListParams.additionalHeaders.toBuilder()
             additionalQueryParams = messageListParams.additionalQueryParams.toBuilder()
         }
@@ -54,6 +66,32 @@ private constructor(
         /** Alias for calling [Builder.conversationId] with `conversationId.orElse(null)`. */
         fun conversationId(conversationId: Optional<String>) =
             conversationId(conversationId.getOrNull())
+
+        /** The page number to retrieve. */
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        /** The number of messages to return per page. */
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -161,6 +199,8 @@ private constructor(
         fun build(): MessageListParams =
             MessageListParams(
                 conversationId,
+                pageNumber,
+                pageSize,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +214,14 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -183,13 +230,15 @@ private constructor(
 
         return other is MessageListParams &&
             conversationId == other.conversationId &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(conversationId, additionalHeaders, additionalQueryParams)
+        Objects.hash(conversationId, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessageListParams{conversationId=$conversationId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessageListParams{conversationId=$conversationId, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

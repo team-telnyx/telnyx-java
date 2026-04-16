@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.42.0 (2026-04-16)
+
+Full Changelog: [v6.41.0...v6.42.0](https://github.com/team-telnyx/telnyx-java/compare/v6.41.0...v6.42.0)
+
+### Features
+
+* [TDA-6425] Fix session analysis API spec: relaxed date_time, remove status & completed_at ([f97be5f](https://github.com/team-telnyx/telnyx-java/commit/f97be5f4f0bc26205506557c7146922569b5dc98))
+* Add webhook_urls, webhook_urls_method, webhook_retries_policies to Dial endpoint ([23daa5a](https://github.com/team-telnyx/telnyx-java/commit/23daa5acdf59f42344f9c5a3bb44819844bf4149))
+* MSG-6868: document whitelisted_destinations as conditionally required ([72c29f4](https://github.com/team-telnyx/telnyx-java/commit/72c29f41ed731e39000be830ac22e1bcaa67cafe))
+* TELAPPS-5712: Add deepfake detection to call-control API spec ([091b810](https://github.com/team-telnyx/telnyx-java/commit/091b81057e13f4e4f8bb41ef665191373370371f))
+
+
+### Bug Fixes
+
+* remove _additionalBodyProperties reference from VoiceCloneCreateFromUploadParams ([57d187a](https://github.com/team-telnyx/telnyx-java/commit/57d187ad571471359ab7cea83fbdc0ff4efe43ef))
+
+
+### Chores
+
+* update example date in inference-embedding ([74031db](https://github.com/team-telnyx/telnyx-java/commit/74031db8928895a14c305f3e5eaaafea7f9c1fbf))
+
+
+### Documentation
+
+* add pagination params to conversation messages endpoint ([508268d](https://github.com/team-telnyx/telnyx-java/commit/508268d1f21c270d8d956d8422ee399a2eea106f))
+
 ## 6.41.0 (2026-04-12)
 
 Full Changelog: [v6.40.0...v6.41.0](https://github.com/team-telnyx/telnyx-java/compare/v6.40.0...v6.41.0)

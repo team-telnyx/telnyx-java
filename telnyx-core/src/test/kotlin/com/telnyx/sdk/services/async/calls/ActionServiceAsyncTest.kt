@@ -158,6 +158,13 @@ internal class ActionServiceAsyncTest {
                     .addCustomHeader(
                         CustomSipHeader.builder().name("head_2").value("val_2").build()
                     )
+                    .deepfakeDetection(
+                        ActionAnswerParams.DeepfakeDetection.builder()
+                            .enabled(true)
+                            .rtpTimeout(30)
+                            .timeout(15)
+                            .build()
+                    )
                     .preferredCodecs(
                         ActionAnswerParams.PreferredCodecs.G722_PCMU_PCMA_G729_OPUS_VP8_H264
                     )

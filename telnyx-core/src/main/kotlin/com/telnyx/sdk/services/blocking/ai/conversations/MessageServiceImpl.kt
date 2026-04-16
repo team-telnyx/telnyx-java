@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPage
+import com.telnyx.sdk.models.ai.conversations.messages.MessageListPageResponse
 import com.telnyx.sdk.models.ai.conversations.messages.MessageListParams
-import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -33,10 +34,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService =
         MessageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun list(
-        params: MessageListParams,
-        requestOptions: RequestOptions,
-    ): MessageListResponse =
+    override fun list(params: MessageListParams, requestOptions: RequestOptions): MessageListPage =
         // get /ai/conversations/{conversation_id}/messages
         withRawResponse().list(params, requestOptions).parse()
 
@@ -53,13 +51,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MessageListResponse> =
-            jsonHandler<MessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessageListPageResponse> =
+            jsonHandler<MessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessageListResponse> {
+        ): HttpResponseFor<MessageListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conversationId", params.conversationId().getOrNull())
@@ -79,6 +77,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MessageListPage.builder()
+                            .service(MessageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

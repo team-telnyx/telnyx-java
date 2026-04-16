@@ -14,7 +14,7 @@ internal class AssistantTestTest {
     fun create() {
         val assistantTest =
             AssistantTest.builder()
-                .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+                .createdAt(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
                 .name("Customer Support Bot Test")
                 .addRubric(
                     AssistantTest.Rubric.builder()
@@ -32,7 +32,7 @@ internal class AssistantTestTest {
                 .build()
 
         assertThat(assistantTest.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+            .isEqualTo(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
         assertThat(assistantTest.name()).isEqualTo("Customer Support Bot Test")
         assertThat(assistantTest.rubric())
             .containsExactly(
@@ -56,7 +56,7 @@ internal class AssistantTestTest {
         val jsonMapper = jsonMapper()
         val assistantTest =
             AssistantTest.builder()
-                .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+                .createdAt(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
                 .name("Customer Support Bot Test")
                 .addRubric(
                     AssistantTest.Rubric.builder()

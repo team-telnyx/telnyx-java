@@ -13,6 +13,7 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
@@ -36,6 +37,8 @@ import kotlin.jvm.optionals.getOrNull
  *
  * **Expected Webhooks:**
  * - `call.answered`
+ * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+ * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
  * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
  *
  * When the `record` parameter is set to `record-from-answer`, the response will include a
@@ -94,6 +97,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
+
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun deepfakeDetection(): Optional<DeepfakeDetection> = body.deepfakeDetection()
 
     /**
      * The list of comma-separated codecs in a preferred order for the forked media to be received.
@@ -346,6 +359,14 @@ private constructor(
      * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
+
+    /**
+     * Returns the raw JSON value of [deepfakeDetection].
+     *
+     * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _deepfakeDetection(): JsonField<DeepfakeDetection> = body._deepfakeDetection()
 
     /**
      * Returns the raw JSON value of [preferredCodecs].
@@ -678,6 +699,26 @@ private constructor(
          */
         fun addCustomHeader(customHeader: CustomSipHeader) = apply {
             body.addCustomHeader(customHeader)
+        }
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         */
+        fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) = apply {
+            body.deepfakeDetection(deepfakeDetection)
+        }
+
+        /**
+         * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deepfakeDetection] with a well-typed [DeepfakeDetection]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+            body.deepfakeDetection(deepfakeDetection)
         }
 
         /**
@@ -1249,6 +1290,7 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val customHeaders: JsonField<List<CustomSipHeader>>,
+        private val deepfakeDetection: JsonField<DeepfakeDetection>,
         private val preferredCodecs: JsonField<PreferredCodecs>,
         private val record: JsonField<Record>,
         private val recordChannels: JsonField<RecordChannels>,
@@ -1294,6 +1336,9 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
+            @JsonProperty("deepfake_detection")
+            @ExcludeMissing
+            deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
             @JsonProperty("preferred_codecs")
             @ExcludeMissing
             preferredCodecs: JsonField<PreferredCodecs> = JsonMissing.of(),
@@ -1374,6 +1419,7 @@ private constructor(
             clientState,
             commandId,
             customHeaders,
+            deepfakeDetection,
             preferredCodecs,
             record,
             recordChannels,
@@ -1446,6 +1492,17 @@ private constructor(
          */
         fun customHeaders(): Optional<List<CustomSipHeader>> =
             customHeaders.getOptional("custom_headers")
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun deepfakeDetection(): Optional<DeepfakeDetection> =
+            deepfakeDetection.getOptional("deepfake_detection")
 
         /**
          * The list of comma-separated codecs in a preferred order for the forked media to be
@@ -1721,6 +1778,16 @@ private constructor(
         fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
 
         /**
+         * Returns the raw JSON value of [deepfakeDetection].
+         *
+         * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("deepfake_detection")
+        @ExcludeMissing
+        fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
+
+        /**
          * Returns the raw JSON value of [preferredCodecs].
          *
          * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected
@@ -1985,6 +2052,7 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
+            private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
             private var preferredCodecs: JsonField<PreferredCodecs> = JsonMissing.of()
             private var record: JsonField<Record> = JsonMissing.of()
             private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
@@ -2022,6 +2090,7 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 customHeaders = body.customHeaders.map { it.toMutableList() }
+                deepfakeDetection = body.deepfakeDetection
                 preferredCodecs = body.preferredCodecs
                 record = body.record
                 recordChannels = body.recordChannels
@@ -2142,6 +2211,25 @@ private constructor(
                     (customHeaders ?: JsonField.of(mutableListOf())).also {
                         checkKnown("customHeaders", it).add(customHeader)
                     }
+            }
+
+            /**
+             * Enables deepfake detection on the call. When enabled, audio from the remote party is
+             * streamed to a detection service that analyzes whether the voice is AI-generated.
+             * Results are delivered via the `call.deepfake_detection.result` webhook.
+             */
+            fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                deepfakeDetection(JsonField.of(deepfakeDetection))
+
+            /**
+             * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.deepfakeDetection] with a well-typed
+             * [DeepfakeDetection] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                this.deepfakeDetection = deepfakeDetection
             }
 
             /**
@@ -2593,6 +2681,7 @@ private constructor(
                     clientState,
                     commandId,
                     (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    deepfakeDetection,
                     preferredCodecs,
                     record,
                     recordChannels,
@@ -2634,6 +2723,7 @@ private constructor(
             clientState()
             commandId()
             customHeaders().ifPresent { it.forEach { it.validate() } }
+            deepfakeDetection().ifPresent { it.validate() }
             preferredCodecs().ifPresent { it.validate() }
             record().ifPresent { it.validate() }
             recordChannels().ifPresent { it.validate() }
@@ -2683,6 +2773,7 @@ private constructor(
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (preferredCodecs.asKnown().getOrNull()?.validity() ?: 0) +
                 (record.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2720,6 +2811,7 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 customHeaders == other.customHeaders &&
+                deepfakeDetection == other.deepfakeDetection &&
                 preferredCodecs == other.preferredCodecs &&
                 record == other.record &&
                 recordChannels == other.recordChannels &&
@@ -2755,6 +2847,7 @@ private constructor(
                 clientState,
                 commandId,
                 customHeaders,
+                deepfakeDetection,
                 preferredCodecs,
                 record,
                 recordChannels,
@@ -2787,7 +2880,251 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{assistant=$assistant, billingGroupId=$billingGroupId, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipHeaders=$sipHeaders, soundModifications=$soundModifications, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, billingGroupId=$billingGroupId, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipHeaders=$sipHeaders, soundModifications=$soundModifications, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     */
+    class DeepfakeDetection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val enabled: JsonField<Boolean>,
+        private val rtpTimeout: JsonField<Int>,
+        private val timeout: JsonField<Int>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("rtp_timeout")
+            @ExcludeMissing
+            rtpTimeout: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Int> = JsonMissing.of(),
+        ) : this(enabled, rtpTimeout, timeout, mutableMapOf())
+
+        /**
+         * Whether deepfake detection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun enabled(): Boolean = enabled.getRequired("enabled")
+
+        /**
+         * Maximum time in seconds to wait for RTP audio before timing out. If no audio is received
+         * within this window, detection stops with an error.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun rtpTimeout(): Optional<Int> = rtpTimeout.getOptional("rtp_timeout")
+
+        /**
+         * Maximum time in seconds to wait for a detection result before timing out.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeout(): Optional<Int> = timeout.getOptional("timeout")
+
+        /**
+         * Returns the raw JSON value of [enabled].
+         *
+         * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
+
+        /**
+         * Returns the raw JSON value of [rtpTimeout].
+         *
+         * Unlike [rtpTimeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rtp_timeout") @ExcludeMissing fun _rtpTimeout(): JsonField<Int> = rtpTimeout
+
+        /**
+         * Returns the raw JSON value of [timeout].
+         *
+         * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Int> = timeout
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DeepfakeDetection].
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DeepfakeDetection]. */
+        class Builder internal constructor() {
+
+            private var enabled: JsonField<Boolean>? = null
+            private var rtpTimeout: JsonField<Int> = JsonMissing.of()
+            private var timeout: JsonField<Int> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(deepfakeDetection: DeepfakeDetection) = apply {
+                enabled = deepfakeDetection.enabled
+                rtpTimeout = deepfakeDetection.rtpTimeout
+                timeout = deepfakeDetection.timeout
+                additionalProperties = deepfakeDetection.additionalProperties.toMutableMap()
+            }
+
+            /** Whether deepfake detection is enabled. */
+            fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+            /**
+             * Sets [Builder.enabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enabled] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+            /**
+             * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+             * received within this window, detection stops with an error.
+             */
+            fun rtpTimeout(rtpTimeout: Int) = rtpTimeout(JsonField.of(rtpTimeout))
+
+            /**
+             * Sets [Builder.rtpTimeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rtpTimeout] with a well-typed [Int] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rtpTimeout(rtpTimeout: JsonField<Int>) = apply { this.rtpTimeout = rtpTimeout }
+
+            /** Maximum time in seconds to wait for a detection result before timing out. */
+            fun timeout(timeout: Int) = timeout(JsonField.of(timeout))
+
+            /**
+             * Sets [Builder.timeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeout] with a well-typed [Int] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun timeout(timeout: JsonField<Int>) = apply { this.timeout = timeout }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DeepfakeDetection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DeepfakeDetection =
+                DeepfakeDetection(
+                    checkRequired("enabled", enabled),
+                    rtpTimeout,
+                    timeout,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DeepfakeDetection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            enabled()
+            rtpTimeout()
+            timeout()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (enabled.asKnown().isPresent) 1 else 0) +
+                (if (rtpTimeout.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DeepfakeDetection &&
+                enabled == other.enabled &&
+                rtpTimeout == other.rtpTimeout &&
+                timeout == other.timeout &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(enabled, rtpTimeout, timeout, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DeepfakeDetection{enabled=$enabled, rtpTimeout=$rtpTimeout, timeout=$timeout, additionalProperties=$additionalProperties}"
     }
 
     /**

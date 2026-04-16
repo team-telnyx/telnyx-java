@@ -9,7 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -86,7 +86,24 @@ internal class VoiceCloneServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceCloneService = client.voiceClones()
 
-        val response = voiceCloneService.createFromUpload(JsonValue.from(mapOf<String, Any>()))
+        val response =
+            voiceCloneService.createFromUpload(
+                VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.builder()
+                    .audioFile("Example data".byteInputStream())
+                    .gender(VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Gender.MALE)
+                    .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                    .name("name")
+                    .provider(
+                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Provider.TELNYX
+                    )
+                    .label("label")
+                    .modelId(
+                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.ModelId
+                            .QWEN3_TTS
+                    )
+                    .refText("ref_text")
+                    .build()
+            )
 
         response.validate()
     }

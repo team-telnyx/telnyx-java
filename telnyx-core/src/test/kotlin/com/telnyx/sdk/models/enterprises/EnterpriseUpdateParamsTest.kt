@@ -36,7 +36,7 @@ internal class EnterpriseUpdateParamsTest {
             .fein("fein")
             .industry("industry")
             .legalName("xxx")
-            .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
+            .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
             .organizationContact(
                 OrganizationContact.builder()
                     .email("jane.smith@acme.com")
@@ -105,7 +105,9 @@ internal class EnterpriseUpdateParamsTest {
                 .fein("fein")
                 .industry("industry")
                 .legalName("xxx")
-                .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
+                .numberOfEmployees(
+                    EnterpriseUpdateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10
+                )
                 .organizationContact(
                     OrganizationContact.builder()
                         .email("jane.smith@acme.com")
@@ -161,7 +163,7 @@ internal class EnterpriseUpdateParamsTest {
         assertThat(body.industry()).contains("industry")
         assertThat(body.legalName()).contains("xxx")
         assertThat(body.numberOfEmployees())
-            .contains(EnterpriseUpdateParams.NumberOfEmployees._1_10)
+            .contains(EnterpriseUpdateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_1_10)
         assertThat(body.organizationContact())
             .contains(
                 OrganizationContact.builder()

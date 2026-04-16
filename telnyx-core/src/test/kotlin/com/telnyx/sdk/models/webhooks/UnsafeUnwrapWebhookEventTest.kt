@@ -84,6 +84,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -272,6 +274,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -462,6 +466,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -645,6 +651,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -804,6 +812,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -952,6 +962,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).contains(callConversationEnded)
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1117,6 +1129,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated())
             .contains(callConversationInsightsGenerated)
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1291,6 +1305,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).contains(callCost)
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1414,6 +1430,304 @@ internal class UnsafeUnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofCallDeepfakeDetectionError() {
+        val callDeepfakeDetectionError =
+            CallDeepfakeDetectionErrorWebhookEvent.builder()
+                .data(
+                    CallDeepfakeDetectionErrorWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(
+                            CallDeepfakeDetectionErrorWebhookEvent.Data.EventType
+                                .CALL_DEEPFAKE_DETECTION_ERROR
+                        )
+                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                        .payload(
+                            CallDeepfakeDetectionErrorWebhookEvent.Data.Payload.builder()
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .errorMessage(
+                                    CallDeepfakeDetectionErrorWebhookEvent.Data.Payload.ErrorMessage
+                                        .DETECTION_TIMEOUT
+                                )
+                                .build()
+                        )
+                        .recordType(CallDeepfakeDetectionErrorWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallDeepfakeDetectionError(callDeepfakeDetectionError)
+
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError())
+            .contains(callDeepfakeDetectionError)
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallDeepfakeDetectionErrorRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallDeepfakeDetectionError(
+                CallDeepfakeDetectionErrorWebhookEvent.builder()
+                    .data(
+                        CallDeepfakeDetectionErrorWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(
+                                CallDeepfakeDetectionErrorWebhookEvent.Data.EventType
+                                    .CALL_DEEPFAKE_DETECTION_ERROR
+                            )
+                            .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                            .payload(
+                                CallDeepfakeDetectionErrorWebhookEvent.Data.Payload.builder()
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .errorMessage(
+                                        CallDeepfakeDetectionErrorWebhookEvent.Data.Payload
+                                            .ErrorMessage
+                                            .DETECTION_TIMEOUT
+                                    )
+                                    .build()
+                            )
+                            .recordType(
+                                CallDeepfakeDetectionErrorWebhookEvent.Data.RecordType.EVENT
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnsafeUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+    }
+
+    @Test
+    fun ofCallDeepfakeDetectionResult() {
+        val callDeepfakeDetectionResult =
+            CallDeepfakeDetectionResultWebhookEvent.builder()
+                .data(
+                    CallDeepfakeDetectionResultWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(
+                            CallDeepfakeDetectionResultWebhookEvent.Data.EventType
+                                .CALL_DEEPFAKE_DETECTION_RESULT
+                        )
+                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                        .payload(
+                            CallDeepfakeDetectionResultWebhookEvent.Data.Payload.builder()
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .consistency(94.5f)
+                                .result(
+                                    CallDeepfakeDetectionResultWebhookEvent.Data.Payload.Result.FAKE
+                                )
+                                .score(0.87f)
+                                .build()
+                        )
+                        .recordType(CallDeepfakeDetectionResultWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallDeepfakeDetectionResult(callDeepfakeDetectionResult)
+
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult())
+            .contains(callDeepfakeDetectionResult)
+        assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallDeepfakeDetectionResultRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallDeepfakeDetectionResult(
+                CallDeepfakeDetectionResultWebhookEvent.builder()
+                    .data(
+                        CallDeepfakeDetectionResultWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(
+                                CallDeepfakeDetectionResultWebhookEvent.Data.EventType
+                                    .CALL_DEEPFAKE_DETECTION_RESULT
+                            )
+                            .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                            .payload(
+                                CallDeepfakeDetectionResultWebhookEvent.Data.Payload.builder()
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .consistency(94.5f)
+                                    .result(
+                                        CallDeepfakeDetectionResultWebhookEvent.Data.Payload.Result
+                                            .FAKE
+                                    )
+                                    .score(0.87f)
+                                    .build()
+                            )
+                            .recordType(
+                                CallDeepfakeDetectionResultWebhookEvent.Data.RecordType.EVENT
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnsafeUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+    }
+
+    @Test
     fun ofCallDtmfReceived() {
         val callDtmfReceived =
             CallDtmfReceivedWebhookEvent.builder()
@@ -1451,6 +1765,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).contains(callDtmfReceived)
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1584,6 +1900,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).contains(callEnqueued)
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1715,6 +2033,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).contains(callForkStarted)
@@ -1844,6 +2164,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1976,6 +2298,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2153,6 +2477,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2365,6 +2691,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2533,6 +2861,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2668,6 +2998,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2805,6 +3137,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2947,6 +3281,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3092,6 +3428,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3236,6 +3574,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3374,6 +3714,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3506,6 +3848,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3651,6 +3995,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3807,6 +4153,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3954,6 +4302,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4087,6 +4437,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4220,6 +4572,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4349,6 +4703,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4474,6 +4830,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4599,6 +4957,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4726,6 +5086,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4854,6 +5216,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4992,6 +5356,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5129,6 +5495,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5255,6 +5623,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5371,6 +5741,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5489,6 +5861,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5619,6 +5993,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5744,6 +6120,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5873,6 +6251,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6006,6 +6386,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6147,6 +6529,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6292,6 +6676,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6435,6 +6821,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6576,6 +6964,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6708,6 +7098,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6833,6 +7225,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6982,6 +7376,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7130,6 +7526,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7250,6 +7648,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7469,6 +7869,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7705,6 +8107,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7853,6 +8257,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8000,6 +8406,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8145,6 +8553,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8291,6 +8701,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8512,6 +8924,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8768,6 +9182,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8933,6 +9349,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
@@ -9062,6 +9480,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty

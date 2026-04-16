@@ -33,7 +33,7 @@ internal class EnterpriseCreateParamsTest {
             .fein("12-3456789")
             .industry("technology")
             .legalName("Acme Corp Inc.")
-            .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
+            .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200)
             .organizationContact(
                 OrganizationContact.builder()
                     .email("jane.smith@acme.com")
@@ -92,7 +92,9 @@ internal class EnterpriseCreateParamsTest {
                 .fein("12-3456789")
                 .industry("technology")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
+                .numberOfEmployees(
+                    EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200
+                )
                 .organizationContact(
                     OrganizationContact.builder()
                         .email("jane.smith@acme.com")
@@ -151,7 +153,7 @@ internal class EnterpriseCreateParamsTest {
         assertThat(body.industry()).isEqualTo("technology")
         assertThat(body.legalName()).isEqualTo("Acme Corp Inc.")
         assertThat(body.numberOfEmployees())
-            .isEqualTo(EnterpriseCreateParams.NumberOfEmployees._51_200)
+            .isEqualTo(EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200)
         assertThat(body.organizationContact())
             .isEqualTo(
                 OrganizationContact.builder()
@@ -212,7 +214,9 @@ internal class EnterpriseCreateParamsTest {
                 .fein("12-3456789")
                 .industry("technology")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
+                .numberOfEmployees(
+                    EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200
+                )
                 .organizationContact(
                     OrganizationContact.builder()
                         .email("jane.smith@acme.com")
@@ -263,7 +267,7 @@ internal class EnterpriseCreateParamsTest {
         assertThat(body.industry()).isEqualTo("technology")
         assertThat(body.legalName()).isEqualTo("Acme Corp Inc.")
         assertThat(body.numberOfEmployees())
-            .isEqualTo(EnterpriseCreateParams.NumberOfEmployees._51_200)
+            .isEqualTo(EnterpriseCreateParams.NumberOfEmployees.NUMBER_OF_EMPLOYEES_51_200)
         assertThat(body.organizationContact())
             .isEqualTo(
                 OrganizationContact.builder()

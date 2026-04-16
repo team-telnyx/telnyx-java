@@ -193,6 +193,13 @@ internal class ServiceParamsTest {
                 )
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .deepfakeDetection(
+                    CallDialParams.DeepfakeDetection.builder()
+                        .enabled(true)
+                        .rtpTimeout(30)
+                        .timeout(15)
+                        .build()
+                )
                 .dialogflowConfig(
                     DialogflowConfig.builder()
                         .analyzeSentiment(false)
@@ -276,8 +283,29 @@ internal class ServiceParamsTest {
                         .transcriptionTracks("both")
                         .build()
                 )
+                .webhookRetriesPolicies(
+                    CallDialParams.WebhookRetriesPolicies.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                        )
+                        .build()
+                )
                 .webhookUrl("https://www.example.com/server-b/")
                 .webhookUrlMethod(CallDialParams.WebhookUrlMethod.POST)
+                .webhookUrls(
+                    CallDialParams.WebhookUrls.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        )
+                        .putAdditionalProperty(
+                            "call.bridge",
+                            JsonValue.from("https://www.example.com/webhooks/bridge"),
+                        )
+                        .build()
+                )
+                .webhookUrlsMethod(CallDialParams.WebhookUrlsMethod.POST)
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")
                 .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
