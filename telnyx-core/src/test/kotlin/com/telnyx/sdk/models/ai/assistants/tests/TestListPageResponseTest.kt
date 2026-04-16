@@ -17,7 +17,7 @@ internal class TestListPageResponseTest {
             TestListPageResponse.builder()
                 .addData(
                     AssistantTest.builder()
-                        .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
                         .name("Customer Support Bot Test")
                         .addRubric(
                             AssistantTest.Rubric.builder()
@@ -47,7 +47,7 @@ internal class TestListPageResponseTest {
         assertThat(testListPageResponse.data())
             .containsExactly(
                 AssistantTest.builder()
-                    .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+                    .createdAt(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
                     .name("Customer Support Bot Test")
                     .addRubric(
                         AssistantTest.Rubric.builder()
@@ -77,7 +77,7 @@ internal class TestListPageResponseTest {
             TestListPageResponse.builder()
                 .addData(
                     AssistantTest.builder()
-                        .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-16T09:00:00Z"))
                         .name("Customer Support Bot Test")
                         .addRubric(
                             AssistantTest.Rubric.builder()
