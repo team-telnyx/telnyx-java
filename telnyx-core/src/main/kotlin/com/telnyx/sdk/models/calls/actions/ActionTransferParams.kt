@@ -77,7 +77,9 @@ private constructor(
         body.answeringMachineDetection()
 
     /**
-     * Optional configuration parameters to modify 'answering_machine_detection' performance.
+     * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
+     * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
+     * `premium` is selected as answering_machine_detection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -781,6 +783,8 @@ private constructor(
 
         /**
          * Optional configuration parameters to modify 'answering_machine_detection' performance.
+         * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
+         * applicable when `premium` is selected as answering_machine_detection.
          */
         fun answeringMachineDetectionConfig(
             answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
@@ -1761,6 +1765,8 @@ private constructor(
 
         /**
          * Optional configuration parameters to modify 'answering_machine_detection' performance.
+         * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
+         * applicable when `premium` is selected as answering_machine_detection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2600,7 +2606,8 @@ private constructor(
 
             /**
              * Optional configuration parameters to modify 'answering_machine_detection'
-             * performance.
+             * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+             * parameters are applicable when `premium` is selected as answering_machine_detection.
              */
             fun answeringMachineDetectionConfig(
                 answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
@@ -3662,7 +3669,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Optional configuration parameters to modify 'answering_machine_detection' performance. */
+    /**
+     * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
+     * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
+     * `premium` is selected as answering_machine_detection.
+     */
     class AnsweringMachineDetectionConfig
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
