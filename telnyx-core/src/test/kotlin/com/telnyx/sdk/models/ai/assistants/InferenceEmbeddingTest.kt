@@ -75,6 +75,7 @@ internal class InferenceEmbeddingTest {
                         )
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
+                        .userIdleReplySecs(0L)
                         .userIdleTimeoutSecs(10L)
                         .voicemailDetection(
                             TelephonySettings.VoicemailDetection.builder()
@@ -303,6 +304,7 @@ internal class InferenceEmbeddingTest {
                     )
                     .supportsUnauthenticatedWebCalls(true)
                     .timeLimitSecs(30L)
+                    .userIdleReplySecs(0L)
                     .userIdleTimeoutSecs(10L)
                     .voicemailDetection(
                         TelephonySettings.VoicemailDetection.builder()
@@ -556,6 +558,7 @@ internal class InferenceEmbeddingTest {
                         )
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
+                        .userIdleReplySecs(0L)
                         .userIdleTimeoutSecs(10L)
                         .voicemailDetection(
                             TelephonySettings.VoicemailDetection.builder()

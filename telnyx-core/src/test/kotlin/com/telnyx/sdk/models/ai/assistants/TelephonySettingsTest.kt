@@ -30,6 +30,7 @@ internal class TelephonySettingsTest {
                 )
                 .supportsUnauthenticatedWebCalls(true)
                 .timeLimitSecs(30L)
+                .userIdleReplySecs(0L)
                 .userIdleTimeoutSecs(10L)
                 .voicemailDetection(
                     TelephonySettings.VoicemailDetection.builder()
@@ -79,6 +80,7 @@ internal class TelephonySettingsTest {
             )
         assertThat(telephonySettings.supportsUnauthenticatedWebCalls()).contains(true)
         assertThat(telephonySettings.timeLimitSecs()).contains(30L)
+        assertThat(telephonySettings.userIdleReplySecs()).contains(0L)
         assertThat(telephonySettings.userIdleTimeoutSecs()).contains(10L)
         assertThat(telephonySettings.voicemailDetection())
             .contains(
@@ -131,6 +133,7 @@ internal class TelephonySettingsTest {
                 )
                 .supportsUnauthenticatedWebCalls(true)
                 .timeLimitSecs(30L)
+                .userIdleReplySecs(0L)
                 .userIdleTimeoutSecs(10L)
                 .voicemailDetection(
                     TelephonySettings.VoicemailDetection.builder()

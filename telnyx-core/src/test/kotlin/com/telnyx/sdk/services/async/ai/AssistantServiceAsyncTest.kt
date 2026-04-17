@@ -88,6 +88,7 @@ internal class AssistantServiceAsyncTest {
                             )
                             .supportsUnauthenticatedWebCalls(true)
                             .timeLimitSecs(30L)
+                            .userIdleReplySecs(0L)
                             .userIdleTimeoutSecs(10L)
                             .voicemailDetection(
                                 TelephonySettings.VoicemailDetection.builder()
@@ -346,6 +347,7 @@ internal class AssistantServiceAsyncTest {
                             )
                             .supportsUnauthenticatedWebCalls(true)
                             .timeLimitSecs(30L)
+                            .userIdleReplySecs(0L)
                             .userIdleTimeoutSecs(10L)
                             .voicemailDetection(
                                 TelephonySettings.VoicemailDetection.builder()
