@@ -19,7 +19,7 @@ internal class PaginatedTestRunListTest {
             PaginatedTestRunList.builder()
                 .addData(
                     TestRunResponse.builder()
-                        .createdAt(OffsetDateTime.parse("2024-01-15T10:30:00Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-16T10:30:00Z"))
                         .runId("987fcdeb-51a2-43d1-b456-426614174000")
                         .status(TestStatus.PENDING)
                         .testId("123e4567-e89b-12d3-a456-426614174000")
@@ -51,7 +51,7 @@ internal class PaginatedTestRunListTest {
         assertThat(paginatedTestRunList.data())
             .containsExactly(
                 TestRunResponse.builder()
-                    .createdAt(OffsetDateTime.parse("2024-01-15T10:30:00Z"))
+                    .createdAt(OffsetDateTime.parse("2024-01-16T10:30:00Z"))
                     .runId("987fcdeb-51a2-43d1-b456-426614174000")
                     .status(TestStatus.PENDING)
                     .testId("123e4567-e89b-12d3-a456-426614174000")
@@ -83,7 +83,7 @@ internal class PaginatedTestRunListTest {
             PaginatedTestRunList.builder()
                 .addData(
                     TestRunResponse.builder()
-                        .createdAt(OffsetDateTime.parse("2024-01-15T10:30:00Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-16T10:30:00Z"))
                         .runId("987fcdeb-51a2-43d1-b456-426614174000")
                         .status(TestStatus.PENDING)
                         .testId("123e4567-e89b-12d3-a456-426614174000")
