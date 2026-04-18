@@ -1,5 +1,20 @@
 # Changelog
 
+## 6.43.0 (2026-04-17)
+
+Full Changelog: [v6.42.0...v6.43.0](https://github.com/team-telnyx/telnyx-java/compare/v6.42.0...v6.43.0)
+
+### Features
+
+* Add user_idle_reply_secs to TelephonySettings spec ([b32f0a4](https://github.com/team-telnyx/telnyx-java/commit/b32f0a4ea0d2e6bc049d8ea6403b4632e2e50ab3))
+* Lower user_idle_timeout_secs minimum from 30s to 10s ([62a75b8](https://github.com/team-telnyx/telnyx-java/commit/62a75b87ac51e2fabf4321c426b3673706a10ddd))
+* TELAPPS Provide description what params can be used for premium amd ([e4f5191](https://github.com/team-telnyx/telnyx-java/commit/e4f5191ad9c4f25a9fac1a612d1a85d50fc4dcb3))
+
+
+### Chores
+
+* update example date in inference-embedding ([5de272d](https://github.com/team-telnyx/telnyx-java/commit/5de272de2d927d76883bbb95330908576e97b923))
+
 ## 6.42.0 (2026-04-16)
 
 Full Changelog: [v6.41.0...v6.42.0](https://github.com/team-telnyx/telnyx-java/compare/v6.41.0...v6.42.0)

@@ -80,7 +80,8 @@ internal class AssistantsListTest {
                                 )
                                 .supportsUnauthenticatedWebCalls(true)
                                 .timeLimitSecs(30L)
-                                .userIdleTimeoutSecs(30L)
+                                .userIdleReplySecs(0L)
+                                .userIdleTimeoutSecs(10L)
                                 .voicemailDetection(
                                     TelephonySettings.VoicemailDetection.builder()
                                         .onVoicemailDetected(
@@ -327,7 +328,8 @@ internal class AssistantsListTest {
                             )
                             .supportsUnauthenticatedWebCalls(true)
                             .timeLimitSecs(30L)
-                            .userIdleTimeoutSecs(30L)
+                            .userIdleReplySecs(0L)
+                            .userIdleTimeoutSecs(10L)
                             .voicemailDetection(
                                 TelephonySettings.VoicemailDetection.builder()
                                     .onVoicemailDetected(
@@ -569,7 +571,8 @@ internal class AssistantsListTest {
                                 )
                                 .supportsUnauthenticatedWebCalls(true)
                                 .timeLimitSecs(30L)
-                                .userIdleTimeoutSecs(30L)
+                                .userIdleReplySecs(0L)
+                                .userIdleTimeoutSecs(10L)
                                 .voicemailDetection(
                                     TelephonySettings.VoicemailDetection.builder()
                                         .onVoicemailDetected(

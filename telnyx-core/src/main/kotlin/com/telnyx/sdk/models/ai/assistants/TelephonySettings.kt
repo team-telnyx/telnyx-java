@@ -26,6 +26,7 @@ private constructor(
     private val recordingSettings: JsonField<RecordingSettings>,
     private val supportsUnauthenticatedWebCalls: JsonField<Boolean>,
     private val timeLimitSecs: JsonField<Long>,
+    private val userIdleReplySecs: JsonField<Long>,
     private val userIdleTimeoutSecs: JsonField<Long>,
     private val voicemailDetection: JsonField<VoicemailDetection>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -51,6 +52,9 @@ private constructor(
         @JsonProperty("time_limit_secs")
         @ExcludeMissing
         timeLimitSecs: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("user_idle_reply_secs")
+        @ExcludeMissing
+        userIdleReplySecs: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("user_idle_timeout_secs")
         @ExcludeMissing
         userIdleTimeoutSecs: JsonField<Long> = JsonMissing.of(),
@@ -64,6 +68,7 @@ private constructor(
         recordingSettings,
         supportsUnauthenticatedWebCalls,
         timeLimitSecs,
+        userIdleReplySecs,
         userIdleTimeoutSecs,
         voicemailDetection,
         mutableMapOf(),
@@ -127,6 +132,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun timeLimitSecs(): Optional<Long> = timeLimitSecs.getOptional("time_limit_secs")
+
+    /**
+     * Duration in seconds of end user silence before the assistant checks in on the user. When this
+     * limit is reached the assistant will prompt the user to respond. This is distinct from
+     * user_idle_timeout_secs which stops the assistant entirely.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun userIdleReplySecs(): Optional<Long> = userIdleReplySecs.getOptional("user_idle_reply_secs")
 
     /**
      * Maximum duration in seconds of end user silence on the call. When this limit is reached the
@@ -212,6 +227,16 @@ private constructor(
     fun _timeLimitSecs(): JsonField<Long> = timeLimitSecs
 
     /**
+     * Returns the raw JSON value of [userIdleReplySecs].
+     *
+     * Unlike [userIdleReplySecs], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("user_idle_reply_secs")
+    @ExcludeMissing
+    fun _userIdleReplySecs(): JsonField<Long> = userIdleReplySecs
+
+    /**
      * Returns the raw JSON value of [userIdleTimeoutSecs].
      *
      * Unlike [userIdleTimeoutSecs], this method doesn't throw if the JSON field has an unexpected
@@ -258,6 +283,7 @@ private constructor(
         private var recordingSettings: JsonField<RecordingSettings> = JsonMissing.of()
         private var supportsUnauthenticatedWebCalls: JsonField<Boolean> = JsonMissing.of()
         private var timeLimitSecs: JsonField<Long> = JsonMissing.of()
+        private var userIdleReplySecs: JsonField<Long> = JsonMissing.of()
         private var userIdleTimeoutSecs: JsonField<Long> = JsonMissing.of()
         private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -270,6 +296,7 @@ private constructor(
             recordingSettings = telephonySettings.recordingSettings
             supportsUnauthenticatedWebCalls = telephonySettings.supportsUnauthenticatedWebCalls
             timeLimitSecs = telephonySettings.timeLimitSecs
+            userIdleReplySecs = telephonySettings.userIdleReplySecs
             userIdleTimeoutSecs = telephonySettings.userIdleTimeoutSecs
             voicemailDetection = telephonySettings.voicemailDetection
             additionalProperties = telephonySettings.additionalProperties.toMutableMap()
@@ -382,6 +409,25 @@ private constructor(
         }
 
         /**
+         * Duration in seconds of end user silence before the assistant checks in on the user. When
+         * this limit is reached the assistant will prompt the user to respond. This is distinct
+         * from user_idle_timeout_secs which stops the assistant entirely.
+         */
+        fun userIdleReplySecs(userIdleReplySecs: Long) =
+            userIdleReplySecs(JsonField.of(userIdleReplySecs))
+
+        /**
+         * Sets [Builder.userIdleReplySecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.userIdleReplySecs] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun userIdleReplySecs(userIdleReplySecs: JsonField<Long>) = apply {
+            this.userIdleReplySecs = userIdleReplySecs
+        }
+
+        /**
          * Maximum duration in seconds of end user silence on the call. When this limit is reached
          * the assistant will be stopped. This limit does not apply to portions of a call without an
          * active assistant (for instance, a call transferred to a human representative).
@@ -453,6 +499,7 @@ private constructor(
                 recordingSettings,
                 supportsUnauthenticatedWebCalls,
                 timeLimitSecs,
+                userIdleReplySecs,
                 userIdleTimeoutSecs,
                 voicemailDetection,
                 additionalProperties.toMutableMap(),
@@ -472,6 +519,7 @@ private constructor(
         recordingSettings().ifPresent { it.validate() }
         supportsUnauthenticatedWebCalls()
         timeLimitSecs()
+        userIdleReplySecs()
         userIdleTimeoutSecs()
         voicemailDetection().ifPresent { it.validate() }
         validated = true
@@ -498,6 +546,7 @@ private constructor(
             (recordingSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (supportsUnauthenticatedWebCalls.asKnown().isPresent) 1 else 0) +
             (if (timeLimitSecs.asKnown().isPresent) 1 else 0) +
+            (if (userIdleReplySecs.asKnown().isPresent) 1 else 0) +
             (if (userIdleTimeoutSecs.asKnown().isPresent) 1 else 0) +
             (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -2331,6 +2380,7 @@ private constructor(
             recordingSettings == other.recordingSettings &&
             supportsUnauthenticatedWebCalls == other.supportsUnauthenticatedWebCalls &&
             timeLimitSecs == other.timeLimitSecs &&
+            userIdleReplySecs == other.userIdleReplySecs &&
             userIdleTimeoutSecs == other.userIdleTimeoutSecs &&
             voicemailDetection == other.voicemailDetection &&
             additionalProperties == other.additionalProperties
@@ -2344,6 +2394,7 @@ private constructor(
             recordingSettings,
             supportsUnauthenticatedWebCalls,
             timeLimitSecs,
+            userIdleReplySecs,
             userIdleTimeoutSecs,
             voicemailDetection,
             additionalProperties,
@@ -2353,5 +2404,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }
