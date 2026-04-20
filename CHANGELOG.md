@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.44.0 (2026-04-20)
+
+Full Changelog: [v6.43.0...v6.44.0](https://github.com/team-telnyx/telnyx-java/compare/v6.43.0...v6.44.0)
+
+### Features
+
+* Add keyterm field to TranscriptionSettingsConfig ([f78a98d](https://github.com/team-telnyx/telnyx-java/commit/f78a98defbb440ffc3af85e86fb398d3f0b0ce68))
+
 ## 6.43.0 (2026-04-17)
 
 Full Changelog: [v6.42.0...v6.43.0](https://github.com/team-telnyx/telnyx-java/compare/v6.42.0...v6.43.0)
