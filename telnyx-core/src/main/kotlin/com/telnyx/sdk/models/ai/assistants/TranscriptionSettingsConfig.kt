@@ -21,6 +21,7 @@ private constructor(
     private val eagerEotThreshold: JsonField<Double>,
     private val eotThreshold: JsonField<Double>,
     private val eotTimeoutMs: JsonField<Long>,
+    private val keyterm: JsonField<String>,
     private val numerals: JsonField<Boolean>,
     private val smartFormat: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -37,11 +38,20 @@ private constructor(
         @JsonProperty("eot_timeout_ms")
         @ExcludeMissing
         eotTimeoutMs: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("keyterm") @ExcludeMissing keyterm: JsonField<String> = JsonMissing.of(),
         @JsonProperty("numerals") @ExcludeMissing numerals: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("smart_format")
         @ExcludeMissing
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
-    ) : this(eagerEotThreshold, eotThreshold, eotTimeoutMs, numerals, smartFormat, mutableMapOf())
+    ) : this(
+        eagerEotThreshold,
+        eotThreshold,
+        eotTimeoutMs,
+        keyterm,
+        numerals,
+        smartFormat,
+        mutableMapOf(),
+    )
 
     /**
      * Available only for deepgram/flux. Confidence threshold for eager end of turn detection. Must
@@ -70,6 +80,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun eotTimeoutMs(): Optional<Long> = eotTimeoutMs.getOptional("eot_timeout_ms")
+
+    /**
+     * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms to
+     * boost for recognition during transcription. Helps improve accuracy for domain-specific
+     * terminology, proper nouns, or uncommon words.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun keyterm(): Optional<String> = keyterm.getOptional("keyterm")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -110,6 +130,13 @@ private constructor(
     @JsonProperty("eot_timeout_ms")
     @ExcludeMissing
     fun _eotTimeoutMs(): JsonField<Long> = eotTimeoutMs
+
+    /**
+     * Returns the raw JSON value of [keyterm].
+     *
+     * Unlike [keyterm], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("keyterm") @ExcludeMissing fun _keyterm(): JsonField<String> = keyterm
 
     /**
      * Returns the raw JSON value of [numerals].
@@ -153,6 +180,7 @@ private constructor(
         private var eagerEotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotTimeoutMs: JsonField<Long> = JsonMissing.of()
+        private var keyterm: JsonField<String> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
         private var smartFormat: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -162,6 +190,7 @@ private constructor(
             eagerEotThreshold = transcriptionSettingsConfig.eagerEotThreshold
             eotThreshold = transcriptionSettingsConfig.eotThreshold
             eotTimeoutMs = transcriptionSettingsConfig.eotTimeoutMs
+            keyterm = transcriptionSettingsConfig.keyterm
             numerals = transcriptionSettingsConfig.numerals
             smartFormat = transcriptionSettingsConfig.smartFormat
             additionalProperties = transcriptionSettingsConfig.additionalProperties.toMutableMap()
@@ -218,6 +247,21 @@ private constructor(
          */
         fun eotTimeoutMs(eotTimeoutMs: JsonField<Long>) = apply { this.eotTimeoutMs = eotTimeoutMs }
 
+        /**
+         * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms
+         * to boost for recognition during transcription. Helps improve accuracy for domain-specific
+         * terminology, proper nouns, or uncommon words.
+         */
+        fun keyterm(keyterm: String) = keyterm(JsonField.of(keyterm))
+
+        /**
+         * Sets [Builder.keyterm] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.keyterm] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun keyterm(keyterm: JsonField<String>) = apply { this.keyterm = keyterm }
+
         fun numerals(numerals: Boolean) = numerals(JsonField.of(numerals))
 
         /**
@@ -269,6 +313,7 @@ private constructor(
                 eagerEotThreshold,
                 eotThreshold,
                 eotTimeoutMs,
+                keyterm,
                 numerals,
                 smartFormat,
                 additionalProperties.toMutableMap(),
@@ -285,6 +330,7 @@ private constructor(
         eagerEotThreshold()
         eotThreshold()
         eotTimeoutMs()
+        keyterm()
         numerals()
         smartFormat()
         validated = true
@@ -308,6 +354,7 @@ private constructor(
         (if (eagerEotThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotTimeoutMs.asKnown().isPresent) 1 else 0) +
+            (if (keyterm.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
             (if (smartFormat.asKnown().isPresent) 1 else 0)
 
@@ -320,6 +367,7 @@ private constructor(
             eagerEotThreshold == other.eagerEotThreshold &&
             eotThreshold == other.eotThreshold &&
             eotTimeoutMs == other.eotTimeoutMs &&
+            keyterm == other.keyterm &&
             numerals == other.numerals &&
             smartFormat == other.smartFormat &&
             additionalProperties == other.additionalProperties
@@ -330,6 +378,7 @@ private constructor(
             eagerEotThreshold,
             eotThreshold,
             eotTimeoutMs,
+            keyterm,
             numerals,
             smartFormat,
             additionalProperties,
@@ -339,5 +388,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, keyterm=$keyterm, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }
