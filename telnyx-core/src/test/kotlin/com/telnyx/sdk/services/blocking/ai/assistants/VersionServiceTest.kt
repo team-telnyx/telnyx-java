@@ -258,6 +258,7 @@ internal class VersionServiceTest {
                                             .eagerEotThreshold(0.3)
                                             .eotThreshold(0.0)
                                             .eotTimeoutMs(0L)
+                                            .keyterm("keyterm")
                                             .numerals(true)
                                             .smartFormat(true)
                                             .build()

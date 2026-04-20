@@ -16,6 +16,7 @@ internal class TranscriptionSettingsConfigTest {
                 .eagerEotThreshold(0.3)
                 .eotThreshold(0.0)
                 .eotTimeoutMs(0L)
+                .keyterm("keyterm")
                 .numerals(true)
                 .smartFormat(true)
                 .build()
@@ -23,6 +24,7 @@ internal class TranscriptionSettingsConfigTest {
         assertThat(transcriptionSettingsConfig.eagerEotThreshold()).contains(0.3)
         assertThat(transcriptionSettingsConfig.eotThreshold()).contains(0.0)
         assertThat(transcriptionSettingsConfig.eotTimeoutMs()).contains(0L)
+        assertThat(transcriptionSettingsConfig.keyterm()).contains("keyterm")
         assertThat(transcriptionSettingsConfig.numerals()).contains(true)
         assertThat(transcriptionSettingsConfig.smartFormat()).contains(true)
     }
@@ -35,6 +37,7 @@ internal class TranscriptionSettingsConfigTest {
                 .eagerEotThreshold(0.3)
                 .eotThreshold(0.0)
                 .eotTimeoutMs(0L)
+                .keyterm("keyterm")
                 .numerals(true)
                 .smartFormat(true)
                 .build()
