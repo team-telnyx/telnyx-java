@@ -56,6 +56,11 @@ internal class AssistantsListTest {
                                 .status(Observability.Status.ENABLED)
                                 .build()
                         )
+                        .postConversationSettings(
+                            InferenceEmbedding.PostConversationSettings.builder()
+                                .enabled(true)
+                                .build()
+                        )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                         .telephonySettings(
                             TelephonySettings.builder()
@@ -309,6 +314,9 @@ internal class AssistantsListTest {
                             .status(Observability.Status.ENABLED)
                             .build()
                     )
+                    .postConversationSettings(
+                        InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
+                    )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
                         TelephonySettings.builder()
@@ -547,6 +555,11 @@ internal class AssistantsListTest {
                                 .publicKeyRef("public_key_ref")
                                 .secretKeyRef("secret_key_ref")
                                 .status(Observability.Status.ENABLED)
+                                .build()
+                        )
+                        .postConversationSettings(
+                            InferenceEmbedding.PostConversationSettings.builder()
+                                .enabled(true)
                                 .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())

@@ -59,6 +59,9 @@ internal class UpdateAssistantTest {
                         .status(ObservabilityReq.Status.ENABLED)
                         .build()
                 )
+                .postConversationSettings(
+                    UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -278,6 +281,8 @@ internal class UpdateAssistantTest {
                     .status(ObservabilityReq.Status.ENABLED)
                     .build()
             )
+        assertThat(updateAssistant.postConversationSettings())
+            .contains(UpdateAssistant.PostConversationSettings.builder().enabled(true).build())
         assertThat(updateAssistant.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(updateAssistant.telephonySettings())
@@ -527,6 +532,9 @@ internal class UpdateAssistantTest {
                         .secretKeyRef("secret_key_ref")
                         .status(ObservabilityReq.Status.ENABLED)
                         .build()
+                )
+                .postConversationSettings(
+                    UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(

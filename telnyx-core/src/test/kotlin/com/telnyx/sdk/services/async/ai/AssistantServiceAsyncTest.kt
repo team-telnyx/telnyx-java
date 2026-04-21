@@ -68,6 +68,11 @@ internal class AssistantServiceAsyncTest {
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
                     )
+                    .postConversationSettings(
+                        AssistantCreateParams.PostConversationSettings.builder()
+                            .enabled(true)
+                            .build()
+                    )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
                         TelephonySettings.builder()
@@ -327,6 +332,9 @@ internal class AssistantServiceAsyncTest {
                             .secretKeyRef("secret_key_ref")
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
+                    )
+                    .postConversationSettings(
+                        UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
