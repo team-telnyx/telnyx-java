@@ -58,6 +58,9 @@ internal class VersionUpdateParamsTest {
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
                     )
+                    .postConversationSettings(
+                        UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+                    )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
                         TelephonySettings.builder()
@@ -308,6 +311,9 @@ internal class VersionUpdateParamsTest {
                                 .status(ObservabilityReq.Status.ENABLED)
                                 .build()
                         )
+                        .postConversationSettings(
+                            UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+                        )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                         .telephonySettings(
                             TelephonySettings.builder()
@@ -555,6 +561,9 @@ internal class VersionUpdateParamsTest {
                             .secretKeyRef("secret_key_ref")
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
+                    )
+                    .postConversationSettings(
+                        UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(

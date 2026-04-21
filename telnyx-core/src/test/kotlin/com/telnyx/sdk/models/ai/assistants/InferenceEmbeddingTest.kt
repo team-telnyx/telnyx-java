@@ -55,6 +55,9 @@ internal class InferenceEmbeddingTest {
                         .status(Observability.Status.ENABLED)
                         .build()
                 )
+                .postConversationSettings(
+                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
                     TelephonySettings.builder()
@@ -283,6 +286,8 @@ internal class InferenceEmbeddingTest {
                     .status(Observability.Status.ENABLED)
                     .build()
             )
+        assertThat(inferenceEmbedding.postConversationSettings())
+            .contains(InferenceEmbedding.PostConversationSettings.builder().enabled(true).build())
         assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(inferenceEmbedding.telephonySettings())
@@ -539,6 +544,9 @@ internal class InferenceEmbeddingTest {
                         .secretKeyRef("secret_key_ref")
                         .status(Observability.Status.ENABLED)
                         .build()
+                )
+                .postConversationSettings(
+                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(

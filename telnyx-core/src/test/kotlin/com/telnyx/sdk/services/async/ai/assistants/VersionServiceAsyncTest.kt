@@ -89,6 +89,11 @@ internal class VersionServiceAsyncTest {
                                     .status(ObservabilityReq.Status.ENABLED)
                                     .build()
                             )
+                            .postConversationSettings(
+                                UpdateAssistant.PostConversationSettings.builder()
+                                    .enabled(true)
+                                    .build()
+                            )
                             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                             .telephonySettings(
                                 TelephonySettings.builder()

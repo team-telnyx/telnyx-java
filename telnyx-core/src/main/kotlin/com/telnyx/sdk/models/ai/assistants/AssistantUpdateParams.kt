@@ -133,6 +133,19 @@ private constructor(
     fun observabilitySettings(): Optional<ObservabilityReq> = body.observabilitySettings()
 
     /**
+     * Configuration for post-conversation processing. When enabled, the assistant receives one
+     * additional LLM turn after the conversation ends, allowing it to execute tool calls such as
+     * logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+     * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+     * unavailable post-conversation. Beta feature.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
+        body.postConversationSettings()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -274,6 +287,15 @@ private constructor(
      * type.
      */
     fun _observabilitySettings(): JsonField<ObservabilityReq> = body._observabilitySettings()
+
+    /**
+     * Returns the raw JSON value of [postConversationSettings].
+     *
+     * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
+        body._postConversationSettings()
 
     /**
      * Returns the raw JSON value of [privacySettings].
@@ -581,6 +603,28 @@ private constructor(
         fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
             body.observabilitySettings(observabilitySettings)
         }
+
+        /**
+         * Configuration for post-conversation processing. When enabled, the assistant receives one
+         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
+         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+         * unavailable post-conversation. Beta feature.
+         */
+        fun postConversationSettings(
+            postConversationSettings: UpdateAssistant.PostConversationSettings
+        ) = apply { body.postConversationSettings(postConversationSettings) }
+
+        /**
+         * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.postConversationSettings] with a well-typed
+         * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
+         */
+        fun postConversationSettings(
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
+        ) = apply { body.postConversationSettings(postConversationSettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
             body.privacySettings(privacySettings)
@@ -1021,6 +1065,7 @@ private constructor(
         private val model: JsonField<String>,
         private val name: JsonField<String>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
+        private val postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
@@ -1066,6 +1111,10 @@ private constructor(
             @JsonProperty("observability_settings")
             @ExcludeMissing
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
+            @JsonProperty("post_conversation_settings")
+            @ExcludeMissing
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings> =
+                JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1103,6 +1152,7 @@ private constructor(
             model,
             name,
             observabilitySettings,
+            postConversationSettings,
             privacySettings,
             telephonySettings,
             toolIds,
@@ -1128,6 +1178,7 @@ private constructor(
                 .model(model)
                 .name(name)
                 .observabilitySettings(observabilitySettings)
+                .postConversationSettings(postConversationSettings)
                 .privacySettings(privacySettings)
                 .telephonySettings(telephonySettings)
                 .toolIds(toolIds)
@@ -1240,6 +1291,19 @@ private constructor(
          */
         fun observabilitySettings(): Optional<ObservabilityReq> =
             observabilitySettings.getOptional("observability_settings")
+
+        /**
+         * Configuration for post-conversation processing. When enabled, the assistant receives one
+         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
+         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+         * unavailable post-conversation. Beta feature.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
+            postConversationSettings.getOptional("post_conversation_settings")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1411,6 +1475,17 @@ private constructor(
         fun _observabilitySettings(): JsonField<ObservabilityReq> = observabilitySettings
 
         /**
+         * Returns the raw JSON value of [postConversationSettings].
+         *
+         * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("post_conversation_settings")
+        @ExcludeMissing
+        fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
+            postConversationSettings
+
+        /**
          * Returns the raw JSON value of [privacySettings].
          *
          * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected
@@ -1518,6 +1593,9 @@ private constructor(
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
+            private var postConversationSettings:
+                JsonField<UpdateAssistant.PostConversationSettings> =
+                JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
@@ -1542,6 +1620,7 @@ private constructor(
                 model = body.model
                 name = body.name
                 observabilitySettings = body.observabilitySettings
+                postConversationSettings = body.postConversationSettings
                 privacySettings = body.privacySettings
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
@@ -1752,6 +1831,28 @@ private constructor(
             fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
                 this.observabilitySettings = observabilitySettings
             }
+
+            /**
+             * Configuration for post-conversation processing. When enabled, the assistant receives
+             * one additional LLM turn after the conversation ends, allowing it to execute tool
+             * calls such as logging to a CRM or sending a summary. The assistant can execute
+             * multiple parallel or sequential tools during this phase. Telephony-control tools
+             * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
+             */
+            fun postConversationSettings(
+                postConversationSettings: UpdateAssistant.PostConversationSettings
+            ) = postConversationSettings(JsonField.of(postConversationSettings))
+
+            /**
+             * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postConversationSettings] with a well-typed
+             * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
+             */
+            fun postConversationSettings(
+                postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
+            ) = apply { this.postConversationSettings = postConversationSettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
                 privacySettings(JsonField.of(privacySettings))
@@ -2092,6 +2193,7 @@ private constructor(
                     model,
                     name,
                     observabilitySettings,
+                    postConversationSettings,
                     privacySettings,
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -2123,6 +2225,7 @@ private constructor(
             model()
             name()
             observabilitySettings().ifPresent { it.validate() }
+            postConversationSettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
             telephonySettings().ifPresent { it.validate() }
             toolIds()
@@ -2162,6 +2265,7 @@ private constructor(
                 (if (model.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (postConversationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
@@ -2189,6 +2293,7 @@ private constructor(
                 model == other.model &&
                 name == other.name &&
                 observabilitySettings == other.observabilitySettings &&
+                postConversationSettings == other.postConversationSettings &&
                 privacySettings == other.privacySettings &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
@@ -2214,6 +2319,7 @@ private constructor(
                 model,
                 name,
                 observabilitySettings,
+                postConversationSettings,
                 privacySettings,
                 telephonySettings,
                 toolIds,
@@ -2229,7 +2335,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
