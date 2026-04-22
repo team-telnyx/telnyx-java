@@ -92,6 +92,7 @@ private constructor(
     private val faxMediaProcessed: FaxMediaProcessed? = null,
     private val faxQueued: FaxQueued? = null,
     private val faxSendingStarted: FaxSendingStarted? = null,
+    private val hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdate? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
@@ -267,6 +268,9 @@ private constructor(
 
     fun faxSendingStarted(): Optional<FaxSendingStarted> = Optional.ofNullable(faxSendingStarted)
 
+    fun hostedNumberOrderEvent(): Optional<HostedNumberOrderEventWebhookEvent> =
+        Optional.ofNullable(hostedNumberOrderEvent)
+
     fun inboundMessage(): Optional<InboundMessageWebhookEvent> = Optional.ofNullable(inboundMessage)
 
     fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdate> =
@@ -395,6 +399,8 @@ private constructor(
     fun isFaxQueued(): Boolean = faxQueued != null
 
     fun isFaxSendingStarted(): Boolean = faxSendingStarted != null
+
+    fun isHostedNumberOrderEvent(): Boolean = hostedNumberOrderEvent != null
 
     fun isInboundMessage(): Boolean = inboundMessage != null
 
@@ -567,6 +573,9 @@ private constructor(
 
     fun asFaxSendingStarted(): FaxSendingStarted = faxSendingStarted.getOrThrow("faxSendingStarted")
 
+    fun asHostedNumberOrderEvent(): HostedNumberOrderEventWebhookEvent =
+        hostedNumberOrderEvent.getOrThrow("hostedNumberOrderEvent")
+
     fun asInboundMessage(): InboundMessageWebhookEvent = inboundMessage.getOrThrow("inboundMessage")
 
     fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdate =
@@ -664,6 +673,8 @@ private constructor(
             faxMediaProcessed != null -> visitor.visitFaxMediaProcessed(faxMediaProcessed)
             faxQueued != null -> visitor.visitFaxQueued(faxQueued)
             faxSendingStarted != null -> visitor.visitFaxSendingStarted(faxSendingStarted)
+            hostedNumberOrderEvent != null ->
+                visitor.visitHostedNumberOrderEvent(hostedNumberOrderEvent)
             inboundMessage != null -> visitor.visitInboundMessage(inboundMessage)
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
@@ -989,6 +1000,12 @@ private constructor(
                     faxSendingStarted.validate()
                 }
 
+                override fun visitHostedNumberOrderEvent(
+                    hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+                ) {
+                    hostedNumberOrderEvent.validate()
+                }
+
                 override fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent) {
                     inboundMessage.validate()
                 }
@@ -1240,6 +1257,10 @@ private constructor(
                 override fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted) =
                     faxSendingStarted.validity()
 
+                override fun visitHostedNumberOrderEvent(
+                    hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+                ) = hostedNumberOrderEvent.validity()
+
                 override fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent) =
                     inboundMessage.validity()
 
@@ -1323,6 +1344,7 @@ private constructor(
             faxMediaProcessed == other.faxMediaProcessed &&
             faxQueued == other.faxQueued &&
             faxSendingStarted == other.faxSendingStarted &&
+            hostedNumberOrderEvent == other.hostedNumberOrderEvent &&
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
             replacedLinkClick == other.replacedLinkClick &&
@@ -1390,6 +1412,7 @@ private constructor(
             faxMediaProcessed,
             faxQueued,
             faxSendingStarted,
+            hostedNumberOrderEvent,
             inboundMessage,
             numberOrderStatusUpdate,
             replacedLinkClick,
@@ -1499,6 +1522,8 @@ private constructor(
             faxQueued != null -> "UnsafeUnwrapWebhookEvent{faxQueued=$faxQueued}"
             faxSendingStarted != null ->
                 "UnsafeUnwrapWebhookEvent{faxSendingStarted=$faxSendingStarted}"
+            hostedNumberOrderEvent != null ->
+                "UnsafeUnwrapWebhookEvent{hostedNumberOrderEvent=$hostedNumberOrderEvent}"
             inboundMessage != null -> "UnsafeUnwrapWebhookEvent{inboundMessage=$inboundMessage}"
             numberOrderStatusUpdate != null ->
                 "UnsafeUnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
@@ -1792,6 +1817,10 @@ private constructor(
             UnsafeUnwrapWebhookEvent(faxSendingStarted = faxSendingStarted)
 
         @JvmStatic
+        fun ofHostedNumberOrderEvent(hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(hostedNumberOrderEvent = hostedNumberOrderEvent)
+
+        @JvmStatic
         fun ofInboundMessage(inboundMessage: InboundMessageWebhookEvent) =
             UnsafeUnwrapWebhookEvent(inboundMessage = inboundMessage)
 
@@ -1971,6 +2000,10 @@ private constructor(
         fun visitFaxQueued(faxQueued: FaxQueued): T
 
         fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted): T
+
+        fun visitHostedNumberOrderEvent(
+            hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+        ): T
 
         fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent): T
 
@@ -2311,6 +2344,10 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<FaxSendingStarted>())?.let {
                             UnsafeUnwrapWebhookEvent(faxSendingStarted = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<HostedNumberOrderEventWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(hostedNumberOrderEvent = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<InboundMessageWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(inboundMessage = it, _json = json)
                         },
@@ -2435,6 +2472,8 @@ private constructor(
                 value.faxMediaProcessed != null -> generator.writeObject(value.faxMediaProcessed)
                 value.faxQueued != null -> generator.writeObject(value.faxQueued)
                 value.faxSendingStarted != null -> generator.writeObject(value.faxSendingStarted)
+                value.hostedNumberOrderEvent != null ->
+                    generator.writeObject(value.hostedNumberOrderEvent)
                 value.inboundMessage != null -> generator.writeObject(value.inboundMessage)
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)
