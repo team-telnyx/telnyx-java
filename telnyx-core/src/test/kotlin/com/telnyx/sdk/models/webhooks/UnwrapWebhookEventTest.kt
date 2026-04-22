@@ -134,6 +134,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -324,6 +325,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -516,6 +518,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -701,6 +704,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -862,6 +866,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1011,6 +1016,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1178,6 +1184,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1354,6 +1361,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1522,6 +1530,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1671,6 +1680,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1814,6 +1824,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -1949,6 +1960,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2082,6 +2094,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2213,6 +2226,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2347,6 +2361,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2526,6 +2541,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2740,6 +2756,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -2910,6 +2927,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3048,6 +3066,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3186,6 +3205,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3328,6 +3348,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3473,6 +3494,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3617,6 +3639,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3756,6 +3779,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -3889,6 +3913,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4035,6 +4060,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4192,6 +4218,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4339,6 +4366,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4474,6 +4502,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4609,6 +4638,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4740,6 +4770,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4866,6 +4897,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -4992,6 +5024,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5121,6 +5154,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5251,6 +5285,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5390,6 +5425,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5528,6 +5564,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5655,6 +5692,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5772,6 +5810,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -5891,6 +5930,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6023,6 +6063,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6149,6 +6190,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6280,6 +6322,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6415,6 +6458,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6558,6 +6602,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6705,6 +6750,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6848,6 +6894,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -6991,6 +7038,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7124,6 +7172,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7251,6 +7300,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7401,6 +7451,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7549,6 +7600,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7670,6 +7722,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -7890,6 +7943,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8128,6 +8182,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8278,6 +8333,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8426,6 +8482,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).contains(faxMediaProcessed)
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8573,6 +8630,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).contains(faxQueued)
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8720,6 +8778,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).contains(faxSendingStarted)
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -8758,6 +8817,173 @@ internal class UnwrapWebhookEventTest {
                         FaxSendingStarted.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
+    }
+
+    @Test
+    fun ofHostedNumberOrderEvent() {
+        val hostedNumberOrderEvent =
+            HostedNumberOrderEventWebhookEvent.builder()
+                .data(
+                    HostedNumberOrderEventWebhookEvent.Data.builder()
+                        .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
+                        .eventType(
+                            HostedNumberOrderEventWebhookEvent.Data.EventType
+                                .MESSAGING_HOSTED_NUMBERS_ORDERS_INTERNAL_TRANSFER_APPROVAL_REQUESTED
+                        )
+                        .occurredAt(OffsetDateTime.parse("2026-04-20T18:10:02.574Z"))
+                        .payload(
+                            HostedNumberOrderEventWebhookEvent.Data.Payload.builder()
+                                .approvalDeadline(1714521600L)
+                                .decision(
+                                    HostedNumberOrderEventWebhookEvent.Data.Payload.Decision.PENDING
+                                )
+                                .addNumber(
+                                    HostedNumberOrderEventWebhookEvent.Data.Payload.Number.builder()
+                                        .status(
+                                            HostedNumberOrderEventWebhookEvent.Data.Payload.Number
+                                                .Status
+                                                .PENDING
+                                        )
+                                        .value("+13125550001")
+                                        .build()
+                                )
+                                .orderId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                                .orderStatus(
+                                    HostedNumberOrderEventWebhookEvent.Data.Payload.OrderStatus
+                                        .PENDING
+                                )
+                                .profileId("d0b1dabe-efdb-4bc8-9dd3-11f0d8b5f5b3")
+                                .userId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                                .build()
+                        )
+                        .recordType(HostedNumberOrderEventWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofHostedNumberOrderEvent(hostedNumberOrderEvent)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).contains(hostedNumberOrderEvent)
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofHostedNumberOrderEventRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofHostedNumberOrderEvent(
+                HostedNumberOrderEventWebhookEvent.builder()
+                    .data(
+                        HostedNumberOrderEventWebhookEvent.Data.builder()
+                            .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
+                            .eventType(
+                                HostedNumberOrderEventWebhookEvent.Data.EventType
+                                    .MESSAGING_HOSTED_NUMBERS_ORDERS_INTERNAL_TRANSFER_APPROVAL_REQUESTED
+                            )
+                            .occurredAt(OffsetDateTime.parse("2026-04-20T18:10:02.574Z"))
+                            .payload(
+                                HostedNumberOrderEventWebhookEvent.Data.Payload.builder()
+                                    .approvalDeadline(1714521600L)
+                                    .decision(
+                                        HostedNumberOrderEventWebhookEvent.Data.Payload.Decision
+                                            .PENDING
+                                    )
+                                    .addNumber(
+                                        HostedNumberOrderEventWebhookEvent.Data.Payload.Number
+                                            .builder()
+                                            .status(
+                                                HostedNumberOrderEventWebhookEvent.Data.Payload
+                                                    .Number
+                                                    .Status
+                                                    .PENDING
+                                            )
+                                            .value("+13125550001")
+                                            .build()
+                                    )
+                                    .orderId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                                    .orderStatus(
+                                        HostedNumberOrderEventWebhookEvent.Data.Payload.OrderStatus
+                                            .PENDING
+                                    )
+                                    .profileId("d0b1dabe-efdb-4bc8-9dd3-11f0d8b5f5b3")
+                                    .userId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                                    .build()
+                            )
+                            .recordType(HostedNumberOrderEventWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -8943,6 +9169,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).contains(inboundMessage)
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -9201,6 +9428,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).contains(numberOrderStatusUpdate)
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
@@ -9366,6 +9594,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).contains(replacedLinkClick)
@@ -9497,6 +9726,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
         assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
         assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
