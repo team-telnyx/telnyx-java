@@ -67,8 +67,10 @@ internal class VerifyProfileServiceTest {
                     .webhookUrl("http://example.com/webhook")
                     .whatsapp(
                         VerifyProfileCreateParams.Whatsapp.builder()
-                            .appName("Example Secure App")
                             .defaultVerificationTimeoutSecs(300L)
+                            .senderPhoneNumber("+13035551234")
+                            .templateId("authentication_template_name")
+                            .wabaId("1234567890")
                             .addWhitelistedDestination("US")
                             .addWhitelistedDestination("CA")
                             .build()
@@ -147,8 +149,10 @@ internal class VerifyProfileServiceTest {
                     .webhookUrl("http://example.com/webhook")
                     .whatsapp(
                         VerifyProfileUpdateParams.Whatsapp.builder()
-                            .appName("Example Secure App")
                             .defaultVerificationTimeoutSecs(300L)
+                            .senderPhoneNumber("+13035551234")
+                            .templateId("authentication_template_name")
+                            .wabaId("1234567890")
                             .addWhitelistedDestination("US")
                             .addWhitelistedDestination("CA")
                             .build()
