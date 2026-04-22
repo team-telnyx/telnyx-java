@@ -59,6 +59,19 @@ internal class VerifyProfileTest {
                 .updatedAt("2020-09-14T17:03:32.965812")
                 .webhookFailoverUrl("http://example.com/webhook/failover")
                 .webhookUrl("http://example.com/webhook")
+                .whatsapp(
+                    VerifyProfile.Whatsapp.builder()
+                        .appName("Example Secure App")
+                        .codeLength(6L)
+                        .defaultVerificationTimeoutSecs(300L)
+                        .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                        .senderPhoneNumber("+13035551234")
+                        .templateId("authentication_template_name")
+                        .wabaId("1234567890")
+                        .addWhitelistedDestination("US")
+                        .addWhitelistedDestination("CA")
+                        .build()
+                )
                 .build()
 
         assertThat(verifyProfile.id()).contains("12ade33a-21c0-473b-b055-b3c836e1c292")
@@ -113,6 +126,20 @@ internal class VerifyProfileTest {
         assertThat(verifyProfile.webhookFailoverUrl())
             .contains("http://example.com/webhook/failover")
         assertThat(verifyProfile.webhookUrl()).contains("http://example.com/webhook")
+        assertThat(verifyProfile.whatsapp())
+            .contains(
+                VerifyProfile.Whatsapp.builder()
+                    .appName("Example Secure App")
+                    .codeLength(6L)
+                    .defaultVerificationTimeoutSecs(300L)
+                    .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                    .senderPhoneNumber("+13035551234")
+                    .templateId("authentication_template_name")
+                    .wabaId("1234567890")
+                    .addWhitelistedDestination("US")
+                    .addWhitelistedDestination("CA")
+                    .build()
+            )
     }
 
     @Test
@@ -166,6 +193,19 @@ internal class VerifyProfileTest {
                 .updatedAt("2020-09-14T17:03:32.965812")
                 .webhookFailoverUrl("http://example.com/webhook/failover")
                 .webhookUrl("http://example.com/webhook")
+                .whatsapp(
+                    VerifyProfile.Whatsapp.builder()
+                        .appName("Example Secure App")
+                        .codeLength(6L)
+                        .defaultVerificationTimeoutSecs(300L)
+                        .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                        .senderPhoneNumber("+13035551234")
+                        .templateId("authentication_template_name")
+                        .wabaId("1234567890")
+                        .addWhitelistedDestination("US")
+                        .addWhitelistedDestination("CA")
+                        .build()
+                )
                 .build()
 
         val roundtrippedVerifyProfile =

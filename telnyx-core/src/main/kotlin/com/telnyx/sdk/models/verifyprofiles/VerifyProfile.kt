@@ -34,6 +34,7 @@ private constructor(
     private val updatedAt: JsonField<String>,
     private val webhookFailoverUrl: JsonField<String>,
     private val webhookUrl: JsonField<String>,
+    private val whatsapp: JsonField<Whatsapp>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -59,6 +60,7 @@ private constructor(
         @JsonProperty("webhook_url")
         @ExcludeMissing
         webhookUrl: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("whatsapp") @ExcludeMissing whatsapp: JsonField<Whatsapp> = JsonMissing.of(),
     ) : this(
         id,
         call,
@@ -72,6 +74,7 @@ private constructor(
         updatedAt,
         webhookFailoverUrl,
         webhookUrl,
+        whatsapp,
         mutableMapOf(),
     )
 
@@ -149,6 +152,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun whatsapp(): Optional<Whatsapp> = whatsapp.getOptional("whatsapp")
 
     /**
      * Returns the raw JSON value of [id].
@@ -239,6 +248,13 @@ private constructor(
      */
     @JsonProperty("webhook_url") @ExcludeMissing fun _webhookUrl(): JsonField<String> = webhookUrl
 
+    /**
+     * Returns the raw JSON value of [whatsapp].
+     *
+     * Unlike [whatsapp], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("whatsapp") @ExcludeMissing fun _whatsapp(): JsonField<Whatsapp> = whatsapp
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -272,6 +288,7 @@ private constructor(
         private var updatedAt: JsonField<String> = JsonMissing.of()
         private var webhookFailoverUrl: JsonField<String> = JsonMissing.of()
         private var webhookUrl: JsonField<String> = JsonMissing.of()
+        private var whatsapp: JsonField<Whatsapp> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -288,6 +305,7 @@ private constructor(
             updatedAt = verifyProfile.updatedAt
             webhookFailoverUrl = verifyProfile.webhookFailoverUrl
             webhookUrl = verifyProfile.webhookUrl
+            whatsapp = verifyProfile.whatsapp
             additionalProperties = verifyProfile.additionalProperties.toMutableMap()
         }
 
@@ -421,6 +439,17 @@ private constructor(
          */
         fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
 
+        fun whatsapp(whatsapp: Whatsapp) = whatsapp(JsonField.of(whatsapp))
+
+        /**
+         * Sets [Builder.whatsapp] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.whatsapp] with a well-typed [Whatsapp] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun whatsapp(whatsapp: JsonField<Whatsapp>) = apply { this.whatsapp = whatsapp }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -459,6 +488,7 @@ private constructor(
                 updatedAt,
                 webhookFailoverUrl,
                 webhookUrl,
+                whatsapp,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -482,6 +512,7 @@ private constructor(
         updatedAt()
         webhookFailoverUrl()
         webhookUrl()
+        whatsapp().ifPresent { it.validate() }
         validated = true
     }
 
@@ -511,7 +542,8 @@ private constructor(
             (sms.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
-            (if (webhookUrl.asKnown().isPresent) 1 else 0)
+            (if (webhookUrl.asKnown().isPresent) 1 else 0) +
+            (whatsapp.asKnown().getOrNull()?.validity() ?: 0)
 
     class Call
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2016,6 +2048,505 @@ private constructor(
             "Sms{alphaSender=$alphaSender, appName=$appName, codeLength=$codeLength, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, messagingTemplateId=$messagingTemplateId, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
+    class Whatsapp
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val appName: JsonField<String>,
+        private val codeLength: JsonField<Long>,
+        private val defaultVerificationTimeoutSecs: JsonField<Long>,
+        private val messagingTemplateId: JsonField<String>,
+        private val senderPhoneNumber: JsonField<String>,
+        private val templateId: JsonField<String>,
+        private val wabaId: JsonField<String>,
+        private val whitelistedDestinations: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("app_name") @ExcludeMissing appName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("code_length")
+            @ExcludeMissing
+            codeLength: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("default_verification_timeout_secs")
+            @ExcludeMissing
+            defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("messaging_template_id")
+            @ExcludeMissing
+            messagingTemplateId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sender_phone_number")
+            @ExcludeMissing
+            senderPhoneNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("template_id")
+            @ExcludeMissing
+            templateId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("waba_id") @ExcludeMissing wabaId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("whitelisted_destinations")
+            @ExcludeMissing
+            whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(
+            appName,
+            codeLength,
+            defaultVerificationTimeoutSecs,
+            messagingTemplateId,
+            senderPhoneNumber,
+            templateId,
+            wabaId,
+            whitelistedDestinations,
+            mutableMapOf(),
+        )
+
+        /**
+         * The name that identifies the application requesting 2fa in the verification message.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun appName(): Optional<String> = appName.getOptional("app_name")
+
+        /**
+         * The length of the verify code to generate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun codeLength(): Optional<Long> = codeLength.getOptional("code_length")
+
+        /**
+         * For every request that is initiated via this Verify profile, this sets the number of
+         * seconds before a verification request code expires. Once the verification request
+         * expires, the user cannot use the code to verify their identity.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun defaultVerificationTimeoutSecs(): Optional<Long> =
+            defaultVerificationTimeoutSecs.getOptional("default_verification_timeout_secs")
+
+        /**
+         * The message template identifier selected from /verify_profiles/templates
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messagingTemplateId(): Optional<String> =
+            messagingTemplateId.getOptional("messaging_template_id")
+
+        /**
+         * Phone number registered on the customer WABA to send OTPs from
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun senderPhoneNumber(): Optional<String> =
+            senderPhoneNumber.getOptional("sender_phone_number")
+
+        /**
+         * Customer pre-approved authentication template name registered on Meta
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun templateId(): Optional<String> = templateId.getOptional("template_id")
+
+        /**
+         * Customer Meta WABA ID for Bring-Your-Own-WABA sending
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun wabaId(): Optional<String> = wabaId.getOptional("waba_id")
+
+        /**
+         * Enabled country destinations to send verification codes. The elements in the list must be
+         * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
+         * allowed. **Conditionally required:** this field must be provided when your organization
+         * is configured to require explicit whitelisted destinations; otherwise it is optional.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun whitelistedDestinations(): Optional<List<String>> =
+            whitelistedDestinations.getOptional("whitelisted_destinations")
+
+        /**
+         * Returns the raw JSON value of [appName].
+         *
+         * Unlike [appName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("app_name") @ExcludeMissing fun _appName(): JsonField<String> = appName
+
+        /**
+         * Returns the raw JSON value of [codeLength].
+         *
+         * Unlike [codeLength], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("code_length") @ExcludeMissing fun _codeLength(): JsonField<Long> = codeLength
+
+        /**
+         * Returns the raw JSON value of [defaultVerificationTimeoutSecs].
+         *
+         * Unlike [defaultVerificationTimeoutSecs], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("default_verification_timeout_secs")
+        @ExcludeMissing
+        fun _defaultVerificationTimeoutSecs(): JsonField<Long> = defaultVerificationTimeoutSecs
+
+        /**
+         * Returns the raw JSON value of [messagingTemplateId].
+         *
+         * Unlike [messagingTemplateId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("messaging_template_id")
+        @ExcludeMissing
+        fun _messagingTemplateId(): JsonField<String> = messagingTemplateId
+
+        /**
+         * Returns the raw JSON value of [senderPhoneNumber].
+         *
+         * Unlike [senderPhoneNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sender_phone_number")
+        @ExcludeMissing
+        fun _senderPhoneNumber(): JsonField<String> = senderPhoneNumber
+
+        /**
+         * Returns the raw JSON value of [templateId].
+         *
+         * Unlike [templateId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("template_id")
+        @ExcludeMissing
+        fun _templateId(): JsonField<String> = templateId
+
+        /**
+         * Returns the raw JSON value of [wabaId].
+         *
+         * Unlike [wabaId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("waba_id") @ExcludeMissing fun _wabaId(): JsonField<String> = wabaId
+
+        /**
+         * Returns the raw JSON value of [whitelistedDestinations].
+         *
+         * Unlike [whitelistedDestinations], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("whitelisted_destinations")
+        @ExcludeMissing
+        fun _whitelistedDestinations(): JsonField<List<String>> = whitelistedDestinations
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Whatsapp]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Whatsapp]. */
+        class Builder internal constructor() {
+
+            private var appName: JsonField<String> = JsonMissing.of()
+            private var codeLength: JsonField<Long> = JsonMissing.of()
+            private var defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of()
+            private var messagingTemplateId: JsonField<String> = JsonMissing.of()
+            private var senderPhoneNumber: JsonField<String> = JsonMissing.of()
+            private var templateId: JsonField<String> = JsonMissing.of()
+            private var wabaId: JsonField<String> = JsonMissing.of()
+            private var whitelistedDestinations: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(whatsapp: Whatsapp) = apply {
+                appName = whatsapp.appName
+                codeLength = whatsapp.codeLength
+                defaultVerificationTimeoutSecs = whatsapp.defaultVerificationTimeoutSecs
+                messagingTemplateId = whatsapp.messagingTemplateId
+                senderPhoneNumber = whatsapp.senderPhoneNumber
+                templateId = whatsapp.templateId
+                wabaId = whatsapp.wabaId
+                whitelistedDestinations =
+                    whatsapp.whitelistedDestinations.map { it.toMutableList() }
+                additionalProperties = whatsapp.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The name that identifies the application requesting 2fa in the verification message.
+             */
+            fun appName(appName: String) = appName(JsonField.of(appName))
+
+            /**
+             * Sets [Builder.appName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.appName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun appName(appName: JsonField<String>) = apply { this.appName = appName }
+
+            /** The length of the verify code to generate. */
+            fun codeLength(codeLength: Long) = codeLength(JsonField.of(codeLength))
+
+            /**
+             * Sets [Builder.codeLength] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.codeLength] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun codeLength(codeLength: JsonField<Long>) = apply { this.codeLength = codeLength }
+
+            /**
+             * For every request that is initiated via this Verify profile, this sets the number of
+             * seconds before a verification request code expires. Once the verification request
+             * expires, the user cannot use the code to verify their identity.
+             */
+            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: Long) =
+                defaultVerificationTimeoutSecs(JsonField.of(defaultVerificationTimeoutSecs))
+
+            /**
+             * Sets [Builder.defaultVerificationTimeoutSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.defaultVerificationTimeoutSecs] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: JsonField<Long>) =
+                apply {
+                    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs
+                }
+
+            /** The message template identifier selected from /verify_profiles/templates */
+            fun messagingTemplateId(messagingTemplateId: String) =
+                messagingTemplateId(JsonField.of(messagingTemplateId))
+
+            /**
+             * Sets [Builder.messagingTemplateId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messagingTemplateId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun messagingTemplateId(messagingTemplateId: JsonField<String>) = apply {
+                this.messagingTemplateId = messagingTemplateId
+            }
+
+            /** Phone number registered on the customer WABA to send OTPs from */
+            fun senderPhoneNumber(senderPhoneNumber: String?) =
+                senderPhoneNumber(JsonField.ofNullable(senderPhoneNumber))
+
+            /**
+             * Alias for calling [Builder.senderPhoneNumber] with `senderPhoneNumber.orElse(null)`.
+             */
+            fun senderPhoneNumber(senderPhoneNumber: Optional<String>) =
+                senderPhoneNumber(senderPhoneNumber.getOrNull())
+
+            /**
+             * Sets [Builder.senderPhoneNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.senderPhoneNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun senderPhoneNumber(senderPhoneNumber: JsonField<String>) = apply {
+                this.senderPhoneNumber = senderPhoneNumber
+            }
+
+            /** Customer pre-approved authentication template name registered on Meta */
+            fun templateId(templateId: String?) = templateId(JsonField.ofNullable(templateId))
+
+            /** Alias for calling [Builder.templateId] with `templateId.orElse(null)`. */
+            fun templateId(templateId: Optional<String>) = templateId(templateId.getOrNull())
+
+            /**
+             * Sets [Builder.templateId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.templateId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
+
+            /** Customer Meta WABA ID for Bring-Your-Own-WABA sending */
+            fun wabaId(wabaId: String?) = wabaId(JsonField.ofNullable(wabaId))
+
+            /** Alias for calling [Builder.wabaId] with `wabaId.orElse(null)`. */
+            fun wabaId(wabaId: Optional<String>) = wabaId(wabaId.getOrNull())
+
+            /**
+             * Sets [Builder.wabaId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.wabaId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun wabaId(wabaId: JsonField<String>) = apply { this.wabaId = wabaId }
+
+            /**
+             * Enabled country destinations to send verification codes. The elements in the list
+             * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
+             * will be allowed. **Conditionally required:** this field must be provided when your
+             * organization is configured to require explicit whitelisted destinations; otherwise it
+             * is optional.
+             */
+            fun whitelistedDestinations(whitelistedDestinations: List<String>) =
+                whitelistedDestinations(JsonField.of(whitelistedDestinations))
+
+            /**
+             * Sets [Builder.whitelistedDestinations] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.whitelistedDestinations] with a well-typed
+             * `List<String>` value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun whitelistedDestinations(whitelistedDestinations: JsonField<List<String>>) = apply {
+                this.whitelistedDestinations = whitelistedDestinations.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [whitelistedDestinations].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addWhitelistedDestination(whitelistedDestination: String) = apply {
+                whitelistedDestinations =
+                    (whitelistedDestinations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("whitelistedDestinations", it).add(whitelistedDestination)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Whatsapp].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Whatsapp =
+                Whatsapp(
+                    appName,
+                    codeLength,
+                    defaultVerificationTimeoutSecs,
+                    messagingTemplateId,
+                    senderPhoneNumber,
+                    templateId,
+                    wabaId,
+                    (whitelistedDestinations ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Whatsapp = apply {
+            if (validated) {
+                return@apply
+            }
+
+            appName()
+            codeLength()
+            defaultVerificationTimeoutSecs()
+            messagingTemplateId()
+            senderPhoneNumber()
+            templateId()
+            wabaId()
+            whitelistedDestinations()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (appName.asKnown().isPresent) 1 else 0) +
+                (if (codeLength.asKnown().isPresent) 1 else 0) +
+                (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
+                (if (messagingTemplateId.asKnown().isPresent) 1 else 0) +
+                (if (senderPhoneNumber.asKnown().isPresent) 1 else 0) +
+                (if (templateId.asKnown().isPresent) 1 else 0) +
+                (if (wabaId.asKnown().isPresent) 1 else 0) +
+                (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Whatsapp &&
+                appName == other.appName &&
+                codeLength == other.codeLength &&
+                defaultVerificationTimeoutSecs == other.defaultVerificationTimeoutSecs &&
+                messagingTemplateId == other.messagingTemplateId &&
+                senderPhoneNumber == other.senderPhoneNumber &&
+                templateId == other.templateId &&
+                wabaId == other.wabaId &&
+                whitelistedDestinations == other.whitelistedDestinations &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                appName,
+                codeLength,
+                defaultVerificationTimeoutSecs,
+                messagingTemplateId,
+                senderPhoneNumber,
+                templateId,
+                wabaId,
+                whitelistedDestinations,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Whatsapp{appName=$appName, codeLength=$codeLength, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, messagingTemplateId=$messagingTemplateId, senderPhoneNumber=$senderPhoneNumber, templateId=$templateId, wabaId=$wabaId, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -2034,6 +2565,7 @@ private constructor(
             updatedAt == other.updatedAt &&
             webhookFailoverUrl == other.webhookFailoverUrl &&
             webhookUrl == other.webhookUrl &&
+            whatsapp == other.whatsapp &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2051,6 +2583,7 @@ private constructor(
             updatedAt,
             webhookFailoverUrl,
             webhookUrl,
+            whatsapp,
             additionalProperties,
         )
     }
@@ -2058,5 +2591,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VerifyProfile{id=$id, call=$call, createdAt=$createdAt, flashcall=$flashcall, language=$language, name=$name, rcs=$rcs, recordType=$recordType, sms=$sms, updatedAt=$updatedAt, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "VerifyProfile{id=$id, call=$call, createdAt=$createdAt, flashcall=$flashcall, language=$language, name=$name, rcs=$rcs, recordType=$recordType, sms=$sms, updatedAt=$updatedAt, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whatsapp=$whatsapp, additionalProperties=$additionalProperties}"
 }
