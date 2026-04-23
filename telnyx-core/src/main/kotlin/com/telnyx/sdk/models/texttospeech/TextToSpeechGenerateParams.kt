@@ -13,6 +13,7 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
@@ -32,7 +33,8 @@ import kotlin.jvm.optionals.getOrNull
  * single string (e.g. `telnyx.NaturalHD.Alloy` or `Telnyx.Ultra.<voice_id>`). Alternatively,
  * specify `provider` explicitly along with provider-specific parameters.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
+ * `xai`.
  *
  * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
  * control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -171,6 +173,14 @@ private constructor(
     fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
 
     /**
+     * xAI provider-specific parameters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun xai(): Optional<Xai> = body.xai()
+
+    /**
      * Returns the raw JSON value of [aws].
      *
      * Unlike [aws], this method doesn't throw if the JSON field has an unexpected type.
@@ -274,6 +284,13 @@ private constructor(
      * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _voiceSettings(): JsonField<VoiceSettings> = body._voiceSettings()
+
+    /**
+     * Returns the raw JSON value of [xai].
+     *
+     * Unlike [xai], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _xai(): JsonField<Xai> = body._xai()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -517,6 +534,17 @@ private constructor(
             body.voiceSettings(voiceSettings)
         }
 
+        /** xAI provider-specific parameters. */
+        fun xai(xai: Xai) = apply { body.xai(xai) }
+
+        /**
+         * Sets [Builder.xai] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.xai] with a well-typed [Xai] value instead. This method
+         * is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun xai(xai: JsonField<Xai>) = apply { body.xai(xai) }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -672,6 +700,7 @@ private constructor(
         private val textType: JsonField<TextType>,
         private val voice: JsonField<String>,
         private val voiceSettings: JsonField<VoiceSettings>,
+        private val xai: JsonField<Xai>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -708,6 +737,7 @@ private constructor(
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+            @JsonProperty("xai") @ExcludeMissing xai: JsonField<Xai> = JsonMissing.of(),
         ) : this(
             aws,
             azure,
@@ -724,6 +754,7 @@ private constructor(
             textType,
             voice,
             voiceSettings,
+            xai,
             mutableMapOf(),
         )
 
@@ -856,6 +887,14 @@ private constructor(
         fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
 
         /**
+         * xAI provider-specific parameters.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun xai(): Optional<Xai> = xai.getOptional("xai")
+
+        /**
          * Returns the raw JSON value of [aws].
          *
          * Unlike [aws], this method doesn't throw if the JSON field has an unexpected type.
@@ -970,6 +1009,13 @@ private constructor(
         @ExcludeMissing
         fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
 
+        /**
+         * Returns the raw JSON value of [xai].
+         *
+         * Unlike [xai], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("xai") @ExcludeMissing fun _xai(): JsonField<Xai> = xai
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -1006,6 +1052,7 @@ private constructor(
             private var textType: JsonField<TextType> = JsonMissing.of()
             private var voice: JsonField<String> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+            private var xai: JsonField<Xai> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1025,6 +1072,7 @@ private constructor(
                 textType = body.textType
                 voice = body.voice
                 voiceSettings = body.voiceSettings
+                xai = body.xai
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -1233,6 +1281,18 @@ private constructor(
                 this.voiceSettings = voiceSettings
             }
 
+            /** xAI provider-specific parameters. */
+            fun xai(xai: Xai) = xai(JsonField.of(xai))
+
+            /**
+             * Sets [Builder.xai] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.xai] with a well-typed [Xai] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun xai(xai: JsonField<Xai>) = apply { this.xai = xai }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1274,6 +1334,7 @@ private constructor(
                     textType,
                     voice,
                     voiceSettings,
+                    xai,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1300,6 +1361,7 @@ private constructor(
             textType().ifPresent { it.validate() }
             voice()
             voiceSettings().ifPresent { it.validate() }
+            xai().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1333,7 +1395,8 @@ private constructor(
                 (if (text.asKnown().isPresent) 1 else 0) +
                 (textType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (voice.asKnown().isPresent) 1 else 0) +
-                (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
+                (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (xai.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1356,6 +1419,7 @@ private constructor(
                 textType == other.textType &&
                 voice == other.voice &&
                 voiceSettings == other.voiceSettings &&
+                xai == other.xai &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1376,6 +1440,7 @@ private constructor(
                 textType,
                 voice,
                 voiceSettings,
+                xai,
                 additionalProperties,
             )
         }
@@ -1383,7 +1448,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -3220,6 +3285,8 @@ private constructor(
 
             @JvmField val RESEMBLE = of("resemble")
 
+            @JvmField val XAI = of("xai")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -3232,6 +3299,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            XAI,
         }
 
         /**
@@ -3251,6 +3319,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            XAI,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3271,6 +3340,7 @@ private constructor(
                 MINIMAX -> Value.MINIMAX
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
+                XAI -> Value.XAI
                 else -> Value._UNKNOWN
             }
 
@@ -3292,6 +3362,7 @@ private constructor(
                 MINIMAX -> Known.MINIMAX
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
+                XAI -> Known.XAI
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 
@@ -4600,6 +4671,744 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "VoiceSettings{additionalProperties=$additionalProperties}"
+    }
+
+    /** xAI provider-specific parameters. */
+    class Xai
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val voiceId: JsonField<VoiceId>,
+        private val language: JsonField<String>,
+        private val outputFormat: JsonField<OutputFormat>,
+        private val sampleRate: JsonField<SampleRate>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("voice_id")
+            @ExcludeMissing
+            voiceId: JsonField<VoiceId> = JsonMissing.of(),
+            @JsonProperty("language")
+            @ExcludeMissing
+            language: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("output_format")
+            @ExcludeMissing
+            outputFormat: JsonField<OutputFormat> = JsonMissing.of(),
+            @JsonProperty("sample_rate")
+            @ExcludeMissing
+            sampleRate: JsonField<SampleRate> = JsonMissing.of(),
+        ) : this(voiceId, language, outputFormat, sampleRate, mutableMapOf())
+
+        /**
+         * xAI voice identifier.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun voiceId(): VoiceId = voiceId.getRequired("voice_id")
+
+        /**
+         * Language code, or `auto` to detect.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun language(): Optional<String> = language.getOptional("language")
+
+        /**
+         * Audio output format.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun outputFormat(): Optional<OutputFormat> = outputFormat.getOptional("output_format")
+
+        /**
+         * Audio sample rate in Hz.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sampleRate(): Optional<SampleRate> = sampleRate.getOptional("sample_rate")
+
+        /**
+         * Returns the raw JSON value of [voiceId].
+         *
+         * Unlike [voiceId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice_id") @ExcludeMissing fun _voiceId(): JsonField<VoiceId> = voiceId
+
+        /**
+         * Returns the raw JSON value of [language].
+         *
+         * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+        /**
+         * Returns the raw JSON value of [outputFormat].
+         *
+         * Unlike [outputFormat], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("output_format")
+        @ExcludeMissing
+        fun _outputFormat(): JsonField<OutputFormat> = outputFormat
+
+        /**
+         * Returns the raw JSON value of [sampleRate].
+         *
+         * Unlike [sampleRate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sample_rate")
+        @ExcludeMissing
+        fun _sampleRate(): JsonField<SampleRate> = sampleRate
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Xai].
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Xai]. */
+        class Builder internal constructor() {
+
+            private var voiceId: JsonField<VoiceId>? = null
+            private var language: JsonField<String> = JsonMissing.of()
+            private var outputFormat: JsonField<OutputFormat> = JsonMissing.of()
+            private var sampleRate: JsonField<SampleRate> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(xai: Xai) = apply {
+                voiceId = xai.voiceId
+                language = xai.language
+                outputFormat = xai.outputFormat
+                sampleRate = xai.sampleRate
+                additionalProperties = xai.additionalProperties.toMutableMap()
+            }
+
+            /** xAI voice identifier. */
+            fun voiceId(voiceId: VoiceId) = voiceId(JsonField.of(voiceId))
+
+            /**
+             * Sets [Builder.voiceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceId] with a well-typed [VoiceId] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voiceId(voiceId: JsonField<VoiceId>) = apply { this.voiceId = voiceId }
+
+            /** Language code, or `auto` to detect. */
+            fun language(language: String) = language(JsonField.of(language))
+
+            /**
+             * Sets [Builder.language] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.language] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun language(language: JsonField<String>) = apply { this.language = language }
+
+            /** Audio output format. */
+            fun outputFormat(outputFormat: OutputFormat) = outputFormat(JsonField.of(outputFormat))
+
+            /**
+             * Sets [Builder.outputFormat] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.outputFormat] with a well-typed [OutputFormat] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun outputFormat(outputFormat: JsonField<OutputFormat>) = apply {
+                this.outputFormat = outputFormat
+            }
+
+            /** Audio sample rate in Hz. */
+            fun sampleRate(sampleRate: SampleRate) = sampleRate(JsonField.of(sampleRate))
+
+            /**
+             * Sets [Builder.sampleRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sampleRate] with a well-typed [SampleRate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sampleRate(sampleRate: JsonField<SampleRate>) = apply {
+                this.sampleRate = sampleRate
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Xai].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Xai =
+                Xai(
+                    checkRequired("voiceId", voiceId),
+                    language,
+                    outputFormat,
+                    sampleRate,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Xai = apply {
+            if (validated) {
+                return@apply
+            }
+
+            voiceId().validate()
+            language()
+            outputFormat().ifPresent { it.validate() }
+            sampleRate().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (voiceId.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (language.asKnown().isPresent) 1 else 0) +
+                (outputFormat.asKnown().getOrNull()?.validity() ?: 0) +
+                (sampleRate.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** xAI voice identifier. */
+        class VoiceId @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val EVE = of("eve")
+
+                @JvmField val ARA = of("ara")
+
+                @JvmField val REX = of("rex")
+
+                @JvmField val SAL = of("sal")
+
+                @JvmField val LEO = of("leo")
+
+                @JvmStatic fun of(value: String) = VoiceId(JsonField.of(value))
+            }
+
+            /** An enum containing [VoiceId]'s known values. */
+            enum class Known {
+                EVE,
+                ARA,
+                REX,
+                SAL,
+                LEO,
+            }
+
+            /**
+             * An enum containing [VoiceId]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [VoiceId] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                EVE,
+                ARA,
+                REX,
+                SAL,
+                LEO,
+                /**
+                 * An enum member indicating that [VoiceId] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    EVE -> Value.EVE
+                    ARA -> Value.ARA
+                    REX -> Value.REX
+                    SAL -> Value.SAL
+                    LEO -> Value.LEO
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    EVE -> Known.EVE
+                    ARA -> Known.ARA
+                    REX -> Known.REX
+                    SAL -> Known.SAL
+                    LEO -> Known.LEO
+                    else -> throw TelnyxInvalidDataException("Unknown VoiceId: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): VoiceId = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is VoiceId && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Audio output format. */
+        class OutputFormat @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val MP3 = of("mp3")
+
+                @JvmField val WAV = of("wav")
+
+                @JvmField val PCM = of("pcm")
+
+                @JvmField val MULAW = of("mulaw")
+
+                @JvmField val ALAW = of("alaw")
+
+                @JvmStatic fun of(value: String) = OutputFormat(JsonField.of(value))
+            }
+
+            /** An enum containing [OutputFormat]'s known values. */
+            enum class Known {
+                MP3,
+                WAV,
+                PCM,
+                MULAW,
+                ALAW,
+            }
+
+            /**
+             * An enum containing [OutputFormat]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [OutputFormat] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                MP3,
+                WAV,
+                PCM,
+                MULAW,
+                ALAW,
+                /**
+                 * An enum member indicating that [OutputFormat] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    MP3 -> Value.MP3
+                    WAV -> Value.WAV
+                    PCM -> Value.PCM
+                    MULAW -> Value.MULAW
+                    ALAW -> Value.ALAW
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    MP3 -> Known.MP3
+                    WAV -> Known.WAV
+                    PCM -> Known.PCM
+                    MULAW -> Known.MULAW
+                    ALAW -> Known.ALAW
+                    else -> throw TelnyxInvalidDataException("Unknown OutputFormat: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): OutputFormat = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OutputFormat && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Audio sample rate in Hz. */
+        class SampleRate @JsonCreator private constructor(private val value: JsonField<Long>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
+
+            companion object {
+
+                @JvmField val _8000 = of(8000L)
+
+                @JvmField val _16000 = of(16000L)
+
+                @JvmField val _22050 = of(22050L)
+
+                @JvmField val _24000 = of(24000L)
+
+                @JvmField val _44100 = of(44100L)
+
+                @JvmField val _48000 = of(48000L)
+
+                @JvmStatic fun of(value: Long) = SampleRate(JsonField.of(value))
+            }
+
+            /** An enum containing [SampleRate]'s known values. */
+            enum class Known {
+                _8000,
+                _16000,
+                _22050,
+                _24000,
+                _44100,
+                _48000,
+            }
+
+            /**
+             * An enum containing [SampleRate]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [SampleRate] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                _8000,
+                _16000,
+                _22050,
+                _24000,
+                _44100,
+                _48000,
+                /**
+                 * An enum member indicating that [SampleRate] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    _8000 -> Value._8000
+                    _16000 -> Value._16000
+                    _22050 -> Value._22050
+                    _24000 -> Value._24000
+                    _44100 -> Value._44100
+                    _48000 -> Value._48000
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    _8000 -> Known._8000
+                    _16000 -> Known._16000
+                    _22050 -> Known._22050
+                    _24000 -> Known._24000
+                    _44100 -> Known._44100
+                    _48000 -> Known._48000
+                    else -> throw TelnyxInvalidDataException("Unknown SampleRate: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asLong(): Long =
+                _value().asNumber().getOrNull()?.let {
+                    if (it.toDouble() % 1 == 0.0) it.toLong() else null
+                } ?: throw TelnyxInvalidDataException("Value is not a Long")
+
+            private var validated: Boolean = false
+
+            fun validate(): SampleRate = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SampleRate && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Xai &&
+                voiceId == other.voiceId &&
+                language == other.language &&
+                outputFormat == other.outputFormat &&
+                sampleRate == other.sampleRate &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(voiceId, language, outputFormat, sampleRate, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Xai{voiceId=$voiceId, language=$language, outputFormat=$outputFormat, sampleRate=$sampleRate, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
