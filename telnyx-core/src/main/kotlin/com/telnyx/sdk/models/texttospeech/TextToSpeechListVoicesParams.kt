@@ -231,6 +231,8 @@ private constructor(
 
             @JvmField val RESEMBLE = of("resemble")
 
+            @JvmField val XAI = of("xai")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -243,6 +245,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            XAI,
         }
 
         /**
@@ -262,6 +265,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            XAI,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -282,6 +286,7 @@ private constructor(
                 MINIMAX -> Value.MINIMAX
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
+                XAI -> Value.XAI
                 else -> Value._UNKNOWN
             }
 
@@ -303,6 +308,7 @@ private constructor(
                 MINIMAX -> Known.MINIMAX
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
+                XAI -> Known.XAI
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

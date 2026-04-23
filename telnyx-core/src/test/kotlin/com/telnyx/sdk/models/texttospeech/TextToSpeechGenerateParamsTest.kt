@@ -89,6 +89,14 @@ internal class TextToSpeechGenerateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
+            .xai(
+                TextToSpeechGenerateParams.Xai.builder()
+                    .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
+                    .language("language")
+                    .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
+                    .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
+                    .build()
+            )
             .build()
     }
 
@@ -172,6 +180,14 @@ internal class TextToSpeechGenerateParamsTest {
                 .voiceSettings(
                     TextToSpeechGenerateParams.VoiceSettings.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .xai(
+                    TextToSpeechGenerateParams.Xai.builder()
+                        .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
+                        .language("language")
+                        .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
+                        .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
                         .build()
                 )
                 .build()
@@ -262,6 +278,15 @@ internal class TextToSpeechGenerateParamsTest {
             .contains(
                 TextToSpeechGenerateParams.VoiceSettings.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
+        assertThat(body.xai())
+            .contains(
+                TextToSpeechGenerateParams.Xai.builder()
+                    .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
+                    .language("language")
+                    .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
+                    .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
                     .build()
             )
     }
