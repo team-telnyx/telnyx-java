@@ -96,7 +96,11 @@ private constructor(
      * secret under the `api_key_ref` field. See
      * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
      * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
-     * Telnyx.KokoroTTS.af_heart)
+     * Telnyx.KokoroTTS.af_heart). The voice portion of the identifier supports
+     * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+     * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is resolved at call
+     * time from your dynamic variables webhook, allowing you to select the voice dynamically per
+     * call.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -351,7 +355,11 @@ private constructor(
          * integration secret under the `api_key_ref` field. See
          * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
-         * Telnyx.KokoroTTS.af_heart)
+         * Telnyx.KokoroTTS.af_heart). The voice portion of the identifier supports
+         * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is resolved at
+         * call time from your dynamic variables webhook, allowing you to select the voice
+         * dynamically per call.
          */
         fun voice(voice: String) = voice(JsonField.of(voice))
 
