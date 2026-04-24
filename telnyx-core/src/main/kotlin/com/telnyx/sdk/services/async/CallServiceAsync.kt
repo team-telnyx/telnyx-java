@@ -37,6 +37,7 @@ interface CallServiceAsync {
      * **Expected Webhooks:**
      * - `call.initiated`
      * - `call.answered` or `call.hangup`
+     * - `call.hold` and `call.unhold` if the call is held/unheld
      * - `call.machine.detection.ended` if `answering_machine_detection` was requested
      * - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the
      *   end of machine greeting
