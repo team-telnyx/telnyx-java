@@ -91,6 +91,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -113,6 +114,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -282,6 +284,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -304,6 +307,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -475,6 +479,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -497,6 +502,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -661,6 +667,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -683,6 +690,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -823,6 +831,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -845,6 +854,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -973,6 +983,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -995,6 +1006,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1141,6 +1153,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1163,6 +1176,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1318,6 +1332,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1340,6 +1355,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1487,6 +1503,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1509,6 +1526,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1637,6 +1655,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1659,6 +1678,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1781,6 +1801,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1803,6 +1824,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -1917,6 +1939,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -1939,6 +1962,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2051,6 +2075,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2073,6 +2098,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2183,6 +2209,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).contains(callForkStopped)
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2205,6 +2232,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2318,6 +2346,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).contains(callGatherEnded)
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2340,6 +2369,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2498,6 +2528,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).contains(callHangup)
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2520,6 +2551,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2640,6 +2672,142 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofCallHold() {
+        val callHold =
+            CallHoldWebhookEvent.builder()
+                .data(
+                    CallHoldWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(CallHoldWebhookEvent.Data.EventType.CALL_HOLD)
+                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                        .payload(
+                            CallHoldWebhookEvent.Data.Payload.builder()
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .from("+35319605860")
+                                .to("+35319605860")
+                                .build()
+                        )
+                        .recordType(CallHoldWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofCallHold(callHold)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).contains(callHold)
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallHoldRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofCallHold(
+                CallHoldWebhookEvent.builder()
+                    .data(
+                        CallHoldWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(CallHoldWebhookEvent.Data.EventType.CALL_HOLD)
+                            .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                            .payload(
+                                CallHoldWebhookEvent.Data.Payload.builder()
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .from("+35319605860")
+                                    .to("+35319605860")
+                                    .build()
+                            )
+                            .recordType(CallHoldWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
+    }
+
+    @Test
     fun ofCallInitiated() {
         val callInitiated =
             CallInitiatedWebhookEvent.builder()
@@ -2713,6 +2881,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).contains(callInitiated)
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2735,6 +2904,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -2884,6 +3054,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).contains(callLeftQueue)
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -2906,6 +3077,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3022,6 +3194,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded())
@@ -3045,6 +3218,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3162,6 +3336,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3184,6 +3359,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3304,6 +3480,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3327,6 +3504,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3450,6 +3628,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3473,6 +3652,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3596,6 +3776,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3618,6 +3799,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3736,6 +3918,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3758,6 +3941,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -3870,6 +4054,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -3892,6 +4077,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4017,6 +4203,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4039,6 +4226,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4174,6 +4362,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4197,6 +4386,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4323,6 +4513,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4345,6 +4536,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4459,6 +4651,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4481,6 +4674,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4595,6 +4789,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4617,6 +4812,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4727,6 +4923,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4749,6 +4946,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4854,6 +5052,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -4876,6 +5075,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -4981,6 +5181,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5003,6 +5204,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5111,6 +5313,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5133,6 +5336,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5242,6 +5446,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5264,6 +5469,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5382,6 +5588,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5404,6 +5611,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).contains(callStreamingFailed)
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5521,6 +5729,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5543,6 +5752,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).contains(callStreamingStarted)
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5649,6 +5859,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5671,6 +5882,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).contains(callStreamingStopped)
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5736,6 +5948,142 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofCallUnhold() {
+        val callUnhold =
+            CallUnholdWebhookEvent.builder()
+                .data(
+                    CallUnholdWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(CallUnholdWebhookEvent.Data.EventType.CALL_UNHOLD)
+                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                        .payload(
+                            CallUnholdWebhookEvent.Data.Payload.builder()
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .from("+35319605860")
+                                .to("+35319605860")
+                                .build()
+                        )
+                        .recordType(CallUnholdWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofCallUnhold(callUnhold)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).contains(callUnhold)
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallUnholdRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofCallUnhold(
+                CallUnholdWebhookEvent.builder()
+                    .data(
+                        CallUnholdWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(CallUnholdWebhookEvent.Data.EventType.CALL_UNHOLD)
+                            .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                            .payload(
+                                CallUnholdWebhookEvent.Data.Payload.builder()
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .from("+35319605860")
+                                    .to("+35319605860")
+                                    .build()
+                            )
+                            .recordType(CallUnholdWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
+    }
+
+    @Test
     fun ofCampaignStatusUpdate() {
         val campaignStatusUpdate =
             CampaignStatusUpdate.builder()
@@ -5767,6 +6115,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5789,6 +6138,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).contains(campaignStatusUpdate)
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -5887,6 +6237,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -5909,6 +6260,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).contains(conferenceCreated)
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6020,6 +6372,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6042,6 +6395,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).contains(conferenceEnded)
@@ -6147,6 +6501,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6169,6 +6524,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6278,6 +6634,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6300,6 +6657,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6414,6 +6772,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6436,6 +6795,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6558,6 +6918,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6580,6 +6941,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6706,6 +7068,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6728,6 +7091,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6850,6 +7214,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -6872,6 +7237,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -6994,6 +7360,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7016,6 +7383,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7129,6 +7497,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7151,6 +7520,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7256,6 +7626,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7278,6 +7649,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7408,6 +7780,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7430,6 +7803,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7557,6 +7931,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7579,6 +7954,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7679,6 +8055,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7701,6 +8078,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -7900,6 +8278,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -7922,6 +8301,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8139,6 +8519,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8161,6 +8542,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8290,6 +8672,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8312,6 +8695,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8439,6 +8823,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8461,6 +8846,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8587,6 +8973,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8609,6 +8996,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8735,6 +9123,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8757,6 +9146,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -8891,6 +9281,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -8913,6 +9304,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -9126,6 +9518,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -9148,6 +9541,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -9385,6 +9779,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -9407,6 +9802,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -9551,6 +9947,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -9573,6 +9970,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
@@ -9683,6 +10081,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
         assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
         assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
         assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
         assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
@@ -9705,6 +10104,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
         assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
         assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
         assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty

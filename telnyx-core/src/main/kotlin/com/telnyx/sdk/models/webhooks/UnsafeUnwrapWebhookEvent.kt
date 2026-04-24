@@ -40,6 +40,7 @@ private constructor(
     private val callForkStopped: CallForkStoppedWebhookEvent? = null,
     private val callGatherEnded: CallGatherEndedWebhookEvent? = null,
     private val callHangup: CallHangupWebhookEvent? = null,
+    private val callHold: CallHoldWebhookEvent? = null,
     private val callInitiated: CallInitiatedWebhookEvent? = null,
     private val callLeftQueue: CallLeftQueueWebhookEvent? = null,
     private val callMachineDetectionEnded: CallMachineDetectionEndedWebhookEvent? = null,
@@ -65,6 +66,7 @@ private constructor(
     private val callStreamingFailed: CallStreamingFailedWebhookEvent? = null,
     private val callStreamingStarted: CallStreamingStartedWebhookEvent? = null,
     private val callStreamingStopped: CallStreamingStoppedWebhookEvent? = null,
+    private val callUnhold: CallUnholdWebhookEvent? = null,
     private val campaignStatusUpdate: CampaignStatusUpdate? = null,
     private val conferenceCreated: ConferenceCreatedWebhookEvent? = null,
     private val conferenceEnded: ConferenceEndedWebhookEvent? = null,
@@ -145,6 +147,8 @@ private constructor(
 
     fun callHangup(): Optional<CallHangupWebhookEvent> = Optional.ofNullable(callHangup)
 
+    fun callHold(): Optional<CallHoldWebhookEvent> = Optional.ofNullable(callHold)
+
     fun callInitiated(): Optional<CallInitiatedWebhookEvent> = Optional.ofNullable(callInitiated)
 
     fun callLeftQueue(): Optional<CallLeftQueueWebhookEvent> = Optional.ofNullable(callLeftQueue)
@@ -207,6 +211,8 @@ private constructor(
 
     fun callStreamingStopped(): Optional<CallStreamingStoppedWebhookEvent> =
         Optional.ofNullable(callStreamingStopped)
+
+    fun callUnhold(): Optional<CallUnholdWebhookEvent> = Optional.ofNullable(callUnhold)
 
     fun campaignStatusUpdate(): Optional<CampaignStatusUpdate> =
         Optional.ofNullable(campaignStatusUpdate)
@@ -313,6 +319,8 @@ private constructor(
 
     fun isCallHangup(): Boolean = callHangup != null
 
+    fun isCallHold(): Boolean = callHold != null
+
     fun isCallInitiated(): Boolean = callInitiated != null
 
     fun isCallLeftQueue(): Boolean = callLeftQueue != null
@@ -356,6 +364,8 @@ private constructor(
     fun isCallStreamingStarted(): Boolean = callStreamingStarted != null
 
     fun isCallStreamingStopped(): Boolean = callStreamingStopped != null
+
+    fun isCallUnhold(): Boolean = callUnhold != null
 
     fun isCampaignStatusUpdate(): Boolean = campaignStatusUpdate != null
 
@@ -453,6 +463,8 @@ private constructor(
 
     fun asCallHangup(): CallHangupWebhookEvent = callHangup.getOrThrow("callHangup")
 
+    fun asCallHold(): CallHoldWebhookEvent = callHold.getOrThrow("callHold")
+
     fun asCallInitiated(): CallInitiatedWebhookEvent = callInitiated.getOrThrow("callInitiated")
 
     fun asCallLeftQueue(): CallLeftQueueWebhookEvent = callLeftQueue.getOrThrow("callLeftQueue")
@@ -515,6 +527,8 @@ private constructor(
 
     fun asCallStreamingStopped(): CallStreamingStoppedWebhookEvent =
         callStreamingStopped.getOrThrow("callStreamingStopped")
+
+    fun asCallUnhold(): CallUnholdWebhookEvent = callUnhold.getOrThrow("callUnhold")
 
     fun asCampaignStatusUpdate(): CampaignStatusUpdate =
         campaignStatusUpdate.getOrThrow("campaignStatusUpdate")
@@ -612,6 +626,7 @@ private constructor(
             callForkStopped != null -> visitor.visitCallForkStopped(callForkStopped)
             callGatherEnded != null -> visitor.visitCallGatherEnded(callGatherEnded)
             callHangup != null -> visitor.visitCallHangup(callHangup)
+            callHold != null -> visitor.visitCallHold(callHold)
             callInitiated != null -> visitor.visitCallInitiated(callInitiated)
             callLeftQueue != null -> visitor.visitCallLeftQueue(callLeftQueue)
             callMachineDetectionEnded != null ->
@@ -639,6 +654,7 @@ private constructor(
             callStreamingFailed != null -> visitor.visitCallStreamingFailed(callStreamingFailed)
             callStreamingStarted != null -> visitor.visitCallStreamingStarted(callStreamingStarted)
             callStreamingStopped != null -> visitor.visitCallStreamingStopped(callStreamingStopped)
+            callUnhold != null -> visitor.visitCallUnhold(callUnhold)
             campaignStatusUpdate != null -> visitor.visitCampaignStatusUpdate(campaignStatusUpdate)
             conferenceCreated != null -> visitor.visitConferenceCreated(conferenceCreated)
             conferenceEnded != null -> visitor.visitConferenceEnded(conferenceEnded)
@@ -770,6 +786,10 @@ private constructor(
                     callHangup.validate()
                 }
 
+                override fun visitCallHold(callHold: CallHoldWebhookEvent) {
+                    callHold.validate()
+                }
+
                 override fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent) {
                     callInitiated.validate()
                 }
@@ -886,6 +906,10 @@ private constructor(
                     callStreamingStopped: CallStreamingStoppedWebhookEvent
                 ) {
                     callStreamingStopped.validate()
+                }
+
+                override fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent) {
+                    callUnhold.validate()
                 }
 
                 override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) {
@@ -1101,6 +1125,8 @@ private constructor(
                 override fun visitCallHangup(callHangup: CallHangupWebhookEvent) =
                     callHangup.validity()
 
+                override fun visitCallHold(callHold: CallHoldWebhookEvent) = callHold.validity()
+
                 override fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent) =
                     callInitiated.validity()
 
@@ -1181,6 +1207,9 @@ private constructor(
                 override fun visitCallStreamingStopped(
                     callStreamingStopped: CallStreamingStoppedWebhookEvent
                 ) = callStreamingStopped.validity()
+
+                override fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent) =
+                    callUnhold.validity()
 
                 override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
                     campaignStatusUpdate.validity()
@@ -1301,6 +1330,7 @@ private constructor(
             callForkStopped == other.callForkStopped &&
             callGatherEnded == other.callGatherEnded &&
             callHangup == other.callHangup &&
+            callHold == other.callHold &&
             callInitiated == other.callInitiated &&
             callLeftQueue == other.callLeftQueue &&
             callMachineDetectionEnded == other.callMachineDetectionEnded &&
@@ -1323,6 +1353,7 @@ private constructor(
             callStreamingFailed == other.callStreamingFailed &&
             callStreamingStarted == other.callStreamingStarted &&
             callStreamingStopped == other.callStreamingStopped &&
+            callUnhold == other.callUnhold &&
             campaignStatusUpdate == other.campaignStatusUpdate &&
             conferenceCreated == other.conferenceCreated &&
             conferenceEnded == other.conferenceEnded &&
@@ -1369,6 +1400,7 @@ private constructor(
             callForkStopped,
             callGatherEnded,
             callHangup,
+            callHold,
             callInitiated,
             callLeftQueue,
             callMachineDetectionEnded,
@@ -1391,6 +1423,7 @@ private constructor(
             callStreamingFailed,
             callStreamingStarted,
             callStreamingStopped,
+            callUnhold,
             campaignStatusUpdate,
             conferenceCreated,
             conferenceEnded,
@@ -1445,6 +1478,7 @@ private constructor(
             callForkStopped != null -> "UnsafeUnwrapWebhookEvent{callForkStopped=$callForkStopped}"
             callGatherEnded != null -> "UnsafeUnwrapWebhookEvent{callGatherEnded=$callGatherEnded}"
             callHangup != null -> "UnsafeUnwrapWebhookEvent{callHangup=$callHangup}"
+            callHold != null -> "UnsafeUnwrapWebhookEvent{callHold=$callHold}"
             callInitiated != null -> "UnsafeUnwrapWebhookEvent{callInitiated=$callInitiated}"
             callLeftQueue != null -> "UnsafeUnwrapWebhookEvent{callLeftQueue=$callLeftQueue}"
             callMachineDetectionEnded != null ->
@@ -1485,6 +1519,7 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{callStreamingStarted=$callStreamingStarted}"
             callStreamingStopped != null ->
                 "UnsafeUnwrapWebhookEvent{callStreamingStopped=$callStreamingStopped}"
+            callUnhold != null -> "UnsafeUnwrapWebhookEvent{callUnhold=$callUnhold}"
             campaignStatusUpdate != null ->
                 "UnsafeUnwrapWebhookEvent{campaignStatusUpdate=$campaignStatusUpdate}"
             conferenceCreated != null ->
@@ -1612,6 +1647,10 @@ private constructor(
             UnsafeUnwrapWebhookEvent(callHangup = callHangup)
 
         @JvmStatic
+        fun ofCallHold(callHold: CallHoldWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callHold = callHold)
+
+        @JvmStatic
         fun ofCallInitiated(callInitiated: CallInitiatedWebhookEvent) =
             UnsafeUnwrapWebhookEvent(callInitiated = callInitiated)
 
@@ -1712,6 +1751,10 @@ private constructor(
         @JvmStatic
         fun ofCallStreamingStopped(callStreamingStopped: CallStreamingStoppedWebhookEvent) =
             UnsafeUnwrapWebhookEvent(callStreamingStopped = callStreamingStopped)
+
+        @JvmStatic
+        fun ofCallUnhold(callUnhold: CallUnholdWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callUnhold = callUnhold)
 
         @JvmStatic
         fun ofCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
@@ -1885,6 +1928,8 @@ private constructor(
 
         fun visitCallHangup(callHangup: CallHangupWebhookEvent): T
 
+        fun visitCallHold(callHold: CallHoldWebhookEvent): T
+
         fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent): T
 
         fun visitCallLeftQueue(callLeftQueue: CallLeftQueueWebhookEvent): T
@@ -1938,6 +1983,8 @@ private constructor(
         fun visitCallStreamingStarted(callStreamingStarted: CallStreamingStartedWebhookEvent): T
 
         fun visitCallStreamingStopped(callStreamingStopped: CallStreamingStoppedWebhookEvent): T
+
+        fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent): T
 
         fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate): T
 
@@ -2120,6 +2167,9 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallHangupWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callHangup = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<CallHoldWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(callHold = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CallInitiatedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callInitiated = it, _json = json)
                         },
@@ -2225,6 +2275,9 @@ private constructor(
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(callStreamingStopped = it, _json = json)
                             },
+                        tryDeserialize(node, jacksonTypeRef<CallUnholdWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(callUnhold = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CampaignStatusUpdate>())?.let {
                             UnsafeUnwrapWebhookEvent(campaignStatusUpdate = it, _json = json)
                         },
@@ -2407,6 +2460,7 @@ private constructor(
                 value.callForkStopped != null -> generator.writeObject(value.callForkStopped)
                 value.callGatherEnded != null -> generator.writeObject(value.callGatherEnded)
                 value.callHangup != null -> generator.writeObject(value.callHangup)
+                value.callHold != null -> generator.writeObject(value.callHold)
                 value.callInitiated != null -> generator.writeObject(value.callInitiated)
                 value.callLeftQueue != null -> generator.writeObject(value.callLeftQueue)
                 value.callMachineDetectionEnded != null ->
@@ -2438,6 +2492,7 @@ private constructor(
                     generator.writeObject(value.callStreamingStarted)
                 value.callStreamingStopped != null ->
                     generator.writeObject(value.callStreamingStopped)
+                value.callUnhold != null -> generator.writeObject(value.callUnhold)
                 value.campaignStatusUpdate != null ->
                     generator.writeObject(value.campaignStatusUpdate)
                 value.conferenceCreated != null -> generator.writeObject(value.conferenceCreated)
