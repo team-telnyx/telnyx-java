@@ -449,6 +449,9 @@ private constructor(
             private val cancelPlaybackOnDetectMessageEnd: JsonField<Boolean>,
             private val cancelPlaybackOnMachineDetection: JsonField<Boolean>,
             private val customHeaders: JsonField<List<CustomHeader>>,
+            private val deepfakeDetection: JsonField<DeepfakeDetection>,
+            private val deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>,
+            private val deepfakeDetectionCallbackUrl: JsonField<String>,
             private val detectionMode: JsonField<DetectionMode>,
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
@@ -512,6 +515,16 @@ private constructor(
                 @JsonProperty("CustomHeaders")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetection")
+                @ExcludeMissing
+                deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackMethod")
+                @ExcludeMissing
+                deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackUrl")
+                @ExcludeMissing
+                deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("DetectionMode")
                 @ExcludeMissing
                 detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
@@ -611,6 +624,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd,
                 cancelPlaybackOnMachineDetection,
                 customHeaders,
+                deepfakeDetection,
+                deepfakeDetectionCallbackMethod,
+                deepfakeDetectionCallbackUrl,
                 detectionMode,
                 fallbackUrl,
                 from,
@@ -729,6 +745,36 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("CustomHeaders")
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetection(): Optional<DeepfakeDetection> =
+                deepfakeDetection.getOptional("DeepfakeDetection")
+
+            /**
+             * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackMethod(): Optional<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod.getOptional("DeepfakeDetectionCallbackMethod")
+
+            /**
+             * URL destination for Telnyx to send deepfake detection callback events to for the
+             * call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackUrl(): Optional<String> =
+                deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
              * Allows you to chose between Premium and Standard detections.
@@ -1113,6 +1159,37 @@ private constructor(
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
 
             /**
+             * Returns the raw JSON value of [deepfakeDetection].
+             *
+             * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("DeepfakeDetection")
+            @ExcludeMissing
+            fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackMethod].
+             *
+             * Unlike [deepfakeDetectionCallbackMethod], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackMethod")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackMethod(): JsonField<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackUrl].
+             *
+             * Unlike [deepfakeDetectionCallbackUrl], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackUrl")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackUrl(): JsonField<String> = deepfakeDetectionCallbackUrl
+
+            /**
              * Returns the raw JSON value of [detectionMode].
              *
              * Unlike [detectionMode], this method doesn't throw if the JSON field has an unexpected
@@ -1453,6 +1530,11 @@ private constructor(
                 private var cancelPlaybackOnDetectMessageEnd: JsonField<Boolean> = JsonMissing.of()
                 private var cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of()
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
+                private var deepfakeDetectionCallbackMethod:
+                    JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of()
+                private var deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of()
                 private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
@@ -1500,6 +1582,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd = withUrl.cancelPlaybackOnDetectMessageEnd
                     cancelPlaybackOnMachineDetection = withUrl.cancelPlaybackOnMachineDetection
                     customHeaders = withUrl.customHeaders.map { it.toMutableList() }
+                    deepfakeDetection = withUrl.deepfakeDetection
+                    deepfakeDetectionCallbackMethod = withUrl.deepfakeDetectionCallbackMethod
+                    deepfakeDetectionCallbackUrl = withUrl.deepfakeDetectionCallbackUrl
                     detectionMode = withUrl.detectionMode
                     fallbackUrl = withUrl.fallbackUrl
                     from = withUrl.from
@@ -1696,6 +1781,60 @@ private constructor(
                             checkKnown("customHeaders", it).add(customHeader)
                         }
                 }
+
+                /**
+                 * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+                 * remote party is analyzed to determine whether the voice is AI-generated. Results
+                 * are delivered asynchronously via a callback.
+                 */
+                fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                    deepfakeDetection(JsonField.of(deepfakeDetection))
+
+                /**
+                 * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetection] with a well-typed
+                 * [DeepfakeDetection] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                    this.deepfakeDetection = deepfakeDetection
+                }
+
+                /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: DeepfakeDetectionCallbackMethod
+                ) = deepfakeDetectionCallbackMethod(JsonField.of(deepfakeDetectionCallbackMethod))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackMethod] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackMethod] with a
+                 * well-typed [DeepfakeDetectionCallbackMethod] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>
+                ) = apply { this.deepfakeDetectionCallbackMethod = deepfakeDetectionCallbackMethod }
+
+                /**
+                 * URL destination for Telnyx to send deepfake detection callback events to for the
+                 * call.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: String) =
+                    deepfakeDetectionCallbackUrl(JsonField.of(deepfakeDetectionCallbackUrl))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackUrl] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: JsonField<String>) =
+                    apply {
+                        this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
+                    }
 
                 /** Allows you to chose between Premium and Standard detections. */
                 fun detectionMode(detectionMode: DetectionMode) =
@@ -2264,6 +2403,9 @@ private constructor(
                         cancelPlaybackOnDetectMessageEnd,
                         cancelPlaybackOnMachineDetection,
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        deepfakeDetection,
+                        deepfakeDetectionCallbackMethod,
+                        deepfakeDetectionCallbackUrl,
                         detectionMode,
                         fallbackUrl,
                         from,
@@ -2316,6 +2458,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd()
                 cancelPlaybackOnMachineDetection()
                 customHeaders().ifPresent { it.forEach { it.validate() } }
+                deepfakeDetection().ifPresent { it.validate() }
+                deepfakeDetectionCallbackMethod().ifPresent { it.validate() }
+                deepfakeDetectionCallbackUrl()
                 detectionMode().ifPresent { it.validate() }
                 fallbackUrl()
                 from()
@@ -2376,6 +2521,9 @@ private constructor(
                     (if (cancelPlaybackOnDetectMessageEnd.asKnown().isPresent) 1 else 0) +
                     (if (cancelPlaybackOnMachineDetection.asKnown().isPresent) 1 else 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (deepfakeDetectionCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (deepfakeDetectionCallbackUrl.asKnown().isPresent) 1 else 0) +
                     (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
@@ -2760,6 +2908,279 @@ private constructor(
 
                 override fun toString() =
                     "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             */
+            class DeepfakeDetection
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ENABLE = of("Enable")
+
+                    @JvmStatic fun of(value: String) = DeepfakeDetection(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetection]'s known values. */
+                enum class Known {
+                    ENABLE
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetection]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [DeepfakeDetection] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ENABLE,
+                    /**
+                     * An enum member indicating that [DeepfakeDetection] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ENABLE -> Value.ENABLE
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ENABLE -> Known.ENABLE
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown DeepfakeDetection: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetection = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+            class DeepfakeDetectionCallbackMethod
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val GET = of("GET")
+
+                    @JvmField val POST = of("POST")
+
+                    @JvmStatic
+                    fun of(value: String) = DeepfakeDetectionCallbackMethod(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetectionCallbackMethod]'s known values. */
+                enum class Known {
+                    GET,
+                    POST,
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetectionCallbackMethod]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [DeepfakeDetectionCallbackMethod] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    GET,
+                    POST,
+                    /**
+                     * An enum member indicating that [DeepfakeDetectionCallbackMethod] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        GET -> Value.GET
+                        POST -> Value.POST
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        GET -> Known.GET
+                        POST -> Known.POST
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown DeepfakeDetectionCallbackMethod: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetectionCallbackMethod = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetectionCallbackMethod && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
             }
 
             /** Allows you to chose between Premium and Standard detections. */
@@ -4465,6 +4886,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd == other.cancelPlaybackOnDetectMessageEnd &&
                     cancelPlaybackOnMachineDetection == other.cancelPlaybackOnMachineDetection &&
                     customHeaders == other.customHeaders &&
+                    deepfakeDetection == other.deepfakeDetection &&
+                    deepfakeDetectionCallbackMethod == other.deepfakeDetectionCallbackMethod &&
+                    deepfakeDetectionCallbackUrl == other.deepfakeDetectionCallbackUrl &&
                     detectionMode == other.detectionMode &&
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
@@ -4512,6 +4936,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd,
                     cancelPlaybackOnMachineDetection,
                     customHeaders,
+                    deepfakeDetection,
+                    deepfakeDetectionCallbackMethod,
+                    deepfakeDetectionCallbackUrl,
                     detectionMode,
                     fallbackUrl,
                     from,
@@ -4551,7 +4978,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class WithTeXml
@@ -4566,6 +4993,9 @@ private constructor(
             private val cancelPlaybackOnDetectMessageEnd: JsonField<Boolean>,
             private val cancelPlaybackOnMachineDetection: JsonField<Boolean>,
             private val customHeaders: JsonField<List<CustomHeader>>,
+            private val deepfakeDetection: JsonField<DeepfakeDetection>,
+            private val deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>,
+            private val deepfakeDetectionCallbackUrl: JsonField<String>,
             private val detectionMode: JsonField<DetectionMode>,
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
@@ -4629,6 +5059,16 @@ private constructor(
                 @JsonProperty("CustomHeaders")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetection")
+                @ExcludeMissing
+                deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackMethod")
+                @ExcludeMissing
+                deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackUrl")
+                @ExcludeMissing
+                deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("DetectionMode")
                 @ExcludeMissing
                 detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
@@ -4728,6 +5168,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd,
                 cancelPlaybackOnMachineDetection,
                 customHeaders,
+                deepfakeDetection,
+                deepfakeDetectionCallbackMethod,
+                deepfakeDetectionCallbackUrl,
                 detectionMode,
                 fallbackUrl,
                 from,
@@ -4847,6 +5290,36 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("CustomHeaders")
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetection(): Optional<DeepfakeDetection> =
+                deepfakeDetection.getOptional("DeepfakeDetection")
+
+            /**
+             * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackMethod(): Optional<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod.getOptional("DeepfakeDetectionCallbackMethod")
+
+            /**
+             * URL destination for Telnyx to send deepfake detection callback events to for the
+             * call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackUrl(): Optional<String> =
+                deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
              * Allows you to chose between Premium and Standard detections.
@@ -5231,6 +5704,37 @@ private constructor(
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
 
             /**
+             * Returns the raw JSON value of [deepfakeDetection].
+             *
+             * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("DeepfakeDetection")
+            @ExcludeMissing
+            fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackMethod].
+             *
+             * Unlike [deepfakeDetectionCallbackMethod], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackMethod")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackMethod(): JsonField<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackUrl].
+             *
+             * Unlike [deepfakeDetectionCallbackUrl], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackUrl")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackUrl(): JsonField<String> = deepfakeDetectionCallbackUrl
+
+            /**
              * Returns the raw JSON value of [detectionMode].
              *
              * Unlike [detectionMode], this method doesn't throw if the JSON field has an unexpected
@@ -5571,6 +6075,11 @@ private constructor(
                 private var cancelPlaybackOnDetectMessageEnd: JsonField<Boolean> = JsonMissing.of()
                 private var cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of()
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
+                private var deepfakeDetectionCallbackMethod:
+                    JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of()
+                private var deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of()
                 private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
@@ -5618,6 +6127,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd = withTeXml.cancelPlaybackOnDetectMessageEnd
                     cancelPlaybackOnMachineDetection = withTeXml.cancelPlaybackOnMachineDetection
                     customHeaders = withTeXml.customHeaders.map { it.toMutableList() }
+                    deepfakeDetection = withTeXml.deepfakeDetection
+                    deepfakeDetectionCallbackMethod = withTeXml.deepfakeDetectionCallbackMethod
+                    deepfakeDetectionCallbackUrl = withTeXml.deepfakeDetectionCallbackUrl
                     detectionMode = withTeXml.detectionMode
                     fallbackUrl = withTeXml.fallbackUrl
                     from = withTeXml.from
@@ -5818,6 +6330,60 @@ private constructor(
                             checkKnown("customHeaders", it).add(customHeader)
                         }
                 }
+
+                /**
+                 * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+                 * remote party is analyzed to determine whether the voice is AI-generated. Results
+                 * are delivered asynchronously via a callback.
+                 */
+                fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                    deepfakeDetection(JsonField.of(deepfakeDetection))
+
+                /**
+                 * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetection] with a well-typed
+                 * [DeepfakeDetection] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                    this.deepfakeDetection = deepfakeDetection
+                }
+
+                /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: DeepfakeDetectionCallbackMethod
+                ) = deepfakeDetectionCallbackMethod(JsonField.of(deepfakeDetectionCallbackMethod))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackMethod] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackMethod] with a
+                 * well-typed [DeepfakeDetectionCallbackMethod] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>
+                ) = apply { this.deepfakeDetectionCallbackMethod = deepfakeDetectionCallbackMethod }
+
+                /**
+                 * URL destination for Telnyx to send deepfake detection callback events to for the
+                 * call.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: String) =
+                    deepfakeDetectionCallbackUrl(JsonField.of(deepfakeDetectionCallbackUrl))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackUrl] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: JsonField<String>) =
+                    apply {
+                        this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
+                    }
 
                 /** Allows you to chose between Premium and Standard detections. */
                 fun detectionMode(detectionMode: DetectionMode) =
@@ -6386,6 +6952,9 @@ private constructor(
                         cancelPlaybackOnDetectMessageEnd,
                         cancelPlaybackOnMachineDetection,
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        deepfakeDetection,
+                        deepfakeDetectionCallbackMethod,
+                        deepfakeDetectionCallbackUrl,
                         detectionMode,
                         fallbackUrl,
                         from,
@@ -6438,6 +7007,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd()
                 cancelPlaybackOnMachineDetection()
                 customHeaders().ifPresent { it.forEach { it.validate() } }
+                deepfakeDetection().ifPresent { it.validate() }
+                deepfakeDetectionCallbackMethod().ifPresent { it.validate() }
+                deepfakeDetectionCallbackUrl()
                 detectionMode().ifPresent { it.validate() }
                 fallbackUrl()
                 from()
@@ -6498,6 +7070,9 @@ private constructor(
                     (if (cancelPlaybackOnDetectMessageEnd.asKnown().isPresent) 1 else 0) +
                     (if (cancelPlaybackOnMachineDetection.asKnown().isPresent) 1 else 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (deepfakeDetectionCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (deepfakeDetectionCallbackUrl.asKnown().isPresent) 1 else 0) +
                     (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
@@ -6882,6 +7457,279 @@ private constructor(
 
                 override fun toString() =
                     "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             */
+            class DeepfakeDetection
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ENABLE = of("Enable")
+
+                    @JvmStatic fun of(value: String) = DeepfakeDetection(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetection]'s known values. */
+                enum class Known {
+                    ENABLE
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetection]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [DeepfakeDetection] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ENABLE,
+                    /**
+                     * An enum member indicating that [DeepfakeDetection] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ENABLE -> Value.ENABLE
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ENABLE -> Known.ENABLE
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown DeepfakeDetection: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetection = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+            class DeepfakeDetectionCallbackMethod
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val GET = of("GET")
+
+                    @JvmField val POST = of("POST")
+
+                    @JvmStatic
+                    fun of(value: String) = DeepfakeDetectionCallbackMethod(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetectionCallbackMethod]'s known values. */
+                enum class Known {
+                    GET,
+                    POST,
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetectionCallbackMethod]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [DeepfakeDetectionCallbackMethod] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    GET,
+                    POST,
+                    /**
+                     * An enum member indicating that [DeepfakeDetectionCallbackMethod] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        GET -> Value.GET
+                        POST -> Value.POST
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        GET -> Known.GET
+                        POST -> Known.POST
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown DeepfakeDetectionCallbackMethod: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetectionCallbackMethod = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetectionCallbackMethod && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
             }
 
             /** Allows you to chose between Premium and Standard detections. */
@@ -8587,6 +9435,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd == other.cancelPlaybackOnDetectMessageEnd &&
                     cancelPlaybackOnMachineDetection == other.cancelPlaybackOnMachineDetection &&
                     customHeaders == other.customHeaders &&
+                    deepfakeDetection == other.deepfakeDetection &&
+                    deepfakeDetectionCallbackMethod == other.deepfakeDetectionCallbackMethod &&
+                    deepfakeDetectionCallbackUrl == other.deepfakeDetectionCallbackUrl &&
                     detectionMode == other.detectionMode &&
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
@@ -8634,6 +9485,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd,
                     cancelPlaybackOnMachineDetection,
                     customHeaders,
+                    deepfakeDetection,
+                    deepfakeDetectionCallbackMethod,
+                    deepfakeDetectionCallbackUrl,
                     detectionMode,
                     fallbackUrl,
                     from,
@@ -8673,7 +9527,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class ApplicationDefault
@@ -8687,6 +9541,9 @@ private constructor(
             private val cancelPlaybackOnDetectMessageEnd: JsonField<Boolean>,
             private val cancelPlaybackOnMachineDetection: JsonField<Boolean>,
             private val customHeaders: JsonField<List<CustomHeader>>,
+            private val deepfakeDetection: JsonField<DeepfakeDetection>,
+            private val deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>,
+            private val deepfakeDetectionCallbackUrl: JsonField<String>,
             private val detectionMode: JsonField<DetectionMode>,
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
@@ -8750,6 +9607,16 @@ private constructor(
                 @JsonProperty("CustomHeaders")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetection")
+                @ExcludeMissing
+                deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackMethod")
+                @ExcludeMissing
+                deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of(),
+                @JsonProperty("DeepfakeDetectionCallbackUrl")
+                @ExcludeMissing
+                deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("DetectionMode")
                 @ExcludeMissing
                 detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
@@ -8849,6 +9716,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd,
                 cancelPlaybackOnMachineDetection,
                 customHeaders,
+                deepfakeDetection,
+                deepfakeDetectionCallbackMethod,
+                deepfakeDetectionCallbackUrl,
                 detectionMode,
                 fallbackUrl,
                 from,
@@ -8959,6 +9829,36 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("CustomHeaders")
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetection(): Optional<DeepfakeDetection> =
+                deepfakeDetection.getOptional("DeepfakeDetection")
+
+            /**
+             * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackMethod(): Optional<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod.getOptional("DeepfakeDetectionCallbackMethod")
+
+            /**
+             * URL destination for Telnyx to send deepfake detection callback events to for the
+             * call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun deepfakeDetectionCallbackUrl(): Optional<String> =
+                deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
              * Allows you to chose between Premium and Standard detections.
@@ -9342,6 +10242,37 @@ private constructor(
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
 
             /**
+             * Returns the raw JSON value of [deepfakeDetection].
+             *
+             * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("DeepfakeDetection")
+            @ExcludeMissing
+            fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackMethod].
+             *
+             * Unlike [deepfakeDetectionCallbackMethod], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackMethod")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackMethod(): JsonField<DeepfakeDetectionCallbackMethod> =
+                deepfakeDetectionCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [deepfakeDetectionCallbackUrl].
+             *
+             * Unlike [deepfakeDetectionCallbackUrl], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("DeepfakeDetectionCallbackUrl")
+            @ExcludeMissing
+            fun _deepfakeDetectionCallbackUrl(): JsonField<String> = deepfakeDetectionCallbackUrl
+
+            /**
              * Returns the raw JSON value of [detectionMode].
              *
              * Unlike [detectionMode], this method doesn't throw if the JSON field has an unexpected
@@ -9683,6 +10614,11 @@ private constructor(
                 private var cancelPlaybackOnDetectMessageEnd: JsonField<Boolean> = JsonMissing.of()
                 private var cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of()
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
+                private var deepfakeDetectionCallbackMethod:
+                    JsonField<DeepfakeDetectionCallbackMethod> =
+                    JsonMissing.of()
+                private var deepfakeDetectionCallbackUrl: JsonField<String> = JsonMissing.of()
                 private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
@@ -9732,6 +10668,10 @@ private constructor(
                     cancelPlaybackOnMachineDetection =
                         applicationDefault.cancelPlaybackOnMachineDetection
                     customHeaders = applicationDefault.customHeaders.map { it.toMutableList() }
+                    deepfakeDetection = applicationDefault.deepfakeDetection
+                    deepfakeDetectionCallbackMethod =
+                        applicationDefault.deepfakeDetectionCallbackMethod
+                    deepfakeDetectionCallbackUrl = applicationDefault.deepfakeDetectionCallbackUrl
                     detectionMode = applicationDefault.detectionMode
                     fallbackUrl = applicationDefault.fallbackUrl
                     from = applicationDefault.from
@@ -9920,6 +10860,60 @@ private constructor(
                             checkKnown("customHeaders", it).add(customHeader)
                         }
                 }
+
+                /**
+                 * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+                 * remote party is analyzed to determine whether the voice is AI-generated. Results
+                 * are delivered asynchronously via a callback.
+                 */
+                fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                    deepfakeDetection(JsonField.of(deepfakeDetection))
+
+                /**
+                 * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetection] with a well-typed
+                 * [DeepfakeDetection] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                    this.deepfakeDetection = deepfakeDetection
+                }
+
+                /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: DeepfakeDetectionCallbackMethod
+                ) = deepfakeDetectionCallbackMethod(JsonField.of(deepfakeDetectionCallbackMethod))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackMethod] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackMethod] with a
+                 * well-typed [DeepfakeDetectionCallbackMethod] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackMethod(
+                    deepfakeDetectionCallbackMethod: JsonField<DeepfakeDetectionCallbackMethod>
+                ) = apply { this.deepfakeDetectionCallbackMethod = deepfakeDetectionCallbackMethod }
+
+                /**
+                 * URL destination for Telnyx to send deepfake detection callback events to for the
+                 * call.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: String) =
+                    deepfakeDetectionCallbackUrl(JsonField.of(deepfakeDetectionCallbackUrl))
+
+                /**
+                 * Sets [Builder.deepfakeDetectionCallbackUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.deepfakeDetectionCallbackUrl] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun deepfakeDetectionCallbackUrl(deepfakeDetectionCallbackUrl: JsonField<String>) =
+                    apply {
+                        this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
+                    }
 
                 /** Allows you to chose between Premium and Standard detections. */
                 fun detectionMode(detectionMode: DetectionMode) =
@@ -10494,6 +11488,9 @@ private constructor(
                         cancelPlaybackOnDetectMessageEnd,
                         cancelPlaybackOnMachineDetection,
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        deepfakeDetection,
+                        deepfakeDetectionCallbackMethod,
+                        deepfakeDetectionCallbackUrl,
                         detectionMode,
                         fallbackUrl,
                         from,
@@ -10546,6 +11543,9 @@ private constructor(
                 cancelPlaybackOnDetectMessageEnd()
                 cancelPlaybackOnMachineDetection()
                 customHeaders().ifPresent { it.forEach { it.validate() } }
+                deepfakeDetection().ifPresent { it.validate() }
+                deepfakeDetectionCallbackMethod().ifPresent { it.validate() }
+                deepfakeDetectionCallbackUrl()
                 detectionMode().ifPresent { it.validate() }
                 fallbackUrl()
                 from()
@@ -10606,6 +11606,9 @@ private constructor(
                     (if (cancelPlaybackOnDetectMessageEnd.asKnown().isPresent) 1 else 0) +
                     (if (cancelPlaybackOnMachineDetection.asKnown().isPresent) 1 else 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (deepfakeDetectionCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (deepfakeDetectionCallbackUrl.asKnown().isPresent) 1 else 0) +
                     (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
@@ -10991,6 +11994,279 @@ private constructor(
 
                 override fun toString() =
                     "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * Enables Deepfake Detection on the dialed call. When enabled, audio from the remote
+             * party is analyzed to determine whether the voice is AI-generated. Results are
+             * delivered asynchronously via a callback.
+             */
+            class DeepfakeDetection
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ENABLE = of("Enable")
+
+                    @JvmStatic fun of(value: String) = DeepfakeDetection(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetection]'s known values. */
+                enum class Known {
+                    ENABLE
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetection]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [DeepfakeDetection] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ENABLE,
+                    /**
+                     * An enum member indicating that [DeepfakeDetection] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ENABLE -> Value.ENABLE
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ENABLE -> Known.ENABLE
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown DeepfakeDetection: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetection = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** HTTP request type used for `DeepfakeDetectionCallbackUrl`. */
+            class DeepfakeDetectionCallbackMethod
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val GET = of("GET")
+
+                    @JvmField val POST = of("POST")
+
+                    @JvmStatic
+                    fun of(value: String) = DeepfakeDetectionCallbackMethod(JsonField.of(value))
+                }
+
+                /** An enum containing [DeepfakeDetectionCallbackMethod]'s known values. */
+                enum class Known {
+                    GET,
+                    POST,
+                }
+
+                /**
+                 * An enum containing [DeepfakeDetectionCallbackMethod]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [DeepfakeDetectionCallbackMethod] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    GET,
+                    POST,
+                    /**
+                     * An enum member indicating that [DeepfakeDetectionCallbackMethod] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        GET -> Value.GET
+                        POST -> Value.POST
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        GET -> Known.GET
+                        POST -> Known.POST
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown DeepfakeDetectionCallbackMethod: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): DeepfakeDetectionCallbackMethod = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DeepfakeDetectionCallbackMethod && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
             }
 
             /** Allows you to chose between Premium and Standard detections. */
@@ -12695,6 +13971,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd == other.cancelPlaybackOnDetectMessageEnd &&
                     cancelPlaybackOnMachineDetection == other.cancelPlaybackOnMachineDetection &&
                     customHeaders == other.customHeaders &&
+                    deepfakeDetection == other.deepfakeDetection &&
+                    deepfakeDetectionCallbackMethod == other.deepfakeDetectionCallbackMethod &&
+                    deepfakeDetectionCallbackUrl == other.deepfakeDetectionCallbackUrl &&
                     detectionMode == other.detectionMode &&
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
@@ -12742,6 +14021,9 @@ private constructor(
                     cancelPlaybackOnDetectMessageEnd,
                     cancelPlaybackOnMachineDetection,
                     customHeaders,
+                    deepfakeDetection,
+                    deepfakeDetectionCallbackMethod,
+                    deepfakeDetectionCallbackUrl,
                     detectionMode,
                     fallbackUrl,
                     from,
@@ -12782,7 +14064,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
     }
 
