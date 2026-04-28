@@ -22,6 +22,37 @@ internal class AssistantUpdateParamsTest {
             )
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
+            .externalLlm(
+                UpdateAssistant.ExternalLlm.builder()
+                    .baseUrl("base_url")
+                    .model("model")
+                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .tokenRetrievalUrl("token_retrieval_url")
+                    .build()
+            )
+            .fallbackConfig(
+                UpdateAssistant.FallbackConfig.builder()
+                    .externalLlm(
+                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .build()
+            )
             .greeting("greeting")
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .instructions("instructions")
@@ -255,6 +286,39 @@ internal class AssistantUpdateParamsTest {
                 )
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                .externalLlm(
+                    UpdateAssistant.ExternalLlm.builder()
+                        .baseUrl("base_url")
+                        .model("model")
+                        .authenticationMethod(
+                            UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .tokenRetrievalUrl("token_retrieval_url")
+                        .build()
+                )
+                .fallbackConfig(
+                    UpdateAssistant.FallbackConfig.builder()
+                        .externalLlm(
+                            UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .build()
+                )
                 .greeting("greeting")
                 .insightSettings(
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
@@ -481,6 +545,39 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.dynamicVariablesWebhookUrl()).contains("dynamic_variables_webhook_url")
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
+        assertThat(body.externalLlm())
+            .contains(
+                UpdateAssistant.ExternalLlm.builder()
+                    .baseUrl("base_url")
+                    .model("model")
+                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .tokenRetrievalUrl("token_retrieval_url")
+                    .build()
+            )
+        assertThat(body.fallbackConfig())
+            .contains(
+                UpdateAssistant.FallbackConfig.builder()
+                    .externalLlm(
+                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .build()
+            )
         assertThat(body.greeting()).contains("greeting")
         assertThat(body.insightSettings())
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())

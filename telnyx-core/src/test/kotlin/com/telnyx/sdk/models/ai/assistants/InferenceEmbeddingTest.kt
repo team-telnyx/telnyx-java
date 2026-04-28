@@ -29,6 +29,40 @@ internal class InferenceEmbeddingTest {
                 )
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                .externalLlm(
+                    InferenceEmbedding.ExternalLlm.builder()
+                        .baseUrl("base_url")
+                        .model("model")
+                        .authenticationMethod(
+                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .tokenRetrievalUrl("token_retrieval_url")
+                        .build()
+                )
+                .fallbackConfig(
+                    InferenceEmbedding.FallbackConfig.builder()
+                        .externalLlm(
+                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .build()
+                )
                 .greeting("greeting")
                 .importMetadata(
                     ImportMetadata.builder()
@@ -262,6 +296,39 @@ internal class InferenceEmbeddingTest {
             .contains("dynamic_variables_webhook_url")
         assertThat(inferenceEmbedding.enabledFeatures().getOrNull())
             .containsExactly(EnabledFeatures.TELEPHONY)
+        assertThat(inferenceEmbedding.externalLlm())
+            .contains(
+                InferenceEmbedding.ExternalLlm.builder()
+                    .baseUrl("base_url")
+                    .model("model")
+                    .authenticationMethod(InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .tokenRetrievalUrl("token_retrieval_url")
+                    .build()
+            )
+        assertThat(inferenceEmbedding.fallbackConfig())
+            .contains(
+                InferenceEmbedding.FallbackConfig.builder()
+                    .externalLlm(
+                        InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                InferenceEmbedding.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .build()
+            )
         assertThat(inferenceEmbedding.greeting()).contains("greeting")
         assertThat(inferenceEmbedding.importMetadata())
             .contains(
@@ -527,6 +594,40 @@ internal class InferenceEmbeddingTest {
                 )
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                .externalLlm(
+                    InferenceEmbedding.ExternalLlm.builder()
+                        .baseUrl("base_url")
+                        .model("model")
+                        .authenticationMethod(
+                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .tokenRetrievalUrl("token_retrieval_url")
+                        .build()
+                )
+                .fallbackConfig(
+                    InferenceEmbedding.FallbackConfig.builder()
+                        .externalLlm(
+                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .build()
+                )
                 .greeting("greeting")
                 .importMetadata(
                     ImportMetadata.builder()

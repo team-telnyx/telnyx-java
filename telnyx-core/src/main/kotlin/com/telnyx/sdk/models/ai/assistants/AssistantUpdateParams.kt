@@ -66,6 +66,18 @@ private constructor(
     fun enabledFeatures(): Optional<List<EnabledFeatures>> = body.enabledFeatures()
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> = body.externalLlm()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> = body.fallbackConfig()
+
+    /**
      * Text that the assistant will use to start the conversation. This may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
      * Use an empty string to have the assistant wait for the user to speak first. Use the special
@@ -229,6 +241,20 @@ private constructor(
      * Unlike [enabledFeatures], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _enabledFeatures(): JsonField<List<EnabledFeatures>> = body._enabledFeatures()
+
+    /**
+     * Returns the raw JSON value of [externalLlm].
+     *
+     * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = body._externalLlm()
+
+    /**
+     * Returns the raw JSON value of [fallbackConfig].
+     *
+     * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = body._fallbackConfig()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -402,7 +428,7 @@ private constructor(
          * - [dynamicVariables]
          * - [dynamicVariablesWebhookUrl]
          * - [enabledFeatures]
-         * - [greeting]
+         * - [externalLlm]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -478,6 +504,36 @@ private constructor(
          */
         fun addEnabledFeature(enabledFeature: EnabledFeatures) = apply {
             body.addEnabledFeature(enabledFeature)
+        }
+
+        fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) = apply {
+            body.externalLlm(externalLlm)
+        }
+
+        /**
+         * Sets [Builder.externalLlm] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalLlm] with a well-typed
+         * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
+            body.externalLlm(externalLlm)
+        }
+
+        fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) = apply {
+            body.fallbackConfig(fallbackConfig)
+        }
+
+        /**
+         * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fallbackConfig] with a well-typed
+         * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
+            body.fallbackConfig(fallbackConfig)
         }
 
         /**
@@ -1057,6 +1113,8 @@ private constructor(
         private val dynamicVariables: JsonField<UpdateAssistant.DynamicVariables>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
+        private val externalLlm: JsonField<UpdateAssistant.ExternalLlm>,
+        private val fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val instructions: JsonField<String>,
@@ -1091,6 +1149,12 @@ private constructor(
             @JsonProperty("enabled_features")
             @ExcludeMissing
             enabledFeatures: JsonField<List<EnabledFeatures>> = JsonMissing.of(),
+            @JsonProperty("external_llm")
+            @ExcludeMissing
+            externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of(),
+            @JsonProperty("fallback_config")
+            @ExcludeMissing
+            fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -1144,6 +1208,8 @@ private constructor(
             dynamicVariables,
             dynamicVariablesWebhookUrl,
             enabledFeatures,
+            externalLlm,
+            fallbackConfig,
             greeting,
             insightSettings,
             instructions,
@@ -1170,6 +1236,8 @@ private constructor(
                 .dynamicVariables(dynamicVariables)
                 .dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl)
                 .enabledFeatures(enabledFeatures)
+                .externalLlm(externalLlm)
+                .fallbackConfig(fallbackConfig)
                 .greeting(greeting)
                 .insightSettings(insightSettings)
                 .instructions(instructions)
@@ -1221,6 +1289,20 @@ private constructor(
          */
         fun enabledFeatures(): Optional<List<EnabledFeatures>> =
             enabledFeatures.getOptional("enabled_features")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> =
+            externalLlm.getOptional("external_llm")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> =
+            fallbackConfig.getOptional("fallback_config")
 
         /**
          * Text that the assistant will use to start the conversation. This may be templated with
@@ -1404,6 +1486,25 @@ private constructor(
         fun _enabledFeatures(): JsonField<List<EnabledFeatures>> = enabledFeatures
 
         /**
+         * Returns the raw JSON value of [externalLlm].
+         *
+         * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_llm")
+        @ExcludeMissing
+        fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = externalLlm
+
+        /**
+         * Returns the raw JSON value of [fallbackConfig].
+         *
+         * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("fallback_config")
+        @ExcludeMissing
+        fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = fallbackConfig
+
+        /**
          * Returns the raw JSON value of [greeting].
          *
          * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
@@ -1585,6 +1686,8 @@ private constructor(
                 JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
+            private var externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of()
+            private var fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
@@ -1612,6 +1715,8 @@ private constructor(
                 dynamicVariables = body.dynamicVariables
                 dynamicVariablesWebhookUrl = body.dynamicVariablesWebhookUrl
                 enabledFeatures = body.enabledFeatures.map { it.toMutableList() }
+                externalLlm = body.externalLlm
+                fallbackConfig = body.fallbackConfig
                 greeting = body.greeting
                 insightSettings = body.insightSettings
                 instructions = body.instructions
@@ -1705,6 +1810,34 @@ private constructor(
                     (enabledFeatures ?: JsonField.of(mutableListOf())).also {
                         checkKnown("enabledFeatures", it).add(enabledFeature)
                     }
+            }
+
+            fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) =
+                externalLlm(JsonField.of(externalLlm))
+
+            /**
+             * Sets [Builder.externalLlm] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalLlm] with a well-typed
+             * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
+                this.externalLlm = externalLlm
+            }
+
+            fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) =
+                fallbackConfig(JsonField.of(fallbackConfig))
+
+            /**
+             * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fallbackConfig] with a well-typed
+             * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
+                this.fallbackConfig = fallbackConfig
             }
 
             /**
@@ -2185,6 +2318,8 @@ private constructor(
                     dynamicVariables,
                     dynamicVariablesWebhookUrl,
                     (enabledFeatures ?: JsonMissing.of()).map { it.toImmutable() },
+                    externalLlm,
+                    fallbackConfig,
                     greeting,
                     insightSettings,
                     instructions,
@@ -2217,6 +2352,8 @@ private constructor(
             dynamicVariables().ifPresent { it.validate() }
             dynamicVariablesWebhookUrl()
             enabledFeatures().ifPresent { it.forEach { it.validate() } }
+            externalLlm().ifPresent { it.validate() }
+            fallbackConfig().ifPresent { it.validate() }
             greeting()
             insightSettings().ifPresent { it.validate() }
             instructions()
@@ -2257,6 +2394,8 @@ private constructor(
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (enabledFeatures.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
+                (fallbackConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (instructions.asKnown().isPresent) 1 else 0) +
@@ -2285,6 +2424,8 @@ private constructor(
                 dynamicVariables == other.dynamicVariables &&
                 dynamicVariablesWebhookUrl == other.dynamicVariablesWebhookUrl &&
                 enabledFeatures == other.enabledFeatures &&
+                externalLlm == other.externalLlm &&
+                fallbackConfig == other.fallbackConfig &&
                 greeting == other.greeting &&
                 insightSettings == other.insightSettings &&
                 instructions == other.instructions &&
@@ -2311,6 +2452,8 @@ private constructor(
                 dynamicVariables,
                 dynamicVariablesWebhookUrl,
                 enabledFeatures,
+                externalLlm,
+                fallbackConfig,
                 greeting,
                 insightSettings,
                 instructions,
@@ -2335,7 +2478,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
