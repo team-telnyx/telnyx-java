@@ -19,9 +19,12 @@ class TranscriptionSettingsConfig
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val eagerEotThreshold: JsonField<Double>,
+    private val endOfTurnConfidenceThreshold: JsonField<Double>,
     private val eotThreshold: JsonField<Double>,
     private val eotTimeoutMs: JsonField<Long>,
     private val keyterm: JsonField<String>,
+    private val maxTurnSilence: JsonField<Long>,
+    private val minTurnSilence: JsonField<Long>,
     private val numerals: JsonField<Boolean>,
     private val smartFormat: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -32,6 +35,9 @@ private constructor(
         @JsonProperty("eager_eot_threshold")
         @ExcludeMissing
         eagerEotThreshold: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("end_of_turn_confidence_threshold")
+        @ExcludeMissing
+        endOfTurnConfidenceThreshold: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("eot_threshold")
         @ExcludeMissing
         eotThreshold: JsonField<Double> = JsonMissing.of(),
@@ -39,15 +45,24 @@ private constructor(
         @ExcludeMissing
         eotTimeoutMs: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("keyterm") @ExcludeMissing keyterm: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("max_turn_silence")
+        @ExcludeMissing
+        maxTurnSilence: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("min_turn_silence")
+        @ExcludeMissing
+        minTurnSilence: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("numerals") @ExcludeMissing numerals: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("smart_format")
         @ExcludeMissing
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
         eagerEotThreshold,
+        endOfTurnConfidenceThreshold,
         eotThreshold,
         eotTimeoutMs,
         keyterm,
+        maxTurnSilence,
+        minTurnSilence,
         numerals,
         smartFormat,
         mutableMapOf(),
@@ -62,6 +77,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun eagerEotThreshold(): Optional<Double> = eagerEotThreshold.getOptional("eager_eot_threshold")
+
+    /**
+     * Available only for assemblyai/universal-streaming. Confidence level required to trigger an
+     * end of turn. Higher values require more certainty before ending a turn.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endOfTurnConfidenceThreshold(): Optional<Double> =
+        endOfTurnConfidenceThreshold.getOptional("end_of_turn_confidence_threshold")
 
     /**
      * Available only for deepgram/flux. Confidence required to trigger an end of turn. Higher
@@ -92,6 +117,24 @@ private constructor(
     fun keyterm(): Optional<String> = keyterm.getOptional("keyterm")
 
     /**
+     * Available only for assemblyai/universal-streaming. Maximum duration of silence in
+     * milliseconds before forcing an end of turn.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxTurnSilence(): Optional<Long> = maxTurnSilence.getOptional("max_turn_silence")
+
+    /**
+     * Available only for assemblyai/universal-streaming. Minimum duration of silence in
+     * milliseconds before a turn can end. Must be less than or equal to max_turn_silence.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun minTurnSilence(): Optional<Long> = minTurnSilence.getOptional("min_turn_silence")
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -112,6 +155,16 @@ private constructor(
     @JsonProperty("eager_eot_threshold")
     @ExcludeMissing
     fun _eagerEotThreshold(): JsonField<Double> = eagerEotThreshold
+
+    /**
+     * Returns the raw JSON value of [endOfTurnConfidenceThreshold].
+     *
+     * Unlike [endOfTurnConfidenceThreshold], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_of_turn_confidence_threshold")
+    @ExcludeMissing
+    fun _endOfTurnConfidenceThreshold(): JsonField<Double> = endOfTurnConfidenceThreshold
 
     /**
      * Returns the raw JSON value of [eotThreshold].
@@ -137,6 +190,24 @@ private constructor(
      * Unlike [keyterm], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("keyterm") @ExcludeMissing fun _keyterm(): JsonField<String> = keyterm
+
+    /**
+     * Returns the raw JSON value of [maxTurnSilence].
+     *
+     * Unlike [maxTurnSilence], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("max_turn_silence")
+    @ExcludeMissing
+    fun _maxTurnSilence(): JsonField<Long> = maxTurnSilence
+
+    /**
+     * Returns the raw JSON value of [minTurnSilence].
+     *
+     * Unlike [minTurnSilence], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("min_turn_silence")
+    @ExcludeMissing
+    fun _minTurnSilence(): JsonField<Long> = minTurnSilence
 
     /**
      * Returns the raw JSON value of [numerals].
@@ -178,9 +249,12 @@ private constructor(
     class Builder internal constructor() {
 
         private var eagerEotThreshold: JsonField<Double> = JsonMissing.of()
+        private var endOfTurnConfidenceThreshold: JsonField<Double> = JsonMissing.of()
         private var eotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotTimeoutMs: JsonField<Long> = JsonMissing.of()
         private var keyterm: JsonField<String> = JsonMissing.of()
+        private var maxTurnSilence: JsonField<Long> = JsonMissing.of()
+        private var minTurnSilence: JsonField<Long> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
         private var smartFormat: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -188,9 +262,12 @@ private constructor(
         @JvmSynthetic
         internal fun from(transcriptionSettingsConfig: TranscriptionSettingsConfig) = apply {
             eagerEotThreshold = transcriptionSettingsConfig.eagerEotThreshold
+            endOfTurnConfidenceThreshold = transcriptionSettingsConfig.endOfTurnConfidenceThreshold
             eotThreshold = transcriptionSettingsConfig.eotThreshold
             eotTimeoutMs = transcriptionSettingsConfig.eotTimeoutMs
             keyterm = transcriptionSettingsConfig.keyterm
+            maxTurnSilence = transcriptionSettingsConfig.maxTurnSilence
+            minTurnSilence = transcriptionSettingsConfig.minTurnSilence
             numerals = transcriptionSettingsConfig.numerals
             smartFormat = transcriptionSettingsConfig.smartFormat
             additionalProperties = transcriptionSettingsConfig.additionalProperties.toMutableMap()
@@ -213,6 +290,24 @@ private constructor(
          */
         fun eagerEotThreshold(eagerEotThreshold: JsonField<Double>) = apply {
             this.eagerEotThreshold = eagerEotThreshold
+        }
+
+        /**
+         * Available only for assemblyai/universal-streaming. Confidence level required to trigger
+         * an end of turn. Higher values require more certainty before ending a turn.
+         */
+        fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: Double) =
+            endOfTurnConfidenceThreshold(JsonField.of(endOfTurnConfidenceThreshold))
+
+        /**
+         * Sets [Builder.endOfTurnConfidenceThreshold] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endOfTurnConfidenceThreshold] with a well-typed [Double]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: JsonField<Double>) = apply {
+            this.endOfTurnConfidenceThreshold = endOfTurnConfidenceThreshold
         }
 
         /**
@@ -261,6 +356,40 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun keyterm(keyterm: JsonField<String>) = apply { this.keyterm = keyterm }
+
+        /**
+         * Available only for assemblyai/universal-streaming. Maximum duration of silence in
+         * milliseconds before forcing an end of turn.
+         */
+        fun maxTurnSilence(maxTurnSilence: Long) = maxTurnSilence(JsonField.of(maxTurnSilence))
+
+        /**
+         * Sets [Builder.maxTurnSilence] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxTurnSilence] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun maxTurnSilence(maxTurnSilence: JsonField<Long>) = apply {
+            this.maxTurnSilence = maxTurnSilence
+        }
+
+        /**
+         * Available only for assemblyai/universal-streaming. Minimum duration of silence in
+         * milliseconds before a turn can end. Must be less than or equal to max_turn_silence.
+         */
+        fun minTurnSilence(minTurnSilence: Long) = minTurnSilence(JsonField.of(minTurnSilence))
+
+        /**
+         * Sets [Builder.minTurnSilence] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.minTurnSilence] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun minTurnSilence(minTurnSilence: JsonField<Long>) = apply {
+            this.minTurnSilence = minTurnSilence
+        }
 
         fun numerals(numerals: Boolean) = numerals(JsonField.of(numerals))
 
@@ -311,9 +440,12 @@ private constructor(
         fun build(): TranscriptionSettingsConfig =
             TranscriptionSettingsConfig(
                 eagerEotThreshold,
+                endOfTurnConfidenceThreshold,
                 eotThreshold,
                 eotTimeoutMs,
                 keyterm,
+                maxTurnSilence,
+                minTurnSilence,
                 numerals,
                 smartFormat,
                 additionalProperties.toMutableMap(),
@@ -328,9 +460,12 @@ private constructor(
         }
 
         eagerEotThreshold()
+        endOfTurnConfidenceThreshold()
         eotThreshold()
         eotTimeoutMs()
         keyterm()
+        maxTurnSilence()
+        minTurnSilence()
         numerals()
         smartFormat()
         validated = true
@@ -352,9 +487,12 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (eagerEotThreshold.asKnown().isPresent) 1 else 0) +
+            (if (endOfTurnConfidenceThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotTimeoutMs.asKnown().isPresent) 1 else 0) +
             (if (keyterm.asKnown().isPresent) 1 else 0) +
+            (if (maxTurnSilence.asKnown().isPresent) 1 else 0) +
+            (if (minTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
             (if (smartFormat.asKnown().isPresent) 1 else 0)
 
@@ -365,9 +503,12 @@ private constructor(
 
         return other is TranscriptionSettingsConfig &&
             eagerEotThreshold == other.eagerEotThreshold &&
+            endOfTurnConfidenceThreshold == other.endOfTurnConfidenceThreshold &&
             eotThreshold == other.eotThreshold &&
             eotTimeoutMs == other.eotTimeoutMs &&
             keyterm == other.keyterm &&
+            maxTurnSilence == other.maxTurnSilence &&
+            minTurnSilence == other.minTurnSilence &&
             numerals == other.numerals &&
             smartFormat == other.smartFormat &&
             additionalProperties == other.additionalProperties
@@ -376,9 +517,12 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             eagerEotThreshold,
+            endOfTurnConfidenceThreshold,
             eotThreshold,
             eotTimeoutMs,
             keyterm,
+            maxTurnSilence,
+            minTurnSilence,
             numerals,
             smartFormat,
             additionalProperties,
@@ -388,5 +532,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, keyterm=$keyterm, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, keyterm=$keyterm, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }
