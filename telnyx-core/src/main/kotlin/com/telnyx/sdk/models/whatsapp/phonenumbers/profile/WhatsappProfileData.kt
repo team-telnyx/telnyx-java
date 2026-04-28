@@ -28,6 +28,7 @@ private constructor(
     private val displayName: JsonField<String>,
     private val email: JsonField<String>,
     private val phoneNumberId: JsonField<String>,
+    private val profileId: JsonField<String>,
     private val profilePhotoUrl: JsonField<String>,
     private val recordType: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -54,6 +55,7 @@ private constructor(
         @JsonProperty("phone_number_id")
         @ExcludeMissing
         phoneNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("profile_id") @ExcludeMissing profileId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("profile_photo_url")
         @ExcludeMissing
         profilePhotoUrl: JsonField<String> = JsonMissing.of(),
@@ -74,6 +76,7 @@ private constructor(
         displayName,
         email,
         phoneNumberId,
+        profileId,
         profilePhotoUrl,
         recordType,
         updatedAt,
@@ -136,6 +139,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun phoneNumberId(): Optional<String> = phoneNumberId.getOptional("phone_number_id")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun profileId(): Optional<String> = profileId.getOptional("profile_id")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -231,6 +240,13 @@ private constructor(
     fun _phoneNumberId(): JsonField<String> = phoneNumberId
 
     /**
+     * Returns the raw JSON value of [profileId].
+     *
+     * Unlike [profileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("profile_id") @ExcludeMissing fun _profileId(): JsonField<String> = profileId
+
+    /**
      * Returns the raw JSON value of [profilePhotoUrl].
      *
      * Unlike [profilePhotoUrl], this method doesn't throw if the JSON field has an unexpected type.
@@ -292,6 +308,7 @@ private constructor(
         private var displayName: JsonField<String> = JsonMissing.of()
         private var email: JsonField<String> = JsonMissing.of()
         private var phoneNumberId: JsonField<String> = JsonMissing.of()
+        private var profileId: JsonField<String> = JsonMissing.of()
         private var profilePhotoUrl: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -309,6 +326,7 @@ private constructor(
             displayName = whatsappProfileData.displayName
             email = whatsappProfileData.email
             phoneNumberId = whatsappProfileData.phoneNumberId
+            profileId = whatsappProfileData.profileId
             profilePhotoUrl = whatsappProfileData.profilePhotoUrl
             recordType = whatsappProfileData.recordType
             updatedAt = whatsappProfileData.updatedAt
@@ -413,6 +431,17 @@ private constructor(
             this.phoneNumberId = phoneNumberId
         }
 
+        fun profileId(profileId: String) = profileId(JsonField.of(profileId))
+
+        /**
+         * Sets [Builder.profileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.profileId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun profileId(profileId: JsonField<String>) = apply { this.profileId = profileId }
+
         fun profilePhotoUrl(profilePhotoUrl: String) =
             profilePhotoUrl(JsonField.of(profilePhotoUrl))
 
@@ -494,6 +523,7 @@ private constructor(
                 displayName,
                 email,
                 phoneNumberId,
+                profileId,
                 profilePhotoUrl,
                 recordType,
                 updatedAt,
@@ -518,6 +548,7 @@ private constructor(
         displayName()
         email()
         phoneNumberId()
+        profileId()
         profilePhotoUrl()
         recordType()
         updatedAt()
@@ -549,6 +580,7 @@ private constructor(
             (if (displayName.asKnown().isPresent) 1 else 0) +
             (if (email.asKnown().isPresent) 1 else 0) +
             (if (phoneNumberId.asKnown().isPresent) 1 else 0) +
+            (if (profileId.asKnown().isPresent) 1 else 0) +
             (if (profilePhotoUrl.asKnown().isPresent) 1 else 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
@@ -569,6 +601,7 @@ private constructor(
             displayName == other.displayName &&
             email == other.email &&
             phoneNumberId == other.phoneNumberId &&
+            profileId == other.profileId &&
             profilePhotoUrl == other.profilePhotoUrl &&
             recordType == other.recordType &&
             updatedAt == other.updatedAt &&
@@ -587,6 +620,7 @@ private constructor(
             displayName,
             email,
             phoneNumberId,
+            profileId,
             profilePhotoUrl,
             recordType,
             updatedAt,
@@ -598,5 +632,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WhatsappProfileData{id=$id, about=$about, address=$address, category=$category, createdAt=$createdAt, description=$description, displayName=$displayName, email=$email, phoneNumberId=$phoneNumberId, profilePhotoUrl=$profilePhotoUrl, recordType=$recordType, updatedAt=$updatedAt, website=$website, additionalProperties=$additionalProperties}"
+        "WhatsappProfileData{id=$id, about=$about, address=$address, category=$category, createdAt=$createdAt, description=$description, displayName=$displayName, email=$email, phoneNumberId=$phoneNumberId, profileId=$profileId, profilePhotoUrl=$profilePhotoUrl, recordType=$recordType, updatedAt=$updatedAt, website=$website, additionalProperties=$additionalProperties}"
 }

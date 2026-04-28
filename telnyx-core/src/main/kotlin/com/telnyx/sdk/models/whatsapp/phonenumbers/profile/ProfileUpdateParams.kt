@@ -67,6 +67,14 @@ private constructor(
     fun email(): Optional<String> = body.email()
 
     /**
+     * Messaging profile ID for inbound messages
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun profileId(): Optional<String> = body.profileId()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -113,6 +121,13 @@ private constructor(
      * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _email(): JsonField<String> = body._email()
+
+    /**
+     * Returns the raw JSON value of [profileId].
+     *
+     * Unlike [profileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _profileId(): JsonField<String> = body._profileId()
 
     /**
      * Returns the raw JSON value of [website].
@@ -235,6 +250,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun email(email: JsonField<String>) = apply { body.email(email) }
+
+        /** Messaging profile ID for inbound messages */
+        fun profileId(profileId: String) = apply { body.profileId(profileId) }
+
+        /**
+         * Sets [Builder.profileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.profileId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun profileId(profileId: JsonField<String>) = apply { body.profileId(profileId) }
 
         fun website(website: String) = apply { body.website(website) }
 
@@ -398,6 +425,7 @@ private constructor(
         private val description: JsonField<String>,
         private val displayName: JsonField<String>,
         private val email: JsonField<String>,
+        private val profileId: JsonField<String>,
         private val website: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -416,8 +444,21 @@ private constructor(
             @ExcludeMissing
             displayName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("profile_id")
+            @ExcludeMissing
+            profileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
-        ) : this(about, address, category, description, displayName, email, website, mutableMapOf())
+        ) : this(
+            about,
+            address,
+            category,
+            description,
+            displayName,
+            email,
+            profileId,
+            website,
+            mutableMapOf(),
+        )
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -454,6 +495,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun email(): Optional<String> = email.getOptional("email")
+
+        /**
+         * Messaging profile ID for inbound messages
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun profileId(): Optional<String> = profileId.getOptional("profile_id")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -508,6 +557,13 @@ private constructor(
         @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /**
+         * Returns the raw JSON value of [profileId].
+         *
+         * Unlike [profileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("profile_id") @ExcludeMissing fun _profileId(): JsonField<String> = profileId
+
+        /**
          * Returns the raw JSON value of [website].
          *
          * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
@@ -541,6 +597,7 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var displayName: JsonField<String> = JsonMissing.of()
             private var email: JsonField<String> = JsonMissing.of()
+            private var profileId: JsonField<String> = JsonMissing.of()
             private var website: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -552,6 +609,7 @@ private constructor(
                 description = body.description
                 displayName = body.displayName
                 email = body.email
+                profileId = body.profileId
                 website = body.website
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -626,6 +684,18 @@ private constructor(
              */
             fun email(email: JsonField<String>) = apply { this.email = email }
 
+            /** Messaging profile ID for inbound messages */
+            fun profileId(profileId: String) = profileId(JsonField.of(profileId))
+
+            /**
+             * Sets [Builder.profileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.profileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun profileId(profileId: JsonField<String>) = apply { this.profileId = profileId }
+
             fun website(website: String) = website(JsonField.of(website))
 
             /**
@@ -669,6 +739,7 @@ private constructor(
                     description,
                     displayName,
                     email,
+                    profileId,
                     website,
                     additionalProperties.toMutableMap(),
                 )
@@ -687,6 +758,7 @@ private constructor(
             description()
             displayName()
             email()
+            profileId()
             website()
             validated = true
         }
@@ -713,6 +785,7 @@ private constructor(
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (if (displayName.asKnown().isPresent) 1 else 0) +
                 (if (email.asKnown().isPresent) 1 else 0) +
+                (if (profileId.asKnown().isPresent) 1 else 0) +
                 (if (website.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -727,6 +800,7 @@ private constructor(
                 description == other.description &&
                 displayName == other.displayName &&
                 email == other.email &&
+                profileId == other.profileId &&
                 website == other.website &&
                 additionalProperties == other.additionalProperties
         }
@@ -739,6 +813,7 @@ private constructor(
                 description,
                 displayName,
                 email,
+                profileId,
                 website,
                 additionalProperties,
             )
@@ -747,7 +822,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{about=$about, address=$address, category=$category, description=$description, displayName=$displayName, email=$email, website=$website, additionalProperties=$additionalProperties}"
+            "Body{about=$about, address=$address, category=$category, description=$description, displayName=$displayName, email=$email, profileId=$profileId, website=$website, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
