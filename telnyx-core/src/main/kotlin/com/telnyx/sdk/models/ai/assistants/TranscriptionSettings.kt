@@ -51,8 +51,10 @@ private constructor(
     fun apiKeyRef(): Optional<String> = apiKeyRef.getOptional("api_key_ref")
 
     /**
-     * The language of the audio to be transcribed. If not set, or if set to `auto`, the model will
-     * automatically detect the language.
+     * The language of the audio to be transcribed. If not set, or if set to `auto`, supported
+     * models will automatically detect the language. For `deepgram/flux`, supported values are:
+     * `auto` (Telnyx language detection controls the language hint), `multi` (no language hint),
+     * and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -62,7 +64,7 @@ private constructor(
     /**
      * The speech to text model to be used by the voice assistant. All Deepgram models are run
      * on-premise.
-     * - `deepgram/flux` is optimized for turn-taking but is English-only.
+     * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
      * - `azure/fast` is a multilingual Azure transcription model.
@@ -181,8 +183,11 @@ private constructor(
         fun apiKeyRef(apiKeyRef: JsonField<String>) = apply { this.apiKeyRef = apiKeyRef }
 
         /**
-         * The language of the audio to be transcribed. If not set, or if set to `auto`, the model
-         * will automatically detect the language.
+         * The language of the audio to be transcribed. If not set, or if set to `auto`, supported
+         * models will automatically detect the language. For `deepgram/flux`, supported values are:
+         * `auto` (Telnyx language detection controls the language hint), `multi` (no language
+         * hint), and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`,
+         * and `nl`.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -197,7 +202,7 @@ private constructor(
         /**
          * The speech to text model to be used by the voice assistant. All Deepgram models are run
          * on-premise.
-         * - `deepgram/flux` is optimized for turn-taking but is English-only.
+         * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
          * - `deepgram/nova-3` is multilingual with automatic language detection.
          * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
          * - `azure/fast` is a multilingual Azure transcription model.
@@ -316,7 +321,7 @@ private constructor(
     /**
      * The speech to text model to be used by the voice assistant. All Deepgram models are run
      * on-premise.
-     * - `deepgram/flux` is optimized for turn-taking but is English-only.
+     * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
      * - `azure/fast` is a multilingual Azure transcription model.
