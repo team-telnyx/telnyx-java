@@ -30,6 +30,40 @@ internal class AssistantsListTest {
                         )
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                        .externalLlm(
+                            InferenceEmbedding.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .fallbackConfig(
+                            InferenceEmbedding.FallbackConfig.builder()
+                                .externalLlm(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                                        .baseUrl("base_url")
+                                        .model("model")
+                                        .authenticationMethod(
+                                            InferenceEmbedding.FallbackConfig.ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
+                                        )
+                                        .certificateRef("certificate_ref")
+                                        .forwardMetadata(true)
+                                        .llmApiKeyRef("llm_api_key_ref")
+                                        .tokenRetrievalUrl("token_retrieval_url")
+                                        .build()
+                                )
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .model("model")
+                                .build()
+                        )
                         .greeting("greeting")
                         .importMetadata(
                             ImportMetadata.builder()
@@ -292,6 +326,40 @@ internal class AssistantsListTest {
                     )
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                    .externalLlm(
+                        InferenceEmbedding.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .fallbackConfig(
+                        InferenceEmbedding.FallbackConfig.builder()
+                            .externalLlm(
+                                InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                                    .baseUrl("base_url")
+                                    .model("model")
+                                    .authenticationMethod(
+                                        InferenceEmbedding.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
+                                    .certificateRef("certificate_ref")
+                                    .forwardMetadata(true)
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .tokenRetrievalUrl("token_retrieval_url")
+                                    .build()
+                            )
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .model("model")
+                            .build()
+                    )
                     .greeting("greeting")
                     .importMetadata(
                         ImportMetadata.builder()
@@ -539,6 +607,40 @@ internal class AssistantsListTest {
                         )
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                        .externalLlm(
+                            InferenceEmbedding.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .fallbackConfig(
+                            InferenceEmbedding.FallbackConfig.builder()
+                                .externalLlm(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                                        .baseUrl("base_url")
+                                        .model("model")
+                                        .authenticationMethod(
+                                            InferenceEmbedding.FallbackConfig.ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
+                                        )
+                                        .certificateRef("certificate_ref")
+                                        .forwardMetadata(true)
+                                        .llmApiKeyRef("llm_api_key_ref")
+                                        .tokenRetrievalUrl("token_retrieval_url")
+                                        .build()
+                                )
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .model("model")
+                                .build()
+                        )
                         .greeting("greeting")
                         .importMetadata(
                             ImportMetadata.builder()

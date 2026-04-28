@@ -23,6 +23,40 @@ internal class AssistantCreateParamsTest {
             )
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
+            .externalLlm(
+                AssistantCreateParams.ExternalLlm.builder()
+                    .baseUrl("base_url")
+                    .model("model")
+                    .authenticationMethod(
+                        AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                    )
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .tokenRetrievalUrl("token_retrieval_url")
+                    .build()
+            )
+            .fallbackConfig(
+                AssistantCreateParams.FallbackConfig.builder()
+                    .externalLlm(
+                        AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                AssistantCreateParams.FallbackConfig.ExternalLlm
+                                    .AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .build()
+            )
             .greeting("greeting")
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .llmApiKeyRef("llm_api_key_ref")
@@ -245,6 +279,40 @@ internal class AssistantCreateParamsTest {
                 )
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                .externalLlm(
+                    AssistantCreateParams.ExternalLlm.builder()
+                        .baseUrl("base_url")
+                        .model("model")
+                        .authenticationMethod(
+                            AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .tokenRetrievalUrl("token_retrieval_url")
+                        .build()
+                )
+                .fallbackConfig(
+                    AssistantCreateParams.FallbackConfig.builder()
+                        .externalLlm(
+                            AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(
+                                    AssistantCreateParams.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .build()
+                )
                 .greeting("greeting")
                 .insightSettings(
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
@@ -470,6 +538,42 @@ internal class AssistantCreateParamsTest {
             )
         assertThat(body.dynamicVariablesWebhookUrl()).contains("dynamic_variables_webhook_url")
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
+        assertThat(body.externalLlm())
+            .contains(
+                AssistantCreateParams.ExternalLlm.builder()
+                    .baseUrl("base_url")
+                    .model("model")
+                    .authenticationMethod(
+                        AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                    )
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .tokenRetrievalUrl("token_retrieval_url")
+                    .build()
+            )
+        assertThat(body.fallbackConfig())
+            .contains(
+                AssistantCreateParams.FallbackConfig.builder()
+                    .externalLlm(
+                        AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(
+                                AssistantCreateParams.FallbackConfig.ExternalLlm
+                                    .AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .build()
+            )
         assertThat(body.greeting()).contains("greeting")
         assertThat(body.insightSettings())
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
