@@ -12,13 +12,10 @@ import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
-import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
-import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
-import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -52,10 +49,12 @@ internal class AssistantServiceTest {
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        AssistantCreateParams.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -63,12 +62,16 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .fallbackConfig(
-                        FallbackConfigReq.builder()
+                        AssistantCreateParams.FallbackConfig.builder()
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        AssistantCreateParams.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -100,7 +103,9 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .postConversationSettings(
-                        PostConversationSettingsReq.builder().enabled(true).build()
+                        AssistantCreateParams.PostConversationSettings.builder()
+                            .enabled(true)
+                            .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
@@ -342,10 +347,12 @@ internal class AssistantServiceTest {
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        UpdateAssistant.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -353,12 +360,16 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .fallbackConfig(
-                        FallbackConfigReq.builder()
+                        UpdateAssistant.FallbackConfig.builder()
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        UpdateAssistant.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -393,7 +404,7 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .postConversationSettings(
-                        PostConversationSettingsReq.builder().enabled(true).build()
+                        UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
