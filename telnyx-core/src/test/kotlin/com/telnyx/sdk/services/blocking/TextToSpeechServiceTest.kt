@@ -98,6 +98,14 @@ internal class TextToSpeechServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .xai(
+                        TextToSpeechGenerateParams.Xai.builder()
+                            .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
+                            .language("language")
+                            .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
+                            .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
+                            .build()
+                    )
                     .build()
             )
 

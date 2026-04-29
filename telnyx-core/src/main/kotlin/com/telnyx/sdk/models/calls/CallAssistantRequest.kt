@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -953,15 +954,183 @@ private constructor(
 
     /** External LLM configuration for bringing your own LLM endpoint. */
     class ExternalLlm
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+        private val authenticationMethod: JsonField<AuthenticationMethod>,
+        private val baseUrl: JsonField<String>,
+        private val certificateRef: JsonField<String>,
+        private val forwardMetadata: JsonField<Boolean>,
+        private val llmApiKeyRef: JsonField<String>,
+        private val model: JsonField<String>,
+        private val tokenRetrievalUrl: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("authentication_method")
+            @ExcludeMissing
+            authenticationMethod: JsonField<AuthenticationMethod> = JsonMissing.of(),
+            @JsonProperty("base_url") @ExcludeMissing baseUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("certificate_ref")
+            @ExcludeMissing
+            certificateRef: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("forward_metadata")
+            @ExcludeMissing
+            forwardMetadata: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("llm_api_key_ref")
+            @ExcludeMissing
+            llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("token_retrieval_url")
+            @ExcludeMissing
+            tokenRetrievalUrl: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            authenticationMethod,
+            baseUrl,
+            certificateRef,
+            forwardMetadata,
+            llmApiKeyRef,
+            model,
+            tokenRetrievalUrl,
+            mutableMapOf(),
+        )
+
+        /**
+         * Authentication method used when connecting to the external LLM endpoint.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun authenticationMethod(): Optional<AuthenticationMethod> =
+            authenticationMethod.getOptional("authentication_method")
+
+        /**
+         * Base URL for the external LLM endpoint.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun baseUrl(): Optional<String> = baseUrl.getOptional("base_url")
+
+        /**
+         * Integration secret identifier for the client certificate used with certificate
+         * authentication.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun certificateRef(): Optional<String> = certificateRef.getOptional("certificate_ref")
+
+        /**
+         * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
+         * endpoint. Defaults to false. The chat completion request includes a top-level
+         * `extra_metadata` object when dynamic variables are available. For example:
+         * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun forwardMetadata(): Optional<Boolean> = forwardMetadata.getOptional("forward_metadata")
+
+        /**
+         * Integration secret identifier for the external LLM API key.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
+
+        /**
+         * Model identifier to use with the external LLM endpoint.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun model(): Optional<String> = model.getOptional("model")
+
+        /**
+         * URL used to retrieve an access token when certificate authentication is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun tokenRetrievalUrl(): Optional<String> =
+            tokenRetrievalUrl.getOptional("token_retrieval_url")
+
+        /**
+         * Returns the raw JSON value of [authenticationMethod].
+         *
+         * Unlike [authenticationMethod], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("authentication_method")
+        @ExcludeMissing
+        fun _authenticationMethod(): JsonField<AuthenticationMethod> = authenticationMethod
+
+        /**
+         * Returns the raw JSON value of [baseUrl].
+         *
+         * Unlike [baseUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("base_url") @ExcludeMissing fun _baseUrl(): JsonField<String> = baseUrl
+
+        /**
+         * Returns the raw JSON value of [certificateRef].
+         *
+         * Unlike [certificateRef], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("certificate_ref")
+        @ExcludeMissing
+        fun _certificateRef(): JsonField<String> = certificateRef
+
+        /**
+         * Returns the raw JSON value of [forwardMetadata].
+         *
+         * Unlike [forwardMetadata], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("forward_metadata")
+        @ExcludeMissing
+        fun _forwardMetadata(): JsonField<Boolean> = forwardMetadata
+
+        /**
+         * Returns the raw JSON value of [llmApiKeyRef].
+         *
+         * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("llm_api_key_ref")
+        @ExcludeMissing
+        fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
+
+        /**
+         * Returns the raw JSON value of [tokenRetrievalUrl].
+         *
+         * Unlike [tokenRetrievalUrl], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("token_retrieval_url")
+        @ExcludeMissing
+        fun _tokenRetrievalUrl(): JsonField<String> = tokenRetrievalUrl
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -974,11 +1143,132 @@ private constructor(
         /** A builder for [ExternalLlm]. */
         class Builder internal constructor() {
 
+            private var authenticationMethod: JsonField<AuthenticationMethod> = JsonMissing.of()
+            private var baseUrl: JsonField<String> = JsonMissing.of()
+            private var certificateRef: JsonField<String> = JsonMissing.of()
+            private var forwardMetadata: JsonField<Boolean> = JsonMissing.of()
+            private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+            private var model: JsonField<String> = JsonMissing.of()
+            private var tokenRetrievalUrl: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(externalLlm: ExternalLlm) = apply {
+                authenticationMethod = externalLlm.authenticationMethod
+                baseUrl = externalLlm.baseUrl
+                certificateRef = externalLlm.certificateRef
+                forwardMetadata = externalLlm.forwardMetadata
+                llmApiKeyRef = externalLlm.llmApiKeyRef
+                model = externalLlm.model
+                tokenRetrievalUrl = externalLlm.tokenRetrievalUrl
                 additionalProperties = externalLlm.additionalProperties.toMutableMap()
+            }
+
+            /** Authentication method used when connecting to the external LLM endpoint. */
+            fun authenticationMethod(authenticationMethod: AuthenticationMethod) =
+                authenticationMethod(JsonField.of(authenticationMethod))
+
+            /**
+             * Sets [Builder.authenticationMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authenticationMethod] with a well-typed
+             * [AuthenticationMethod] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun authenticationMethod(authenticationMethod: JsonField<AuthenticationMethod>) =
+                apply {
+                    this.authenticationMethod = authenticationMethod
+                }
+
+            /** Base URL for the external LLM endpoint. */
+            fun baseUrl(baseUrl: String) = baseUrl(JsonField.of(baseUrl))
+
+            /**
+             * Sets [Builder.baseUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.baseUrl] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun baseUrl(baseUrl: JsonField<String>) = apply { this.baseUrl = baseUrl }
+
+            /**
+             * Integration secret identifier for the client certificate used with certificate
+             * authentication.
+             */
+            fun certificateRef(certificateRef: String) =
+                certificateRef(JsonField.of(certificateRef))
+
+            /**
+             * Sets [Builder.certificateRef] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.certificateRef] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun certificateRef(certificateRef: JsonField<String>) = apply {
+                this.certificateRef = certificateRef
+            }
+
+            /**
+             * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
+             * endpoint. Defaults to false. The chat completion request includes a top-level
+             * `extra_metadata` object when dynamic variables are available. For example:
+             * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+             */
+            fun forwardMetadata(forwardMetadata: Boolean) =
+                forwardMetadata(JsonField.of(forwardMetadata))
+
+            /**
+             * Sets [Builder.forwardMetadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.forwardMetadata] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun forwardMetadata(forwardMetadata: JsonField<Boolean>) = apply {
+                this.forwardMetadata = forwardMetadata
+            }
+
+            /** Integration secret identifier for the external LLM API key. */
+            fun llmApiKeyRef(llmApiKeyRef: String) = llmApiKeyRef(JsonField.of(llmApiKeyRef))
+
+            /**
+             * Sets [Builder.llmApiKeyRef] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.llmApiKeyRef] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
+                this.llmApiKeyRef = llmApiKeyRef
+            }
+
+            /** Model identifier to use with the external LLM endpoint. */
+            fun model(model: String) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun model(model: JsonField<String>) = apply { this.model = model }
+
+            /** URL used to retrieve an access token when certificate authentication is enabled. */
+            fun tokenRetrievalUrl(tokenRetrievalUrl: String) =
+                tokenRetrievalUrl(JsonField.of(tokenRetrievalUrl))
+
+            /**
+             * Sets [Builder.tokenRetrievalUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tokenRetrievalUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun tokenRetrievalUrl(tokenRetrievalUrl: JsonField<String>) = apply {
+                this.tokenRetrievalUrl = tokenRetrievalUrl
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1005,7 +1295,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): ExternalLlm = ExternalLlm(additionalProperties.toImmutable())
+            fun build(): ExternalLlm =
+                ExternalLlm(
+                    authenticationMethod,
+                    baseUrl,
+                    certificateRef,
+                    forwardMetadata,
+                    llmApiKeyRef,
+                    model,
+                    tokenRetrievalUrl,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1015,6 +1315,13 @@ private constructor(
                 return@apply
             }
 
+            authenticationMethod().ifPresent { it.validate() }
+            baseUrl()
+            certificateRef()
+            forwardMetadata()
+            llmApiKeyRef()
+            model()
+            tokenRetrievalUrl()
             validated = true
         }
 
@@ -1034,34 +1341,264 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+            (authenticationMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (baseUrl.asKnown().isPresent) 1 else 0) +
+                (if (certificateRef.asKnown().isPresent) 1 else 0) +
+                (if (forwardMetadata.asKnown().isPresent) 1 else 0) +
+                (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                (if (model.asKnown().isPresent) 1 else 0) +
+                (if (tokenRetrievalUrl.asKnown().isPresent) 1 else 0)
+
+        /** Authentication method used when connecting to the external LLM endpoint. */
+        class AuthenticationMethod
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val TOKEN = of("token")
+
+                @JvmField val CERTIFICATE = of("certificate")
+
+                @JvmStatic fun of(value: String) = AuthenticationMethod(JsonField.of(value))
+            }
+
+            /** An enum containing [AuthenticationMethod]'s known values. */
+            enum class Known {
+                TOKEN,
+                CERTIFICATE,
+            }
+
+            /**
+             * An enum containing [AuthenticationMethod]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [AuthenticationMethod] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                TOKEN,
+                CERTIFICATE,
+                /**
+                 * An enum member indicating that [AuthenticationMethod] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    TOKEN -> Value.TOKEN
+                    CERTIFICATE -> Value.CERTIFICATE
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    TOKEN -> Known.TOKEN
+                    CERTIFICATE -> Known.CERTIFICATE
+                    else -> throw TelnyxInvalidDataException("Unknown AuthenticationMethod: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): AuthenticationMethod = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AuthenticationMethod && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is ExternalLlm && additionalProperties == other.additionalProperties
+            return other is ExternalLlm &&
+                authenticationMethod == other.authenticationMethod &&
+                baseUrl == other.baseUrl &&
+                certificateRef == other.certificateRef &&
+                forwardMetadata == other.forwardMetadata &&
+                llmApiKeyRef == other.llmApiKeyRef &&
+                model == other.model &&
+                tokenRetrievalUrl == other.tokenRetrievalUrl &&
+                additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                authenticationMethod,
+                baseUrl,
+                certificateRef,
+                forwardMetadata,
+                llmApiKeyRef,
+                model,
+                tokenRetrievalUrl,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "ExternalLlm{additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "ExternalLlm{authenticationMethod=$authenticationMethod, baseUrl=$baseUrl, certificateRef=$certificateRef, forwardMetadata=$forwardMetadata, llmApiKeyRef=$llmApiKeyRef, model=$model, tokenRetrievalUrl=$tokenRetrievalUrl, additionalProperties=$additionalProperties}"
     }
 
     /** Fallback LLM configuration used when the primary LLM provider is unavailable. */
     class FallbackConfig
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+        private val externalLlm: JsonField<ExternalLlm>,
+        private val llmApiKeyRef: JsonField<String>,
+        private val model: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("external_llm")
+            @ExcludeMissing
+            externalLlm: JsonField<ExternalLlm> = JsonMissing.of(),
+            @JsonProperty("llm_api_key_ref")
+            @ExcludeMissing
+            llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
+        ) : this(externalLlm, llmApiKeyRef, model, mutableMapOf())
+
+        /**
+         * External LLM fallback configuration.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun externalLlm(): Optional<ExternalLlm> = externalLlm.getOptional("external_llm")
+
+        /**
+         * Integration secret identifier for the fallback model API key.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
+
+        /**
+         * Fallback Telnyx-hosted model to use when the primary LLM provider is unavailable.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun model(): Optional<String> = model.getOptional("model")
+
+        /**
+         * Returns the raw JSON value of [externalLlm].
+         *
+         * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_llm")
+        @ExcludeMissing
+        fun _externalLlm(): JsonField<ExternalLlm> = externalLlm
+
+        /**
+         * Returns the raw JSON value of [llmApiKeyRef].
+         *
+         * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("llm_api_key_ref")
+        @ExcludeMissing
+        fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1074,12 +1611,58 @@ private constructor(
         /** A builder for [FallbackConfig]. */
         class Builder internal constructor() {
 
+            private var externalLlm: JsonField<ExternalLlm> = JsonMissing.of()
+            private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+            private var model: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(fallbackConfig: FallbackConfig) = apply {
+                externalLlm = fallbackConfig.externalLlm
+                llmApiKeyRef = fallbackConfig.llmApiKeyRef
+                model = fallbackConfig.model
                 additionalProperties = fallbackConfig.additionalProperties.toMutableMap()
             }
+
+            /** External LLM fallback configuration. */
+            fun externalLlm(externalLlm: ExternalLlm) = externalLlm(JsonField.of(externalLlm))
+
+            /**
+             * Sets [Builder.externalLlm] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlm] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalLlm(externalLlm: JsonField<ExternalLlm>) = apply {
+                this.externalLlm = externalLlm
+            }
+
+            /** Integration secret identifier for the fallback model API key. */
+            fun llmApiKeyRef(llmApiKeyRef: String) = llmApiKeyRef(JsonField.of(llmApiKeyRef))
+
+            /**
+             * Sets [Builder.llmApiKeyRef] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.llmApiKeyRef] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
+                this.llmApiKeyRef = llmApiKeyRef
+            }
+
+            /** Fallback Telnyx-hosted model to use when the primary LLM provider is unavailable. */
+            fun model(model: String) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun model(model: JsonField<String>) = apply { this.model = model }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1105,7 +1688,13 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): FallbackConfig = FallbackConfig(additionalProperties.toImmutable())
+            fun build(): FallbackConfig =
+                FallbackConfig(
+                    externalLlm,
+                    llmApiKeyRef,
+                    model,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1115,6 +1704,9 @@ private constructor(
                 return@apply
             }
 
+            externalLlm().ifPresent { it.validate() }
+            llmApiKeyRef()
+            model()
             validated = true
         }
 
@@ -1134,21 +1726,606 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+            (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                (if (model.asKnown().isPresent) 1 else 0)
+
+        /** External LLM fallback configuration. */
+        class ExternalLlm
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val authenticationMethod: JsonField<AuthenticationMethod>,
+            private val baseUrl: JsonField<String>,
+            private val certificateRef: JsonField<String>,
+            private val forwardMetadata: JsonField<Boolean>,
+            private val llmApiKeyRef: JsonField<String>,
+            private val model: JsonField<String>,
+            private val tokenRetrievalUrl: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("authentication_method")
+                @ExcludeMissing
+                authenticationMethod: JsonField<AuthenticationMethod> = JsonMissing.of(),
+                @JsonProperty("base_url")
+                @ExcludeMissing
+                baseUrl: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("certificate_ref")
+                @ExcludeMissing
+                certificateRef: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("forward_metadata")
+                @ExcludeMissing
+                forwardMetadata: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("llm_api_key_ref")
+                @ExcludeMissing
+                llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("token_retrieval_url")
+                @ExcludeMissing
+                tokenRetrievalUrl: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                authenticationMethod,
+                baseUrl,
+                certificateRef,
+                forwardMetadata,
+                llmApiKeyRef,
+                model,
+                tokenRetrievalUrl,
+                mutableMapOf(),
+            )
+
+            /**
+             * Authentication method used when connecting to the external LLM endpoint.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun authenticationMethod(): Optional<AuthenticationMethod> =
+                authenticationMethod.getOptional("authentication_method")
+
+            /**
+             * Base URL for the external LLM endpoint.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun baseUrl(): Optional<String> = baseUrl.getOptional("base_url")
+
+            /**
+             * Integration secret identifier for the client certificate used with certificate
+             * authentication.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun certificateRef(): Optional<String> = certificateRef.getOptional("certificate_ref")
+
+            /**
+             * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
+             * endpoint. Defaults to false. The chat completion request includes a top-level
+             * `extra_metadata` object when dynamic variables are available. For example:
+             * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun forwardMetadata(): Optional<Boolean> =
+                forwardMetadata.getOptional("forward_metadata")
+
+            /**
+             * Integration secret identifier for the external LLM API key.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
+
+            /**
+             * Model identifier to use with the external LLM endpoint.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun model(): Optional<String> = model.getOptional("model")
+
+            /**
+             * URL used to retrieve an access token when certificate authentication is enabled.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun tokenRetrievalUrl(): Optional<String> =
+                tokenRetrievalUrl.getOptional("token_retrieval_url")
+
+            /**
+             * Returns the raw JSON value of [authenticationMethod].
+             *
+             * Unlike [authenticationMethod], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("authentication_method")
+            @ExcludeMissing
+            fun _authenticationMethod(): JsonField<AuthenticationMethod> = authenticationMethod
+
+            /**
+             * Returns the raw JSON value of [baseUrl].
+             *
+             * Unlike [baseUrl], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("base_url") @ExcludeMissing fun _baseUrl(): JsonField<String> = baseUrl
+
+            /**
+             * Returns the raw JSON value of [certificateRef].
+             *
+             * Unlike [certificateRef], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("certificate_ref")
+            @ExcludeMissing
+            fun _certificateRef(): JsonField<String> = certificateRef
+
+            /**
+             * Returns the raw JSON value of [forwardMetadata].
+             *
+             * Unlike [forwardMetadata], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("forward_metadata")
+            @ExcludeMissing
+            fun _forwardMetadata(): JsonField<Boolean> = forwardMetadata
+
+            /**
+             * Returns the raw JSON value of [llmApiKeyRef].
+             *
+             * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("llm_api_key_ref")
+            @ExcludeMissing
+            fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
+
+            /**
+             * Returns the raw JSON value of [model].
+             *
+             * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
+
+            /**
+             * Returns the raw JSON value of [tokenRetrievalUrl].
+             *
+             * Unlike [tokenRetrievalUrl], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("token_retrieval_url")
+            @ExcludeMissing
+            fun _tokenRetrievalUrl(): JsonField<String> = tokenRetrievalUrl
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [ExternalLlm]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [ExternalLlm]. */
+            class Builder internal constructor() {
+
+                private var authenticationMethod: JsonField<AuthenticationMethod> = JsonMissing.of()
+                private var baseUrl: JsonField<String> = JsonMissing.of()
+                private var certificateRef: JsonField<String> = JsonMissing.of()
+                private var forwardMetadata: JsonField<Boolean> = JsonMissing.of()
+                private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+                private var model: JsonField<String> = JsonMissing.of()
+                private var tokenRetrievalUrl: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(externalLlm: ExternalLlm) = apply {
+                    authenticationMethod = externalLlm.authenticationMethod
+                    baseUrl = externalLlm.baseUrl
+                    certificateRef = externalLlm.certificateRef
+                    forwardMetadata = externalLlm.forwardMetadata
+                    llmApiKeyRef = externalLlm.llmApiKeyRef
+                    model = externalLlm.model
+                    tokenRetrievalUrl = externalLlm.tokenRetrievalUrl
+                    additionalProperties = externalLlm.additionalProperties.toMutableMap()
+                }
+
+                /** Authentication method used when connecting to the external LLM endpoint. */
+                fun authenticationMethod(authenticationMethod: AuthenticationMethod) =
+                    authenticationMethod(JsonField.of(authenticationMethod))
+
+                /**
+                 * Sets [Builder.authenticationMethod] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.authenticationMethod] with a well-typed
+                 * [AuthenticationMethod] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun authenticationMethod(authenticationMethod: JsonField<AuthenticationMethod>) =
+                    apply {
+                        this.authenticationMethod = authenticationMethod
+                    }
+
+                /** Base URL for the external LLM endpoint. */
+                fun baseUrl(baseUrl: String) = baseUrl(JsonField.of(baseUrl))
+
+                /**
+                 * Sets [Builder.baseUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.baseUrl] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun baseUrl(baseUrl: JsonField<String>) = apply { this.baseUrl = baseUrl }
+
+                /**
+                 * Integration secret identifier for the client certificate used with certificate
+                 * authentication.
+                 */
+                fun certificateRef(certificateRef: String) =
+                    certificateRef(JsonField.of(certificateRef))
+
+                /**
+                 * Sets [Builder.certificateRef] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.certificateRef] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun certificateRef(certificateRef: JsonField<String>) = apply {
+                    this.certificateRef = certificateRef
+                }
+
+                /**
+                 * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+                 * LLM endpoint. Defaults to false. The chat completion request includes a top-level
+                 * `extra_metadata` object when dynamic variables are available. For example:
+                 * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+                 */
+                fun forwardMetadata(forwardMetadata: Boolean) =
+                    forwardMetadata(JsonField.of(forwardMetadata))
+
+                /**
+                 * Sets [Builder.forwardMetadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.forwardMetadata] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun forwardMetadata(forwardMetadata: JsonField<Boolean>) = apply {
+                    this.forwardMetadata = forwardMetadata
+                }
+
+                /** Integration secret identifier for the external LLM API key. */
+                fun llmApiKeyRef(llmApiKeyRef: String) = llmApiKeyRef(JsonField.of(llmApiKeyRef))
+
+                /**
+                 * Sets [Builder.llmApiKeyRef] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.llmApiKeyRef] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
+                    this.llmApiKeyRef = llmApiKeyRef
+                }
+
+                /** Model identifier to use with the external LLM endpoint. */
+                fun model(model: String) = model(JsonField.of(model))
+
+                /**
+                 * Sets [Builder.model] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.model] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun model(model: JsonField<String>) = apply { this.model = model }
+
+                /**
+                 * URL used to retrieve an access token when certificate authentication is enabled.
+                 */
+                fun tokenRetrievalUrl(tokenRetrievalUrl: String) =
+                    tokenRetrievalUrl(JsonField.of(tokenRetrievalUrl))
+
+                /**
+                 * Sets [Builder.tokenRetrievalUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.tokenRetrievalUrl] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun tokenRetrievalUrl(tokenRetrievalUrl: JsonField<String>) = apply {
+                    this.tokenRetrievalUrl = tokenRetrievalUrl
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ExternalLlm].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): ExternalLlm =
+                    ExternalLlm(
+                        authenticationMethod,
+                        baseUrl,
+                        certificateRef,
+                        forwardMetadata,
+                        llmApiKeyRef,
+                        model,
+                        tokenRetrievalUrl,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ExternalLlm = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                authenticationMethod().ifPresent { it.validate() }
+                baseUrl()
+                certificateRef()
+                forwardMetadata()
+                llmApiKeyRef()
+                model()
+                tokenRetrievalUrl()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (authenticationMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (baseUrl.asKnown().isPresent) 1 else 0) +
+                    (if (certificateRef.asKnown().isPresent) 1 else 0) +
+                    (if (forwardMetadata.asKnown().isPresent) 1 else 0) +
+                    (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                    (if (model.asKnown().isPresent) 1 else 0) +
+                    (if (tokenRetrievalUrl.asKnown().isPresent) 1 else 0)
+
+            /** Authentication method used when connecting to the external LLM endpoint. */
+            class AuthenticationMethod
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val TOKEN = of("token")
+
+                    @JvmField val CERTIFICATE = of("certificate")
+
+                    @JvmStatic fun of(value: String) = AuthenticationMethod(JsonField.of(value))
+                }
+
+                /** An enum containing [AuthenticationMethod]'s known values. */
+                enum class Known {
+                    TOKEN,
+                    CERTIFICATE,
+                }
+
+                /**
+                 * An enum containing [AuthenticationMethod]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [AuthenticationMethod] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    TOKEN,
+                    CERTIFICATE,
+                    /**
+                     * An enum member indicating that [AuthenticationMethod] was instantiated with
+                     * an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        TOKEN -> Value.TOKEN
+                        CERTIFICATE -> Value.CERTIFICATE
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        TOKEN -> Known.TOKEN
+                        CERTIFICATE -> Known.CERTIFICATE
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown AuthenticationMethod: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): AuthenticationMethod = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is AuthenticationMethod && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ExternalLlm &&
+                    authenticationMethod == other.authenticationMethod &&
+                    baseUrl == other.baseUrl &&
+                    certificateRef == other.certificateRef &&
+                    forwardMetadata == other.forwardMetadata &&
+                    llmApiKeyRef == other.llmApiKeyRef &&
+                    model == other.model &&
+                    tokenRetrievalUrl == other.tokenRetrievalUrl &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    authenticationMethod,
+                    baseUrl,
+                    certificateRef,
+                    forwardMetadata,
+                    llmApiKeyRef,
+                    model,
+                    tokenRetrievalUrl,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ExternalLlm{authenticationMethod=$authenticationMethod, baseUrl=$baseUrl, certificateRef=$certificateRef, forwardMetadata=$forwardMetadata, llmApiKeyRef=$llmApiKeyRef, model=$model, tokenRetrievalUrl=$tokenRetrievalUrl, additionalProperties=$additionalProperties}"
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is FallbackConfig && additionalProperties == other.additionalProperties
+            return other is FallbackConfig &&
+                externalLlm == other.externalLlm &&
+                llmApiKeyRef == other.llmApiKeyRef &&
+                model == other.model &&
+                additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(externalLlm, llmApiKeyRef, model, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "FallbackConfig{additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "FallbackConfig{externalLlm=$externalLlm, llmApiKeyRef=$llmApiKeyRef, model=$model, additionalProperties=$additionalProperties}"
     }
 
     class McpServer

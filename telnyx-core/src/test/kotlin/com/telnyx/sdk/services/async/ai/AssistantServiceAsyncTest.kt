@@ -12,10 +12,13 @@ import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
+import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
+import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -48,6 +51,34 @@ internal class AssistantServiceAsyncTest {
                     )
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                    .externalLlm(
+                        ExternalLlmReq.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .fallbackConfig(
+                        FallbackConfigReq.builder()
+                            .externalLlm(
+                                ExternalLlmReq.builder()
+                                    .baseUrl("base_url")
+                                    .model("model")
+                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .certificateRef("certificate_ref")
+                                    .forwardMetadata(true)
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .tokenRetrievalUrl("token_retrieval_url")
+                                    .build()
+                            )
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .model("model")
+                            .build()
+                    )
                     .greeting("greeting")
                     .insightSettings(
                         InsightSettings.builder().insightGroupId("insight_group_id").build()
@@ -67,6 +98,9 @@ internal class AssistantServiceAsyncTest {
                             .secretKeyRef("secret_key_ref")
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
+                    )
+                    .postConversationSettings(
+                        PostConversationSettingsReq.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
@@ -206,15 +240,19 @@ internal class AssistantServiceAsyncTest {
                     )
                     .transcription(
                         TranscriptionSettings.builder()
+                            .apiKeyRef("api_key_ref")
                             .language("language")
                             .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                             .region("region")
                             .settings(
                                 TranscriptionSettingsConfig.builder()
                                     .eagerEotThreshold(0.3)
-                                    .eotThreshold(0.0)
-                                    .eotTimeoutMs(0L)
+                                    .endOfTurnConfidenceThreshold(0.0)
+                                    .eotThreshold(0.5)
+                                    .eotTimeoutMs(500L)
                                     .keyterm("keyterm")
+                                    .maxTurnSilence(100L)
+                                    .minTurnSilence(100L)
                                     .numerals(true)
                                     .smartFormat(true)
                                     .build()
@@ -305,6 +343,34 @@ internal class AssistantServiceAsyncTest {
                     )
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                    .externalLlm(
+                        ExternalLlmReq.builder()
+                            .baseUrl("base_url")
+                            .model("model")
+                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .fallbackConfig(
+                        FallbackConfigReq.builder()
+                            .externalLlm(
+                                ExternalLlmReq.builder()
+                                    .baseUrl("base_url")
+                                    .model("model")
+                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .certificateRef("certificate_ref")
+                                    .forwardMetadata(true)
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .tokenRetrievalUrl("token_retrieval_url")
+                                    .build()
+                            )
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .model("model")
+                            .build()
+                    )
                     .greeting("greeting")
                     .insightSettings(
                         InsightSettings.builder().insightGroupId("insight_group_id").build()
@@ -327,6 +393,9 @@ internal class AssistantServiceAsyncTest {
                             .secretKeyRef("secret_key_ref")
                             .status(ObservabilityReq.Status.ENABLED)
                             .build()
+                    )
+                    .postConversationSettings(
+                        PostConversationSettingsReq.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
@@ -466,15 +535,19 @@ internal class AssistantServiceAsyncTest {
                     )
                     .transcription(
                         TranscriptionSettings.builder()
+                            .apiKeyRef("api_key_ref")
                             .language("language")
                             .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                             .region("region")
                             .settings(
                                 TranscriptionSettingsConfig.builder()
                                     .eagerEotThreshold(0.3)
-                                    .eotThreshold(0.0)
-                                    .eotTimeoutMs(0L)
+                                    .endOfTurnConfidenceThreshold(0.0)
+                                    .eotThreshold(0.5)
+                                    .eotTimeoutMs(500L)
                                     .keyterm("keyterm")
+                                    .maxTurnSilence(100L)
+                                    .minTurnSilence(100L)
                                     .numerals(true)
                                     .smartFormat(true)
                                     .build()

@@ -1,5 +1,39 @@
 # Changelog
 
+## 6.45.0 (2026-04-29)
+
+Full Changelog: [v6.44.0...v6.45.0](https://github.com/team-telnyx/telnyx-java/compare/v6.44.0...v6.45.0)
+
+### Features
+
+* Add assistant external LLM forward metadata to OpenAPI ([15db3f8](https://github.com/team-telnyx/telnyx-java/commit/15db3f88d6f28971c0c39295f8e7c4a90224b9b6))
+* Add call.hold and call.unhold webhook event documentation ([3bdbe06](https://github.com/team-telnyx/telnyx-java/commit/3bdbe0681c1dcbdf1d742db38a0b52613170a717))
+* Add post_conversation_settings to AI Assistants API spec ([6f76203](https://github.com/team-telnyx/telnyx-java/commit/6f762037f9bbdd5ad88f1b699a7a2ddf6e05e32a))
+* Add xAI provider to standalone STT and TTS specs ([0c9de51](https://github.com/team-telnyx/telnyx-java/commit/0c9de51d72378a0eee913177ab422eebedaa2cf2))
+* **api:** manual updates ([8519a56](https://github.com/team-telnyx/telnyx-java/commit/8519a560354c1bd92a3a81d789af42125f162732))
+* Correct external LLM forwarded metadata docs ([8d13c8f](https://github.com/team-telnyx/telnyx-java/commit/8d13c8fbc85ffc66e35b0e98beafa4a12033bd6c))
+* Document Flux transcription language hints ([8cf17dc](https://github.com/team-telnyx/telnyx-java/commit/8cf17dc91da17b2a6b9160a57e7f633b96b40f80))
+* ENGDESK-51445: added profile ID fields to Whatsapp messages ([3de188a](https://github.com/team-telnyx/telnyx-java/commit/3de188a6666a19fb49e7133ad342478fd016bf73))
+* Fix CreateVerifyProfileRequest to match messaging-2fa schema ([b9a0d21](https://github.com/team-telnyx/telnyx-java/commit/b9a0d21948dee8caed9a1e8cb192ff83f1ab2bde))
+* MSG-6841: add missing whatsapp api docs ([6eb3372](https://github.com/team-telnyx/telnyx-java/commit/6eb3372ab7017e835cd7fe6fece1de7c4f17582f))
+* MSG-6857: ([e869eae](https://github.com/team-telnyx/telnyx-java/commit/e869eaeabba2ad4fe55c97521168e81983f491cb))
+* support setting headers via env ([073f97b](https://github.com/team-telnyx/telnyx-java/commit/073f97bf24e85b5df635e7303cc0a042958c3b32))
+* TELAPPS-5725: Add deepfake detection params to call-scripting API docs ([af660c9](https://github.com/team-telnyx/telnyx-java/commit/af660c997cb8013c2e82563660bb2bfb4864b07d))
+* Update assistant transcription settings spec ([b34a651](https://github.com/team-telnyx/telnyx-java/commit/b34a65142210daedd6c101022e63f158a1744621))
+
+
+### Chores
+
+* update example date in inference-embedding ([bfcf0e5](https://github.com/team-telnyx/telnyx-java/commit/bfcf0e550e1310c57104aca627bfdab36da3e839))
+* update example date in inference-embedding ([152a245](https://github.com/team-telnyx/telnyx-java/commit/152a245140dc89d9c8c8276a2d370e459a390479))
+* update example date in inference-embedding ([f0e602b](https://github.com/team-telnyx/telnyx-java/commit/f0e602b1c7586d8a77bd1c3b052d04432528e3b9))
+* update example date in inference-embedding ([160105c](https://github.com/team-telnyx/telnyx-java/commit/160105c679a544aa278cd8c0b682bc4384c4c824))
+
+
+### Documentation
+
+* document dynamic variable support for voice_settings.voice ([79450d3](https://github.com/team-telnyx/telnyx-java/commit/79450d397bbdc03047a0174ed26dec16fd75c630))
+
 ## 6.44.0 (2026-04-20)
 
 Full Changelog: [v6.43.0...v6.44.0](https://github.com/team-telnyx/telnyx-java/compare/v6.43.0...v6.44.0)

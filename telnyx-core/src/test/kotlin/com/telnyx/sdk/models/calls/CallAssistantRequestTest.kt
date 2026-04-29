@@ -26,12 +26,36 @@ internal class CallAssistantRequestTest {
                 )
                 .externalLlm(
                     CallAssistantRequest.ExternalLlm.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .authenticationMethod(
+                            CallAssistantRequest.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .baseUrl("base_url")
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .tokenRetrievalUrl("token_retrieval_url")
                         .build()
                 )
                 .fallbackConfig(
                     CallAssistantRequest.FallbackConfig.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .externalLlm(
+                            CallAssistantRequest.FallbackConfig.ExternalLlm.builder()
+                                .authenticationMethod(
+                                    CallAssistantRequest.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .baseUrl("base_url")
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .model("model")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
                         .build()
                 )
                 .greeting("greeting")
@@ -71,13 +95,36 @@ internal class CallAssistantRequestTest {
         assertThat(callAssistantRequest.externalLlm())
             .contains(
                 CallAssistantRequest.ExternalLlm.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .authenticationMethod(
+                        CallAssistantRequest.ExternalLlm.AuthenticationMethod.TOKEN
+                    )
+                    .baseUrl("base_url")
+                    .certificateRef("certificate_ref")
+                    .forwardMetadata(true)
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
+                    .tokenRetrievalUrl("token_retrieval_url")
                     .build()
             )
         assertThat(callAssistantRequest.fallbackConfig())
             .contains(
                 CallAssistantRequest.FallbackConfig.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .externalLlm(
+                        CallAssistantRequest.FallbackConfig.ExternalLlm.builder()
+                            .authenticationMethod(
+                                CallAssistantRequest.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
+                            .baseUrl("base_url")
+                            .certificateRef("certificate_ref")
+                            .forwardMetadata(true)
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .model("model")
+                            .tokenRetrievalUrl("token_retrieval_url")
+                            .build()
+                    )
+                    .llmApiKeyRef("llm_api_key_ref")
+                    .model("model")
                     .build()
             )
         assertThat(callAssistantRequest.greeting()).contains("greeting")
@@ -131,12 +178,36 @@ internal class CallAssistantRequestTest {
                 )
                 .externalLlm(
                     CallAssistantRequest.ExternalLlm.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .authenticationMethod(
+                            CallAssistantRequest.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
+                        .baseUrl("base_url")
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .tokenRetrievalUrl("token_retrieval_url")
                         .build()
                 )
                 .fallbackConfig(
                     CallAssistantRequest.FallbackConfig.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .externalLlm(
+                            CallAssistantRequest.FallbackConfig.ExternalLlm.builder()
+                                .authenticationMethod(
+                                    CallAssistantRequest.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
+                                .baseUrl("base_url")
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .model("model")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
                         .build()
                 )
                 .greeting("greeting")

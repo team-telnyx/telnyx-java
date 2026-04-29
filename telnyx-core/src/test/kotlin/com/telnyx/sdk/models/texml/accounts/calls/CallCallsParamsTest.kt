@@ -29,6 +29,11 @@ internal class CallCallsParamsTest {
                             .value("custom-value")
                             .build()
                     )
+                    .deepfakeDetection(CallCallsParams.Params.WithUrl.DeepfakeDetection.ENABLE)
+                    .deepfakeDetectionCallbackMethod(
+                        CallCallsParams.Params.WithUrl.DeepfakeDetectionCallbackMethod.GET
+                    )
+                    .deepfakeDetectionCallbackUrl("https://www.example.com/deepfake-callback")
                     .detectionMode(CallCallsParams.Params.WithUrl.DetectionMode.PREMIUM)
                     .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                     .from("+13120001234")
@@ -110,6 +115,11 @@ internal class CallCallsParamsTest {
                                 .value("custom-value")
                                 .build()
                         )
+                        .deepfakeDetection(CallCallsParams.Params.WithUrl.DeepfakeDetection.ENABLE)
+                        .deepfakeDetectionCallbackMethod(
+                            CallCallsParams.Params.WithUrl.DeepfakeDetectionCallbackMethod.GET
+                        )
+                        .deepfakeDetectionCallbackUrl("https://www.example.com/deepfake-callback")
                         .detectionMode(CallCallsParams.Params.WithUrl.DetectionMode.PREMIUM)
                         .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                         .from("+13120001234")
@@ -176,6 +186,11 @@ internal class CallCallsParamsTest {
                                 .value("custom-value")
                                 .build()
                         )
+                        .deepfakeDetection(CallCallsParams.Params.WithUrl.DeepfakeDetection.ENABLE)
+                        .deepfakeDetectionCallbackMethod(
+                            CallCallsParams.Params.WithUrl.DeepfakeDetectionCallbackMethod.GET
+                        )
+                        .deepfakeDetectionCallbackUrl("https://www.example.com/deepfake-callback")
                         .detectionMode(CallCallsParams.Params.WithUrl.DetectionMode.PREMIUM)
                         .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                         .from("+13120001234")

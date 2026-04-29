@@ -17,6 +17,7 @@ internal class ProfileUpdateParamsTest {
             .description("description")
             .displayName("display_name")
             .email("email")
+            .profileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .website("website")
             .build()
     }
@@ -41,6 +42,7 @@ internal class ProfileUpdateParamsTest {
                 .description("description")
                 .displayName("display_name")
                 .email("email")
+                .profileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .website("website")
                 .build()
 
@@ -52,6 +54,7 @@ internal class ProfileUpdateParamsTest {
         assertThat(body.description()).contains("description")
         assertThat(body.displayName()).contains("display_name")
         assertThat(body.email()).contains("email")
+        assertThat(body.profileId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.website()).contains("website")
     }
 

@@ -52,6 +52,14 @@ private constructor(
     fun whatsappMessage(): WhatsappMessageContent = body.whatsappMessage()
 
     /**
+     * Messaging profile ID - required if the 'from' number is not SMS-enabled
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun messagingProfileId(): Optional<String> = body.messagingProfileId()
+
+    /**
      * Message type - must be set to "WHATSAPP"
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -87,6 +95,14 @@ private constructor(
      * Unlike [whatsappMessage], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _whatsappMessage(): JsonField<WhatsappMessageContent> = body._whatsappMessage()
+
+    /**
+     * Returns the raw JSON value of [messagingProfileId].
+     *
+     * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _messagingProfileId(): JsonField<String> = body._messagingProfileId()
 
     /**
      * Returns the raw JSON value of [type].
@@ -149,8 +165,8 @@ private constructor(
          * - [from]
          * - [to]
          * - [whatsappMessage]
+         * - [messagingProfileId]
          * - [type]
-         * - [webhookUrl]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -190,6 +206,22 @@ private constructor(
          */
         fun whatsappMessage(whatsappMessage: JsonField<WhatsappMessageContent>) = apply {
             body.whatsappMessage(whatsappMessage)
+        }
+
+        /** Messaging profile ID - required if the 'from' number is not SMS-enabled */
+        fun messagingProfileId(messagingProfileId: String) = apply {
+            body.messagingProfileId(messagingProfileId)
+        }
+
+        /**
+         * Sets [Builder.messagingProfileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messagingProfileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
+            body.messagingProfileId(messagingProfileId)
         }
 
         /** Message type - must be set to "WHATSAPP" */
@@ -366,6 +398,7 @@ private constructor(
         private val from: JsonField<String>,
         private val to: JsonField<String>,
         private val whatsappMessage: JsonField<WhatsappMessageContent>,
+        private val messagingProfileId: JsonField<String>,
         private val type: JsonField<Type>,
         private val webhookUrl: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -378,11 +411,14 @@ private constructor(
             @JsonProperty("whatsapp_message")
             @ExcludeMissing
             whatsappMessage: JsonField<WhatsappMessageContent> = JsonMissing.of(),
+            @JsonProperty("messaging_profile_id")
+            @ExcludeMissing
+            messagingProfileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             @JsonProperty("webhook_url")
             @ExcludeMissing
             webhookUrl: JsonField<String> = JsonMissing.of(),
-        ) : this(from, to, whatsappMessage, type, webhookUrl, mutableMapOf())
+        ) : this(from, to, whatsappMessage, messagingProfileId, type, webhookUrl, mutableMapOf())
 
         /**
          * Phone number in +E.164 format associated with Whatsapp account
@@ -406,6 +442,15 @@ private constructor(
          */
         fun whatsappMessage(): WhatsappMessageContent =
             whatsappMessage.getRequired("whatsapp_message")
+
+        /**
+         * Messaging profile ID - required if the 'from' number is not SMS-enabled
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messagingProfileId(): Optional<String> =
+            messagingProfileId.getOptional("messaging_profile_id")
 
         /**
          * Message type - must be set to "WHATSAPP"
@@ -446,6 +491,16 @@ private constructor(
         @JsonProperty("whatsapp_message")
         @ExcludeMissing
         fun _whatsappMessage(): JsonField<WhatsappMessageContent> = whatsappMessage
+
+        /**
+         * Returns the raw JSON value of [messagingProfileId].
+         *
+         * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("messaging_profile_id")
+        @ExcludeMissing
+        fun _messagingProfileId(): JsonField<String> = messagingProfileId
 
         /**
          * Returns the raw JSON value of [type].
@@ -496,6 +551,7 @@ private constructor(
             private var from: JsonField<String>? = null
             private var to: JsonField<String>? = null
             private var whatsappMessage: JsonField<WhatsappMessageContent>? = null
+            private var messagingProfileId: JsonField<String> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
             private var webhookUrl: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -505,6 +561,7 @@ private constructor(
                 from = body.from
                 to = body.to
                 whatsappMessage = body.whatsappMessage
+                messagingProfileId = body.messagingProfileId
                 type = body.type
                 webhookUrl = body.webhookUrl
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -546,6 +603,21 @@ private constructor(
              */
             fun whatsappMessage(whatsappMessage: JsonField<WhatsappMessageContent>) = apply {
                 this.whatsappMessage = whatsappMessage
+            }
+
+            /** Messaging profile ID - required if the 'from' number is not SMS-enabled */
+            fun messagingProfileId(messagingProfileId: String) =
+                messagingProfileId(JsonField.of(messagingProfileId))
+
+            /**
+             * Sets [Builder.messagingProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messagingProfileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
+                this.messagingProfileId = messagingProfileId
             }
 
             /** Message type - must be set to "WHATSAPP" */
@@ -610,6 +682,7 @@ private constructor(
                     checkRequired("from", from),
                     checkRequired("to", to),
                     checkRequired("whatsappMessage", whatsappMessage),
+                    messagingProfileId,
                     type,
                     webhookUrl,
                     additionalProperties.toMutableMap(),
@@ -626,6 +699,7 @@ private constructor(
             from()
             to()
             whatsappMessage().validate()
+            messagingProfileId()
             type().ifPresent { it.validate() }
             webhookUrl()
             validated = true
@@ -650,6 +724,7 @@ private constructor(
             (if (from.asKnown().isPresent) 1 else 0) +
                 (if (to.asKnown().isPresent) 1 else 0) +
                 (whatsappMessage.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
                 (type.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
@@ -662,19 +737,28 @@ private constructor(
                 from == other.from &&
                 to == other.to &&
                 whatsappMessage == other.whatsappMessage &&
+                messagingProfileId == other.messagingProfileId &&
                 type == other.type &&
                 webhookUrl == other.webhookUrl &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(from, to, whatsappMessage, type, webhookUrl, additionalProperties)
+            Objects.hash(
+                from,
+                to,
+                whatsappMessage,
+                messagingProfileId,
+                type,
+                webhookUrl,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{from=$from, to=$to, whatsappMessage=$whatsappMessage, type=$type, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{from=$from, to=$to, whatsappMessage=$whatsappMessage, messagingProfileId=$messagingProfileId, type=$type, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /** Message type - must be set to "WHATSAPP" */

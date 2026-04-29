@@ -267,6 +267,7 @@ internal class MessageSendWhatsappParamsTest {
                     )
                     .build()
             )
+            .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(MessageSendWhatsappParams.Type.WHATSAPP)
             .webhookUrl("webhook_url")
             .build()
@@ -552,6 +553,7 @@ internal class MessageSendWhatsappParamsTest {
                         )
                         .build()
                 )
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(MessageSendWhatsappParams.Type.WHATSAPP)
                 .webhookUrl("webhook_url")
                 .build()
@@ -816,6 +818,7 @@ internal class MessageSendWhatsappParamsTest {
                     )
                     .build()
             )
+        assertThat(body.messagingProfileId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.type()).contains(MessageSendWhatsappParams.Type.WHATSAPP)
         assertThat(body.webhookUrl()).contains("webhook_url")
     }

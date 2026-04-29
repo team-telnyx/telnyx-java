@@ -88,6 +88,18 @@ private constructor(
     fun enabledFeatures(): Optional<List<EnabledFeatures>> = body.enabledFeatures()
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun externalLlm(): Optional<ExternalLlmReq> = body.externalLlm()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun fallbackConfig(): Optional<FallbackConfigReq> = body.fallbackConfig()
+
+    /**
      * Text that the assistant will use to start the conversation. This may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
      * Use an empty string to have the assistant wait for the user to speak first. Use the special
@@ -128,6 +140,19 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun observabilitySettings(): Optional<ObservabilityReq> = body.observabilitySettings()
+
+    /**
+     * Configuration for post-conversation processing. When enabled, the assistant receives one
+     * additional LLM turn after the conversation ends, allowing it to execute tool calls such as
+     * logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+     * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+     * unavailable post-conversation. Beta feature.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+        body.postConversationSettings()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -228,6 +253,20 @@ private constructor(
     fun _enabledFeatures(): JsonField<List<EnabledFeatures>> = body._enabledFeatures()
 
     /**
+     * Returns the raw JSON value of [externalLlm].
+     *
+     * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalLlm(): JsonField<ExternalLlmReq> = body._externalLlm()
+
+    /**
+     * Returns the raw JSON value of [fallbackConfig].
+     *
+     * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _fallbackConfig(): JsonField<FallbackConfigReq> = body._fallbackConfig()
+
+    /**
      * Returns the raw JSON value of [greeting].
      *
      * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
@@ -263,6 +302,15 @@ private constructor(
      * type.
      */
     fun _observabilitySettings(): JsonField<ObservabilityReq> = body._observabilitySettings()
+
+    /**
+     * Returns the raw JSON value of [postConversationSettings].
+     *
+     * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+        body._postConversationSettings()
 
     /**
      * Returns the raw JSON value of [privacySettings].
@@ -481,6 +529,34 @@ private constructor(
             body.addEnabledFeature(enabledFeature)
         }
 
+        fun externalLlm(externalLlm: ExternalLlmReq) = apply { body.externalLlm(externalLlm) }
+
+        /**
+         * Sets [Builder.externalLlm] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+            body.externalLlm(externalLlm)
+        }
+
+        fun fallbackConfig(fallbackConfig: FallbackConfigReq) = apply {
+            body.fallbackConfig(fallbackConfig)
+        }
+
+        /**
+         * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fallbackConfig] with a well-typed [FallbackConfigReq]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+            body.fallbackConfig(fallbackConfig)
+        }
+
         /**
          * Text that the assistant will use to start the conversation. This may be templated with
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
@@ -562,6 +638,29 @@ private constructor(
         fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
             body.observabilitySettings(observabilitySettings)
         }
+
+        /**
+         * Configuration for post-conversation processing. When enabled, the assistant receives one
+         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
+         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+         * unavailable post-conversation. Beta feature.
+         */
+        fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
+            apply {
+                body.postConversationSettings(postConversationSettings)
+            }
+
+        /**
+         * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.postConversationSettings] with a well-typed
+         * [PostConversationSettingsReq] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun postConversationSettings(
+            postConversationSettings: JsonField<PostConversationSettingsReq>
+        ) = apply { body.postConversationSettings(postConversationSettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
             body.privacySettings(privacySettings)
@@ -983,11 +1082,14 @@ private constructor(
         private val dynamicVariables: JsonField<DynamicVariables>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
+        private val externalLlm: JsonField<ExternalLlmReq>,
+        private val fallbackConfig: JsonField<FallbackConfigReq>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val llmApiKeyRef: JsonField<String>,
         private val messagingSettings: JsonField<MessagingSettings>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
+        private val postConversationSettings: JsonField<PostConversationSettingsReq>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
@@ -1017,6 +1119,12 @@ private constructor(
             @JsonProperty("enabled_features")
             @ExcludeMissing
             enabledFeatures: JsonField<List<EnabledFeatures>> = JsonMissing.of(),
+            @JsonProperty("external_llm")
+            @ExcludeMissing
+            externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of(),
+            @JsonProperty("fallback_config")
+            @ExcludeMissing
+            fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -1032,6 +1140,9 @@ private constructor(
             @JsonProperty("observability_settings")
             @ExcludeMissing
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
+            @JsonProperty("post_conversation_settings")
+            @ExcludeMissing
+            postConversationSettings: JsonField<PostConversationSettingsReq> = JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1061,11 +1172,14 @@ private constructor(
             dynamicVariables,
             dynamicVariablesWebhookUrl,
             enabledFeatures,
+            externalLlm,
+            fallbackConfig,
             greeting,
             insightSettings,
             llmApiKeyRef,
             messagingSettings,
             observabilitySettings,
+            postConversationSettings,
             privacySettings,
             telephonySettings,
             toolIds,
@@ -1136,6 +1250,19 @@ private constructor(
             enabledFeatures.getOptional("enabled_features")
 
         /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun externalLlm(): Optional<ExternalLlmReq> = externalLlm.getOptional("external_llm")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun fallbackConfig(): Optional<FallbackConfigReq> =
+            fallbackConfig.getOptional("fallback_config")
+
+        /**
          * Text that the assistant will use to start the conversation. This may be templated with
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
          * Use an empty string to have the assistant wait for the user to speak first. Use the
@@ -1179,6 +1306,19 @@ private constructor(
          */
         fun observabilitySettings(): Optional<ObservabilityReq> =
             observabilitySettings.getOptional("observability_settings")
+
+        /**
+         * Configuration for post-conversation processing. When enabled, the assistant receives one
+         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
+         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
+         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
+         * unavailable post-conversation. Beta feature.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+            postConversationSettings.getOptional("post_conversation_settings")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1295,6 +1435,25 @@ private constructor(
         fun _enabledFeatures(): JsonField<List<EnabledFeatures>> = enabledFeatures
 
         /**
+         * Returns the raw JSON value of [externalLlm].
+         *
+         * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_llm")
+        @ExcludeMissing
+        fun _externalLlm(): JsonField<ExternalLlmReq> = externalLlm
+
+        /**
+         * Returns the raw JSON value of [fallbackConfig].
+         *
+         * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("fallback_config")
+        @ExcludeMissing
+        fun _fallbackConfig(): JsonField<FallbackConfigReq> = fallbackConfig
+
+        /**
          * Returns the raw JSON value of [greeting].
          *
          * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
@@ -1340,6 +1499,17 @@ private constructor(
         @JsonProperty("observability_settings")
         @ExcludeMissing
         fun _observabilitySettings(): JsonField<ObservabilityReq> = observabilitySettings
+
+        /**
+         * Returns the raw JSON value of [postConversationSettings].
+         *
+         * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("post_conversation_settings")
+        @ExcludeMissing
+        fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+            postConversationSettings
 
         /**
          * Returns the raw JSON value of [privacySettings].
@@ -1442,11 +1612,15 @@ private constructor(
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
+            private var externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of()
+            private var fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
+            private var postConversationSettings: JsonField<PostConversationSettingsReq> =
+                JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
@@ -1465,11 +1639,14 @@ private constructor(
                 dynamicVariables = body.dynamicVariables
                 dynamicVariablesWebhookUrl = body.dynamicVariablesWebhookUrl
                 enabledFeatures = body.enabledFeatures.map { it.toMutableList() }
+                externalLlm = body.externalLlm
+                fallbackConfig = body.fallbackConfig
                 greeting = body.greeting
                 insightSettings = body.insightSettings
                 llmApiKeyRef = body.llmApiKeyRef
                 messagingSettings = body.messagingSettings
                 observabilitySettings = body.observabilitySettings
+                postConversationSettings = body.postConversationSettings
                 privacySettings = body.privacySettings
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
@@ -1598,6 +1775,33 @@ private constructor(
                     }
             }
 
+            fun externalLlm(externalLlm: ExternalLlmReq) = externalLlm(JsonField.of(externalLlm))
+
+            /**
+             * Sets [Builder.externalLlm] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+                this.externalLlm = externalLlm
+            }
+
+            fun fallbackConfig(fallbackConfig: FallbackConfigReq) =
+                fallbackConfig(JsonField.of(fallbackConfig))
+
+            /**
+             * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fallbackConfig] with a well-typed
+             * [FallbackConfigReq] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+                this.fallbackConfig = fallbackConfig
+            }
+
             /**
              * Text that the assistant will use to start the conversation. This may be templated
              * with
@@ -1678,6 +1882,27 @@ private constructor(
             fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
                 this.observabilitySettings = observabilitySettings
             }
+
+            /**
+             * Configuration for post-conversation processing. When enabled, the assistant receives
+             * one additional LLM turn after the conversation ends, allowing it to execute tool
+             * calls such as logging to a CRM or sending a summary. The assistant can execute
+             * multiple parallel or sequential tools during this phase. Telephony-control tools
+             * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
+             */
+            fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
+                postConversationSettings(JsonField.of(postConversationSettings))
+
+            /**
+             * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postConversationSettings] with a well-typed
+             * [PostConversationSettingsReq] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun postConversationSettings(
+                postConversationSettings: JsonField<PostConversationSettingsReq>
+            ) = apply { this.postConversationSettings = postConversationSettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
                 privacySettings(JsonField.of(privacySettings))
@@ -2005,11 +2230,14 @@ private constructor(
                     dynamicVariables,
                     dynamicVariablesWebhookUrl,
                     (enabledFeatures ?: JsonMissing.of()).map { it.toImmutable() },
+                    externalLlm,
+                    fallbackConfig,
                     greeting,
                     insightSettings,
                     llmApiKeyRef,
                     messagingSettings,
                     observabilitySettings,
+                    postConversationSettings,
                     privacySettings,
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -2035,11 +2263,14 @@ private constructor(
             dynamicVariables().ifPresent { it.validate() }
             dynamicVariablesWebhookUrl()
             enabledFeatures().ifPresent { it.forEach { it.validate() } }
+            externalLlm().ifPresent { it.validate() }
+            fallbackConfig().ifPresent { it.validate() }
             greeting()
             insightSettings().ifPresent { it.validate() }
             llmApiKeyRef()
             messagingSettings().ifPresent { it.validate() }
             observabilitySettings().ifPresent { it.validate() }
+            postConversationSettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
             telephonySettings().ifPresent { it.validate() }
             toolIds()
@@ -2073,11 +2304,14 @@ private constructor(
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (enabledFeatures.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
+                (fallbackConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (postConversationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
@@ -2099,11 +2333,14 @@ private constructor(
                 dynamicVariables == other.dynamicVariables &&
                 dynamicVariablesWebhookUrl == other.dynamicVariablesWebhookUrl &&
                 enabledFeatures == other.enabledFeatures &&
+                externalLlm == other.externalLlm &&
+                fallbackConfig == other.fallbackConfig &&
                 greeting == other.greeting &&
                 insightSettings == other.insightSettings &&
                 llmApiKeyRef == other.llmApiKeyRef &&
                 messagingSettings == other.messagingSettings &&
                 observabilitySettings == other.observabilitySettings &&
+                postConversationSettings == other.postConversationSettings &&
                 privacySettings == other.privacySettings &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
@@ -2123,11 +2360,14 @@ private constructor(
                 dynamicVariables,
                 dynamicVariablesWebhookUrl,
                 enabledFeatures,
+                externalLlm,
+                fallbackConfig,
                 greeting,
                 insightSettings,
                 llmApiKeyRef,
                 messagingSettings,
                 observabilitySettings,
+                postConversationSettings,
                 privacySettings,
                 telephonySettings,
                 toolIds,
@@ -2142,7 +2382,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

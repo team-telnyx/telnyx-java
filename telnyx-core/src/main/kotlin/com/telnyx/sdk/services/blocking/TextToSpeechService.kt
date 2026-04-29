@@ -37,7 +37,8 @@ interface TextToSpeechService {
      * in a single string (e.g. `telnyx.NaturalHD.Alloy` or `Telnyx.Ultra.<voice_id>`).
      * Alternatively, specify `provider` explicitly along with provider-specific parameters.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
+     * `xai`.
      *
      * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and
      * volume control. Use the `telnyx` provider-specific parameters to configure these features.

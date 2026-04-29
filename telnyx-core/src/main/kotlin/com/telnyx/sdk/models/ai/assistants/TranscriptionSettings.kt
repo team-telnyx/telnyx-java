@@ -20,6 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 class TranscriptionSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val apiKeyRef: JsonField<String>,
     private val language: JsonField<String>,
     private val model: JsonField<Model>,
     private val region: JsonField<String>,
@@ -29,17 +30,31 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("api_key_ref")
+        @ExcludeMissing
+        apiKeyRef: JsonField<String> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<String> = JsonMissing.of(),
         @JsonProperty("model") @ExcludeMissing model: JsonField<Model> = JsonMissing.of(),
         @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
         @JsonProperty("settings")
         @ExcludeMissing
         settings: JsonField<TranscriptionSettingsConfig> = JsonMissing.of(),
-    ) : this(language, model, region, settings, mutableMapOf())
+    ) : this(apiKeyRef, language, model, region, settings, mutableMapOf())
 
     /**
-     * The language of the audio to be transcribed. If not set, of if set to `auto`, the model will
-     * automatically detect the language.
+     * Integration secret identifier for the transcription provider API key. Currently used for
+     * Azure transcription regions that require a customer-provided API key.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun apiKeyRef(): Optional<String> = apiKeyRef.getOptional("api_key_ref")
+
+    /**
+     * The language of the audio to be transcribed. If not set, or if set to `auto`, supported
+     * models will automatically detect the language. For `deepgram/flux`, supported values are:
+     * `auto` (Telnyx language detection controls the language hint), `multi` (no language hint),
+     * and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -47,11 +62,15 @@ private constructor(
     fun language(): Optional<String> = language.getOptional("language")
 
     /**
-     * The speech to text model to be used by the voice assistant. All the deepgram models are run
+     * The speech to text model to be used by the voice assistant. All Deepgram models are run
      * on-premise.
-     * - `deepgram/flux` is optimized for turn-taking but is English-only.
-     * - `deepgram/nova-3` is multi-lingual with automatic language detection but slightly higher
-     *   latency.
+     * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
+     * - `deepgram/nova-3` is multilingual with automatic language detection.
+     * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+     * - `azure/fast` is a multilingual Azure transcription model.
+     * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
+     *   detection.
+     * - `xai/grok-stt` is a multilingual Grok STT model.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -59,7 +78,8 @@ private constructor(
     fun model(): Optional<Model> = model.getOptional("model")
 
     /**
-     * Region on third party cloud providers (currently Azure) if using one of their models
+     * Region on third party cloud providers (currently Azure) if using one of their models. Some
+     * regions require `api_key_ref`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -71,6 +91,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun settings(): Optional<TranscriptionSettingsConfig> = settings.getOptional("settings")
+
+    /**
+     * Returns the raw JSON value of [apiKeyRef].
+     *
+     * Unlike [apiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("api_key_ref") @ExcludeMissing fun _apiKeyRef(): JsonField<String> = apiKeyRef
 
     /**
      * Returns the raw JSON value of [language].
@@ -123,6 +150,7 @@ private constructor(
     /** A builder for [TranscriptionSettings]. */
     class Builder internal constructor() {
 
+        private var apiKeyRef: JsonField<String> = JsonMissing.of()
         private var language: JsonField<String> = JsonMissing.of()
         private var model: JsonField<Model> = JsonMissing.of()
         private var region: JsonField<String> = JsonMissing.of()
@@ -131,6 +159,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(transcriptionSettings: TranscriptionSettings) = apply {
+            apiKeyRef = transcriptionSettings.apiKeyRef
             language = transcriptionSettings.language
             model = transcriptionSettings.model
             region = transcriptionSettings.region
@@ -139,8 +168,26 @@ private constructor(
         }
 
         /**
-         * The language of the audio to be transcribed. If not set, of if set to `auto`, the model
-         * will automatically detect the language.
+         * Integration secret identifier for the transcription provider API key. Currently used for
+         * Azure transcription regions that require a customer-provided API key.
+         */
+        fun apiKeyRef(apiKeyRef: String) = apiKeyRef(JsonField.of(apiKeyRef))
+
+        /**
+         * Sets [Builder.apiKeyRef] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.apiKeyRef] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun apiKeyRef(apiKeyRef: JsonField<String>) = apply { this.apiKeyRef = apiKeyRef }
+
+        /**
+         * The language of the audio to be transcribed. If not set, or if set to `auto`, supported
+         * models will automatically detect the language. For `deepgram/flux`, supported values are:
+         * `auto` (Telnyx language detection controls the language hint), `multi` (no language
+         * hint), and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`,
+         * and `nl`.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -153,11 +200,15 @@ private constructor(
         fun language(language: JsonField<String>) = apply { this.language = language }
 
         /**
-         * The speech to text model to be used by the voice assistant. All the deepgram models are
-         * run on-premise.
-         * - `deepgram/flux` is optimized for turn-taking but is English-only.
-         * - `deepgram/nova-3` is multi-lingual with automatic language detection but slightly
-         *   higher latency.
+         * The speech to text model to be used by the voice assistant. All Deepgram models are run
+         * on-premise.
+         * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
+         * - `deepgram/nova-3` is multilingual with automatic language detection.
+         * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+         * - `azure/fast` is a multilingual Azure transcription model.
+         * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable
+         *   turn detection.
+         * - `xai/grok-stt` is a multilingual Grok STT model.
          */
         fun model(model: Model) = model(JsonField.of(model))
 
@@ -169,7 +220,10 @@ private constructor(
          */
         fun model(model: JsonField<Model>) = apply { this.model = model }
 
-        /** Region on third party cloud providers (currently Azure) if using one of their models */
+        /**
+         * Region on third party cloud providers (currently Azure) if using one of their models.
+         * Some regions require `api_key_ref`.
+         */
         fun region(region: String) = region(JsonField.of(region))
 
         /**
@@ -219,6 +273,7 @@ private constructor(
          */
         fun build(): TranscriptionSettings =
             TranscriptionSettings(
+                apiKeyRef,
                 language,
                 model,
                 region,
@@ -234,6 +289,7 @@ private constructor(
             return@apply
         }
 
+        apiKeyRef()
         language()
         model().ifPresent { it.validate() }
         region()
@@ -256,17 +312,22 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (language.asKnown().isPresent) 1 else 0) +
+        (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
+            (if (language.asKnown().isPresent) 1 else 0) +
             (model.asKnown().getOrNull()?.validity() ?: 0) +
             (if (region.asKnown().isPresent) 1 else 0) +
             (settings.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
-     * The speech to text model to be used by the voice assistant. All the deepgram models are run
+     * The speech to text model to be used by the voice assistant. All Deepgram models are run
      * on-premise.
-     * - `deepgram/flux` is optimized for turn-taking but is English-only.
-     * - `deepgram/nova-3` is multi-lingual with automatic language detection but slightly higher
-     *   latency.
+     * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
+     * - `deepgram/nova-3` is multilingual with automatic language detection.
+     * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+     * - `azure/fast` is a multilingual Azure transcription model.
+     * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
+     *   detection.
+     * - `xai/grok-stt` is a multilingual Grok STT model.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -290,6 +351,10 @@ private constructor(
 
             @JvmField val AZURE_FAST = of("azure/fast")
 
+            @JvmField val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
+
+            @JvmField val XAI_GROK_STT = of("xai/grok-stt")
+
             @JvmField val DISTIL_WHISPER_DISTIL_LARGE_V2 = of("distil-whisper/distil-large-v2")
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
@@ -303,6 +368,8 @@ private constructor(
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_STREAMING,
+            XAI_GROK_STT,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
         }
@@ -321,6 +388,8 @@ private constructor(
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_STREAMING,
+            XAI_GROK_STT,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -340,6 +409,8 @@ private constructor(
                 DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
                 AZURE_FAST -> Value.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
+                XAI_GROK_STT -> Value.XAI_GROK_STT
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> Value._UNKNOWN
@@ -360,6 +431,8 @@ private constructor(
                 DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
                 AZURE_FAST -> Known.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
+                XAI_GROK_STT -> Known.XAI_GROK_STT
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
@@ -423,6 +496,7 @@ private constructor(
         }
 
         return other is TranscriptionSettings &&
+            apiKeyRef == other.apiKeyRef &&
             language == other.language &&
             model == other.model &&
             region == other.region &&
@@ -431,11 +505,11 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(language, model, region, settings, additionalProperties)
+        Objects.hash(apiKeyRef, language, model, region, settings, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettings{language=$language, model=$model, region=$region, settings=$settings, additionalProperties=$additionalProperties}"
+        "TranscriptionSettings{apiKeyRef=$apiKeyRef, language=$language, model=$model, region=$region, settings=$settings, additionalProperties=$additionalProperties}"
 }

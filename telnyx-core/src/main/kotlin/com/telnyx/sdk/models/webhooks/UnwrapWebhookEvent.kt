@@ -40,6 +40,7 @@ private constructor(
     private val callForkStopped: CallForkStoppedWebhookEvent? = null,
     private val callGatherEnded: CallGatherEndedWebhookEvent? = null,
     private val callHangup: CallHangupWebhookEvent? = null,
+    private val callHold: CallHoldWebhookEvent? = null,
     private val callInitiated: CallInitiatedWebhookEvent? = null,
     private val callLeftQueue: CallLeftQueueWebhookEvent? = null,
     private val callMachineDetectionEnded: CallMachineDetectionEndedWebhookEvent? = null,
@@ -65,6 +66,7 @@ private constructor(
     private val callStreamingFailed: CallStreamingFailedWebhookEvent? = null,
     private val callStreamingStarted: CallStreamingStartedWebhookEvent? = null,
     private val callStreamingStopped: CallStreamingStoppedWebhookEvent? = null,
+    private val callUnhold: CallUnholdWebhookEvent? = null,
     private val campaignStatusUpdate: CampaignStatusUpdate? = null,
     private val conferenceCreated: ConferenceCreatedWebhookEvent? = null,
     private val conferenceEnded: ConferenceEndedWebhookEvent? = null,
@@ -92,6 +94,7 @@ private constructor(
     private val faxMediaProcessed: FaxMediaProcessed? = null,
     private val faxQueued: FaxQueued? = null,
     private val faxSendingStarted: FaxSendingStarted? = null,
+    private val hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdate? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
@@ -143,6 +146,8 @@ private constructor(
         Optional.ofNullable(callGatherEnded)
 
     fun callHangup(): Optional<CallHangupWebhookEvent> = Optional.ofNullable(callHangup)
+
+    fun callHold(): Optional<CallHoldWebhookEvent> = Optional.ofNullable(callHold)
 
     fun callInitiated(): Optional<CallInitiatedWebhookEvent> = Optional.ofNullable(callInitiated)
 
@@ -207,6 +212,8 @@ private constructor(
     fun callStreamingStopped(): Optional<CallStreamingStoppedWebhookEvent> =
         Optional.ofNullable(callStreamingStopped)
 
+    fun callUnhold(): Optional<CallUnholdWebhookEvent> = Optional.ofNullable(callUnhold)
+
     fun campaignStatusUpdate(): Optional<CampaignStatusUpdate> =
         Optional.ofNullable(campaignStatusUpdate)
 
@@ -267,6 +274,9 @@ private constructor(
 
     fun faxSendingStarted(): Optional<FaxSendingStarted> = Optional.ofNullable(faxSendingStarted)
 
+    fun hostedNumberOrderEvent(): Optional<HostedNumberOrderEventWebhookEvent> =
+        Optional.ofNullable(hostedNumberOrderEvent)
+
     fun inboundMessage(): Optional<InboundMessageWebhookEvent> = Optional.ofNullable(inboundMessage)
 
     fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdate> =
@@ -308,6 +318,8 @@ private constructor(
     fun isCallGatherEnded(): Boolean = callGatherEnded != null
 
     fun isCallHangup(): Boolean = callHangup != null
+
+    fun isCallHold(): Boolean = callHold != null
 
     fun isCallInitiated(): Boolean = callInitiated != null
 
@@ -353,6 +365,8 @@ private constructor(
 
     fun isCallStreamingStopped(): Boolean = callStreamingStopped != null
 
+    fun isCallUnhold(): Boolean = callUnhold != null
+
     fun isCampaignStatusUpdate(): Boolean = campaignStatusUpdate != null
 
     fun isConferenceCreated(): Boolean = conferenceCreated != null
@@ -395,6 +409,8 @@ private constructor(
     fun isFaxQueued(): Boolean = faxQueued != null
 
     fun isFaxSendingStarted(): Boolean = faxSendingStarted != null
+
+    fun isHostedNumberOrderEvent(): Boolean = hostedNumberOrderEvent != null
 
     fun isInboundMessage(): Boolean = inboundMessage != null
 
@@ -446,6 +462,8 @@ private constructor(
         callGatherEnded.getOrThrow("callGatherEnded")
 
     fun asCallHangup(): CallHangupWebhookEvent = callHangup.getOrThrow("callHangup")
+
+    fun asCallHold(): CallHoldWebhookEvent = callHold.getOrThrow("callHold")
 
     fun asCallInitiated(): CallInitiatedWebhookEvent = callInitiated.getOrThrow("callInitiated")
 
@@ -510,6 +528,8 @@ private constructor(
     fun asCallStreamingStopped(): CallStreamingStoppedWebhookEvent =
         callStreamingStopped.getOrThrow("callStreamingStopped")
 
+    fun asCallUnhold(): CallUnholdWebhookEvent = callUnhold.getOrThrow("callUnhold")
+
     fun asCampaignStatusUpdate(): CampaignStatusUpdate =
         campaignStatusUpdate.getOrThrow("campaignStatusUpdate")
 
@@ -567,6 +587,9 @@ private constructor(
 
     fun asFaxSendingStarted(): FaxSendingStarted = faxSendingStarted.getOrThrow("faxSendingStarted")
 
+    fun asHostedNumberOrderEvent(): HostedNumberOrderEventWebhookEvent =
+        hostedNumberOrderEvent.getOrThrow("hostedNumberOrderEvent")
+
     fun asInboundMessage(): InboundMessageWebhookEvent = inboundMessage.getOrThrow("inboundMessage")
 
     fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdate =
@@ -603,6 +626,7 @@ private constructor(
             callForkStopped != null -> visitor.visitCallForkStopped(callForkStopped)
             callGatherEnded != null -> visitor.visitCallGatherEnded(callGatherEnded)
             callHangup != null -> visitor.visitCallHangup(callHangup)
+            callHold != null -> visitor.visitCallHold(callHold)
             callInitiated != null -> visitor.visitCallInitiated(callInitiated)
             callLeftQueue != null -> visitor.visitCallLeftQueue(callLeftQueue)
             callMachineDetectionEnded != null ->
@@ -630,6 +654,7 @@ private constructor(
             callStreamingFailed != null -> visitor.visitCallStreamingFailed(callStreamingFailed)
             callStreamingStarted != null -> visitor.visitCallStreamingStarted(callStreamingStarted)
             callStreamingStopped != null -> visitor.visitCallStreamingStopped(callStreamingStopped)
+            callUnhold != null -> visitor.visitCallUnhold(callUnhold)
             campaignStatusUpdate != null -> visitor.visitCampaignStatusUpdate(campaignStatusUpdate)
             conferenceCreated != null -> visitor.visitConferenceCreated(conferenceCreated)
             conferenceEnded != null -> visitor.visitConferenceEnded(conferenceEnded)
@@ -664,6 +689,8 @@ private constructor(
             faxMediaProcessed != null -> visitor.visitFaxMediaProcessed(faxMediaProcessed)
             faxQueued != null -> visitor.visitFaxQueued(faxQueued)
             faxSendingStarted != null -> visitor.visitFaxSendingStarted(faxSendingStarted)
+            hostedNumberOrderEvent != null ->
+                visitor.visitHostedNumberOrderEvent(hostedNumberOrderEvent)
             inboundMessage != null -> visitor.visitInboundMessage(inboundMessage)
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
@@ -757,6 +784,10 @@ private constructor(
 
                 override fun visitCallHangup(callHangup: CallHangupWebhookEvent) {
                     callHangup.validate()
+                }
+
+                override fun visitCallHold(callHold: CallHoldWebhookEvent) {
+                    callHold.validate()
                 }
 
                 override fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent) {
@@ -877,6 +908,10 @@ private constructor(
                     callStreamingStopped.validate()
                 }
 
+                override fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent) {
+                    callUnhold.validate()
+                }
+
                 override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) {
                     campaignStatusUpdate.validate()
                 }
@@ -989,6 +1024,12 @@ private constructor(
                     faxSendingStarted.validate()
                 }
 
+                override fun visitHostedNumberOrderEvent(
+                    hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+                ) {
+                    hostedNumberOrderEvent.validate()
+                }
+
                 override fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent) {
                     inboundMessage.validate()
                 }
@@ -1084,6 +1125,8 @@ private constructor(
                 override fun visitCallHangup(callHangup: CallHangupWebhookEvent) =
                     callHangup.validity()
 
+                override fun visitCallHold(callHold: CallHoldWebhookEvent) = callHold.validity()
+
                 override fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent) =
                     callInitiated.validity()
 
@@ -1165,6 +1208,9 @@ private constructor(
                     callStreamingStopped: CallStreamingStoppedWebhookEvent
                 ) = callStreamingStopped.validity()
 
+                override fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent) =
+                    callUnhold.validity()
+
                 override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
                     campaignStatusUpdate.validity()
 
@@ -1240,6 +1286,10 @@ private constructor(
                 override fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted) =
                     faxSendingStarted.validity()
 
+                override fun visitHostedNumberOrderEvent(
+                    hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+                ) = hostedNumberOrderEvent.validity()
+
                 override fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent) =
                     inboundMessage.validity()
 
@@ -1280,6 +1330,7 @@ private constructor(
             callForkStopped == other.callForkStopped &&
             callGatherEnded == other.callGatherEnded &&
             callHangup == other.callHangup &&
+            callHold == other.callHold &&
             callInitiated == other.callInitiated &&
             callLeftQueue == other.callLeftQueue &&
             callMachineDetectionEnded == other.callMachineDetectionEnded &&
@@ -1302,6 +1353,7 @@ private constructor(
             callStreamingFailed == other.callStreamingFailed &&
             callStreamingStarted == other.callStreamingStarted &&
             callStreamingStopped == other.callStreamingStopped &&
+            callUnhold == other.callUnhold &&
             campaignStatusUpdate == other.campaignStatusUpdate &&
             conferenceCreated == other.conferenceCreated &&
             conferenceEnded == other.conferenceEnded &&
@@ -1323,6 +1375,7 @@ private constructor(
             faxMediaProcessed == other.faxMediaProcessed &&
             faxQueued == other.faxQueued &&
             faxSendingStarted == other.faxSendingStarted &&
+            hostedNumberOrderEvent == other.hostedNumberOrderEvent &&
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
             replacedLinkClick == other.replacedLinkClick &&
@@ -1347,6 +1400,7 @@ private constructor(
             callForkStopped,
             callGatherEnded,
             callHangup,
+            callHold,
             callInitiated,
             callLeftQueue,
             callMachineDetectionEnded,
@@ -1369,6 +1423,7 @@ private constructor(
             callStreamingFailed,
             callStreamingStarted,
             callStreamingStopped,
+            callUnhold,
             campaignStatusUpdate,
             conferenceCreated,
             conferenceEnded,
@@ -1390,6 +1445,7 @@ private constructor(
             faxMediaProcessed,
             faxQueued,
             faxSendingStarted,
+            hostedNumberOrderEvent,
             inboundMessage,
             numberOrderStatusUpdate,
             replacedLinkClick,
@@ -1420,6 +1476,7 @@ private constructor(
             callForkStopped != null -> "UnwrapWebhookEvent{callForkStopped=$callForkStopped}"
             callGatherEnded != null -> "UnwrapWebhookEvent{callGatherEnded=$callGatherEnded}"
             callHangup != null -> "UnwrapWebhookEvent{callHangup=$callHangup}"
+            callHold != null -> "UnwrapWebhookEvent{callHold=$callHold}"
             callInitiated != null -> "UnwrapWebhookEvent{callInitiated=$callInitiated}"
             callLeftQueue != null -> "UnwrapWebhookEvent{callLeftQueue=$callLeftQueue}"
             callMachineDetectionEnded != null ->
@@ -1454,6 +1511,7 @@ private constructor(
                 "UnwrapWebhookEvent{callStreamingStarted=$callStreamingStarted}"
             callStreamingStopped != null ->
                 "UnwrapWebhookEvent{callStreamingStopped=$callStreamingStopped}"
+            callUnhold != null -> "UnwrapWebhookEvent{callUnhold=$callUnhold}"
             campaignStatusUpdate != null ->
                 "UnwrapWebhookEvent{campaignStatusUpdate=$campaignStatusUpdate}"
             conferenceCreated != null -> "UnwrapWebhookEvent{conferenceCreated=$conferenceCreated}"
@@ -1488,6 +1546,8 @@ private constructor(
             faxMediaProcessed != null -> "UnwrapWebhookEvent{faxMediaProcessed=$faxMediaProcessed}"
             faxQueued != null -> "UnwrapWebhookEvent{faxQueued=$faxQueued}"
             faxSendingStarted != null -> "UnwrapWebhookEvent{faxSendingStarted=$faxSendingStarted}"
+            hostedNumberOrderEvent != null ->
+                "UnwrapWebhookEvent{hostedNumberOrderEvent=$hostedNumberOrderEvent}"
             inboundMessage != null -> "UnwrapWebhookEvent{inboundMessage=$inboundMessage}"
             numberOrderStatusUpdate != null ->
                 "UnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
@@ -1572,6 +1632,9 @@ private constructor(
         @JvmStatic
         fun ofCallHangup(callHangup: CallHangupWebhookEvent) =
             UnwrapWebhookEvent(callHangup = callHangup)
+
+        @JvmStatic
+        fun ofCallHold(callHold: CallHoldWebhookEvent) = UnwrapWebhookEvent(callHold = callHold)
 
         @JvmStatic
         fun ofCallInitiated(callInitiated: CallInitiatedWebhookEvent) =
@@ -1665,6 +1728,10 @@ private constructor(
         @JvmStatic
         fun ofCallStreamingStopped(callStreamingStopped: CallStreamingStoppedWebhookEvent) =
             UnwrapWebhookEvent(callStreamingStopped = callStreamingStopped)
+
+        @JvmStatic
+        fun ofCallUnhold(callUnhold: CallUnholdWebhookEvent) =
+            UnwrapWebhookEvent(callUnhold = callUnhold)
 
         @JvmStatic
         fun ofCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
@@ -1765,6 +1832,10 @@ private constructor(
             UnwrapWebhookEvent(faxSendingStarted = faxSendingStarted)
 
         @JvmStatic
+        fun ofHostedNumberOrderEvent(hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent) =
+            UnwrapWebhookEvent(hostedNumberOrderEvent = hostedNumberOrderEvent)
+
+        @JvmStatic
         fun ofInboundMessage(inboundMessage: InboundMessageWebhookEvent) =
             UnwrapWebhookEvent(inboundMessage = inboundMessage)
 
@@ -1829,6 +1900,8 @@ private constructor(
 
         fun visitCallHangup(callHangup: CallHangupWebhookEvent): T
 
+        fun visitCallHold(callHold: CallHoldWebhookEvent): T
+
         fun visitCallInitiated(callInitiated: CallInitiatedWebhookEvent): T
 
         fun visitCallLeftQueue(callLeftQueue: CallLeftQueueWebhookEvent): T
@@ -1882,6 +1955,8 @@ private constructor(
         fun visitCallStreamingStarted(callStreamingStarted: CallStreamingStartedWebhookEvent): T
 
         fun visitCallStreamingStopped(callStreamingStopped: CallStreamingStoppedWebhookEvent): T
+
+        fun visitCallUnhold(callUnhold: CallUnholdWebhookEvent): T
 
         fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate): T
 
@@ -1944,6 +2019,10 @@ private constructor(
         fun visitFaxQueued(faxQueued: FaxQueued): T
 
         fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted): T
+
+        fun visitHostedNumberOrderEvent(
+            hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent
+        ): T
 
         fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent): T
 
@@ -2048,6 +2127,9 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallHangupWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callHangup = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<CallHoldWebhookEvent>())?.let {
+                            UnwrapWebhookEvent(callHold = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CallInitiatedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callInitiated = it, _json = json)
                         },
@@ -2133,6 +2215,9 @@ private constructor(
                             ?.let { UnwrapWebhookEvent(callStreamingStarted = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<CallStreamingStoppedWebhookEvent>())
                             ?.let { UnwrapWebhookEvent(callStreamingStopped = it, _json = json) },
+                        tryDeserialize(node, jacksonTypeRef<CallUnholdWebhookEvent>())?.let {
+                            UnwrapWebhookEvent(callUnhold = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CampaignStatusUpdate>())?.let {
                             UnwrapWebhookEvent(campaignStatusUpdate = it, _json = json)
                         },
@@ -2236,6 +2321,8 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<FaxSendingStarted>())?.let {
                             UnwrapWebhookEvent(faxSendingStarted = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<HostedNumberOrderEventWebhookEvent>())
+                            ?.let { UnwrapWebhookEvent(hostedNumberOrderEvent = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<InboundMessageWebhookEvent>())?.let {
                             UnwrapWebhookEvent(inboundMessage = it, _json = json)
                         },
@@ -2294,6 +2381,7 @@ private constructor(
                 value.callForkStopped != null -> generator.writeObject(value.callForkStopped)
                 value.callGatherEnded != null -> generator.writeObject(value.callGatherEnded)
                 value.callHangup != null -> generator.writeObject(value.callHangup)
+                value.callHold != null -> generator.writeObject(value.callHold)
                 value.callInitiated != null -> generator.writeObject(value.callInitiated)
                 value.callLeftQueue != null -> generator.writeObject(value.callLeftQueue)
                 value.callMachineDetectionEnded != null ->
@@ -2325,6 +2413,7 @@ private constructor(
                     generator.writeObject(value.callStreamingStarted)
                 value.callStreamingStopped != null ->
                     generator.writeObject(value.callStreamingStopped)
+                value.callUnhold != null -> generator.writeObject(value.callUnhold)
                 value.campaignStatusUpdate != null ->
                     generator.writeObject(value.campaignStatusUpdate)
                 value.conferenceCreated != null -> generator.writeObject(value.conferenceCreated)
@@ -2359,6 +2448,8 @@ private constructor(
                 value.faxMediaProcessed != null -> generator.writeObject(value.faxMediaProcessed)
                 value.faxQueued != null -> generator.writeObject(value.faxQueued)
                 value.faxSendingStarted != null -> generator.writeObject(value.faxSendingStarted)
+                value.hostedNumberOrderEvent != null ->
+                    generator.writeObject(value.hostedNumberOrderEvent)
                 value.inboundMessage != null -> generator.writeObject(value.inboundMessage)
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)

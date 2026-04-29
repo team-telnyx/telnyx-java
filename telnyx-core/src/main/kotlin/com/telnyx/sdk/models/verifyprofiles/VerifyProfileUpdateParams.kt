@@ -39,10 +39,20 @@ private constructor(
     fun call(): Optional<Call> = body.call()
 
     /**
+     * The maximum daily spend allowed on this verify profile, in USD.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun flashcall(): Optional<Flashcall> = body.flashcall()
+    fun dailySpendLimit(): Optional<Double> = body.dailySpendLimit()
+
+    /**
+     * Whether the daily spend limit is enforced for this verify profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dailySpendLimitEnabled(): Optional<Boolean> = body.dailySpendLimitEnabled()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -55,12 +65,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = body.name()
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun rcs(): Optional<Rcs> = body.rcs()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -94,11 +98,19 @@ private constructor(
     fun _call(): JsonField<Call> = body._call()
 
     /**
-     * Returns the raw JSON value of [flashcall].
+     * Returns the raw JSON value of [dailySpendLimit].
      *
-     * Unlike [flashcall], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [dailySpendLimit], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _flashcall(): JsonField<Flashcall> = body._flashcall()
+    fun _dailySpendLimit(): JsonField<Double> = body._dailySpendLimit()
+
+    /**
+     * Returns the raw JSON value of [dailySpendLimitEnabled].
+     *
+     * Unlike [dailySpendLimitEnabled], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _dailySpendLimitEnabled(): JsonField<Boolean> = body._dailySpendLimitEnabled()
 
     /**
      * Returns the raw JSON value of [language].
@@ -113,13 +125,6 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
-
-    /**
-     * Returns the raw JSON value of [rcs].
-     *
-     * Unlike [rcs], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _rcs(): JsonField<Rcs> = body._rcs()
 
     /**
      * Returns the raw JSON value of [sms].
@@ -200,10 +205,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [call]
-         * - [flashcall]
+         * - [dailySpendLimit]
+         * - [dailySpendLimitEnabled]
          * - [language]
          * - [name]
-         * - [rcs]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -218,16 +223,37 @@ private constructor(
          */
         fun call(call: JsonField<Call>) = apply { body.call(call) }
 
-        fun flashcall(flashcall: Flashcall) = apply { body.flashcall(flashcall) }
+        /** The maximum daily spend allowed on this verify profile, in USD. */
+        fun dailySpendLimit(dailySpendLimit: Double) = apply {
+            body.dailySpendLimit(dailySpendLimit)
+        }
 
         /**
-         * Sets [Builder.flashcall] to an arbitrary JSON value.
+         * Sets [Builder.dailySpendLimit] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.flashcall] with a well-typed [Flashcall] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.dailySpendLimit] with a well-typed [Double] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun flashcall(flashcall: JsonField<Flashcall>) = apply { body.flashcall(flashcall) }
+        fun dailySpendLimit(dailySpendLimit: JsonField<Double>) = apply {
+            body.dailySpendLimit(dailySpendLimit)
+        }
+
+        /** Whether the daily spend limit is enforced for this verify profile. */
+        fun dailySpendLimitEnabled(dailySpendLimitEnabled: Boolean) = apply {
+            body.dailySpendLimitEnabled(dailySpendLimitEnabled)
+        }
+
+        /**
+         * Sets [Builder.dailySpendLimitEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dailySpendLimitEnabled] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun dailySpendLimitEnabled(dailySpendLimitEnabled: JsonField<Boolean>) = apply {
+            body.dailySpendLimitEnabled(dailySpendLimitEnabled)
+        }
 
         fun language(language: String) = apply { body.language(language) }
 
@@ -248,16 +274,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
-
-        fun rcs(rcs: Rcs) = apply { body.rcs(rcs) }
-
-        /**
-         * Sets [Builder.rcs] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.rcs] with a well-typed [Rcs] value instead. This method
-         * is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun rcs(rcs: JsonField<Rcs>) = apply { body.rcs(rcs) }
 
         fun sms(sms: Sms) = apply { body.sms(sms) }
 
@@ -453,10 +469,10 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val call: JsonField<Call>,
-        private val flashcall: JsonField<Flashcall>,
+        private val dailySpendLimit: JsonField<Double>,
+        private val dailySpendLimitEnabled: JsonField<Boolean>,
         private val language: JsonField<String>,
         private val name: JsonField<String>,
-        private val rcs: JsonField<Rcs>,
         private val sms: JsonField<Sms>,
         private val webhookFailoverUrl: JsonField<String>,
         private val webhookUrl: JsonField<String>,
@@ -467,14 +483,16 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("call") @ExcludeMissing call: JsonField<Call> = JsonMissing.of(),
-            @JsonProperty("flashcall")
+            @JsonProperty("daily_spend_limit")
             @ExcludeMissing
-            flashcall: JsonField<Flashcall> = JsonMissing.of(),
+            dailySpendLimit: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("daily_spend_limit_enabled")
+            @ExcludeMissing
+            dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("rcs") @ExcludeMissing rcs: JsonField<Rcs> = JsonMissing.of(),
             @JsonProperty("sms") @ExcludeMissing sms: JsonField<Sms> = JsonMissing.of(),
             @JsonProperty("webhook_failover_url")
             @ExcludeMissing
@@ -487,10 +505,10 @@ private constructor(
             whatsapp: JsonField<Whatsapp> = JsonMissing.of(),
         ) : this(
             call,
-            flashcall,
+            dailySpendLimit,
+            dailySpendLimitEnabled,
             language,
             name,
-            rcs,
             sms,
             webhookFailoverUrl,
             webhookUrl,
@@ -505,10 +523,21 @@ private constructor(
         fun call(): Optional<Call> = call.getOptional("call")
 
         /**
+         * The maximum daily spend allowed on this verify profile, in USD.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun flashcall(): Optional<Flashcall> = flashcall.getOptional("flashcall")
+        fun dailySpendLimit(): Optional<Double> = dailySpendLimit.getOptional("daily_spend_limit")
+
+        /**
+         * Whether the daily spend limit is enforced for this verify profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dailySpendLimitEnabled(): Optional<Boolean> =
+            dailySpendLimitEnabled.getOptional("daily_spend_limit_enabled")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -521,12 +550,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun rcs(): Optional<Rcs> = rcs.getOptional("rcs")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -561,13 +584,24 @@ private constructor(
         @JsonProperty("call") @ExcludeMissing fun _call(): JsonField<Call> = call
 
         /**
-         * Returns the raw JSON value of [flashcall].
+         * Returns the raw JSON value of [dailySpendLimit].
          *
-         * Unlike [flashcall], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [dailySpendLimit], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
-        @JsonProperty("flashcall")
+        @JsonProperty("daily_spend_limit")
         @ExcludeMissing
-        fun _flashcall(): JsonField<Flashcall> = flashcall
+        fun _dailySpendLimit(): JsonField<Double> = dailySpendLimit
+
+        /**
+         * Returns the raw JSON value of [dailySpendLimitEnabled].
+         *
+         * Unlike [dailySpendLimitEnabled], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("daily_spend_limit_enabled")
+        @ExcludeMissing
+        fun _dailySpendLimitEnabled(): JsonField<Boolean> = dailySpendLimitEnabled
 
         /**
          * Returns the raw JSON value of [language].
@@ -582,13 +616,6 @@ private constructor(
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [rcs].
-         *
-         * Unlike [rcs], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("rcs") @ExcludeMissing fun _rcs(): JsonField<Rcs> = rcs
 
         /**
          * Returns the raw JSON value of [sms].
@@ -645,10 +672,10 @@ private constructor(
         class Builder internal constructor() {
 
             private var call: JsonField<Call> = JsonMissing.of()
-            private var flashcall: JsonField<Flashcall> = JsonMissing.of()
+            private var dailySpendLimit: JsonField<Double> = JsonMissing.of()
+            private var dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
-            private var rcs: JsonField<Rcs> = JsonMissing.of()
             private var sms: JsonField<Sms> = JsonMissing.of()
             private var webhookFailoverUrl: JsonField<String> = JsonMissing.of()
             private var webhookUrl: JsonField<String> = JsonMissing.of()
@@ -658,10 +685,10 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 call = body.call
-                flashcall = body.flashcall
+                dailySpendLimit = body.dailySpendLimit
+                dailySpendLimitEnabled = body.dailySpendLimitEnabled
                 language = body.language
                 name = body.name
-                rcs = body.rcs
                 sms = body.sms
                 webhookFailoverUrl = body.webhookFailoverUrl
                 webhookUrl = body.webhookUrl
@@ -680,16 +707,35 @@ private constructor(
              */
             fun call(call: JsonField<Call>) = apply { this.call = call }
 
-            fun flashcall(flashcall: Flashcall) = flashcall(JsonField.of(flashcall))
+            /** The maximum daily spend allowed on this verify profile, in USD. */
+            fun dailySpendLimit(dailySpendLimit: Double) =
+                dailySpendLimit(JsonField.of(dailySpendLimit))
 
             /**
-             * Sets [Builder.flashcall] to an arbitrary JSON value.
+             * Sets [Builder.dailySpendLimit] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.flashcall] with a well-typed [Flashcall] value
+             * You should usually call [Builder.dailySpendLimit] with a well-typed [Double] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun flashcall(flashcall: JsonField<Flashcall>) = apply { this.flashcall = flashcall }
+            fun dailySpendLimit(dailySpendLimit: JsonField<Double>) = apply {
+                this.dailySpendLimit = dailySpendLimit
+            }
+
+            /** Whether the daily spend limit is enforced for this verify profile. */
+            fun dailySpendLimitEnabled(dailySpendLimitEnabled: Boolean) =
+                dailySpendLimitEnabled(JsonField.of(dailySpendLimitEnabled))
+
+            /**
+             * Sets [Builder.dailySpendLimitEnabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dailySpendLimitEnabled] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun dailySpendLimitEnabled(dailySpendLimitEnabled: JsonField<Boolean>) = apply {
+                this.dailySpendLimitEnabled = dailySpendLimitEnabled
+            }
 
             fun language(language: String) = language(JsonField.of(language))
 
@@ -712,17 +758,6 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun rcs(rcs: Rcs) = rcs(JsonField.of(rcs))
-
-            /**
-             * Sets [Builder.rcs] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.rcs] with a well-typed [Rcs] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun rcs(rcs: JsonField<Rcs>) = apply { this.rcs = rcs }
 
             fun sms(sms: Sms) = sms(JsonField.of(sms))
 
@@ -798,10 +833,10 @@ private constructor(
             fun build(): Body =
                 Body(
                     call,
-                    flashcall,
+                    dailySpendLimit,
+                    dailySpendLimitEnabled,
                     language,
                     name,
-                    rcs,
                     sms,
                     webhookFailoverUrl,
                     webhookUrl,
@@ -818,10 +853,10 @@ private constructor(
             }
 
             call().ifPresent { it.validate() }
-            flashcall().ifPresent { it.validate() }
+            dailySpendLimit()
+            dailySpendLimitEnabled()
             language()
             name()
-            rcs().ifPresent { it.validate() }
             sms().ifPresent { it.validate() }
             webhookFailoverUrl()
             webhookUrl()
@@ -846,10 +881,10 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (call.asKnown().getOrNull()?.validity() ?: 0) +
-                (flashcall.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
+                (if (dailySpendLimitEnabled.asKnown().isPresent) 1 else 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (rcs.asKnown().getOrNull()?.validity() ?: 0) +
                 (sms.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
                 (if (webhookUrl.asKnown().isPresent) 1 else 0) +
@@ -862,10 +897,10 @@ private constructor(
 
             return other is Body &&
                 call == other.call &&
-                flashcall == other.flashcall &&
+                dailySpendLimit == other.dailySpendLimit &&
+                dailySpendLimitEnabled == other.dailySpendLimitEnabled &&
                 language == other.language &&
                 name == other.name &&
-                rcs == other.rcs &&
                 sms == other.sms &&
                 webhookFailoverUrl == other.webhookFailoverUrl &&
                 webhookUrl == other.webhookUrl &&
@@ -876,10 +911,10 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 call,
-                flashcall,
+                dailySpendLimit,
+                dailySpendLimitEnabled,
                 language,
                 name,
-                rcs,
                 sms,
                 webhookFailoverUrl,
                 webhookUrl,
@@ -891,7 +926,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{call=$call, flashcall=$flashcall, language=$language, name=$name, rcs=$rcs, sms=$sms, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whatsapp=$whatsapp, additionalProperties=$additionalProperties}"
+            "Body{call=$call, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, language=$language, name=$name, sms=$sms, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whatsapp=$whatsapp, additionalProperties=$additionalProperties}"
     }
 
     class Call
@@ -1254,684 +1289,6 @@ private constructor(
 
         override fun toString() =
             "Call{appName=$appName, codeLength=$codeLength, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, messagingTemplateId=$messagingTemplateId, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
-    }
-
-    class Flashcall
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val appName: JsonField<String>,
-        private val defaultVerificationTimeoutSecs: JsonField<Long>,
-        private val whitelistedDestinations: JsonField<List<String>>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("app_name") @ExcludeMissing appName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("default_verification_timeout_secs")
-            @ExcludeMissing
-            defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("whitelisted_destinations")
-            @ExcludeMissing
-            whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(appName, defaultVerificationTimeoutSecs, whitelistedDestinations, mutableMapOf())
-
-        /**
-         * The name that identifies the application requesting 2fa in the verification message.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun appName(): Optional<String> = appName.getOptional("app_name")
-
-        /**
-         * For every request that is initiated via this Verify profile, this sets the number of
-         * seconds before a verification request code expires. Once the verification request
-         * expires, the user cannot use the code to verify their identity.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun defaultVerificationTimeoutSecs(): Optional<Long> =
-            defaultVerificationTimeoutSecs.getOptional("default_verification_timeout_secs")
-
-        /**
-         * Enabled country destinations to send verification codes. The elements in the list must be
-         * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed. **Conditionally required:** this field must be provided when your organization
-         * is configured to require explicit whitelisted destinations; otherwise it is optional.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun whitelistedDestinations(): Optional<List<String>> =
-            whitelistedDestinations.getOptional("whitelisted_destinations")
-
-        /**
-         * Returns the raw JSON value of [appName].
-         *
-         * Unlike [appName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("app_name") @ExcludeMissing fun _appName(): JsonField<String> = appName
-
-        /**
-         * Returns the raw JSON value of [defaultVerificationTimeoutSecs].
-         *
-         * Unlike [defaultVerificationTimeoutSecs], this method doesn't throw if the JSON field has
-         * an unexpected type.
-         */
-        @JsonProperty("default_verification_timeout_secs")
-        @ExcludeMissing
-        fun _defaultVerificationTimeoutSecs(): JsonField<Long> = defaultVerificationTimeoutSecs
-
-        /**
-         * Returns the raw JSON value of [whitelistedDestinations].
-         *
-         * Unlike [whitelistedDestinations], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("whitelisted_destinations")
-        @ExcludeMissing
-        fun _whitelistedDestinations(): JsonField<List<String>> = whitelistedDestinations
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Flashcall]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Flashcall]. */
-        class Builder internal constructor() {
-
-            private var appName: JsonField<String> = JsonMissing.of()
-            private var defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of()
-            private var whitelistedDestinations: JsonField<MutableList<String>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(flashcall: Flashcall) = apply {
-                appName = flashcall.appName
-                defaultVerificationTimeoutSecs = flashcall.defaultVerificationTimeoutSecs
-                whitelistedDestinations =
-                    flashcall.whitelistedDestinations.map { it.toMutableList() }
-                additionalProperties = flashcall.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The name that identifies the application requesting 2fa in the verification message.
-             */
-            fun appName(appName: String) = appName(JsonField.of(appName))
-
-            /**
-             * Sets [Builder.appName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.appName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun appName(appName: JsonField<String>) = apply { this.appName = appName }
-
-            /**
-             * For every request that is initiated via this Verify profile, this sets the number of
-             * seconds before a verification request code expires. Once the verification request
-             * expires, the user cannot use the code to verify their identity.
-             */
-            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: Long) =
-                defaultVerificationTimeoutSecs(JsonField.of(defaultVerificationTimeoutSecs))
-
-            /**
-             * Sets [Builder.defaultVerificationTimeoutSecs] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.defaultVerificationTimeoutSecs] with a well-typed
-             * [Long] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: JsonField<Long>) =
-                apply {
-                    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs
-                }
-
-            /**
-             * Enabled country destinations to send verification codes. The elements in the list
-             * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed. **Conditionally required:** this field must be provided when your
-             * organization is configured to require explicit whitelisted destinations; otherwise it
-             * is optional.
-             */
-            fun whitelistedDestinations(whitelistedDestinations: List<String>) =
-                whitelistedDestinations(JsonField.of(whitelistedDestinations))
-
-            /**
-             * Sets [Builder.whitelistedDestinations] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.whitelistedDestinations] with a well-typed
-             * `List<String>` value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun whitelistedDestinations(whitelistedDestinations: JsonField<List<String>>) = apply {
-                this.whitelistedDestinations = whitelistedDestinations.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [String] to [whitelistedDestinations].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addWhitelistedDestination(whitelistedDestination: String) = apply {
-                whitelistedDestinations =
-                    (whitelistedDestinations ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("whitelistedDestinations", it).add(whitelistedDestination)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Flashcall].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Flashcall =
-                Flashcall(
-                    appName,
-                    defaultVerificationTimeoutSecs,
-                    (whitelistedDestinations ?: JsonMissing.of()).map { it.toImmutable() },
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Flashcall = apply {
-            if (validated) {
-                return@apply
-            }
-
-            appName()
-            defaultVerificationTimeoutSecs()
-            whitelistedDestinations()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (appName.asKnown().isPresent) 1 else 0) +
-                (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
-                (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Flashcall &&
-                appName == other.appName &&
-                defaultVerificationTimeoutSecs == other.defaultVerificationTimeoutSecs &&
-                whitelistedDestinations == other.whitelistedDestinations &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                appName,
-                defaultVerificationTimeoutSecs,
-                whitelistedDestinations,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Flashcall{appName=$appName, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
-    }
-
-    class Rcs
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val appName: JsonField<String>,
-        private val codeLength: JsonField<Long>,
-        private val defaultVerificationTimeoutSecs: JsonField<Long>,
-        private val messagingTemplateId: JsonField<String>,
-        private val smsFallback: JsonField<Boolean>,
-        private val whitelistedDestinations: JsonField<List<String>>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("app_name") @ExcludeMissing appName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("code_length")
-            @ExcludeMissing
-            codeLength: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("default_verification_timeout_secs")
-            @ExcludeMissing
-            defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("messaging_template_id")
-            @ExcludeMissing
-            messagingTemplateId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("sms_fallback")
-            @ExcludeMissing
-            smsFallback: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("whitelisted_destinations")
-            @ExcludeMissing
-            whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(
-            appName,
-            codeLength,
-            defaultVerificationTimeoutSecs,
-            messagingTemplateId,
-            smsFallback,
-            whitelistedDestinations,
-            mutableMapOf(),
-        )
-
-        /**
-         * The name that identifies the application requesting 2fa in the verification message.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun appName(): Optional<String> = appName.getOptional("app_name")
-
-        /**
-         * The length of the verify code to generate.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun codeLength(): Optional<Long> = codeLength.getOptional("code_length")
-
-        /**
-         * For every request that is initiated via this Verify profile, this sets the number of
-         * seconds before a verification request code expires. Once the verification request
-         * expires, the user cannot use the code to verify their identity.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun defaultVerificationTimeoutSecs(): Optional<Long> =
-            defaultVerificationTimeoutSecs.getOptional("default_verification_timeout_secs")
-
-        /**
-         * The message template identifier selected from /verify_profiles/templates
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun messagingTemplateId(): Optional<String> =
-            messagingTemplateId.getOptional("messaging_template_id")
-
-        /**
-         * Enable SMS fallback when RCS delivery fails.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun smsFallback(): Optional<Boolean> = smsFallback.getOptional("sms_fallback")
-
-        /**
-         * Enabled country destinations to send verification codes. The elements in the list must be
-         * valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations will be
-         * allowed. **Conditionally required:** this field must be provided when your organization
-         * is configured to require explicit whitelisted destinations; otherwise it is optional.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun whitelistedDestinations(): Optional<List<String>> =
-            whitelistedDestinations.getOptional("whitelisted_destinations")
-
-        /**
-         * Returns the raw JSON value of [appName].
-         *
-         * Unlike [appName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("app_name") @ExcludeMissing fun _appName(): JsonField<String> = appName
-
-        /**
-         * Returns the raw JSON value of [codeLength].
-         *
-         * Unlike [codeLength], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("code_length") @ExcludeMissing fun _codeLength(): JsonField<Long> = codeLength
-
-        /**
-         * Returns the raw JSON value of [defaultVerificationTimeoutSecs].
-         *
-         * Unlike [defaultVerificationTimeoutSecs], this method doesn't throw if the JSON field has
-         * an unexpected type.
-         */
-        @JsonProperty("default_verification_timeout_secs")
-        @ExcludeMissing
-        fun _defaultVerificationTimeoutSecs(): JsonField<Long> = defaultVerificationTimeoutSecs
-
-        /**
-         * Returns the raw JSON value of [messagingTemplateId].
-         *
-         * Unlike [messagingTemplateId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("messaging_template_id")
-        @ExcludeMissing
-        fun _messagingTemplateId(): JsonField<String> = messagingTemplateId
-
-        /**
-         * Returns the raw JSON value of [smsFallback].
-         *
-         * Unlike [smsFallback], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("sms_fallback")
-        @ExcludeMissing
-        fun _smsFallback(): JsonField<Boolean> = smsFallback
-
-        /**
-         * Returns the raw JSON value of [whitelistedDestinations].
-         *
-         * Unlike [whitelistedDestinations], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("whitelisted_destinations")
-        @ExcludeMissing
-        fun _whitelistedDestinations(): JsonField<List<String>> = whitelistedDestinations
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Rcs]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Rcs]. */
-        class Builder internal constructor() {
-
-            private var appName: JsonField<String> = JsonMissing.of()
-            private var codeLength: JsonField<Long> = JsonMissing.of()
-            private var defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of()
-            private var messagingTemplateId: JsonField<String> = JsonMissing.of()
-            private var smsFallback: JsonField<Boolean> = JsonMissing.of()
-            private var whitelistedDestinations: JsonField<MutableList<String>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(rcs: Rcs) = apply {
-                appName = rcs.appName
-                codeLength = rcs.codeLength
-                defaultVerificationTimeoutSecs = rcs.defaultVerificationTimeoutSecs
-                messagingTemplateId = rcs.messagingTemplateId
-                smsFallback = rcs.smsFallback
-                whitelistedDestinations = rcs.whitelistedDestinations.map { it.toMutableList() }
-                additionalProperties = rcs.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The name that identifies the application requesting 2fa in the verification message.
-             */
-            fun appName(appName: String) = appName(JsonField.of(appName))
-
-            /**
-             * Sets [Builder.appName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.appName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun appName(appName: JsonField<String>) = apply { this.appName = appName }
-
-            /** The length of the verify code to generate. */
-            fun codeLength(codeLength: Long) = codeLength(JsonField.of(codeLength))
-
-            /**
-             * Sets [Builder.codeLength] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.codeLength] with a well-typed [Long] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun codeLength(codeLength: JsonField<Long>) = apply { this.codeLength = codeLength }
-
-            /**
-             * For every request that is initiated via this Verify profile, this sets the number of
-             * seconds before a verification request code expires. Once the verification request
-             * expires, the user cannot use the code to verify their identity.
-             */
-            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: Long) =
-                defaultVerificationTimeoutSecs(JsonField.of(defaultVerificationTimeoutSecs))
-
-            /**
-             * Sets [Builder.defaultVerificationTimeoutSecs] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.defaultVerificationTimeoutSecs] with a well-typed
-             * [Long] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun defaultVerificationTimeoutSecs(defaultVerificationTimeoutSecs: JsonField<Long>) =
-                apply {
-                    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs
-                }
-
-            /** The message template identifier selected from /verify_profiles/templates */
-            fun messagingTemplateId(messagingTemplateId: String) =
-                messagingTemplateId(JsonField.of(messagingTemplateId))
-
-            /**
-             * Sets [Builder.messagingTemplateId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.messagingTemplateId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun messagingTemplateId(messagingTemplateId: JsonField<String>) = apply {
-                this.messagingTemplateId = messagingTemplateId
-            }
-
-            /** Enable SMS fallback when RCS delivery fails. */
-            fun smsFallback(smsFallback: Boolean) = smsFallback(JsonField.of(smsFallback))
-
-            /**
-             * Sets [Builder.smsFallback] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.smsFallback] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun smsFallback(smsFallback: JsonField<Boolean>) = apply {
-                this.smsFallback = smsFallback
-            }
-
-            /**
-             * Enabled country destinations to send verification codes. The elements in the list
-             * must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all destinations
-             * will be allowed. **Conditionally required:** this field must be provided when your
-             * organization is configured to require explicit whitelisted destinations; otherwise it
-             * is optional.
-             */
-            fun whitelistedDestinations(whitelistedDestinations: List<String>) =
-                whitelistedDestinations(JsonField.of(whitelistedDestinations))
-
-            /**
-             * Sets [Builder.whitelistedDestinations] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.whitelistedDestinations] with a well-typed
-             * `List<String>` value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun whitelistedDestinations(whitelistedDestinations: JsonField<List<String>>) = apply {
-                this.whitelistedDestinations = whitelistedDestinations.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [String] to [whitelistedDestinations].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addWhitelistedDestination(whitelistedDestination: String) = apply {
-                whitelistedDestinations =
-                    (whitelistedDestinations ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("whitelistedDestinations", it).add(whitelistedDestination)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Rcs].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Rcs =
-                Rcs(
-                    appName,
-                    codeLength,
-                    defaultVerificationTimeoutSecs,
-                    messagingTemplateId,
-                    smsFallback,
-                    (whitelistedDestinations ?: JsonMissing.of()).map { it.toImmutable() },
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Rcs = apply {
-            if (validated) {
-                return@apply
-            }
-
-            appName()
-            codeLength()
-            defaultVerificationTimeoutSecs()
-            messagingTemplateId()
-            smsFallback()
-            whitelistedDestinations()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (appName.asKnown().isPresent) 1 else 0) +
-                (if (codeLength.asKnown().isPresent) 1 else 0) +
-                (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
-                (if (messagingTemplateId.asKnown().isPresent) 1 else 0) +
-                (if (smsFallback.asKnown().isPresent) 1 else 0) +
-                (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Rcs &&
-                appName == other.appName &&
-                codeLength == other.codeLength &&
-                defaultVerificationTimeoutSecs == other.defaultVerificationTimeoutSecs &&
-                messagingTemplateId == other.messagingTemplateId &&
-                smsFallback == other.smsFallback &&
-                whitelistedDestinations == other.whitelistedDestinations &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                appName,
-                codeLength,
-                defaultVerificationTimeoutSecs,
-                messagingTemplateId,
-                smsFallback,
-                whitelistedDestinations,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Rcs{appName=$appName, codeLength=$codeLength, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, messagingTemplateId=$messagingTemplateId, smsFallback=$smsFallback, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     class Sms
@@ -2349,30 +1706,37 @@ private constructor(
     class Whatsapp
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val appName: JsonField<String>,
         private val defaultVerificationTimeoutSecs: JsonField<Long>,
+        private val senderPhoneNumber: JsonField<String>,
+        private val templateId: JsonField<String>,
+        private val wabaId: JsonField<String>,
         private val whitelistedDestinations: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("app_name") @ExcludeMissing appName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("default_verification_timeout_secs")
             @ExcludeMissing
             defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("sender_phone_number")
+            @ExcludeMissing
+            senderPhoneNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("template_id")
+            @ExcludeMissing
+            templateId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("waba_id") @ExcludeMissing wabaId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("whitelisted_destinations")
             @ExcludeMissing
             whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(appName, defaultVerificationTimeoutSecs, whitelistedDestinations, mutableMapOf())
-
-        /**
-         * The name that identifies the application requesting 2fa in the verification message.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun appName(): Optional<String> = appName.getOptional("app_name")
+        ) : this(
+            defaultVerificationTimeoutSecs,
+            senderPhoneNumber,
+            templateId,
+            wabaId,
+            whitelistedDestinations,
+            mutableMapOf(),
+        )
 
         /**
          * For every request that is initiated via this Verify profile, this sets the number of
@@ -2384,6 +1748,31 @@ private constructor(
          */
         fun defaultVerificationTimeoutSecs(): Optional<Long> =
             defaultVerificationTimeoutSecs.getOptional("default_verification_timeout_secs")
+
+        /**
+         * Phone number registered on the customer WABA to send OTPs from
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun senderPhoneNumber(): Optional<String> =
+            senderPhoneNumber.getOptional("sender_phone_number")
+
+        /**
+         * Customer pre-approved authentication template name registered on Meta
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun templateId(): Optional<String> = templateId.getOptional("template_id")
+
+        /**
+         * Customer Meta WABA ID for Bring-Your-Own-WABA sending
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun wabaId(): Optional<String> = wabaId.getOptional("waba_id")
 
         /**
          * Enabled country destinations to send verification codes. The elements in the list must be
@@ -2398,13 +1787,6 @@ private constructor(
             whitelistedDestinations.getOptional("whitelisted_destinations")
 
         /**
-         * Returns the raw JSON value of [appName].
-         *
-         * Unlike [appName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("app_name") @ExcludeMissing fun _appName(): JsonField<String> = appName
-
-        /**
          * Returns the raw JSON value of [defaultVerificationTimeoutSecs].
          *
          * Unlike [defaultVerificationTimeoutSecs], this method doesn't throw if the JSON field has
@@ -2413,6 +1795,32 @@ private constructor(
         @JsonProperty("default_verification_timeout_secs")
         @ExcludeMissing
         fun _defaultVerificationTimeoutSecs(): JsonField<Long> = defaultVerificationTimeoutSecs
+
+        /**
+         * Returns the raw JSON value of [senderPhoneNumber].
+         *
+         * Unlike [senderPhoneNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sender_phone_number")
+        @ExcludeMissing
+        fun _senderPhoneNumber(): JsonField<String> = senderPhoneNumber
+
+        /**
+         * Returns the raw JSON value of [templateId].
+         *
+         * Unlike [templateId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("template_id")
+        @ExcludeMissing
+        fun _templateId(): JsonField<String> = templateId
+
+        /**
+         * Returns the raw JSON value of [wabaId].
+         *
+         * Unlike [wabaId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("waba_id") @ExcludeMissing fun _wabaId(): JsonField<String> = wabaId
 
         /**
          * Returns the raw JSON value of [whitelistedDestinations].
@@ -2445,33 +1853,23 @@ private constructor(
         /** A builder for [Whatsapp]. */
         class Builder internal constructor() {
 
-            private var appName: JsonField<String> = JsonMissing.of()
             private var defaultVerificationTimeoutSecs: JsonField<Long> = JsonMissing.of()
+            private var senderPhoneNumber: JsonField<String> = JsonMissing.of()
+            private var templateId: JsonField<String> = JsonMissing.of()
+            private var wabaId: JsonField<String> = JsonMissing.of()
             private var whitelistedDestinations: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(whatsapp: Whatsapp) = apply {
-                appName = whatsapp.appName
                 defaultVerificationTimeoutSecs = whatsapp.defaultVerificationTimeoutSecs
+                senderPhoneNumber = whatsapp.senderPhoneNumber
+                templateId = whatsapp.templateId
+                wabaId = whatsapp.wabaId
                 whitelistedDestinations =
                     whatsapp.whitelistedDestinations.map { it.toMutableList() }
                 additionalProperties = whatsapp.additionalProperties.toMutableMap()
             }
-
-            /**
-             * The name that identifies the application requesting 2fa in the verification message.
-             */
-            fun appName(appName: String) = appName(JsonField.of(appName))
-
-            /**
-             * Sets [Builder.appName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.appName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun appName(appName: JsonField<String>) = apply { this.appName = appName }
 
             /**
              * For every request that is initiated via this Verify profile, this sets the number of
@@ -2492,6 +1890,57 @@ private constructor(
                 apply {
                     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs
                 }
+
+            /** Phone number registered on the customer WABA to send OTPs from */
+            fun senderPhoneNumber(senderPhoneNumber: String?) =
+                senderPhoneNumber(JsonField.ofNullable(senderPhoneNumber))
+
+            /**
+             * Alias for calling [Builder.senderPhoneNumber] with `senderPhoneNumber.orElse(null)`.
+             */
+            fun senderPhoneNumber(senderPhoneNumber: Optional<String>) =
+                senderPhoneNumber(senderPhoneNumber.getOrNull())
+
+            /**
+             * Sets [Builder.senderPhoneNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.senderPhoneNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun senderPhoneNumber(senderPhoneNumber: JsonField<String>) = apply {
+                this.senderPhoneNumber = senderPhoneNumber
+            }
+
+            /** Customer pre-approved authentication template name registered on Meta */
+            fun templateId(templateId: String?) = templateId(JsonField.ofNullable(templateId))
+
+            /** Alias for calling [Builder.templateId] with `templateId.orElse(null)`. */
+            fun templateId(templateId: Optional<String>) = templateId(templateId.getOrNull())
+
+            /**
+             * Sets [Builder.templateId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.templateId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
+
+            /** Customer Meta WABA ID for Bring-Your-Own-WABA sending */
+            fun wabaId(wabaId: String?) = wabaId(JsonField.ofNullable(wabaId))
+
+            /** Alias for calling [Builder.wabaId] with `wabaId.orElse(null)`. */
+            fun wabaId(wabaId: Optional<String>) = wabaId(wabaId.getOrNull())
+
+            /**
+             * Sets [Builder.wabaId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.wabaId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun wabaId(wabaId: JsonField<String>) = apply { this.wabaId = wabaId }
 
             /**
              * Enabled country destinations to send verification codes. The elements in the list
@@ -2552,8 +2001,10 @@ private constructor(
              */
             fun build(): Whatsapp =
                 Whatsapp(
-                    appName,
                     defaultVerificationTimeoutSecs,
+                    senderPhoneNumber,
+                    templateId,
+                    wabaId,
                     (whitelistedDestinations ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
@@ -2566,8 +2017,10 @@ private constructor(
                 return@apply
             }
 
-            appName()
             defaultVerificationTimeoutSecs()
+            senderPhoneNumber()
+            templateId()
+            wabaId()
             whitelistedDestinations()
             validated = true
         }
@@ -2588,8 +2041,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (appName.asKnown().isPresent) 1 else 0) +
-                (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
+            (if (defaultVerificationTimeoutSecs.asKnown().isPresent) 1 else 0) +
+                (if (senderPhoneNumber.asKnown().isPresent) 1 else 0) +
+                (if (templateId.asKnown().isPresent) 1 else 0) +
+                (if (wabaId.asKnown().isPresent) 1 else 0) +
                 (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -2598,16 +2053,20 @@ private constructor(
             }
 
             return other is Whatsapp &&
-                appName == other.appName &&
                 defaultVerificationTimeoutSecs == other.defaultVerificationTimeoutSecs &&
+                senderPhoneNumber == other.senderPhoneNumber &&
+                templateId == other.templateId &&
+                wabaId == other.wabaId &&
                 whitelistedDestinations == other.whitelistedDestinations &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                appName,
                 defaultVerificationTimeoutSecs,
+                senderPhoneNumber,
+                templateId,
+                wabaId,
                 whitelistedDestinations,
                 additionalProperties,
             )
@@ -2616,7 +2075,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Whatsapp{appName=$appName, defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Whatsapp{defaultVerificationTimeoutSecs=$defaultVerificationTimeoutSecs, senderPhoneNumber=$senderPhoneNumber, templateId=$templateId, wabaId=$wabaId, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
