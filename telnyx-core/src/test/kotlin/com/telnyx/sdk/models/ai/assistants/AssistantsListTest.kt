@@ -31,10 +31,12 @@ internal class AssistantsListTest {
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
                         .externalLlm(
-                            ExternalLlm.builder()
+                            InferenceEmbedding.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -42,13 +44,15 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .fallbackConfig(
-                            FallbackConfig.builder()
+                            InferenceEmbedding.FallbackConfig.builder()
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.FallbackConfig.ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -87,7 +91,9 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .postConversationSettings(
-                            PostConversationSettings.builder().enabled(true).build()
+                            InferenceEmbedding.PostConversationSettings.builder()
+                                .enabled(true)
+                                .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                         .telephonySettings(
@@ -321,10 +327,12 @@ internal class AssistantsListTest {
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
-                        ExternalLlm.builder()
+                        InferenceEmbedding.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -332,12 +340,16 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .fallbackConfig(
-                        FallbackConfig.builder()
+                        InferenceEmbedding.FallbackConfig.builder()
                             .externalLlm(
-                                ExternalLlm.builder()
+                                InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        InferenceEmbedding.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -375,7 +387,7 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .postConversationSettings(
-                        PostConversationSettings.builder().enabled(true).build()
+                        InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
@@ -596,10 +608,12 @@ internal class AssistantsListTest {
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
                         .externalLlm(
-                            ExternalLlm.builder()
+                            InferenceEmbedding.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -607,13 +621,15 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .fallbackConfig(
-                            FallbackConfig.builder()
+                            InferenceEmbedding.FallbackConfig.builder()
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.FallbackConfig.ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -652,7 +668,9 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .postConversationSettings(
-                            PostConversationSettings.builder().enabled(true).build()
+                            InferenceEmbedding.PostConversationSettings.builder()
+                                .enabled(true)
+                                .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                         .telephonySettings(

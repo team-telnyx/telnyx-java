@@ -24,10 +24,12 @@ internal class AssistantCreateParamsTest {
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
             .externalLlm(
-                ExternalLlmReq.builder()
+                AssistantCreateParams.ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(
+                        AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                    )
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -35,12 +37,16 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .fallbackConfig(
-                FallbackConfigReq.builder()
+                AssistantCreateParams.FallbackConfig.builder()
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                AssistantCreateParams.FallbackConfig.ExternalLlm
+                                    .AuthenticationMethod
+                                    .TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -69,7 +75,9 @@ internal class AssistantCreateParamsTest {
                     .status(ObservabilityReq.Status.ENABLED)
                     .build()
             )
-            .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
+            .postConversationSettings(
+                AssistantCreateParams.PostConversationSettings.builder().enabled(true).build()
+            )
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
             .telephonySettings(
                 TelephonySettings.builder()
@@ -272,10 +280,12 @@ internal class AssistantCreateParamsTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    ExternalLlmReq.builder()
+                    AssistantCreateParams.ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                        .authenticationMethod(
+                            AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -283,12 +293,16 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .fallbackConfig(
-                    FallbackConfigReq.builder()
+                    AssistantCreateParams.FallbackConfig.builder()
                         .externalLlm(
-                            ExternalLlmReq.builder()
+                            AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    AssistantCreateParams.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -320,7 +334,7 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .postConversationSettings(
-                    PostConversationSettingsReq.builder().enabled(true).build()
+                    AssistantCreateParams.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .telephonySettings(
@@ -526,10 +540,12 @@ internal class AssistantCreateParamsTest {
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(body.externalLlm())
             .contains(
-                ExternalLlmReq.builder()
+                AssistantCreateParams.ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(
+                        AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                    )
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -538,12 +554,16 @@ internal class AssistantCreateParamsTest {
             )
         assertThat(body.fallbackConfig())
             .contains(
-                FallbackConfigReq.builder()
+                AssistantCreateParams.FallbackConfig.builder()
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                AssistantCreateParams.FallbackConfig.ExternalLlm
+                                    .AuthenticationMethod
+                                    .TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -576,7 +596,9 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
         assertThat(body.postConversationSettings())
-            .contains(PostConversationSettingsReq.builder().enabled(true).build())
+            .contains(
+                AssistantCreateParams.PostConversationSettings.builder().enabled(true).build()
+            )
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(body.telephonySettings())
