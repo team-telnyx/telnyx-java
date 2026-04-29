@@ -28,6 +28,7 @@ internal class AssistantsListTest {
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
+                        .dynamicVariablesWebhookTimeoutMs(1L)
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
                         .externalLlm(
@@ -74,7 +75,40 @@ internal class AssistantsListTest {
                         .insightSettings(
                             InsightSettings.builder().insightGroupId("insight_group_id").build()
                         )
+                        .addIntegration(
+                            InferenceEmbedding.Integration.builder()
+                                .integrationId("integration_id")
+                                .addAllowedList("string")
+                                .build()
+                        )
+                        .interruptionSettings(
+                            InferenceEmbedding.InterruptionSettings.builder()
+                                .enable(true)
+                                .startSpeakingPlan(
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .builder()
+                                        .transcriptionEndpointingPlan(
+                                            InferenceEmbedding.InterruptionSettings
+                                                .StartSpeakingPlan
+                                                .TranscriptionEndpointingPlan
+                                                .builder()
+                                                .onNoPunctuationSeconds(0.0f)
+                                                .onNumberSeconds(0.0f)
+                                                .onPunctuationSeconds(0.0f)
+                                                .build()
+                                        )
+                                        .waitSeconds(0.0f)
+                                        .build()
+                                )
+                                .build()
+                        )
                         .llmApiKeyRef("llm_api_key_ref")
+                        .addMcpServer(
+                            InferenceEmbedding.McpServer.builder()
+                                .id("id")
+                                .addAllowedTool("string")
+                                .build()
+                        )
                         .messagingSettings(
                             MessagingSettings.builder()
                                 .conversationInactivityMinutes(1L)
@@ -96,6 +130,8 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                        .addRelatedMissionId("string")
+                        .addTag("string")
                         .telephonySettings(
                             TelephonySettings.builder()
                                 .defaultTexmlAppId("default_texml_app_id")
@@ -267,6 +303,9 @@ internal class AssistantsListTest {
                                 )
                                 .build()
                         )
+                        .versionCreatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .versionId("version_id")
+                        .versionName("version_name")
                         .voiceSettings(
                             VoiceSettings.builder()
                                 .voice("voice")
@@ -324,6 +363,7 @@ internal class AssistantsListTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .dynamicVariablesWebhookTimeoutMs(1L)
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
@@ -370,7 +410,38 @@ internal class AssistantsListTest {
                     .insightSettings(
                         InsightSettings.builder().insightGroupId("insight_group_id").build()
                     )
+                    .addIntegration(
+                        InferenceEmbedding.Integration.builder()
+                            .integrationId("integration_id")
+                            .addAllowedList("string")
+                            .build()
+                    )
+                    .interruptionSettings(
+                        InferenceEmbedding.InterruptionSettings.builder()
+                            .enable(true)
+                            .startSpeakingPlan(
+                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                                    .transcriptionEndpointingPlan(
+                                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                            .TranscriptionEndpointingPlan
+                                            .builder()
+                                            .onNoPunctuationSeconds(0.0f)
+                                            .onNumberSeconds(0.0f)
+                                            .onPunctuationSeconds(0.0f)
+                                            .build()
+                                    )
+                                    .waitSeconds(0.0f)
+                                    .build()
+                            )
+                            .build()
+                    )
                     .llmApiKeyRef("llm_api_key_ref")
+                    .addMcpServer(
+                        InferenceEmbedding.McpServer.builder()
+                            .id("id")
+                            .addAllowedTool("string")
+                            .build()
+                    )
                     .messagingSettings(
                         MessagingSettings.builder()
                             .conversationInactivityMinutes(1L)
@@ -390,6 +461,8 @@ internal class AssistantsListTest {
                         InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                    .addRelatedMissionId("string")
+                    .addTag("string")
                     .telephonySettings(
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
@@ -545,6 +618,9 @@ internal class AssistantsListTest {
                             )
                             .build()
                     )
+                    .versionCreatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .versionId("version_id")
+                    .versionName("version_name")
                     .voiceSettings(
                         VoiceSettings.builder()
                             .voice("voice")
@@ -605,6 +681,7 @@ internal class AssistantsListTest {
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
+                        .dynamicVariablesWebhookTimeoutMs(1L)
                         .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                         .addEnabledFeature(EnabledFeatures.TELEPHONY)
                         .externalLlm(
@@ -651,7 +728,40 @@ internal class AssistantsListTest {
                         .insightSettings(
                             InsightSettings.builder().insightGroupId("insight_group_id").build()
                         )
+                        .addIntegration(
+                            InferenceEmbedding.Integration.builder()
+                                .integrationId("integration_id")
+                                .addAllowedList("string")
+                                .build()
+                        )
+                        .interruptionSettings(
+                            InferenceEmbedding.InterruptionSettings.builder()
+                                .enable(true)
+                                .startSpeakingPlan(
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .builder()
+                                        .transcriptionEndpointingPlan(
+                                            InferenceEmbedding.InterruptionSettings
+                                                .StartSpeakingPlan
+                                                .TranscriptionEndpointingPlan
+                                                .builder()
+                                                .onNoPunctuationSeconds(0.0f)
+                                                .onNumberSeconds(0.0f)
+                                                .onPunctuationSeconds(0.0f)
+                                                .build()
+                                        )
+                                        .waitSeconds(0.0f)
+                                        .build()
+                                )
+                                .build()
+                        )
                         .llmApiKeyRef("llm_api_key_ref")
+                        .addMcpServer(
+                            InferenceEmbedding.McpServer.builder()
+                                .id("id")
+                                .addAllowedTool("string")
+                                .build()
+                        )
                         .messagingSettings(
                             MessagingSettings.builder()
                                 .conversationInactivityMinutes(1L)
@@ -673,6 +783,8 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                        .addRelatedMissionId("string")
+                        .addTag("string")
                         .telephonySettings(
                             TelephonySettings.builder()
                                 .defaultTexmlAppId("default_texml_app_id")
@@ -844,6 +956,9 @@ internal class AssistantsListTest {
                                 )
                                 .build()
                         )
+                        .versionCreatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .versionId("version_id")
+                        .versionName("version_name")
                         .voiceSettings(
                             VoiceSettings.builder()
                                 .voice("voice")

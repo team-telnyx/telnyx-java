@@ -27,6 +27,7 @@ internal class InferenceEmbeddingTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
+                .dynamicVariablesWebhookTimeoutMs(1L)
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
@@ -73,7 +74,35 @@ internal class InferenceEmbeddingTest {
                 .insightSettings(
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
+                .addIntegration(
+                    InferenceEmbedding.Integration.builder()
+                        .integrationId("integration_id")
+                        .addAllowedList("string")
+                        .build()
+                )
+                .interruptionSettings(
+                    InferenceEmbedding.InterruptionSettings.builder()
+                        .enable(true)
+                        .startSpeakingPlan(
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                                .transcriptionEndpointingPlan(
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
+                                        .onNoPunctuationSeconds(0.0f)
+                                        .onNumberSeconds(0.0f)
+                                        .onPunctuationSeconds(0.0f)
+                                        .build()
+                                )
+                                .waitSeconds(0.0f)
+                                .build()
+                        )
+                        .build()
+                )
                 .llmApiKeyRef("llm_api_key_ref")
+                .addMcpServer(
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+                )
                 .messagingSettings(
                     MessagingSettings.builder()
                         .conversationInactivityMinutes(1L)
@@ -93,6 +122,8 @@ internal class InferenceEmbeddingTest {
                     InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .addRelatedMissionId("string")
+                .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
@@ -239,6 +270,9 @@ internal class InferenceEmbeddingTest {
                         )
                         .build()
                 )
+                .versionCreatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .versionId("version_id")
+                .versionName("version_name")
                 .voiceSettings(
                     VoiceSettings.builder()
                         .voice("voice")
@@ -292,6 +326,7 @@ internal class InferenceEmbeddingTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
+        assertThat(inferenceEmbedding.dynamicVariablesWebhookTimeoutMs()).contains(1L)
         assertThat(inferenceEmbedding.dynamicVariablesWebhookUrl())
             .contains("dynamic_variables_webhook_url")
         assertThat(inferenceEmbedding.enabledFeatures().getOrNull())
@@ -339,7 +374,38 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.insightSettings())
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
+        assertThat(inferenceEmbedding.integrations().getOrNull())
+            .containsExactly(
+                InferenceEmbedding.Integration.builder()
+                    .integrationId("integration_id")
+                    .addAllowedList("string")
+                    .build()
+            )
+        assertThat(inferenceEmbedding.interruptionSettings())
+            .contains(
+                InferenceEmbedding.InterruptionSettings.builder()
+                    .enable(true)
+                    .startSpeakingPlan(
+                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                            .transcriptionEndpointingPlan(
+                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
+                                    .onNoPunctuationSeconds(0.0f)
+                                    .onNumberSeconds(0.0f)
+                                    .onPunctuationSeconds(0.0f)
+                                    .build()
+                            )
+                            .waitSeconds(0.0f)
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(inferenceEmbedding.llmApiKeyRef()).contains("llm_api_key_ref")
+        assertThat(inferenceEmbedding.mcpServers().getOrNull())
+            .containsExactly(
+                InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(inferenceEmbedding.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -361,6 +427,8 @@ internal class InferenceEmbeddingTest {
             .contains(InferenceEmbedding.PostConversationSettings.builder().enabled(true).build())
         assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
+        assertThat(inferenceEmbedding.relatedMissionIds().getOrNull()).containsExactly("string")
+        assertThat(inferenceEmbedding.tags().getOrNull()).containsExactly("string")
         assertThat(inferenceEmbedding.telephonySettings())
             .contains(
                 TelephonySettings.builder()
@@ -535,6 +603,10 @@ internal class InferenceEmbeddingTest {
                     )
                     .build()
             )
+        assertThat(inferenceEmbedding.versionCreatedAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(inferenceEmbedding.versionId()).contains("version_id")
+        assertThat(inferenceEmbedding.versionName()).contains("version_name")
         assertThat(inferenceEmbedding.voiceSettings())
             .contains(
                 VoiceSettings.builder()
@@ -592,6 +664,7 @@ internal class InferenceEmbeddingTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
+                .dynamicVariablesWebhookTimeoutMs(1L)
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
@@ -638,7 +711,35 @@ internal class InferenceEmbeddingTest {
                 .insightSettings(
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
+                .addIntegration(
+                    InferenceEmbedding.Integration.builder()
+                        .integrationId("integration_id")
+                        .addAllowedList("string")
+                        .build()
+                )
+                .interruptionSettings(
+                    InferenceEmbedding.InterruptionSettings.builder()
+                        .enable(true)
+                        .startSpeakingPlan(
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                                .transcriptionEndpointingPlan(
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
+                                        .onNoPunctuationSeconds(0.0f)
+                                        .onNumberSeconds(0.0f)
+                                        .onPunctuationSeconds(0.0f)
+                                        .build()
+                                )
+                                .waitSeconds(0.0f)
+                                .build()
+                        )
+                        .build()
+                )
                 .llmApiKeyRef("llm_api_key_ref")
+                .addMcpServer(
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+                )
                 .messagingSettings(
                     MessagingSettings.builder()
                         .conversationInactivityMinutes(1L)
@@ -658,6 +759,8 @@ internal class InferenceEmbeddingTest {
                     InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .addRelatedMissionId("string")
+                .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
@@ -804,6 +907,9 @@ internal class InferenceEmbeddingTest {
                         )
                         .build()
                 )
+                .versionCreatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .versionId("version_id")
+                .versionName("version_name")
                 .voiceSettings(
                     VoiceSettings.builder()
                         .voice("voice")
