@@ -42,16 +42,6 @@ private constructor(
     fun instructions(): String = body.instructions()
 
     /**
-     * ID of the model to use. You can use the
-     * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models) to
-     * see all of your available models,
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun model(): String = body.model()
-
-    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -72,10 +62,24 @@ private constructor(
     fun dynamicVariables(): Optional<DynamicVariables> = body.dynamicVariables()
 
     /**
-     * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the
-     * start of the conversation. See our
-     * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-     * more information.
+     * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000 ms. If
+     * the webhook does not respond within this timeout, the call proceeds with default values. See
+     * the
+     * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dynamicVariablesWebhookTimeoutMs(): Optional<Long> = body.dynamicVariablesWebhookTimeoutMs()
+
+    /**
+     * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+     * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response must
+     * wrap variables under a top-level `dynamic_variables` object, e.g. `{"dynamic_variables":
+     * {"customer_name": "Jane"}}`. Returning a flat object will be ignored and variables will fall
+     * back to their defaults. See the
+     * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+     * for the full request/response format and timeout behavior.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -119,11 +123,34 @@ private constructor(
     fun insightSettings(): Optional<InsightSettings> = body.insightSettings()
 
     /**
-     * This is only needed when using third-party inference providers. The `identifier` for an
-     * integration secret
+     * Connected integrations attached to the assistant. The catalog of available integrations is at
+     * `/ai/integrations`; the user's connected integrations are at `/ai/integrations/connections`.
+     * Each item references a catalog integration by `integration_id`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun integrations(): Optional<List<Integration>> = body.integrations()
+
+    /**
+     * Settings for interruptions and how the assistant decides the user has finished speaking.
+     * These timings are most relevant when using non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+     * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+     * `eot_timeout_ms`, `eager_eot_threshold`).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interruptionSettings(): Optional<InterruptionSettings> = body.interruptionSettings()
+
+    /**
+     * This is only needed when using third-party inference providers selected by `model`. The
+     * `identifier` for an integration secret
      * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-     * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
-     * this integration.
+     * that refers to your LLM provider's API key. For bring-your-own endpoint authentication, use
+     * `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with this
+     * integration.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -131,10 +158,31 @@ private constructor(
     fun llmApiKeyRef(): Optional<String> = body.llmApiKeyRef()
 
     /**
+     * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+     * reference them by `id` here.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mcpServers(): Optional<List<McpServer>> = body.mcpServers()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun messagingSettings(): Optional<MessagingSettings> = body.messagingSettings()
+
+    /**
+     * ID of the model to use when `external_llm` is not set. You can use the
+     * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models) to
+     * see available models. If `external_llm` is provided, the assistant uses `external_llm`
+     * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies the
+     * default model.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun model(): Optional<String> = body.model()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -162,20 +210,32 @@ private constructor(
     fun privacySettings(): Optional<PrivacySettings> = body.privacySettings()
 
     /**
+     * Tags associated with the assistant. Tags can also be managed with the assistant tag
+     * endpoints.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tags(): Optional<List<String>> = body.tags()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun telephonySettings(): Optional<TelephonySettings> = body.telephonySettings()
 
     /**
+     * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+     * over inline `tools`.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun toolIds(): Optional<List<String>> = body.toolIds()
 
     /**
-     * The tools that the assistant can use. These may be templated with
-     * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+     * Deprecated for new integrations. Inline tool definitions available to the assistant. Prefer
+     * `tool_ids` to attach shared tools created with the AI Tools endpoints.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -210,13 +270,6 @@ private constructor(
     fun _instructions(): JsonField<String> = body._instructions()
 
     /**
-     * Returns the raw JSON value of [model].
-     *
-     * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _model(): JsonField<String> = body._model()
-
-    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -237,6 +290,15 @@ private constructor(
      * type.
      */
     fun _dynamicVariables(): JsonField<DynamicVariables> = body._dynamicVariables()
+
+    /**
+     * Returns the raw JSON value of [dynamicVariablesWebhookTimeoutMs].
+     *
+     * Unlike [dynamicVariablesWebhookTimeoutMs], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _dynamicVariablesWebhookTimeoutMs(): JsonField<Long> =
+        body._dynamicVariablesWebhookTimeoutMs()
 
     /**
      * Returns the raw JSON value of [dynamicVariablesWebhookUrl].
@@ -282,11 +344,33 @@ private constructor(
     fun _insightSettings(): JsonField<InsightSettings> = body._insightSettings()
 
     /**
+     * Returns the raw JSON value of [integrations].
+     *
+     * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _integrations(): JsonField<List<Integration>> = body._integrations()
+
+    /**
+     * Returns the raw JSON value of [interruptionSettings].
+     *
+     * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _interruptionSettings(): JsonField<InterruptionSettings> = body._interruptionSettings()
+
+    /**
      * Returns the raw JSON value of [llmApiKeyRef].
      *
      * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _llmApiKeyRef(): JsonField<String> = body._llmApiKeyRef()
+
+    /**
+     * Returns the raw JSON value of [mcpServers].
+     *
+     * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mcpServers(): JsonField<List<McpServer>> = body._mcpServers()
 
     /**
      * Returns the raw JSON value of [messagingSettings].
@@ -295,6 +379,13 @@ private constructor(
      * type.
      */
     fun _messagingSettings(): JsonField<MessagingSettings> = body._messagingSettings()
+
+    /**
+     * Returns the raw JSON value of [model].
+     *
+     * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _model(): JsonField<String> = body._model()
 
     /**
      * Returns the raw JSON value of [observabilitySettings].
@@ -319,6 +410,13 @@ private constructor(
      * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _privacySettings(): JsonField<PrivacySettings> = body._privacySettings()
+
+    /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _tags(): JsonField<List<String>> = body._tags()
 
     /**
      * Returns the raw JSON value of [telephonySettings].
@@ -381,7 +479,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .instructions()
-         * .model()
          * .name()
          * ```
          */
@@ -408,10 +505,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [instructions]
-         * - [model]
          * - [name]
          * - [description]
          * - [dynamicVariables]
+         * - [dynamicVariablesWebhookTimeoutMs]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -432,21 +529,6 @@ private constructor(
         fun instructions(instructions: JsonField<String>) = apply {
             body.instructions(instructions)
         }
-
-        /**
-         * ID of the model to use. You can use the
-         * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-         * to see all of your available models,
-         */
-        fun model(model: String) = apply { body.model(model) }
-
-        /**
-         * Sets [Builder.model] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.model] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun model(model: JsonField<String>) = apply { body.model(model) }
 
         fun name(name: String) = apply { body.name(name) }
 
@@ -486,10 +568,35 @@ private constructor(
         }
 
         /**
-         * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at
-         * the start of the conversation. See our
-         * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-         * more information.
+         * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000
+         * ms. If the webhook does not respond within this timeout, the call proceeds with default
+         * values. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+         */
+        fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: Long) = apply {
+            body.dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
+        }
+
+        /**
+         * Sets [Builder.dynamicVariablesWebhookTimeoutMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dynamicVariablesWebhookTimeoutMs] with a well-typed
+         * [Long] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: JsonField<Long>) =
+            apply {
+                body.dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
+            }
+
+        /**
+         * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+         * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response
+         * must wrap variables under a top-level `dynamic_variables` object, e.g.
+         * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+         * ignored and variables will fall back to their defaults. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * for the full request/response format and timeout behavior.
          */
         fun dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl: String) = apply {
             body.dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl)
@@ -591,10 +698,61 @@ private constructor(
         }
 
         /**
-         * This is only needed when using third-party inference providers. The `identifier` for an
-         * integration secret
+         * Connected integrations attached to the assistant. The catalog of available integrations
+         * is at `/ai/integrations`; the user's connected integrations are at
+         * `/ai/integrations/connections`. Each item references a catalog integration by
+         * `integration_id`.
+         */
+        fun integrations(integrations: List<Integration>) = apply {
+            body.integrations(integrations)
+        }
+
+        /**
+         * Sets [Builder.integrations] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.integrations] with a well-typed `List<Integration>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun integrations(integrations: JsonField<List<Integration>>) = apply {
+            body.integrations(integrations)
+        }
+
+        /**
+         * Adds a single [Integration] to [integrations].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addIntegration(integration: Integration) = apply { body.addIntegration(integration) }
+
+        /**
+         * Settings for interruptions and how the assistant decides the user has finished speaking.
+         * These timings are most relevant when using non turn-taking transcription models. For
+         * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+         * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+         * `eot_timeout_ms`, `eager_eot_threshold`).
+         */
+        fun interruptionSettings(interruptionSettings: InterruptionSettings) = apply {
+            body.interruptionSettings(interruptionSettings)
+        }
+
+        /**
+         * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interruptionSettings] with a well-typed
+         * [InterruptionSettings] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun interruptionSettings(interruptionSettings: JsonField<InterruptionSettings>) = apply {
+            body.interruptionSettings(interruptionSettings)
+        }
+
+        /**
+         * This is only needed when using third-party inference providers selected by `model`. The
+         * `identifier` for an integration secret
          * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-         * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
+         * that refers to your LLM provider's API key. For bring-your-own endpoint authentication,
+         * use `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with
          * this integration.
          */
         fun llmApiKeyRef(llmApiKeyRef: String) = apply { body.llmApiKeyRef(llmApiKeyRef) }
@@ -610,6 +768,30 @@ private constructor(
             body.llmApiKeyRef(llmApiKeyRef)
         }
 
+        /**
+         * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+         * reference them by `id` here.
+         */
+        fun mcpServers(mcpServers: List<McpServer>) = apply { body.mcpServers(mcpServers) }
+
+        /**
+         * Sets [Builder.mcpServers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mcpServers] with a well-typed `List<McpServer>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun mcpServers(mcpServers: JsonField<List<McpServer>>) = apply {
+            body.mcpServers(mcpServers)
+        }
+
+        /**
+         * Adds a single [McpServer] to [mcpServers].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addMcpServer(mcpServer: McpServer) = apply { body.addMcpServer(mcpServer) }
+
         fun messagingSettings(messagingSettings: MessagingSettings) = apply {
             body.messagingSettings(messagingSettings)
         }
@@ -624,6 +806,23 @@ private constructor(
         fun messagingSettings(messagingSettings: JsonField<MessagingSettings>) = apply {
             body.messagingSettings(messagingSettings)
         }
+
+        /**
+         * ID of the model to use when `external_llm` is not set. You can use the
+         * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+         * to see available models. If `external_llm` is provided, the assistant uses `external_llm`
+         * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies
+         * the default model.
+         */
+        fun model(model: String) = apply { body.model(model) }
+
+        /**
+         * Sets [Builder.model] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.model] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun model(model: JsonField<String>) = apply { body.model(model) }
 
         fun observabilitySettings(observabilitySettings: ObservabilityReq) = apply {
             body.observabilitySettings(observabilitySettings)
@@ -677,6 +876,28 @@ private constructor(
             body.privacySettings(privacySettings)
         }
 
+        /**
+         * Tags associated with the assistant. Tags can also be managed with the assistant tag
+         * endpoints.
+         */
+        fun tags(tags: List<String>) = apply { body.tags(tags) }
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply { body.tags(tags) }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply { body.addTag(tag) }
+
         fun telephonySettings(telephonySettings: TelephonySettings) = apply {
             body.telephonySettings(telephonySettings)
         }
@@ -692,6 +913,10 @@ private constructor(
             body.telephonySettings(telephonySettings)
         }
 
+        /**
+         * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+         * over inline `tools`.
+         */
         fun toolIds(toolIds: List<String>) = apply { body.toolIds(toolIds) }
 
         /**
@@ -711,8 +936,8 @@ private constructor(
         fun addToolId(toolId: String) = apply { body.addToolId(toolId) }
 
         /**
-         * The tools that the assistant can use. These may be templated with
-         * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * Deprecated for new integrations. Inline tool definitions available to the assistant.
+         * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
          */
         fun tools(tools: List<AssistantTool>) = apply { body.tools(tools) }
 
@@ -1052,7 +1277,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .instructions()
-         * .model()
          * .name()
          * ```
          *
@@ -1076,21 +1300,26 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val instructions: JsonField<String>,
-        private val model: JsonField<String>,
         private val name: JsonField<String>,
         private val description: JsonField<String>,
         private val dynamicVariables: JsonField<DynamicVariables>,
+        private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
         private val externalLlm: JsonField<ExternalLlm>,
         private val fallbackConfig: JsonField<FallbackConfig>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
+        private val integrations: JsonField<List<Integration>>,
+        private val interruptionSettings: JsonField<InterruptionSettings>,
         private val llmApiKeyRef: JsonField<String>,
+        private val mcpServers: JsonField<List<McpServer>>,
         private val messagingSettings: JsonField<MessagingSettings>,
+        private val model: JsonField<String>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
         private val postConversationSettings: JsonField<PostConversationSettings>,
         private val privacySettings: JsonField<PrivacySettings>,
+        private val tags: JsonField<List<String>>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
         private val tools: JsonField<List<AssistantTool>>,
@@ -1105,7 +1334,6 @@ private constructor(
             @JsonProperty("instructions")
             @ExcludeMissing
             instructions: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
@@ -1113,6 +1341,9 @@ private constructor(
             @JsonProperty("dynamic_variables")
             @ExcludeMissing
             dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
+            @JsonProperty("dynamic_variables_webhook_timeout_ms")
+            @ExcludeMissing
+            dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("dynamic_variables_webhook_url")
             @ExcludeMissing
             dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of(),
@@ -1131,12 +1362,22 @@ private constructor(
             @JsonProperty("insight_settings")
             @ExcludeMissing
             insightSettings: JsonField<InsightSettings> = JsonMissing.of(),
+            @JsonProperty("integrations")
+            @ExcludeMissing
+            integrations: JsonField<List<Integration>> = JsonMissing.of(),
+            @JsonProperty("interruption_settings")
+            @ExcludeMissing
+            interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of(),
             @JsonProperty("llm_api_key_ref")
             @ExcludeMissing
             llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("mcp_servers")
+            @ExcludeMissing
+            mcpServers: JsonField<List<McpServer>> = JsonMissing.of(),
             @JsonProperty("messaging_settings")
             @ExcludeMissing
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
+            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("observability_settings")
             @ExcludeMissing
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
@@ -1146,6 +1387,7 @@ private constructor(
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
+            @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("telephony_settings")
             @ExcludeMissing
             telephonySettings: JsonField<TelephonySettings> = JsonMissing.of(),
@@ -1166,21 +1408,26 @@ private constructor(
             widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
         ) : this(
             instructions,
-            model,
             name,
             description,
             dynamicVariables,
+            dynamicVariablesWebhookTimeoutMs,
             dynamicVariablesWebhookUrl,
             enabledFeatures,
             externalLlm,
             fallbackConfig,
             greeting,
             insightSettings,
+            integrations,
+            interruptionSettings,
             llmApiKeyRef,
+            mcpServers,
             messagingSettings,
+            model,
             observabilitySettings,
             postConversationSettings,
             privacySettings,
+            tags,
             telephonySettings,
             toolIds,
             tools,
@@ -1198,16 +1445,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun instructions(): String = instructions.getRequired("instructions")
-
-        /**
-         * ID of the model to use. You can use the
-         * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-         * to see all of your available models,
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun model(): String = model.getRequired("model")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -1231,10 +1468,25 @@ private constructor(
             dynamicVariables.getOptional("dynamic_variables")
 
         /**
-         * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at
-         * the start of the conversation. See our
-         * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-         * more information.
+         * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000
+         * ms. If the webhook does not respond within this timeout, the call proceeds with default
+         * values. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dynamicVariablesWebhookTimeoutMs(): Optional<Long> =
+            dynamicVariablesWebhookTimeoutMs.getOptional("dynamic_variables_webhook_timeout_ms")
+
+        /**
+         * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+         * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response
+         * must wrap variables under a top-level `dynamic_variables` object, e.g.
+         * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+         * ignored and variables will fall back to their defaults. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * for the full request/response format and timeout behavior.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1282,10 +1534,35 @@ private constructor(
             insightSettings.getOptional("insight_settings")
 
         /**
-         * This is only needed when using third-party inference providers. The `identifier` for an
-         * integration secret
+         * Connected integrations attached to the assistant. The catalog of available integrations
+         * is at `/ai/integrations`; the user's connected integrations are at
+         * `/ai/integrations/connections`. Each item references a catalog integration by
+         * `integration_id`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun integrations(): Optional<List<Integration>> = integrations.getOptional("integrations")
+
+        /**
+         * Settings for interruptions and how the assistant decides the user has finished speaking.
+         * These timings are most relevant when using non turn-taking transcription models. For
+         * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+         * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+         * `eot_timeout_ms`, `eager_eot_threshold`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptionSettings(): Optional<InterruptionSettings> =
+            interruptionSettings.getOptional("interruption_settings")
+
+        /**
+         * This is only needed when using third-party inference providers selected by `model`. The
+         * `identifier` for an integration secret
          * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-         * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
+         * that refers to your LLM provider's API key. For bring-your-own endpoint authentication,
+         * use `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with
          * this integration.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1294,11 +1571,32 @@ private constructor(
         fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
 
         /**
+         * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+         * reference them by `id` here.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mcpServers(): Optional<List<McpServer>> = mcpServers.getOptional("mcp_servers")
+
+        /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun messagingSettings(): Optional<MessagingSettings> =
             messagingSettings.getOptional("messaging_settings")
+
+        /**
+         * ID of the model to use when `external_llm` is not set. You can use the
+         * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+         * to see available models. If `external_llm` is provided, the assistant uses `external_llm`
+         * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies
+         * the default model.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun model(): Optional<String> = model.getOptional("model")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1328,6 +1626,15 @@ private constructor(
             privacySettings.getOptional("privacy_settings")
 
         /**
+         * Tags associated with the assistant. Tags can also be managed with the assistant tag
+         * endpoints.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun tags(): Optional<List<String>> = tags.getOptional("tags")
+
+        /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -1335,14 +1642,17 @@ private constructor(
             telephonySettings.getOptional("telephony_settings")
 
         /**
+         * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+         * over inline `tools`.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun toolIds(): Optional<List<String>> = toolIds.getOptional("tool_ids")
 
         /**
-         * The tools that the assistant can use. These may be templated with
-         * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * Deprecated for new integrations. Inline tool definitions available to the assistant.
+         * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1382,13 +1692,6 @@ private constructor(
         fun _instructions(): JsonField<String> = instructions
 
         /**
-         * Returns the raw JSON value of [model].
-         *
-         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
-
-        /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -1413,6 +1716,16 @@ private constructor(
         @JsonProperty("dynamic_variables")
         @ExcludeMissing
         fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
+
+        /**
+         * Returns the raw JSON value of [dynamicVariablesWebhookTimeoutMs].
+         *
+         * Unlike [dynamicVariablesWebhookTimeoutMs], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("dynamic_variables_webhook_timeout_ms")
+        @ExcludeMissing
+        fun _dynamicVariablesWebhookTimeoutMs(): JsonField<Long> = dynamicVariablesWebhookTimeoutMs
 
         /**
          * Returns the raw JSON value of [dynamicVariablesWebhookUrl].
@@ -1471,6 +1784,26 @@ private constructor(
         fun _insightSettings(): JsonField<InsightSettings> = insightSettings
 
         /**
+         * Returns the raw JSON value of [integrations].
+         *
+         * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("integrations")
+        @ExcludeMissing
+        fun _integrations(): JsonField<List<Integration>> = integrations
+
+        /**
+         * Returns the raw JSON value of [interruptionSettings].
+         *
+         * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruption_settings")
+        @ExcludeMissing
+        fun _interruptionSettings(): JsonField<InterruptionSettings> = interruptionSettings
+
+        /**
          * Returns the raw JSON value of [llmApiKeyRef].
          *
          * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected
@@ -1481,6 +1814,15 @@ private constructor(
         fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
 
         /**
+         * Returns the raw JSON value of [mcpServers].
+         *
+         * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mcp_servers")
+        @ExcludeMissing
+        fun _mcpServers(): JsonField<List<McpServer>> = mcpServers
+
+        /**
          * Returns the raw JSON value of [messagingSettings].
          *
          * Unlike [messagingSettings], this method doesn't throw if the JSON field has an unexpected
@@ -1489,6 +1831,13 @@ private constructor(
         @JsonProperty("messaging_settings")
         @ExcludeMissing
         fun _messagingSettings(): JsonField<MessagingSettings> = messagingSettings
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
 
         /**
          * Returns the raw JSON value of [observabilitySettings].
@@ -1520,6 +1869,13 @@ private constructor(
         @JsonProperty("privacy_settings")
         @ExcludeMissing
         fun _privacySettings(): JsonField<PrivacySettings> = privacySettings
+
+        /**
+         * Returns the raw JSON value of [tags].
+         *
+         * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
         /**
          * Returns the raw JSON value of [telephonySettings].
@@ -1595,7 +1951,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .instructions()
-             * .model()
              * .name()
              * ```
              */
@@ -1606,22 +1961,27 @@ private constructor(
         class Builder internal constructor() {
 
             private var instructions: JsonField<String>? = null
-            private var model: JsonField<String>? = null
             private var name: JsonField<String>? = null
             private var description: JsonField<String> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
+            private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
             private var externalLlm: JsonField<ExternalLlm> = JsonMissing.of()
             private var fallbackConfig: JsonField<FallbackConfig> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
+            private var integrations: JsonField<MutableList<Integration>>? = null
+            private var interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+            private var mcpServers: JsonField<MutableList<McpServer>>? = null
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
+            private var model: JsonField<String> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
             private var postConversationSettings: JsonField<PostConversationSettings> =
                 JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
+            private var tags: JsonField<MutableList<String>>? = null
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
             private var tools: JsonField<MutableList<AssistantTool>>? = null
@@ -1633,21 +1993,26 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 instructions = body.instructions
-                model = body.model
                 name = body.name
                 description = body.description
                 dynamicVariables = body.dynamicVariables
+                dynamicVariablesWebhookTimeoutMs = body.dynamicVariablesWebhookTimeoutMs
                 dynamicVariablesWebhookUrl = body.dynamicVariablesWebhookUrl
                 enabledFeatures = body.enabledFeatures.map { it.toMutableList() }
                 externalLlm = body.externalLlm
                 fallbackConfig = body.fallbackConfig
                 greeting = body.greeting
                 insightSettings = body.insightSettings
+                integrations = body.integrations.map { it.toMutableList() }
+                interruptionSettings = body.interruptionSettings
                 llmApiKeyRef = body.llmApiKeyRef
+                mcpServers = body.mcpServers.map { it.toMutableList() }
                 messagingSettings = body.messagingSettings
+                model = body.model
                 observabilitySettings = body.observabilitySettings
                 postConversationSettings = body.postConversationSettings
                 privacySettings = body.privacySettings
+                tags = body.tags.map { it.toMutableList() }
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
                 tools = body.tools.map { it.toMutableList() }
@@ -1673,22 +2038,6 @@ private constructor(
             fun instructions(instructions: JsonField<String>) = apply {
                 this.instructions = instructions
             }
-
-            /**
-             * ID of the model to use. You can use the
-             * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-             * to see all of your available models,
-             */
-            fun model(model: String) = model(JsonField.of(model))
-
-            /**
-             * Sets [Builder.model] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.model] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun model(model: JsonField<String>) = apply { this.model = model }
 
             fun name(name: String) = name(JsonField.of(name))
 
@@ -1730,10 +2079,33 @@ private constructor(
             }
 
             /**
-             * If the dynamic_variables_webhook_url is set for the assistant, we will send a request
-             * at the start of the conversation. See our
-             * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-             * for more information.
+             * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
+             * 10000 ms. If the webhook does not respond within this timeout, the call proceeds with
+             * default values. See the
+             * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+             */
+            fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: Long) =
+                dynamicVariablesWebhookTimeoutMs(JsonField.of(dynamicVariablesWebhookTimeoutMs))
+
+            /**
+             * Sets [Builder.dynamicVariablesWebhookTimeoutMs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dynamicVariablesWebhookTimeoutMs] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun dynamicVariablesWebhookTimeoutMs(
+                dynamicVariablesWebhookTimeoutMs: JsonField<Long>
+            ) = apply { this.dynamicVariablesWebhookTimeoutMs = dynamicVariablesWebhookTimeoutMs }
+
+            /**
+             * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at
+             * the start of the conversation to resolve dynamic variables. **Gotcha:** the webhook
+             * response must wrap variables under a top-level `dynamic_variables` object, e.g.
+             * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+             * ignored and variables will fall back to their defaults. See the
+             * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+             * for the full request/response format and timeout behavior.
              */
             fun dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl: String) =
                 dynamicVariablesWebhookUrl(JsonField.of(dynamicVariablesWebhookUrl))
@@ -1836,11 +2208,66 @@ private constructor(
             }
 
             /**
-             * This is only needed when using third-party inference providers. The `identifier` for
-             * an integration secret
+             * Connected integrations attached to the assistant. The catalog of available
+             * integrations is at `/ai/integrations`; the user's connected integrations are at
+             * `/ai/integrations/connections`. Each item references a catalog integration by
+             * `integration_id`.
+             */
+            fun integrations(integrations: List<Integration>) =
+                integrations(JsonField.of(integrations))
+
+            /**
+             * Sets [Builder.integrations] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.integrations] with a well-typed `List<Integration>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun integrations(integrations: JsonField<List<Integration>>) = apply {
+                this.integrations = integrations.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Integration] to [integrations].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addIntegration(integration: Integration) = apply {
+                integrations =
+                    (integrations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("integrations", it).add(integration)
+                    }
+            }
+
+            /**
+             * Settings for interruptions and how the assistant decides the user has finished
+             * speaking. These timings are most relevant when using non turn-taking transcription
+             * models. For turn-taking models like `deepgram/flux`, end-of-turn behavior is
+             * controlled by the transcription end-of-turn settings under `transcription.settings`
+             * (`eot_threshold`, `eot_timeout_ms`, `eager_eot_threshold`).
+             */
+            fun interruptionSettings(interruptionSettings: InterruptionSettings) =
+                interruptionSettings(JsonField.of(interruptionSettings))
+
+            /**
+             * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptionSettings] with a well-typed
+             * [InterruptionSettings] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun interruptionSettings(interruptionSettings: JsonField<InterruptionSettings>) =
+                apply {
+                    this.interruptionSettings = interruptionSettings
+                }
+
+            /**
+             * This is only needed when using third-party inference providers selected by `model`.
+             * The `identifier` for an integration secret
              * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-             * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work
-             * with this integration.
+             * that refers to your LLM provider's API key. For bring-your-own endpoint
+             * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans are
+             * unlikely to work with this integration.
              */
             fun llmApiKeyRef(llmApiKeyRef: String) = llmApiKeyRef(JsonField.of(llmApiKeyRef))
 
@@ -1853,6 +2280,35 @@ private constructor(
              */
             fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
                 this.llmApiKeyRef = llmApiKeyRef
+            }
+
+            /**
+             * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`,
+             * then reference them by `id` here.
+             */
+            fun mcpServers(mcpServers: List<McpServer>) = mcpServers(JsonField.of(mcpServers))
+
+            /**
+             * Sets [Builder.mcpServers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mcpServers] with a well-typed `List<McpServer>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun mcpServers(mcpServers: JsonField<List<McpServer>>) = apply {
+                this.mcpServers = mcpServers.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [McpServer] to [mcpServers].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addMcpServer(mcpServer: McpServer) = apply {
+                mcpServers =
+                    (mcpServers ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("mcpServers", it).add(mcpServer)
+                    }
             }
 
             fun messagingSettings(messagingSettings: MessagingSettings) =
@@ -1868,6 +2324,24 @@ private constructor(
             fun messagingSettings(messagingSettings: JsonField<MessagingSettings>) = apply {
                 this.messagingSettings = messagingSettings
             }
+
+            /**
+             * ID of the model to use when `external_llm` is not set. You can use the
+             * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+             * to see available models. If `external_llm` is provided, the assistant uses
+             * `external_llm` instead of this field. If neither `model` nor `external_llm` is
+             * provided, Telnyx applies the default model.
+             */
+            fun model(model: String) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun model(model: JsonField<String>) = apply { this.model = model }
 
             fun observabilitySettings(observabilitySettings: ObservabilityReq) =
                 observabilitySettings(JsonField.of(observabilitySettings))
@@ -1918,6 +2392,33 @@ private constructor(
                 this.privacySettings = privacySettings
             }
 
+            /**
+             * Tags associated with the assistant. Tags can also be managed with the assistant tag
+             * endpoints.
+             */
+            fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+            /**
+             * Sets [Builder.tags] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tags] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun tags(tags: JsonField<List<String>>) = apply {
+                this.tags = tags.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [tags].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addTag(tag: String) = apply {
+                tags =
+                    (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+            }
+
             fun telephonySettings(telephonySettings: TelephonySettings) =
                 telephonySettings(JsonField.of(telephonySettings))
 
@@ -1932,6 +2433,10 @@ private constructor(
                 this.telephonySettings = telephonySettings
             }
 
+            /**
+             * IDs of shared tools to attach to the assistant. New integrations should prefer
+             * `tool_ids` over inline `tools`.
+             */
             fun toolIds(toolIds: List<String>) = toolIds(JsonField.of(toolIds))
 
             /**
@@ -1958,8 +2463,8 @@ private constructor(
             }
 
             /**
-             * The tools that the assistant can use. These may be templated with
-             * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+             * Deprecated for new integrations. Inline tool definitions available to the assistant.
+             * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
              */
             fun tools(tools: List<AssistantTool>) = tools(JsonField.of(tools))
 
@@ -2215,7 +2720,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .instructions()
-             * .model()
              * .name()
              * ```
              *
@@ -2224,21 +2728,26 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("instructions", instructions),
-                    checkRequired("model", model),
                     checkRequired("name", name),
                     description,
                     dynamicVariables,
+                    dynamicVariablesWebhookTimeoutMs,
                     dynamicVariablesWebhookUrl,
                     (enabledFeatures ?: JsonMissing.of()).map { it.toImmutable() },
                     externalLlm,
                     fallbackConfig,
                     greeting,
                     insightSettings,
+                    (integrations ?: JsonMissing.of()).map { it.toImmutable() },
+                    interruptionSettings,
                     llmApiKeyRef,
+                    (mcpServers ?: JsonMissing.of()).map { it.toImmutable() },
                     messagingSettings,
+                    model,
                     observabilitySettings,
                     postConversationSettings,
                     privacySettings,
+                    (tags ?: JsonMissing.of()).map { it.toImmutable() },
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
                     (tools ?: JsonMissing.of()).map { it.toImmutable() },
@@ -2257,21 +2766,26 @@ private constructor(
             }
 
             instructions()
-            model()
             name()
             description()
             dynamicVariables().ifPresent { it.validate() }
+            dynamicVariablesWebhookTimeoutMs()
             dynamicVariablesWebhookUrl()
             enabledFeatures().ifPresent { it.forEach { it.validate() } }
             externalLlm().ifPresent { it.validate() }
             fallbackConfig().ifPresent { it.validate() }
             greeting()
             insightSettings().ifPresent { it.validate() }
+            integrations().ifPresent { it.forEach { it.validate() } }
+            interruptionSettings().ifPresent { it.validate() }
             llmApiKeyRef()
+            mcpServers().ifPresent { it.forEach { it.validate() } }
             messagingSettings().ifPresent { it.validate() }
+            model()
             observabilitySettings().ifPresent { it.validate() }
             postConversationSettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
+            tags()
             telephonySettings().ifPresent { it.validate() }
             toolIds()
             tools().ifPresent { it.forEach { it.validate() } }
@@ -2298,21 +2812,26 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (instructions.asKnown().isPresent) 1 else 0) +
-                (if (model.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (dynamicVariablesWebhookTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (enabledFeatures.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
                 (fallbackConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (integrations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                (mcpServers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (model.asKnown().isPresent) 1 else 0) +
                 (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (postConversationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (tags.asKnown().getOrNull()?.size ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
                 (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -2327,21 +2846,26 @@ private constructor(
 
             return other is Body &&
                 instructions == other.instructions &&
-                model == other.model &&
                 name == other.name &&
                 description == other.description &&
                 dynamicVariables == other.dynamicVariables &&
+                dynamicVariablesWebhookTimeoutMs == other.dynamicVariablesWebhookTimeoutMs &&
                 dynamicVariablesWebhookUrl == other.dynamicVariablesWebhookUrl &&
                 enabledFeatures == other.enabledFeatures &&
                 externalLlm == other.externalLlm &&
                 fallbackConfig == other.fallbackConfig &&
                 greeting == other.greeting &&
                 insightSettings == other.insightSettings &&
+                integrations == other.integrations &&
+                interruptionSettings == other.interruptionSettings &&
                 llmApiKeyRef == other.llmApiKeyRef &&
+                mcpServers == other.mcpServers &&
                 messagingSettings == other.messagingSettings &&
+                model == other.model &&
                 observabilitySettings == other.observabilitySettings &&
                 postConversationSettings == other.postConversationSettings &&
                 privacySettings == other.privacySettings &&
+                tags == other.tags &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
                 tools == other.tools &&
@@ -2354,21 +2878,26 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 instructions,
-                model,
                 name,
                 description,
                 dynamicVariables,
+                dynamicVariablesWebhookTimeoutMs,
                 dynamicVariablesWebhookUrl,
                 enabledFeatures,
                 externalLlm,
                 fallbackConfig,
                 greeting,
                 insightSettings,
+                integrations,
+                interruptionSettings,
                 llmApiKeyRef,
+                mcpServers,
                 messagingSettings,
+                model,
                 observabilitySettings,
                 postConversationSettings,
                 privacySettings,
+                tags,
                 telephonySettings,
                 toolIds,
                 tools,
@@ -2382,7 +2911,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */
@@ -2563,10 +3092,12 @@ private constructor(
         fun certificateRef(): Optional<String> = certificateRef.getOptional("certificate_ref")
 
         /**
-         * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
-         * endpoint. Defaults to false. The chat completion request includes a top-level
-         * `extra_metadata` object when dynamic variables are available. For example:
-         * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+         * When `true`, Telnyx forwards the assistant's dynamic variables to the external LLM
+         * endpoint as a top-level `extra_metadata` object on the chat completion request body.
+         * Defaults to `false`. Example payload sent to the external endpoint: `{"extra_metadata":
+         * {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target":
+         * "+13125550100", "telnyx_end_user_target": "+13125550123"}}`. Distinct from OpenAI's
+         * native `metadata` field, which has its own size and type limits.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2763,10 +3294,13 @@ private constructor(
             }
 
             /**
-             * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
-             * endpoint. Defaults to false. The chat completion request includes a top-level
-             * `extra_metadata` object when dynamic variables are available. For example:
-             * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+             * When `true`, Telnyx forwards the assistant's dynamic variables to the external LLM
+             * endpoint as a top-level `extra_metadata` object on the chat completion request body.
+             * Defaults to `false`. Example payload sent to the external endpoint:
+             * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789",
+             * "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+             * Distinct from OpenAI's native `metadata` field, which has its own size and type
+             * limits.
              */
             fun forwardMetadata(forwardMetadata: Boolean) =
                 forwardMetadata(JsonField.of(forwardMetadata))
@@ -3356,10 +3890,13 @@ private constructor(
             fun certificateRef(): Optional<String> = certificateRef.getOptional("certificate_ref")
 
             /**
-             * When enabled, Telnyx forwards the assistant's dynamic variables to the external LLM
-             * endpoint. Defaults to false. The chat completion request includes a top-level
-             * `extra_metadata` object when dynamic variables are available. For example:
-             * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+             * When `true`, Telnyx forwards the assistant's dynamic variables to the external LLM
+             * endpoint as a top-level `extra_metadata` object on the chat completion request body.
+             * Defaults to `false`. Example payload sent to the external endpoint:
+             * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789",
+             * "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+             * Distinct from OpenAI's native `metadata` field, which has its own size and type
+             * limits.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -3557,10 +4094,13 @@ private constructor(
                 }
 
                 /**
-                 * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-                 * LLM endpoint. Defaults to false. The chat completion request includes a top-level
-                 * `extra_metadata` object when dynamic variables are available. For example:
-                 * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+                 * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+                 * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+                 * request body. Defaults to `false`. Example payload sent to the external endpoint:
+                 * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789",
+                 * "telnyx_agent_target": "+13125550100", "telnyx_end_user_target":
+                 * "+13125550123"}}`. Distinct from OpenAI's native `metadata` field, which has its
+                 * own size and type limits.
                  */
                 fun forwardMetadata(forwardMetadata: Boolean) =
                     forwardMetadata(JsonField.of(forwardMetadata))
@@ -3887,6 +4427,1168 @@ private constructor(
 
         override fun toString() =
             "FallbackConfig{externalLlm=$externalLlm, llmApiKeyRef=$llmApiKeyRef, model=$model, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Reference to a connected integration attached to an assistant. Discover available
+     * integrations with `/ai/integrations` and connected integrations with
+     * `/ai/integrations/connections`.
+     */
+    class Integration
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val integrationId: JsonField<String>,
+        private val allowedList: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("integration_id")
+            @ExcludeMissing
+            integrationId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("allowed_list")
+            @ExcludeMissing
+            allowedList: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(integrationId, allowedList, mutableMapOf())
+
+        /**
+         * Catalog integration ID to attach. This is the `id` from the integrations catalog at
+         * `/ai/integrations` (the same value also appears as `integration_id` on entries returned
+         * by `/ai/integrations/connections`). It is **not** the connection-level `id` from
+         * `/ai/integrations/connections`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun integrationId(): String = integrationId.getRequired("integration_id")
+
+        /**
+         * Optional per-assistant allowlist of integration tool names. When omitted or empty, all
+         * tools allowed by the connected integration are available to the assistant.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun allowedList(): Optional<List<String>> = allowedList.getOptional("allowed_list")
+
+        /**
+         * Returns the raw JSON value of [integrationId].
+         *
+         * Unlike [integrationId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("integration_id")
+        @ExcludeMissing
+        fun _integrationId(): JsonField<String> = integrationId
+
+        /**
+         * Returns the raw JSON value of [allowedList].
+         *
+         * Unlike [allowedList], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("allowed_list")
+        @ExcludeMissing
+        fun _allowedList(): JsonField<List<String>> = allowedList
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Integration].
+             *
+             * The following fields are required:
+             * ```java
+             * .integrationId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Integration]. */
+        class Builder internal constructor() {
+
+            private var integrationId: JsonField<String>? = null
+            private var allowedList: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(integration: Integration) = apply {
+                integrationId = integration.integrationId
+                allowedList = integration.allowedList.map { it.toMutableList() }
+                additionalProperties = integration.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Catalog integration ID to attach. This is the `id` from the integrations catalog at
+             * `/ai/integrations` (the same value also appears as `integration_id` on entries
+             * returned by `/ai/integrations/connections`). It is **not** the connection-level `id`
+             * from `/ai/integrations/connections`.
+             */
+            fun integrationId(integrationId: String) = integrationId(JsonField.of(integrationId))
+
+            /**
+             * Sets [Builder.integrationId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.integrationId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun integrationId(integrationId: JsonField<String>) = apply {
+                this.integrationId = integrationId
+            }
+
+            /**
+             * Optional per-assistant allowlist of integration tool names. When omitted or empty,
+             * all tools allowed by the connected integration are available to the assistant.
+             */
+            fun allowedList(allowedList: List<String>) = allowedList(JsonField.of(allowedList))
+
+            /**
+             * Sets [Builder.allowedList] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.allowedList] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun allowedList(allowedList: JsonField<List<String>>) = apply {
+                this.allowedList = allowedList.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [Builder.allowedList].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAllowedList(allowedList: String) = apply {
+                this.allowedList =
+                    (this.allowedList ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("allowedList", it).add(allowedList)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Integration].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .integrationId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Integration =
+                Integration(
+                    checkRequired("integrationId", integrationId),
+                    (allowedList ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Integration = apply {
+            if (validated) {
+                return@apply
+            }
+
+            integrationId()
+            allowedList()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (integrationId.asKnown().isPresent) 1 else 0) +
+                (allowedList.asKnown().getOrNull()?.size ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Integration &&
+                integrationId == other.integrationId &&
+                allowedList == other.allowedList &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(integrationId, allowedList, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Integration{integrationId=$integrationId, allowedList=$allowedList, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Settings for interruptions and how the assistant decides the user has finished speaking.
+     * These timings are most relevant when using non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+     * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+     * `eot_timeout_ms`, `eager_eot_threshold`).
+     */
+    class InterruptionSettings
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val enable: JsonField<Boolean>,
+        private val startSpeakingPlan: JsonField<StartSpeakingPlan>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("enable") @ExcludeMissing enable: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("start_speaking_plan")
+            @ExcludeMissing
+            startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of(),
+        ) : this(enable, startSpeakingPlan, mutableMapOf())
+
+        /**
+         * Whether users can interrupt the assistant while it is speaking.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enable(): Optional<Boolean> = enable.getOptional("enable")
+
+        /**
+         * Controls when the assistant starts speaking after the user stops. These thresholds
+         * primarily apply to non turn-taking transcription models. For turn-taking models like
+         * `deepgram/flux`, end-of-turn detection is driven by the transcription end-of-turn
+         * settings under `transcription.settings` instead.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun startSpeakingPlan(): Optional<StartSpeakingPlan> =
+            startSpeakingPlan.getOptional("start_speaking_plan")
+
+        /**
+         * Returns the raw JSON value of [enable].
+         *
+         * Unlike [enable], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("enable") @ExcludeMissing fun _enable(): JsonField<Boolean> = enable
+
+        /**
+         * Returns the raw JSON value of [startSpeakingPlan].
+         *
+         * Unlike [startSpeakingPlan], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("start_speaking_plan")
+        @ExcludeMissing
+        fun _startSpeakingPlan(): JsonField<StartSpeakingPlan> = startSpeakingPlan
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [InterruptionSettings]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [InterruptionSettings]. */
+        class Builder internal constructor() {
+
+            private var enable: JsonField<Boolean> = JsonMissing.of()
+            private var startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(interruptionSettings: InterruptionSettings) = apply {
+                enable = interruptionSettings.enable
+                startSpeakingPlan = interruptionSettings.startSpeakingPlan
+                additionalProperties = interruptionSettings.additionalProperties.toMutableMap()
+            }
+
+            /** Whether users can interrupt the assistant while it is speaking. */
+            fun enable(enable: Boolean) = enable(JsonField.of(enable))
+
+            /**
+             * Sets [Builder.enable] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enable] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enable(enable: JsonField<Boolean>) = apply { this.enable = enable }
+
+            /**
+             * Controls when the assistant starts speaking after the user stops. These thresholds
+             * primarily apply to non turn-taking transcription models. For turn-taking models like
+             * `deepgram/flux`, end-of-turn detection is driven by the transcription end-of-turn
+             * settings under `transcription.settings` instead.
+             */
+            fun startSpeakingPlan(startSpeakingPlan: StartSpeakingPlan) =
+                startSpeakingPlan(JsonField.of(startSpeakingPlan))
+
+            /**
+             * Sets [Builder.startSpeakingPlan] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.startSpeakingPlan] with a well-typed
+             * [StartSpeakingPlan] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun startSpeakingPlan(startSpeakingPlan: JsonField<StartSpeakingPlan>) = apply {
+                this.startSpeakingPlan = startSpeakingPlan
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [InterruptionSettings].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): InterruptionSettings =
+                InterruptionSettings(enable, startSpeakingPlan, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): InterruptionSettings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            enable()
+            startSpeakingPlan().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (enable.asKnown().isPresent) 1 else 0) +
+                (startSpeakingPlan.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * Controls when the assistant starts speaking after the user stops. These thresholds
+         * primarily apply to non turn-taking transcription models. For turn-taking models like
+         * `deepgram/flux`, end-of-turn detection is driven by the transcription end-of-turn
+         * settings under `transcription.settings` instead.
+         */
+        class StartSpeakingPlan
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val transcriptionEndpointingPlan: JsonField<TranscriptionEndpointingPlan>,
+            private val waitSeconds: JsonField<Float>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transcription_endpointing_plan")
+                @ExcludeMissing
+                transcriptionEndpointingPlan: JsonField<TranscriptionEndpointingPlan> =
+                    JsonMissing.of(),
+                @JsonProperty("wait_seconds")
+                @ExcludeMissing
+                waitSeconds: JsonField<Float> = JsonMissing.of(),
+            ) : this(transcriptionEndpointingPlan, waitSeconds, mutableMapOf())
+
+            /**
+             * Endpointing thresholds used to decide when the user has finished speaking. Applies to
+             * non turn-taking transcription models. For `deepgram/flux`, use
+             * `transcription.settings.eot_threshold` / `eot_timeout_ms` / `eager_eot_threshold`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionEndpointingPlan(): Optional<TranscriptionEndpointingPlan> =
+                transcriptionEndpointingPlan.getOptional("transcription_endpointing_plan")
+
+            /**
+             * Minimum seconds to wait before the assistant starts speaking.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun waitSeconds(): Optional<Float> = waitSeconds.getOptional("wait_seconds")
+
+            /**
+             * Returns the raw JSON value of [transcriptionEndpointingPlan].
+             *
+             * Unlike [transcriptionEndpointingPlan], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("transcription_endpointing_plan")
+            @ExcludeMissing
+            fun _transcriptionEndpointingPlan(): JsonField<TranscriptionEndpointingPlan> =
+                transcriptionEndpointingPlan
+
+            /**
+             * Returns the raw JSON value of [waitSeconds].
+             *
+             * Unlike [waitSeconds], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("wait_seconds")
+            @ExcludeMissing
+            fun _waitSeconds(): JsonField<Float> = waitSeconds
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [StartSpeakingPlan].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [StartSpeakingPlan]. */
+            class Builder internal constructor() {
+
+                private var transcriptionEndpointingPlan: JsonField<TranscriptionEndpointingPlan> =
+                    JsonMissing.of()
+                private var waitSeconds: JsonField<Float> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(startSpeakingPlan: StartSpeakingPlan) = apply {
+                    transcriptionEndpointingPlan = startSpeakingPlan.transcriptionEndpointingPlan
+                    waitSeconds = startSpeakingPlan.waitSeconds
+                    additionalProperties = startSpeakingPlan.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Endpointing thresholds used to decide when the user has finished speaking.
+                 * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+                 * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+                 * `eager_eot_threshold`.
+                 */
+                fun transcriptionEndpointingPlan(
+                    transcriptionEndpointingPlan: TranscriptionEndpointingPlan
+                ) = transcriptionEndpointingPlan(JsonField.of(transcriptionEndpointingPlan))
+
+                /**
+                 * Sets [Builder.transcriptionEndpointingPlan] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionEndpointingPlan] with a well-typed
+                 * [TranscriptionEndpointingPlan] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
+                 */
+                fun transcriptionEndpointingPlan(
+                    transcriptionEndpointingPlan: JsonField<TranscriptionEndpointingPlan>
+                ) = apply { this.transcriptionEndpointingPlan = transcriptionEndpointingPlan }
+
+                /** Minimum seconds to wait before the assistant starts speaking. */
+                fun waitSeconds(waitSeconds: Float) = waitSeconds(JsonField.of(waitSeconds))
+
+                /**
+                 * Sets [Builder.waitSeconds] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.waitSeconds] with a well-typed [Float] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun waitSeconds(waitSeconds: JsonField<Float>) = apply {
+                    this.waitSeconds = waitSeconds
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [StartSpeakingPlan].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): StartSpeakingPlan =
+                    StartSpeakingPlan(
+                        transcriptionEndpointingPlan,
+                        waitSeconds,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): StartSpeakingPlan = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transcriptionEndpointingPlan().ifPresent { it.validate() }
+                waitSeconds()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (transcriptionEndpointingPlan.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (waitSeconds.asKnown().isPresent) 1 else 0)
+
+            /**
+             * Endpointing thresholds used to decide when the user has finished speaking. Applies to
+             * non turn-taking transcription models. For `deepgram/flux`, use
+             * `transcription.settings.eot_threshold` / `eot_timeout_ms` / `eager_eot_threshold`.
+             */
+            class TranscriptionEndpointingPlan
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val onNoPunctuationSeconds: JsonField<Float>,
+                private val onNumberSeconds: JsonField<Float>,
+                private val onPunctuationSeconds: JsonField<Float>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("on_no_punctuation_seconds")
+                    @ExcludeMissing
+                    onNoPunctuationSeconds: JsonField<Float> = JsonMissing.of(),
+                    @JsonProperty("on_number_seconds")
+                    @ExcludeMissing
+                    onNumberSeconds: JsonField<Float> = JsonMissing.of(),
+                    @JsonProperty("on_punctuation_seconds")
+                    @ExcludeMissing
+                    onPunctuationSeconds: JsonField<Float> = JsonMissing.of(),
+                ) : this(
+                    onNoPunctuationSeconds,
+                    onNumberSeconds,
+                    onPunctuationSeconds,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * Seconds to wait after the transcript ends without punctuation.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun onNoPunctuationSeconds(): Optional<Float> =
+                    onNoPunctuationSeconds.getOptional("on_no_punctuation_seconds")
+
+                /**
+                 * Seconds to wait after the transcript ends with a number.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun onNumberSeconds(): Optional<Float> =
+                    onNumberSeconds.getOptional("on_number_seconds")
+
+                /**
+                 * Seconds to wait after the transcript ends with punctuation.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun onPunctuationSeconds(): Optional<Float> =
+                    onPunctuationSeconds.getOptional("on_punctuation_seconds")
+
+                /**
+                 * Returns the raw JSON value of [onNoPunctuationSeconds].
+                 *
+                 * Unlike [onNoPunctuationSeconds], this method doesn't throw if the JSON field has
+                 * an unexpected type.
+                 */
+                @JsonProperty("on_no_punctuation_seconds")
+                @ExcludeMissing
+                fun _onNoPunctuationSeconds(): JsonField<Float> = onNoPunctuationSeconds
+
+                /**
+                 * Returns the raw JSON value of [onNumberSeconds].
+                 *
+                 * Unlike [onNumberSeconds], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("on_number_seconds")
+                @ExcludeMissing
+                fun _onNumberSeconds(): JsonField<Float> = onNumberSeconds
+
+                /**
+                 * Returns the raw JSON value of [onPunctuationSeconds].
+                 *
+                 * Unlike [onPunctuationSeconds], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("on_punctuation_seconds")
+                @ExcludeMissing
+                fun _onPunctuationSeconds(): JsonField<Float> = onPunctuationSeconds
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [TranscriptionEndpointingPlan].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [TranscriptionEndpointingPlan]. */
+                class Builder internal constructor() {
+
+                    private var onNoPunctuationSeconds: JsonField<Float> = JsonMissing.of()
+                    private var onNumberSeconds: JsonField<Float> = JsonMissing.of()
+                    private var onPunctuationSeconds: JsonField<Float> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(transcriptionEndpointingPlan: TranscriptionEndpointingPlan) =
+                        apply {
+                            onNoPunctuationSeconds =
+                                transcriptionEndpointingPlan.onNoPunctuationSeconds
+                            onNumberSeconds = transcriptionEndpointingPlan.onNumberSeconds
+                            onPunctuationSeconds = transcriptionEndpointingPlan.onPunctuationSeconds
+                            additionalProperties =
+                                transcriptionEndpointingPlan.additionalProperties.toMutableMap()
+                        }
+
+                    /** Seconds to wait after the transcript ends without punctuation. */
+                    fun onNoPunctuationSeconds(onNoPunctuationSeconds: Float) =
+                        onNoPunctuationSeconds(JsonField.of(onNoPunctuationSeconds))
+
+                    /**
+                     * Sets [Builder.onNoPunctuationSeconds] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.onNoPunctuationSeconds] with a well-typed
+                     * [Float] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun onNoPunctuationSeconds(onNoPunctuationSeconds: JsonField<Float>) = apply {
+                        this.onNoPunctuationSeconds = onNoPunctuationSeconds
+                    }
+
+                    /** Seconds to wait after the transcript ends with a number. */
+                    fun onNumberSeconds(onNumberSeconds: Float) =
+                        onNumberSeconds(JsonField.of(onNumberSeconds))
+
+                    /**
+                     * Sets [Builder.onNumberSeconds] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.onNumberSeconds] with a well-typed [Float]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun onNumberSeconds(onNumberSeconds: JsonField<Float>) = apply {
+                        this.onNumberSeconds = onNumberSeconds
+                    }
+
+                    /** Seconds to wait after the transcript ends with punctuation. */
+                    fun onPunctuationSeconds(onPunctuationSeconds: Float) =
+                        onPunctuationSeconds(JsonField.of(onPunctuationSeconds))
+
+                    /**
+                     * Sets [Builder.onPunctuationSeconds] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.onPunctuationSeconds] with a well-typed
+                     * [Float] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun onPunctuationSeconds(onPunctuationSeconds: JsonField<Float>) = apply {
+                        this.onPunctuationSeconds = onPunctuationSeconds
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [TranscriptionEndpointingPlan].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): TranscriptionEndpointingPlan =
+                        TranscriptionEndpointingPlan(
+                            onNoPunctuationSeconds,
+                            onNumberSeconds,
+                            onPunctuationSeconds,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): TranscriptionEndpointingPlan = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    onNoPunctuationSeconds()
+                    onNumberSeconds()
+                    onPunctuationSeconds()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (onNoPunctuationSeconds.asKnown().isPresent) 1 else 0) +
+                        (if (onNumberSeconds.asKnown().isPresent) 1 else 0) +
+                        (if (onPunctuationSeconds.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is TranscriptionEndpointingPlan &&
+                        onNoPunctuationSeconds == other.onNoPunctuationSeconds &&
+                        onNumberSeconds == other.onNumberSeconds &&
+                        onPunctuationSeconds == other.onPunctuationSeconds &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        onNoPunctuationSeconds,
+                        onNumberSeconds,
+                        onPunctuationSeconds,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "TranscriptionEndpointingPlan{onNoPunctuationSeconds=$onNoPunctuationSeconds, onNumberSeconds=$onNumberSeconds, onPunctuationSeconds=$onPunctuationSeconds, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is StartSpeakingPlan &&
+                    transcriptionEndpointingPlan == other.transcriptionEndpointingPlan &&
+                    waitSeconds == other.waitSeconds &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(transcriptionEndpointingPlan, waitSeconds, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "StartSpeakingPlan{transcriptionEndpointingPlan=$transcriptionEndpointingPlan, waitSeconds=$waitSeconds, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InterruptionSettings &&
+                enable == other.enable &&
+                startSpeakingPlan == other.startSpeakingPlan &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(enable, startSpeakingPlan, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "InterruptionSettings{enable=$enable, startSpeakingPlan=$startSpeakingPlan, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Reference to an MCP server attached to an assistant. Create and manage MCP servers with the
+     * `/ai/mcp_servers` endpoints, then attach them to assistants by ID.
+     */
+    class McpServer
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val id: JsonField<String>,
+        private val allowedTools: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("allowed_tools")
+            @ExcludeMissing
+            allowedTools: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(id, allowedTools, mutableMapOf())
+
+        /**
+         * ID of the MCP server to attach. This must be the `id` of an MCP server returned by the
+         * `/ai/mcp_servers` endpoints.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun id(): String = id.getRequired("id")
+
+        /**
+         * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant uses the
+         * MCP server's configured `allowed_tools`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun allowedTools(): Optional<List<String>> = allowedTools.getOptional("allowed_tools")
+
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [allowedTools].
+         *
+         * Unlike [allowedTools], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("allowed_tools")
+        @ExcludeMissing
+        fun _allowedTools(): JsonField<List<String>> = allowedTools
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [McpServer].
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [McpServer]. */
+        class Builder internal constructor() {
+
+            private var id: JsonField<String>? = null
+            private var allowedTools: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(mcpServer: McpServer) = apply {
+                id = mcpServer.id
+                allowedTools = mcpServer.allowedTools.map { it.toMutableList() }
+                additionalProperties = mcpServer.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * ID of the MCP server to attach. This must be the `id` of an MCP server returned by
+             * the `/ai/mcp_servers` endpoints.
+             */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /**
+             * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant uses
+             * the MCP server's configured `allowed_tools`.
+             */
+            fun allowedTools(allowedTools: List<String>) = allowedTools(JsonField.of(allowedTools))
+
+            /**
+             * Sets [Builder.allowedTools] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.allowedTools] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun allowedTools(allowedTools: JsonField<List<String>>) = apply {
+                this.allowedTools = allowedTools.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [allowedTools].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAllowedTool(allowedTool: String) = apply {
+                allowedTools =
+                    (allowedTools ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("allowedTools", it).add(allowedTool)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [McpServer].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): McpServer =
+                McpServer(
+                    checkRequired("id", id),
+                    (allowedTools ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): McpServer = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            allowedTools()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (id.asKnown().isPresent) 1 else 0) + (allowedTools.asKnown().getOrNull()?.size ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is McpServer &&
+                id == other.id &&
+                allowedTools == other.allowedTools &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(id, allowedTools, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "McpServer{id=$id, allowedTools=$allowedTools, additionalProperties=$additionalProperties}"
     }
 
     /**
