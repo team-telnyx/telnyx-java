@@ -6,10 +6,13 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
+import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
+import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -66,12 +69,10 @@ internal class VersionServiceTest {
                             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                             .addEnabledFeature(EnabledFeatures.TELEPHONY)
                             .externalLlm(
-                                UpdateAssistant.ExternalLlm.builder()
+                                ExternalLlmReq.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(
-                                        UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
-                                    )
+                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -79,15 +80,13 @@ internal class VersionServiceTest {
                                     .build()
                             )
                             .fallbackConfig(
-                                UpdateAssistant.FallbackConfig.builder()
+                                FallbackConfigReq.builder()
                                     .externalLlm(
-                                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                                        ExternalLlmReq.builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                UpdateAssistant.FallbackConfig.ExternalLlm
-                                                    .AuthenticationMethod
-                                                    .TOKEN
+                                                ExternalLlmReq.AuthenticationMethod.TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -123,9 +122,7 @@ internal class VersionServiceTest {
                                     .build()
                             )
                             .postConversationSettings(
-                                UpdateAssistant.PostConversationSettings.builder()
-                                    .enabled(true)
-                                    .build()
+                                PostConversationSettingsReq.builder().enabled(true).build()
                             )
                             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                             .telephonySettings(
