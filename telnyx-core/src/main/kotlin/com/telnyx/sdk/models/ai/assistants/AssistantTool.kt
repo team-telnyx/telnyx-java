@@ -4346,24 +4346,24 @@ private constructor(
     class Invite
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val inviteConfig: JsonField<InviteConfig>,
+        private val invite: JsonField<InnerInvite>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("invite_config")
+            @JsonProperty("invite")
             @ExcludeMissing
-            inviteConfig: JsonField<InviteConfig> = JsonMissing.of(),
+            invite: JsonField<InnerInvite> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(inviteConfig, type, mutableMapOf())
+        ) : this(invite, type, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun inviteConfig(): InviteConfig = inviteConfig.getRequired("invite_config")
+        fun invite(): InnerInvite = invite.getRequired("invite")
 
         /**
          * Expected to always return the following:
@@ -4377,14 +4377,11 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
-         * Returns the raw JSON value of [inviteConfig].
+         * Returns the raw JSON value of [invite].
          *
-         * Unlike [inviteConfig], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [invite], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("invite_config")
-        @ExcludeMissing
-        fun _inviteConfig(): JsonField<InviteConfig> = inviteConfig
+        @JsonProperty("invite") @ExcludeMissing fun _invite(): JsonField<InnerInvite> = invite
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4405,7 +4402,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .inviteConfig()
+             * .invite()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -4414,29 +4411,27 @@ private constructor(
         /** A builder for [Invite]. */
         class Builder internal constructor() {
 
-            private var inviteConfig: JsonField<InviteConfig>? = null
+            private var invite: JsonField<InnerInvite>? = null
             private var type: JsonValue = JsonValue.from("invite")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(invite: Invite) = apply {
-                inviteConfig = invite.inviteConfig
+                this.invite = invite.invite
                 type = invite.type
                 additionalProperties = invite.additionalProperties.toMutableMap()
             }
 
-            fun inviteConfig(inviteConfig: InviteConfig) = inviteConfig(JsonField.of(inviteConfig))
+            fun invite(invite: InnerInvite) = invite(JsonField.of(invite))
 
             /**
-             * Sets [Builder.inviteConfig] to an arbitrary JSON value.
+             * Sets [Builder.invite] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.inviteConfig] with a well-typed [InviteConfig] value
+             * You should usually call [Builder.invite] with a well-typed [InnerInvite] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun inviteConfig(inviteConfig: JsonField<InviteConfig>) = apply {
-                this.inviteConfig = inviteConfig
-            }
+            fun invite(invite: JsonField<InnerInvite>) = apply { this.invite = invite }
 
             /**
              * Sets the field to an arbitrary JSON value.
@@ -4478,17 +4473,13 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .inviteConfig()
+             * .invite()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Invite =
-                Invite(
-                    checkRequired("inviteConfig", inviteConfig),
-                    type,
-                    additionalProperties.toMutableMap(),
-                )
+                Invite(checkRequired("invite", invite), type, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -4498,7 +4489,7 @@ private constructor(
                 return@apply
             }
 
-            inviteConfig().validate()
+            invite().validate()
             _type().let {
                 if (it != JsonValue.from("invite")) {
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
@@ -4523,10 +4514,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (inviteConfig.asKnown().getOrNull()?.validity() ?: 0) +
+            (invite.asKnown().getOrNull()?.validity() ?: 0) +
                 type.let { if (it == JsonValue.from("invite")) 1 else 0 }
 
-        class InviteConfig
+        class InnerInvite
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val customHeaders: JsonField<List<CustomHeader>>,
@@ -4637,11 +4628,11 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [InviteConfig]. */
+                /** Returns a mutable builder for constructing an instance of [InnerInvite]. */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InviteConfig]. */
+            /** A builder for [InnerInvite]. */
             class Builder internal constructor() {
 
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
@@ -4651,12 +4642,12 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(inviteConfig: InviteConfig) = apply {
-                    customHeaders = inviteConfig.customHeaders.map { it.toMutableList() }
-                    from = inviteConfig.from
-                    targets = inviteConfig.targets
-                    voicemailDetection = inviteConfig.voicemailDetection
-                    additionalProperties = inviteConfig.additionalProperties.toMutableMap()
+                internal fun from(innerInvite: InnerInvite) = apply {
+                    customHeaders = innerInvite.customHeaders.map { it.toMutableList() }
+                    from = innerInvite.from
+                    targets = innerInvite.targets
+                    voicemailDetection = innerInvite.voicemailDetection
+                    additionalProperties = innerInvite.additionalProperties.toMutableMap()
                 }
 
                 /** Custom headers to be added to the SIP INVITE for the invite command. */
@@ -4775,12 +4766,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InviteConfig].
+                 * Returns an immutable instance of [InnerInvite].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): InviteConfig =
-                    InviteConfig(
+                fun build(): InnerInvite =
+                    InnerInvite(
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                         from,
                         targets,
@@ -4791,7 +4782,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): InviteConfig = apply {
+            fun validate(): InnerInvite = apply {
                 if (validated) {
                     return@apply
                 }
@@ -6114,7 +6105,7 @@ private constructor(
                     return true
                 }
 
-                return other is InviteConfig &&
+                return other is InnerInvite &&
                     customHeaders == other.customHeaders &&
                     from == other.from &&
                     targets == other.targets &&
@@ -6129,7 +6120,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InviteConfig{customHeaders=$customHeaders, from=$from, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+                "InnerInvite{customHeaders=$customHeaders, from=$from, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -6138,17 +6129,17 @@ private constructor(
             }
 
             return other is Invite &&
-                inviteConfig == other.inviteConfig &&
+                invite == other.invite &&
                 type == other.type &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(inviteConfig, type, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(invite, type, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Invite{inviteConfig=$inviteConfig, type=$type, additionalProperties=$additionalProperties}"
+            "Invite{invite=$invite, type=$type, additionalProperties=$additionalProperties}"
     }
 
     class SipReferTool
