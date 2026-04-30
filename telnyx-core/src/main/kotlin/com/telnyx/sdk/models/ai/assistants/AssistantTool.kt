@@ -4520,8 +4520,8 @@ private constructor(
         class InnerInvite
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val customHeaders: JsonField<List<CustomHeader>>,
             private val from: JsonField<String>,
+            private val customHeaders: JsonField<List<CustomHeader>>,
             private val targets: JsonField<Targets>,
             private val voicemailDetection: JsonField<VoicemailDetection>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4529,17 +4529,26 @@ private constructor(
 
             @JsonCreator
             private constructor(
+                @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("custom_headers")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
-                @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("targets")
                 @ExcludeMissing
                 targets: JsonField<Targets> = JsonMissing.of(),
                 @JsonProperty("voicemail_detection")
                 @ExcludeMissing
                 voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
-            ) : this(customHeaders, from, targets, voicemailDetection, mutableMapOf())
+            ) : this(from, customHeaders, targets, voicemailDetection, mutableMapOf())
+
+            /**
+             * Number or SIP URI placing the call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun from(): String = from.getRequired("from")
 
             /**
              * Custom headers to be added to the SIP INVITE for the invite command.
@@ -4549,14 +4558,6 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("custom_headers")
-
-            /**
-             * Number or SIP URI placing the call.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun from(): Optional<String> = from.getOptional("from")
 
             /**
              * The different possible targets of the invite. The assistant will be able to choose
@@ -4581,6 +4582,13 @@ private constructor(
                 voicemailDetection.getOptional("voicemail_detection")
 
             /**
+             * Returns the raw JSON value of [from].
+             *
+             * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
+
+            /**
              * Returns the raw JSON value of [customHeaders].
              *
              * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
@@ -4589,13 +4597,6 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
-
-            /**
-             * Returns the raw JSON value of [from].
-             *
-             * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
 
             /**
              * Returns the raw JSON value of [targets].
@@ -4628,27 +4629,46 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [InnerInvite]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of [InnerInvite].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .from()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
             /** A builder for [InnerInvite]. */
             class Builder internal constructor() {
 
+                private var from: JsonField<String>? = null
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
-                private var from: JsonField<String> = JsonMissing.of()
                 private var targets: JsonField<Targets> = JsonMissing.of()
                 private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(innerInvite: InnerInvite) = apply {
-                    customHeaders = innerInvite.customHeaders.map { it.toMutableList() }
                     from = innerInvite.from
+                    customHeaders = innerInvite.customHeaders.map { it.toMutableList() }
                     targets = innerInvite.targets
                     voicemailDetection = innerInvite.voicemailDetection
                     additionalProperties = innerInvite.additionalProperties.toMutableMap()
                 }
+
+                /** Number or SIP URI placing the call. */
+                fun from(from: String) = from(JsonField.of(from))
+
+                /**
+                 * Sets [Builder.from] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.from] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun from(from: JsonField<String>) = apply { this.from = from }
 
                 /** Custom headers to be added to the SIP INVITE for the invite command. */
                 fun customHeaders(customHeaders: List<CustomHeader>) =
@@ -4676,18 +4696,6 @@ private constructor(
                             checkKnown("customHeaders", it).add(customHeader)
                         }
                 }
-
-                /** Number or SIP URI placing the call. */
-                fun from(from: String) = from(JsonField.of(from))
-
-                /**
-                 * Sets [Builder.from] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.from] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun from(from: JsonField<String>) = apply { this.from = from }
 
                 /**
                  * The different possible targets of the invite. The assistant will be able to
@@ -4769,11 +4777,18 @@ private constructor(
                  * Returns an immutable instance of [InnerInvite].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .from()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
                  */
                 fun build(): InnerInvite =
                     InnerInvite(
+                        checkRequired("from", from),
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
-                        from,
                         targets,
                         voicemailDetection,
                         additionalProperties.toMutableMap(),
@@ -4787,8 +4802,8 @@ private constructor(
                     return@apply
                 }
 
-                customHeaders().ifPresent { it.forEach { it.validate() } }
                 from()
+                customHeaders().ifPresent { it.forEach { it.validate() } }
                 targets().ifPresent { it.validate() }
                 voicemailDetection().ifPresent { it.validate() }
                 validated = true
@@ -4810,8 +4825,8 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (if (from.asKnown().isPresent) 1 else 0) +
+                (if (from.asKnown().isPresent) 1 else 0) +
+                    (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (targets.asKnown().getOrNull()?.validity() ?: 0) +
                     (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -6106,21 +6121,21 @@ private constructor(
                 }
 
                 return other is InnerInvite &&
-                    customHeaders == other.customHeaders &&
                     from == other.from &&
+                    customHeaders == other.customHeaders &&
                     targets == other.targets &&
                     voicemailDetection == other.voicemailDetection &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(customHeaders, from, targets, voicemailDetection, additionalProperties)
+                Objects.hash(from, customHeaders, targets, voicemailDetection, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InnerInvite{customHeaders=$customHeaders, from=$from, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+                "InnerInvite{from=$from, customHeaders=$customHeaders, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

@@ -538,13 +538,13 @@ internal class AssistantToolTest {
             AssistantTool.Invite.builder()
                 .invite(
                     AssistantTool.Invite.InnerInvite.builder()
+                        .from("+35319605860")
                         .addCustomHeader(
                             AssistantTool.Invite.InnerInvite.CustomHeader.builder()
                                 .name("name")
                                 .value("value")
                                 .build()
                         )
-                        .from("+35319605860")
                         .targets("{{ targets }}")
                         .voicemailDetection(
                             AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
@@ -593,13 +593,13 @@ internal class AssistantToolTest {
                 AssistantTool.Invite.builder()
                     .invite(
                         AssistantTool.Invite.InnerInvite.builder()
+                            .from("+35319605860")
                             .addCustomHeader(
                                 AssistantTool.Invite.InnerInvite.CustomHeader.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .from("+35319605860")
                             .targets("{{ targets }}")
                             .voicemailDetection(
                                 AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
