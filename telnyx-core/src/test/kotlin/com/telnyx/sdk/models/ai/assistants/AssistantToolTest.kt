@@ -359,12 +359,7 @@ internal class AssistantToolTest {
                 .transfer(
                     AssistantTool.Transfer.TransferConfig.builder()
                         .from("+35319605860")
-                        .addTarget(
-                            AssistantTool.Transfer.TransferConfig.Target.builder()
-                                .name("Support")
-                                .to("+13129457420")
-                                .build()
-                        )
+                        .targets("{{ targets }}")
                         .addCustomHeader(
                             AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                 .name("name")
@@ -456,12 +451,7 @@ internal class AssistantToolTest {
                     .transfer(
                         AssistantTool.Transfer.TransferConfig.builder()
                             .from("+35319605860")
-                            .addTarget(
-                                AssistantTool.Transfer.TransferConfig.Target.builder()
-                                    .name("Support")
-                                    .to("+13129457420")
-                                    .build()
-                            )
+                            .targets("{{ targets }}")
                             .addCustomHeader(
                                 AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                     .name("name")
@@ -555,6 +545,7 @@ internal class AssistantToolTest {
                                 .build()
                         )
                         .from("+35319605860")
+                        .targets("{{ targets }}")
                         .voicemailDetection(
                             AssistantTool.Invite.InviteConfig.VoicemailDetection.builder()
                                 .detectionMode(
@@ -609,6 +600,7 @@ internal class AssistantToolTest {
                                     .build()
                             )
                             .from("+35319605860")
+                            .targets("{{ targets }}")
                             .voicemailDetection(
                                 AssistantTool.Invite.InviteConfig.VoicemailDetection.builder()
                                     .detectionMode(
