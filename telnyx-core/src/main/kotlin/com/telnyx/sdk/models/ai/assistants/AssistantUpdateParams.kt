@@ -49,10 +49,24 @@ private constructor(
     fun dynamicVariables(): Optional<UpdateAssistant.DynamicVariables> = body.dynamicVariables()
 
     /**
-     * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the
-     * start of the conversation. See our
-     * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-     * more information.
+     * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000 ms. If
+     * the webhook does not respond within this timeout, the call proceeds with default values. See
+     * the
+     * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dynamicVariablesWebhookTimeoutMs(): Optional<Long> = body.dynamicVariablesWebhookTimeoutMs()
+
+    /**
+     * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+     * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response must
+     * wrap variables under a top-level `dynamic_variables` object, e.g. `{"dynamic_variables":
+     * {"customer_name": "Jane"}}`. Returning a flat object will be ignored and variables will fall
+     * back to their defaults. See the
+     * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+     * for the full request/response format and timeout behavior.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -69,13 +83,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun externalLlm(): Optional<ExternalLlmReq> = body.externalLlm()
+    fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> = body.externalLlm()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun fallbackConfig(): Optional<FallbackConfigReq> = body.fallbackConfig()
+    fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> = body.fallbackConfig()
 
     /**
      * Text that the assistant will use to start the conversation. This may be templated with
@@ -105,16 +119,49 @@ private constructor(
     fun instructions(): Optional<String> = body.instructions()
 
     /**
-     * This is only needed when using third-party inference providers. The `identifier` for an
-     * integration secret
+     * Connected integrations attached to the assistant. The catalog of available integrations is at
+     * `/ai/integrations`; the user's connected integrations are at `/ai/integrations/connections`.
+     * Each item references a catalog integration by `integration_id`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun integrations(): Optional<List<UpdateAssistant.Integration>> = body.integrations()
+
+    /**
+     * Settings for interruptions and how the assistant decides the user has finished speaking.
+     * These timings are most relevant when using non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+     * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+     * `eot_timeout_ms`, `eager_eot_threshold`).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
+        body.interruptionSettings()
+
+    /**
+     * This is only needed when using third-party inference providers selected by `model`. The
+     * `identifier` for an integration secret
      * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-     * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
-     * this integration.
+     * that refers to your LLM provider's API key. For bring-your-own endpoint authentication, use
+     * `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with this
+     * integration.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun llmApiKeyRef(): Optional<String> = body.llmApiKeyRef()
+
+    /**
+     * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+     * reference them by `id` here.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> = body.mcpServers()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -123,9 +170,11 @@ private constructor(
     fun messagingSettings(): Optional<MessagingSettings> = body.messagingSettings()
 
     /**
-     * ID of the model to use. You can use the
+     * ID of the model to use when `external_llm` is not set. You can use the
      * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models) to
-     * see all of your available models,
+     * see available models. If `external_llm` is provided, the assistant uses `external_llm`
+     * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies the
+     * default model.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -154,7 +203,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+    fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
         body.postConversationSettings()
 
     /**
@@ -164,20 +213,32 @@ private constructor(
     fun privacySettings(): Optional<PrivacySettings> = body.privacySettings()
 
     /**
+     * Tags associated with the assistant. Tags can also be managed with the assistant tag
+     * endpoints.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tags(): Optional<List<String>> = body.tags()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun telephonySettings(): Optional<TelephonySettings> = body.telephonySettings()
 
     /**
+     * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+     * over inline `tools`.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun toolIds(): Optional<List<String>> = body.toolIds()
 
     /**
-     * The tools that the assistant can use. These may be templated with
-     * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+     * Deprecated for new integrations. Inline tool definitions available to the assistant. Prefer
+     * `tool_ids` to attach shared tools created with the AI Tools endpoints.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -189,6 +250,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun transcription(): Optional<TranscriptionSettings> = body.transcription()
+
+    /**
+     * Human-readable name for the assistant version.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun versionName(): Optional<String> = body.versionName()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -228,6 +297,15 @@ private constructor(
     fun _dynamicVariables(): JsonField<UpdateAssistant.DynamicVariables> = body._dynamicVariables()
 
     /**
+     * Returns the raw JSON value of [dynamicVariablesWebhookTimeoutMs].
+     *
+     * Unlike [dynamicVariablesWebhookTimeoutMs], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _dynamicVariablesWebhookTimeoutMs(): JsonField<Long> =
+        body._dynamicVariablesWebhookTimeoutMs()
+
+    /**
      * Returns the raw JSON value of [dynamicVariablesWebhookUrl].
      *
      * Unlike [dynamicVariablesWebhookUrl], this method doesn't throw if the JSON field has an
@@ -247,14 +325,14 @@ private constructor(
      *
      * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _externalLlm(): JsonField<ExternalLlmReq> = body._externalLlm()
+    fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = body._externalLlm()
 
     /**
      * Returns the raw JSON value of [fallbackConfig].
      *
      * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _fallbackConfig(): JsonField<FallbackConfigReq> = body._fallbackConfig()
+    fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = body._fallbackConfig()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -278,11 +356,34 @@ private constructor(
     fun _instructions(): JsonField<String> = body._instructions()
 
     /**
+     * Returns the raw JSON value of [integrations].
+     *
+     * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = body._integrations()
+
+    /**
+     * Returns the raw JSON value of [interruptionSettings].
+     *
+     * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
+        body._interruptionSettings()
+
+    /**
      * Returns the raw JSON value of [llmApiKeyRef].
      *
      * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _llmApiKeyRef(): JsonField<String> = body._llmApiKeyRef()
+
+    /**
+     * Returns the raw JSON value of [mcpServers].
+     *
+     * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = body._mcpServers()
 
     /**
      * Returns the raw JSON value of [messagingSettings].
@@ -320,7 +421,7 @@ private constructor(
      * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+    fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
         body._postConversationSettings()
 
     /**
@@ -329,6 +430,13 @@ private constructor(
      * Unlike [privacySettings], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _privacySettings(): JsonField<PrivacySettings> = body._privacySettings()
+
+    /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _tags(): JsonField<List<String>> = body._tags()
 
     /**
      * Returns the raw JSON value of [telephonySettings].
@@ -358,6 +466,13 @@ private constructor(
      * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _transcription(): JsonField<TranscriptionSettings> = body._transcription()
+
+    /**
+     * Returns the raw JSON value of [versionName].
+     *
+     * Unlike [versionName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _versionName(): JsonField<String> = body._versionName()
 
     /**
      * Returns the raw JSON value of [voiceSettings].
@@ -426,9 +541,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [description]
          * - [dynamicVariables]
+         * - [dynamicVariablesWebhookTimeoutMs]
          * - [dynamicVariablesWebhookUrl]
          * - [enabledFeatures]
-         * - [externalLlm]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -462,10 +577,35 @@ private constructor(
             }
 
         /**
-         * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at
-         * the start of the conversation. See our
-         * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-         * more information.
+         * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000
+         * ms. If the webhook does not respond within this timeout, the call proceeds with default
+         * values. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+         */
+        fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: Long) = apply {
+            body.dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
+        }
+
+        /**
+         * Sets [Builder.dynamicVariablesWebhookTimeoutMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dynamicVariablesWebhookTimeoutMs] with a well-typed
+         * [Long] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: JsonField<Long>) =
+            apply {
+                body.dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
+            }
+
+        /**
+         * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+         * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response
+         * must wrap variables under a top-level `dynamic_variables` object, e.g.
+         * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+         * ignored and variables will fall back to their defaults. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * for the full request/response format and timeout behavior.
          */
         fun dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl: String) = apply {
             body.dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl)
@@ -506,31 +646,33 @@ private constructor(
             body.addEnabledFeature(enabledFeature)
         }
 
-        fun externalLlm(externalLlm: ExternalLlmReq) = apply { body.externalLlm(externalLlm) }
+        fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) = apply {
+            body.externalLlm(externalLlm)
+        }
 
         /**
          * Sets [Builder.externalLlm] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.externalLlm] with a well-typed
+         * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+        fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
             body.externalLlm(externalLlm)
         }
 
-        fun fallbackConfig(fallbackConfig: FallbackConfigReq) = apply {
+        fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
         /**
          * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fallbackConfig] with a well-typed [FallbackConfigReq]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.fallbackConfig] with a well-typed
+         * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+        fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
@@ -584,10 +726,64 @@ private constructor(
         }
 
         /**
-         * This is only needed when using third-party inference providers. The `identifier` for an
-         * integration secret
+         * Connected integrations attached to the assistant. The catalog of available integrations
+         * is at `/ai/integrations`; the user's connected integrations are at
+         * `/ai/integrations/connections`. Each item references a catalog integration by
+         * `integration_id`.
+         */
+        fun integrations(integrations: List<UpdateAssistant.Integration>) = apply {
+            body.integrations(integrations)
+        }
+
+        /**
+         * Sets [Builder.integrations] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.integrations] with a well-typed
+         * `List<UpdateAssistant.Integration>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
+        fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
+            body.integrations(integrations)
+        }
+
+        /**
+         * Adds a single [UpdateAssistant.Integration] to [integrations].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addIntegration(integration: UpdateAssistant.Integration) = apply {
+            body.addIntegration(integration)
+        }
+
+        /**
+         * Settings for interruptions and how the assistant decides the user has finished speaking.
+         * These timings are most relevant when using non turn-taking transcription models. For
+         * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+         * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+         * `eot_timeout_ms`, `eager_eot_threshold`).
+         */
+        fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
+            apply {
+                body.interruptionSettings(interruptionSettings)
+            }
+
+        /**
+         * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interruptionSettings] with a well-typed
+         * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
+         */
+        fun interruptionSettings(
+            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
+        ) = apply { body.interruptionSettings(interruptionSettings) }
+
+        /**
+         * This is only needed when using third-party inference providers selected by `model`. The
+         * `identifier` for an integration secret
          * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-         * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
+         * that refers to your LLM provider's API key. For bring-your-own endpoint authentication,
+         * use `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with
          * this integration.
          */
         fun llmApiKeyRef(llmApiKeyRef: String) = apply { body.llmApiKeyRef(llmApiKeyRef) }
@@ -601,6 +797,34 @@ private constructor(
          */
         fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
             body.llmApiKeyRef(llmApiKeyRef)
+        }
+
+        /**
+         * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+         * reference them by `id` here.
+         */
+        fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) = apply {
+            body.mcpServers(mcpServers)
+        }
+
+        /**
+         * Sets [Builder.mcpServers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mcpServers] with a well-typed
+         * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
+            body.mcpServers(mcpServers)
+        }
+
+        /**
+         * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
+            body.addMcpServer(mcpServer)
         }
 
         fun messagingSettings(messagingSettings: MessagingSettings) = apply {
@@ -619,9 +843,11 @@ private constructor(
         }
 
         /**
-         * ID of the model to use. You can use the
+         * ID of the model to use when `external_llm` is not set. You can use the
          * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-         * to see all of your available models,
+         * to see available models. If `external_llm` is provided, the assistant uses `external_llm`
+         * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies
+         * the default model.
          */
         fun model(model: String) = apply { body.model(model) }
 
@@ -665,20 +891,19 @@ private constructor(
          * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
          * unavailable post-conversation. Beta feature.
          */
-        fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
-            apply {
-                body.postConversationSettings(postConversationSettings)
-            }
+        fun postConversationSettings(
+            postConversationSettings: UpdateAssistant.PostConversationSettings
+        ) = apply { body.postConversationSettings(postConversationSettings) }
 
         /**
          * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.postConversationSettings] with a well-typed
-         * [PostConversationSettingsReq] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
         fun postConversationSettings(
-            postConversationSettings: JsonField<PostConversationSettingsReq>
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
         ) = apply { body.postConversationSettings(postConversationSettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
@@ -696,6 +921,28 @@ private constructor(
             body.privacySettings(privacySettings)
         }
 
+        /**
+         * Tags associated with the assistant. Tags can also be managed with the assistant tag
+         * endpoints.
+         */
+        fun tags(tags: List<String>) = apply { body.tags(tags) }
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply { body.tags(tags) }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply { body.addTag(tag) }
+
         fun telephonySettings(telephonySettings: TelephonySettings) = apply {
             body.telephonySettings(telephonySettings)
         }
@@ -711,6 +958,10 @@ private constructor(
             body.telephonySettings(telephonySettings)
         }
 
+        /**
+         * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+         * over inline `tools`.
+         */
         fun toolIds(toolIds: List<String>) = apply { body.toolIds(toolIds) }
 
         /**
@@ -730,8 +981,8 @@ private constructor(
         fun addToolId(toolId: String) = apply { body.addToolId(toolId) }
 
         /**
-         * The tools that the assistant can use. These may be templated with
-         * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * Deprecated for new integrations. Inline tool definitions available to the assistant.
+         * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
          */
         fun tools(tools: List<AssistantTool>) = apply { body.tools(tools) }
 
@@ -914,6 +1165,18 @@ private constructor(
         fun transcription(transcription: JsonField<TranscriptionSettings>) = apply {
             body.transcription(transcription)
         }
+
+        /** Human-readable name for the assistant version. */
+        fun versionName(versionName: String) = apply { body.versionName(versionName) }
+
+        /**
+         * Sets [Builder.versionName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.versionName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun versionName(versionName: JsonField<String>) = apply { body.versionName(versionName) }
 
         fun voiceSettings(voiceSettings: VoiceSettings) = apply {
             body.voiceSettings(voiceSettings)
@@ -1110,24 +1373,30 @@ private constructor(
     private constructor(
         private val description: JsonField<String>,
         private val dynamicVariables: JsonField<UpdateAssistant.DynamicVariables>,
+        private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
-        private val externalLlm: JsonField<ExternalLlmReq>,
-        private val fallbackConfig: JsonField<FallbackConfigReq>,
+        private val externalLlm: JsonField<UpdateAssistant.ExternalLlm>,
+        private val fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val instructions: JsonField<String>,
+        private val integrations: JsonField<List<UpdateAssistant.Integration>>,
+        private val interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>,
         private val llmApiKeyRef: JsonField<String>,
+        private val mcpServers: JsonField<List<UpdateAssistant.McpServer>>,
         private val messagingSettings: JsonField<MessagingSettings>,
         private val model: JsonField<String>,
         private val name: JsonField<String>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
-        private val postConversationSettings: JsonField<PostConversationSettingsReq>,
+        private val postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>,
         private val privacySettings: JsonField<PrivacySettings>,
+        private val tags: JsonField<List<String>>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
+        private val versionName: JsonField<String>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val widgetSettings: JsonField<WidgetSettings>,
         private val promoteToMain: JsonField<Boolean>,
@@ -1142,6 +1411,9 @@ private constructor(
             @JsonProperty("dynamic_variables")
             @ExcludeMissing
             dynamicVariables: JsonField<UpdateAssistant.DynamicVariables> = JsonMissing.of(),
+            @JsonProperty("dynamic_variables_webhook_timeout_ms")
+            @ExcludeMissing
+            dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("dynamic_variables_webhook_url")
             @ExcludeMissing
             dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of(),
@@ -1150,10 +1422,10 @@ private constructor(
             enabledFeatures: JsonField<List<EnabledFeatures>> = JsonMissing.of(),
             @JsonProperty("external_llm")
             @ExcludeMissing
-            externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of(),
+            externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of(),
             @JsonProperty("fallback_config")
             @ExcludeMissing
-            fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of(),
+            fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -1163,9 +1435,19 @@ private constructor(
             @JsonProperty("instructions")
             @ExcludeMissing
             instructions: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("integrations")
+            @ExcludeMissing
+            integrations: JsonField<List<UpdateAssistant.Integration>> = JsonMissing.of(),
+            @JsonProperty("interruption_settings")
+            @ExcludeMissing
+            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
+                JsonMissing.of(),
             @JsonProperty("llm_api_key_ref")
             @ExcludeMissing
             llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("mcp_servers")
+            @ExcludeMissing
+            mcpServers: JsonField<List<UpdateAssistant.McpServer>> = JsonMissing.of(),
             @JsonProperty("messaging_settings")
             @ExcludeMissing
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
@@ -1176,10 +1458,12 @@ private constructor(
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
             @JsonProperty("post_conversation_settings")
             @ExcludeMissing
-            postConversationSettings: JsonField<PostConversationSettingsReq> = JsonMissing.of(),
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings> =
+                JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
+            @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("telephony_settings")
             @ExcludeMissing
             telephonySettings: JsonField<TelephonySettings> = JsonMissing.of(),
@@ -1192,6 +1476,9 @@ private constructor(
             @JsonProperty("transcription")
             @ExcludeMissing
             transcription: JsonField<TranscriptionSettings> = JsonMissing.of(),
+            @JsonProperty("version_name")
+            @ExcludeMissing
+            versionName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -1204,6 +1491,7 @@ private constructor(
         ) : this(
             description,
             dynamicVariables,
+            dynamicVariablesWebhookTimeoutMs,
             dynamicVariablesWebhookUrl,
             enabledFeatures,
             externalLlm,
@@ -1211,17 +1499,22 @@ private constructor(
             greeting,
             insightSettings,
             instructions,
+            integrations,
+            interruptionSettings,
             llmApiKeyRef,
+            mcpServers,
             messagingSettings,
             model,
             name,
             observabilitySettings,
             postConversationSettings,
             privacySettings,
+            tags,
             telephonySettings,
             toolIds,
             tools,
             transcription,
+            versionName,
             voiceSettings,
             widgetSettings,
             promoteToMain,
@@ -1232,6 +1525,7 @@ private constructor(
             UpdateAssistant.builder()
                 .description(description)
                 .dynamicVariables(dynamicVariables)
+                .dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
                 .dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl)
                 .enabledFeatures(enabledFeatures)
                 .externalLlm(externalLlm)
@@ -1239,17 +1533,22 @@ private constructor(
                 .greeting(greeting)
                 .insightSettings(insightSettings)
                 .instructions(instructions)
+                .integrations(integrations)
+                .interruptionSettings(interruptionSettings)
                 .llmApiKeyRef(llmApiKeyRef)
+                .mcpServers(mcpServers)
                 .messagingSettings(messagingSettings)
                 .model(model)
                 .name(name)
                 .observabilitySettings(observabilitySettings)
                 .postConversationSettings(postConversationSettings)
                 .privacySettings(privacySettings)
+                .tags(tags)
                 .telephonySettings(telephonySettings)
                 .toolIds(toolIds)
                 .tools(tools)
                 .transcription(transcription)
+                .versionName(versionName)
                 .voiceSettings(voiceSettings)
                 .widgetSettings(widgetSettings)
                 .build()
@@ -1270,10 +1569,25 @@ private constructor(
             dynamicVariables.getOptional("dynamic_variables")
 
         /**
-         * If the dynamic_variables_webhook_url is set for the assistant, we will send a request at
-         * the start of the conversation. See our
-         * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for
-         * more information.
+         * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and 10000
+         * ms. If the webhook does not respond within this timeout, the call proceeds with default
+         * values. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dynamicVariablesWebhookTimeoutMs(): Optional<Long> =
+            dynamicVariablesWebhookTimeoutMs.getOptional("dynamic_variables_webhook_timeout_ms")
+
+        /**
+         * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at the
+         * start of the conversation to resolve dynamic variables. **Gotcha:** the webhook response
+         * must wrap variables under a top-level `dynamic_variables` object, e.g.
+         * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+         * ignored and variables will fall back to their defaults. See the
+         * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * for the full request/response format and timeout behavior.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1292,13 +1606,14 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun externalLlm(): Optional<ExternalLlmReq> = externalLlm.getOptional("external_llm")
+        fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> =
+            externalLlm.getOptional("external_llm")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun fallbackConfig(): Optional<FallbackConfigReq> =
+        fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> =
             fallbackConfig.getOptional("fallback_config")
 
         /**
@@ -1330,16 +1645,52 @@ private constructor(
         fun instructions(): Optional<String> = instructions.getOptional("instructions")
 
         /**
-         * This is only needed when using third-party inference providers. The `identifier` for an
-         * integration secret
+         * Connected integrations attached to the assistant. The catalog of available integrations
+         * is at `/ai/integrations`; the user's connected integrations are at
+         * `/ai/integrations/connections`. Each item references a catalog integration by
+         * `integration_id`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun integrations(): Optional<List<UpdateAssistant.Integration>> =
+            integrations.getOptional("integrations")
+
+        /**
+         * Settings for interruptions and how the assistant decides the user has finished speaking.
+         * These timings are most relevant when using non turn-taking transcription models. For
+         * turn-taking models like `deepgram/flux`, end-of-turn behavior is controlled by the
+         * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
+         * `eot_timeout_ms`, `eager_eot_threshold`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
+            interruptionSettings.getOptional("interruption_settings")
+
+        /**
+         * This is only needed when using third-party inference providers selected by `model`. The
+         * `identifier` for an integration secret
          * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-         * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with
+         * that refers to your LLM provider's API key. For bring-your-own endpoint authentication,
+         * use `external_llm.llm_api_key_ref` instead. Warning: Free plans are unlikely to work with
          * this integration.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
+
+        /**
+         * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
+         * reference them by `id` here.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> =
+            mcpServers.getOptional("mcp_servers")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1349,9 +1700,11 @@ private constructor(
             messagingSettings.getOptional("messaging_settings")
 
         /**
-         * ID of the model to use. You can use the
+         * ID of the model to use when `external_llm` is not set. You can use the
          * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-         * to see all of your available models,
+         * to see available models. If `external_llm` is provided, the assistant uses `external_llm`
+         * instead of this field. If neither `model` nor `external_llm` is provided, Telnyx applies
+         * the default model.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1381,7 +1734,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+        fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
             postConversationSettings.getOptional("post_conversation_settings")
 
         /**
@@ -1392,6 +1745,15 @@ private constructor(
             privacySettings.getOptional("privacy_settings")
 
         /**
+         * Tags associated with the assistant. Tags can also be managed with the assistant tag
+         * endpoints.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun tags(): Optional<List<String>> = tags.getOptional("tags")
+
+        /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -1399,14 +1761,17 @@ private constructor(
             telephonySettings.getOptional("telephony_settings")
 
         /**
+         * IDs of shared tools to attach to the assistant. New integrations should prefer `tool_ids`
+         * over inline `tools`.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun toolIds(): Optional<List<String>> = toolIds.getOptional("tool_ids")
 
         /**
-         * The tools that the assistant can use. These may be templated with
-         * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+         * Deprecated for new integrations. Inline tool definitions available to the assistant.
+         * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1419,6 +1784,14 @@ private constructor(
          */
         fun transcription(): Optional<TranscriptionSettings> =
             transcription.getOptional("transcription")
+
+        /**
+         * Human-readable name for the assistant version.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun versionName(): Optional<String> = versionName.getOptional("version_name")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1463,6 +1836,16 @@ private constructor(
         fun _dynamicVariables(): JsonField<UpdateAssistant.DynamicVariables> = dynamicVariables
 
         /**
+         * Returns the raw JSON value of [dynamicVariablesWebhookTimeoutMs].
+         *
+         * Unlike [dynamicVariablesWebhookTimeoutMs], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("dynamic_variables_webhook_timeout_ms")
+        @ExcludeMissing
+        fun _dynamicVariablesWebhookTimeoutMs(): JsonField<Long> = dynamicVariablesWebhookTimeoutMs
+
+        /**
          * Returns the raw JSON value of [dynamicVariablesWebhookUrl].
          *
          * Unlike [dynamicVariablesWebhookUrl], this method doesn't throw if the JSON field has an
@@ -1489,7 +1872,7 @@ private constructor(
          */
         @JsonProperty("external_llm")
         @ExcludeMissing
-        fun _externalLlm(): JsonField<ExternalLlmReq> = externalLlm
+        fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = externalLlm
 
         /**
          * Returns the raw JSON value of [fallbackConfig].
@@ -1499,7 +1882,7 @@ private constructor(
          */
         @JsonProperty("fallback_config")
         @ExcludeMissing
-        fun _fallbackConfig(): JsonField<FallbackConfigReq> = fallbackConfig
+        fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = fallbackConfig
 
         /**
          * Returns the raw JSON value of [greeting].
@@ -1529,6 +1912,27 @@ private constructor(
         fun _instructions(): JsonField<String> = instructions
 
         /**
+         * Returns the raw JSON value of [integrations].
+         *
+         * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("integrations")
+        @ExcludeMissing
+        fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = integrations
+
+        /**
+         * Returns the raw JSON value of [interruptionSettings].
+         *
+         * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruption_settings")
+        @ExcludeMissing
+        fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
+            interruptionSettings
+
+        /**
          * Returns the raw JSON value of [llmApiKeyRef].
          *
          * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an unexpected
@@ -1537,6 +1941,15 @@ private constructor(
         @JsonProperty("llm_api_key_ref")
         @ExcludeMissing
         fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
+
+        /**
+         * Returns the raw JSON value of [mcpServers].
+         *
+         * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mcp_servers")
+        @ExcludeMissing
+        fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = mcpServers
 
         /**
          * Returns the raw JSON value of [messagingSettings].
@@ -1580,7 +1993,7 @@ private constructor(
          */
         @JsonProperty("post_conversation_settings")
         @ExcludeMissing
-        fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+        fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
             postConversationSettings
 
         /**
@@ -1592,6 +2005,13 @@ private constructor(
         @JsonProperty("privacy_settings")
         @ExcludeMissing
         fun _privacySettings(): JsonField<PrivacySettings> = privacySettings
+
+        /**
+         * Returns the raw JSON value of [tags].
+         *
+         * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
         /**
          * Returns the raw JSON value of [telephonySettings].
@@ -1626,6 +2046,15 @@ private constructor(
         @JsonProperty("transcription")
         @ExcludeMissing
         fun _transcription(): JsonField<TranscriptionSettings> = transcription
+
+        /**
+         * Returns the raw JSON value of [versionName].
+         *
+         * Unlike [versionName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("version_name")
+        @ExcludeMissing
+        fun _versionName(): JsonField<String> = versionName
 
         /**
          * Returns the raw JSON value of [voiceSettings].
@@ -1681,25 +2110,33 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var dynamicVariables: JsonField<UpdateAssistant.DynamicVariables> =
                 JsonMissing.of()
+            private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
-            private var externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of()
-            private var fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of()
+            private var externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of()
+            private var fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
+            private var integrations: JsonField<MutableList<UpdateAssistant.Integration>>? = null
+            private var interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
+                JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+            private var mcpServers: JsonField<MutableList<UpdateAssistant.McpServer>>? = null
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
-            private var postConversationSettings: JsonField<PostConversationSettingsReq> =
+            private var postConversationSettings:
+                JsonField<UpdateAssistant.PostConversationSettings> =
                 JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
+            private var tags: JsonField<MutableList<String>>? = null
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
+            private var versionName: JsonField<String> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var widgetSettings: JsonField<WidgetSettings> = JsonMissing.of()
             private var promoteToMain: JsonField<Boolean> = JsonMissing.of()
@@ -1709,6 +2146,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 description = body.description
                 dynamicVariables = body.dynamicVariables
+                dynamicVariablesWebhookTimeoutMs = body.dynamicVariablesWebhookTimeoutMs
                 dynamicVariablesWebhookUrl = body.dynamicVariablesWebhookUrl
                 enabledFeatures = body.enabledFeatures.map { it.toMutableList() }
                 externalLlm = body.externalLlm
@@ -1716,17 +2154,22 @@ private constructor(
                 greeting = body.greeting
                 insightSettings = body.insightSettings
                 instructions = body.instructions
+                integrations = body.integrations.map { it.toMutableList() }
+                interruptionSettings = body.interruptionSettings
                 llmApiKeyRef = body.llmApiKeyRef
+                mcpServers = body.mcpServers.map { it.toMutableList() }
                 messagingSettings = body.messagingSettings
                 model = body.model
                 name = body.name
                 observabilitySettings = body.observabilitySettings
                 postConversationSettings = body.postConversationSettings
                 privacySettings = body.privacySettings
+                tags = body.tags.map { it.toMutableList() }
                 telephonySettings = body.telephonySettings
                 toolIds = body.toolIds.map { it.toMutableList() }
                 tools = body.tools.map { it.toMutableList() }
                 transcription = body.transcription
+                versionName = body.versionName
                 voiceSettings = body.voiceSettings
                 widgetSettings = body.widgetSettings
                 promoteToMain = body.promoteToMain
@@ -1763,10 +2206,33 @@ private constructor(
                 }
 
             /**
-             * If the dynamic_variables_webhook_url is set for the assistant, we will send a request
-             * at the start of the conversation. See our
-             * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-             * for more information.
+             * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
+             * 10000 ms. If the webhook does not respond within this timeout, the call proceeds with
+             * default values. See the
+             * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+             */
+            fun dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs: Long) =
+                dynamicVariablesWebhookTimeoutMs(JsonField.of(dynamicVariablesWebhookTimeoutMs))
+
+            /**
+             * Sets [Builder.dynamicVariablesWebhookTimeoutMs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dynamicVariablesWebhookTimeoutMs] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun dynamicVariablesWebhookTimeoutMs(
+                dynamicVariablesWebhookTimeoutMs: JsonField<Long>
+            ) = apply { this.dynamicVariablesWebhookTimeoutMs = dynamicVariablesWebhookTimeoutMs }
+
+            /**
+             * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this URL at
+             * the start of the conversation to resolve dynamic variables. **Gotcha:** the webhook
+             * response must wrap variables under a top-level `dynamic_variables` object, e.g.
+             * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will be
+             * ignored and variables will fall back to their defaults. See the
+             * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+             * for the full request/response format and timeout behavior.
              */
             fun dynamicVariablesWebhookUrl(dynamicVariablesWebhookUrl: String) =
                 dynamicVariablesWebhookUrl(JsonField.of(dynamicVariablesWebhookUrl))
@@ -1808,30 +2274,31 @@ private constructor(
                     }
             }
 
-            fun externalLlm(externalLlm: ExternalLlmReq) = externalLlm(JsonField.of(externalLlm))
+            fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) =
+                externalLlm(JsonField.of(externalLlm))
 
             /**
              * Sets [Builder.externalLlm] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.externalLlm] with a well-typed
+             * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+            fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
                 this.externalLlm = externalLlm
             }
 
-            fun fallbackConfig(fallbackConfig: FallbackConfigReq) =
+            fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) =
                 fallbackConfig(JsonField.of(fallbackConfig))
 
             /**
              * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
              *
              * You should usually call [Builder.fallbackConfig] with a well-typed
-             * [FallbackConfigReq] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
+             * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+            fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
                 this.fallbackConfig = fallbackConfig
             }
 
@@ -1886,11 +2353,65 @@ private constructor(
             }
 
             /**
-             * This is only needed when using third-party inference providers. The `identifier` for
-             * an integration secret
+             * Connected integrations attached to the assistant. The catalog of available
+             * integrations is at `/ai/integrations`; the user's connected integrations are at
+             * `/ai/integrations/connections`. Each item references a catalog integration by
+             * `integration_id`.
+             */
+            fun integrations(integrations: List<UpdateAssistant.Integration>) =
+                integrations(JsonField.of(integrations))
+
+            /**
+             * Sets [Builder.integrations] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.integrations] with a well-typed
+             * `List<UpdateAssistant.Integration>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
+                this.integrations = integrations.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [UpdateAssistant.Integration] to [integrations].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addIntegration(integration: UpdateAssistant.Integration) = apply {
+                integrations =
+                    (integrations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("integrations", it).add(integration)
+                    }
+            }
+
+            /**
+             * Settings for interruptions and how the assistant decides the user has finished
+             * speaking. These timings are most relevant when using non turn-taking transcription
+             * models. For turn-taking models like `deepgram/flux`, end-of-turn behavior is
+             * controlled by the transcription end-of-turn settings under `transcription.settings`
+             * (`eot_threshold`, `eot_timeout_ms`, `eager_eot_threshold`).
+             */
+            fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
+                interruptionSettings(JsonField.of(interruptionSettings))
+
+            /**
+             * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptionSettings] with a well-typed
+             * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun interruptionSettings(
+                interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
+            ) = apply { this.interruptionSettings = interruptionSettings }
+
+            /**
+             * This is only needed when using third-party inference providers selected by `model`.
+             * The `identifier` for an integration secret
              * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-             * that refers to your LLM provider's API key. Warning: Free plans are unlikely to work
-             * with this integration.
+             * that refers to your LLM provider's API key. For bring-your-own endpoint
+             * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans are
+             * unlikely to work with this integration.
              */
             fun llmApiKeyRef(llmApiKeyRef: String) = llmApiKeyRef(JsonField.of(llmApiKeyRef))
 
@@ -1903,6 +2424,36 @@ private constructor(
              */
             fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
                 this.llmApiKeyRef = llmApiKeyRef
+            }
+
+            /**
+             * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`,
+             * then reference them by `id` here.
+             */
+            fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) =
+                mcpServers(JsonField.of(mcpServers))
+
+            /**
+             * Sets [Builder.mcpServers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mcpServers] with a well-typed
+             * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
+                this.mcpServers = mcpServers.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
+                mcpServers =
+                    (mcpServers ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("mcpServers", it).add(mcpServer)
+                    }
             }
 
             fun messagingSettings(messagingSettings: MessagingSettings) =
@@ -1920,9 +2471,11 @@ private constructor(
             }
 
             /**
-             * ID of the model to use. You can use the
+             * ID of the model to use when `external_llm` is not set. You can use the
              * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-             * to see all of your available models,
+             * to see available models. If `external_llm` is provided, the assistant uses
+             * `external_llm` instead of this field. If neither `model` nor `external_llm` is
+             * provided, Telnyx applies the default model.
              */
             fun model(model: String) = model(JsonField.of(model))
 
@@ -1967,18 +2520,19 @@ private constructor(
              * multiple parallel or sequential tools during this phase. Telephony-control tools
              * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
              */
-            fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
-                postConversationSettings(JsonField.of(postConversationSettings))
+            fun postConversationSettings(
+                postConversationSettings: UpdateAssistant.PostConversationSettings
+            ) = postConversationSettings(JsonField.of(postConversationSettings))
 
             /**
              * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.postConversationSettings] with a well-typed
-             * [PostConversationSettingsReq] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
              */
             fun postConversationSettings(
-                postConversationSettings: JsonField<PostConversationSettingsReq>
+                postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
             ) = apply { this.postConversationSettings = postConversationSettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
@@ -1995,6 +2549,33 @@ private constructor(
                 this.privacySettings = privacySettings
             }
 
+            /**
+             * Tags associated with the assistant. Tags can also be managed with the assistant tag
+             * endpoints.
+             */
+            fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+            /**
+             * Sets [Builder.tags] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tags] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun tags(tags: JsonField<List<String>>) = apply {
+                this.tags = tags.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [tags].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addTag(tag: String) = apply {
+                tags =
+                    (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+            }
+
             fun telephonySettings(telephonySettings: TelephonySettings) =
                 telephonySettings(JsonField.of(telephonySettings))
 
@@ -2009,6 +2590,10 @@ private constructor(
                 this.telephonySettings = telephonySettings
             }
 
+            /**
+             * IDs of shared tools to attach to the assistant. New integrations should prefer
+             * `tool_ids` over inline `tools`.
+             */
             fun toolIds(toolIds: List<String>) = toolIds(JsonField.of(toolIds))
 
             /**
@@ -2035,8 +2620,8 @@ private constructor(
             }
 
             /**
-             * The tools that the assistant can use. These may be templated with
-             * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+             * Deprecated for new integrations. Inline tool definitions available to the assistant.
+             * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
              */
             fun tools(tools: List<AssistantTool>) = tools(JsonField.of(tools))
 
@@ -2236,6 +2821,20 @@ private constructor(
                 this.transcription = transcription
             }
 
+            /** Human-readable name for the assistant version. */
+            fun versionName(versionName: String) = versionName(JsonField.of(versionName))
+
+            /**
+             * Sets [Builder.versionName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.versionName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun versionName(versionName: JsonField<String>) = apply {
+                this.versionName = versionName
+            }
+
             fun voiceSettings(voiceSettings: VoiceSettings) =
                 voiceSettings(JsonField.of(voiceSettings))
 
@@ -2310,6 +2909,7 @@ private constructor(
                 Body(
                     description,
                     dynamicVariables,
+                    dynamicVariablesWebhookTimeoutMs,
                     dynamicVariablesWebhookUrl,
                     (enabledFeatures ?: JsonMissing.of()).map { it.toImmutable() },
                     externalLlm,
@@ -2317,17 +2917,22 @@ private constructor(
                     greeting,
                     insightSettings,
                     instructions,
+                    (integrations ?: JsonMissing.of()).map { it.toImmutable() },
+                    interruptionSettings,
                     llmApiKeyRef,
+                    (mcpServers ?: JsonMissing.of()).map { it.toImmutable() },
                     messagingSettings,
                     model,
                     name,
                     observabilitySettings,
                     postConversationSettings,
                     privacySettings,
+                    (tags ?: JsonMissing.of()).map { it.toImmutable() },
                     telephonySettings,
                     (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
                     (tools ?: JsonMissing.of()).map { it.toImmutable() },
                     transcription,
+                    versionName,
                     voiceSettings,
                     widgetSettings,
                     promoteToMain,
@@ -2344,6 +2949,7 @@ private constructor(
 
             description()
             dynamicVariables().ifPresent { it.validate() }
+            dynamicVariablesWebhookTimeoutMs()
             dynamicVariablesWebhookUrl()
             enabledFeatures().ifPresent { it.forEach { it.validate() } }
             externalLlm().ifPresent { it.validate() }
@@ -2351,17 +2957,22 @@ private constructor(
             greeting()
             insightSettings().ifPresent { it.validate() }
             instructions()
+            integrations().ifPresent { it.forEach { it.validate() } }
+            interruptionSettings().ifPresent { it.validate() }
             llmApiKeyRef()
+            mcpServers().ifPresent { it.forEach { it.validate() } }
             messagingSettings().ifPresent { it.validate() }
             model()
             name()
             observabilitySettings().ifPresent { it.validate() }
             postConversationSettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
+            tags()
             telephonySettings().ifPresent { it.validate() }
             toolIds()
             tools().ifPresent { it.forEach { it.validate() } }
             transcription().ifPresent { it.validate() }
+            versionName()
             voiceSettings().ifPresent { it.validate() }
             widgetSettings().ifPresent { it.validate() }
             promoteToMain()
@@ -2386,6 +2997,7 @@ private constructor(
         internal fun validity(): Int =
             (if (description.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (dynamicVariablesWebhookTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (enabledFeatures.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2393,17 +3005,22 @@ private constructor(
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (insightSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (instructions.asKnown().isPresent) 1 else 0) +
+                (integrations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                (mcpServers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (model.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (postConversationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (tags.asKnown().getOrNull()?.size ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (toolIds.asKnown().getOrNull()?.size ?: 0) +
                 (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (versionName.asKnown().isPresent) 1 else 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (widgetSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (promoteToMain.asKnown().isPresent) 1 else 0)
@@ -2416,6 +3033,7 @@ private constructor(
             return other is Body &&
                 description == other.description &&
                 dynamicVariables == other.dynamicVariables &&
+                dynamicVariablesWebhookTimeoutMs == other.dynamicVariablesWebhookTimeoutMs &&
                 dynamicVariablesWebhookUrl == other.dynamicVariablesWebhookUrl &&
                 enabledFeatures == other.enabledFeatures &&
                 externalLlm == other.externalLlm &&
@@ -2423,17 +3041,22 @@ private constructor(
                 greeting == other.greeting &&
                 insightSettings == other.insightSettings &&
                 instructions == other.instructions &&
+                integrations == other.integrations &&
+                interruptionSettings == other.interruptionSettings &&
                 llmApiKeyRef == other.llmApiKeyRef &&
+                mcpServers == other.mcpServers &&
                 messagingSettings == other.messagingSettings &&
                 model == other.model &&
                 name == other.name &&
                 observabilitySettings == other.observabilitySettings &&
                 postConversationSettings == other.postConversationSettings &&
                 privacySettings == other.privacySettings &&
+                tags == other.tags &&
                 telephonySettings == other.telephonySettings &&
                 toolIds == other.toolIds &&
                 tools == other.tools &&
                 transcription == other.transcription &&
+                versionName == other.versionName &&
                 voiceSettings == other.voiceSettings &&
                 widgetSettings == other.widgetSettings &&
                 promoteToMain == other.promoteToMain &&
@@ -2444,6 +3067,7 @@ private constructor(
             Objects.hash(
                 description,
                 dynamicVariables,
+                dynamicVariablesWebhookTimeoutMs,
                 dynamicVariablesWebhookUrl,
                 enabledFeatures,
                 externalLlm,
@@ -2451,17 +3075,22 @@ private constructor(
                 greeting,
                 insightSettings,
                 instructions,
+                integrations,
+                interruptionSettings,
                 llmApiKeyRef,
+                mcpServers,
                 messagingSettings,
                 model,
                 name,
                 observabilitySettings,
                 postConversationSettings,
                 privacySettings,
+                tags,
                 telephonySettings,
                 toolIds,
                 tools,
                 transcription,
+                versionName,
                 voiceSettings,
                 widgetSettings,
                 promoteToMain,
@@ -2472,7 +3101,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

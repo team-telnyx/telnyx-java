@@ -6,13 +6,10 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
-import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
-import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
-import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -67,13 +64,16 @@ internal class VersionServiceAsyncTest {
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
+                            .dynamicVariablesWebhookTimeoutMs(1L)
                             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                             .addEnabledFeature(EnabledFeatures.TELEPHONY)
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                UpdateAssistant.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -81,13 +81,15 @@ internal class VersionServiceAsyncTest {
                                     .build()
                             )
                             .fallbackConfig(
-                                FallbackConfigReq.builder()
+                                UpdateAssistant.FallbackConfig.builder()
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                UpdateAssistant.FallbackConfig.ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -104,7 +106,40 @@ internal class VersionServiceAsyncTest {
                                 InsightSettings.builder().insightGroupId("insight_group_id").build()
                             )
                             .instructions("instructions")
+                            .addIntegration(
+                                UpdateAssistant.Integration.builder()
+                                    .integrationId("integration_id")
+                                    .addAllowedList("string")
+                                    .build()
+                            )
+                            .interruptionSettings(
+                                UpdateAssistant.InterruptionSettings.builder()
+                                    .enable(true)
+                                    .startSpeakingPlan(
+                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                            .builder()
+                                            .transcriptionEndpointingPlan(
+                                                UpdateAssistant.InterruptionSettings
+                                                    .StartSpeakingPlan
+                                                    .TranscriptionEndpointingPlan
+                                                    .builder()
+                                                    .onNoPunctuationSeconds(0.0f)
+                                                    .onNumberSeconds(0.0f)
+                                                    .onPunctuationSeconds(0.0f)
+                                                    .build()
+                                            )
+                                            .waitSeconds(0.0f)
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .llmApiKeyRef("llm_api_key_ref")
+                            .addMcpServer(
+                                UpdateAssistant.McpServer.builder()
+                                    .id("id")
+                                    .addAllowedTool("string")
+                                    .build()
+                            )
                             .messagingSettings(
                                 MessagingSettings.builder()
                                     .conversationInactivityMinutes(1L)
@@ -123,9 +158,12 @@ internal class VersionServiceAsyncTest {
                                     .build()
                             )
                             .postConversationSettings(
-                                PostConversationSettingsReq.builder().enabled(true).build()
+                                UpdateAssistant.PostConversationSettings.builder()
+                                    .enabled(true)
+                                    .build()
                             )
                             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                            .addTag("string")
                             .telephonySettings(
                                 TelephonySettings.builder()
                                     .defaultTexmlAppId("default_texml_app_id")
@@ -306,6 +344,7 @@ internal class VersionServiceAsyncTest {
                                     )
                                     .build()
                             )
+                            .versionName("version_name")
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")

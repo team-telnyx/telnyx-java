@@ -20,13 +20,14 @@ internal class AssistantUpdateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
+            .dynamicVariablesWebhookTimeoutMs(1L)
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
             .externalLlm(
-                ExternalLlmReq.builder()
+                UpdateAssistant.ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -34,12 +35,15 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
             .fallbackConfig(
-                FallbackConfigReq.builder()
+                UpdateAssistant.FallbackConfig.builder()
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -53,7 +57,35 @@ internal class AssistantUpdateParamsTest {
             .greeting("greeting")
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .instructions("instructions")
+            .addIntegration(
+                UpdateAssistant.Integration.builder()
+                    .integrationId("integration_id")
+                    .addAllowedList("string")
+                    .build()
+            )
+            .interruptionSettings(
+                UpdateAssistant.InterruptionSettings.builder()
+                    .enable(true)
+                    .startSpeakingPlan(
+                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                            .transcriptionEndpointingPlan(
+                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
+                                    .onNoPunctuationSeconds(0.0f)
+                                    .onNumberSeconds(0.0f)
+                                    .onPunctuationSeconds(0.0f)
+                                    .build()
+                            )
+                            .waitSeconds(0.0f)
+                            .build()
+                    )
+                    .build()
+            )
             .llmApiKeyRef("llm_api_key_ref")
+            .addMcpServer(
+                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
             .messagingSettings(
                 MessagingSettings.builder()
                     .conversationInactivityMinutes(1L)
@@ -71,8 +103,11 @@ internal class AssistantUpdateParamsTest {
                     .status(ObservabilityReq.Status.ENABLED)
                     .build()
             )
-            .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
+            .postConversationSettings(
+                UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+            )
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+            .addTag("string")
             .telephonySettings(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
@@ -218,6 +253,7 @@ internal class AssistantUpdateParamsTest {
                     )
                     .build()
             )
+            .versionName("version_name")
             .voiceSettings(
                 VoiceSettings.builder()
                     .voice("voice")
@@ -279,13 +315,16 @@ internal class AssistantUpdateParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
+                .dynamicVariablesWebhookTimeoutMs(1L)
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    ExternalLlmReq.builder()
+                    UpdateAssistant.ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                        .authenticationMethod(
+                            UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -293,12 +332,15 @@ internal class AssistantUpdateParamsTest {
                         .build()
                 )
                 .fallbackConfig(
-                    FallbackConfigReq.builder()
+                    UpdateAssistant.FallbackConfig.builder()
                         .externalLlm(
-                            ExternalLlmReq.builder()
+                            UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                        .TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -314,7 +356,35 @@ internal class AssistantUpdateParamsTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .instructions("instructions")
+                .addIntegration(
+                    UpdateAssistant.Integration.builder()
+                        .integrationId("integration_id")
+                        .addAllowedList("string")
+                        .build()
+                )
+                .interruptionSettings(
+                    UpdateAssistant.InterruptionSettings.builder()
+                        .enable(true)
+                        .startSpeakingPlan(
+                            UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                                .transcriptionEndpointingPlan(
+                                    UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
+                                        .onNoPunctuationSeconds(0.0f)
+                                        .onNumberSeconds(0.0f)
+                                        .onPunctuationSeconds(0.0f)
+                                        .build()
+                                )
+                                .waitSeconds(0.0f)
+                                .build()
+                        )
+                        .build()
+                )
                 .llmApiKeyRef("llm_api_key_ref")
+                .addMcpServer(
+                    UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+                )
                 .messagingSettings(
                     MessagingSettings.builder()
                         .conversationInactivityMinutes(1L)
@@ -333,9 +403,10 @@ internal class AssistantUpdateParamsTest {
                         .build()
                 )
                 .postConversationSettings(
-                    PostConversationSettingsReq.builder().enabled(true).build()
+                    UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
@@ -483,6 +554,7 @@ internal class AssistantUpdateParamsTest {
                         )
                         .build()
                 )
+                .versionName("version_name")
                 .voiceSettings(
                     VoiceSettings.builder()
                         .voice("voice")
@@ -533,14 +605,15 @@ internal class AssistantUpdateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
+        assertThat(body.dynamicVariablesWebhookTimeoutMs()).contains(1L)
         assertThat(body.dynamicVariablesWebhookUrl()).contains("dynamic_variables_webhook_url")
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(body.externalLlm())
             .contains(
-                ExternalLlmReq.builder()
+                UpdateAssistant.ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -549,12 +622,15 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.fallbackConfig())
             .contains(
-                FallbackConfigReq.builder()
+                UpdateAssistant.FallbackConfig.builder()
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -569,7 +645,38 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.insightSettings())
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
         assertThat(body.instructions()).contains("instructions")
+        assertThat(body.integrations().getOrNull())
+            .containsExactly(
+                UpdateAssistant.Integration.builder()
+                    .integrationId("integration_id")
+                    .addAllowedList("string")
+                    .build()
+            )
+        assertThat(body.interruptionSettings())
+            .contains(
+                UpdateAssistant.InterruptionSettings.builder()
+                    .enable(true)
+                    .startSpeakingPlan(
+                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                            .transcriptionEndpointingPlan(
+                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
+                                    .onNoPunctuationSeconds(0.0f)
+                                    .onNumberSeconds(0.0f)
+                                    .onPunctuationSeconds(0.0f)
+                                    .build()
+                            )
+                            .waitSeconds(0.0f)
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.llmApiKeyRef()).contains("llm_api_key_ref")
+        assertThat(body.mcpServers().getOrNull())
+            .containsExactly(
+                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(body.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -590,9 +697,10 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
         assertThat(body.postConversationSettings())
-            .contains(PostConversationSettingsReq.builder().enabled(true).build())
+            .contains(UpdateAssistant.PostConversationSettings.builder().enabled(true).build())
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
+        assertThat(body.tags().getOrNull()).containsExactly("string")
         assertThat(body.telephonySettings())
             .contains(
                 TelephonySettings.builder()
@@ -768,6 +876,7 @@ internal class AssistantUpdateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.versionName()).contains("version_name")
         assertThat(body.voiceSettings())
             .contains(
                 VoiceSettings.builder()

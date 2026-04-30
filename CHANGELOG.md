@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.46.0 (2026-04-29)
+
+Full Changelog: [v6.45.0...v6.46.0](https://github.com/team-telnyx/telnyx-java/compare/v6.45.0...v6.46.0)
+
+### Features
+
+* Add xAI and AssemblyAI transcription engines to call-control API docs ([913e627](https://github.com/team-telnyx/telnyx-java/commit/913e627cef737a8fa75b4662a7e3ecbd012b8aca))
+* Document assistant CRUD fields ([ed2e3e9](https://github.com/team-telnyx/telnyx-java/commit/ed2e3e91120e6c747d5f3dfa41ced2886303931a))
+
+
+### Chores
+
+* update example date in inference-embedding ([16fae4b](https://github.com/team-telnyx/telnyx-java/commit/16fae4bdfe0dc3f4b0d0f4c48af4832a84f67511))
+
 ## 6.45.0 (2026-04-29)
 
 Full Changelog: [v6.44.0...v6.45.0](https://github.com/team-telnyx/telnyx-java/compare/v6.44.0...v6.45.0)

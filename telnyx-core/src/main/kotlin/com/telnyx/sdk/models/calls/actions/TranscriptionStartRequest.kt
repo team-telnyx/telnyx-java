@@ -297,6 +297,20 @@ private constructor(
             )
 
         /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofXAi(xAi)`.
+         */
+        fun transcriptionEngineConfig(xAi: TranscriptionEngineConfig.XAi) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofXAi(xAi))
+
+        /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofAssemblyAi(assemblyAi)`.
+         */
+        fun transcriptionEngineConfig(assemblyAi: TranscriptionEngineConfig.AssemblyAi) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofAssemblyAi(assemblyAi))
+
+        /**
          * Alias for calling [transcriptionEngineConfig] with `TranscriptionEngineConfig.ofA(a)`.
          */
         fun transcriptionEngineConfig(a: TranscriptionEngineAConfig) =
@@ -478,6 +492,10 @@ private constructor(
 
             @JvmField val AZURE = of("Azure")
 
+            @JvmField val X_AI = of("xAI")
+
+            @JvmField val ASSEMBLY_AI = of("AssemblyAI")
+
             @JvmField val A = of("A")
 
             @JvmField val B = of("B")
@@ -491,6 +509,8 @@ private constructor(
             TELNYX,
             DEEPGRAM,
             AZURE,
+            X_AI,
+            ASSEMBLY_AI,
             A,
             B,
         }
@@ -509,6 +529,8 @@ private constructor(
             TELNYX,
             DEEPGRAM,
             AZURE,
+            X_AI,
+            ASSEMBLY_AI,
             A,
             B,
             /**
@@ -531,6 +553,8 @@ private constructor(
                 TELNYX -> Value.TELNYX
                 DEEPGRAM -> Value.DEEPGRAM
                 AZURE -> Value.AZURE
+                X_AI -> Value.X_AI
+                ASSEMBLY_AI -> Value.ASSEMBLY_AI
                 A -> Value.A
                 B -> Value.B
                 else -> Value._UNKNOWN
@@ -551,6 +575,8 @@ private constructor(
                 TELNYX -> Known.TELNYX
                 DEEPGRAM -> Known.DEEPGRAM
                 AZURE -> Known.AZURE
+                X_AI -> Known.X_AI
+                ASSEMBLY_AI -> Known.ASSEMBLY_AI
                 A -> Known.A
                 B -> Known.B
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
@@ -615,6 +641,8 @@ private constructor(
         private val google: TranscriptionEngineGoogleConfig? = null,
         private val telnyx: TranscriptionEngineTelnyxConfig? = null,
         private val azure: TranscriptionEngineAzureConfig? = null,
+        private val xAi: XAi? = null,
+        private val assemblyAi: AssemblyAi? = null,
         private val a: TranscriptionEngineAConfig? = null,
         private val b: TranscriptionEngineBConfig? = null,
         private val deepgramNova2: DeepgramNova2Config? = null,
@@ -627,6 +655,10 @@ private constructor(
         fun telnyx(): Optional<TranscriptionEngineTelnyxConfig> = Optional.ofNullable(telnyx)
 
         fun azure(): Optional<TranscriptionEngineAzureConfig> = Optional.ofNullable(azure)
+
+        fun xAi(): Optional<XAi> = Optional.ofNullable(xAi)
+
+        fun assemblyAi(): Optional<AssemblyAi> = Optional.ofNullable(assemblyAi)
 
         fun a(): Optional<TranscriptionEngineAConfig> = Optional.ofNullable(a)
 
@@ -642,6 +674,10 @@ private constructor(
 
         fun isAzure(): Boolean = azure != null
 
+        fun isXAi(): Boolean = xAi != null
+
+        fun isAssemblyAi(): Boolean = assemblyAi != null
+
         fun isA(): Boolean = a != null
 
         fun isB(): Boolean = b != null
@@ -655,6 +691,10 @@ private constructor(
         fun asTelnyx(): TranscriptionEngineTelnyxConfig = telnyx.getOrThrow("telnyx")
 
         fun asAzure(): TranscriptionEngineAzureConfig = azure.getOrThrow("azure")
+
+        fun asXAi(): XAi = xAi.getOrThrow("xAi")
+
+        fun asAssemblyAi(): AssemblyAi = assemblyAi.getOrThrow("assemblyAi")
 
         fun asA(): TranscriptionEngineAConfig = a.getOrThrow("a")
 
@@ -671,6 +711,8 @@ private constructor(
                 google != null -> visitor.visitGoogle(google)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 azure != null -> visitor.visitAzure(azure)
+                xAi != null -> visitor.visitXAi(xAi)
+                assemblyAi != null -> visitor.visitAssemblyAi(assemblyAi)
                 a != null -> visitor.visitA(a)
                 b != null -> visitor.visitB(b)
                 deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
@@ -697,6 +739,14 @@ private constructor(
 
                     override fun visitAzure(azure: TranscriptionEngineAzureConfig) {
                         azure.validate()
+                    }
+
+                    override fun visitXAi(xAi: XAi) {
+                        xAi.validate()
+                    }
+
+                    override fun visitAssemblyAi(assemblyAi: AssemblyAi) {
+                        assemblyAi.validate()
                     }
 
                     override fun visitA(a: TranscriptionEngineAConfig) {
@@ -746,6 +796,10 @@ private constructor(
                     override fun visitAzure(azure: TranscriptionEngineAzureConfig) =
                         azure.validity()
 
+                    override fun visitXAi(xAi: XAi) = xAi.validity()
+
+                    override fun visitAssemblyAi(assemblyAi: AssemblyAi) = assemblyAi.validity()
+
                     override fun visitA(a: TranscriptionEngineAConfig) = a.validity()
 
                     override fun visitB(b: TranscriptionEngineBConfig) = b.validity()
@@ -769,6 +823,8 @@ private constructor(
                 google == other.google &&
                 telnyx == other.telnyx &&
                 azure == other.azure &&
+                xAi == other.xAi &&
+                assemblyAi == other.assemblyAi &&
                 a == other.a &&
                 b == other.b &&
                 deepgramNova2 == other.deepgramNova2 &&
@@ -776,13 +832,15 @@ private constructor(
         }
 
         override fun hashCode(): Int =
-            Objects.hash(google, telnyx, azure, a, b, deepgramNova2, deepgramNova3)
+            Objects.hash(google, telnyx, azure, xAi, assemblyAi, a, b, deepgramNova2, deepgramNova3)
 
         override fun toString(): String =
             when {
                 google != null -> "TranscriptionEngineConfig{google=$google}"
                 telnyx != null -> "TranscriptionEngineConfig{telnyx=$telnyx}"
                 azure != null -> "TranscriptionEngineConfig{azure=$azure}"
+                xAi != null -> "TranscriptionEngineConfig{xAi=$xAi}"
+                assemblyAi != null -> "TranscriptionEngineConfig{assemblyAi=$assemblyAi}"
                 a != null -> "TranscriptionEngineConfig{a=$a}"
                 b != null -> "TranscriptionEngineConfig{b=$b}"
                 deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
@@ -804,6 +862,12 @@ private constructor(
             @JvmStatic
             fun ofAzure(azure: TranscriptionEngineAzureConfig) =
                 TranscriptionEngineConfig(azure = azure)
+
+            @JvmStatic fun ofXAi(xAi: XAi) = TranscriptionEngineConfig(xAi = xAi)
+
+            @JvmStatic
+            fun ofAssemblyAi(assemblyAi: AssemblyAi) =
+                TranscriptionEngineConfig(assemblyAi = assemblyAi)
 
             @JvmStatic fun ofA(a: TranscriptionEngineAConfig) = TranscriptionEngineConfig(a = a)
 
@@ -829,6 +893,10 @@ private constructor(
             fun visitTelnyx(telnyx: TranscriptionEngineTelnyxConfig): T
 
             fun visitAzure(azure: TranscriptionEngineAzureConfig): T
+
+            fun visitXAi(xAi: XAi): T
+
+            fun visitAssemblyAi(assemblyAi: AssemblyAi): T
 
             fun visitA(a: TranscriptionEngineAConfig): T
 
@@ -891,6 +959,16 @@ private constructor(
                             ?.let { TranscriptionEngineConfig(azure = it, _json = json) }
                             ?: TranscriptionEngineConfig(_json = json)
                     }
+                    "xAI" -> {
+                        return tryDeserialize(node, jacksonTypeRef<XAi>())?.let {
+                            TranscriptionEngineConfig(xAi = it, _json = json)
+                        } ?: TranscriptionEngineConfig(_json = json)
+                    }
+                    "AssemblyAI" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AssemblyAi>())?.let {
+                            TranscriptionEngineConfig(assemblyAi = it, _json = json)
+                        } ?: TranscriptionEngineConfig(_json = json)
+                    }
                     "A" -> {
                         return tryDeserialize(node, jacksonTypeRef<TranscriptionEngineAConfig>())
                             ?.let { TranscriptionEngineConfig(a = it, _json = json) }
@@ -929,6 +1007,8 @@ private constructor(
                     value.google != null -> generator.writeObject(value.google)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.azure != null -> generator.writeObject(value.azure)
+                    value.xAi != null -> generator.writeObject(value.xAi)
+                    value.assemblyAi != null -> generator.writeObject(value.assemblyAi)
                     value.a != null -> generator.writeObject(value.a)
                     value.b != null -> generator.writeObject(value.b)
                     value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)
@@ -937,6 +1017,1360 @@ private constructor(
                     else -> throw IllegalStateException("Invalid TranscriptionEngineConfig")
                 }
             }
+        }
+
+        class XAi
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val interimResults: JsonField<Boolean>,
+            private val language: JsonField<Language>,
+            private val transcriptionEngine: JsonField<TranscriptionEngine>,
+            private val transcriptionModel: JsonField<TranscriptionModel>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("interim_results")
+                @ExcludeMissing
+                interimResults: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("language")
+                @ExcludeMissing
+                language: JsonField<Language> = JsonMissing.of(),
+                @JsonProperty("transcription_engine")
+                @ExcludeMissing
+                transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
+                @JsonProperty("transcription_model")
+                @ExcludeMissing
+                transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+            ) : this(
+                interimResults,
+                language,
+                transcriptionEngine,
+                transcriptionModel,
+                mutableMapOf(),
+            )
+
+            /**
+             * Whether to send also interim results. If set to false, only final results will be
+             * sent.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
+
+            /**
+             * Language to use for speech recognition
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun language(): Optional<Language> = language.getOptional("language")
+
+            /**
+             * Engine identifier for xAI transcription service
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionEngine(): Optional<TranscriptionEngine> =
+                transcriptionEngine.getOptional("transcription_engine")
+
+            /**
+             * The model to use for transcription.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionModel(): Optional<TranscriptionModel> =
+                transcriptionModel.getOptional("transcription_model")
+
+            /**
+             * Returns the raw JSON value of [interimResults].
+             *
+             * Unlike [interimResults], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("interim_results")
+            @ExcludeMissing
+            fun _interimResults(): JsonField<Boolean> = interimResults
+
+            /**
+             * Returns the raw JSON value of [language].
+             *
+             * Unlike [language], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("language")
+            @ExcludeMissing
+            fun _language(): JsonField<Language> = language
+
+            /**
+             * Returns the raw JSON value of [transcriptionEngine].
+             *
+             * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("transcription_engine")
+            @ExcludeMissing
+            fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
+
+            /**
+             * Returns the raw JSON value of [transcriptionModel].
+             *
+             * Unlike [transcriptionModel], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("transcription_model")
+            @ExcludeMissing
+            fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [XAi]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [XAi]. */
+            class Builder internal constructor() {
+
+                private var interimResults: JsonField<Boolean> = JsonMissing.of()
+                private var language: JsonField<Language> = JsonMissing.of()
+                private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
+                private var transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(xAi: XAi) = apply {
+                    interimResults = xAi.interimResults
+                    language = xAi.language
+                    transcriptionEngine = xAi.transcriptionEngine
+                    transcriptionModel = xAi.transcriptionModel
+                    additionalProperties = xAi.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Whether to send also interim results. If set to false, only final results will be
+                 * sent.
+                 */
+                fun interimResults(interimResults: Boolean) =
+                    interimResults(JsonField.of(interimResults))
+
+                /**
+                 * Sets [Builder.interimResults] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.interimResults] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun interimResults(interimResults: JsonField<Boolean>) = apply {
+                    this.interimResults = interimResults
+                }
+
+                /** Language to use for speech recognition */
+                fun language(language: Language) = language(JsonField.of(language))
+
+                /**
+                 * Sets [Builder.language] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.language] with a well-typed [Language] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun language(language: JsonField<Language>) = apply { this.language = language }
+
+                /** Engine identifier for xAI transcription service */
+                fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
+                    transcriptionEngine(JsonField.of(transcriptionEngine))
+
+                /**
+                 * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionEngine] with a well-typed
+                 * [TranscriptionEngine] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) =
+                    apply {
+                        this.transcriptionEngine = transcriptionEngine
+                    }
+
+                /** The model to use for transcription. */
+                fun transcriptionModel(transcriptionModel: TranscriptionModel) =
+                    transcriptionModel(JsonField.of(transcriptionModel))
+
+                /**
+                 * Sets [Builder.transcriptionModel] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionModel] with a well-typed
+                 * [TranscriptionModel] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
+                    this.transcriptionModel = transcriptionModel
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [XAi].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): XAi =
+                    XAi(
+                        interimResults,
+                        language,
+                        transcriptionEngine,
+                        transcriptionModel,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): XAi = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                interimResults()
+                language().ifPresent { it.validate() }
+                transcriptionEngine().ifPresent { it.validate() }
+                transcriptionModel().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (interimResults.asKnown().isPresent) 1 else 0) +
+                    (language.asKnown().getOrNull()?.validity() ?: 0) +
+                    (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                    (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Language to use for speech recognition */
+            class Language @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val AR = of("ar")
+
+                    @JvmField val CS = of("cs")
+
+                    @JvmField val DA = of("da")
+
+                    @JvmField val DE = of("de")
+
+                    @JvmField val EN = of("en")
+
+                    @JvmField val ES = of("es")
+
+                    @JvmField val FA = of("fa")
+
+                    @JvmField val FIL = of("fil")
+
+                    @JvmField val FR = of("fr")
+
+                    @JvmField val HI = of("hi")
+
+                    @JvmField val ID = of("id")
+
+                    @JvmField val IT = of("it")
+
+                    @JvmField val JA = of("ja")
+
+                    @JvmField val KO = of("ko")
+
+                    @JvmField val MK = of("mk")
+
+                    @JvmField val MS = of("ms")
+
+                    @JvmField val NL = of("nl")
+
+                    @JvmField val PL = of("pl")
+
+                    @JvmField val PT = of("pt")
+
+                    @JvmField val RO = of("ro")
+
+                    @JvmField val RU = of("ru")
+
+                    @JvmField val SV = of("sv")
+
+                    @JvmField val TH = of("th")
+
+                    @JvmField val TR = of("tr")
+
+                    @JvmField val VI = of("vi")
+
+                    @JvmStatic fun of(value: String) = Language(JsonField.of(value))
+                }
+
+                /** An enum containing [Language]'s known values. */
+                enum class Known {
+                    AR,
+                    CS,
+                    DA,
+                    DE,
+                    EN,
+                    ES,
+                    FA,
+                    FIL,
+                    FR,
+                    HI,
+                    ID,
+                    IT,
+                    JA,
+                    KO,
+                    MK,
+                    MS,
+                    NL,
+                    PL,
+                    PT,
+                    RO,
+                    RU,
+                    SV,
+                    TH,
+                    TR,
+                    VI,
+                }
+
+                /**
+                 * An enum containing [Language]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Language] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    AR,
+                    CS,
+                    DA,
+                    DE,
+                    EN,
+                    ES,
+                    FA,
+                    FIL,
+                    FR,
+                    HI,
+                    ID,
+                    IT,
+                    JA,
+                    KO,
+                    MK,
+                    MS,
+                    NL,
+                    PL,
+                    PT,
+                    RO,
+                    RU,
+                    SV,
+                    TH,
+                    TR,
+                    VI,
+                    /**
+                     * An enum member indicating that [Language] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        AR -> Value.AR
+                        CS -> Value.CS
+                        DA -> Value.DA
+                        DE -> Value.DE
+                        EN -> Value.EN
+                        ES -> Value.ES
+                        FA -> Value.FA
+                        FIL -> Value.FIL
+                        FR -> Value.FR
+                        HI -> Value.HI
+                        ID -> Value.ID
+                        IT -> Value.IT
+                        JA -> Value.JA
+                        KO -> Value.KO
+                        MK -> Value.MK
+                        MS -> Value.MS
+                        NL -> Value.NL
+                        PL -> Value.PL
+                        PT -> Value.PT
+                        RO -> Value.RO
+                        RU -> Value.RU
+                        SV -> Value.SV
+                        TH -> Value.TH
+                        TR -> Value.TR
+                        VI -> Value.VI
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        AR -> Known.AR
+                        CS -> Known.CS
+                        DA -> Known.DA
+                        DE -> Known.DE
+                        EN -> Known.EN
+                        ES -> Known.ES
+                        FA -> Known.FA
+                        FIL -> Known.FIL
+                        FR -> Known.FR
+                        HI -> Known.HI
+                        ID -> Known.ID
+                        IT -> Known.IT
+                        JA -> Known.JA
+                        KO -> Known.KO
+                        MK -> Known.MK
+                        MS -> Known.MS
+                        NL -> Known.NL
+                        PL -> Known.PL
+                        PT -> Known.PT
+                        RO -> Known.RO
+                        RU -> Known.RU
+                        SV -> Known.SV
+                        TH -> Known.TH
+                        TR -> Known.TR
+                        VI -> Known.VI
+                        else -> throw TelnyxInvalidDataException("Unknown Language: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Language = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Language && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Engine identifier for xAI transcription service */
+            class TranscriptionEngine
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val X_AI = of("xAI")
+
+                    @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
+                }
+
+                /** An enum containing [TranscriptionEngine]'s known values. */
+                enum class Known {
+                    X_AI
+                }
+
+                /**
+                 * An enum containing [TranscriptionEngine]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [TranscriptionEngine] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    X_AI,
+                    /**
+                     * An enum member indicating that [TranscriptionEngine] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        X_AI -> Value.X_AI
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        X_AI -> Known.X_AI
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): TranscriptionEngine = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is TranscriptionEngine && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The model to use for transcription. */
+            class TranscriptionModel
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val XAI_GROK_STT = of("xai/grok-stt")
+
+                    @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
+                }
+
+                /** An enum containing [TranscriptionModel]'s known values. */
+                enum class Known {
+                    XAI_GROK_STT
+                }
+
+                /**
+                 * An enum containing [TranscriptionModel]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [TranscriptionModel] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    XAI_GROK_STT,
+                    /**
+                     * An enum member indicating that [TranscriptionModel] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        XAI_GROK_STT -> Value.XAI_GROK_STT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        XAI_GROK_STT -> Known.XAI_GROK_STT
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): TranscriptionModel = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is TranscriptionModel && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is XAi &&
+                    interimResults == other.interimResults &&
+                    language == other.language &&
+                    transcriptionEngine == other.transcriptionEngine &&
+                    transcriptionModel == other.transcriptionModel &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    interimResults,
+                    language,
+                    transcriptionEngine,
+                    transcriptionModel,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "XAi{interimResults=$interimResults, language=$language, transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, additionalProperties=$additionalProperties}"
+        }
+
+        class AssemblyAi
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val interimResults: JsonField<Boolean>,
+            private val transcriptionEngine: JsonField<TranscriptionEngine>,
+            private val transcriptionModel: JsonField<TranscriptionModel>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("interim_results")
+                @ExcludeMissing
+                interimResults: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("transcription_engine")
+                @ExcludeMissing
+                transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
+                @JsonProperty("transcription_model")
+                @ExcludeMissing
+                transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+            ) : this(interimResults, transcriptionEngine, transcriptionModel, mutableMapOf())
+
+            /**
+             * Whether to send also interim results. If set to false, only final results will be
+             * sent.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
+
+            /**
+             * Engine identifier for AssemblyAI transcription service
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionEngine(): Optional<TranscriptionEngine> =
+                transcriptionEngine.getOptional("transcription_engine")
+
+            /**
+             * The model to use for transcription.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionModel(): Optional<TranscriptionModel> =
+                transcriptionModel.getOptional("transcription_model")
+
+            /**
+             * Returns the raw JSON value of [interimResults].
+             *
+             * Unlike [interimResults], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("interim_results")
+            @ExcludeMissing
+            fun _interimResults(): JsonField<Boolean> = interimResults
+
+            /**
+             * Returns the raw JSON value of [transcriptionEngine].
+             *
+             * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("transcription_engine")
+            @ExcludeMissing
+            fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
+
+            /**
+             * Returns the raw JSON value of [transcriptionModel].
+             *
+             * Unlike [transcriptionModel], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("transcription_model")
+            @ExcludeMissing
+            fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [AssemblyAi]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AssemblyAi]. */
+            class Builder internal constructor() {
+
+                private var interimResults: JsonField<Boolean> = JsonMissing.of()
+                private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
+                private var transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(assemblyAi: AssemblyAi) = apply {
+                    interimResults = assemblyAi.interimResults
+                    transcriptionEngine = assemblyAi.transcriptionEngine
+                    transcriptionModel = assemblyAi.transcriptionModel
+                    additionalProperties = assemblyAi.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Whether to send also interim results. If set to false, only final results will be
+                 * sent.
+                 */
+                fun interimResults(interimResults: Boolean) =
+                    interimResults(JsonField.of(interimResults))
+
+                /**
+                 * Sets [Builder.interimResults] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.interimResults] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun interimResults(interimResults: JsonField<Boolean>) = apply {
+                    this.interimResults = interimResults
+                }
+
+                /** Engine identifier for AssemblyAI transcription service */
+                fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
+                    transcriptionEngine(JsonField.of(transcriptionEngine))
+
+                /**
+                 * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionEngine] with a well-typed
+                 * [TranscriptionEngine] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) =
+                    apply {
+                        this.transcriptionEngine = transcriptionEngine
+                    }
+
+                /** The model to use for transcription. */
+                fun transcriptionModel(transcriptionModel: TranscriptionModel) =
+                    transcriptionModel(JsonField.of(transcriptionModel))
+
+                /**
+                 * Sets [Builder.transcriptionModel] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionModel] with a well-typed
+                 * [TranscriptionModel] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
+                    this.transcriptionModel = transcriptionModel
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AssemblyAi].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): AssemblyAi =
+                    AssemblyAi(
+                        interimResults,
+                        transcriptionEngine,
+                        transcriptionModel,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AssemblyAi = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                interimResults()
+                transcriptionEngine().ifPresent { it.validate() }
+                transcriptionModel().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (interimResults.asKnown().isPresent) 1 else 0) +
+                    (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                    (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Engine identifier for AssemblyAI transcription service */
+            class TranscriptionEngine
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ASSEMBLY_AI = of("AssemblyAI")
+
+                    @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
+                }
+
+                /** An enum containing [TranscriptionEngine]'s known values. */
+                enum class Known {
+                    ASSEMBLY_AI
+                }
+
+                /**
+                 * An enum containing [TranscriptionEngine]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [TranscriptionEngine] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ASSEMBLY_AI,
+                    /**
+                     * An enum member indicating that [TranscriptionEngine] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ASSEMBLY_AI -> Value.ASSEMBLY_AI
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ASSEMBLY_AI -> Known.ASSEMBLY_AI
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): TranscriptionEngine = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is TranscriptionEngine && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The model to use for transcription. */
+            class TranscriptionModel
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField
+                    val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
+
+                    @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
+                }
+
+                /** An enum containing [TranscriptionModel]'s known values. */
+                enum class Known {
+                    ASSEMBLYAI_UNIVERSAL_STREAMING
+                }
+
+                /**
+                 * An enum containing [TranscriptionModel]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [TranscriptionModel] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ASSEMBLYAI_UNIVERSAL_STREAMING,
+                    /**
+                     * An enum member indicating that [TranscriptionModel] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): TranscriptionModel = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is TranscriptionModel && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AssemblyAi &&
+                    interimResults == other.interimResults &&
+                    transcriptionEngine == other.transcriptionEngine &&
+                    transcriptionModel == other.transcriptionModel &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    interimResults,
+                    transcriptionEngine,
+                    transcriptionModel,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AssemblyAi{interimResults=$interimResults, transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, additionalProperties=$additionalProperties}"
         }
     }
 
