@@ -16,12 +16,7 @@ internal class TransferToolTest {
                 .transfer(
                     TransferTool.Transfer.builder()
                         .from("+35319605860")
-                        .addTarget(
-                            TransferTool.Transfer.Target.builder()
-                                .name("Support")
-                                .to("+13129457420")
-                                .build()
-                        )
+                        .targets("{{ targets }}")
                         .build()
                 )
                 .type(TransferTool.Type.TRANSFER)
@@ -31,12 +26,7 @@ internal class TransferToolTest {
             .isEqualTo(
                 TransferTool.Transfer.builder()
                     .from("+35319605860")
-                    .addTarget(
-                        TransferTool.Transfer.Target.builder()
-                            .name("Support")
-                            .to("+13129457420")
-                            .build()
-                    )
+                    .targets("{{ targets }}")
                     .build()
             )
         assertThat(transferTool.type()).isEqualTo(TransferTool.Type.TRANSFER)
@@ -50,12 +40,7 @@ internal class TransferToolTest {
                 .transfer(
                     TransferTool.Transfer.builder()
                         .from("+35319605860")
-                        .addTarget(
-                            TransferTool.Transfer.Target.builder()
-                                .name("Support")
-                                .to("+13129457420")
-                                .build()
-                        )
+                        .targets("{{ targets }}")
                         .build()
                 )
                 .type(TransferTool.Type.TRANSFER)
