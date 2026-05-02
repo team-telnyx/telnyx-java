@@ -6,13 +6,23 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
+import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
@@ -195,16 +205,14 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val from: JsonField<String>,
-        private val targets: JsonField<List<Target>>,
+        private val targets: JsonField<Targets>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("targets")
-            @ExcludeMissing
-            targets: JsonField<List<Target>> = JsonMissing.of(),
+            @JsonProperty("targets") @ExcludeMissing targets: JsonField<Targets> = JsonMissing.of(),
         ) : this(from, targets, mutableMapOf())
 
         /**
@@ -217,12 +225,14 @@ private constructor(
 
         /**
          * The different possible targets of the transfer. The assistant will be able to choose one
-         * of the targets to transfer the call to.
+         * of the targets to transfer the call to. This can also be a dynamic variable string like
+         * `{{ targets }}` where `targets` is returned by the dynamic variables webhook and resolves
+         * to an array of target objects at runtime.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun targets(): List<Target> = targets.getRequired("targets")
+        fun targets(): Targets = targets.getRequired("targets")
 
         /**
          * Returns the raw JSON value of [from].
@@ -236,7 +246,7 @@ private constructor(
          *
          * Unlike [targets], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("targets") @ExcludeMissing fun _targets(): JsonField<List<Target>> = targets
+        @JsonProperty("targets") @ExcludeMissing fun _targets(): JsonField<Targets> = targets
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -268,13 +278,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var from: JsonField<String>? = null
-            private var targets: JsonField<MutableList<Target>>? = null
+            private var targets: JsonField<Targets>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(transfer: Transfer) = apply {
                 from = transfer.from
-                targets = transfer.targets.map { it.toMutableList() }
+                targets = transfer.targets
                 additionalProperties = transfer.additionalProperties.toMutableMap()
             }
 
@@ -292,32 +302,31 @@ private constructor(
 
             /**
              * The different possible targets of the transfer. The assistant will be able to choose
-             * one of the targets to transfer the call to.
+             * one of the targets to transfer the call to. This can also be a dynamic variable
+             * string like `{{ targets }}` where `targets` is returned by the dynamic variables
+             * webhook and resolves to an array of target objects at runtime.
              */
-            fun targets(targets: List<Target>) = targets(JsonField.of(targets))
+            fun targets(targets: Targets) = targets(JsonField.of(targets))
 
             /**
              * Sets [Builder.targets] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.targets] with a well-typed `List<Target>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.targets] with a well-typed [Targets] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun targets(targets: JsonField<List<Target>>) = apply {
-                this.targets = targets.map { it.toMutableList() }
-            }
+            fun targets(targets: JsonField<Targets>) = apply { this.targets = targets }
 
             /**
-             * Adds a single [Target] to [targets].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
+             * Alias for calling [targets] with
+             * `Targets.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)`.
              */
-            fun addTarget(target: Target) = apply {
-                targets =
-                    (targets ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("targets", it).add(target)
-                    }
-            }
+            fun targetsOfUnnamedSchemaWithArrayParent2s(
+                unnamedSchemaWithArrayParent2s: List<Targets.UnnamedSchemaWithArrayParent2>
+            ) = targets(Targets.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s))
+
+            /** Alias for calling [targets] with `Targets.ofString(string)`. */
+            fun targets(string: String) = targets(Targets.ofString(string))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -354,7 +363,7 @@ private constructor(
             fun build(): Transfer =
                 Transfer(
                     checkRequired("from", from),
-                    checkRequired("targets", targets).map { it.toImmutable() },
+                    checkRequired("targets", targets),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -367,7 +376,7 @@ private constructor(
             }
 
             from()
-            targets().forEach { it.validate() }
+            targets().validate()
             validated = true
         }
 
@@ -388,147 +397,73 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (from.asKnown().isPresent) 1 else 0) +
-                (targets.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+                (targets.asKnown().getOrNull()?.validity() ?: 0)
 
-        class Target
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        /**
+         * The different possible targets of the transfer. The assistant will be able to choose one
+         * of the targets to transfer the call to. This can also be a dynamic variable string like
+         * `{{ targets }}` where `targets` is returned by the dynamic variables webhook and resolves
+         * to an array of target objects at runtime.
+         */
+        @JsonDeserialize(using = Targets.Deserializer::class)
+        @JsonSerialize(using = Targets.Serializer::class)
+        class Targets
         private constructor(
-            private val name: JsonField<String>,
-            private val to: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
+            private val unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>? = null,
+            private val string: String? = null,
+            private val _json: JsonValue? = null,
         ) {
 
-            @JsonCreator
-            private constructor(
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("to") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
-            ) : this(name, to, mutableMapOf())
+            fun unnamedSchemaWithArrayParent2s(): Optional<List<UnnamedSchemaWithArrayParent2>> =
+                Optional.ofNullable(unnamedSchemaWithArrayParent2s)
 
             /**
-             * The name of the target.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
+             * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
+             * dynamic variables webhook and resolves to an array of target objects at runtime.
              */
-            fun name(): Optional<String> = name.getOptional("name")
+            fun string(): Optional<String> = Optional.ofNullable(string)
+
+            fun isUnnamedSchemaWithArrayParent2s(): Boolean = unnamedSchemaWithArrayParent2s != null
+
+            fun isString(): Boolean = string != null
+
+            fun asUnnamedSchemaWithArrayParent2s(): List<UnnamedSchemaWithArrayParent2> =
+                unnamedSchemaWithArrayParent2s.getOrThrow("unnamedSchemaWithArrayParent2s")
 
             /**
-             * The destination number or SIP URI of the call.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
+             * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
+             * dynamic variables webhook and resolves to an array of target objects at runtime.
              */
-            fun to(): Optional<String> = to.getOptional("to")
+            fun asString(): String = string.getOrThrow("string")
 
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+            fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
-            /**
-             * Returns the raw JSON value of [to].
-             *
-             * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<String> = to
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Target]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Target]. */
-            class Builder internal constructor() {
-
-                private var name: JsonField<String> = JsonMissing.of()
-                private var to: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(target: Target) = apply {
-                    name = target.name
-                    to = target.to
-                    additionalProperties = target.additionalProperties.toMutableMap()
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    unnamedSchemaWithArrayParent2s != null ->
+                        visitor.visitUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)
+                    string != null -> visitor.visitString(string)
+                    else -> visitor.unknown(_json)
                 }
-
-                /** The name of the target. */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
-
-                /** The destination number or SIP URI of the call. */
-                fun to(to: String) = to(JsonField.of(to))
-
-                /**
-                 * Sets [Builder.to] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.to] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun to(to: JsonField<String>) = apply { this.to = to }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Target].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Target = Target(name, to, additionalProperties.toMutableMap())
-            }
 
             private var validated: Boolean = false
 
-            fun validate(): Target = apply {
+            fun validate(): Targets = apply {
                 if (validated) {
                     return@apply
                 }
 
-                name()
-                to()
+                accept(
+                    object : Visitor<Unit> {
+                        override fun visitUnnamedSchemaWithArrayParent2s(
+                            unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                        ) {
+                            unnamedSchemaWithArrayParent2s.forEach { it.validate() }
+                        }
+
+                        override fun visitString(string: String) {}
+                    }
+                )
                 validated = true
             }
 
@@ -548,25 +483,343 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (name.asKnown().isPresent) 1 else 0) + (if (to.asKnown().isPresent) 1 else 0)
+                accept(
+                    object : Visitor<Int> {
+                        override fun visitUnnamedSchemaWithArrayParent2s(
+                            unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                        ) = unnamedSchemaWithArrayParent2s.sumOf { it.validity().toInt() }
+
+                        override fun visitString(string: String) = 1
+
+                        override fun unknown(json: JsonValue?) = 0
+                    }
+                )
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Target &&
-                    name == other.name &&
-                    to == other.to &&
-                    additionalProperties == other.additionalProperties
+                return other is Targets &&
+                    unnamedSchemaWithArrayParent2s == other.unnamedSchemaWithArrayParent2s &&
+                    string == other.string
             }
 
-            private val hashCode: Int by lazy { Objects.hash(name, to, additionalProperties) }
+            override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent2s, string)
 
-            override fun hashCode(): Int = hashCode
+            override fun toString(): String =
+                when {
+                    unnamedSchemaWithArrayParent2s != null ->
+                        "Targets{unnamedSchemaWithArrayParent2s=$unnamedSchemaWithArrayParent2s}"
+                    string != null -> "Targets{string=$string}"
+                    _json != null -> "Targets{_unknown=$_json}"
+                    else -> throw IllegalStateException("Invalid Targets")
+                }
 
-            override fun toString() =
-                "Target{name=$name, to=$to, additionalProperties=$additionalProperties}"
+            companion object {
+
+                @JvmStatic
+                fun ofUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                ) =
+                    Targets(
+                        unnamedSchemaWithArrayParent2s =
+                            unnamedSchemaWithArrayParent2s.toImmutable()
+                    )
+
+                /**
+                 * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
+                 * dynamic variables webhook and resolves to an array of target objects at runtime.
+                 */
+                @JvmStatic fun ofString(string: String) = Targets(string = string)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [Targets] to a value of type
+             * [T].
+             */
+            interface Visitor<out T> {
+
+                fun visitUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                ): T
+
+                /**
+                 * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
+                 * dynamic variables webhook and resolves to an array of target objects at runtime.
+                 */
+                fun visitString(string: String): T
+
+                /**
+                 * Maps an unknown variant of [Targets] to a value of type [T].
+                 *
+                 * An instance of [Targets] can contain an unknown variant if it was deserialized
+                 * from data that doesn't match any known variant. For example, if the SDK is on an
+                 * older version than the API, then the API may respond with new variants that the
+                 * SDK is unaware of.
+                 *
+                 * @throws TelnyxInvalidDataException in the default implementation.
+                 */
+                fun unknown(json: JsonValue?): T {
+                    throw TelnyxInvalidDataException("Unknown Targets: $json")
+                }
+            }
+
+            internal class Deserializer : BaseDeserializer<Targets>(Targets::class) {
+
+                override fun ObjectCodec.deserialize(node: JsonNode): Targets {
+                    val json = JsonValue.fromJsonNode(node)
+
+                    val bestMatches =
+                        sequenceOf(
+                                tryDeserialize(node, jacksonTypeRef<String>())?.let {
+                                    Targets(string = it, _json = json)
+                                },
+                                tryDeserialize(
+                                        node,
+                                        jacksonTypeRef<List<UnnamedSchemaWithArrayParent2>>(),
+                                    )
+                                    ?.let {
+                                        Targets(unnamedSchemaWithArrayParent2s = it, _json = json)
+                                    },
+                            )
+                            .filterNotNull()
+                            .allMaxBy { it.validity() }
+                            .toList()
+                    return when (bestMatches.size) {
+                        // This can happen if what we're deserializing is completely incompatible
+                        // with all the possible variants (e.g. deserializing from boolean).
+                        0 -> Targets(_json = json)
+                        1 -> bestMatches.single()
+                        // If there's more than one match with the highest validity, then use the
+                        // first completely valid match, or simply the first match if none are
+                        // completely valid.
+                        else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                    }
+                }
+            }
+
+            internal class Serializer : BaseSerializer<Targets>(Targets::class) {
+
+                override fun serialize(
+                    value: Targets,
+                    generator: JsonGenerator,
+                    provider: SerializerProvider,
+                ) {
+                    when {
+                        value.unnamedSchemaWithArrayParent2s != null ->
+                            generator.writeObject(value.unnamedSchemaWithArrayParent2s)
+                        value.string != null -> generator.writeObject(value.string)
+                        value._json != null -> generator.writeObject(value._json)
+                        else -> throw IllegalStateException("Invalid Targets")
+                    }
+                }
+            }
+
+            class UnnamedSchemaWithArrayParent2
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val to: JsonField<String>,
+                private val name: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("to") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                ) : this(to, name, mutableMapOf())
+
+                /**
+                 * The destination number or SIP URI of the call.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun to(): String = to.getRequired("to")
+
+                /**
+                 * The name of the target.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun name(): Optional<String> = name.getOptional("name")
+
+                /**
+                 * Returns the raw JSON value of [to].
+                 *
+                 * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<String> = to
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [UnnamedSchemaWithArrayParent2].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .to()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [UnnamedSchemaWithArrayParent2]. */
+                class Builder internal constructor() {
+
+                    private var to: JsonField<String>? = null
+                    private var name: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        unnamedSchemaWithArrayParent2: UnnamedSchemaWithArrayParent2
+                    ) = apply {
+                        to = unnamedSchemaWithArrayParent2.to
+                        name = unnamedSchemaWithArrayParent2.name
+                        additionalProperties =
+                            unnamedSchemaWithArrayParent2.additionalProperties.toMutableMap()
+                    }
+
+                    /** The destination number or SIP URI of the call. */
+                    fun to(to: String) = to(JsonField.of(to))
+
+                    /**
+                     * Sets [Builder.to] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.to] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun to(to: JsonField<String>) = apply { this.to = to }
+
+                    /** The name of the target. */
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [UnnamedSchemaWithArrayParent2].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .to()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): UnnamedSchemaWithArrayParent2 =
+                        UnnamedSchemaWithArrayParent2(
+                            checkRequired("to", to),
+                            name,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): UnnamedSchemaWithArrayParent2 = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    to()
+                    name()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (to.asKnown().isPresent) 1 else 0) +
+                        (if (name.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is UnnamedSchemaWithArrayParent2 &&
+                        to == other.to &&
+                        name == other.name &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(to, name, additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "UnnamedSchemaWithArrayParent2{to=$to, name=$name, additionalProperties=$additionalProperties}"
+            }
         }
 
         override fun equals(other: Any?): Boolean {

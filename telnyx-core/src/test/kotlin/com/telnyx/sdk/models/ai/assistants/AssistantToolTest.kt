@@ -359,12 +359,7 @@ internal class AssistantToolTest {
                 .transfer(
                     AssistantTool.Transfer.TransferConfig.builder()
                         .from("+35319605860")
-                        .addTarget(
-                            AssistantTool.Transfer.TransferConfig.Target.builder()
-                                .name("Support")
-                                .to("+13129457420")
-                                .build()
-                        )
+                        .targets("{{ targets }}")
                         .addCustomHeader(
                             AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                 .name("name")
@@ -456,12 +451,7 @@ internal class AssistantToolTest {
                     .transfer(
                         AssistantTool.Transfer.TransferConfig.builder()
                             .from("+35319605860")
-                            .addTarget(
-                                AssistantTool.Transfer.TransferConfig.Target.builder()
-                                    .name("Support")
-                                    .to("+13129457420")
-                                    .build()
-                            )
+                            .targets("{{ targets }}")
                             .addCustomHeader(
                                 AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                     .name("name")
@@ -546,28 +536,29 @@ internal class AssistantToolTest {
     fun ofInvite() {
         val invite =
             AssistantTool.Invite.builder()
-                .inviteConfig(
-                    AssistantTool.Invite.InviteConfig.builder()
+                .invite(
+                    AssistantTool.Invite.InnerInvite.builder()
+                        .from("+35319605860")
                         .addCustomHeader(
-                            AssistantTool.Invite.InviteConfig.CustomHeader.builder()
+                            AssistantTool.Invite.InnerInvite.CustomHeader.builder()
                                 .name("name")
                                 .value("value")
                                 .build()
                         )
-                        .from("+35319605860")
+                        .targets("{{ targets }}")
                         .voicemailDetection(
-                            AssistantTool.Invite.InviteConfig.VoicemailDetection.builder()
+                            AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
                                 .detectionMode(
-                                    AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
                                         .DetectionMode
                                         .DISABLED
                                 )
                                 .onVoicemailDetected(
-                                    AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
                                         .OnVoicemailDetected
                                         .builder()
                                         .action(
-                                            AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                            AssistantTool.Invite.InnerInvite.VoicemailDetection
                                                 .OnVoicemailDetected
                                                 .Action
                                                 .STOP_INVITE
@@ -600,28 +591,29 @@ internal class AssistantToolTest {
         val assistantTool =
             AssistantTool.ofInvite(
                 AssistantTool.Invite.builder()
-                    .inviteConfig(
-                        AssistantTool.Invite.InviteConfig.builder()
+                    .invite(
+                        AssistantTool.Invite.InnerInvite.builder()
+                            .from("+35319605860")
                             .addCustomHeader(
-                                AssistantTool.Invite.InviteConfig.CustomHeader.builder()
+                                AssistantTool.Invite.InnerInvite.CustomHeader.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .from("+35319605860")
+                            .targets("{{ targets }}")
                             .voicemailDetection(
-                                AssistantTool.Invite.InviteConfig.VoicemailDetection.builder()
+                                AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
                                     .detectionMode(
-                                        AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
                                             .DetectionMode
                                             .DISABLED
                                     )
                                     .onVoicemailDetected(
-                                        AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
                                             .OnVoicemailDetected
                                             .builder()
                                             .action(
-                                                AssistantTool.Invite.InviteConfig.VoicemailDetection
+                                                AssistantTool.Invite.InnerInvite.VoicemailDetection
                                                     .OnVoicemailDetected
                                                     .Action
                                                     .STOP_INVITE

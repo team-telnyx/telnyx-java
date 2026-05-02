@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.47.0 (2026-04-30)
+
+Full Changelog: [v6.46.0...v6.47.0](https://github.com/team-telnyx/telnyx-java/compare/v6.46.0...v6.47.0)
+
+### Features
+
+* AI-2183: Document dynamic variable support for transcription keyterm ([a7ae7b6](https://github.com/team-telnyx/telnyx-java/commit/a7ae7b68eed7202133f09ba7a6ed60a0362252c0))
+* Assistant tool targets master ([7df0a7d](https://github.com/team-telnyx/telnyx-java/commit/7df0a7d13e74228a412b365af908ecb384e6389b))
+* Mark 'from' as required on InviteToolConfig ([30f8604](https://github.com/team-telnyx/telnyx-java/commit/30f860420ff057b98e164e26410f6af2008a07a5))
+* Revert "fix: stainless ([#2371](https://github.com/team-telnyx/telnyx-java/issues/2371))" ([ae730f5](https://github.com/team-telnyx/telnyx-java/commit/ae730f51913944874af1420a543a3588094898e6))
+
 ## 6.46.0 (2026-04-29)
 
 Full Changelog: [v6.45.0...v6.46.0](https://github.com/team-telnyx/telnyx-java/compare/v6.45.0...v6.46.0)
