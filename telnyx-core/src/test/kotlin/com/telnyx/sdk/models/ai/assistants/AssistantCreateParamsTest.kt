@@ -99,6 +99,10 @@ internal class AssistantCreateParamsTest {
             .observabilitySettings(
                 ObservabilityReq.builder()
                     .host("host")
+                    .promptLabel("prompt_label")
+                    .promptName("prompt_name")
+                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
                     .status(ObservabilityReq.Status.ENABLED)
@@ -390,6 +394,10 @@ internal class AssistantCreateParamsTest {
                 .observabilitySettings(
                     ObservabilityReq.builder()
                         .host("host")
+                        .promptLabel("prompt_label")
+                        .promptName("prompt_name")
+                        .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                        .promptVersion(1L)
                         .publicKeyRef("public_key_ref")
                         .secretKeyRef("secret_key_ref")
                         .status(ObservabilityReq.Status.ENABLED)
@@ -685,6 +693,10 @@ internal class AssistantCreateParamsTest {
             .contains(
                 ObservabilityReq.builder()
                     .host("host")
+                    .promptLabel("prompt_label")
+                    .promptName("prompt_name")
+                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
                     .status(ObservabilityReq.Status.ENABLED)
