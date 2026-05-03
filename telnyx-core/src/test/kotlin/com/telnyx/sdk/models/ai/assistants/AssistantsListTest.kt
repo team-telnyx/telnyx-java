@@ -119,6 +119,10 @@ internal class AssistantsListTest {
                         .observabilitySettings(
                             Observability.builder()
                                 .host("host")
+                                .promptLabel("prompt_label")
+                                .promptName("prompt_name")
+                                .promptSync(Observability.PromptSync.ENABLED)
+                                .promptVersion(1L)
                                 .publicKeyRef("public_key_ref")
                                 .secretKeyRef("secret_key_ref")
                                 .status(Observability.Status.ENABLED)
@@ -452,6 +456,10 @@ internal class AssistantsListTest {
                     .observabilitySettings(
                         Observability.builder()
                             .host("host")
+                            .promptLabel("prompt_label")
+                            .promptName("prompt_name")
+                            .promptSync(Observability.PromptSync.ENABLED)
+                            .promptVersion(1L)
                             .publicKeyRef("public_key_ref")
                             .secretKeyRef("secret_key_ref")
                             .status(Observability.Status.ENABLED)
@@ -772,6 +780,10 @@ internal class AssistantsListTest {
                         .observabilitySettings(
                             Observability.builder()
                                 .host("host")
+                                .promptLabel("prompt_label")
+                                .promptName("prompt_name")
+                                .promptSync(Observability.PromptSync.ENABLED)
+                                .promptVersion(1L)
                                 .publicKeyRef("public_key_ref")
                                 .secretKeyRef("secret_key_ref")
                                 .status(Observability.Status.ENABLED)
