@@ -717,6 +717,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): ActivationStatus = apply {
                 if (validated) {
                     return@apply
@@ -857,6 +867,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): PortabilityStatus = apply {
                 if (validated) {
                     return@apply
@@ -922,6 +942,10 @@ private constructor(
             fun asPortingOrderStatusList(): List<PortingOrderStatusItem> =
                 portingOrderStatusList.getOrThrow("portingOrderStatusList")
 
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     portingOrderMultiple != null ->
@@ -1117,6 +1141,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
                 fun validate(): PortingOrderMultipleStatus = apply {
                     if (validated) {
                         return@apply
@@ -1290,6 +1324,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
                 fun validate(): PortingOrderStatusItem = apply {
                     if (validated) {
                         return@apply
@@ -1355,6 +1399,10 @@ private constructor(
             /** Filter by multiple support keys (in operation) */
             fun asStrings(): List<String> = strings.getOrThrow("strings")
 
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
@@ -1635,6 +1683,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): SortValue = apply {
                 if (validated) {
                     return@apply

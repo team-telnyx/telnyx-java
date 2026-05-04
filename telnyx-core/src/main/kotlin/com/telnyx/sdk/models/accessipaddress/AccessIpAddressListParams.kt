@@ -445,6 +445,10 @@ private constructor(
             /** Date range filtering operations */
             fun asDateRangeFilter(): DateRangeFilter = dateRangeFilter.getOrThrow("dateRangeFilter")
 
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     offsetDateTime != null -> visitor.visitOffsetDateTime(offsetDateTime)
