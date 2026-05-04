@@ -28,7 +28,9 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 
-fun jsonMapper(): JsonMapper =
+fun jsonMapper(): JsonMapper = JSON_MAPPER
+
+private val JSON_MAPPER: JsonMapper =
     JsonMapper.builder()
         .addModule(kotlinModule())
         .addModule(Jdk8Module())
