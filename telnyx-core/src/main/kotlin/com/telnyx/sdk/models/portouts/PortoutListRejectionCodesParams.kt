@@ -352,6 +352,10 @@ private constructor(
             /** Filter rejections in a list of codes */
             fun asListOfCodes(): List<Long> = listOfCodes.getOrThrow("listOfCodes")
 
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     one != null -> visitor.visitOne(one)
