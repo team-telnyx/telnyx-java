@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.48.0 (2026-05-05)
+
+Full Changelog: [v6.47.0...v6.48.0](https://github.com/team-telnyx/telnyx-java/compare/v6.47.0...v6.48.0)
+
+### Features
+
+* Add xAI and missing voice providers to Call Control API ([973951f](https://github.com/team-telnyx/telnyx-java/commit/973951ff7d5fe43203e471ca4a2c85307d5e0a81))
+* **client:** more robust error parsing ([ec5800a](https://github.com/team-telnyx/telnyx-java/commit/ec5800a99f7a8be0b6092fd92cbecdb27fcb52cb))
+* **client:** support proxy authentication ([e47cec2](https://github.com/team-telnyx/telnyx-java/commit/e47cec205de747e1ab02ffd0e4bea38f61133f71))
+* Update observability ([3b74e6a](https://github.com/team-telnyx/telnyx-java/commit/3b74e6a05de0b712c5f4caaa3bfe2d24bf5be1b7))
+
+
+### Performance Improvements
+
+* **client:** create one json mapper ([0f9051d](https://github.com/team-telnyx/telnyx-java/commit/0f9051dcc7c7f339260e7e82e7bfa32c74db71a5))
+
+
+### Chores
+
+* update example date in inference-embedding ([a2e2160](https://github.com/team-telnyx/telnyx-java/commit/a2e2160cd5c42d7868a916aad505ba98ee62ac4b))
+
+
+### Documentation
+
+* clarify forwards compat behavior ([564e083](https://github.com/team-telnyx/telnyx-java/commit/564e0833c1297a4eef6b830723177e9efea589f4))
+
 ## 6.47.0 (2026-04-30)
 
 Full Changelog: [v6.46.0...v6.47.0](https://github.com/team-telnyx/telnyx-java/compare/v6.46.0...v6.47.0)
