@@ -467,8 +467,6 @@ while (true) {
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `TELNYX_LOG` environment variable to `info`:
 
 ```sh
@@ -479,6 +477,19 @@ Or to `debug` for more verbose logging:
 
 ```sh
 export TELNYX_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```java
+import com.telnyx.sdk.client.TelnyxClient;
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
+import com.telnyx.sdk.core.LogLevel;
+
+TelnyxClient client = TelnyxOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .build();
 ```
 
 ## ProGuard and R8

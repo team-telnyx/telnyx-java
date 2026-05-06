@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.telnyx.sdk.client.TelnyxClientAsync
 import com.telnyx.sdk.client.TelnyxClientAsyncImpl
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.LogLevel
 import com.telnyx.sdk.core.Sleeper
 import com.telnyx.sdk.core.Timeout
 import com.telnyx.sdk.core.http.AsyncStreamResponse
@@ -289,6 +290,15 @@ class TelnyxOkHttpClientAsync private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         fun apiKey(apiKey: String?) = apply { clientOptions.apiKey(apiKey) }
 
