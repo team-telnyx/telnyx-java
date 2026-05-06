@@ -21,6 +21,10 @@ class ObservabilityReq
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val host: JsonField<String>,
+    private val promptLabel: JsonField<String>,
+    private val promptName: JsonField<String>,
+    private val promptSync: JsonField<PromptSync>,
+    private val promptVersion: JsonField<Long>,
     private val publicKeyRef: JsonField<String>,
     private val secretKeyRef: JsonField<String>,
     private val status: JsonField<Status>,
@@ -30,6 +34,18 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("host") @ExcludeMissing host: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("prompt_label")
+        @ExcludeMissing
+        promptLabel: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("prompt_name")
+        @ExcludeMissing
+        promptName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("prompt_sync")
+        @ExcludeMissing
+        promptSync: JsonField<PromptSync> = JsonMissing.of(),
+        @JsonProperty("prompt_version")
+        @ExcludeMissing
+        promptVersion: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("public_key_ref")
         @ExcludeMissing
         publicKeyRef: JsonField<String> = JsonMissing.of(),
@@ -37,13 +53,52 @@ private constructor(
         @ExcludeMissing
         secretKeyRef: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-    ) : this(host, publicKeyRef, secretKeyRef, status, mutableMapOf())
+    ) : this(
+        host,
+        promptLabel,
+        promptName,
+        promptSync,
+        promptVersion,
+        publicKeyRef,
+        secretKeyRef,
+        status,
+        mutableMapOf(),
+    )
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun host(): Optional<String> = host.getOptional("host")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun promptLabel(): Optional<String> = promptLabel.getOptional("prompt_label")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun promptName(): Optional<String> = promptName.getOptional("prompt_name")
+
+    /**
+     * Whether to auto-publish the assistant's instructions as a Langfuse prompt.
+     *
+     * When ENABLED + prompt_name set, every assistant create/update pushes `instructions` to
+     * Langfuse via create_prompt and stores the returned version in prompt_version.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun promptSync(): Optional<PromptSync> = promptSync.getOptional("prompt_sync")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun promptVersion(): Optional<Long> = promptVersion.getOptional("prompt_version")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -69,6 +124,40 @@ private constructor(
      * Unlike [host], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("host") @ExcludeMissing fun _host(): JsonField<String> = host
+
+    /**
+     * Returns the raw JSON value of [promptLabel].
+     *
+     * Unlike [promptLabel], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("prompt_label")
+    @ExcludeMissing
+    fun _promptLabel(): JsonField<String> = promptLabel
+
+    /**
+     * Returns the raw JSON value of [promptName].
+     *
+     * Unlike [promptName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("prompt_name") @ExcludeMissing fun _promptName(): JsonField<String> = promptName
+
+    /**
+     * Returns the raw JSON value of [promptSync].
+     *
+     * Unlike [promptSync], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("prompt_sync")
+    @ExcludeMissing
+    fun _promptSync(): JsonField<PromptSync> = promptSync
+
+    /**
+     * Returns the raw JSON value of [promptVersion].
+     *
+     * Unlike [promptVersion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("prompt_version")
+    @ExcludeMissing
+    fun _promptVersion(): JsonField<Long> = promptVersion
 
     /**
      * Returns the raw JSON value of [publicKeyRef].
@@ -117,6 +206,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var host: JsonField<String> = JsonMissing.of()
+        private var promptLabel: JsonField<String> = JsonMissing.of()
+        private var promptName: JsonField<String> = JsonMissing.of()
+        private var promptSync: JsonField<PromptSync> = JsonMissing.of()
+        private var promptVersion: JsonField<Long> = JsonMissing.of()
         private var publicKeyRef: JsonField<String> = JsonMissing.of()
         private var secretKeyRef: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -125,6 +218,10 @@ private constructor(
         @JvmSynthetic
         internal fun from(observabilityReq: ObservabilityReq) = apply {
             host = observabilityReq.host
+            promptLabel = observabilityReq.promptLabel
+            promptName = observabilityReq.promptName
+            promptSync = observabilityReq.promptSync
+            promptVersion = observabilityReq.promptVersion
             publicKeyRef = observabilityReq.publicKeyRef
             secretKeyRef = observabilityReq.secretKeyRef
             status = observabilityReq.status
@@ -140,6 +237,58 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun host(host: JsonField<String>) = apply { this.host = host }
+
+        fun promptLabel(promptLabel: String) = promptLabel(JsonField.of(promptLabel))
+
+        /**
+         * Sets [Builder.promptLabel] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.promptLabel] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun promptLabel(promptLabel: JsonField<String>) = apply { this.promptLabel = promptLabel }
+
+        fun promptName(promptName: String) = promptName(JsonField.of(promptName))
+
+        /**
+         * Sets [Builder.promptName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.promptName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun promptName(promptName: JsonField<String>) = apply { this.promptName = promptName }
+
+        /**
+         * Whether to auto-publish the assistant's instructions as a Langfuse prompt.
+         *
+         * When ENABLED + prompt_name set, every assistant create/update pushes `instructions` to
+         * Langfuse via create_prompt and stores the returned version in prompt_version.
+         */
+        fun promptSync(promptSync: PromptSync) = promptSync(JsonField.of(promptSync))
+
+        /**
+         * Sets [Builder.promptSync] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.promptSync] with a well-typed [PromptSync] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun promptSync(promptSync: JsonField<PromptSync>) = apply { this.promptSync = promptSync }
+
+        fun promptVersion(promptVersion: Long) = promptVersion(JsonField.of(promptVersion))
+
+        /**
+         * Sets [Builder.promptVersion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.promptVersion] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun promptVersion(promptVersion: JsonField<Long>) = apply {
+            this.promptVersion = promptVersion
+        }
 
         fun publicKeyRef(publicKeyRef: String) = publicKeyRef(JsonField.of(publicKeyRef))
 
@@ -204,6 +353,10 @@ private constructor(
         fun build(): ObservabilityReq =
             ObservabilityReq(
                 host,
+                promptLabel,
+                promptName,
+                promptSync,
+                promptVersion,
                 publicKeyRef,
                 secretKeyRef,
                 status,
@@ -213,12 +366,24 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): ObservabilityReq = apply {
         if (validated) {
             return@apply
         }
 
         host()
+        promptLabel()
+        promptName()
+        promptSync().ifPresent { it.validate() }
+        promptVersion()
         publicKeyRef()
         secretKeyRef()
         status().ifPresent { it.validate() }
@@ -241,9 +406,155 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (host.asKnown().isPresent) 1 else 0) +
+            (if (promptLabel.asKnown().isPresent) 1 else 0) +
+            (if (promptName.asKnown().isPresent) 1 else 0) +
+            (promptSync.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (promptVersion.asKnown().isPresent) 1 else 0) +
             (if (publicKeyRef.asKnown().isPresent) 1 else 0) +
             (if (secretKeyRef.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0)
+
+    /**
+     * Whether to auto-publish the assistant's instructions as a Langfuse prompt.
+     *
+     * When ENABLED + prompt_name set, every assistant create/update pushes `instructions` to
+     * Langfuse via create_prompt and stores the returned version in prompt_version.
+     */
+    class PromptSync @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ENABLED = of("enabled")
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmStatic fun of(value: String) = PromptSync(JsonField.of(value))
+        }
+
+        /** An enum containing [PromptSync]'s known values. */
+        enum class Known {
+            ENABLED,
+            DISABLED,
+        }
+
+        /**
+         * An enum containing [PromptSync]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [PromptSync] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ENABLED,
+            DISABLED,
+            /**
+             * An enum member indicating that [PromptSync] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ENABLED -> Value.ENABLED
+                DISABLED -> Value.DISABLED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ENABLED -> Known.ENABLED
+                DISABLED -> Known.DISABLED
+                else -> throw TelnyxInvalidDataException("Unknown PromptSync: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): PromptSync = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PromptSync && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -332,6 +643,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Status = apply {
             if (validated) {
                 return@apply
@@ -377,6 +697,10 @@ private constructor(
 
         return other is ObservabilityReq &&
             host == other.host &&
+            promptLabel == other.promptLabel &&
+            promptName == other.promptName &&
+            promptSync == other.promptSync &&
+            promptVersion == other.promptVersion &&
             publicKeyRef == other.publicKeyRef &&
             secretKeyRef == other.secretKeyRef &&
             status == other.status &&
@@ -384,11 +708,21 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(host, publicKeyRef, secretKeyRef, status, additionalProperties)
+        Objects.hash(
+            host,
+            promptLabel,
+            promptName,
+            promptSync,
+            promptVersion,
+            publicKeyRef,
+            secretKeyRef,
+            status,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ObservabilityReq{host=$host, publicKeyRef=$publicKeyRef, secretKeyRef=$secretKeyRef, status=$status, additionalProperties=$additionalProperties}"
+        "ObservabilityReq{host=$host, promptLabel=$promptLabel, promptName=$promptName, promptSync=$promptSync, promptVersion=$promptVersion, publicKeyRef=$publicKeyRef, secretKeyRef=$secretKeyRef, status=$status, additionalProperties=$additionalProperties}"
 }

@@ -31,12 +31,10 @@ internal class InferenceEmbeddingTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    InferenceEmbedding.ExternalLlm.builder()
+                    ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(
-                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
-                        )
+                        .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -44,16 +42,12 @@ internal class InferenceEmbeddingTest {
                         .build()
                 )
                 .fallbackConfig(
-                    InferenceEmbedding.FallbackConfig.builder()
+                    FallbackConfig.builder()
                         .externalLlm(
-                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                            ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(
-                                    InferenceEmbedding.FallbackConfig.ExternalLlm
-                                        .AuthenticationMethod
-                                        .TOKEN
-                                )
+                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -113,14 +107,16 @@ internal class InferenceEmbeddingTest {
                 .observabilitySettings(
                     Observability.builder()
                         .host("host")
+                        .promptLabel("prompt_label")
+                        .promptName("prompt_name")
+                        .promptSync(Observability.PromptSync.ENABLED)
+                        .promptVersion(1L)
                         .publicKeyRef("public_key_ref")
                         .secretKeyRef("secret_key_ref")
                         .status(Observability.Status.ENABLED)
                         .build()
                 )
-                .postConversationSettings(
-                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
-                )
+                .postConversationSettings(PostConversationSettings.builder().enabled(true).build())
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addRelatedMissionId("string")
                 .addTag("string")
@@ -333,10 +329,10 @@ internal class InferenceEmbeddingTest {
             .containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(inferenceEmbedding.externalLlm())
             .contains(
-                InferenceEmbedding.ExternalLlm.builder()
+                ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -345,15 +341,12 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.fallbackConfig())
             .contains(
-                InferenceEmbedding.FallbackConfig.builder()
+                FallbackConfig.builder()
                     .externalLlm(
-                        InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                        ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(
-                                InferenceEmbedding.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                    .TOKEN
-                            )
+                            .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -418,13 +411,17 @@ internal class InferenceEmbeddingTest {
             .contains(
                 Observability.builder()
                     .host("host")
+                    .promptLabel("prompt_label")
+                    .promptName("prompt_name")
+                    .promptSync(Observability.PromptSync.ENABLED)
+                    .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
                     .status(Observability.Status.ENABLED)
                     .build()
             )
         assertThat(inferenceEmbedding.postConversationSettings())
-            .contains(InferenceEmbedding.PostConversationSettings.builder().enabled(true).build())
+            .contains(PostConversationSettings.builder().enabled(true).build())
         assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(inferenceEmbedding.relatedMissionIds().getOrNull()).containsExactly("string")
@@ -668,12 +665,10 @@ internal class InferenceEmbeddingTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    InferenceEmbedding.ExternalLlm.builder()
+                    ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(
-                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
-                        )
+                        .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -681,16 +676,12 @@ internal class InferenceEmbeddingTest {
                         .build()
                 )
                 .fallbackConfig(
-                    InferenceEmbedding.FallbackConfig.builder()
+                    FallbackConfig.builder()
                         .externalLlm(
-                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
+                            ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(
-                                    InferenceEmbedding.FallbackConfig.ExternalLlm
-                                        .AuthenticationMethod
-                                        .TOKEN
-                                )
+                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -750,14 +741,16 @@ internal class InferenceEmbeddingTest {
                 .observabilitySettings(
                     Observability.builder()
                         .host("host")
+                        .promptLabel("prompt_label")
+                        .promptName("prompt_name")
+                        .promptSync(Observability.PromptSync.ENABLED)
+                        .promptVersion(1L)
                         .publicKeyRef("public_key_ref")
                         .secretKeyRef("secret_key_ref")
                         .status(Observability.Status.ENABLED)
                         .build()
                 )
-                .postConversationSettings(
-                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
-                )
+                .postConversationSettings(PostConversationSettings.builder().enabled(true).build())
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addRelatedMissionId("string")
                 .addTag("string")

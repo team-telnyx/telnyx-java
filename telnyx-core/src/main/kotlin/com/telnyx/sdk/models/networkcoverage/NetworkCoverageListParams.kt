@@ -599,6 +599,10 @@ private constructor(
             /** Available service filtering operations */
             fun asContains(): Contains = contains.getOrThrow("contains")
 
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     service != null -> visitor.visitService(service)

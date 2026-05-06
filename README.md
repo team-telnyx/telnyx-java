@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.47.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.48.0)
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ Use the Telnyx MCP Server to enable AI assistants to interact with this API, all
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx:6.47.0")
+implementation("com.telnyx.sdk:telnyx:6.48.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("com.telnyx.sdk:telnyx:6.47.0")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>6.47.0</version>
+  <version>6.48.0</version>
 </dependency>
 ```
 
@@ -573,6 +573,21 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
     .build();
 ```
 
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```java
+import com.telnyx.sdk.client.TelnyxClient;
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
+import com.telnyx.sdk.core.http.ProxyAuthenticator;
+
+TelnyxClient client = TelnyxOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
+    .build();
+```
+
 ### Connection pooling
 
 To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
@@ -813,7 +828,9 @@ In rare cases, the API may return a response that doesn't match the expected typ
 
 By default, the SDK will not throw an exception in this case. It will throw [`TelnyxInvalidDataException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt) only if you directly access the property.
 
-If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
+Validating the response is _not_ forwards compatible with new types from the API for existing fields.
+
+If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
 import com.telnyx.sdk.models.calls.CallDialResponse;

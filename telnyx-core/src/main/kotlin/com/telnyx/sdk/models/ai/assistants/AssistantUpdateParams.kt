@@ -83,13 +83,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> = body.externalLlm()
+    fun externalLlm(): Optional<ExternalLlmReq> = body.externalLlm()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> = body.fallbackConfig()
+    fun fallbackConfig(): Optional<FallbackConfigReq> = body.fallbackConfig()
 
     /**
      * Text that the assistant will use to start the conversation. This may be templated with
@@ -203,7 +203,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
+    fun postConversationSettings(): Optional<PostConversationSettingsReq> =
         body.postConversationSettings()
 
     /**
@@ -325,14 +325,14 @@ private constructor(
      *
      * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = body._externalLlm()
+    fun _externalLlm(): JsonField<ExternalLlmReq> = body._externalLlm()
 
     /**
      * Returns the raw JSON value of [fallbackConfig].
      *
      * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = body._fallbackConfig()
+    fun _fallbackConfig(): JsonField<FallbackConfigReq> = body._fallbackConfig()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -421,7 +421,7 @@ private constructor(
      * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
+    fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
         body._postConversationSettings()
 
     /**
@@ -646,33 +646,31 @@ private constructor(
             body.addEnabledFeature(enabledFeature)
         }
 
-        fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) = apply {
-            body.externalLlm(externalLlm)
-        }
+        fun externalLlm(externalLlm: ExternalLlmReq) = apply { body.externalLlm(externalLlm) }
 
         /**
          * Sets [Builder.externalLlm] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalLlm] with a well-typed
-         * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
+        fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
             body.externalLlm(externalLlm)
         }
 
-        fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) = apply {
+        fun fallbackConfig(fallbackConfig: FallbackConfigReq) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
         /**
          * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fallbackConfig] with a well-typed
-         * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.fallbackConfig] with a well-typed [FallbackConfigReq]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
+        fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
@@ -891,19 +889,20 @@ private constructor(
          * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
          * unavailable post-conversation. Beta feature.
          */
-        fun postConversationSettings(
-            postConversationSettings: UpdateAssistant.PostConversationSettings
-        ) = apply { body.postConversationSettings(postConversationSettings) }
+        fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
+            apply {
+                body.postConversationSettings(postConversationSettings)
+            }
 
         /**
          * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.postConversationSettings] with a well-typed
-         * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily for
-         * setting the field to an undocumented or not yet supported value.
+         * [PostConversationSettingsReq] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun postConversationSettings(
-            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
+            postConversationSettings: JsonField<PostConversationSettingsReq>
         ) = apply { body.postConversationSettings(postConversationSettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
@@ -1376,8 +1375,8 @@ private constructor(
         private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
-        private val externalLlm: JsonField<UpdateAssistant.ExternalLlm>,
-        private val fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>,
+        private val externalLlm: JsonField<ExternalLlmReq>,
+        private val fallbackConfig: JsonField<FallbackConfigReq>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val instructions: JsonField<String>,
@@ -1389,7 +1388,7 @@ private constructor(
         private val model: JsonField<String>,
         private val name: JsonField<String>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
-        private val postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>,
+        private val postConversationSettings: JsonField<PostConversationSettingsReq>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val tags: JsonField<List<String>>,
         private val telephonySettings: JsonField<TelephonySettings>,
@@ -1422,10 +1421,10 @@ private constructor(
             enabledFeatures: JsonField<List<EnabledFeatures>> = JsonMissing.of(),
             @JsonProperty("external_llm")
             @ExcludeMissing
-            externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of(),
+            externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of(),
             @JsonProperty("fallback_config")
             @ExcludeMissing
-            fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of(),
+            fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -1458,8 +1457,7 @@ private constructor(
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
             @JsonProperty("post_conversation_settings")
             @ExcludeMissing
-            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings> =
-                JsonMissing.of(),
+            postConversationSettings: JsonField<PostConversationSettingsReq> = JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1606,14 +1604,13 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> =
-            externalLlm.getOptional("external_llm")
+        fun externalLlm(): Optional<ExternalLlmReq> = externalLlm.getOptional("external_llm")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> =
+        fun fallbackConfig(): Optional<FallbackConfigReq> =
             fallbackConfig.getOptional("fallback_config")
 
         /**
@@ -1734,7 +1731,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
+        fun postConversationSettings(): Optional<PostConversationSettingsReq> =
             postConversationSettings.getOptional("post_conversation_settings")
 
         /**
@@ -1872,7 +1869,7 @@ private constructor(
          */
         @JsonProperty("external_llm")
         @ExcludeMissing
-        fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = externalLlm
+        fun _externalLlm(): JsonField<ExternalLlmReq> = externalLlm
 
         /**
          * Returns the raw JSON value of [fallbackConfig].
@@ -1882,7 +1879,7 @@ private constructor(
          */
         @JsonProperty("fallback_config")
         @ExcludeMissing
-        fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = fallbackConfig
+        fun _fallbackConfig(): JsonField<FallbackConfigReq> = fallbackConfig
 
         /**
          * Returns the raw JSON value of [greeting].
@@ -1993,7 +1990,7 @@ private constructor(
          */
         @JsonProperty("post_conversation_settings")
         @ExcludeMissing
-        fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
+        fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
             postConversationSettings
 
         /**
@@ -2113,8 +2110,8 @@ private constructor(
             private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
-            private var externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of()
-            private var fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of()
+            private var externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of()
+            private var fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
@@ -2127,8 +2124,7 @@ private constructor(
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
-            private var postConversationSettings:
-                JsonField<UpdateAssistant.PostConversationSettings> =
+            private var postConversationSettings: JsonField<PostConversationSettingsReq> =
                 JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var tags: JsonField<MutableList<String>>? = null
@@ -2274,31 +2270,30 @@ private constructor(
                     }
             }
 
-            fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) =
-                externalLlm(JsonField.of(externalLlm))
+            fun externalLlm(externalLlm: ExternalLlmReq) = externalLlm(JsonField.of(externalLlm))
 
             /**
              * Sets [Builder.externalLlm] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalLlm] with a well-typed
-             * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
+            fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
                 this.externalLlm = externalLlm
             }
 
-            fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) =
+            fun fallbackConfig(fallbackConfig: FallbackConfigReq) =
                 fallbackConfig(JsonField.of(fallbackConfig))
 
             /**
              * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
              *
              * You should usually call [Builder.fallbackConfig] with a well-typed
-             * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
+             * [FallbackConfigReq] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
+            fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
                 this.fallbackConfig = fallbackConfig
             }
 
@@ -2520,19 +2515,18 @@ private constructor(
              * multiple parallel or sequential tools during this phase. Telephony-control tools
              * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
              */
-            fun postConversationSettings(
-                postConversationSettings: UpdateAssistant.PostConversationSettings
-            ) = postConversationSettings(JsonField.of(postConversationSettings))
+            fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
+                postConversationSettings(JsonField.of(postConversationSettings))
 
             /**
              * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.postConversationSettings] with a well-typed
-             * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily
-             * for setting the field to an undocumented or not yet supported value.
+             * [PostConversationSettingsReq] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
             fun postConversationSettings(
-                postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
+                postConversationSettings: JsonField<PostConversationSettingsReq>
             ) = apply { this.postConversationSettings = postConversationSettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
@@ -2942,6 +2936,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Body = apply {
             if (validated) {
                 return@apply

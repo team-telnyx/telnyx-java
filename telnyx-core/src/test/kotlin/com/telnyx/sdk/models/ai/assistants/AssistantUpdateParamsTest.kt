@@ -24,10 +24,10 @@ internal class AssistantUpdateParamsTest {
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
             .externalLlm(
-                UpdateAssistant.ExternalLlm.builder()
+                ExternalLlmReq.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -35,15 +35,12 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
             .fallbackConfig(
-                UpdateAssistant.FallbackConfig.builder()
+                FallbackConfigReq.builder()
                     .externalLlm(
-                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                        ExternalLlmReq.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(
-                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                    .TOKEN
-                            )
+                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -98,14 +95,16 @@ internal class AssistantUpdateParamsTest {
             .observabilitySettings(
                 ObservabilityReq.builder()
                     .host("host")
+                    .promptLabel("prompt_label")
+                    .promptName("prompt_name")
+                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
                     .status(ObservabilityReq.Status.ENABLED)
                     .build()
             )
-            .postConversationSettings(
-                UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
-            )
+            .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
             .addTag("string")
             .telephonySettings(
@@ -319,12 +318,10 @@ internal class AssistantUpdateParamsTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    UpdateAssistant.ExternalLlm.builder()
+                    ExternalLlmReq.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(
-                            UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
-                        )
+                        .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -332,15 +329,12 @@ internal class AssistantUpdateParamsTest {
                         .build()
                 )
                 .fallbackConfig(
-                    UpdateAssistant.FallbackConfig.builder()
+                    FallbackConfigReq.builder()
                         .externalLlm(
-                            UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                            ExternalLlmReq.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(
-                                    UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                        .TOKEN
-                                )
+                                .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -397,13 +391,17 @@ internal class AssistantUpdateParamsTest {
                 .observabilitySettings(
                     ObservabilityReq.builder()
                         .host("host")
+                        .promptLabel("prompt_label")
+                        .promptName("prompt_name")
+                        .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                        .promptVersion(1L)
                         .publicKeyRef("public_key_ref")
                         .secretKeyRef("secret_key_ref")
                         .status(ObservabilityReq.Status.ENABLED)
                         .build()
                 )
                 .postConversationSettings(
-                    UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+                    PostConversationSettingsReq.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addTag("string")
@@ -610,10 +608,10 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(body.externalLlm())
             .contains(
-                UpdateAssistant.ExternalLlm.builder()
+                ExternalLlmReq.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -622,15 +620,12 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.fallbackConfig())
             .contains(
-                UpdateAssistant.FallbackConfig.builder()
+                FallbackConfigReq.builder()
                     .externalLlm(
-                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                        ExternalLlmReq.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(
-                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                    .TOKEN
-                            )
+                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -691,13 +686,17 @@ internal class AssistantUpdateParamsTest {
             .contains(
                 ObservabilityReq.builder()
                     .host("host")
+                    .promptLabel("prompt_label")
+                    .promptName("prompt_name")
+                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
                     .status(ObservabilityReq.Status.ENABLED)
                     .build()
             )
         assertThat(body.postConversationSettings())
-            .contains(UpdateAssistant.PostConversationSettings.builder().enabled(true).build())
+            .contains(PostConversationSettingsReq.builder().enabled(true).build())
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(body.tags().getOrNull()).containsExactly("string")
