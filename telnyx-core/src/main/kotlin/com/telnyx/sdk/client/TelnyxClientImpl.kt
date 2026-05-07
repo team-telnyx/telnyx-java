@@ -288,6 +288,8 @@ import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TextToSpeechServiceImpl
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileServiceImpl
+import com.telnyx.sdk.services.blocking.UacConnectionService
+import com.telnyx.sdk.services.blocking.UacConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UsageReportServiceImpl
 import com.telnyx.sdk.services.blocking.UserAddressService
@@ -942,6 +944,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         PronunciationDictServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val uacConnections: UacConnectionService by lazy {
+        UacConnectionServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1434,6 +1440,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      * specific words are spoken.
      */
     override fun pronunciationDicts(): PronunciationDictService = pronunciationDicts
+
+    /** UAC connection operations */
+    override fun uacConnections(): UacConnectionService = uacConnections
 
     override fun close() = clientOptions.close()
 
@@ -2107,6 +2116,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             PronunciationDictServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val uacConnections: UacConnectionService.WithRawResponse by lazy {
+            UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2651,5 +2664,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          */
         override fun pronunciationDicts(): PronunciationDictService.WithRawResponse =
             pronunciationDicts
+
+        /** UAC connection operations */
+        override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections
     }
 }

@@ -1,0 +1,21 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.blocking.uacconnections
+
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class ActionServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun checkRegistrationStatus() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.uacConnections().actions()
+
+        val response = actionService.checkRegistrationStatus("id")
+
+        response.validate()
+    }
+}

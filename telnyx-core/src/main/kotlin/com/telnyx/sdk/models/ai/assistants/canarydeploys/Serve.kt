@@ -10,50 +10,56 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Configuration for a single version in canary deploy. */
-class VersionConfig
+/**
+ * What a rule serves when matched.
+ *
+ * Exactly one of:
+ * - ``version_id`` — serve a specific version
+ * - ``rollout`` — weighted random across versions; weights must sum to less than 100, with the
+ *   leftover routing to the main version
+ */
+class Serve
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val percentage: JsonField<Double>,
+    private val rollout: JsonField<List<RolloutSlot>>,
     private val versionId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("percentage")
+        @JsonProperty("rollout")
         @ExcludeMissing
-        percentage: JsonField<Double> = JsonMissing.of(),
+        rollout: JsonField<List<RolloutSlot>> = JsonMissing.of(),
         @JsonProperty("version_id") @ExcludeMissing versionId: JsonField<String> = JsonMissing.of(),
-    ) : this(percentage, versionId, mutableMapOf())
+    ) : this(rollout, versionId, mutableMapOf())
 
     /**
-     * Percentage of traffic for this version [1-99]
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun percentage(): Double = percentage.getRequired("percentage")
+    fun rollout(): Optional<List<RolloutSlot>> = rollout.getOptional("rollout")
 
     /**
-     * Version ID string that references assistant_versions.version_id
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun versionId(): String = versionId.getRequired("version_id")
+    fun versionId(): Optional<String> = versionId.getOptional("version_id")
 
     /**
-     * Returns the raw JSON value of [percentage].
+     * Returns the raw JSON value of [rollout].
      *
-     * Unlike [percentage], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [rollout], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("percentage") @ExcludeMissing fun _percentage(): JsonField<Double> = percentage
+    @JsonProperty("rollout") @ExcludeMissing fun _rollout(): JsonField<List<RolloutSlot>> = rollout
 
     /**
      * Returns the raw JSON value of [versionId].
@@ -76,45 +82,49 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [VersionConfig].
-         *
-         * The following fields are required:
-         * ```java
-         * .percentage()
-         * .versionId()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [Serve]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VersionConfig]. */
+    /** A builder for [Serve]. */
     class Builder internal constructor() {
 
-        private var percentage: JsonField<Double>? = null
-        private var versionId: JsonField<String>? = null
+        private var rollout: JsonField<MutableList<RolloutSlot>>? = null
+        private var versionId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(versionConfig: VersionConfig) = apply {
-            percentage = versionConfig.percentage
-            versionId = versionConfig.versionId
-            additionalProperties = versionConfig.additionalProperties.toMutableMap()
+        internal fun from(serve: Serve) = apply {
+            rollout = serve.rollout.map { it.toMutableList() }
+            versionId = serve.versionId
+            additionalProperties = serve.additionalProperties.toMutableMap()
         }
 
-        /** Percentage of traffic for this version [1-99] */
-        fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
+        fun rollout(rollout: List<RolloutSlot>) = rollout(JsonField.of(rollout))
 
         /**
-         * Sets [Builder.percentage] to an arbitrary JSON value.
+         * Sets [Builder.rollout] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.percentage] with a well-typed [Double] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.rollout] with a well-typed `List<RolloutSlot>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
+        fun rollout(rollout: JsonField<List<RolloutSlot>>) = apply {
+            this.rollout = rollout.map { it.toMutableList() }
+        }
 
-        /** Version ID string that references assistant_versions.version_id */
+        /**
+         * Adds a single [RolloutSlot] to [Builder.rollout].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRollout(rollout: RolloutSlot) = apply {
+            this.rollout =
+                (this.rollout ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("rollout", it).add(rollout)
+                }
+        }
+
         fun versionId(versionId: String) = versionId(JsonField.of(versionId))
 
         /**
@@ -146,22 +156,14 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VersionConfig].
+         * Returns an immutable instance of [Serve].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .percentage()
-         * .versionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): VersionConfig =
-            VersionConfig(
-                checkRequired("percentage", percentage),
-                checkRequired("versionId", versionId),
+        fun build(): Serve =
+            Serve(
+                (rollout ?: JsonMissing.of()).map { it.toImmutable() },
+                versionId,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -176,12 +178,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): VersionConfig = apply {
+    fun validate(): Serve = apply {
         if (validated) {
             return@apply
         }
 
-        percentage()
+        rollout().ifPresent { it.forEach { it.validate() } }
         versionId()
         validated = true
     }
@@ -201,7 +203,7 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (percentage.asKnown().isPresent) 1 else 0) +
+        (rollout.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (versionId.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -209,16 +211,16 @@ private constructor(
             return true
         }
 
-        return other is VersionConfig &&
-            percentage == other.percentage &&
+        return other is Serve &&
+            rollout == other.rollout &&
             versionId == other.versionId &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(percentage, versionId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(rollout, versionId, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VersionConfig{percentage=$percentage, versionId=$versionId, additionalProperties=$additionalProperties}"
+        "Serve{rollout=$rollout, versionId=$versionId, additionalProperties=$additionalProperties}"
 }

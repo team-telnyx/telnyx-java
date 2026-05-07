@@ -3,6 +3,21 @@
 package com.telnyx.sdk.services.blocking.ai
 
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.handlers.errorBodyHandler
+import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.http.HttpMethod
+import com.telnyx.sdk.core.http.HttpRequest
+import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
+import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
+import com.telnyx.sdk.services.blocking.ai.openai.ChatService
+import com.telnyx.sdk.services.blocking.ai.openai.ChatServiceImpl
 import com.telnyx.sdk.services.blocking.ai.openai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.openai.EmbeddingServiceImpl
 import java.util.function.Consumer
@@ -16,6 +31,8 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
 
     private val embeddings: EmbeddingService by lazy { EmbeddingServiceImpl(clientOptions) }
 
+    private val chat: ChatService by lazy { ChatServiceImpl(clientOptions) }
+
     override fun withRawResponse(): OpenAIService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OpenAIService =
@@ -24,11 +41,27 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
     /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
     override fun embeddings(): EmbeddingService = embeddings
 
+    override fun chat(): ChatService = chat
+
+    override fun listModels(
+        params: OpenAIListModelsParams,
+        requestOptions: RequestOptions,
+    ): OpenAIListModelsResponse =
+        // get /ai/openai/models
+        withRawResponse().listModels(params, requestOptions).parse()
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         OpenAIService.WithRawResponse {
 
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
         private val embeddings: EmbeddingService.WithRawResponse by lazy {
             EmbeddingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val chat: ChatService.WithRawResponse by lazy {
+            ChatServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -40,5 +73,34 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
 
         /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
         override fun embeddings(): EmbeddingService.WithRawResponse = embeddings
+
+        override fun chat(): ChatService.WithRawResponse = chat
+
+        private val listModelsHandler: Handler<OpenAIListModelsResponse> =
+            jsonHandler<OpenAIListModelsResponse>(clientOptions.jsonMapper)
+
+        override fun listModels(
+            params: OpenAIListModelsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OpenAIListModelsResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "openai", "models")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listModelsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }

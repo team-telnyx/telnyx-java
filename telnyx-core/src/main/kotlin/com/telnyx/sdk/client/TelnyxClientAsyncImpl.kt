@@ -288,6 +288,8 @@ import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsyncImpl
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsyncImpl
+import com.telnyx.sdk.services.async.UacConnectionServiceAsync
+import com.telnyx.sdk.services.async.UacConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsyncImpl
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
@@ -984,6 +986,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         PronunciationDictServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val uacConnections: UacConnectionServiceAsync by lazy {
+        UacConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1490,6 +1496,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
      * specific words are spoken.
      */
     override fun pronunciationDicts(): PronunciationDictServiceAsync = pronunciationDicts
+
+    /** UAC connection operations */
+    override fun uacConnections(): UacConnectionServiceAsync = uacConnections
 
     override fun close() = clientOptions.close()
 
@@ -2185,6 +2194,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             PronunciationDictServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val uacConnections: UacConnectionServiceAsync.WithRawResponse by lazy {
+            UacConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2742,5 +2755,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
          */
         override fun pronunciationDicts(): PronunciationDictServiceAsync.WithRawResponse =
             pronunciationDicts
+
+        /** UAC connection operations */
+        override fun uacConnections(): UacConnectionServiceAsync.WithRawResponse = uacConnections
     }
 }

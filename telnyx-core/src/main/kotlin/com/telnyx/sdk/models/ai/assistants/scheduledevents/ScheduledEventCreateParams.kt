@@ -82,6 +82,21 @@ private constructor(
     fun dynamicVariables(): Optional<DynamicVariables> = body.dynamicVariables()
 
     /**
+     * Configure number of retries on client errors: busy, no-answer, failed, canceled (caller hung
+     * up before the callee answered)
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxRetriesClientErrors(): Optional<Long> = body.maxRetriesClientErrors()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun retryIntervalSecs(): Optional<Long> = body.retryIntervalSecs()
+
+    /**
      * Required for sms scheduled events. The text to be sent to the end user.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -137,6 +152,22 @@ private constructor(
      * type.
      */
     fun _dynamicVariables(): JsonField<DynamicVariables> = body._dynamicVariables()
+
+    /**
+     * Returns the raw JSON value of [maxRetriesClientErrors].
+     *
+     * Unlike [maxRetriesClientErrors], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _maxRetriesClientErrors(): JsonField<Long> = body._maxRetriesClientErrors()
+
+    /**
+     * Returns the raw JSON value of [retryIntervalSecs].
+     *
+     * Unlike [retryIntervalSecs], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _retryIntervalSecs(): JsonField<Long> = body._retryIntervalSecs()
 
     /**
      * Returns the raw JSON value of [text].
@@ -305,6 +336,40 @@ private constructor(
          */
         fun dynamicVariables(dynamicVariables: JsonField<DynamicVariables>) = apply {
             body.dynamicVariables(dynamicVariables)
+        }
+
+        /**
+         * Configure number of retries on client errors: busy, no-answer, failed, canceled (caller
+         * hung up before the callee answered)
+         */
+        fun maxRetriesClientErrors(maxRetriesClientErrors: Long) = apply {
+            body.maxRetriesClientErrors(maxRetriesClientErrors)
+        }
+
+        /**
+         * Sets [Builder.maxRetriesClientErrors] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxRetriesClientErrors] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun maxRetriesClientErrors(maxRetriesClientErrors: JsonField<Long>) = apply {
+            body.maxRetriesClientErrors(maxRetriesClientErrors)
+        }
+
+        fun retryIntervalSecs(retryIntervalSecs: Long) = apply {
+            body.retryIntervalSecs(retryIntervalSecs)
+        }
+
+        /**
+         * Sets [Builder.retryIntervalSecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.retryIntervalSecs] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun retryIntervalSecs(retryIntervalSecs: JsonField<Long>) = apply {
+            body.retryIntervalSecs(retryIntervalSecs)
         }
 
         /** Required for sms scheduled events. The text to be sent to the end user. */
@@ -480,6 +545,8 @@ private constructor(
         private val telnyxEndUserTarget: JsonField<String>,
         private val conversationMetadata: JsonField<ConversationMetadata>,
         private val dynamicVariables: JsonField<DynamicVariables>,
+        private val maxRetriesClientErrors: JsonField<Long>,
+        private val retryIntervalSecs: JsonField<Long>,
         private val text: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -504,6 +571,12 @@ private constructor(
             @JsonProperty("dynamic_variables")
             @ExcludeMissing
             dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
+            @JsonProperty("max_retries_client_errors")
+            @ExcludeMissing
+            maxRetriesClientErrors: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("retry_interval_secs")
+            @ExcludeMissing
+            retryIntervalSecs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
         ) : this(
             scheduledAtFixedDatetime,
@@ -512,6 +585,8 @@ private constructor(
             telnyxEndUserTarget,
             conversationMetadata,
             dynamicVariables,
+            maxRetriesClientErrors,
+            retryIntervalSecs,
             text,
             mutableMapOf(),
         )
@@ -568,6 +643,23 @@ private constructor(
          */
         fun dynamicVariables(): Optional<DynamicVariables> =
             dynamicVariables.getOptional("dynamic_variables")
+
+        /**
+         * Configure number of retries on client errors: busy, no-answer, failed, canceled (caller
+         * hung up before the callee answered)
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun maxRetriesClientErrors(): Optional<Long> =
+            maxRetriesClientErrors.getOptional("max_retries_client_errors")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun retryIntervalSecs(): Optional<Long> =
+            retryIntervalSecs.getOptional("retry_interval_secs")
 
         /**
          * Required for sms scheduled events. The text to be sent to the end user.
@@ -639,6 +731,26 @@ private constructor(
         fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
 
         /**
+         * Returns the raw JSON value of [maxRetriesClientErrors].
+         *
+         * Unlike [maxRetriesClientErrors], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("max_retries_client_errors")
+        @ExcludeMissing
+        fun _maxRetriesClientErrors(): JsonField<Long> = maxRetriesClientErrors
+
+        /**
+         * Returns the raw JSON value of [retryIntervalSecs].
+         *
+         * Unlike [retryIntervalSecs], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("retry_interval_secs")
+        @ExcludeMissing
+        fun _retryIntervalSecs(): JsonField<Long> = retryIntervalSecs
+
+        /**
          * Returns the raw JSON value of [text].
          *
          * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
@@ -682,6 +794,8 @@ private constructor(
             private var telnyxEndUserTarget: JsonField<String>? = null
             private var conversationMetadata: JsonField<ConversationMetadata> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
+            private var maxRetriesClientErrors: JsonField<Long> = JsonMissing.of()
+            private var retryIntervalSecs: JsonField<Long> = JsonMissing.of()
             private var text: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -693,6 +807,8 @@ private constructor(
                 telnyxEndUserTarget = body.telnyxEndUserTarget
                 conversationMetadata = body.conversationMetadata
                 dynamicVariables = body.dynamicVariables
+                maxRetriesClientErrors = body.maxRetriesClientErrors
+                retryIntervalSecs = body.retryIntervalSecs
                 text = body.text
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -794,6 +910,38 @@ private constructor(
                 this.dynamicVariables = dynamicVariables
             }
 
+            /**
+             * Configure number of retries on client errors: busy, no-answer, failed, canceled
+             * (caller hung up before the callee answered)
+             */
+            fun maxRetriesClientErrors(maxRetriesClientErrors: Long) =
+                maxRetriesClientErrors(JsonField.of(maxRetriesClientErrors))
+
+            /**
+             * Sets [Builder.maxRetriesClientErrors] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maxRetriesClientErrors] with a well-typed [Long]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun maxRetriesClientErrors(maxRetriesClientErrors: JsonField<Long>) = apply {
+                this.maxRetriesClientErrors = maxRetriesClientErrors
+            }
+
+            fun retryIntervalSecs(retryIntervalSecs: Long) =
+                retryIntervalSecs(JsonField.of(retryIntervalSecs))
+
+            /**
+             * Sets [Builder.retryIntervalSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.retryIntervalSecs] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun retryIntervalSecs(retryIntervalSecs: JsonField<Long>) = apply {
+                this.retryIntervalSecs = retryIntervalSecs
+            }
+
             /** Required for sms scheduled events. The text to be sent to the end user. */
             fun text(text: String) = text(JsonField.of(text))
 
@@ -848,6 +996,8 @@ private constructor(
                     checkRequired("telnyxEndUserTarget", telnyxEndUserTarget),
                     conversationMetadata,
                     dynamicVariables,
+                    maxRetriesClientErrors,
+                    retryIntervalSecs,
                     text,
                     additionalProperties.toMutableMap(),
                 )
@@ -875,6 +1025,8 @@ private constructor(
             telnyxEndUserTarget()
             conversationMetadata().ifPresent { it.validate() }
             dynamicVariables().ifPresent { it.validate() }
+            maxRetriesClientErrors()
+            retryIntervalSecs()
             text()
             validated = true
         }
@@ -901,6 +1053,8 @@ private constructor(
                 (if (telnyxEndUserTarget.asKnown().isPresent) 1 else 0) +
                 (conversationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (maxRetriesClientErrors.asKnown().isPresent) 1 else 0) +
+                (if (retryIntervalSecs.asKnown().isPresent) 1 else 0) +
                 (if (text.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -915,6 +1069,8 @@ private constructor(
                 telnyxEndUserTarget == other.telnyxEndUserTarget &&
                 conversationMetadata == other.conversationMetadata &&
                 dynamicVariables == other.dynamicVariables &&
+                maxRetriesClientErrors == other.maxRetriesClientErrors &&
+                retryIntervalSecs == other.retryIntervalSecs &&
                 text == other.text &&
                 additionalProperties == other.additionalProperties
         }
@@ -927,6 +1083,8 @@ private constructor(
                 telnyxEndUserTarget,
                 conversationMetadata,
                 dynamicVariables,
+                maxRetriesClientErrors,
+                retryIntervalSecs,
                 text,
                 additionalProperties,
             )
@@ -935,7 +1093,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, conversationMetadata=$conversationMetadata, dynamicVariables=$dynamicVariables, text=$text, additionalProperties=$additionalProperties}"
+            "Body{scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, conversationMetadata=$conversationMetadata, dynamicVariables=$dynamicVariables, maxRetriesClientErrors=$maxRetriesClientErrors, retryIntervalSecs=$retryIntervalSecs, text=$text, additionalProperties=$additionalProperties}"
     }
 
     /**

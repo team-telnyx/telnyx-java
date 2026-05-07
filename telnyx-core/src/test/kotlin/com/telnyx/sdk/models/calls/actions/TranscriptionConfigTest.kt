@@ -12,16 +12,24 @@ internal class TranscriptionConfigTest {
     @Test
     fun create() {
         val transcriptionConfig =
-            TranscriptionConfig.builder().model("distil-whisper/distil-large-v2").build()
+            TranscriptionConfig.builder()
+                .language("auto")
+                .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                .build()
 
-        assertThat(transcriptionConfig.model()).contains("distil-whisper/distil-large-v2")
+        assertThat(transcriptionConfig.language()).contains("auto")
+        assertThat(transcriptionConfig.model())
+            .contains(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val transcriptionConfig =
-            TranscriptionConfig.builder().model("distil-whisper/distil-large-v2").build()
+            TranscriptionConfig.builder()
+                .language("auto")
+                .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                .build()
 
         val roundtrippedTranscriptionConfig =
             jsonMapper.readValue(

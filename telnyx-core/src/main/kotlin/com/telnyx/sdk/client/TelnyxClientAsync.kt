@@ -145,6 +145,7 @@ import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
+import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
 import com.telnyx.sdk.services.async.UserTagServiceAsync
@@ -675,6 +676,9 @@ interface TelnyxClientAsync {
      */
     fun pronunciationDicts(): PronunciationDictServiceAsync
 
+    /** UAC connection operations */
+    fun uacConnections(): UacConnectionServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1172,5 +1176,8 @@ interface TelnyxClientAsync {
          * control how specific words are spoken.
          */
         fun pronunciationDicts(): PronunciationDictServiceAsync.WithRawResponse
+
+        /** UAC connection operations */
+        fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
     }
 }

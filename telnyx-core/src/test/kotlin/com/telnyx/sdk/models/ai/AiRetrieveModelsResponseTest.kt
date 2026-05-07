@@ -14,7 +14,7 @@ internal class AiRetrieveModelsResponseTest {
         val aiRetrieveModelsResponse =
             AiRetrieveModelsResponse.builder()
                 .addData(
-                    AiRetrieveModelsResponse.Data.builder()
+                    ModelMetadata.builder()
                         .id("id")
                         .created(0L)
                         .ownedBy("owned_by")
@@ -26,7 +26,7 @@ internal class AiRetrieveModelsResponseTest {
 
         assertThat(aiRetrieveModelsResponse.data())
             .containsExactly(
-                AiRetrieveModelsResponse.Data.builder()
+                ModelMetadata.builder()
                     .id("id")
                     .created(0L)
                     .ownedBy("owned_by")
@@ -42,7 +42,7 @@ internal class AiRetrieveModelsResponseTest {
         val aiRetrieveModelsResponse =
             AiRetrieveModelsResponse.builder()
                 .addData(
-                    AiRetrieveModelsResponse.Data.builder()
+                    ModelMetadata.builder()
                         .id("id")
                         .created(0L)
                         .ownedBy("owned_by")

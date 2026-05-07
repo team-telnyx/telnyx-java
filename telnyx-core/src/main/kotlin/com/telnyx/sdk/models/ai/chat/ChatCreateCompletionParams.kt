@@ -35,10 +35,12 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Chat with a language model. This endpoint is consistent with the
+ * **Deprecated**: Use `POST /v2/ai/openai/chat/completions` instead. Chat with a language model.
+ * This endpoint is consistent with the
  * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat) and may be
  * used with the OpenAI JS or Python SDK.
  */
+@Deprecated("deprecated")
 class ChatCreateCompletionParams
 private constructor(
     private val body: Body,
@@ -191,6 +193,24 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun responseFormat(): Optional<ResponseFormat> = body.responseFormat()
+
+    /**
+     * If specified, the system will make a best effort to sample deterministically, such that
+     * repeated requests with the same `seed` and parameters should return the same result.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun seed(): Optional<Long> = body.seed()
+
+    /**
+     * Up to 4 sequences where the API will stop generating further tokens. The returned text will
+     * not contain the stop sequence.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun stop(): Optional<Stop> = body.stop()
 
     /**
      * Whether or not to stream data-only server-sent events as they become available.
@@ -374,6 +394,20 @@ private constructor(
      * Unlike [responseFormat], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _responseFormat(): JsonField<ResponseFormat> = body._responseFormat()
+
+    /**
+     * Returns the raw JSON value of [seed].
+     *
+     * Unlike [seed], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _seed(): JsonField<Long> = body._seed()
+
+    /**
+     * Returns the raw JSON value of [stop].
+     *
+     * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _stop(): JsonField<Stop> = body._stop()
 
     /**
      * Returns the raw JSON value of [stream].
@@ -731,6 +765,40 @@ private constructor(
             body.responseFormat(responseFormat)
         }
 
+        /**
+         * If specified, the system will make a best effort to sample deterministically, such that
+         * repeated requests with the same `seed` and parameters should return the same result.
+         */
+        fun seed(seed: Long) = apply { body.seed(seed) }
+
+        /**
+         * Sets [Builder.seed] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.seed] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun seed(seed: JsonField<Long>) = apply { body.seed(seed) }
+
+        /**
+         * Up to 4 sequences where the API will stop generating further tokens. The returned text
+         * will not contain the stop sequence.
+         */
+        fun stop(stop: Stop) = apply { body.stop(stop) }
+
+        /**
+         * Sets [Builder.stop] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stop] with a well-typed [Stop] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun stop(stop: JsonField<Stop>) = apply { body.stop(stop) }
+
+        /** Alias for calling [stop] with `Stop.ofString(string)`. */
+        fun stop(string: String) = apply { body.stop(string) }
+
+        /** Alias for calling [stop] with `Stop.ofStrings(strings)`. */
+        fun stopOfStrings(strings: List<String>) = apply { body.stopOfStrings(strings) }
+
         /** Whether or not to stream data-only server-sent events as they become available. */
         fun stream(stream: Boolean) = apply { body.stream(stream) }
 
@@ -1031,6 +1099,8 @@ private constructor(
         private val n: JsonField<Double>,
         private val presencePenalty: JsonField<Double>,
         private val responseFormat: JsonField<ResponseFormat>,
+        private val seed: JsonField<Long>,
+        private val stop: JsonField<Stop>,
         private val stream: JsonField<Boolean>,
         private val temperature: JsonField<Double>,
         private val toolChoice: JsonField<ToolChoice>,
@@ -1086,6 +1156,8 @@ private constructor(
             @JsonProperty("response_format")
             @ExcludeMissing
             responseFormat: JsonField<ResponseFormat> = JsonMissing.of(),
+            @JsonProperty("seed") @ExcludeMissing seed: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("stop") @ExcludeMissing stop: JsonField<Stop> = JsonMissing.of(),
             @JsonProperty("stream") @ExcludeMissing stream: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("temperature")
             @ExcludeMissing
@@ -1119,6 +1191,8 @@ private constructor(
             n,
             presencePenalty,
             responseFormat,
+            seed,
+            stop,
             stream,
             temperature,
             toolChoice,
@@ -1276,6 +1350,24 @@ private constructor(
          */
         fun responseFormat(): Optional<ResponseFormat> =
             responseFormat.getOptional("response_format")
+
+        /**
+         * If specified, the system will make a best effort to sample deterministically, such that
+         * repeated requests with the same `seed` and parameters should return the same result.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun seed(): Optional<Long> = seed.getOptional("seed")
+
+        /**
+         * Up to 4 sequences where the API will stop generating further tokens. The returned text
+         * will not contain the stop sequence.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun stop(): Optional<Stop> = stop.getOptional("stop")
 
         /**
          * Whether or not to stream data-only server-sent events as they become available.
@@ -1487,6 +1579,20 @@ private constructor(
         fun _responseFormat(): JsonField<ResponseFormat> = responseFormat
 
         /**
+         * Returns the raw JSON value of [seed].
+         *
+         * Unlike [seed], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("seed") @ExcludeMissing fun _seed(): JsonField<Long> = seed
+
+        /**
+         * Returns the raw JSON value of [stop].
+         *
+         * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stop") @ExcludeMissing fun _stop(): JsonField<Stop> = stop
+
+        /**
          * Returns the raw JSON value of [stream].
          *
          * Unlike [stream], this method doesn't throw if the JSON field has an unexpected type.
@@ -1589,6 +1695,8 @@ private constructor(
             private var n: JsonField<Double> = JsonMissing.of()
             private var presencePenalty: JsonField<Double> = JsonMissing.of()
             private var responseFormat: JsonField<ResponseFormat> = JsonMissing.of()
+            private var seed: JsonField<Long> = JsonMissing.of()
+            private var stop: JsonField<Stop> = JsonMissing.of()
             private var stream: JsonField<Boolean> = JsonMissing.of()
             private var temperature: JsonField<Double> = JsonMissing.of()
             private var toolChoice: JsonField<ToolChoice> = JsonMissing.of()
@@ -1617,6 +1725,8 @@ private constructor(
                 n = body.n
                 presencePenalty = body.presencePenalty
                 responseFormat = body.responseFormat
+                seed = body.seed
+                stop = body.stop
                 stream = body.stream
                 temperature = body.temperature
                 toolChoice = body.toolChoice
@@ -1906,6 +2016,43 @@ private constructor(
                 this.responseFormat = responseFormat
             }
 
+            /**
+             * If specified, the system will make a best effort to sample deterministically, such
+             * that repeated requests with the same `seed` and parameters should return the same
+             * result.
+             */
+            fun seed(seed: Long) = seed(JsonField.of(seed))
+
+            /**
+             * Sets [Builder.seed] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.seed] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun seed(seed: JsonField<Long>) = apply { this.seed = seed }
+
+            /**
+             * Up to 4 sequences where the API will stop generating further tokens. The returned
+             * text will not contain the stop sequence.
+             */
+            fun stop(stop: Stop) = stop(JsonField.of(stop))
+
+            /**
+             * Sets [Builder.stop] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.stop] with a well-typed [Stop] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun stop(stop: JsonField<Stop>) = apply { this.stop = stop }
+
+            /** Alias for calling [stop] with `Stop.ofString(string)`. */
+            fun stop(string: String) = stop(Stop.ofString(string))
+
+            /** Alias for calling [stop] with `Stop.ofStrings(strings)`. */
+            fun stopOfStrings(strings: List<String>) = stop(Stop.ofStrings(strings))
+
             /** Whether or not to stream data-only server-sent events as they become available. */
             fun stream(stream: Boolean) = stream(JsonField.of(stream))
 
@@ -2107,6 +2254,8 @@ private constructor(
                     n,
                     presencePenalty,
                     responseFormat,
+                    seed,
+                    stop,
                     stream,
                     temperature,
                     toolChoice,
@@ -2151,6 +2300,8 @@ private constructor(
             n()
             presencePenalty()
             responseFormat().ifPresent { it.validate() }
+            seed()
+            stop().ifPresent { it.validate() }
             stream()
             temperature()
             toolChoice().ifPresent { it.validate() }
@@ -2194,6 +2345,8 @@ private constructor(
                 (if (n.asKnown().isPresent) 1 else 0) +
                 (if (presencePenalty.asKnown().isPresent) 1 else 0) +
                 (responseFormat.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (seed.asKnown().isPresent) 1 else 0) +
+                (stop.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (stream.asKnown().isPresent) 1 else 0) +
                 (if (temperature.asKnown().isPresent) 1 else 0) +
                 (toolChoice.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2225,6 +2378,8 @@ private constructor(
                 n == other.n &&
                 presencePenalty == other.presencePenalty &&
                 responseFormat == other.responseFormat &&
+                seed == other.seed &&
+                stop == other.stop &&
                 stream == other.stream &&
                 temperature == other.temperature &&
                 toolChoice == other.toolChoice &&
@@ -2254,6 +2409,8 @@ private constructor(
                 n,
                 presencePenalty,
                 responseFormat,
+                seed,
+                stop,
                 stream,
                 temperature,
                 toolChoice,
@@ -2268,7 +2425,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
+            "Body{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, seed=$seed, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
     }
 
     class Message
@@ -3648,6 +3805,214 @@ private constructor(
 
         override fun toString() =
             "ResponseFormat{type=$type, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Up to 4 sequences where the API will stop generating further tokens. The returned text will
+     * not contain the stop sequence.
+     */
+    @JsonDeserialize(using = Stop.Deserializer::class)
+    @JsonSerialize(using = Stop.Serializer::class)
+    class Stop
+    private constructor(
+        private val string: String? = null,
+        private val strings: List<String>? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        fun string(): Optional<String> = Optional.ofNullable(string)
+
+        fun strings(): Optional<List<String>> = Optional.ofNullable(strings)
+
+        fun isString(): Boolean = string != null
+
+        fun isStrings(): Boolean = strings != null
+
+        fun asString(): String = string.getOrThrow("string")
+
+        fun asStrings(): List<String> = strings.getOrThrow("strings")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.telnyx.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = stop.accept(new Stop.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitString(String string) {
+         *         return Optional.of(string.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                string != null -> visitor.visitString(string)
+                strings != null -> visitor.visitStrings(strings)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Stop = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitString(string: String) {}
+
+                    override fun visitStrings(strings: List<String>) {}
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitString(string: String) = 1
+
+                    override fun visitStrings(strings: List<String>) = strings.size
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Stop && string == other.string && strings == other.strings
+        }
+
+        override fun hashCode(): Int = Objects.hash(string, strings)
+
+        override fun toString(): String =
+            when {
+                string != null -> "Stop{string=$string}"
+                strings != null -> "Stop{strings=$strings}"
+                _json != null -> "Stop{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Stop")
+            }
+
+        companion object {
+
+            @JvmStatic fun ofString(string: String) = Stop(string = string)
+
+            @JvmStatic fun ofStrings(strings: List<String>) = Stop(strings = strings.toImmutable())
+        }
+
+        /** An interface that defines how to map each variant of [Stop] to a value of type [T]. */
+        interface Visitor<out T> {
+
+            fun visitString(string: String): T
+
+            fun visitStrings(strings: List<String>): T
+
+            /**
+             * Maps an unknown variant of [Stop] to a value of type [T].
+             *
+             * An instance of [Stop] can contain an unknown variant if it was deserialized from data
+             * that doesn't match any known variant. For example, if the SDK is on an older version
+             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown Stop: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<Stop>(Stop::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): Stop {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<String>())?.let {
+                                Stop(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<List<String>>())?.let {
+                                Stop(strings = it, _json = json)
+                            },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> Stop(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
+        internal class Serializer : BaseSerializer<Stop>(Stop::class) {
+
+            override fun serialize(
+                value: Stop,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.string != null -> generator.writeObject(value.string)
+                    value.strings != null -> generator.writeObject(value.strings)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid Stop")
+                }
+            }
+        }
     }
 
     class ToolChoice @JsonCreator private constructor(private val value: JsonField<String>) : Enum {

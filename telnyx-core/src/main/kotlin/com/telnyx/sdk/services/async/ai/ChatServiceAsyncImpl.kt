@@ -33,6 +33,7 @@ class ChatServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChatServiceAsync =
         ChatServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    @Deprecated("deprecated")
     override fun createCompletion(
         params: ChatCreateCompletionParams,
         requestOptions: RequestOptions,
@@ -56,6 +57,7 @@ class ChatServiceAsyncImpl internal constructor(private val clientOptions: Clien
         private val createCompletionHandler: Handler<ChatCreateCompletionResponse> =
             jsonHandler<ChatCreateCompletionResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun createCompletion(
             params: ChatCreateCompletionParams,
             requestOptions: RequestOptions,

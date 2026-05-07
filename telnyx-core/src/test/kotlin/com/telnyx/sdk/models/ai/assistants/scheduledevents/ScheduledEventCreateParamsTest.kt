@@ -27,6 +27,8 @@ internal class ScheduledEventCreateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
+            .maxRetriesClientErrors(0L)
+            .retryIntervalSecs(60L)
             .text("text")
             .build()
     }
@@ -66,6 +68,8 @@ internal class ScheduledEventCreateParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
+                .maxRetriesClientErrors(0L)
+                .retryIntervalSecs(60L)
                 .text("text")
                 .build()
 
@@ -88,6 +92,8 @@ internal class ScheduledEventCreateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
+        assertThat(body.maxRetriesClientErrors()).contains(0L)
+        assertThat(body.retryIntervalSecs()).contains(60L)
         assertThat(body.text()).contains("text")
     }
 

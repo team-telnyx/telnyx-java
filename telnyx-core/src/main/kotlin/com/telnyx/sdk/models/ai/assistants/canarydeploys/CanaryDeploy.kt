@@ -11,44 +11,41 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Request model for creating or updating canary deploys. */
+/**
+ * Create/update request body. Accepts:
+ * - ``rules`` — canonical ordered list of routing rules
+ */
 class CanaryDeploy
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val versions: JsonField<List<VersionConfig>>,
+    private val rules: JsonField<List<RuleInput>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("versions")
-        @ExcludeMissing
-        versions: JsonField<List<VersionConfig>> = JsonMissing.of()
-    ) : this(versions, mutableMapOf())
+        @JsonProperty("rules") @ExcludeMissing rules: JsonField<List<RuleInput>> = JsonMissing.of()
+    ) : this(rules, mutableMapOf())
 
     /**
-     * List of version configurations
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun versions(): List<VersionConfig> = versions.getRequired("versions")
+    fun rules(): Optional<List<RuleInput>> = rules.getOptional("rules")
 
     /**
-     * Returns the raw JSON value of [versions].
+     * Returns the raw JSON value of [rules].
      *
-     * Unlike [versions], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [rules], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("versions")
-    @ExcludeMissing
-    fun _versions(): JsonField<List<VersionConfig>> = versions
+    @JsonProperty("rules") @ExcludeMissing fun _rules(): JsonField<List<RuleInput>> = rules
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -64,53 +61,43 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CanaryDeploy].
-         *
-         * The following fields are required:
-         * ```java
-         * .versions()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [CanaryDeploy]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [CanaryDeploy]. */
     class Builder internal constructor() {
 
-        private var versions: JsonField<MutableList<VersionConfig>>? = null
+        private var rules: JsonField<MutableList<RuleInput>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(canaryDeploy: CanaryDeploy) = apply {
-            versions = canaryDeploy.versions.map { it.toMutableList() }
+            rules = canaryDeploy.rules.map { it.toMutableList() }
             additionalProperties = canaryDeploy.additionalProperties.toMutableMap()
         }
 
-        /** List of version configurations */
-        fun versions(versions: List<VersionConfig>) = versions(JsonField.of(versions))
+        fun rules(rules: List<RuleInput>) = rules(JsonField.of(rules))
 
         /**
-         * Sets [Builder.versions] to an arbitrary JSON value.
+         * Sets [Builder.rules] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.versions] with a well-typed `List<VersionConfig>` value
+         * You should usually call [Builder.rules] with a well-typed `List<RuleInput>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun versions(versions: JsonField<List<VersionConfig>>) = apply {
-            this.versions = versions.map { it.toMutableList() }
+        fun rules(rules: JsonField<List<RuleInput>>) = apply {
+            this.rules = rules.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [VersionConfig] to [versions].
+         * Adds a single [RuleInput] to [rules].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addVersion(version: VersionConfig) = apply {
-            versions =
-                (versions ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("versions", it).add(version)
-                }
+        fun addRule(rule: RuleInput) = apply {
+            rules =
+                (rules ?: JsonField.of(mutableListOf())).also { checkKnown("rules", it).add(rule) }
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -136,17 +123,10 @@ private constructor(
          * Returns an immutable instance of [CanaryDeploy].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .versions()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CanaryDeploy =
             CanaryDeploy(
-                checkRequired("versions", versions).map { it.toImmutable() },
+                (rules ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -166,7 +146,7 @@ private constructor(
             return@apply
         }
 
-        versions().forEach { it.validate() }
+        rules().ifPresent { it.forEach { it.validate() } }
         validated = true
     }
 
@@ -185,7 +165,7 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (versions.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+        (rules.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -193,14 +173,14 @@ private constructor(
         }
 
         return other is CanaryDeploy &&
-            versions == other.versions &&
+            rules == other.rules &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(versions, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(rules, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CanaryDeploy{versions=$versions, additionalProperties=$additionalProperties}"
+        "CanaryDeploy{rules=$rules, additionalProperties=$additionalProperties}"
 }
