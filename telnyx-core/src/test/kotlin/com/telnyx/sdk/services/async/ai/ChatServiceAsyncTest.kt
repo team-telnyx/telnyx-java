@@ -55,6 +55,8 @@ internal class ChatServiceAsyncTest {
                             .type(ChatCreateCompletionParams.ResponseFormat.Type.TEXT)
                             .build()
                     )
+                    .seed(0L)
+                    .stop("string")
                     .stream(true)
                     .temperature(0.0)
                     .toolChoice(ChatCreateCompletionParams.ToolChoice.NONE)

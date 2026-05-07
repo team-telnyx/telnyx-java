@@ -11,25 +11,24 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class PublicInternetGatewayListResponse
+class PublicInternetGatewayRead
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<String>,
-    private val recordType: JsonField<String>,
-    private val updatedAt: JsonField<String>,
     private val name: JsonField<String>,
     private val networkId: JsonField<String>,
-    private val status: JsonField<InterfaceStatus>,
     private val publicIp: JsonField<String>,
+    private val recordType: JsonField<String>,
     private val regionCode: JsonField<String>,
+    private val status: JsonField<InterfaceStatus>,
+    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -37,42 +36,31 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("network_id") @ExcludeMissing networkId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("public_ip") @ExcludeMissing publicIp: JsonField<String> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("network_id") @ExcludeMissing networkId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        status: JsonField<InterfaceStatus> = JsonMissing.of(),
-        @JsonProperty("public_ip") @ExcludeMissing publicIp: JsonField<String> = JsonMissing.of(),
         @JsonProperty("region_code")
         @ExcludeMissing
         regionCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        status: JsonField<InterfaceStatus> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         createdAt,
-        recordType,
-        updatedAt,
         name,
         networkId,
-        status,
         publicIp,
+        recordType,
         regionCode,
+        status,
+        updatedAt,
         mutableMapOf(),
     )
-
-    fun toRecord(): Record =
-        Record.builder()
-            .id(id)
-            .createdAt(createdAt)
-            .recordType(recordType)
-            .updatedAt(updatedAt)
-            .build()
-
-    fun toNetworkInterface(): NetworkInterface =
-        NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
 
     /**
      * Identifies the resource.
@@ -91,22 +79,6 @@ private constructor(
     fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
 
     /**
-     * Identifies the type of the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recordType(): Optional<String> = recordType.getOptional("record_type")
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
-
-    /**
      * A user specified name for the interface.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -123,14 +95,6 @@ private constructor(
     fun networkId(): Optional<String> = networkId.getOptional("network_id")
 
     /**
-     * The current status of the interface deployment.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun status(): Optional<InterfaceStatus> = status.getOptional("status")
-
-    /**
      * The publically accessible ip for this interface.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -139,12 +103,36 @@ private constructor(
     fun publicIp(): Optional<String> = publicIp.getOptional("public_ip")
 
     /**
+     * Identifies the type of the resource.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordType(): Optional<String> = recordType.getOptional("record_type")
+
+    /**
      * The region interface is deployed to.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
+
+    /**
+     * The current status of the interface deployment.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun status(): Optional<InterfaceStatus> = status.getOptional("status")
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * Returns the raw JSON value of [id].
@@ -161,20 +149,6 @@ private constructor(
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
 
     /**
-     * Returns the raw JSON value of [recordType].
-     *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
-
-    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -189,13 +163,6 @@ private constructor(
     @JsonProperty("network_id") @ExcludeMissing fun _networkId(): JsonField<String> = networkId
 
     /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
-
-    /**
      * Returns the raw JSON value of [publicIp].
      *
      * Unlike [publicIp], this method doesn't throw if the JSON field has an unexpected type.
@@ -203,11 +170,32 @@ private constructor(
     @JsonProperty("public_ip") @ExcludeMissing fun _publicIp(): JsonField<String> = publicIp
 
     /**
+     * Returns the raw JSON value of [recordType].
+     *
+     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
+
+    /**
      * Returns the raw JSON value of [regionCode].
      *
      * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("region_code") @ExcludeMissing fun _regionCode(): JsonField<String> = regionCode
+
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -224,41 +212,38 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [PublicInternetGatewayListResponse].
+         * Returns a mutable builder for constructing an instance of [PublicInternetGatewayRead].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [PublicInternetGatewayListResponse]. */
+    /** A builder for [PublicInternetGatewayRead]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
-        private var recordType: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var networkId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<InterfaceStatus> = JsonMissing.of()
         private var publicIp: JsonField<String> = JsonMissing.of()
+        private var recordType: JsonField<String> = JsonMissing.of()
         private var regionCode: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<InterfaceStatus> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(publicInternetGatewayListResponse: PublicInternetGatewayListResponse) =
-            apply {
-                id = publicInternetGatewayListResponse.id
-                createdAt = publicInternetGatewayListResponse.createdAt
-                recordType = publicInternetGatewayListResponse.recordType
-                updatedAt = publicInternetGatewayListResponse.updatedAt
-                name = publicInternetGatewayListResponse.name
-                networkId = publicInternetGatewayListResponse.networkId
-                status = publicInternetGatewayListResponse.status
-                publicIp = publicInternetGatewayListResponse.publicIp
-                regionCode = publicInternetGatewayListResponse.regionCode
-                additionalProperties =
-                    publicInternetGatewayListResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(publicInternetGatewayRead: PublicInternetGatewayRead) = apply {
+            id = publicInternetGatewayRead.id
+            createdAt = publicInternetGatewayRead.createdAt
+            name = publicInternetGatewayRead.name
+            networkId = publicInternetGatewayRead.networkId
+            publicIp = publicInternetGatewayRead.publicIp
+            recordType = publicInternetGatewayRead.recordType
+            regionCode = publicInternetGatewayRead.regionCode
+            status = publicInternetGatewayRead.status
+            updatedAt = publicInternetGatewayRead.updatedAt
+            additionalProperties = publicInternetGatewayRead.additionalProperties.toMutableMap()
+        }
 
         /** Identifies the resource. */
         fun id(id: String) = id(JsonField.of(id))
@@ -283,30 +268,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
 
-        /** Identifies the type of the resource. */
-        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
-
-        /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
-
-        /** ISO 8601 formatted date-time indicating when the resource was updated. */
-        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
-
         /** A user specified name for the interface. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -330,18 +291,6 @@ private constructor(
          */
         fun networkId(networkId: JsonField<String>) = apply { this.networkId = networkId }
 
-        /** The current status of the interface deployment. */
-        fun status(status: InterfaceStatus) = status(JsonField.of(status))
-
-        /**
-         * Sets [Builder.status] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
-
         /** The publically accessible ip for this interface. */
         fun publicIp(publicIp: String) = publicIp(JsonField.of(publicIp))
 
@@ -352,6 +301,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun publicIp(publicIp: JsonField<String>) = apply { this.publicIp = publicIp }
+
+        /** Identifies the type of the resource. */
+        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
+
+        /**
+         * Sets [Builder.recordType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
         /** The region interface is deployed to. */
         fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
@@ -364,6 +325,30 @@ private constructor(
          * value.
          */
         fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
+
+        /** The current status of the interface deployment. */
+        fun status(status: InterfaceStatus) = status(JsonField.of(status))
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
+
+        /** ISO 8601 formatted date-time indicating when the resource was updated. */
+        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -385,21 +370,21 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [PublicInternetGatewayListResponse].
+         * Returns an immutable instance of [PublicInternetGatewayRead].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): PublicInternetGatewayListResponse =
-            PublicInternetGatewayListResponse(
+        fun build(): PublicInternetGatewayRead =
+            PublicInternetGatewayRead(
                 id,
                 createdAt,
-                recordType,
-                updatedAt,
                 name,
                 networkId,
-                status,
                 publicIp,
+                recordType,
                 regionCode,
+                status,
+                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -414,20 +399,20 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PublicInternetGatewayListResponse = apply {
+    fun validate(): PublicInternetGatewayRead = apply {
         if (validated) {
             return@apply
         }
 
         id()
         createdAt()
-        recordType()
-        updatedAt()
         name()
         networkId()
-        status().ifPresent { it.validate() }
         publicIp()
+        recordType()
         regionCode()
+        status().ifPresent { it.validate() }
+        updatedAt()
         validated = true
     }
 
@@ -448,29 +433,29 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (if (recordType.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (networkId.asKnown().isPresent) 1 else 0) +
-            (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (publicIp.asKnown().isPresent) 1 else 0) +
-            (if (regionCode.asKnown().isPresent) 1 else 0)
+            (if (recordType.asKnown().isPresent) 1 else 0) +
+            (if (regionCode.asKnown().isPresent) 1 else 0) +
+            (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is PublicInternetGatewayListResponse &&
+        return other is PublicInternetGatewayRead &&
             id == other.id &&
             createdAt == other.createdAt &&
-            recordType == other.recordType &&
-            updatedAt == other.updatedAt &&
             name == other.name &&
             networkId == other.networkId &&
-            status == other.status &&
             publicIp == other.publicIp &&
+            recordType == other.recordType &&
             regionCode == other.regionCode &&
+            status == other.status &&
+            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -478,13 +463,13 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
-            recordType,
-            updatedAt,
             name,
             networkId,
-            status,
             publicIp,
+            recordType,
             regionCode,
+            status,
+            updatedAt,
             additionalProperties,
         )
     }
@@ -492,5 +477,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicInternetGatewayListResponse{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, publicIp=$publicIp, regionCode=$regionCode, additionalProperties=$additionalProperties}"
+        "PublicInternetGatewayRead{id=$id, createdAt=$createdAt, name=$name, networkId=$networkId, publicIp=$publicIp, recordType=$recordType, regionCode=$regionCode, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

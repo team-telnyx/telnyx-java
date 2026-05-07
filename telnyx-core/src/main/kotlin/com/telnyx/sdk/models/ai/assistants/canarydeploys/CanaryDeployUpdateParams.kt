@@ -27,7 +27,10 @@ private constructor(
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
 
-    /** Request model for creating or updating canary deploys. */
+    /**
+     * Create/update request body. Accepts:
+     * - ``rules`` — canonical ordered list of routing rules
+     */
     fun canaryDeploy(): CanaryDeploy = canaryDeploy
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = canaryDeploy._additionalProperties()
@@ -74,7 +77,10 @@ private constructor(
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
 
-        /** Request model for creating or updating canary deploys. */
+        /**
+         * Create/update request body. Accepts:
+         * - ``rules`` — canonical ordered list of routing rules
+         */
         fun canaryDeploy(canaryDeploy: CanaryDeploy) = apply { this.canaryDeploy = canaryDeploy }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {

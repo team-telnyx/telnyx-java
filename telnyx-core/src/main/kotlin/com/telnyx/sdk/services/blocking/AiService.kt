@@ -70,25 +70,29 @@ interface AiService {
     fun tools(): ToolService
 
     /**
-     * This endpoint returns a list of Open Source and OpenAI models that are available for use. <br
-     * /><br /> **Note**: Model `id`'s will be in the form `{source}/{model_name}`. For example
-     * `openai/gpt-4` or `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming
-     * conventions.
+     * **Deprecated**: Use `GET /v2/ai/openai/models` instead. This endpoint returns a list of Open
+     * Source and OpenAI models that are available for use. <br /><br /> **Note**: Model `id`'s will
+     * be in the form `{source}/{model_name}`. For example `openai/gpt-4` or
+     * `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming conventions.
      */
+    @Deprecated("deprecated")
     fun retrieveModels(): AiRetrieveModelsResponse = retrieveModels(AiRetrieveModelsParams.none())
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AiRetrieveModelsResponse
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
     ): AiRetrieveModelsResponse = retrieveModels(params, RequestOptions.none())
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(requestOptions: RequestOptions): AiRetrieveModelsResponse =
         retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
 
@@ -155,11 +159,13 @@ interface AiService {
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
          * [AiService.retrieveModels].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveModels(): HttpResponseFor<AiRetrieveModelsResponse> =
             retrieveModels(AiRetrieveModelsParams.none())
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
@@ -167,12 +173,14 @@ interface AiService {
         ): HttpResponseFor<AiRetrieveModelsResponse>
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
         ): HttpResponseFor<AiRetrieveModelsResponse> = retrieveModels(params, RequestOptions.none())
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveModels(
             requestOptions: RequestOptions

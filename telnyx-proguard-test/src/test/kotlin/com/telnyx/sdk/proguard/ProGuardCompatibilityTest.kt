@@ -216,6 +216,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.reputation()).isNotNull()
         assertThat(client.termsOfService()).isNotNull()
         assertThat(client.pronunciationDicts()).isNotNull()
+        assertThat(client.uacConnections()).isNotNull()
     }
 
     @Test

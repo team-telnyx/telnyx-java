@@ -110,7 +110,10 @@ internal class ActionStartAiAssistantParamsTest {
             )
             .sendMessageHistoryUpdates(true)
             .transcription(
-                TranscriptionConfig.builder().model("distil-whisper/distil-large-v2").build()
+                TranscriptionConfig.builder()
+                    .language("auto")
+                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                    .build()
             )
             .voice("Telnyx.KokoroTTS.af")
             .voiceSettings(
@@ -231,7 +234,10 @@ internal class ActionStartAiAssistantParamsTest {
                 )
                 .sendMessageHistoryUpdates(true)
                 .transcription(
-                    TranscriptionConfig.builder().model("distil-whisper/distil-large-v2").build()
+                    TranscriptionConfig.builder()
+                        .language("auto")
+                        .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                        .build()
                 )
                 .voice("Telnyx.KokoroTTS.af")
                 .voiceSettings(
@@ -345,7 +351,12 @@ internal class ActionStartAiAssistantParamsTest {
             )
         assertThat(body.sendMessageHistoryUpdates()).contains(true)
         assertThat(body.transcription())
-            .contains(TranscriptionConfig.builder().model("distil-whisper/distil-large-v2").build())
+            .contains(
+                TranscriptionConfig.builder()
+                    .language("auto")
+                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                    .build()
+            )
         assertThat(body.voice()).contains("Telnyx.KokoroTTS.af")
         assertThat(body.voiceSettings())
             .contains(

@@ -145,6 +145,7 @@ import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
+import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
 import com.telnyx.sdk.services.blocking.UserTagService
@@ -675,6 +676,9 @@ interface TelnyxClient {
      */
     fun pronunciationDicts(): PronunciationDictService
 
+    /** UAC connection operations */
+    fun uacConnections(): UacConnectionService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1169,5 +1173,8 @@ interface TelnyxClient {
          * control how specific words are spoken.
          */
         fun pronunciationDicts(): PronunciationDictService.WithRawResponse
+
+        /** UAC connection operations */
+        fun uacConnections(): UacConnectionService.WithRawResponse
     }
 }

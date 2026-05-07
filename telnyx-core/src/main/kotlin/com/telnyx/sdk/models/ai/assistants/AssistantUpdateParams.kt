@@ -126,7 +126,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun integrations(): Optional<List<UpdateAssistant.Integration>> = body.integrations()
+    fun integrations(): Optional<List<AssistantIntegration>> = body.integrations()
 
     /**
      * Settings for interruptions and how the assistant decides the user has finished speaking.
@@ -138,7 +138,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
+    fun interruptionSettings(): Optional<InferenceEmbeddingInterruptionSettings> =
         body.interruptionSettings()
 
     /**
@@ -161,7 +161,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> = body.mcpServers()
+    fun mcpServers(): Optional<List<AssistantMcpServer>> = body.mcpServers()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -360,7 +360,7 @@ private constructor(
      *
      * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = body._integrations()
+    fun _integrations(): JsonField<List<AssistantIntegration>> = body._integrations()
 
     /**
      * Returns the raw JSON value of [interruptionSettings].
@@ -368,7 +368,7 @@ private constructor(
      * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
+    fun _interruptionSettings(): JsonField<InferenceEmbeddingInterruptionSettings> =
         body._interruptionSettings()
 
     /**
@@ -383,7 +383,7 @@ private constructor(
      *
      * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = body._mcpServers()
+    fun _mcpServers(): JsonField<List<AssistantMcpServer>> = body._mcpServers()
 
     /**
      * Returns the raw JSON value of [messagingSettings].
@@ -729,7 +729,7 @@ private constructor(
          * `/ai/integrations/connections`. Each item references a catalog integration by
          * `integration_id`.
          */
-        fun integrations(integrations: List<UpdateAssistant.Integration>) = apply {
+        fun integrations(integrations: List<AssistantIntegration>) = apply {
             body.integrations(integrations)
         }
 
@@ -737,19 +737,19 @@ private constructor(
          * Sets [Builder.integrations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.integrations] with a well-typed
-         * `List<UpdateAssistant.Integration>` value instead. This method is primarily for setting
-         * the field to an undocumented or not yet supported value.
+         * `List<AssistantIntegration>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
+        fun integrations(integrations: JsonField<List<AssistantIntegration>>) = apply {
             body.integrations(integrations)
         }
 
         /**
-         * Adds a single [UpdateAssistant.Integration] to [integrations].
+         * Adds a single [AssistantIntegration] to [integrations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addIntegration(integration: UpdateAssistant.Integration) = apply {
+        fun addIntegration(integration: AssistantIntegration) = apply {
             body.addIntegration(integration)
         }
 
@@ -760,7 +760,7 @@ private constructor(
          * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
          * `eot_timeout_ms`, `eager_eot_threshold`).
          */
-        fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
+        fun interruptionSettings(interruptionSettings: InferenceEmbeddingInterruptionSettings) =
             apply {
                 body.interruptionSettings(interruptionSettings)
             }
@@ -769,11 +769,11 @@ private constructor(
          * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.interruptionSettings] with a well-typed
-         * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
+         * [InferenceEmbeddingInterruptionSettings] value instead. This method is primarily for
          * setting the field to an undocumented or not yet supported value.
          */
         fun interruptionSettings(
-            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
+            interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>
         ) = apply { body.interruptionSettings(interruptionSettings) }
 
         /**
@@ -801,29 +801,25 @@ private constructor(
          * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
          * reference them by `id` here.
          */
-        fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) = apply {
-            body.mcpServers(mcpServers)
-        }
+        fun mcpServers(mcpServers: List<AssistantMcpServer>) = apply { body.mcpServers(mcpServers) }
 
         /**
          * Sets [Builder.mcpServers] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.mcpServers] with a well-typed
-         * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.mcpServers] with a well-typed `List<AssistantMcpServer>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
+        fun mcpServers(mcpServers: JsonField<List<AssistantMcpServer>>) = apply {
             body.mcpServers(mcpServers)
         }
 
         /**
-         * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
+         * Adds a single [AssistantMcpServer] to [mcpServers].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
-            body.addMcpServer(mcpServer)
-        }
+        fun addMcpServer(mcpServer: AssistantMcpServer) = apply { body.addMcpServer(mcpServer) }
 
         fun messagingSettings(messagingSettings: MessagingSettings) = apply {
             body.messagingSettings(messagingSettings)
@@ -1086,7 +1082,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) = apply {
+        fun addInviteTool(invite: AssistantTool.Invite.InviteToolInviteConfig) = apply {
             body.addInviteTool(invite)
         }
 
@@ -1380,10 +1376,10 @@ private constructor(
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val instructions: JsonField<String>,
-        private val integrations: JsonField<List<UpdateAssistant.Integration>>,
-        private val interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>,
+        private val integrations: JsonField<List<AssistantIntegration>>,
+        private val interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>,
         private val llmApiKeyRef: JsonField<String>,
-        private val mcpServers: JsonField<List<UpdateAssistant.McpServer>>,
+        private val mcpServers: JsonField<List<AssistantMcpServer>>,
         private val messagingSettings: JsonField<MessagingSettings>,
         private val model: JsonField<String>,
         private val name: JsonField<String>,
@@ -1436,17 +1432,17 @@ private constructor(
             instructions: JsonField<String> = JsonMissing.of(),
             @JsonProperty("integrations")
             @ExcludeMissing
-            integrations: JsonField<List<UpdateAssistant.Integration>> = JsonMissing.of(),
+            integrations: JsonField<List<AssistantIntegration>> = JsonMissing.of(),
             @JsonProperty("interruption_settings")
             @ExcludeMissing
-            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
+            interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings> =
                 JsonMissing.of(),
             @JsonProperty("llm_api_key_ref")
             @ExcludeMissing
             llmApiKeyRef: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mcp_servers")
             @ExcludeMissing
-            mcpServers: JsonField<List<UpdateAssistant.McpServer>> = JsonMissing.of(),
+            mcpServers: JsonField<List<AssistantMcpServer>> = JsonMissing.of(),
             @JsonProperty("messaging_settings")
             @ExcludeMissing
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
@@ -1650,7 +1646,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun integrations(): Optional<List<UpdateAssistant.Integration>> =
+        fun integrations(): Optional<List<AssistantIntegration>> =
             integrations.getOptional("integrations")
 
         /**
@@ -1663,7 +1659,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
+        fun interruptionSettings(): Optional<InferenceEmbeddingInterruptionSettings> =
             interruptionSettings.getOptional("interruption_settings")
 
         /**
@@ -1686,8 +1682,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> =
-            mcpServers.getOptional("mcp_servers")
+        fun mcpServers(): Optional<List<AssistantMcpServer>> = mcpServers.getOptional("mcp_servers")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1916,7 +1911,7 @@ private constructor(
          */
         @JsonProperty("integrations")
         @ExcludeMissing
-        fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = integrations
+        fun _integrations(): JsonField<List<AssistantIntegration>> = integrations
 
         /**
          * Returns the raw JSON value of [interruptionSettings].
@@ -1926,7 +1921,7 @@ private constructor(
          */
         @JsonProperty("interruption_settings")
         @ExcludeMissing
-        fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
+        fun _interruptionSettings(): JsonField<InferenceEmbeddingInterruptionSettings> =
             interruptionSettings
 
         /**
@@ -1946,7 +1941,7 @@ private constructor(
          */
         @JsonProperty("mcp_servers")
         @ExcludeMissing
-        fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = mcpServers
+        fun _mcpServers(): JsonField<List<AssistantMcpServer>> = mcpServers
 
         /**
          * Returns the raw JSON value of [messagingSettings].
@@ -2115,11 +2110,11 @@ private constructor(
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
-            private var integrations: JsonField<MutableList<UpdateAssistant.Integration>>? = null
-            private var interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
+            private var integrations: JsonField<MutableList<AssistantIntegration>>? = null
+            private var interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings> =
                 JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
-            private var mcpServers: JsonField<MutableList<UpdateAssistant.McpServer>>? = null
+            private var mcpServers: JsonField<MutableList<AssistantMcpServer>>? = null
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
@@ -2353,26 +2348,26 @@ private constructor(
              * `/ai/integrations/connections`. Each item references a catalog integration by
              * `integration_id`.
              */
-            fun integrations(integrations: List<UpdateAssistant.Integration>) =
+            fun integrations(integrations: List<AssistantIntegration>) =
                 integrations(JsonField.of(integrations))
 
             /**
              * Sets [Builder.integrations] to an arbitrary JSON value.
              *
              * You should usually call [Builder.integrations] with a well-typed
-             * `List<UpdateAssistant.Integration>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
+             * `List<AssistantIntegration>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
+            fun integrations(integrations: JsonField<List<AssistantIntegration>>) = apply {
                 this.integrations = integrations.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [UpdateAssistant.Integration] to [integrations].
+             * Adds a single [AssistantIntegration] to [integrations].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addIntegration(integration: UpdateAssistant.Integration) = apply {
+            fun addIntegration(integration: AssistantIntegration) = apply {
                 integrations =
                     (integrations ?: JsonField.of(mutableListOf())).also {
                         checkKnown("integrations", it).add(integration)
@@ -2386,18 +2381,18 @@ private constructor(
              * controlled by the transcription end-of-turn settings under `transcription.settings`
              * (`eot_threshold`, `eot_timeout_ms`, `eager_eot_threshold`).
              */
-            fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
+            fun interruptionSettings(interruptionSettings: InferenceEmbeddingInterruptionSettings) =
                 interruptionSettings(JsonField.of(interruptionSettings))
 
             /**
              * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.interruptionSettings] with a well-typed
-             * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
+             * [InferenceEmbeddingInterruptionSettings] value instead. This method is primarily for
              * setting the field to an undocumented or not yet supported value.
              */
             fun interruptionSettings(
-                interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
+                interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>
             ) = apply { this.interruptionSettings = interruptionSettings }
 
             /**
@@ -2425,26 +2420,26 @@ private constructor(
              * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`,
              * then reference them by `id` here.
              */
-            fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) =
+            fun mcpServers(mcpServers: List<AssistantMcpServer>) =
                 mcpServers(JsonField.of(mcpServers))
 
             /**
              * Sets [Builder.mcpServers] to an arbitrary JSON value.
              *
              * You should usually call [Builder.mcpServers] with a well-typed
-             * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
+             * `List<AssistantMcpServer>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
+            fun mcpServers(mcpServers: JsonField<List<AssistantMcpServer>>) = apply {
                 this.mcpServers = mcpServers.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
+             * Adds a single [AssistantMcpServer] to [mcpServers].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
+            fun addMcpServer(mcpServer: AssistantMcpServer) = apply {
                 mcpServers =
                     (mcpServers ?: JsonField.of(mutableListOf())).also {
                         checkKnown("mcpServers", it).add(mcpServer)
@@ -2739,7 +2734,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) =
+            fun addInviteTool(invite: AssistantTool.Invite.InviteToolInviteConfig) =
                 addTool(AssistantTool.Invite.builder().invite(invite).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */

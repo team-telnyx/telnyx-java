@@ -20,7 +20,13 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Order new external vetting for a brand */
+/**
+ * Order new external vetting for a brand.
+ *
+ * Duplicate orders for the same `evpId` and `vettingClass` return `400` with code `10012` if a
+ * successful vetting exists within the last 180 days, or one is currently being processed. Failed
+ * vettings can be retried immediately.
+ */
 class ExternalVettingOrderParams
 private constructor(
     private val brandId: String?,

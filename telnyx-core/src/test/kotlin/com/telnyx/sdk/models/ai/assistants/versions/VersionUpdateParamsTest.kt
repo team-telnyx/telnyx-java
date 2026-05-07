@@ -3,17 +3,22 @@
 package com.telnyx.sdk.models.ai.assistants.versions
 
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
+import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
 import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
+import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
+import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
@@ -73,20 +78,18 @@ internal class VersionUpdateParamsTest {
                     )
                     .instructions("instructions")
                     .addIntegration(
-                        UpdateAssistant.Integration.builder()
+                        AssistantIntegration.builder()
                             .integrationId("integration_id")
                             .addAllowedList("string")
                             .build()
                     )
                     .interruptionSettings(
-                        UpdateAssistant.InterruptionSettings.builder()
+                        InferenceEmbeddingInterruptionSettings.builder()
                             .enable(true)
                             .startSpeakingPlan(
-                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                                StartSpeakingPlan.builder()
                                     .transcriptionEndpointingPlan(
-                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                            .TranscriptionEndpointingPlan
-                                            .builder()
+                                        TranscriptionEndpointingPlan.builder()
                                             .onNoPunctuationSeconds(0.0f)
                                             .onNumberSeconds(0.0f)
                                             .onPunctuationSeconds(0.0f)
@@ -99,10 +102,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .llmApiKeyRef("llm_api_key_ref")
                     .addMcpServer(
-                        UpdateAssistant.McpServer.builder()
-                            .id("id")
-                            .addAllowedTool("string")
-                            .build()
+                        AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                     )
                     .messagingSettings(
                         MessagingSettings.builder()
@@ -398,20 +398,18 @@ internal class VersionUpdateParamsTest {
                         )
                         .instructions("instructions")
                         .addIntegration(
-                            UpdateAssistant.Integration.builder()
+                            AssistantIntegration.builder()
                                 .integrationId("integration_id")
                                 .addAllowedList("string")
                                 .build()
                         )
                         .interruptionSettings(
-                            UpdateAssistant.InterruptionSettings.builder()
+                            InferenceEmbeddingInterruptionSettings.builder()
                                 .enable(true)
                                 .startSpeakingPlan(
-                                    UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                                    StartSpeakingPlan.builder()
                                         .transcriptionEndpointingPlan(
-                                            UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                                .TranscriptionEndpointingPlan
-                                                .builder()
+                                            TranscriptionEndpointingPlan.builder()
                                                 .onNoPunctuationSeconds(0.0f)
                                                 .onNumberSeconds(0.0f)
                                                 .onPunctuationSeconds(0.0f)
@@ -424,10 +422,7 @@ internal class VersionUpdateParamsTest {
                         )
                         .llmApiKeyRef("llm_api_key_ref")
                         .addMcpServer(
-                            UpdateAssistant.McpServer.builder()
-                                .id("id")
-                                .addAllowedTool("string")
-                                .build()
+                            AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                         )
                         .messagingSettings(
                             MessagingSettings.builder()
@@ -719,20 +714,18 @@ internal class VersionUpdateParamsTest {
                     )
                     .instructions("instructions")
                     .addIntegration(
-                        UpdateAssistant.Integration.builder()
+                        AssistantIntegration.builder()
                             .integrationId("integration_id")
                             .addAllowedList("string")
                             .build()
                     )
                     .interruptionSettings(
-                        UpdateAssistant.InterruptionSettings.builder()
+                        InferenceEmbeddingInterruptionSettings.builder()
                             .enable(true)
                             .startSpeakingPlan(
-                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                                StartSpeakingPlan.builder()
                                     .transcriptionEndpointingPlan(
-                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                            .TranscriptionEndpointingPlan
-                                            .builder()
+                                        TranscriptionEndpointingPlan.builder()
                                             .onNoPunctuationSeconds(0.0f)
                                             .onNumberSeconds(0.0f)
                                             .onPunctuationSeconds(0.0f)
@@ -745,10 +738,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .llmApiKeyRef("llm_api_key_ref")
                     .addMcpServer(
-                        UpdateAssistant.McpServer.builder()
-                            .id("id")
-                            .addAllowedTool("string")
-                            .build()
+                        AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                     )
                     .messagingSettings(
                         MessagingSettings.builder()
