@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.48.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.49.0)
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ Use the Telnyx MCP Server to enable AI assistants to interact with this API, all
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx:6.48.0")
+implementation("com.telnyx.sdk:telnyx:6.49.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("com.telnyx.sdk:telnyx:6.48.0")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>6.48.0</version>
+  <version>6.49.0</version>
 </dependency>
 ```
 
@@ -467,8 +467,6 @@ while (true) {
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `TELNYX_LOG` environment variable to `info`:
 
 ```sh
@@ -479,6 +477,19 @@ Or to `debug` for more verbose logging:
 
 ```sh
 export TELNYX_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```java
+import com.telnyx.sdk.client.TelnyxClient;
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
+import com.telnyx.sdk.core.LogLevel;
+
+TelnyxClient client = TelnyxOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .build();
 ```
 
 ## ProGuard and R8

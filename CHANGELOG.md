@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.49.0 (2026-05-07)
+
+Full Changelog: [v6.48.0...v6.49.0](https://github.com/team-telnyx/telnyx-java/compare/v6.48.0...v6.49.0)
+
+### Features
+
+* **client:** improve logging ([e2f2d6f](https://github.com/team-telnyx/telnyx-java/commit/e2f2d6f7c4ccc84fe11792caa26d9647b0c33d26))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([4a19709](https://github.com/team-telnyx/telnyx-java/commit/4a19709011e2434fb49e41d3a40bdb489e4bd79d))
+
 ## 6.48.0 (2026-05-05)
 
 Full Changelog: [v6.47.0...v6.48.0](https://github.com/team-telnyx/telnyx-java/compare/v6.47.0...v6.48.0)
