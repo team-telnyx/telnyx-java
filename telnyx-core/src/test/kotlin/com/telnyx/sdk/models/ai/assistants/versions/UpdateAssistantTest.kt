@@ -86,6 +86,7 @@ internal class UpdateAssistantTest {
                 )
                 .interruptionSettings(
                     InferenceEmbeddingInterruptionSettings.builder()
+                        .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()
@@ -375,6 +376,7 @@ internal class UpdateAssistantTest {
         assertThat(updateAssistant.interruptionSettings())
             .contains(
                 InferenceEmbeddingInterruptionSettings.builder()
+                    .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
                         StartSpeakingPlan.builder()
@@ -693,6 +695,7 @@ internal class UpdateAssistantTest {
                 )
                 .interruptionSettings(
                     InferenceEmbeddingInterruptionSettings.builder()
+                        .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()

@@ -13,6 +13,7 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
     fun create() {
         val inferenceEmbeddingInterruptionSettings =
             InferenceEmbeddingInterruptionSettings.builder()
+                .disableGreetingInterruption(true)
                 .enable(true)
                 .startSpeakingPlan(
                     StartSpeakingPlan.builder()
@@ -28,6 +29,8 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
                 )
                 .build()
 
+        assertThat(inferenceEmbeddingInterruptionSettings.disableGreetingInterruption())
+            .contains(true)
         assertThat(inferenceEmbeddingInterruptionSettings.enable()).contains(true)
         assertThat(inferenceEmbeddingInterruptionSettings.startSpeakingPlan())
             .contains(
@@ -49,6 +52,7 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
         val jsonMapper = jsonMapper()
         val inferenceEmbeddingInterruptionSettings =
             InferenceEmbeddingInterruptionSettings.builder()
+                .disableGreetingInterruption(true)
                 .enable(true)
                 .startSpeakingPlan(
                     StartSpeakingPlan.builder()

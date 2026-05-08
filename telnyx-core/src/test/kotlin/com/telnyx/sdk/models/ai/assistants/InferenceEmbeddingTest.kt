@@ -76,6 +76,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .interruptionSettings(
                     InferenceEmbeddingInterruptionSettings.builder()
+                        .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()
@@ -375,6 +376,7 @@ internal class InferenceEmbeddingTest {
         assertThat(inferenceEmbedding.interruptionSettings())
             .contains(
                 InferenceEmbeddingInterruptionSettings.builder()
+                    .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
                         StartSpeakingPlan.builder()
@@ -704,6 +706,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .interruptionSettings(
                     InferenceEmbeddingInterruptionSettings.builder()
+                        .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()

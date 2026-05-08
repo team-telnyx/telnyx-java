@@ -96,6 +96,7 @@ internal class AssistantServiceAsyncTest {
                     )
                     .interruptionSettings(
                         InferenceEmbeddingInterruptionSettings.builder()
+                            .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
                                 StartSpeakingPlan.builder()
@@ -422,6 +423,7 @@ internal class AssistantServiceAsyncTest {
                     )
                     .interruptionSettings(
                         InferenceEmbeddingInterruptionSettings.builder()
+                            .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
                                 StartSpeakingPlan.builder()

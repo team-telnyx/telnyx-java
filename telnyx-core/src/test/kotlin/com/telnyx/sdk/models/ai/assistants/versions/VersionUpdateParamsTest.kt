@@ -85,6 +85,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .interruptionSettings(
                         InferenceEmbeddingInterruptionSettings.builder()
+                            .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
                                 StartSpeakingPlan.builder()
@@ -405,6 +406,7 @@ internal class VersionUpdateParamsTest {
                         )
                         .interruptionSettings(
                             InferenceEmbeddingInterruptionSettings.builder()
+                                .disableGreetingInterruption(true)
                                 .enable(true)
                                 .startSpeakingPlan(
                                     StartSpeakingPlan.builder()
@@ -721,6 +723,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .interruptionSettings(
                         InferenceEmbeddingInterruptionSettings.builder()
+                            .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
                                 StartSpeakingPlan.builder()
