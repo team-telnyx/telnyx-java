@@ -1303,7 +1303,7 @@ internal class ActionServiceTest {
             actionService.transfer(
                 ActionTransferParams.builder()
                     .callControlId("call_control_id")
-                    .to("+18005550100 or sip:username@sip.telnyx.com")
+                    .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                     .answeringMachineDetection(
                         ActionTransferParams.AnsweringMachineDetection.DETECT
                     )

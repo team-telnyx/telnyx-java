@@ -774,7 +774,7 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 
 CallDialParams params = CallDialParams.builder()
     .from("+18005550101")
-    .to("+18005550100 or sip:username@sip.telnyx.com")
+    .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
     .connectionId(JsonMissing.of())
     .build();
 ```

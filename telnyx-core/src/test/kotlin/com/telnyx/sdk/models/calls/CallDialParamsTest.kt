@@ -18,7 +18,7 @@ internal class CallDialParamsTest {
         CallDialParams.builder()
             .connectionId("7267xxxxxxxxxxxxxx")
             .from("+18005550101")
-            .to("+18005550100 or sip:username@sip.telnyx.com")
+            .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
             .answeringMachineDetection(CallDialParams.AnsweringMachineDetection.DETECT)
             .answeringMachineDetectionConfig(
                 CallDialParams.AnsweringMachineDetectionConfig.builder()
@@ -256,7 +256,7 @@ internal class CallDialParamsTest {
             CallDialParams.builder()
                 .connectionId("7267xxxxxxxxxxxxxx")
                 .from("+18005550101")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .answeringMachineDetection(CallDialParams.AnsweringMachineDetection.DETECT)
                 .answeringMachineDetectionConfig(
                     CallDialParams.AnsweringMachineDetectionConfig.builder()
@@ -492,7 +492,11 @@ internal class CallDialParamsTest {
         assertThat(body.connectionId()).isEqualTo("7267xxxxxxxxxxxxxx")
         assertThat(body.from()).isEqualTo("+18005550101")
         assertThat(body.to())
-            .isEqualTo(CallDialParams.To.ofString("+18005550100 or sip:username@sip.telnyx.com"))
+            .isEqualTo(
+                CallDialParams.To.ofString(
+                    "+18005550100 or sip:username@sip.telnyx.com;secure=srtp"
+                )
+            )
         assertThat(body.answeringMachineDetection())
             .contains(CallDialParams.AnsweringMachineDetection.DETECT)
         assertThat(body.answeringMachineDetectionConfig())
@@ -747,7 +751,7 @@ internal class CallDialParamsTest {
             CallDialParams.builder()
                 .connectionId("7267xxxxxxxxxxxxxx")
                 .from("+18005550101")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .build()
 
         val body = params._body()
@@ -755,6 +759,10 @@ internal class CallDialParamsTest {
         assertThat(body.connectionId()).isEqualTo("7267xxxxxxxxxxxxxx")
         assertThat(body.from()).isEqualTo("+18005550101")
         assertThat(body.to())
-            .isEqualTo(CallDialParams.To.ofString("+18005550100 or sip:username@sip.telnyx.com"))
+            .isEqualTo(
+                CallDialParams.To.ofString(
+                    "+18005550100 or sip:username@sip.telnyx.com;secure=srtp"
+                )
+            )
     }
 }
