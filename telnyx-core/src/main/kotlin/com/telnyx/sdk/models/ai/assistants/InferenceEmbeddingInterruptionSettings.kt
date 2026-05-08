@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
 class InferenceEmbeddingInterruptionSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val disableGreetingInterruption: JsonField<Boolean>,
     private val enable: JsonField<Boolean>,
     private val startSpeakingPlan: JsonField<StartSpeakingPlan>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -33,11 +34,23 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("disable_greeting_interruption")
+        @ExcludeMissing
+        disableGreetingInterruption: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("enable") @ExcludeMissing enable: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("start_speaking_plan")
         @ExcludeMissing
         startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of(),
-    ) : this(enable, startSpeakingPlan, mutableMapOf())
+    ) : this(disableGreetingInterruption, enable, startSpeakingPlan, mutableMapOf())
+
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun disableGreetingInterruption(): Optional<Boolean> =
+        disableGreetingInterruption.getOptional("disable_greeting_interruption")
 
     /**
      * Whether users can interrupt the assistant while it is speaking.
@@ -58,6 +71,16 @@ private constructor(
      */
     fun startSpeakingPlan(): Optional<StartSpeakingPlan> =
         startSpeakingPlan.getOptional("start_speaking_plan")
+
+    /**
+     * Returns the raw JSON value of [disableGreetingInterruption].
+     *
+     * Unlike [disableGreetingInterruption], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("disable_greeting_interruption")
+    @ExcludeMissing
+    fun _disableGreetingInterruption(): JsonField<Boolean> = disableGreetingInterruption
 
     /**
      * Returns the raw JSON value of [enable].
@@ -100,6 +123,7 @@ private constructor(
     /** A builder for [InferenceEmbeddingInterruptionSettings]. */
     class Builder internal constructor() {
 
+        private var disableGreetingInterruption: JsonField<Boolean> = JsonMissing.of()
         private var enable: JsonField<Boolean> = JsonMissing.of()
         private var startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -108,10 +132,27 @@ private constructor(
         internal fun from(
             inferenceEmbeddingInterruptionSettings: InferenceEmbeddingInterruptionSettings
         ) = apply {
+            disableGreetingInterruption =
+                inferenceEmbeddingInterruptionSettings.disableGreetingInterruption
             enable = inferenceEmbeddingInterruptionSettings.enable
             startSpeakingPlan = inferenceEmbeddingInterruptionSettings.startSpeakingPlan
             additionalProperties =
                 inferenceEmbeddingInterruptionSettings.additionalProperties.toMutableMap()
+        }
+
+        /** When true, disables user interruptions while the assistant greeting is playing. */
+        fun disableGreetingInterruption(disableGreetingInterruption: Boolean) =
+            disableGreetingInterruption(JsonField.of(disableGreetingInterruption))
+
+        /**
+         * Sets [Builder.disableGreetingInterruption] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.disableGreetingInterruption] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun disableGreetingInterruption(disableGreetingInterruption: JsonField<Boolean>) = apply {
+            this.disableGreetingInterruption = disableGreetingInterruption
         }
 
         /** Whether users can interrupt the assistant while it is speaking. */
@@ -171,6 +212,7 @@ private constructor(
          */
         fun build(): InferenceEmbeddingInterruptionSettings =
             InferenceEmbeddingInterruptionSettings(
+                disableGreetingInterruption,
                 enable,
                 startSpeakingPlan,
                 additionalProperties.toMutableMap(),
@@ -192,6 +234,7 @@ private constructor(
             return@apply
         }
 
+        disableGreetingInterruption()
         enable()
         startSpeakingPlan().ifPresent { it.validate() }
         validated = true
@@ -212,7 +255,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (enable.asKnown().isPresent) 1 else 0) +
+        (if (disableGreetingInterruption.asKnown().isPresent) 1 else 0) +
+            (if (enable.asKnown().isPresent) 1 else 0) +
             (startSpeakingPlan.asKnown().getOrNull()?.validity() ?: 0)
 
     override fun equals(other: Any?): Boolean {
@@ -221,17 +265,18 @@ private constructor(
         }
 
         return other is InferenceEmbeddingInterruptionSettings &&
+            disableGreetingInterruption == other.disableGreetingInterruption &&
             enable == other.enable &&
             startSpeakingPlan == other.startSpeakingPlan &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(enable, startSpeakingPlan, additionalProperties)
+        Objects.hash(disableGreetingInterruption, enable, startSpeakingPlan, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingInterruptionSettings{enable=$enable, startSpeakingPlan=$startSpeakingPlan, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingInterruptionSettings{disableGreetingInterruption=$disableGreetingInterruption, enable=$enable, startSpeakingPlan=$startSpeakingPlan, additionalProperties=$additionalProperties}"
 }

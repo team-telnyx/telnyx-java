@@ -118,6 +118,7 @@ internal class VersionServiceAsyncTest {
                             )
                             .interruptionSettings(
                                 InferenceEmbeddingInterruptionSettings.builder()
+                                    .disableGreetingInterruption(true)
                                     .enable(true)
                                     .startSpeakingPlan(
                                         StartSpeakingPlan.builder()
