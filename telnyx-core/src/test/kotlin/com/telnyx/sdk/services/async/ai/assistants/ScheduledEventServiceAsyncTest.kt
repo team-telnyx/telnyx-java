@@ -38,6 +38,8 @@ internal class ScheduledEventServiceAsyncTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .maxRetriesClientErrors(0L)
+                    .retryIntervalSecs(60L)
                     .text("text")
                     .build()
             )

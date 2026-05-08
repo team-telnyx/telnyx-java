@@ -16,19 +16,56 @@ internal class CanaryDeployResponseTest {
             CanaryDeployResponse.builder()
                 .assistantId("assistant_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addRule(
+                    RuleOutput.builder()
+                        .serve(
+                            Serve.builder()
+                                .addRollout(
+                                    RolloutSlot.builder()
+                                        .versionId("version_id")
+                                        .weight(0.0)
+                                        .build()
+                                )
+                                .versionId("version_id")
+                                .build()
+                        )
+                        .addMatch(
+                            Clause.builder()
+                                .attribute("attribute")
+                                .operator(Clause.Operator.IN)
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .addVersion(VersionConfig.builder().percentage(1.0).versionId("version_id").build())
                 .build()
 
         assertThat(canaryDeployResponse.assistantId()).isEqualTo("assistant_id")
         assertThat(canaryDeployResponse.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(canaryDeployResponse.rules())
+            .containsExactly(
+                RuleOutput.builder()
+                    .serve(
+                        Serve.builder()
+                            .addRollout(
+                                RolloutSlot.builder().versionId("version_id").weight(0.0).build()
+                            )
+                            .versionId("version_id")
+                            .build()
+                    )
+                    .addMatch(
+                        Clause.builder()
+                            .attribute("attribute")
+                            .operator(Clause.Operator.IN)
+                            .addValue("string")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(canaryDeployResponse.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(canaryDeployResponse.versions())
-            .containsExactly(
-                VersionConfig.builder().percentage(1.0).versionId("version_id").build()
-            )
     }
 
     @Test
@@ -38,8 +75,29 @@ internal class CanaryDeployResponseTest {
             CanaryDeployResponse.builder()
                 .assistantId("assistant_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addRule(
+                    RuleOutput.builder()
+                        .serve(
+                            Serve.builder()
+                                .addRollout(
+                                    RolloutSlot.builder()
+                                        .versionId("version_id")
+                                        .weight(0.0)
+                                        .build()
+                                )
+                                .versionId("version_id")
+                                .build()
+                        )
+                        .addMatch(
+                            Clause.builder()
+                                .attribute("attribute")
+                                .operator(Clause.Operator.IN)
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .addVersion(VersionConfig.builder().percentage(1.0).versionId("version_id").build())
                 .build()
 
         val roundtrippedCanaryDeployResponse =

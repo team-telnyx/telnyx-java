@@ -26,14 +26,17 @@ interface ChatService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChatService
 
     /**
-     * Chat with a language model. This endpoint is consistent with the
+     * **Deprecated**: Use `POST /v2/ai/openai/chat/completions` instead. Chat with a language
+     * model. This endpoint is consistent with the
      * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat) and may be
      * used with the OpenAI JS or Python SDK.
      */
+    @Deprecated("deprecated")
     fun createCompletion(params: ChatCreateCompletionParams): ChatCreateCompletionResponse =
         createCompletion(params, RequestOptions.none())
 
     /** @see createCompletion */
+    @Deprecated("deprecated")
     fun createCompletion(
         params: ChatCreateCompletionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -53,6 +56,7 @@ interface ChatService {
          * Returns a raw HTTP response for `post /ai/chat/completions`, but is otherwise the same as
          * [ChatService.createCompletion].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createCompletion(
             params: ChatCreateCompletionParams
@@ -60,6 +64,7 @@ interface ChatService {
             createCompletion(params, RequestOptions.none())
 
         /** @see createCompletion */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createCompletion(
             params: ChatCreateCompletionParams,

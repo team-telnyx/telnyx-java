@@ -19,14 +19,18 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Response model for canary deploy operations. */
+/**
+ * Response shape.
+ *
+ * Always carries ``rules`` (canonical).
+ */
 class CanaryDeployResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val assistantId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val rules: JsonField<List<RuleOutput>>,
     private val updatedAt: JsonField<OffsetDateTime>,
-    private val versions: JsonField<List<VersionConfig>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -38,13 +42,13 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("rules")
+        @ExcludeMissing
+        rules: JsonField<List<RuleOutput>> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("versions")
-        @ExcludeMissing
-        versions: JsonField<List<VersionConfig>> = JsonMissing.of(),
-    ) : this(assistantId, createdAt, updatedAt, versions, mutableMapOf())
+    ) : this(assistantId, createdAt, rules, updatedAt, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -62,13 +66,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+    fun rules(): List<RuleOutput> = rules.getRequired("rules")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun versions(): List<VersionConfig> = versions.getRequired("versions")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * Returns the raw JSON value of [assistantId].
@@ -89,6 +93,13 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [rules].
+     *
+     * Unlike [rules], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("rules") @ExcludeMissing fun _rules(): JsonField<List<RuleOutput>> = rules
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -96,15 +107,6 @@ private constructor(
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
-
-    /**
-     * Returns the raw JSON value of [versions].
-     *
-     * Unlike [versions], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("versions")
-    @ExcludeMissing
-    fun _versions(): JsonField<List<VersionConfig>> = versions
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -127,8 +129,8 @@ private constructor(
          * ```java
          * .assistantId()
          * .createdAt()
+         * .rules()
          * .updatedAt()
-         * .versions()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -139,16 +141,16 @@ private constructor(
 
         private var assistantId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var rules: JsonField<MutableList<RuleOutput>>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
-        private var versions: JsonField<MutableList<VersionConfig>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(canaryDeployResponse: CanaryDeployResponse) = apply {
             assistantId = canaryDeployResponse.assistantId
             createdAt = canaryDeployResponse.createdAt
+            rules = canaryDeployResponse.rules.map { it.toMutableList() }
             updatedAt = canaryDeployResponse.updatedAt
-            versions = canaryDeployResponse.versions.map { it.toMutableList() }
             additionalProperties = canaryDeployResponse.additionalProperties.toMutableMap()
         }
 
@@ -174,6 +176,29 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        fun rules(rules: List<RuleOutput>) = rules(JsonField.of(rules))
+
+        /**
+         * Sets [Builder.rules] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.rules] with a well-typed `List<RuleOutput>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun rules(rules: JsonField<List<RuleOutput>>) = apply {
+            this.rules = rules.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [RuleOutput] to [rules].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRule(rule: RuleOutput) = apply {
+            rules =
+                (rules ?: JsonField.of(mutableListOf())).also { checkKnown("rules", it).add(rule) }
+        }
+
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -184,31 +209,6 @@ private constructor(
          * supported value.
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun versions(versions: List<VersionConfig>) = versions(JsonField.of(versions))
-
-        /**
-         * Sets [Builder.versions] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.versions] with a well-typed `List<VersionConfig>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun versions(versions: JsonField<List<VersionConfig>>) = apply {
-            this.versions = versions.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [VersionConfig] to [versions].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addVersion(version: VersionConfig) = apply {
-            versions =
-                (versions ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("versions", it).add(version)
-                }
-        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -238,8 +238,8 @@ private constructor(
          * ```java
          * .assistantId()
          * .createdAt()
+         * .rules()
          * .updatedAt()
-         * .versions()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -248,8 +248,8 @@ private constructor(
             CanaryDeployResponse(
                 checkRequired("assistantId", assistantId),
                 checkRequired("createdAt", createdAt),
+                checkRequired("rules", rules).map { it.toImmutable() },
                 checkRequired("updatedAt", updatedAt),
-                checkRequired("versions", versions).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -271,8 +271,8 @@ private constructor(
 
         assistantId()
         createdAt()
+        rules().forEach { it.validate() }
         updatedAt()
-        versions().forEach { it.validate() }
         validated = true
     }
 
@@ -293,8 +293,8 @@ private constructor(
     internal fun validity(): Int =
         (if (assistantId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (versions.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+            (rules.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -304,17 +304,17 @@ private constructor(
         return other is CanaryDeployResponse &&
             assistantId == other.assistantId &&
             createdAt == other.createdAt &&
+            rules == other.rules &&
             updatedAt == other.updatedAt &&
-            versions == other.versions &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(assistantId, createdAt, updatedAt, versions, additionalProperties)
+        Objects.hash(assistantId, createdAt, rules, updatedAt, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CanaryDeployResponse{assistantId=$assistantId, createdAt=$createdAt, updatedAt=$updatedAt, versions=$versions, additionalProperties=$additionalProperties}"
+        "CanaryDeployResponse{assistantId=$assistantId, createdAt=$createdAt, rules=$rules, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

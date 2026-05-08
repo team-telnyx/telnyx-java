@@ -101,7 +101,7 @@ internal class ServiceParamsTest {
             CallDialParams.builder()
                 .connectionId("7267xxxxxxxxxxxxxx")
                 .from("+18005550101")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .answeringMachineDetection(CallDialParams.AnsweringMachineDetection.DETECT)
                 .answeringMachineDetectionConfig(
                     CallDialParams.AnsweringMachineDetectionConfig.builder()

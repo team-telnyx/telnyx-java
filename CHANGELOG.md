@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.50.0 (2026-05-08)
+
+Full Changelog: [v6.49.0...v6.50.0](https://github.com/team-telnyx/telnyx-java/compare/v6.49.0...v6.50.0)
+
+### Features
+
+* AI-2289 add disable greeting interruption OpenAPI fields ([1bbfc42](https://github.com/team-telnyx/telnyx-java/commit/1bbfc426311a2e3fddfffe82b17b5e2a890d8fa6))
+* Document per-endpoint media encryption for call control ([a6fa993](https://github.com/team-telnyx/telnyx-java/commit/a6fa993b8b8240880b5d97cb9cfdf6a8b37b755a))
+
+
+### Bug Fixes
+
+* update UAC internal settings URI examples ([95c9a4c](https://github.com/team-telnyx/telnyx-java/commit/95c9a4c6edb5a12148381263d65309b1ba6aa2fc))
+
 ## 6.49.0 (2026-05-07)
 
 Full Changelog: [v6.48.0...v6.49.0](https://github.com/team-telnyx/telnyx-java/compare/v6.48.0...v6.49.0)

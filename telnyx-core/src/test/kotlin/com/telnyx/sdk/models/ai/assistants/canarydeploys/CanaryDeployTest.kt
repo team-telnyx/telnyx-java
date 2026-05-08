@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants.canarydeploys
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,12 +14,49 @@ internal class CanaryDeployTest {
     fun create() {
         val canaryDeploy =
             CanaryDeploy.builder()
-                .addVersion(VersionConfig.builder().percentage(1.0).versionId("version_id").build())
+                .addRule(
+                    RuleInput.builder()
+                        .serve(
+                            Serve.builder()
+                                .addRollout(
+                                    RolloutSlot.builder()
+                                        .versionId("version_id")
+                                        .weight(0.0)
+                                        .build()
+                                )
+                                .versionId("version_id")
+                                .build()
+                        )
+                        .addMatch(
+                            Clause.builder()
+                                .attribute("attribute")
+                                .operator(Clause.Operator.IN)
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
-        assertThat(canaryDeploy.versions())
+        assertThat(canaryDeploy.rules().getOrNull())
             .containsExactly(
-                VersionConfig.builder().percentage(1.0).versionId("version_id").build()
+                RuleInput.builder()
+                    .serve(
+                        Serve.builder()
+                            .addRollout(
+                                RolloutSlot.builder().versionId("version_id").weight(0.0).build()
+                            )
+                            .versionId("version_id")
+                            .build()
+                    )
+                    .addMatch(
+                        Clause.builder()
+                            .attribute("attribute")
+                            .operator(Clause.Operator.IN)
+                            .addValue("string")
+                            .build()
+                    )
+                    .build()
             )
     }
 
@@ -27,7 +65,28 @@ internal class CanaryDeployTest {
         val jsonMapper = jsonMapper()
         val canaryDeploy =
             CanaryDeploy.builder()
-                .addVersion(VersionConfig.builder().percentage(1.0).versionId("version_id").build())
+                .addRule(
+                    RuleInput.builder()
+                        .serve(
+                            Serve.builder()
+                                .addRollout(
+                                    RolloutSlot.builder()
+                                        .versionId("version_id")
+                                        .weight(0.0)
+                                        .build()
+                                )
+                                .versionId("version_id")
+                                .build()
+                        )
+                        .addMatch(
+                            Clause.builder()
+                                .attribute("attribute")
+                                .operator(Clause.Operator.IN)
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         val roundtrippedCanaryDeploy =

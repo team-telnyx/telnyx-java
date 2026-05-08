@@ -54,7 +54,10 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * The DID or SIP URI to dial out to.
+     * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
+     * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to enable
+     * DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it
+     * takes precedence over any per-endpoint `secure` URI parameter.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -153,7 +156,11 @@ private constructor(
     fun fromDisplayName(): Optional<String> = body.fromDisplayName()
 
     /**
-     * Defines whether media should be encrypted on the new call leg.
+     * Defines whether media should be encrypted on the new call leg. For SIP URI destinations,
+     * media encryption can also be requested per endpoint with the `secure` URI parameter:
+     * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+     * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+     * value.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -745,7 +752,12 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The DID or SIP URI to dial out to. */
+        /**
+         * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
+         * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to
+         * enable DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or
+         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
+         */
         fun to(to: String) = apply { body.to(to) }
 
         /**
@@ -919,7 +931,13 @@ private constructor(
             body.fromDisplayName(fromDisplayName)
         }
 
-        /** Defines whether media should be encrypted on the new call leg. */
+        /**
+         * Defines whether media should be encrypted on the new call leg. For SIP URI destinations,
+         * media encryption can also be requested per endpoint with the `secure` URI parameter:
+         * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+         * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+         * value.
+         */
         fun mediaEncryption(mediaEncryption: MediaEncryption) = apply {
             body.mediaEncryption(mediaEncryption)
         }
@@ -1741,7 +1759,10 @@ private constructor(
         )
 
         /**
-         * The DID or SIP URI to dial out to.
+         * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
+         * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to
+         * enable DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or
+         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1841,7 +1862,11 @@ private constructor(
         fun fromDisplayName(): Optional<String> = fromDisplayName.getOptional("from_display_name")
 
         /**
-         * Defines whether media should be encrypted on the new call leg.
+         * Defines whether media should be encrypted on the new call leg. For SIP URI destinations,
+         * media encryption can also be requested per endpoint with the `secure` URI parameter:
+         * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+         * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+         * value.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2569,7 +2594,12 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The DID or SIP URI to dial out to. */
+            /**
+             * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
+             * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls`
+             * to enable DTLS media encryption for that endpoint. If `media_encryption` is set to
+             * `SRTP` or `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
+             */
             fun to(to: String) = to(JsonField.of(to))
 
             /**
@@ -2748,7 +2778,13 @@ private constructor(
                 this.fromDisplayName = fromDisplayName
             }
 
-            /** Defines whether media should be encrypted on the new call leg. */
+            /**
+             * Defines whether media should be encrypted on the new call leg. For SIP URI
+             * destinations, media encryption can also be requested per endpoint with the `secure`
+             * URI parameter: `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls`
+             * enables DTLS. This parameter, when set to `SRTP` or `DTLS`, takes precedence over the
+             * per-endpoint `secure` value.
+             */
             fun mediaEncryption(mediaEncryption: MediaEncryption) =
                 mediaEncryption(JsonField.of(mediaEncryption))
 
@@ -4306,7 +4342,13 @@ private constructor(
             "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
     }
 
-    /** Defines whether media should be encrypted on the new call leg. */
+    /**
+     * Defines whether media should be encrypted on the new call leg. For SIP URI destinations,
+     * media encryption can also be requested per endpoint with the `secure` URI parameter:
+     * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+     * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+     * value.
+     */
     class MediaEncryption @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

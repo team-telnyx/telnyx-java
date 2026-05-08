@@ -70,26 +70,30 @@ interface AiServiceAsync {
     fun tools(): ToolServiceAsync
 
     /**
-     * This endpoint returns a list of Open Source and OpenAI models that are available for use. <br
-     * /><br /> **Note**: Model `id`'s will be in the form `{source}/{model_name}`. For example
-     * `openai/gpt-4` or `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming
-     * conventions.
+     * **Deprecated**: Use `GET /v2/ai/openai/models` instead. This endpoint returns a list of Open
+     * Source and OpenAI models that are available for use. <br /><br /> **Note**: Model `id`'s will
+     * be in the form `{source}/{model_name}`. For example `openai/gpt-4` or
+     * `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming conventions.
      */
+    @Deprecated("deprecated")
     fun retrieveModels(): CompletableFuture<AiRetrieveModelsResponse> =
         retrieveModels(AiRetrieveModelsParams.none())
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AiRetrieveModelsResponse>
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
     ): CompletableFuture<AiRetrieveModelsResponse> = retrieveModels(params, RequestOptions.none())
 
     /** @see retrieveModels */
+    @Deprecated("deprecated")
     fun retrieveModels(
         requestOptions: RequestOptions
     ): CompletableFuture<AiRetrieveModelsResponse> =
@@ -158,22 +162,26 @@ interface AiServiceAsync {
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
          * [AiServiceAsync.retrieveModels].
          */
+        @Deprecated("deprecated")
         fun retrieveModels(): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>> =
             retrieveModels(AiRetrieveModelsParams.none())
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>>
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
         ): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>> =
             retrieveModels(params, RequestOptions.none())
 
         /** @see retrieveModels */
+        @Deprecated("deprecated")
         fun retrieveModels(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>> =

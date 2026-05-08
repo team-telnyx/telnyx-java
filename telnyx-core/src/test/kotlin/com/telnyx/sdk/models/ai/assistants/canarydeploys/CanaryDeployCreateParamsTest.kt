@@ -13,8 +13,27 @@ internal class CanaryDeployCreateParamsTest {
             .assistantId("assistant_id")
             .canaryDeploy(
                 CanaryDeploy.builder()
-                    .addVersion(
-                        VersionConfig.builder().percentage(1.0).versionId("version_id").build()
+                    .addRule(
+                        RuleInput.builder()
+                            .serve(
+                                Serve.builder()
+                                    .addRollout(
+                                        RolloutSlot.builder()
+                                            .versionId("version_id")
+                                            .weight(0.0)
+                                            .build()
+                                    )
+                                    .versionId("version_id")
+                                    .build()
+                            )
+                            .addMatch(
+                                Clause.builder()
+                                    .attribute("attribute")
+                                    .operator(Clause.Operator.IN)
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
                     )
                     .build()
             )
@@ -26,13 +45,7 @@ internal class CanaryDeployCreateParamsTest {
         val params =
             CanaryDeployCreateParams.builder()
                 .assistantId("assistant_id")
-                .canaryDeploy(
-                    CanaryDeploy.builder()
-                        .addVersion(
-                            VersionConfig.builder().percentage(1.0).versionId("version_id").build()
-                        )
-                        .build()
-                )
+                .canaryDeploy(CanaryDeploy.builder().build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("assistant_id")
@@ -47,8 +60,27 @@ internal class CanaryDeployCreateParamsTest {
                 .assistantId("assistant_id")
                 .canaryDeploy(
                     CanaryDeploy.builder()
-                        .addVersion(
-                            VersionConfig.builder().percentage(1.0).versionId("version_id").build()
+                        .addRule(
+                            RuleInput.builder()
+                                .serve(
+                                    Serve.builder()
+                                        .addRollout(
+                                            RolloutSlot.builder()
+                                                .versionId("version_id")
+                                                .weight(0.0)
+                                                .build()
+                                        )
+                                        .versionId("version_id")
+                                        .build()
+                                )
+                                .addMatch(
+                                    Clause.builder()
+                                        .attribute("attribute")
+                                        .operator(Clause.Operator.IN)
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -59,10 +91,42 @@ internal class CanaryDeployCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 CanaryDeploy.builder()
-                    .addVersion(
-                        VersionConfig.builder().percentage(1.0).versionId("version_id").build()
+                    .addRule(
+                        RuleInput.builder()
+                            .serve(
+                                Serve.builder()
+                                    .addRollout(
+                                        RolloutSlot.builder()
+                                            .versionId("version_id")
+                                            .weight(0.0)
+                                            .build()
+                                    )
+                                    .versionId("version_id")
+                                    .build()
+                            )
+                            .addMatch(
+                                Clause.builder()
+                                    .attribute("attribute")
+                                    .operator(Clause.Operator.IN)
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
                     )
                     .build()
             )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            CanaryDeployCreateParams.builder()
+                .assistantId("assistant_id")
+                .canaryDeploy(CanaryDeploy.builder().build())
+                .build()
+
+        val body = params._body()
+
+        assertThat(body).isEqualTo(CanaryDeploy.builder().build())
     }
 }

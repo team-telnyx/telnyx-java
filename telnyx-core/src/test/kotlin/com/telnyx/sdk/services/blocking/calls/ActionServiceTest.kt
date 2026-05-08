@@ -417,7 +417,8 @@ internal class ActionServiceTest {
                     .sendPartialResults(true)
                     .transcription(
                         TranscriptionConfig.builder()
-                            .model("distil-whisper/distil-large-v2")
+                            .language("auto")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .userResponseTimeoutMs(5000L)
@@ -841,7 +842,8 @@ internal class ActionServiceTest {
                     .sendMessageHistoryUpdates(true)
                     .transcription(
                         TranscriptionConfig.builder()
-                            .model("distil-whisper/distil-large-v2")
+                            .language("auto")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .voice("Telnyx.KokoroTTS.af")
@@ -1301,7 +1303,7 @@ internal class ActionServiceTest {
             actionService.transfer(
                 ActionTransferParams.builder()
                     .callControlId("call_control_id")
-                    .to("+18005550100 or sip:username@sip.telnyx.com")
+                    .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                     .answeringMachineDetection(
                         ActionTransferParams.AnsweringMachineDetection.DETECT
                     )

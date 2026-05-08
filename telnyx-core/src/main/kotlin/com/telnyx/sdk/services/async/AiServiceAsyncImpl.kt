@@ -125,6 +125,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     /** Configure AI assistant specifications */
     override fun tools(): ToolServiceAsync = tools
 
+    @Deprecated("deprecated")
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
         requestOptions: RequestOptions,
@@ -233,6 +234,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun retrieveModels(
             params: AiRetrieveModelsParams,
             requestOptions: RequestOptions,

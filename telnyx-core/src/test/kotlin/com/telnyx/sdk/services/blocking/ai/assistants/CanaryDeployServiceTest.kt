@@ -6,7 +6,10 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeploy
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployCreateParams
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParams
-import com.telnyx.sdk.models.ai.assistants.canarydeploys.VersionConfig
+import com.telnyx.sdk.models.ai.assistants.canarydeploys.Clause
+import com.telnyx.sdk.models.ai.assistants.canarydeploys.RolloutSlot
+import com.telnyx.sdk.models.ai.assistants.canarydeploys.RuleInput
+import com.telnyx.sdk.models.ai.assistants.canarydeploys.Serve
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -24,10 +27,26 @@ internal class CanaryDeployServiceTest {
                     .assistantId("assistant_id")
                     .canaryDeploy(
                         CanaryDeploy.builder()
-                            .addVersion(
-                                VersionConfig.builder()
-                                    .percentage(1.0)
-                                    .versionId("version_id")
+                            .addRule(
+                                RuleInput.builder()
+                                    .serve(
+                                        Serve.builder()
+                                            .addRollout(
+                                                RolloutSlot.builder()
+                                                    .versionId("version_id")
+                                                    .weight(0.0)
+                                                    .build()
+                                            )
+                                            .versionId("version_id")
+                                            .build()
+                                    )
+                                    .addMatch(
+                                        Clause.builder()
+                                            .attribute("attribute")
+                                            .operator(Clause.Operator.IN)
+                                            .addValue("string")
+                                            .build()
+                                    )
                                     .build()
                             )
                             .build()
@@ -61,10 +80,26 @@ internal class CanaryDeployServiceTest {
                     .assistantId("assistant_id")
                     .canaryDeploy(
                         CanaryDeploy.builder()
-                            .addVersion(
-                                VersionConfig.builder()
-                                    .percentage(1.0)
-                                    .versionId("version_id")
+                            .addRule(
+                                RuleInput.builder()
+                                    .serve(
+                                        Serve.builder()
+                                            .addRollout(
+                                                RolloutSlot.builder()
+                                                    .versionId("version_id")
+                                                    .weight(0.0)
+                                                    .build()
+                                            )
+                                            .versionId("version_id")
+                                            .build()
+                                    )
+                                    .addMatch(
+                                        Clause.builder()
+                                            .attribute("attribute")
+                                            .operator(Clause.Operator.IN)
+                                            .addValue("string")
+                                            .build()
+                                    )
                                     .build()
                             )
                             .build()
