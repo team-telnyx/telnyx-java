@@ -16,7 +16,7 @@ internal class ActionTransferParamsTest {
     fun create() {
         ActionTransferParams.builder()
             .callControlId("call_control_id")
-            .to("+18005550100 or sip:username@sip.telnyx.com")
+            .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
             .answeringMachineDetection(ActionTransferParams.AnsweringMachineDetection.DETECT)
             .answeringMachineDetectionConfig(
                 ActionTransferParams.AnsweringMachineDetectionConfig.builder()
@@ -103,7 +103,7 @@ internal class ActionTransferParamsTest {
         val params =
             ActionTransferParams.builder()
                 .callControlId("call_control_id")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("call_control_id")
@@ -116,7 +116,7 @@ internal class ActionTransferParamsTest {
         val params =
             ActionTransferParams.builder()
                 .callControlId("call_control_id")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .answeringMachineDetection(ActionTransferParams.AnsweringMachineDetection.DETECT)
                 .answeringMachineDetectionConfig(
                     ActionTransferParams.AnsweringMachineDetectionConfig.builder()
@@ -199,7 +199,7 @@ internal class ActionTransferParamsTest {
 
         val body = params._body()
 
-        assertThat(body.to()).isEqualTo("+18005550100 or sip:username@sip.telnyx.com")
+        assertThat(body.to()).isEqualTo("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
         assertThat(body.answeringMachineDetection())
             .contains(ActionTransferParams.AnsweringMachineDetection.DETECT)
         assertThat(body.answeringMachineDetectionConfig())
@@ -295,11 +295,11 @@ internal class ActionTransferParamsTest {
         val params =
             ActionTransferParams.builder()
                 .callControlId("call_control_id")
-                .to("+18005550100 or sip:username@sip.telnyx.com")
+                .to("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.to()).isEqualTo("+18005550100 or sip:username@sip.telnyx.com")
+        assertThat(body.to()).isEqualTo("+18005550100 or sip:username@sip.telnyx.com;secure=srtp")
     }
 }
