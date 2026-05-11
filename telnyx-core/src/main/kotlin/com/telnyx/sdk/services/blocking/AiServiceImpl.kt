@@ -15,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -112,6 +114,13 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     /** Configure AI assistant specifications */
     override fun tools(): ToolService = tools
+
+    override fun createResponse(
+        params: AiCreateResponseParams,
+        requestOptions: RequestOptions,
+    ): AiCreateResponseResponse =
+        // post /ai/responses
+        withRawResponse().createResponse(params, requestOptions).parse()
 
     @Deprecated("deprecated")
     override fun retrieveModels(
@@ -218,6 +227,34 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         /** Configure AI assistant specifications */
         override fun tools(): ToolService.WithRawResponse = tools
+
+        private val createResponseHandler: Handler<AiCreateResponseResponse> =
+            jsonHandler<AiCreateResponseResponse>(clientOptions.jsonMapper)
+
+        override fun createResponse(
+            params: AiCreateResponseParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AiCreateResponseResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "responses")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createResponseHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
