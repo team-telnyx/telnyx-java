@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
+import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.async.ai.openai.ChatServiceAsync
@@ -30,6 +32,35 @@ interface OpenAIServiceAsync {
     fun embeddings(): EmbeddingServiceAsync
 
     fun chat(): ChatServiceAsync
+
+    /**
+     * Chat with a language model. This endpoint is consistent with the
+     * [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/responses)
+     * and may be used with the OpenAI JS or Python SDK. Response id parameter is not supported at
+     * the moment. Use 'conversation' parameter to leverage persistent conversations feature.
+     */
+    fun createResponse(
+        params: OpenAICreateResponseParams
+    ): CompletableFuture<OpenAICreateResponseResponse> =
+        createResponse(params, RequestOptions.none())
+
+    /** @see createResponse */
+    fun createResponse(
+        params: OpenAICreateResponseParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<OpenAICreateResponseResponse>
+
+    /** @see createResponse */
+    fun createResponse(
+        body: OpenAICreateResponseParams.Body,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<OpenAICreateResponseResponse> =
+        createResponse(OpenAICreateResponseParams.builder().body(body).build(), requestOptions)
+
+    /** @see createResponse */
+    fun createResponse(
+        body: OpenAICreateResponseParams.Body
+    ): CompletableFuture<OpenAICreateResponseResponse> = createResponse(body, RequestOptions.none())
 
     /**
      * Lists every model currently available to your account on Telnyx Inference, including SOTA
@@ -83,6 +114,34 @@ interface OpenAIServiceAsync {
         fun embeddings(): EmbeddingServiceAsync.WithRawResponse
 
         fun chat(): ChatServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /ai/openai/responses`, but is otherwise the same as
+         * [OpenAIServiceAsync.createResponse].
+         */
+        fun createResponse(
+            params: OpenAICreateResponseParams
+        ): CompletableFuture<HttpResponseFor<OpenAICreateResponseResponse>> =
+            createResponse(params, RequestOptions.none())
+
+        /** @see createResponse */
+        fun createResponse(
+            params: OpenAICreateResponseParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<OpenAICreateResponseResponse>>
+
+        /** @see createResponse */
+        fun createResponse(
+            body: OpenAICreateResponseParams.Body,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<OpenAICreateResponseResponse>> =
+            createResponse(OpenAICreateResponseParams.builder().body(body).build(), requestOptions)
+
+        /** @see createResponse */
+        fun createResponse(
+            body: OpenAICreateResponseParams.Body
+        ): CompletableFuture<HttpResponseFor<OpenAICreateResponseResponse>> =
+            createResponse(body, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/openai/models`, but is otherwise the same as
