@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.51.0 (2026-05-11)
+
+Full Changelog: [v6.50.0...v6.51.0](https://github.com/team-telnyx/telnyx-java/compare/v6.50.0...v6.51.0)
+
+### Features
+
+* AI-2294: document /ai/openai/models response and refresh LLM examples ([e1cea5d](https://github.com/team-telnyx/telnyx-java/commit/e1cea5d78454577ed1e905201dcbc9ebe615d9a4))
+* Responses endpoint ([f06004d](https://github.com/team-telnyx/telnyx-java/commit/f06004d04bb8ee194cb86679067f1b315f95882d))
+
 ## 6.50.0 (2026-05-08)
 
 Full Changelog: [v6.49.0...v6.50.0](https://github.com/team-telnyx/telnyx-java/compare/v6.49.0...v6.50.0)
