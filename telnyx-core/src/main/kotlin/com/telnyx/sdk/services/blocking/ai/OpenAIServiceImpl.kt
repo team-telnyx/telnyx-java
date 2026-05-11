@@ -12,8 +12,11 @@ import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
+import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.blocking.ai.openai.ChatService
@@ -42,6 +45,13 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun embeddings(): EmbeddingService = embeddings
 
     override fun chat(): ChatService = chat
+
+    override fun createResponse(
+        params: OpenAICreateResponseParams,
+        requestOptions: RequestOptions,
+    ): OpenAICreateResponseResponse =
+        // post /ai/openai/responses
+        withRawResponse().createResponse(params, requestOptions).parse()
 
     override fun listModels(
         params: OpenAIListModelsParams,
@@ -75,6 +85,34 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun embeddings(): EmbeddingService.WithRawResponse = embeddings
 
         override fun chat(): ChatService.WithRawResponse = chat
+
+        private val createResponseHandler: Handler<OpenAICreateResponseResponse> =
+            jsonHandler<OpenAICreateResponseResponse>(clientOptions.jsonMapper)
+
+        override fun createResponse(
+            params: OpenAICreateResponseParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OpenAICreateResponseResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "openai", "responses")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createResponseHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val listModelsHandler: Handler<OpenAIListModelsResponse> =
             jsonHandler<OpenAIListModelsResponse>(clientOptions.jsonMapper)

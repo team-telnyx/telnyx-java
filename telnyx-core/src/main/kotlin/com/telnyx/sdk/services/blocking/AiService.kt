@@ -6,6 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -70,10 +72,40 @@ interface AiService {
     fun tools(): ToolService
 
     /**
-     * **Deprecated**: Use `GET /v2/ai/openai/models` instead. This endpoint returns a list of Open
-     * Source and OpenAI models that are available for use. <br /><br /> **Note**: Model `id`'s will
-     * be in the form `{source}/{model_name}`. For example `openai/gpt-4` or
-     * `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming conventions.
+     * Chat with a language model. This endpoint is consistent with the
+     * [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/responses)
+     * and may be used with the OpenAI JS or Python SDK. Response id parameter is not supported at
+     * the moment. Use 'conversation' parameter to leverage persistent conversations feature.
+     */
+    fun createResponse(params: AiCreateResponseParams): AiCreateResponseResponse =
+        createResponse(params, RequestOptions.none())
+
+    /** @see createResponse */
+    fun createResponse(
+        params: AiCreateResponseParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AiCreateResponseResponse
+
+    /** @see createResponse */
+    fun createResponse(
+        body: AiCreateResponseParams.Body,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AiCreateResponseResponse =
+        createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
+
+    /** @see createResponse */
+    fun createResponse(body: AiCreateResponseParams.Body): AiCreateResponseResponse =
+        createResponse(body, RequestOptions.none())
+
+    /**
+     * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
+     *
+     * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint — open-source
+     * LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.1-FP8`,
+     * `MiniMaxAI/MiniMax-M2.7`), embedding models, and fine-tuned models — kept around for
+     * backwards compatibility. New integrations should use `/v2/ai/openai/models`.
+     *
+     * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
      */
     @Deprecated("deprecated")
     fun retrieveModels(): AiRetrieveModelsResponse = retrieveModels(AiRetrieveModelsParams.none())
@@ -154,6 +186,36 @@ interface AiService {
 
         /** Configure AI assistant specifications */
         fun tools(): ToolService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /ai/responses`, but is otherwise the same as
+         * [AiService.createResponse].
+         */
+        @MustBeClosed
+        fun createResponse(
+            params: AiCreateResponseParams
+        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
+
+        /** @see createResponse */
+        @MustBeClosed
+        fun createResponse(
+            params: AiCreateResponseParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AiCreateResponseResponse>
+
+        /** @see createResponse */
+        @MustBeClosed
+        fun createResponse(
+            body: AiCreateResponseParams.Body,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AiCreateResponseResponse> =
+            createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
+
+        /** @see createResponse */
+        @MustBeClosed
+        fun createResponse(
+            body: AiCreateResponseParams.Body
+        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(body, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
