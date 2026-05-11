@@ -127,6 +127,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     /** Configure AI assistant specifications */
     override fun tools(): ToolServiceAsync = tools
 
+    @Deprecated("deprecated")
     override fun createResponse(
         params: AiCreateResponseParams,
         requestOptions: RequestOptions,
@@ -243,6 +244,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         private val createResponseHandler: Handler<AiCreateResponseResponse> =
             jsonHandler<AiCreateResponseResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun createResponse(
             params: AiCreateResponseParams,
             requestOptions: RequestOptions,
