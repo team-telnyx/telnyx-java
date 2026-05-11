@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.52.0 (2026-05-11)
+
+Full Changelog: [v6.51.0...v6.52.0](https://github.com/team-telnyx/telnyx-java/compare/v6.51.0...v6.52.0)
+
+### Features
+
+* AI-2312: document currency and unit in /models pricing schema ([21b9cc2](https://github.com/team-telnyx/telnyx-java/commit/21b9cc2e48f94cf1310204ffea2a2fde1b9be5b3))
+* Clean up OpenAI responses API docs ([46106c4](https://github.com/team-telnyx/telnyx-java/commit/46106c4cf8b82f9b122c29093d9bb14f1f803547))
+* Document OpenAI responses conversation flow ([4ebff10](https://github.com/team-telnyx/telnyx-java/commit/4ebff102d432c812dba9bcaf3d458e08203173d2))
+* Fix OpenAI chat API reference links ([6934885](https://github.com/team-telnyx/telnyx-java/commit/69348853b7ac13825deabc6f53ee3712a6d78c7c))
+
 ## 6.51.0 (2026-05-11)
 
 Full Changelog: [v6.50.0...v6.51.0](https://github.com/team-telnyx/telnyx-java/compare/v6.50.0...v6.51.0)
