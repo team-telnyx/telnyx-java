@@ -72,21 +72,25 @@ interface AiService {
     fun tools(): ToolService
 
     /**
-     * Chat with a language model. This endpoint is consistent with the
-     * [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/responses)
+     * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is compatible with
+     * the [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
      * and may be used with the OpenAI JS or Python SDK. Response id parameter is not supported at
-     * the moment. Use 'conversation' parameter to leverage persistent conversations feature.
+     * the moment. Use the `conversation` parameter with a Telnyx Conversation ID to leverage
+     * persistent conversations.
      */
+    @Deprecated("deprecated")
     fun createResponse(params: AiCreateResponseParams): AiCreateResponseResponse =
         createResponse(params, RequestOptions.none())
 
     /** @see createResponse */
+    @Deprecated("deprecated")
     fun createResponse(
         params: AiCreateResponseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AiCreateResponseResponse
 
     /** @see createResponse */
+    @Deprecated("deprecated")
     fun createResponse(
         body: AiCreateResponseParams.Body,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -94,6 +98,7 @@ interface AiService {
         createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
     /** @see createResponse */
+    @Deprecated("deprecated")
     fun createResponse(body: AiCreateResponseParams.Body): AiCreateResponseResponse =
         createResponse(body, RequestOptions.none())
 
@@ -191,12 +196,14 @@ interface AiService {
          * Returns a raw HTTP response for `post /ai/responses`, but is otherwise the same as
          * [AiService.createResponse].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
             params: AiCreateResponseParams
         ): HttpResponseFor<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
 
         /** @see createResponse */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
             params: AiCreateResponseParams,
@@ -204,6 +211,7 @@ interface AiService {
         ): HttpResponseFor<AiCreateResponseResponse>
 
         /** @see createResponse */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
             body: AiCreateResponseParams.Body,
@@ -212,6 +220,7 @@ interface AiService {
             createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
         /** @see createResponse */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
             body: AiCreateResponseParams.Body
