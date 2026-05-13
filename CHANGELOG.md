@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.53.0 (2026-05-13)
+
+Full Changelog: [v6.52.0...v6.53.0](https://github.com/team-telnyx/telnyx-java/compare/v6.52.0...v6.53.0)
+
+### Features
+
+* Document AI call status callback overrides ([be333c1](https://github.com/team-telnyx/telnyx-java/commit/be333c147d9a647b13d7f8ed75d8a94da1802cf0))
+
 ## 6.52.0 (2026-05-11)
 
 Full Changelog: [v6.51.0...v6.52.0](https://github.com/team-telnyx/telnyx-java/compare/v6.51.0...v6.52.0)
