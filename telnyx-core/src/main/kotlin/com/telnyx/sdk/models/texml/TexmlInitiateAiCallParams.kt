@@ -27,6 +27,17 @@ import kotlin.jvm.optionals.getOrNull
  * Initiate an outbound AI call with warm-up support. Validates parameters, builds an internal TeXML
  * with an AI Assistant configuration, encodes instructions into client state, and calls the dial
  * API. The Twiml, Texml, and Url parameters are not allowed and will result in a 422 error.
+ *
+ * **Expected callback events:**
+ *
+ * Status callbacks: `initiated`, `ringing`, `answered`, one terminal status (`completed`,
+ * `no-answer`, `busy`, `canceled`, or `failed`), then `analyzed` after post-call processing
+ * completes.
+ *
+ * Conversation callbacks: `conversation_created` and `conversation_ended`.
+ *
+ * Recording, AMD, transcription, and deepfake detection callbacks are only sent when those features
+ * are enabled.
  */
 class TexmlInitiateAiCallParams
 private constructor(
@@ -119,7 +130,8 @@ private constructor(
     fun callerId(): Optional<String> = body.callerId()
 
     /**
-     * URL destination for Telnyx to send conversation callback events to.
+     * URL destination for Telnyx to send AI conversation callback events for this call. Events
+     * include `conversation_created` and `conversation_ended`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -127,7 +139,7 @@ private constructor(
     fun conversationCallback(): Optional<String> = body.conversationCallback()
 
     /**
-     * HTTP request type used for `ConversationCallback`.
+     * HTTP request type used for `ConversationCallback` and `ConversationCallbacks`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -136,7 +148,8 @@ private constructor(
         body.conversationCallbackMethod()
 
     /**
-     * An array of URL destinations for conversation callback events.
+     * Array of URL destinations for AI conversation callback events for this call. Events include
+     * `conversation_created` and `conversation_ended`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -314,7 +327,9 @@ private constructor(
     fun sipRegion(): Optional<SipRegion> = body.sipRegion()
 
     /**
-     * URL destination for Telnyx to send status callback events to for the call.
+     * URL destination for Telnyx to send status callback events for this AI call. When provided,
+     * this per-call value overrides the status callback URL configured on the TeXML
+     * application/connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -322,8 +337,10 @@ private constructor(
     fun statusCallback(): Optional<String> = body.statusCallback()
 
     /**
-     * The call events for which Telnyx should send a webhook. Multiple events can be defined when
-     * separated by a space. Valid values: initiated, ringing, answered, completed.
+     * The status callback events for which Telnyx should send a webhook for this AI call. Multiple
+     * events can be defined when separated by a space. Valid values: initiated, ringing, answered,
+     * completed, no-answer, busy, canceled, failed, analyzed. When provided, this per-call value
+     * overrides the status callback events configured on the TeXML application/connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -331,7 +348,9 @@ private constructor(
     fun statusCallbackEvent(): Optional<String> = body.statusCallbackEvent()
 
     /**
-     * HTTP request type used for `StatusCallback`.
+     * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI call. When
+     * provided, this per-call value overrides the status callback method configured on the TeXML
+     * application/connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -339,7 +358,9 @@ private constructor(
     fun statusCallbackMethod(): Optional<StatusCallbackMethod> = body.statusCallbackMethod()
 
     /**
-     * An array of URL destinations for Telnyx to send status callback events to for the call.
+     * Array of URL destinations for Telnyx to send status callback events for this AI call. When
+     * provided, these per-call values override the status callback URL configured on the TeXML
+     * application/connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -870,7 +891,10 @@ private constructor(
          */
         fun callerId(callerId: JsonField<String>) = apply { body.callerId(callerId) }
 
-        /** URL destination for Telnyx to send conversation callback events to. */
+        /**
+         * URL destination for Telnyx to send AI conversation callback events for this call. Events
+         * include `conversation_created` and `conversation_ended`.
+         */
         fun conversationCallback(conversationCallback: String) = apply {
             body.conversationCallback(conversationCallback)
         }
@@ -886,7 +910,7 @@ private constructor(
             body.conversationCallback(conversationCallback)
         }
 
-        /** HTTP request type used for `ConversationCallback`. */
+        /** HTTP request type used for `ConversationCallback` and `ConversationCallbacks`. */
         fun conversationCallbackMethod(conversationCallbackMethod: ConversationCallbackMethod) =
             apply {
                 body.conversationCallbackMethod(conversationCallbackMethod)
@@ -903,7 +927,10 @@ private constructor(
             conversationCallbackMethod: JsonField<ConversationCallbackMethod>
         ) = apply { body.conversationCallbackMethod(conversationCallbackMethod) }
 
-        /** An array of URL destinations for conversation callback events. */
+        /**
+         * Array of URL destinations for AI conversation callback events for this call. Events
+         * include `conversation_created` and `conversation_ended`.
+         */
         fun conversationCallbacks(conversationCallbacks: List<String>) = apply {
             body.conversationCallbacks(conversationCallbacks)
         }
@@ -1266,7 +1293,11 @@ private constructor(
          */
         fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { body.sipRegion(sipRegion) }
 
-        /** URL destination for Telnyx to send status callback events to for the call. */
+        /**
+         * URL destination for Telnyx to send status callback events for this AI call. When
+         * provided, this per-call value overrides the status callback URL configured on the TeXML
+         * application/connection.
+         */
         fun statusCallback(statusCallback: String) = apply { body.statusCallback(statusCallback) }
 
         /**
@@ -1281,8 +1312,11 @@ private constructor(
         }
 
         /**
-         * The call events for which Telnyx should send a webhook. Multiple events can be defined
-         * when separated by a space. Valid values: initiated, ringing, answered, completed.
+         * The status callback events for which Telnyx should send a webhook for this AI call.
+         * Multiple events can be defined when separated by a space. Valid values: initiated,
+         * ringing, answered, completed, no-answer, busy, canceled, failed, analyzed. When provided,
+         * this per-call value overrides the status callback events configured on the TeXML
+         * application/connection.
          */
         fun statusCallbackEvent(statusCallbackEvent: String) = apply {
             body.statusCallbackEvent(statusCallbackEvent)
@@ -1299,7 +1333,11 @@ private constructor(
             body.statusCallbackEvent(statusCallbackEvent)
         }
 
-        /** HTTP request type used for `StatusCallback`. */
+        /**
+         * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI call. When
+         * provided, this per-call value overrides the status callback method configured on the
+         * TeXML application/connection.
+         */
         fun statusCallbackMethod(statusCallbackMethod: StatusCallbackMethod) = apply {
             body.statusCallbackMethod(statusCallbackMethod)
         }
@@ -1316,7 +1354,9 @@ private constructor(
         }
 
         /**
-         * An array of URL destinations for Telnyx to send status callback events to for the call.
+         * Array of URL destinations for Telnyx to send status callback events for this AI call.
+         * When provided, these per-call values override the status callback URL configured on the
+         * TeXML application/connection.
          */
         fun statusCallbacks(statusCallbacks: List<String>) = apply {
             body.statusCallbacks(statusCallbacks)
@@ -1818,7 +1858,8 @@ private constructor(
         fun callerId(): Optional<String> = callerId.getOptional("CallerId")
 
         /**
-         * URL destination for Telnyx to send conversation callback events to.
+         * URL destination for Telnyx to send AI conversation callback events for this call. Events
+         * include `conversation_created` and `conversation_ended`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1827,7 +1868,7 @@ private constructor(
             conversationCallback.getOptional("ConversationCallback")
 
         /**
-         * HTTP request type used for `ConversationCallback`.
+         * HTTP request type used for `ConversationCallback` and `ConversationCallbacks`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1836,7 +1877,8 @@ private constructor(
             conversationCallbackMethod.getOptional("ConversationCallbackMethod")
 
         /**
-         * An array of URL destinations for conversation callback events.
+         * Array of URL destinations for AI conversation callback events for this call. Events
+         * include `conversation_created` and `conversation_ended`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2024,7 +2066,9 @@ private constructor(
         fun sipRegion(): Optional<SipRegion> = sipRegion.getOptional("SipRegion")
 
         /**
-         * URL destination for Telnyx to send status callback events to for the call.
+         * URL destination for Telnyx to send status callback events for this AI call. When
+         * provided, this per-call value overrides the status callback URL configured on the TeXML
+         * application/connection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2032,8 +2076,11 @@ private constructor(
         fun statusCallback(): Optional<String> = statusCallback.getOptional("StatusCallback")
 
         /**
-         * The call events for which Telnyx should send a webhook. Multiple events can be defined
-         * when separated by a space. Valid values: initiated, ringing, answered, completed.
+         * The status callback events for which Telnyx should send a webhook for this AI call.
+         * Multiple events can be defined when separated by a space. Valid values: initiated,
+         * ringing, answered, completed, no-answer, busy, canceled, failed, analyzed. When provided,
+         * this per-call value overrides the status callback events configured on the TeXML
+         * application/connection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2042,7 +2089,9 @@ private constructor(
             statusCallbackEvent.getOptional("StatusCallbackEvent")
 
         /**
-         * HTTP request type used for `StatusCallback`.
+         * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI call. When
+         * provided, this per-call value overrides the status callback method configured on the
+         * TeXML application/connection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2051,7 +2100,9 @@ private constructor(
             statusCallbackMethod.getOptional("StatusCallbackMethod")
 
         /**
-         * An array of URL destinations for Telnyx to send status callback events to for the call.
+         * Array of URL destinations for Telnyx to send status callback events for this AI call.
+         * When provided, these per-call values override the status callback URL configured on the
+         * TeXML application/connection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2710,7 +2761,10 @@ private constructor(
              */
             fun callerId(callerId: JsonField<String>) = apply { this.callerId = callerId }
 
-            /** URL destination for Telnyx to send conversation callback events to. */
+            /**
+             * URL destination for Telnyx to send AI conversation callback events for this call.
+             * Events include `conversation_created` and `conversation_ended`.
+             */
             fun conversationCallback(conversationCallback: String) =
                 conversationCallback(JsonField.of(conversationCallback))
 
@@ -2725,7 +2779,7 @@ private constructor(
                 this.conversationCallback = conversationCallback
             }
 
-            /** HTTP request type used for `ConversationCallback`. */
+            /** HTTP request type used for `ConversationCallback` and `ConversationCallbacks`. */
             fun conversationCallbackMethod(conversationCallbackMethod: ConversationCallbackMethod) =
                 conversationCallbackMethod(JsonField.of(conversationCallbackMethod))
 
@@ -2740,7 +2794,10 @@ private constructor(
                 conversationCallbackMethod: JsonField<ConversationCallbackMethod>
             ) = apply { this.conversationCallbackMethod = conversationCallbackMethod }
 
-            /** An array of URL destinations for conversation callback events. */
+            /**
+             * Array of URL destinations for AI conversation callback events for this call. Events
+             * include `conversation_created` and `conversation_ended`.
+             */
             fun conversationCallbacks(conversationCallbacks: List<String>) =
                 conversationCallbacks(JsonField.of(conversationCallbacks))
 
@@ -3096,7 +3153,11 @@ private constructor(
              */
             fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { this.sipRegion = sipRegion }
 
-            /** URL destination for Telnyx to send status callback events to for the call. */
+            /**
+             * URL destination for Telnyx to send status callback events for this AI call. When
+             * provided, this per-call value overrides the status callback URL configured on the
+             * TeXML application/connection.
+             */
             fun statusCallback(statusCallback: String) =
                 statusCallback(JsonField.of(statusCallback))
 
@@ -3112,9 +3173,11 @@ private constructor(
             }
 
             /**
-             * The call events for which Telnyx should send a webhook. Multiple events can be
-             * defined when separated by a space. Valid values: initiated, ringing, answered,
-             * completed.
+             * The status callback events for which Telnyx should send a webhook for this AI call.
+             * Multiple events can be defined when separated by a space. Valid values: initiated,
+             * ringing, answered, completed, no-answer, busy, canceled, failed, analyzed. When
+             * provided, this per-call value overrides the status callback events configured on the
+             * TeXML application/connection.
              */
             fun statusCallbackEvent(statusCallbackEvent: String) =
                 statusCallbackEvent(JsonField.of(statusCallbackEvent))
@@ -3130,7 +3193,11 @@ private constructor(
                 this.statusCallbackEvent = statusCallbackEvent
             }
 
-            /** HTTP request type used for `StatusCallback`. */
+            /**
+             * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI call.
+             * When provided, this per-call value overrides the status callback method configured on
+             * the TeXML application/connection.
+             */
             fun statusCallbackMethod(statusCallbackMethod: StatusCallbackMethod) =
                 statusCallbackMethod(JsonField.of(statusCallbackMethod))
 
@@ -3147,8 +3214,9 @@ private constructor(
                 }
 
             /**
-             * An array of URL destinations for Telnyx to send status callback events to for the
-             * call.
+             * Array of URL destinations for Telnyx to send status callback events for this AI call.
+             * When provided, these per-call values override the status callback URL configured on
+             * the TeXML application/connection.
              */
             fun statusCallbacks(statusCallbacks: List<String>) =
                 statusCallbacks(JsonField.of(statusCallbacks))
@@ -3772,7 +3840,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** HTTP request type used for `ConversationCallback`. */
+    /** HTTP request type used for `ConversationCallback` and `ConversationCallbacks`. */
     class ConversationCallbackMethod
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -4989,7 +5057,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** HTTP request type used for `StatusCallback`. */
+    /**
+     * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI call. When
+     * provided, this per-call value overrides the status callback method configured on the TeXML
+     * application/connection.
+     */
     class StatusCallbackMethod
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
