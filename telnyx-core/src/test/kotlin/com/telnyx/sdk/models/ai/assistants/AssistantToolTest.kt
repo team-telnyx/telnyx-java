@@ -537,28 +537,29 @@ internal class AssistantToolTest {
         val invite =
             AssistantTool.Invite.builder()
                 .invite(
-                    AssistantTool.Invite.InnerInvite.builder()
+                    AssistantTool.Invite.InviteToolInviteConfig.builder()
                         .from("+35319605860")
                         .addCustomHeader(
-                            AssistantTool.Invite.InnerInvite.CustomHeader.builder()
+                            AssistantTool.Invite.InviteToolInviteConfig.CustomHeader.builder()
                                 .name("name")
                                 .value("value")
                                 .build()
                         )
                         .targets("{{ targets }}")
                         .voicemailDetection(
-                            AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
+                            AssistantTool.Invite.InviteToolInviteConfig.VoicemailDetection.builder()
                                 .detectionMode(
-                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                    AssistantTool.Invite.InviteToolInviteConfig.VoicemailDetection
                                         .DetectionMode
                                         .DISABLED
                                 )
                                 .onVoicemailDetected(
-                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                    AssistantTool.Invite.InviteToolInviteConfig.VoicemailDetection
                                         .OnVoicemailDetected
                                         .builder()
                                         .action(
-                                            AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                            AssistantTool.Invite.InviteToolInviteConfig
+                                                .VoicemailDetection
                                                 .OnVoicemailDetected
                                                 .Action
                                                 .STOP_INVITE
@@ -592,28 +593,32 @@ internal class AssistantToolTest {
             AssistantTool.ofInvite(
                 AssistantTool.Invite.builder()
                     .invite(
-                        AssistantTool.Invite.InnerInvite.builder()
+                        AssistantTool.Invite.InviteToolInviteConfig.builder()
                             .from("+35319605860")
                             .addCustomHeader(
-                                AssistantTool.Invite.InnerInvite.CustomHeader.builder()
+                                AssistantTool.Invite.InviteToolInviteConfig.CustomHeader.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
                             .targets("{{ targets }}")
                             .voicemailDetection(
-                                AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
+                                AssistantTool.Invite.InviteToolInviteConfig.VoicemailDetection
+                                    .builder()
                                     .detectionMode(
-                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                        AssistantTool.Invite.InviteToolInviteConfig
+                                            .VoicemailDetection
                                             .DetectionMode
                                             .DISABLED
                                     )
                                     .onVoicemailDetected(
-                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                        AssistantTool.Invite.InviteToolInviteConfig
+                                            .VoicemailDetection
                                             .OnVoicemailDetected
                                             .builder()
                                             .action(
-                                                AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                                AssistantTool.Invite.InviteToolInviteConfig
+                                                    .VoicemailDetection
                                                     .OnVoicemailDetected
                                                     .Action
                                                     .STOP_INVITE
