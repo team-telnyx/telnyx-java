@@ -480,6 +480,7 @@ private constructor(
         private val durationSec: JsonField<Long>,
         private val from: JsonField<String>,
         private val llmModel: JsonField<String>,
+        private val reason: JsonField<String>,
         private val sttModel: JsonField<String>,
         private val to: JsonField<String>,
         private val ttsModelId: JsonField<String>,
@@ -521,6 +522,7 @@ private constructor(
             @JsonProperty("llm_model")
             @ExcludeMissing
             llmModel: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
             @JsonProperty("stt_model")
             @ExcludeMissing
             sttModel: JsonField<String> = JsonMissing.of(),
@@ -546,6 +548,7 @@ private constructor(
             durationSec,
             from,
             llmModel,
+            reason,
             sttModel,
             to,
             ttsModelId,
@@ -642,6 +645,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun llmModel(): Optional<String> = llmModel.getOptional("llm_model")
+
+        /**
+         * Reason the conversation ended. For Conversation Relay, `customer_disconnect` indicates
+         * that the customer WebSocket disconnected.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun reason(): Optional<String> = reason.getOptional("reason")
 
         /**
          * The speech-to-text model used in the conversation.
@@ -782,6 +794,13 @@ private constructor(
         @JsonProperty("llm_model") @ExcludeMissing fun _llmModel(): JsonField<String> = llmModel
 
         /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
+
+        /**
          * Returns the raw JSON value of [sttModel].
          *
          * Unlike [sttModel], this method doesn't throw if the JSON field has an unexpected type.
@@ -854,6 +873,7 @@ private constructor(
             private var durationSec: JsonField<Long> = JsonMissing.of()
             private var from: JsonField<String> = JsonMissing.of()
             private var llmModel: JsonField<String> = JsonMissing.of()
+            private var reason: JsonField<String> = JsonMissing.of()
             private var sttModel: JsonField<String> = JsonMissing.of()
             private var to: JsonField<String> = JsonMissing.of()
             private var ttsModelId: JsonField<String> = JsonMissing.of()
@@ -874,6 +894,7 @@ private constructor(
                 durationSec = payload.durationSec
                 from = payload.from
                 llmModel = payload.llmModel
+                reason = payload.reason
                 sttModel = payload.sttModel
                 to = payload.to
                 ttsModelId = payload.ttsModelId
@@ -1030,6 +1051,24 @@ private constructor(
              */
             fun llmModel(llmModel: JsonField<String>) = apply { this.llmModel = llmModel }
 
+            /**
+             * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
+             * indicates that the customer WebSocket disconnected.
+             */
+            fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
+
+            /** Alias for calling [Builder.reason] with `reason.orElse(null)`. */
+            fun reason(reason: Optional<String>) = reason(reason.getOrNull())
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+
             /** The speech-to-text model used in the conversation. */
             fun sttModel(sttModel: String) = sttModel(JsonField.of(sttModel))
 
@@ -1129,6 +1168,7 @@ private constructor(
                     durationSec,
                     from,
                     llmModel,
+                    reason,
                     sttModel,
                     to,
                     ttsModelId,
@@ -1165,6 +1205,7 @@ private constructor(
             durationSec()
             from()
             llmModel()
+            reason()
             sttModel()
             to()
             ttsModelId()
@@ -1200,6 +1241,7 @@ private constructor(
                 (if (durationSec.asKnown().isPresent) 1 else 0) +
                 (if (from.asKnown().isPresent) 1 else 0) +
                 (if (llmModel.asKnown().isPresent) 1 else 0) +
+                (if (reason.asKnown().isPresent) 1 else 0) +
                 (if (sttModel.asKnown().isPresent) 1 else 0) +
                 (if (to.asKnown().isPresent) 1 else 0) +
                 (if (ttsModelId.asKnown().isPresent) 1 else 0) +
@@ -1367,6 +1409,7 @@ private constructor(
                 durationSec == other.durationSec &&
                 from == other.from &&
                 llmModel == other.llmModel &&
+                reason == other.reason &&
                 sttModel == other.sttModel &&
                 to == other.to &&
                 ttsModelId == other.ttsModelId &&
@@ -1388,6 +1431,7 @@ private constructor(
                 durationSec,
                 from,
                 llmModel,
+                reason,
                 sttModel,
                 to,
                 ttsModelId,
@@ -1400,7 +1444,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Payload{assistantId=$assistantId, callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, callingPartyType=$callingPartyType, clientState=$clientState, connectionId=$connectionId, conversationId=$conversationId, durationSec=$durationSec, from=$from, llmModel=$llmModel, sttModel=$sttModel, to=$to, ttsModelId=$ttsModelId, ttsProvider=$ttsProvider, ttsVoiceId=$ttsVoiceId, additionalProperties=$additionalProperties}"
+            "Payload{assistantId=$assistantId, callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, callingPartyType=$callingPartyType, clientState=$clientState, connectionId=$connectionId, conversationId=$conversationId, durationSec=$durationSec, from=$from, llmModel=$llmModel, reason=$reason, sttModel=$sttModel, to=$to, ttsModelId=$ttsModelId, ttsProvider=$ttsProvider, ttsVoiceId=$ttsVoiceId, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */
