@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.ai.openai
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.ModelMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,7 +17,7 @@ internal class OpenAIListModelsResponseTest {
         val openaiListModelsResponse =
             OpenAIListModelsResponse.builder()
                 .addData(
-                    OpenAIListModelsResponse.Data.builder()
+                    ModelMetadata.builder()
                         .id("moonshotai/Kimi-K2.6")
                         .contextLength(262144L)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -25,7 +26,7 @@ internal class OpenAIListModelsResponseTest {
                         .organization("moonshotai")
                         .ownedBy("Telnyx")
                         .parameters(1000000000000L)
-                        .tier(OpenAIListModelsResponse.Data.Tier.SMALL)
+                        .tier(ModelMetadata.Tier.SMALL)
                         .baseModel("base_model")
                         .description("description")
                         .isFineTunable(true)
@@ -34,7 +35,7 @@ internal class OpenAIListModelsResponseTest {
                         .modelObject("object")
                         .parametersStr("1.0T")
                         .pricing(
-                            OpenAIListModelsResponse.Data.Pricing.builder()
+                            ModelMetadata.Pricing.builder()
                                 .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                                 .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                                 .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))
@@ -53,7 +54,7 @@ internal class OpenAIListModelsResponseTest {
 
         assertThat(openaiListModelsResponse.data())
             .containsExactly(
-                OpenAIListModelsResponse.Data.builder()
+                ModelMetadata.builder()
                     .id("moonshotai/Kimi-K2.6")
                     .contextLength(262144L)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -62,7 +63,7 @@ internal class OpenAIListModelsResponseTest {
                     .organization("moonshotai")
                     .ownedBy("Telnyx")
                     .parameters(1000000000000L)
-                    .tier(OpenAIListModelsResponse.Data.Tier.SMALL)
+                    .tier(ModelMetadata.Tier.SMALL)
                     .baseModel("base_model")
                     .description("description")
                     .isFineTunable(true)
@@ -71,7 +72,7 @@ internal class OpenAIListModelsResponseTest {
                     .modelObject("object")
                     .parametersStr("1.0T")
                     .pricing(
-                        OpenAIListModelsResponse.Data.Pricing.builder()
+                        ModelMetadata.Pricing.builder()
                             .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                             .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                             .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))
@@ -94,7 +95,7 @@ internal class OpenAIListModelsResponseTest {
         val openaiListModelsResponse =
             OpenAIListModelsResponse.builder()
                 .addData(
-                    OpenAIListModelsResponse.Data.builder()
+                    ModelMetadata.builder()
                         .id("moonshotai/Kimi-K2.6")
                         .contextLength(262144L)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -103,7 +104,7 @@ internal class OpenAIListModelsResponseTest {
                         .organization("moonshotai")
                         .ownedBy("Telnyx")
                         .parameters(1000000000000L)
-                        .tier(OpenAIListModelsResponse.Data.Tier.SMALL)
+                        .tier(ModelMetadata.Tier.SMALL)
                         .baseModel("base_model")
                         .description("description")
                         .isFineTunable(true)
@@ -112,7 +113,7 @@ internal class OpenAIListModelsResponseTest {
                         .modelObject("object")
                         .parametersStr("1.0T")
                         .pricing(
-                            OpenAIListModelsResponse.Data.Pricing.builder()
+                            ModelMetadata.Pricing.builder()
                                 .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                                 .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                                 .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))

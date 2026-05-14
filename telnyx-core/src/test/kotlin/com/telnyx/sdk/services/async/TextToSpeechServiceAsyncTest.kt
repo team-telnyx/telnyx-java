@@ -103,7 +103,7 @@ internal class TextToSpeechServiceAsyncTest {
                             .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
                             .language("language")
                             .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
-                            .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
+                            .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate.RATE_8000)
                             .build()
                     )
                     .build()

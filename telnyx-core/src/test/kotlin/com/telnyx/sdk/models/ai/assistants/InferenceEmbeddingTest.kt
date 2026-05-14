@@ -69,21 +69,19 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    InferenceEmbedding.Integration.builder()
+                    AssistantIntegration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbedding.InterruptionSettings.builder()
+                    InferenceEmbeddingInterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                            StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
-                                        .TranscriptionEndpointingPlan
-                                        .builder()
+                                    TranscriptionEndpointingPlan.builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -96,7 +94,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -370,22 +368,20 @@ internal class InferenceEmbeddingTest {
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
         assertThat(inferenceEmbedding.integrations().getOrNull())
             .containsExactly(
-                InferenceEmbedding.Integration.builder()
+                AssistantIntegration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(inferenceEmbedding.interruptionSettings())
             .contains(
-                InferenceEmbedding.InterruptionSettings.builder()
+                InferenceEmbeddingInterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                        StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
-                                    .TranscriptionEndpointingPlan
-                                    .builder()
+                                TranscriptionEndpointingPlan.builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -398,9 +394,7 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(inferenceEmbedding.mcpServers().getOrNull())
-            .containsExactly(
-                InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
-            )
+            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
         assertThat(inferenceEmbedding.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -705,21 +699,19 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    InferenceEmbedding.Integration.builder()
+                    AssistantIntegration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbedding.InterruptionSettings.builder()
+                    InferenceEmbeddingInterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
+                            StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
-                                        .TranscriptionEndpointingPlan
-                                        .builder()
+                                    TranscriptionEndpointingPlan.builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -732,7 +724,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
