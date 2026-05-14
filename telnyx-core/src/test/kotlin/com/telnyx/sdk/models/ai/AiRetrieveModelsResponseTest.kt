@@ -16,7 +16,7 @@ internal class AiRetrieveModelsResponseTest {
         val aiRetrieveModelsResponse =
             AiRetrieveModelsResponse.builder()
                 .addData(
-                    ModelMetadata.builder()
+                    AiRetrieveModelsResponse.Data.builder()
                         .id("moonshotai/Kimi-K2.6")
                         .contextLength(262144L)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -25,7 +25,7 @@ internal class AiRetrieveModelsResponseTest {
                         .organization("moonshotai")
                         .ownedBy("Telnyx")
                         .parameters(1000000000000L)
-                        .tier(ModelMetadata.Tier.SMALL)
+                        .tier(AiRetrieveModelsResponse.Data.Tier.SMALL)
                         .baseModel("base_model")
                         .description("description")
                         .isFineTunable(true)
@@ -34,7 +34,7 @@ internal class AiRetrieveModelsResponseTest {
                         .modelObject("object")
                         .parametersStr("1.0T")
                         .pricing(
-                            ModelMetadata.Pricing.builder()
+                            AiRetrieveModelsResponse.Data.Pricing.builder()
                                 .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                                 .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                                 .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))
@@ -53,7 +53,7 @@ internal class AiRetrieveModelsResponseTest {
 
         assertThat(aiRetrieveModelsResponse.data())
             .containsExactly(
-                ModelMetadata.builder()
+                AiRetrieveModelsResponse.Data.builder()
                     .id("moonshotai/Kimi-K2.6")
                     .contextLength(262144L)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -62,7 +62,7 @@ internal class AiRetrieveModelsResponseTest {
                     .organization("moonshotai")
                     .ownedBy("Telnyx")
                     .parameters(1000000000000L)
-                    .tier(ModelMetadata.Tier.SMALL)
+                    .tier(AiRetrieveModelsResponse.Data.Tier.SMALL)
                     .baseModel("base_model")
                     .description("description")
                     .isFineTunable(true)
@@ -71,7 +71,7 @@ internal class AiRetrieveModelsResponseTest {
                     .modelObject("object")
                     .parametersStr("1.0T")
                     .pricing(
-                        ModelMetadata.Pricing.builder()
+                        AiRetrieveModelsResponse.Data.Pricing.builder()
                             .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                             .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                             .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))
@@ -94,7 +94,7 @@ internal class AiRetrieveModelsResponseTest {
         val aiRetrieveModelsResponse =
             AiRetrieveModelsResponse.builder()
                 .addData(
-                    ModelMetadata.builder()
+                    AiRetrieveModelsResponse.Data.builder()
                         .id("moonshotai/Kimi-K2.6")
                         .contextLength(262144L)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -103,7 +103,7 @@ internal class AiRetrieveModelsResponseTest {
                         .organization("moonshotai")
                         .ownedBy("Telnyx")
                         .parameters(1000000000000L)
-                        .tier(ModelMetadata.Tier.SMALL)
+                        .tier(AiRetrieveModelsResponse.Data.Tier.SMALL)
                         .baseModel("base_model")
                         .description("description")
                         .isFineTunable(true)
@@ -112,7 +112,7 @@ internal class AiRetrieveModelsResponseTest {
                         .modelObject("object")
                         .parametersStr("1.0T")
                         .pricing(
-                            ModelMetadata.Pricing.builder()
+                            AiRetrieveModelsResponse.Data.Pricing.builder()
                                 .putAdditionalProperty("prompt", JsonValue.from("0.300000"))
                                 .putAdditionalProperty("completion", JsonValue.from("1.200000"))
                                 .putAdditionalProperty("cached_prompt", JsonValue.from("0.060000"))

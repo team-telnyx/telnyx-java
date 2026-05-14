@@ -18,14 +18,14 @@ private constructor(
     private val service: UacConnectionService,
     private val params: UacConnectionListParams,
     private val response: UacConnectionListPageResponse,
-) : Page<UacConnection> {
+) : Page<UacConnectionListResponse> {
 
     /**
      * Delegates to [UacConnectionListPageResponse], but gracefully handles missing data.
      *
      * @see UacConnectionListPageResponse.data
      */
-    fun data(): List<UacConnection> =
+    fun data(): List<UacConnectionListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<ConnectionsPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<UacConnection> = data()
+    override fun items(): List<UacConnectionListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): UacConnectionListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<UacConnection> = AutoPager.from(this)
+    fun autoPager(): AutoPager<UacConnectionListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): UacConnectionListParams = params

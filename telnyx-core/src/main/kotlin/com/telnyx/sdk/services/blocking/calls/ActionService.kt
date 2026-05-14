@@ -44,6 +44,8 @@ import com.telnyx.sdk.models.calls.actions.ActionSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionSpeakResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartNoiseSuppressionParams
@@ -60,6 +62,8 @@ import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionParams
 import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopGatherParams
@@ -769,6 +773,43 @@ interface ActionService {
         startAiAssistant(callControlId, ActionStartAiAssistantParams.none(), requestOptions)
 
     /**
+     * Start a Conversation Relay session on an active call. Conversation Relay connects the call
+     * audio to your WebSocket so your application can exchange realtime messages with the caller
+     * while Telnyx handles speech recognition and text-to-speech. Only one AI Assistant or
+     * Conversation Relay session can be active on a call at a time.
+     *
+     * **Expected Webhooks:**
+     * - `conversation_relay.disconnected`
+     */
+    fun startConversationRelay(
+        callControlId: String,
+        params: ActionStartConversationRelayParams,
+    ): ActionStartConversationRelayResponse =
+        startConversationRelay(callControlId, params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        params: ActionStartConversationRelayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionStartConversationRelayResponse =
+        startConversationRelay(
+            params.toBuilder().callControlId(callControlId).build(),
+            requestOptions,
+        )
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams
+    ): ActionStartConversationRelayResponse = startConversationRelay(params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionStartConversationRelayResponse
+
+    /**
      * Call forking allows you to stream the media from a call to a specific target in realtime.
      * This stream can be used to enable realtime audio analysis to support a variety of use cases,
      * including fraud detection, or the creation of AI-generated audio responses. Requests must
@@ -1085,6 +1126,50 @@ interface ActionService {
         requestOptions: RequestOptions,
     ): ActionStopAiAssistantResponse =
         stopAiAssistant(callControlId, ActionStopAiAssistantParams.none(), requestOptions)
+
+    /** Stop the active Conversation Relay session on a call. */
+    fun stopConversationRelay(callControlId: String): ActionStopConversationRelayResponse =
+        stopConversationRelay(callControlId, ActionStopConversationRelayParams.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionStopConversationRelayResponse =
+        stopConversationRelay(
+            params.toBuilder().callControlId(callControlId).build(),
+            requestOptions,
+        )
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+    ): ActionStopConversationRelayResponse =
+        stopConversationRelay(callControlId, params, RequestOptions.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        params: ActionStopConversationRelayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionStopConversationRelayResponse
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        params: ActionStopConversationRelayParams
+    ): ActionStopConversationRelayResponse = stopConversationRelay(params, RequestOptions.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): ActionStopConversationRelayResponse =
+        stopConversationRelay(
+            callControlId,
+            ActionStopConversationRelayParams.none(),
+            requestOptions,
+        )
 
     /**
      * Stop forking a call.
@@ -2270,6 +2355,44 @@ interface ActionService {
             startAiAssistant(callControlId, ActionStartAiAssistantParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/conversation_relay_start`, but is otherwise the same as
+         * [ActionService.startConversationRelay].
+         */
+        @MustBeClosed
+        fun startConversationRelay(
+            callControlId: String,
+            params: ActionStartConversationRelayParams,
+        ): HttpResponseFor<ActionStartConversationRelayResponse> =
+            startConversationRelay(callControlId, params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        @MustBeClosed
+        fun startConversationRelay(
+            callControlId: String,
+            params: ActionStartConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionStartConversationRelayResponse> =
+            startConversationRelay(
+                params.toBuilder().callControlId(callControlId).build(),
+                requestOptions,
+            )
+
+        /** @see startConversationRelay */
+        @MustBeClosed
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams
+        ): HttpResponseFor<ActionStartConversationRelayResponse> =
+            startConversationRelay(params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        @MustBeClosed
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionStartConversationRelayResponse>
+
+        /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_start`, but
          * is otherwise the same as [ActionService.startForking].
          */
@@ -2631,6 +2754,63 @@ interface ActionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ActionStopAiAssistantResponse> =
             stopAiAssistant(callControlId, ActionStopAiAssistantParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/conversation_relay_stop`, but is otherwise the same as
+         * [ActionService.stopConversationRelay].
+         */
+        @MustBeClosed
+        fun stopConversationRelay(
+            callControlId: String
+        ): HttpResponseFor<ActionStopConversationRelayResponse> =
+            stopConversationRelay(callControlId, ActionStopConversationRelayParams.none())
+
+        /** @see stopConversationRelay */
+        @MustBeClosed
+        fun stopConversationRelay(
+            callControlId: String,
+            params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionStopConversationRelayResponse> =
+            stopConversationRelay(
+                params.toBuilder().callControlId(callControlId).build(),
+                requestOptions,
+            )
+
+        /** @see stopConversationRelay */
+        @MustBeClosed
+        fun stopConversationRelay(
+            callControlId: String,
+            params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+        ): HttpResponseFor<ActionStopConversationRelayResponse> =
+            stopConversationRelay(callControlId, params, RequestOptions.none())
+
+        /** @see stopConversationRelay */
+        @MustBeClosed
+        fun stopConversationRelay(
+            params: ActionStopConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionStopConversationRelayResponse>
+
+        /** @see stopConversationRelay */
+        @MustBeClosed
+        fun stopConversationRelay(
+            params: ActionStopConversationRelayParams
+        ): HttpResponseFor<ActionStopConversationRelayResponse> =
+            stopConversationRelay(params, RequestOptions.none())
+
+        /** @see stopConversationRelay */
+        @MustBeClosed
+        fun stopConversationRelay(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionStopConversationRelayResponse> =
+            stopConversationRelay(
+                callControlId,
+                ActionStopConversationRelayParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_stop`, but is

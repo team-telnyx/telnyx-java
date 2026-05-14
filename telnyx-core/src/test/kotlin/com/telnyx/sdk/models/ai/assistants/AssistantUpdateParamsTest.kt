@@ -55,19 +55,21 @@ internal class AssistantUpdateParamsTest {
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .instructions("instructions")
             .addIntegration(
-                AssistantIntegration.builder()
+                UpdateAssistant.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
             .interruptionSettings(
-                InferenceEmbeddingInterruptionSettings.builder()
+                UpdateAssistant.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -79,7 +81,9 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
             .llmApiKeyRef("llm_api_key_ref")
-            .addMcpServer(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .addMcpServer(
+                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
             .messagingSettings(
                 MessagingSettings.builder()
                     .conversationInactivityMinutes(1L)
@@ -348,19 +352,21 @@ internal class AssistantUpdateParamsTest {
                 )
                 .instructions("instructions")
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    UpdateAssistant.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    UpdateAssistant.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -373,7 +379,7 @@ internal class AssistantUpdateParamsTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -638,20 +644,22 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.instructions()).contains("instructions")
         assertThat(body.integrations().getOrNull())
             .containsExactly(
-                AssistantIntegration.builder()
+                UpdateAssistant.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(body.interruptionSettings())
             .contains(
-                InferenceEmbeddingInterruptionSettings.builder()
+                UpdateAssistant.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -664,7 +672,9 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(body.mcpServers().getOrNull())
-            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .containsExactly(
+                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(body.messagingSettings())
             .contains(
                 MessagingSettings.builder()
