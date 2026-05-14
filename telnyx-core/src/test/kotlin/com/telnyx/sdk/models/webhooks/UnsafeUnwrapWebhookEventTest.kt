@@ -952,6 +952,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .durationSec(3L)
                                 .from("+13124287921")
                                 .llmModel("openai/gpt-4o")
+                                .reason("customer_disconnect")
                                 .sttModel("distil-whisper/distil-large-v2")
                                 .to(
                                     "jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com"
@@ -1068,6 +1069,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .durationSec(3L)
                                     .from("+13124287921")
                                     .llmModel("openai/gpt-4o")
+                                    .reason("customer_disconnect")
                                     .sttModel("distil-whisper/distil-large-v2")
                                     .to(
                                         "jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com"

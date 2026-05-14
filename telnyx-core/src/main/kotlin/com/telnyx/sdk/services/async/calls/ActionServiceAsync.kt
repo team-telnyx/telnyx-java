@@ -831,7 +831,8 @@ interface ActionServiceAsync {
      * Conversation Relay session can be active on a call at a time.
      *
      * **Expected Webhooks:**
-     * - `conversation_relay.disconnected`
+     * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If the customer
+     *   WebSocket disconnects, the webhook payload `reason` is `customer_disconnect`.
      */
     fun startConversationRelay(
         callControlId: String,
