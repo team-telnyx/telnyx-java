@@ -54,19 +54,21 @@ internal class AssistantCreateParamsTest {
             .greeting("greeting")
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .addIntegration(
-                AssistantIntegration.builder()
+                AssistantCreateParams.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
             .interruptionSettings(
-                InferenceEmbeddingInterruptionSettings.builder()
+                AssistantCreateParams.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        AssistantCreateParams.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                AssistantCreateParams.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -78,7 +80,9 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .llmApiKeyRef("llm_api_key_ref")
-            .addMcpServer(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .addMcpServer(
+                AssistantCreateParams.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
             .messagingSettings(
                 MessagingSettings.builder()
                     .conversationInactivityMinutes(1L)
@@ -335,19 +339,21 @@ internal class AssistantCreateParamsTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    AssistantCreateParams.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    AssistantCreateParams.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            AssistantCreateParams.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    AssistantCreateParams.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -360,7 +366,10 @@ internal class AssistantCreateParamsTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    AssistantCreateParams.McpServer.builder()
+                        .id("id")
+                        .addAllowedTool("string")
+                        .build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -623,20 +632,22 @@ internal class AssistantCreateParamsTest {
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
         assertThat(body.integrations().getOrNull())
             .containsExactly(
-                AssistantIntegration.builder()
+                AssistantCreateParams.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(body.interruptionSettings())
             .contains(
-                InferenceEmbeddingInterruptionSettings.builder()
+                AssistantCreateParams.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        AssistantCreateParams.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                AssistantCreateParams.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -649,7 +660,9 @@ internal class AssistantCreateParamsTest {
             )
         assertThat(body.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(body.mcpServers().getOrNull())
-            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .containsExactly(
+                AssistantCreateParams.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(body.messagingSettings())
             .contains(
                 MessagingSettings.builder()

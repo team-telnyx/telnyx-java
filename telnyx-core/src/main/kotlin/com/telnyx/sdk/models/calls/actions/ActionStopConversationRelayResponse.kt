@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.uacconnections
+package com.telnyx.sdk.models.calls.actions
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,41 +14,34 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Internal Telnyx-side settings for a UAC connection. */
-class UacInternalSettings
+class ActionStopConversationRelayResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val destinationUri: JsonField<String>,
+    private val data: JsonField<CallControlCommandResult>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("destination_uri")
+        @JsonProperty("data")
         @ExcludeMissing
-        destinationUri: JsonField<String> = JsonMissing.of()
-    ) : this(destinationUri, mutableMapOf())
+        data: JsonField<CallControlCommandResult> = JsonMissing.of()
+    ) : this(data, mutableMapOf())
 
     /**
-     * The SIP URI that Telnyx will call when handling an inbound request from the external peer. Do
-     * not include a `sip:` prefix. The value must be in the format
-     * `userinfo@<subdomain.>sip.telnyx.com` or `userinfo@<subdomain.>sipdev.telnyx.com`; the
-     * userinfo portion may contain only letters, digits, hyphens, and underscores.
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun destinationUri(): Optional<String> = destinationUri.getOptional("destination_uri")
+    fun data(): Optional<CallControlCommandResult> = data.getOptional("data")
 
     /**
-     * Returns the raw JSON value of [destinationUri].
+     * Returns the raw JSON value of [data].
      *
-     * Unlike [destinationUri], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("destination_uri")
-    @ExcludeMissing
-    fun _destinationUri(): JsonField<String> = destinationUri
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<CallControlCommandResult> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -64,40 +57,38 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [UacInternalSettings]. */
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ActionStopConversationRelayResponse].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [UacInternalSettings]. */
+    /** A builder for [ActionStopConversationRelayResponse]. */
     class Builder internal constructor() {
 
-        private var destinationUri: JsonField<String> = JsonMissing.of()
+        private var data: JsonField<CallControlCommandResult> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(uacInternalSettings: UacInternalSettings) = apply {
-            destinationUri = uacInternalSettings.destinationUri
-            additionalProperties = uacInternalSettings.additionalProperties.toMutableMap()
+        internal fun from(
+            actionStopConversationRelayResponse: ActionStopConversationRelayResponse
+        ) = apply {
+            data = actionStopConversationRelayResponse.data
+            additionalProperties =
+                actionStopConversationRelayResponse.additionalProperties.toMutableMap()
         }
 
-        /**
-         * The SIP URI that Telnyx will call when handling an inbound request from the external
-         * peer. Do not include a `sip:` prefix. The value must be in the format
-         * `userinfo@<subdomain.>sip.telnyx.com` or `userinfo@<subdomain.>sipdev.telnyx.com`; the
-         * userinfo portion may contain only letters, digits, hyphens, and underscores.
-         */
-        fun destinationUri(destinationUri: String) = destinationUri(JsonField.of(destinationUri))
+        fun data(data: CallControlCommandResult) = data(JsonField.of(data))
 
         /**
-         * Sets [Builder.destinationUri] to an arbitrary JSON value.
+         * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.destinationUri] with a well-typed [String] value
+         * You should usually call [Builder.data] with a well-typed [CallControlCommandResult] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun destinationUri(destinationUri: JsonField<String>) = apply {
-            this.destinationUri = destinationUri
-        }
+        fun data(data: JsonField<CallControlCommandResult>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -119,12 +110,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [UacInternalSettings].
+         * Returns an immutable instance of [ActionStopConversationRelayResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): UacInternalSettings =
-            UacInternalSettings(destinationUri, additionalProperties.toMutableMap())
+        fun build(): ActionStopConversationRelayResponse =
+            ActionStopConversationRelayResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -137,12 +128,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): UacInternalSettings = apply {
+    fun validate(): ActionStopConversationRelayResponse = apply {
         if (validated) {
             return@apply
         }
 
-        destinationUri()
+        data().ifPresent { it.validate() }
         validated = true
     }
 
@@ -159,22 +150,22 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (if (destinationUri.asKnown().isPresent) 1 else 0)
+    @JvmSynthetic internal fun validity(): Int = (data.asKnown().getOrNull()?.validity() ?: 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is UacInternalSettings &&
-            destinationUri == other.destinationUri &&
+        return other is ActionStopConversationRelayResponse &&
+            data == other.data &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(destinationUri, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UacInternalSettings{destinationUri=$destinationUri, additionalProperties=$additionalProperties}"
+        "ActionStopConversationRelayResponse{data=$data, additionalProperties=$additionalProperties}"
 }

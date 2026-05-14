@@ -54,6 +54,8 @@ import com.telnyx.sdk.models.calls.actions.ActionSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionSpeakResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartNoiseSuppressionParams
@@ -70,6 +72,8 @@ import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionParams
 import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopGatherParams
@@ -242,6 +246,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // post /calls/{call_control_id}/actions/ai_assistant_start
         withRawResponse().startAiAssistant(params, requestOptions).thenApply { it.parse() }
 
+    override fun startConversationRelay(
+        params: ActionStartConversationRelayParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        // post /calls/{call_control_id}/actions/conversation_relay_start
+        withRawResponse().startConversationRelay(params, requestOptions).thenApply { it.parse() }
+
     override fun startForking(
         params: ActionStartForkingParams,
         requestOptions: RequestOptions,
@@ -297,6 +308,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<ActionStopAiAssistantResponse> =
         // post /calls/{call_control_id}/actions/ai_assistant_stop
         withRawResponse().stopAiAssistant(params, requestOptions).thenApply { it.parse() }
+
+    override fun stopConversationRelay(
+        params: ActionStopConversationRelayParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        // post /calls/{call_control_id}/actions/conversation_relay_stop
+        withRawResponse().stopConversationRelay(params, requestOptions).thenApply { it.parse() }
 
     override fun stopForking(
         params: ActionStopForkingParams,
@@ -1039,6 +1057,45 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
+        private val startConversationRelayHandler: Handler<ActionStartConversationRelayResponse> =
+            jsonHandler<ActionStartConversationRelayResponse>(clientOptions.jsonMapper)
+
+        override fun startConversationRelay(
+            params: ActionStartConversationRelayParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "calls",
+                        params._pathParam(0),
+                        "actions",
+                        "conversation_relay_start",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { startConversationRelayHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val startForkingHandler: Handler<ActionStartForkingResponse> =
             jsonHandler<ActionStartForkingResponse>(clientOptions.jsonMapper)
 
@@ -1307,6 +1364,45 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { stopAiAssistantHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val stopConversationRelayHandler: Handler<ActionStopConversationRelayResponse> =
+            jsonHandler<ActionStopConversationRelayResponse>(clientOptions.jsonMapper)
+
+        override fun stopConversationRelay(
+            params: ActionStopConversationRelayParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "calls",
+                        params._pathParam(0),
+                        "actions",
+                        "conversation_relay_stop",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { stopConversationRelayHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
