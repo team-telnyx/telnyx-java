@@ -871,14 +871,12 @@ internal class ActionServiceTest {
             actionService.startConversationRelay(
                 ActionStartConversationRelayParams.builder()
                     .callControlId("call_control_id")
-                    .conversationRelayUrl("wss://example.com/conversation-relay")
                     .assistant(
                         ActionStartConversationRelayParams.Assistant.builder()
                             .dynamicVariables(
                                 ActionStartConversationRelayParams.Assistant.DynamicVariables
                                     .builder()
                                     .putAdditionalProperty("customer_id", JsonValue.from("12345"))
-                                    .putAdditionalProperty("tier", JsonValue.from("premium"))
                                     .build()
                             )
                             .build()
@@ -886,6 +884,34 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .conversationRelayDtmfDetection(true)
+                    .conversationRelaySettings(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.builder()
+                            .url("wss://example.com/conversation-relay")
+                            .dtmfDetection(true)
+                            .interruptible(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .Interruptible
+                                    .SPEECH
+                            )
+                            .interruptibleGreeting(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .InterruptibleGreeting
+                                    .ANY
+                            )
+                            .addLanguage(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .Language
+                                    .builder()
+                                    .code("en-US")
+                                    .speechModel("nova-2")
+                                    .transcriptionProvider("Deepgram")
+                                    .ttsProvider("ElevenLabs")
+                                    .voice("alice")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .conversationRelayUrl("wss://example.com/conversation-relay")
                     .greeting("Hi! Ask me anything!")
                     .interruptionSettings(
                         ActionStartConversationRelayParams.InterruptionSettings.builder()
@@ -917,18 +943,6 @@ internal class ActionServiceTest {
                             .voice("alice")
                             .build()
                     )
-                    .addParticipant(
-                        ActionStartConversationRelayParams.Participant.builder()
-                            .id("v3:abc123def456")
-                            .role(ActionStartConversationRelayParams.Participant.Role.USER)
-                            .name("John Doe")
-                            .onHangup(
-                                ActionStartConversationRelayParams.Participant.OnHangup
-                                    .CONTINUE_CONVERSATION
-                            )
-                            .build()
-                    )
-                    .sendMessageHistoryUpdates(true)
                     .transcription(
                         ActionStartConversationRelayParams.Transcription.builder()
                             .language("en-US")
@@ -938,7 +952,6 @@ internal class ActionServiceTest {
                     )
                     .transcriptionLanguage("en-US")
                     .ttsLanguage("es")
-                    .userResponseTimeoutMs(10000L)
                     .voice("Telnyx.KokoroTTS.af")
                     .voiceSettings(
                         ElevenLabsVoiceSettings.builder()

@@ -58,14 +58,6 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun conversationRelayUrl(): String = body.conversationRelayUrl()
-
-    /**
      * Custom parameters for the Conversation Relay session. Pass key-value data as
      * `assistant.dynamic_variables` to make it available to the relay session.
      *
@@ -99,6 +91,27 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun conversationRelayDtmfDetection(): Optional<Boolean> = body.conversationRelayDtmfDetection()
+
+    /**
+     * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
+     * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
+     * shorthand for `interruption_settings.interruptible` and
+     * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for the
+     * full interruption settings shape.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationRelaySettings(): Optional<ConversationRelaySettings> =
+        body.conversationRelaySettings()
+
+    /**
+     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationRelayUrl(): Optional<String> = body.conversationRelayUrl()
 
     /**
      * Text played when the relay session starts.
@@ -135,22 +148,6 @@ private constructor(
     fun languages(): Optional<List<Language>> = body.languages()
 
     /**
-     * Participants to add to the conversation.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun participants(): Optional<List<Participant>> = body.participants()
-
-    /**
-     * When true, sends message history update webhooks.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sendMessageHistoryUpdates(): Optional<Boolean> = body.sendMessageHistoryUpdates()
-
-    /**
      * Speech-to-text settings for Conversation Relay.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -173,14 +170,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun ttsLanguage(): Optional<String> = body.ttsLanguage()
-
-    /**
-     * Time in milliseconds to wait for caller input before timing out.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun userResponseTimeoutMs(): Optional<Long> = body.userResponseTimeoutMs()
 
     /**
      * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS
@@ -221,14 +210,6 @@ private constructor(
     fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
 
     /**
-     * Returns the raw JSON value of [conversationRelayUrl].
-     *
-     * Unlike [conversationRelayUrl], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _conversationRelayUrl(): JsonField<String> = body._conversationRelayUrl()
-
-    /**
      * Returns the raw JSON value of [assistant].
      *
      * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
@@ -257,6 +238,23 @@ private constructor(
      */
     fun _conversationRelayDtmfDetection(): JsonField<Boolean> =
         body._conversationRelayDtmfDetection()
+
+    /**
+     * Returns the raw JSON value of [conversationRelaySettings].
+     *
+     * Unlike [conversationRelaySettings], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _conversationRelaySettings(): JsonField<ConversationRelaySettings> =
+        body._conversationRelaySettings()
+
+    /**
+     * Returns the raw JSON value of [conversationRelayUrl].
+     *
+     * Unlike [conversationRelayUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _conversationRelayUrl(): JsonField<String> = body._conversationRelayUrl()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -288,21 +286,6 @@ private constructor(
     fun _languages(): JsonField<List<Language>> = body._languages()
 
     /**
-     * Returns the raw JSON value of [participants].
-     *
-     * Unlike [participants], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _participants(): JsonField<List<Participant>> = body._participants()
-
-    /**
-     * Returns the raw JSON value of [sendMessageHistoryUpdates].
-     *
-     * Unlike [sendMessageHistoryUpdates], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _sendMessageHistoryUpdates(): JsonField<Boolean> = body._sendMessageHistoryUpdates()
-
-    /**
      * Returns the raw JSON value of [transcription].
      *
      * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
@@ -323,14 +306,6 @@ private constructor(
      * Unlike [ttsLanguage], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _ttsLanguage(): JsonField<String> = body._ttsLanguage()
-
-    /**
-     * Returns the raw JSON value of [userResponseTimeoutMs].
-     *
-     * Unlike [userResponseTimeoutMs], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _userResponseTimeoutMs(): JsonField<Long> = body._userResponseTimeoutMs()
 
     /**
      * Returns the raw JSON value of [voice].
@@ -358,14 +333,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): ActionStartConversationRelayParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [ActionStartConversationRelayParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .conversationRelayUrl()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -399,32 +371,14 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [conversationRelayUrl]
          * - [assistant]
          * - [clientState]
          * - [commandId]
          * - [conversationRelayDtmfDetection]
+         * - [conversationRelaySettings]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /**
-         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
-         */
-        fun conversationRelayUrl(conversationRelayUrl: String) = apply {
-            body.conversationRelayUrl(conversationRelayUrl)
-        }
-
-        /**
-         * Sets [Builder.conversationRelayUrl] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.conversationRelayUrl] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun conversationRelayUrl(conversationRelayUrl: JsonField<String>) = apply {
-            body.conversationRelayUrl(conversationRelayUrl)
-        }
 
         /**
          * Custom parameters for the Conversation Relay session. Pass key-value data as
@@ -487,6 +441,47 @@ private constructor(
             apply {
                 body.conversationRelayDtmfDetection(conversationRelayDtmfDetection)
             }
+
+        /**
+         * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
+         * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
+         * shorthand for `interruption_settings.interruptible` and
+         * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for
+         * the full interruption settings shape.
+         */
+        fun conversationRelaySettings(conversationRelaySettings: ConversationRelaySettings) =
+            apply {
+                body.conversationRelaySettings(conversationRelaySettings)
+            }
+
+        /**
+         * Sets [Builder.conversationRelaySettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationRelaySettings] with a well-typed
+         * [ConversationRelaySettings] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun conversationRelaySettings(
+            conversationRelaySettings: JsonField<ConversationRelaySettings>
+        ) = apply { body.conversationRelaySettings(conversationRelaySettings) }
+
+        /**
+         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
+         */
+        fun conversationRelayUrl(conversationRelayUrl: String) = apply {
+            body.conversationRelayUrl(conversationRelayUrl)
+        }
+
+        /**
+         * Sets [Builder.conversationRelayUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationRelayUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun conversationRelayUrl(conversationRelayUrl: JsonField<String>) = apply {
+            body.conversationRelayUrl(conversationRelayUrl)
+        }
 
         /** Text played when the relay session starts. */
         fun greeting(greeting: String) = apply { body.greeting(greeting) }
@@ -551,45 +546,6 @@ private constructor(
          */
         fun addLanguage(language: Language) = apply { body.addLanguage(language) }
 
-        /** Participants to add to the conversation. */
-        fun participants(participants: List<Participant>) = apply {
-            body.participants(participants)
-        }
-
-        /**
-         * Sets [Builder.participants] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.participants] with a well-typed `List<Participant>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun participants(participants: JsonField<List<Participant>>) = apply {
-            body.participants(participants)
-        }
-
-        /**
-         * Adds a single [Participant] to [participants].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addParticipant(participant: Participant) = apply { body.addParticipant(participant) }
-
-        /** When true, sends message history update webhooks. */
-        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) = apply {
-            body.sendMessageHistoryUpdates(sendMessageHistoryUpdates)
-        }
-
-        /**
-         * Sets [Builder.sendMessageHistoryUpdates] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.sendMessageHistoryUpdates] with a well-typed [Boolean]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: JsonField<Boolean>) = apply {
-            body.sendMessageHistoryUpdates(sendMessageHistoryUpdates)
-        }
-
         /** Speech-to-text settings for Conversation Relay. */
         fun transcription(transcription: Transcription) = apply {
             body.transcription(transcription)
@@ -636,22 +592,6 @@ private constructor(
          * value.
          */
         fun ttsLanguage(ttsLanguage: JsonField<String>) = apply { body.ttsLanguage(ttsLanguage) }
-
-        /** Time in milliseconds to wait for caller input before timing out. */
-        fun userResponseTimeoutMs(userResponseTimeoutMs: Long) = apply {
-            body.userResponseTimeoutMs(userResponseTimeoutMs)
-        }
-
-        /**
-         * Sets [Builder.userResponseTimeoutMs] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.userResponseTimeoutMs] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun userResponseTimeoutMs(userResponseTimeoutMs: JsonField<Long>) = apply {
-            body.userResponseTimeoutMs(userResponseTimeoutMs)
-        }
 
         /**
          * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and
@@ -850,13 +790,6 @@ private constructor(
          * Returns an immutable instance of [ActionStartConversationRelayParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .conversationRelayUrl()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ActionStartConversationRelayParams =
             ActionStartConversationRelayParams(
@@ -879,24 +812,27 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    /**
+     * Start a Conversation Relay session. Provide either `conversation_relay_url` or
+     * `conversation_relay_settings.url`; when both nested and top-level equivalents are provided,
+     * top-level values take precedence as described on `conversation_relay_settings`.
+     */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val conversationRelayUrl: JsonField<String>,
         private val assistant: JsonField<Assistant>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val conversationRelayDtmfDetection: JsonField<Boolean>,
+        private val conversationRelaySettings: JsonField<ConversationRelaySettings>,
+        private val conversationRelayUrl: JsonField<String>,
         private val greeting: JsonField<String>,
         private val interruptionSettings: JsonField<InterruptionSettings>,
         private val language: JsonField<String>,
         private val languages: JsonField<List<Language>>,
-        private val participants: JsonField<List<Participant>>,
-        private val sendMessageHistoryUpdates: JsonField<Boolean>,
         private val transcription: JsonField<Transcription>,
         private val transcriptionLanguage: JsonField<String>,
         private val ttsLanguage: JsonField<String>,
-        private val userResponseTimeoutMs: JsonField<Long>,
         private val voice: JsonField<String>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -904,9 +840,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("conversation_relay_url")
-            @ExcludeMissing
-            conversationRelayUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("assistant")
             @ExcludeMissing
             assistant: JsonField<Assistant> = JsonMissing.of(),
@@ -919,6 +852,12 @@ private constructor(
             @JsonProperty("conversation_relay_dtmf_detection")
             @ExcludeMissing
             conversationRelayDtmfDetection: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("conversation_relay_settings")
+            @ExcludeMissing
+            conversationRelaySettings: JsonField<ConversationRelaySettings> = JsonMissing.of(),
+            @JsonProperty("conversation_relay_url")
+            @ExcludeMissing
+            conversationRelayUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -931,12 +870,6 @@ private constructor(
             @JsonProperty("languages")
             @ExcludeMissing
             languages: JsonField<List<Language>> = JsonMissing.of(),
-            @JsonProperty("participants")
-            @ExcludeMissing
-            participants: JsonField<List<Participant>> = JsonMissing.of(),
-            @JsonProperty("send_message_history_updates")
-            @ExcludeMissing
-            sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("transcription")
             @ExcludeMissing
             transcription: JsonField<Transcription> = JsonMissing.of(),
@@ -946,42 +879,28 @@ private constructor(
             @JsonProperty("tts_language")
             @ExcludeMissing
             ttsLanguage: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("user_response_timeout_ms")
-            @ExcludeMissing
-            userResponseTimeoutMs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
         ) : this(
-            conversationRelayUrl,
             assistant,
             clientState,
             commandId,
             conversationRelayDtmfDetection,
+            conversationRelaySettings,
+            conversationRelayUrl,
             greeting,
             interruptionSettings,
             language,
             languages,
-            participants,
-            sendMessageHistoryUpdates,
             transcription,
             transcriptionLanguage,
             ttsLanguage,
-            userResponseTimeoutMs,
             voice,
             voiceSettings,
             mutableMapOf(),
         )
-
-        /**
-         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun conversationRelayUrl(): String =
-            conversationRelayUrl.getRequired("conversation_relay_url")
 
         /**
          * Custom parameters for the Conversation Relay session. Pass key-value data as
@@ -1020,6 +939,28 @@ private constructor(
             conversationRelayDtmfDetection.getOptional("conversation_relay_dtmf_detection")
 
         /**
+         * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
+         * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
+         * shorthand for `interruption_settings.interruptible` and
+         * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for
+         * the full interruption settings shape.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conversationRelaySettings(): Optional<ConversationRelaySettings> =
+            conversationRelaySettings.getOptional("conversation_relay_settings")
+
+        /**
+         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conversationRelayUrl(): Optional<String> =
+            conversationRelayUrl.getOptional("conversation_relay_url")
+
+        /**
          * Text played when the relay session starts.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1055,23 +996,6 @@ private constructor(
         fun languages(): Optional<List<Language>> = languages.getOptional("languages")
 
         /**
-         * Participants to add to the conversation.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun participants(): Optional<List<Participant>> = participants.getOptional("participants")
-
-        /**
-         * When true, sends message history update webhooks.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun sendMessageHistoryUpdates(): Optional<Boolean> =
-            sendMessageHistoryUpdates.getOptional("send_message_history_updates")
-
-        /**
          * Speech-to-text settings for Conversation Relay.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1096,15 +1020,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun ttsLanguage(): Optional<String> = ttsLanguage.getOptional("tts_language")
-
-        /**
-         * Time in milliseconds to wait for caller input before timing out.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun userResponseTimeoutMs(): Optional<Long> =
-            userResponseTimeoutMs.getOptional("user_response_timeout_ms")
 
         /**
          * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and
@@ -1147,16 +1062,6 @@ private constructor(
         fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
 
         /**
-         * Returns the raw JSON value of [conversationRelayUrl].
-         *
-         * Unlike [conversationRelayUrl], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("conversation_relay_url")
-        @ExcludeMissing
-        fun _conversationRelayUrl(): JsonField<String> = conversationRelayUrl
-
-        /**
          * Returns the raw JSON value of [assistant].
          *
          * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
@@ -1192,6 +1097,27 @@ private constructor(
         fun _conversationRelayDtmfDetection(): JsonField<Boolean> = conversationRelayDtmfDetection
 
         /**
+         * Returns the raw JSON value of [conversationRelaySettings].
+         *
+         * Unlike [conversationRelaySettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("conversation_relay_settings")
+        @ExcludeMissing
+        fun _conversationRelaySettings(): JsonField<ConversationRelaySettings> =
+            conversationRelaySettings
+
+        /**
+         * Returns the raw JSON value of [conversationRelayUrl].
+         *
+         * Unlike [conversationRelayUrl], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("conversation_relay_url")
+        @ExcludeMissing
+        fun _conversationRelayUrl(): JsonField<String> = conversationRelayUrl
+
+        /**
          * Returns the raw JSON value of [greeting].
          *
          * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
@@ -1225,26 +1151,6 @@ private constructor(
         fun _languages(): JsonField<List<Language>> = languages
 
         /**
-         * Returns the raw JSON value of [participants].
-         *
-         * Unlike [participants], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("participants")
-        @ExcludeMissing
-        fun _participants(): JsonField<List<Participant>> = participants
-
-        /**
-         * Returns the raw JSON value of [sendMessageHistoryUpdates].
-         *
-         * Unlike [sendMessageHistoryUpdates], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("send_message_history_updates")
-        @ExcludeMissing
-        fun _sendMessageHistoryUpdates(): JsonField<Boolean> = sendMessageHistoryUpdates
-
-        /**
          * Returns the raw JSON value of [transcription].
          *
          * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected
@@ -1272,16 +1178,6 @@ private constructor(
         @JsonProperty("tts_language")
         @ExcludeMissing
         fun _ttsLanguage(): JsonField<String> = ttsLanguage
-
-        /**
-         * Returns the raw JSON value of [userResponseTimeoutMs].
-         *
-         * Unlike [userResponseTimeoutMs], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("user_response_timeout_ms")
-        @ExcludeMissing
-        fun _userResponseTimeoutMs(): JsonField<Long> = userResponseTimeoutMs
 
         /**
          * Returns the raw JSON value of [voice].
@@ -1314,77 +1210,49 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .conversationRelayUrl()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var conversationRelayUrl: JsonField<String>? = null
             private var assistant: JsonField<Assistant> = JsonMissing.of()
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var conversationRelayDtmfDetection: JsonField<Boolean> = JsonMissing.of()
+            private var conversationRelaySettings: JsonField<ConversationRelaySettings> =
+                JsonMissing.of()
+            private var conversationRelayUrl: JsonField<String> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var languages: JsonField<MutableList<Language>>? = null
-            private var participants: JsonField<MutableList<Participant>>? = null
-            private var sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of()
             private var transcription: JsonField<Transcription> = JsonMissing.of()
             private var transcriptionLanguage: JsonField<String> = JsonMissing.of()
             private var ttsLanguage: JsonField<String> = JsonMissing.of()
-            private var userResponseTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var voice: JsonField<String> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                conversationRelayUrl = body.conversationRelayUrl
                 assistant = body.assistant
                 clientState = body.clientState
                 commandId = body.commandId
                 conversationRelayDtmfDetection = body.conversationRelayDtmfDetection
+                conversationRelaySettings = body.conversationRelaySettings
+                conversationRelayUrl = body.conversationRelayUrl
                 greeting = body.greeting
                 interruptionSettings = body.interruptionSettings
                 language = body.language
                 languages = body.languages.map { it.toMutableList() }
-                participants = body.participants.map { it.toMutableList() }
-                sendMessageHistoryUpdates = body.sendMessageHistoryUpdates
                 transcription = body.transcription
                 transcriptionLanguage = body.transcriptionLanguage
                 ttsLanguage = body.ttsLanguage
-                userResponseTimeoutMs = body.userResponseTimeoutMs
                 voice = body.voice
                 voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
-             * `wss://`.
-             */
-            fun conversationRelayUrl(conversationRelayUrl: String) =
-                conversationRelayUrl(JsonField.of(conversationRelayUrl))
-
-            /**
-             * Sets [Builder.conversationRelayUrl] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.conversationRelayUrl] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun conversationRelayUrl(conversationRelayUrl: JsonField<String>) = apply {
-                this.conversationRelayUrl = conversationRelayUrl
             }
 
             /**
@@ -1449,6 +1317,45 @@ private constructor(
                 apply {
                     this.conversationRelayDtmfDetection = conversationRelayDtmfDetection
                 }
+
+            /**
+             * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
+             * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields
+             * are shorthand for `interruption_settings.interruptible` and
+             * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings`
+             * for the full interruption settings shape.
+             */
+            fun conversationRelaySettings(conversationRelaySettings: ConversationRelaySettings) =
+                conversationRelaySettings(JsonField.of(conversationRelaySettings))
+
+            /**
+             * Sets [Builder.conversationRelaySettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conversationRelaySettings] with a well-typed
+             * [ConversationRelaySettings] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun conversationRelaySettings(
+                conversationRelaySettings: JsonField<ConversationRelaySettings>
+            ) = apply { this.conversationRelaySettings = conversationRelaySettings }
+
+            /**
+             * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+             * `wss://`.
+             */
+            fun conversationRelayUrl(conversationRelayUrl: String) =
+                conversationRelayUrl(JsonField.of(conversationRelayUrl))
+
+            /**
+             * Sets [Builder.conversationRelayUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conversationRelayUrl] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun conversationRelayUrl(conversationRelayUrl: JsonField<String>) = apply {
+                this.conversationRelayUrl = conversationRelayUrl
+            }
 
             /** Text played when the relay session starts. */
             fun greeting(greeting: String) = greeting(JsonField.of(greeting))
@@ -1523,48 +1430,6 @@ private constructor(
                     }
             }
 
-            /** Participants to add to the conversation. */
-            fun participants(participants: List<Participant>) =
-                participants(JsonField.of(participants))
-
-            /**
-             * Sets [Builder.participants] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.participants] with a well-typed `List<Participant>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun participants(participants: JsonField<List<Participant>>) = apply {
-                this.participants = participants.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [Participant] to [participants].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addParticipant(participant: Participant) = apply {
-                participants =
-                    (participants ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("participants", it).add(participant)
-                    }
-            }
-
-            /** When true, sends message history update webhooks. */
-            fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) =
-                sendMessageHistoryUpdates(JsonField.of(sendMessageHistoryUpdates))
-
-            /**
-             * Sets [Builder.sendMessageHistoryUpdates] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.sendMessageHistoryUpdates] with a well-typed
-             * [Boolean] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: JsonField<Boolean>) = apply {
-                this.sendMessageHistoryUpdates = sendMessageHistoryUpdates
-            }
-
             /** Speech-to-text settings for Conversation Relay. */
             fun transcription(transcription: Transcription) =
                 transcription(JsonField.of(transcription))
@@ -1610,21 +1475,6 @@ private constructor(
              */
             fun ttsLanguage(ttsLanguage: JsonField<String>) = apply {
                 this.ttsLanguage = ttsLanguage
-            }
-
-            /** Time in milliseconds to wait for caller input before timing out. */
-            fun userResponseTimeoutMs(userResponseTimeoutMs: Long) =
-                userResponseTimeoutMs(JsonField.of(userResponseTimeoutMs))
-
-            /**
-             * Sets [Builder.userResponseTimeoutMs] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.userResponseTimeoutMs] with a well-typed [Long]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun userResponseTimeoutMs(userResponseTimeoutMs: JsonField<Long>) = apply {
-                this.userResponseTimeoutMs = userResponseTimeoutMs
             }
 
             /**
@@ -1728,31 +1578,22 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .conversationRelayUrl()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
-                    checkRequired("conversationRelayUrl", conversationRelayUrl),
                     assistant,
                     clientState,
                     commandId,
                     conversationRelayDtmfDetection,
+                    conversationRelaySettings,
+                    conversationRelayUrl,
                     greeting,
                     interruptionSettings,
                     language,
                     (languages ?: JsonMissing.of()).map { it.toImmutable() },
-                    (participants ?: JsonMissing.of()).map { it.toImmutable() },
-                    sendMessageHistoryUpdates,
                     transcription,
                     transcriptionLanguage,
                     ttsLanguage,
-                    userResponseTimeoutMs,
                     voice,
                     voiceSettings,
                     additionalProperties.toMutableMap(),
@@ -1775,21 +1616,19 @@ private constructor(
                 return@apply
             }
 
-            conversationRelayUrl()
             assistant().ifPresent { it.validate() }
             clientState()
             commandId()
             conversationRelayDtmfDetection()
+            conversationRelaySettings().ifPresent { it.validate() }
+            conversationRelayUrl()
             greeting()
             interruptionSettings().ifPresent { it.validate() }
             language()
             languages().ifPresent { it.forEach { it.validate() } }
-            participants().ifPresent { it.forEach { it.validate() } }
-            sendMessageHistoryUpdates()
             transcription().ifPresent { it.validate() }
             transcriptionLanguage()
             ttsLanguage()
-            userResponseTimeoutMs()
             voice()
             voiceSettings().ifPresent { it.validate() }
             validated = true
@@ -1811,21 +1650,19 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (conversationRelayUrl.asKnown().isPresent) 1 else 0) +
-                (assistant.asKnown().getOrNull()?.validity() ?: 0) +
+            (assistant.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (if (conversationRelayDtmfDetection.asKnown().isPresent) 1 else 0) +
+                (conversationRelaySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (conversationRelayUrl.asKnown().isPresent) 1 else 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (languages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                (participants.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (sendMessageHistoryUpdates.asKnown().isPresent) 1 else 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (transcriptionLanguage.asKnown().isPresent) 1 else 0) +
                 (if (ttsLanguage.asKnown().isPresent) 1 else 0) +
-                (if (userResponseTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (if (voice.asKnown().isPresent) 1 else 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1835,21 +1672,19 @@ private constructor(
             }
 
             return other is Body &&
-                conversationRelayUrl == other.conversationRelayUrl &&
                 assistant == other.assistant &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 conversationRelayDtmfDetection == other.conversationRelayDtmfDetection &&
+                conversationRelaySettings == other.conversationRelaySettings &&
+                conversationRelayUrl == other.conversationRelayUrl &&
                 greeting == other.greeting &&
                 interruptionSettings == other.interruptionSettings &&
                 language == other.language &&
                 languages == other.languages &&
-                participants == other.participants &&
-                sendMessageHistoryUpdates == other.sendMessageHistoryUpdates &&
                 transcription == other.transcription &&
                 transcriptionLanguage == other.transcriptionLanguage &&
                 ttsLanguage == other.ttsLanguage &&
-                userResponseTimeoutMs == other.userResponseTimeoutMs &&
                 voice == other.voice &&
                 voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
@@ -1857,21 +1692,19 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                conversationRelayUrl,
                 assistant,
                 clientState,
                 commandId,
                 conversationRelayDtmfDetection,
+                conversationRelaySettings,
+                conversationRelayUrl,
                 greeting,
                 interruptionSettings,
                 language,
                 languages,
-                participants,
-                sendMessageHistoryUpdates,
                 transcription,
                 transcriptionLanguage,
                 ttsLanguage,
-                userResponseTimeoutMs,
                 voice,
                 voiceSettings,
                 additionalProperties,
@@ -1881,7 +1714,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{conversationRelayUrl=$conversationRelayUrl, assistant=$assistant, clientState=$clientState, commandId=$commandId, conversationRelayDtmfDetection=$conversationRelayDtmfDetection, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, languages=$languages, participants=$participants, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, transcription=$transcription, transcriptionLanguage=$transcriptionLanguage, ttsLanguage=$ttsLanguage, userResponseTimeoutMs=$userResponseTimeoutMs, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, conversationRelayDtmfDetection=$conversationRelayDtmfDetection, conversationRelaySettings=$conversationRelaySettings, conversationRelayUrl=$conversationRelayUrl, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, languages=$languages, transcription=$transcription, transcriptionLanguage=$transcriptionLanguage, ttsLanguage=$ttsLanguage, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2161,6 +1994,1051 @@ private constructor(
 
         override fun toString() =
             "Assistant{dynamicVariables=$dynamicVariables, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
+     * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
+     * shorthand for `interruption_settings.interruptible` and
+     * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for the
+     * full interruption settings shape.
+     */
+    class ConversationRelaySettings
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val url: JsonField<String>,
+        private val dtmfDetection: JsonField<Boolean>,
+        private val interruptible: JsonField<Interruptible>,
+        private val interruptibleGreeting: JsonField<InterruptibleGreeting>,
+        private val languages: JsonField<List<Language>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("dtmf_detection")
+            @ExcludeMissing
+            dtmfDetection: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("interruptible")
+            @ExcludeMissing
+            interruptible: JsonField<Interruptible> = JsonMissing.of(),
+            @JsonProperty("interruptible_greeting")
+            @ExcludeMissing
+            interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of(),
+            @JsonProperty("languages")
+            @ExcludeMissing
+            languages: JsonField<List<Language>> = JsonMissing.of(),
+        ) : this(
+            url,
+            dtmfDetection,
+            interruptible,
+            interruptibleGreeting,
+            languages,
+            mutableMapOf(),
+        )
+
+        /**
+         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun url(): String = url.getRequired("url")
+
+        /**
+         * Whether to enable DTMF detection during the relay session.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dtmfDetection(): Optional<Boolean> = dtmfDetection.getOptional("dtmf_detection")
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptible(): Optional<Interruptible> = interruptible.getOptional("interruptible")
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptibleGreeting(): Optional<InterruptibleGreeting> =
+            interruptibleGreeting.getOptional("interruptible_greeting")
+
+        /**
+         * Language-specific TTS and transcription settings.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun languages(): Optional<List<Language>> = languages.getOptional("languages")
+
+        /**
+         * Returns the raw JSON value of [url].
+         *
+         * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+        /**
+         * Returns the raw JSON value of [dtmfDetection].
+         *
+         * Unlike [dtmfDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dtmf_detection")
+        @ExcludeMissing
+        fun _dtmfDetection(): JsonField<Boolean> = dtmfDetection
+
+        /**
+         * Returns the raw JSON value of [interruptible].
+         *
+         * Unlike [interruptible], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("interruptible")
+        @ExcludeMissing
+        fun _interruptible(): JsonField<Interruptible> = interruptible
+
+        /**
+         * Returns the raw JSON value of [interruptibleGreeting].
+         *
+         * Unlike [interruptibleGreeting], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruptible_greeting")
+        @ExcludeMissing
+        fun _interruptibleGreeting(): JsonField<InterruptibleGreeting> = interruptibleGreeting
+
+        /**
+         * Returns the raw JSON value of [languages].
+         *
+         * Unlike [languages], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("languages")
+        @ExcludeMissing
+        fun _languages(): JsonField<List<Language>> = languages
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ConversationRelaySettings].
+             *
+             * The following fields are required:
+             * ```java
+             * .url()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ConversationRelaySettings]. */
+        class Builder internal constructor() {
+
+            private var url: JsonField<String>? = null
+            private var dtmfDetection: JsonField<Boolean> = JsonMissing.of()
+            private var interruptible: JsonField<Interruptible> = JsonMissing.of()
+            private var interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of()
+            private var languages: JsonField<MutableList<Language>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(conversationRelaySettings: ConversationRelaySettings) = apply {
+                url = conversationRelaySettings.url
+                dtmfDetection = conversationRelaySettings.dtmfDetection
+                interruptible = conversationRelaySettings.interruptible
+                interruptibleGreeting = conversationRelaySettings.interruptibleGreeting
+                languages = conversationRelaySettings.languages.map { it.toMutableList() }
+                additionalProperties = conversationRelaySettings.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+             * `wss://`.
+             */
+            fun url(url: String) = url(JsonField.of(url))
+
+            /**
+             * Sets [Builder.url] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.url] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun url(url: JsonField<String>) = apply { this.url = url }
+
+            /** Whether to enable DTMF detection during the relay session. */
+            fun dtmfDetection(dtmfDetection: Boolean) = dtmfDetection(JsonField.of(dtmfDetection))
+
+            /**
+             * Sets [Builder.dtmfDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dtmfDetection] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dtmfDetection(dtmfDetection: JsonField<Boolean>) = apply {
+                this.dtmfDetection = dtmfDetection
+            }
+
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptible(interruptible: Interruptible) =
+                interruptible(JsonField.of(interruptible))
+
+            /**
+             * Sets [Builder.interruptible] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptible] with a well-typed [Interruptible]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun interruptible(interruptible: JsonField<Interruptible>) = apply {
+                this.interruptible = interruptible
+            }
+
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: InterruptibleGreeting) =
+                interruptibleGreeting(JsonField.of(interruptibleGreeting))
+
+            /**
+             * Sets [Builder.interruptibleGreeting] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptibleGreeting] with a well-typed
+             * [InterruptibleGreeting] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: JsonField<InterruptibleGreeting>) =
+                apply {
+                    this.interruptibleGreeting = interruptibleGreeting
+                }
+
+            /** Language-specific TTS and transcription settings. */
+            fun languages(languages: List<Language>) = languages(JsonField.of(languages))
+
+            /**
+             * Sets [Builder.languages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.languages] with a well-typed `List<Language>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun languages(languages: JsonField<List<Language>>) = apply {
+                this.languages = languages.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Language] to [languages].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addLanguage(language: Language) = apply {
+                languages =
+                    (languages ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("languages", it).add(language)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ConversationRelaySettings].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .url()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ConversationRelaySettings =
+                ConversationRelaySettings(
+                    checkRequired("url", url),
+                    dtmfDetection,
+                    interruptible,
+                    interruptibleGreeting,
+                    (languages ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ConversationRelaySettings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            url()
+            dtmfDetection()
+            interruptible().ifPresent { it.validate() }
+            interruptibleGreeting().ifPresent { it.validate() }
+            languages().ifPresent { it.forEach { it.validate() } }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (url.asKnown().isPresent) 1 else 0) +
+                (if (dtmfDetection.asKnown().isPresent) 1 else 0) +
+                (interruptible.asKnown().getOrNull()?.validity() ?: 0) +
+                (interruptibleGreeting.asKnown().getOrNull()?.validity() ?: 0) +
+                (languages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        class Interruptible @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NONE = of("none")
+
+                @JvmField val ANY = of("any")
+
+                @JvmField val SPEECH = of("speech")
+
+                @JvmField val DTMF = of("dtmf")
+
+                @JvmStatic fun of(value: String) = Interruptible(JsonField.of(value))
+            }
+
+            /** An enum containing [Interruptible]'s known values. */
+            enum class Known {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+            }
+
+            /**
+             * An enum containing [Interruptible]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Interruptible] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+                /**
+                 * An enum member indicating that [Interruptible] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NONE -> Value.NONE
+                    ANY -> Value.ANY
+                    SPEECH -> Value.SPEECH
+                    DTMF -> Value.DTMF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NONE -> Known.NONE
+                    ANY -> Known.ANY
+                    SPEECH -> Known.SPEECH
+                    DTMF -> Known.DTMF
+                    else -> throw TelnyxInvalidDataException("Unknown Interruptible: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Interruptible = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Interruptible && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        class InterruptibleGreeting
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NONE = of("none")
+
+                @JvmField val ANY = of("any")
+
+                @JvmField val SPEECH = of("speech")
+
+                @JvmField val DTMF = of("dtmf")
+
+                @JvmStatic fun of(value: String) = InterruptibleGreeting(JsonField.of(value))
+            }
+
+            /** An enum containing [InterruptibleGreeting]'s known values. */
+            enum class Known {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+            }
+
+            /**
+             * An enum containing [InterruptibleGreeting]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [InterruptibleGreeting] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+                /**
+                 * An enum member indicating that [InterruptibleGreeting] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NONE -> Value.NONE
+                    ANY -> Value.ANY
+                    SPEECH -> Value.SPEECH
+                    DTMF -> Value.DTMF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NONE -> Known.NONE
+                    ANY -> Known.ANY
+                    SPEECH -> Known.SPEECH
+                    DTMF -> Known.DTMF
+                    else ->
+                        throw TelnyxInvalidDataException("Unknown InterruptibleGreeting: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): InterruptibleGreeting = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InterruptibleGreeting && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Language-specific speech and transcription settings for Conversation Relay. */
+        class Language
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val code: JsonField<String>,
+            private val speechModel: JsonField<String>,
+            private val transcriptionProvider: JsonField<String>,
+            private val ttsProvider: JsonField<String>,
+            private val voice: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("speech_model")
+                @ExcludeMissing
+                speechModel: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transcription_provider")
+                @ExcludeMissing
+                transcriptionProvider: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("tts_provider")
+                @ExcludeMissing
+                ttsProvider: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
+            ) : this(code, speechModel, transcriptionProvider, ttsProvider, voice, mutableMapOf())
+
+            /**
+             * BCP 47 language code.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun code(): Optional<String> = code.getOptional("code")
+
+            /**
+             * Speech recognition model for this language.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun speechModel(): Optional<String> = speechModel.getOptional("speech_model")
+
+            /**
+             * Speech-to-text provider for this language.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun transcriptionProvider(): Optional<String> =
+                transcriptionProvider.getOptional("transcription_provider")
+
+            /**
+             * Text-to-speech provider for this language.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun ttsProvider(): Optional<String> = ttsProvider.getOptional("tts_provider")
+
+            /**
+             * Voice identifier for this language.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun voice(): Optional<String> = voice.getOptional("voice")
+
+            /**
+             * Returns the raw JSON value of [code].
+             *
+             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+            /**
+             * Returns the raw JSON value of [speechModel].
+             *
+             * Unlike [speechModel], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("speech_model")
+            @ExcludeMissing
+            fun _speechModel(): JsonField<String> = speechModel
+
+            /**
+             * Returns the raw JSON value of [transcriptionProvider].
+             *
+             * Unlike [transcriptionProvider], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("transcription_provider")
+            @ExcludeMissing
+            fun _transcriptionProvider(): JsonField<String> = transcriptionProvider
+
+            /**
+             * Returns the raw JSON value of [ttsProvider].
+             *
+             * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("tts_provider")
+            @ExcludeMissing
+            fun _ttsProvider(): JsonField<String> = ttsProvider
+
+            /**
+             * Returns the raw JSON value of [voice].
+             *
+             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Language]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Language]. */
+            class Builder internal constructor() {
+
+                private var code: JsonField<String> = JsonMissing.of()
+                private var speechModel: JsonField<String> = JsonMissing.of()
+                private var transcriptionProvider: JsonField<String> = JsonMissing.of()
+                private var ttsProvider: JsonField<String> = JsonMissing.of()
+                private var voice: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(language: Language) = apply {
+                    code = language.code
+                    speechModel = language.speechModel
+                    transcriptionProvider = language.transcriptionProvider
+                    ttsProvider = language.ttsProvider
+                    voice = language.voice
+                    additionalProperties = language.additionalProperties.toMutableMap()
+                }
+
+                /** BCP 47 language code. */
+                fun code(code: String) = code(JsonField.of(code))
+
+                /**
+                 * Sets [Builder.code] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.code] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun code(code: JsonField<String>) = apply { this.code = code }
+
+                /** Speech recognition model for this language. */
+                fun speechModel(speechModel: String) = speechModel(JsonField.of(speechModel))
+
+                /**
+                 * Sets [Builder.speechModel] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.speechModel] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun speechModel(speechModel: JsonField<String>) = apply {
+                    this.speechModel = speechModel
+                }
+
+                /** Speech-to-text provider for this language. */
+                fun transcriptionProvider(transcriptionProvider: String) =
+                    transcriptionProvider(JsonField.of(transcriptionProvider))
+
+                /**
+                 * Sets [Builder.transcriptionProvider] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transcriptionProvider] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun transcriptionProvider(transcriptionProvider: JsonField<String>) = apply {
+                    this.transcriptionProvider = transcriptionProvider
+                }
+
+                /** Text-to-speech provider for this language. */
+                fun ttsProvider(ttsProvider: String) = ttsProvider(JsonField.of(ttsProvider))
+
+                /**
+                 * Sets [Builder.ttsProvider] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.ttsProvider] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun ttsProvider(ttsProvider: JsonField<String>) = apply {
+                    this.ttsProvider = ttsProvider
+                }
+
+                /** Voice identifier for this language. */
+                fun voice(voice: String) = voice(JsonField.of(voice))
+
+                /**
+                 * Sets [Builder.voice] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.voice] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun voice(voice: JsonField<String>) = apply { this.voice = voice }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Language].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Language =
+                    Language(
+                        code,
+                        speechModel,
+                        transcriptionProvider,
+                        ttsProvider,
+                        voice,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Language = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                code()
+                speechModel()
+                transcriptionProvider()
+                ttsProvider()
+                voice()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (code.asKnown().isPresent) 1 else 0) +
+                    (if (speechModel.asKnown().isPresent) 1 else 0) +
+                    (if (transcriptionProvider.asKnown().isPresent) 1 else 0) +
+                    (if (ttsProvider.asKnown().isPresent) 1 else 0) +
+                    (if (voice.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Language &&
+                    code == other.code &&
+                    speechModel == other.speechModel &&
+                    transcriptionProvider == other.transcriptionProvider &&
+                    ttsProvider == other.ttsProvider &&
+                    voice == other.voice &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    code,
+                    speechModel,
+                    transcriptionProvider,
+                    ttsProvider,
+                    voice,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Language{code=$code, speechModel=$speechModel, transcriptionProvider=$transcriptionProvider, ttsProvider=$ttsProvider, voice=$voice, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ConversationRelaySettings &&
+                url == other.url &&
+                dtmfDetection == other.dtmfDetection &&
+                interruptible == other.interruptible &&
+                interruptibleGreeting == other.interruptibleGreeting &&
+                languages == other.languages &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                url,
+                dtmfDetection,
+                interruptible,
+                interruptibleGreeting,
+                languages,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ConversationRelaySettings{url=$url, dtmfDetection=$dtmfDetection, interruptible=$interruptible, interruptibleGreeting=$interruptibleGreeting, languages=$languages, additionalProperties=$additionalProperties}"
     }
 
     /** Settings for handling caller interruptions during Conversation Relay speech. */
@@ -3300,560 +4178,6 @@ private constructor(
 
         override fun toString() =
             "Language{code=$code, speechModel=$speechModel, transcriptionProvider=$transcriptionProvider, ttsProvider=$ttsProvider, voice=$voice, additionalProperties=$additionalProperties}"
-    }
-
-    class Participant
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val role: JsonField<Role>,
-        private val name: JsonField<String>,
-        private val onHangup: JsonField<OnHangup>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("role") @ExcludeMissing role: JsonField<Role> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("on_hangup")
-            @ExcludeMissing
-            onHangup: JsonField<OnHangup> = JsonMissing.of(),
-        ) : this(id, role, name, onHangup, mutableMapOf())
-
-        /**
-         * The call_control_id of the participant to add to the conversation.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun id(): String = id.getRequired("id")
-
-        /**
-         * The role of the participant in the conversation.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun role(): Role = role.getRequired("role")
-
-        /**
-         * Display name for the participant.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Determines what happens to the conversation when this participant hangs up.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun onHangup(): Optional<OnHangup> = onHangup.getOptional("on_hangup")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [role].
-         *
-         * Unlike [role], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("role") @ExcludeMissing fun _role(): JsonField<Role> = role
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [onHangup].
-         *
-         * Unlike [onHangup], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("on_hangup") @ExcludeMissing fun _onHangup(): JsonField<OnHangup> = onHangup
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Participant].
-             *
-             * The following fields are required:
-             * ```java
-             * .id()
-             * .role()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Participant]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String>? = null
-            private var role: JsonField<Role>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var onHangup: JsonField<OnHangup> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(participant: Participant) = apply {
-                id = participant.id
-                role = participant.role
-                name = participant.name
-                onHangup = participant.onHangup
-                additionalProperties = participant.additionalProperties.toMutableMap()
-            }
-
-            /** The call_control_id of the participant to add to the conversation. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /** The role of the participant in the conversation. */
-            fun role(role: Role) = role(JsonField.of(role))
-
-            /**
-             * Sets [Builder.role] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.role] with a well-typed [Role] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun role(role: JsonField<Role>) = apply { this.role = role }
-
-            /** Display name for the participant. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** Determines what happens to the conversation when this participant hangs up. */
-            fun onHangup(onHangup: OnHangup) = onHangup(JsonField.of(onHangup))
-
-            /**
-             * Sets [Builder.onHangup] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.onHangup] with a well-typed [OnHangup] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun onHangup(onHangup: JsonField<OnHangup>) = apply { this.onHangup = onHangup }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Participant].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .id()
-             * .role()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Participant =
-                Participant(
-                    checkRequired("id", id),
-                    checkRequired("role", role),
-                    name,
-                    onHangup,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Participant = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            role().validate()
-            name()
-            onHangup().ifPresent { it.validate() }
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (role.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (name.asKnown().isPresent) 1 else 0) +
-                (onHangup.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** The role of the participant in the conversation. */
-        class Role @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val USER = of("user")
-
-                @JvmStatic fun of(value: String) = Role(JsonField.of(value))
-            }
-
-            /** An enum containing [Role]'s known values. */
-            enum class Known {
-                USER
-            }
-
-            /**
-             * An enum containing [Role]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Role] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                USER,
-                /** An enum member indicating that [Role] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    USER -> Value.USER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    USER -> Known.USER
-                    else -> throw TelnyxInvalidDataException("Unknown Role: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Role = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Role && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /** Determines what happens to the conversation when this participant hangs up. */
-        class OnHangup @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val CONTINUE_CONVERSATION = of("continue_conversation")
-
-                @JvmField val END_CONVERSATION = of("end_conversation")
-
-                @JvmStatic fun of(value: String) = OnHangup(JsonField.of(value))
-            }
-
-            /** An enum containing [OnHangup]'s known values. */
-            enum class Known {
-                CONTINUE_CONVERSATION,
-                END_CONVERSATION,
-            }
-
-            /**
-             * An enum containing [OnHangup]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [OnHangup] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                CONTINUE_CONVERSATION,
-                END_CONVERSATION,
-                /**
-                 * An enum member indicating that [OnHangup] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    CONTINUE_CONVERSATION -> Value.CONTINUE_CONVERSATION
-                    END_CONVERSATION -> Value.END_CONVERSATION
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    CONTINUE_CONVERSATION -> Known.CONTINUE_CONVERSATION
-                    END_CONVERSATION -> Known.END_CONVERSATION
-                    else -> throw TelnyxInvalidDataException("Unknown OnHangup: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): OnHangup = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is OnHangup && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Participant &&
-                id == other.id &&
-                role == other.role &&
-                name == other.name &&
-                onHangup == other.onHangup &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(id, role, name, onHangup, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Participant{id=$id, role=$role, name=$name, onHangup=$onHangup, additionalProperties=$additionalProperties}"
     }
 
     /** Speech-to-text settings for Conversation Relay. */

@@ -782,16 +782,13 @@ interface ActionService {
      * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If the customer
      *   WebSocket disconnects, the webhook payload `reason` is `customer_disconnect`.
      */
-    fun startConversationRelay(
-        callControlId: String,
-        params: ActionStartConversationRelayParams,
-    ): ActionStartConversationRelayResponse =
-        startConversationRelay(callControlId, params, RequestOptions.none())
+    fun startConversationRelay(callControlId: String): ActionStartConversationRelayResponse =
+        startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
 
     /** @see startConversationRelay */
     fun startConversationRelay(
         callControlId: String,
-        params: ActionStartConversationRelayParams,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionStartConversationRelayResponse =
         startConversationRelay(
@@ -801,14 +798,32 @@ interface ActionService {
 
     /** @see startConversationRelay */
     fun startConversationRelay(
-        params: ActionStartConversationRelayParams
-    ): ActionStartConversationRelayResponse = startConversationRelay(params, RequestOptions.none())
+        callControlId: String,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+    ): ActionStartConversationRelayResponse =
+        startConversationRelay(callControlId, params, RequestOptions.none())
 
     /** @see startConversationRelay */
     fun startConversationRelay(
         params: ActionStartConversationRelayParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionStartConversationRelayResponse
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams
+    ): ActionStartConversationRelayResponse = startConversationRelay(params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): ActionStartConversationRelayResponse =
+        startConversationRelay(
+            callControlId,
+            ActionStartConversationRelayParams.none(),
+            requestOptions,
+        )
 
     /**
      * Call forking allows you to stream the media from a call to a specific target in realtime.
@@ -2362,22 +2377,36 @@ interface ActionService {
          */
         @MustBeClosed
         fun startConversationRelay(
-            callControlId: String,
-            params: ActionStartConversationRelayParams,
+            callControlId: String
         ): HttpResponseFor<ActionStartConversationRelayResponse> =
-            startConversationRelay(callControlId, params, RequestOptions.none())
+            startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
 
         /** @see startConversationRelay */
         @MustBeClosed
         fun startConversationRelay(
             callControlId: String,
-            params: ActionStartConversationRelayParams,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionStartConversationRelayResponse> =
             startConversationRelay(
                 params.toBuilder().callControlId(callControlId).build(),
                 requestOptions,
             )
+
+        /** @see startConversationRelay */
+        @MustBeClosed
+        fun startConversationRelay(
+            callControlId: String,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+        ): HttpResponseFor<ActionStartConversationRelayResponse> =
+            startConversationRelay(callControlId, params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        @MustBeClosed
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionStartConversationRelayResponse>
 
         /** @see startConversationRelay */
         @MustBeClosed
@@ -2389,9 +2418,14 @@ interface ActionService {
         /** @see startConversationRelay */
         @MustBeClosed
         fun startConversationRelay(
-            params: ActionStartConversationRelayParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionStartConversationRelayResponse>
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionStartConversationRelayResponse> =
+            startConversationRelay(
+                callControlId,
+                ActionStartConversationRelayParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_start`, but
