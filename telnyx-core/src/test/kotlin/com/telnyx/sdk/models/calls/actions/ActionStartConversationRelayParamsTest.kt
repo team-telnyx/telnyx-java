@@ -13,13 +13,11 @@ internal class ActionStartConversationRelayParamsTest {
     fun create() {
         ActionStartConversationRelayParams.builder()
             .callControlId("call_control_id")
-            .conversationRelayUrl("wss://example.com/conversation-relay")
             .assistant(
                 ActionStartConversationRelayParams.Assistant.builder()
                     .dynamicVariables(
                         ActionStartConversationRelayParams.Assistant.DynamicVariables.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("12345"))
-                            .putAdditionalProperty("tier", JsonValue.from("premium"))
                             .build()
                     )
                     .build()
@@ -27,6 +25,32 @@ internal class ActionStartConversationRelayParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .conversationRelayDtmfDetection(true)
+            .conversationRelaySettings(
+                ActionStartConversationRelayParams.ConversationRelaySettings.builder()
+                    .url("wss://example.com/conversation-relay")
+                    .dtmfDetection(true)
+                    .interruptible(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.Interruptible
+                            .SPEECH
+                    )
+                    .interruptibleGreeting(
+                        ActionStartConversationRelayParams.ConversationRelaySettings
+                            .InterruptibleGreeting
+                            .ANY
+                    )
+                    .addLanguage(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.Language
+                            .builder()
+                            .code("en-US")
+                            .speechModel("nova-2")
+                            .transcriptionProvider("Deepgram")
+                            .ttsProvider("ElevenLabs")
+                            .voice("alice")
+                            .build()
+                    )
+                    .build()
+            )
+            .conversationRelayUrl("wss://example.com/conversation-relay")
             .greeting("Hi! Ask me anything!")
             .interruptionSettings(
                 ActionStartConversationRelayParams.InterruptionSettings.builder()
@@ -56,18 +80,6 @@ internal class ActionStartConversationRelayParamsTest {
                     .voice("alice")
                     .build()
             )
-            .addParticipant(
-                ActionStartConversationRelayParams.Participant.builder()
-                    .id("v3:abc123def456")
-                    .role(ActionStartConversationRelayParams.Participant.Role.USER)
-                    .name("John Doe")
-                    .onHangup(
-                        ActionStartConversationRelayParams.Participant.OnHangup
-                            .CONTINUE_CONVERSATION
-                    )
-                    .build()
-            )
-            .sendMessageHistoryUpdates(true)
             .transcription(
                 ActionStartConversationRelayParams.Transcription.builder()
                     .language("en-US")
@@ -77,7 +89,6 @@ internal class ActionStartConversationRelayParamsTest {
             )
             .transcriptionLanguage("en-US")
             .ttsLanguage("es")
-            .userResponseTimeoutMs(10000L)
             .voice("Telnyx.KokoroTTS.af")
             .voiceSettings(
                 ElevenLabsVoiceSettings.builder()
@@ -91,10 +102,7 @@ internal class ActionStartConversationRelayParamsTest {
     @Test
     fun pathParams() {
         val params =
-            ActionStartConversationRelayParams.builder()
-                .callControlId("call_control_id")
-                .conversationRelayUrl("wss://example.com/conversation-relay")
-                .build()
+            ActionStartConversationRelayParams.builder().callControlId("call_control_id").build()
 
         assertThat(params._pathParam(0)).isEqualTo("call_control_id")
         // out-of-bound path param
@@ -106,13 +114,11 @@ internal class ActionStartConversationRelayParamsTest {
         val params =
             ActionStartConversationRelayParams.builder()
                 .callControlId("call_control_id")
-                .conversationRelayUrl("wss://example.com/conversation-relay")
                 .assistant(
                     ActionStartConversationRelayParams.Assistant.builder()
                         .dynamicVariables(
                             ActionStartConversationRelayParams.Assistant.DynamicVariables.builder()
                                 .putAdditionalProperty("customer_id", JsonValue.from("12345"))
-                                .putAdditionalProperty("tier", JsonValue.from("premium"))
                                 .build()
                         )
                         .build()
@@ -120,6 +126,33 @@ internal class ActionStartConversationRelayParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .conversationRelayDtmfDetection(true)
+                .conversationRelaySettings(
+                    ActionStartConversationRelayParams.ConversationRelaySettings.builder()
+                        .url("wss://example.com/conversation-relay")
+                        .dtmfDetection(true)
+                        .interruptible(
+                            ActionStartConversationRelayParams.ConversationRelaySettings
+                                .Interruptible
+                                .SPEECH
+                        )
+                        .interruptibleGreeting(
+                            ActionStartConversationRelayParams.ConversationRelaySettings
+                                .InterruptibleGreeting
+                                .ANY
+                        )
+                        .addLanguage(
+                            ActionStartConversationRelayParams.ConversationRelaySettings.Language
+                                .builder()
+                                .code("en-US")
+                                .speechModel("nova-2")
+                                .transcriptionProvider("Deepgram")
+                                .ttsProvider("ElevenLabs")
+                                .voice("alice")
+                                .build()
+                        )
+                        .build()
+                )
+                .conversationRelayUrl("wss://example.com/conversation-relay")
                 .greeting("Hi! Ask me anything!")
                 .interruptionSettings(
                     ActionStartConversationRelayParams.InterruptionSettings.builder()
@@ -150,18 +183,6 @@ internal class ActionStartConversationRelayParamsTest {
                         .voice("alice")
                         .build()
                 )
-                .addParticipant(
-                    ActionStartConversationRelayParams.Participant.builder()
-                        .id("v3:abc123def456")
-                        .role(ActionStartConversationRelayParams.Participant.Role.USER)
-                        .name("John Doe")
-                        .onHangup(
-                            ActionStartConversationRelayParams.Participant.OnHangup
-                                .CONTINUE_CONVERSATION
-                        )
-                        .build()
-                )
-                .sendMessageHistoryUpdates(true)
                 .transcription(
                     ActionStartConversationRelayParams.Transcription.builder()
                         .language("en-US")
@@ -171,7 +192,6 @@ internal class ActionStartConversationRelayParamsTest {
                 )
                 .transcriptionLanguage("en-US")
                 .ttsLanguage("es")
-                .userResponseTimeoutMs(10000L)
                 .voice("Telnyx.KokoroTTS.af")
                 .voiceSettings(
                     ElevenLabsVoiceSettings.builder()
@@ -183,14 +203,12 @@ internal class ActionStartConversationRelayParamsTest {
 
         val body = params._body()
 
-        assertThat(body.conversationRelayUrl()).isEqualTo("wss://example.com/conversation-relay")
         assertThat(body.assistant())
             .contains(
                 ActionStartConversationRelayParams.Assistant.builder()
                     .dynamicVariables(
                         ActionStartConversationRelayParams.Assistant.DynamicVariables.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("12345"))
-                            .putAdditionalProperty("tier", JsonValue.from("premium"))
                             .build()
                     )
                     .build()
@@ -198,6 +216,33 @@ internal class ActionStartConversationRelayParamsTest {
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.conversationRelayDtmfDetection()).contains(true)
+        assertThat(body.conversationRelaySettings())
+            .contains(
+                ActionStartConversationRelayParams.ConversationRelaySettings.builder()
+                    .url("wss://example.com/conversation-relay")
+                    .dtmfDetection(true)
+                    .interruptible(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.Interruptible
+                            .SPEECH
+                    )
+                    .interruptibleGreeting(
+                        ActionStartConversationRelayParams.ConversationRelaySettings
+                            .InterruptibleGreeting
+                            .ANY
+                    )
+                    .addLanguage(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.Language
+                            .builder()
+                            .code("en-US")
+                            .speechModel("nova-2")
+                            .transcriptionProvider("Deepgram")
+                            .ttsProvider("ElevenLabs")
+                            .voice("alice")
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(body.conversationRelayUrl()).contains("wss://example.com/conversation-relay")
         assertThat(body.greeting()).contains("Hi! Ask me anything!")
         assertThat(body.interruptionSettings())
             .contains(
@@ -229,19 +274,6 @@ internal class ActionStartConversationRelayParamsTest {
                     .voice("alice")
                     .build()
             )
-        assertThat(body.participants().getOrNull())
-            .containsExactly(
-                ActionStartConversationRelayParams.Participant.builder()
-                    .id("v3:abc123def456")
-                    .role(ActionStartConversationRelayParams.Participant.Role.USER)
-                    .name("John Doe")
-                    .onHangup(
-                        ActionStartConversationRelayParams.Participant.OnHangup
-                            .CONTINUE_CONVERSATION
-                    )
-                    .build()
-            )
-        assertThat(body.sendMessageHistoryUpdates()).contains(true)
         assertThat(body.transcription())
             .contains(
                 ActionStartConversationRelayParams.Transcription.builder()
@@ -252,7 +284,6 @@ internal class ActionStartConversationRelayParamsTest {
             )
         assertThat(body.transcriptionLanguage()).contains("en-US")
         assertThat(body.ttsLanguage()).contains("es")
-        assertThat(body.userResponseTimeoutMs()).contains(10000L)
         assertThat(body.voice()).contains("Telnyx.KokoroTTS.af")
         assertThat(body.voiceSettings())
             .contains(
@@ -268,13 +299,8 @@ internal class ActionStartConversationRelayParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            ActionStartConversationRelayParams.builder()
-                .callControlId("call_control_id")
-                .conversationRelayUrl("wss://example.com/conversation-relay")
-                .build()
+            ActionStartConversationRelayParams.builder().callControlId("call_control_id").build()
 
         val body = params._body()
-
-        assertThat(body.conversationRelayUrl()).isEqualTo("wss://example.com/conversation-relay")
     }
 }

@@ -835,15 +835,14 @@ interface ActionServiceAsync {
      *   WebSocket disconnects, the webhook payload `reason` is `customer_disconnect`.
      */
     fun startConversationRelay(
-        callControlId: String,
-        params: ActionStartConversationRelayParams,
+        callControlId: String
     ): CompletableFuture<ActionStartConversationRelayResponse> =
-        startConversationRelay(callControlId, params, RequestOptions.none())
+        startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
 
     /** @see startConversationRelay */
     fun startConversationRelay(
         callControlId: String,
-        params: ActionStartConversationRelayParams,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionStartConversationRelayResponse> =
         startConversationRelay(
@@ -853,15 +852,33 @@ interface ActionServiceAsync {
 
     /** @see startConversationRelay */
     fun startConversationRelay(
-        params: ActionStartConversationRelayParams
+        callControlId: String,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
     ): CompletableFuture<ActionStartConversationRelayResponse> =
-        startConversationRelay(params, RequestOptions.none())
+        startConversationRelay(callControlId, params, RequestOptions.none())
 
     /** @see startConversationRelay */
     fun startConversationRelay(
         params: ActionStartConversationRelayParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionStartConversationRelayResponse>
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(
+            callControlId,
+            ActionStartConversationRelayParams.none(),
+            requestOptions,
+        )
 
     /**
      * Call forking allows you to stream the media from a call to a specific target in realtime.
@@ -2400,15 +2417,14 @@ interface ActionServiceAsync {
          * [ActionServiceAsync.startConversationRelay].
          */
         fun startConversationRelay(
-            callControlId: String,
-            params: ActionStartConversationRelayParams,
+            callControlId: String
         ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
-            startConversationRelay(callControlId, params, RequestOptions.none())
+            startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
 
         /** @see startConversationRelay */
         fun startConversationRelay(
             callControlId: String,
-            params: ActionStartConversationRelayParams,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
             startConversationRelay(
@@ -2418,15 +2434,33 @@ interface ActionServiceAsync {
 
         /** @see startConversationRelay */
         fun startConversationRelay(
-            params: ActionStartConversationRelayParams
+            callControlId: String,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
         ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
-            startConversationRelay(params, RequestOptions.none())
+            startConversationRelay(callControlId, params, RequestOptions.none())
 
         /** @see startConversationRelay */
         fun startConversationRelay(
             params: ActionStartConversationRelayParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>>
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(
+                callControlId,
+                ActionStartConversationRelayParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_start`, but
