@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.54.0 (2026-05-15)
+
+Full Changelog: [v6.53.0...v6.54.0](https://github.com/team-telnyx/telnyx-java/compare/v6.53.0...v6.54.0)
+
+### Features
+
+* Add Speechmatics transcription engine to Call Control API ([3cf40aa](https://github.com/team-telnyx/telnyx-java/commit/3cf40aa8a60eb63ec95ca0a9b0ae1aaed7552c82))
+* **api:** manual updates ([d4aa211](https://github.com/team-telnyx/telnyx-java/commit/d4aa211e15fdf8f103fbf90182f06c45928c7ce3))
+* Document Conversation Relay ([c3d75d7](https://github.com/team-telnyx/telnyx-java/commit/c3d75d7d857474700b93cf3268578077dcc5070a))
+* Document PremiumCallScreening detection mode ([d18278d](https://github.com/team-telnyx/telnyx-java/commit/d18278d97540b36af2ac212d5b45e01dfd948a75))
+* Fix Conversation Relay expected webhook ([fb18965](https://github.com/team-telnyx/telnyx-java/commit/fb18965ffa62511580ea61dae05e280d0aa6f701))
+* Update Conversation Relay start parameters ([2d434c3](https://github.com/team-telnyx/telnyx-java/commit/2d434c38c8042d3af36d965bd82fb08b44911793))
+
+
+### Documentation
+
+* add supported file formats to Send Fax endpoint ([eaceaa4](https://github.com/team-telnyx/telnyx-java/commit/eaceaa4b23cc647c5ce9dba9de6e67f931ef0c28))
+
 ## 6.53.0 (2026-05-13)
 
 Full Changelog: [v6.52.0...v6.53.0](https://github.com/team-telnyx/telnyx-java/compare/v6.52.0...v6.53.0)
