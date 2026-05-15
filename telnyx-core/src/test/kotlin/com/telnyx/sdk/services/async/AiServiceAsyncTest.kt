@@ -19,7 +19,7 @@ internal class AiServiceAsyncTest {
 
         val responseFuture =
             aiServiceAsync.createResponse(
-                AiCreateResponseParams.Body.builder()
+                AiCreateResponseParams.Params.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
