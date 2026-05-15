@@ -494,6 +494,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
             private val machineDetectionSpeechThreshold: JsonField<Long>,
@@ -573,6 +574,9 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionPromptEndTimeout")
+                @ExcludeMissing
+                machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("MachineDetectionSilenceTimeout")
                 @ExcludeMissing
                 machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of(),
@@ -669,6 +673,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
                 machineDetectionSpeechThreshold,
@@ -815,7 +820,9 @@ private constructor(
                 deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
-             * Allows you to chose between Premium and Standard detections.
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -849,6 +856,16 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Silence duration threshold after a call screening prompt before ending prompt
+             * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionPromptEndTimeout(): Optional<Long> =
+                machineDetectionPromptEndTimeout.getOptional("MachineDetectionPromptEndTimeout")
 
             /**
              * If initial silence duration is greater than this value, consider it a machine.
@@ -1265,6 +1282,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
+             *
+             * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("MachineDetectionPromptEndTimeout")
+            @ExcludeMissing
+            fun _machineDetectionPromptEndTimeout(): JsonField<Long> =
+                machineDetectionPromptEndTimeout
+
+            /**
              * Returns the raw JSON value of [machineDetectionSilenceTimeout].
              *
              * Unlike [machineDetectionSilenceTimeout], this method doesn't throw if the JSON field
@@ -1577,6 +1605,7 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechThreshold: JsonField<Long> = JsonMissing.of()
@@ -1627,6 +1656,7 @@ private constructor(
                     fallbackUrl = withUrl.fallbackUrl
                     from = withUrl.from
                     machineDetection = withUrl.machineDetection
+                    machineDetectionPromptEndTimeout = withUrl.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout = withUrl.machineDetectionSilenceTimeout
                     machineDetectionSpeechEndThreshold = withUrl.machineDetectionSpeechEndThreshold
                     machineDetectionSpeechThreshold = withUrl.machineDetectionSpeechThreshold
@@ -1874,7 +1904,11 @@ private constructor(
                         this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
                     }
 
-                /** Allows you to chose between Premium and Standard detections. */
+                /**
+                 * Allows you to choose between Regular, Premium, and PremiumCallScreening
+                 * detections. See
+                 * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+                 */
                 fun detectionMode(detectionMode: DetectionMode) =
                     detectionMode(JsonField.of(detectionMode))
 
@@ -1934,6 +1968,26 @@ private constructor(
                  */
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
+                }
+
+                /**
+                 * Silence duration threshold after a call screening prompt before ending prompt
+                 * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+                 */
+                fun machineDetectionPromptEndTimeout(machineDetectionPromptEndTimeout: Long) =
+                    machineDetectionPromptEndTimeout(JsonField.of(machineDetectionPromptEndTimeout))
+
+                /**
+                 * Sets [Builder.machineDetectionPromptEndTimeout] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionPromptEndTimeout] with a
+                 * well-typed [Long] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionPromptEndTimeout(
+                    machineDetectionPromptEndTimeout: JsonField<Long>
+                ) = apply {
+                    this.machineDetectionPromptEndTimeout = machineDetectionPromptEndTimeout
                 }
 
                 /**
@@ -2448,6 +2502,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
                         machineDetectionSpeechThreshold,
@@ -2513,6 +2568,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
                 machineDetectionSpeechThreshold()
@@ -2576,6 +2632,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechThreshold.asKnown().isPresent) 1 else 0) +
@@ -3271,7 +3328,11 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** Allows you to chose between Premium and Standard detections. */
+            /**
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+             */
             class DetectionMode
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
@@ -3292,6 +3353,8 @@ private constructor(
 
                     @JvmField val REGULAR = of("Regular")
 
+                    @JvmField val PREMIUM_CALL_SCREENING = of("PremiumCallScreening")
+
                     @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
                 }
 
@@ -3299,6 +3362,7 @@ private constructor(
                 enum class Known {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                 }
 
                 /**
@@ -3314,6 +3378,7 @@ private constructor(
                 enum class Value {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                     /**
                      * An enum member indicating that [DetectionMode] was instantiated with an
                      * unknown value.
@@ -3332,6 +3397,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Value.PREMIUM
                         REGULAR -> Value.REGULAR
+                        PREMIUM_CALL_SCREENING -> Value.PREMIUM_CALL_SCREENING
                         else -> Value._UNKNOWN
                     }
 
@@ -3348,6 +3414,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Known.PREMIUM
                         REGULAR -> Known.REGULAR
+                        PREMIUM_CALL_SCREENING -> Known.PREMIUM_CALL_SCREENING
                         else -> throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
                     }
 
@@ -5101,6 +5168,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
                         other.machineDetectionSpeechEndThreshold &&
@@ -5151,6 +5219,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
                     machineDetectionSpeechThreshold,
@@ -5186,7 +5255,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class WithTeXml
@@ -5208,6 +5277,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
             private val machineDetectionSpeechThreshold: JsonField<Long>,
@@ -5287,6 +5357,9 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionPromptEndTimeout")
+                @ExcludeMissing
+                machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("MachineDetectionSilenceTimeout")
                 @ExcludeMissing
                 machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of(),
@@ -5383,6 +5456,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
                 machineDetectionSpeechThreshold,
@@ -5530,7 +5604,9 @@ private constructor(
                 deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
-             * Allows you to chose between Premium and Standard detections.
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -5564,6 +5640,16 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Silence duration threshold after a call screening prompt before ending prompt
+             * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionPromptEndTimeout(): Optional<Long> =
+                machineDetectionPromptEndTimeout.getOptional("MachineDetectionPromptEndTimeout")
 
             /**
              * If initial silence duration is greater than this value, consider it a machine.
@@ -5980,6 +6066,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
+             *
+             * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("MachineDetectionPromptEndTimeout")
+            @ExcludeMissing
+            fun _machineDetectionPromptEndTimeout(): JsonField<Long> =
+                machineDetectionPromptEndTimeout
+
+            /**
              * Returns the raw JSON value of [machineDetectionSilenceTimeout].
              *
              * Unlike [machineDetectionSilenceTimeout], this method doesn't throw if the JSON field
@@ -6292,6 +6389,7 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechThreshold: JsonField<Long> = JsonMissing.of()
@@ -6342,6 +6440,7 @@ private constructor(
                     fallbackUrl = withTeXml.fallbackUrl
                     from = withTeXml.from
                     machineDetection = withTeXml.machineDetection
+                    machineDetectionPromptEndTimeout = withTeXml.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout = withTeXml.machineDetectionSilenceTimeout
                     machineDetectionSpeechEndThreshold =
                         withTeXml.machineDetectionSpeechEndThreshold
@@ -6593,7 +6692,11 @@ private constructor(
                         this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
                     }
 
-                /** Allows you to chose between Premium and Standard detections. */
+                /**
+                 * Allows you to choose between Regular, Premium, and PremiumCallScreening
+                 * detections. See
+                 * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+                 */
                 fun detectionMode(detectionMode: DetectionMode) =
                     detectionMode(JsonField.of(detectionMode))
 
@@ -6653,6 +6756,26 @@ private constructor(
                  */
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
+                }
+
+                /**
+                 * Silence duration threshold after a call screening prompt before ending prompt
+                 * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+                 */
+                fun machineDetectionPromptEndTimeout(machineDetectionPromptEndTimeout: Long) =
+                    machineDetectionPromptEndTimeout(JsonField.of(machineDetectionPromptEndTimeout))
+
+                /**
+                 * Sets [Builder.machineDetectionPromptEndTimeout] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionPromptEndTimeout] with a
+                 * well-typed [Long] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionPromptEndTimeout(
+                    machineDetectionPromptEndTimeout: JsonField<Long>
+                ) = apply {
+                    this.machineDetectionPromptEndTimeout = machineDetectionPromptEndTimeout
                 }
 
                 /**
@@ -7167,6 +7290,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
                         machineDetectionSpeechThreshold,
@@ -7232,6 +7356,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
                 machineDetectionSpeechThreshold()
@@ -7295,6 +7420,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechThreshold.asKnown().isPresent) 1 else 0) +
@@ -7990,7 +8116,11 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** Allows you to chose between Premium and Standard detections. */
+            /**
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+             */
             class DetectionMode
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
@@ -8011,6 +8141,8 @@ private constructor(
 
                     @JvmField val REGULAR = of("Regular")
 
+                    @JvmField val PREMIUM_CALL_SCREENING = of("PremiumCallScreening")
+
                     @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
                 }
 
@@ -8018,6 +8150,7 @@ private constructor(
                 enum class Known {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                 }
 
                 /**
@@ -8033,6 +8166,7 @@ private constructor(
                 enum class Value {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                     /**
                      * An enum member indicating that [DetectionMode] was instantiated with an
                      * unknown value.
@@ -8051,6 +8185,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Value.PREMIUM
                         REGULAR -> Value.REGULAR
+                        PREMIUM_CALL_SCREENING -> Value.PREMIUM_CALL_SCREENING
                         else -> Value._UNKNOWN
                     }
 
@@ -8067,6 +8202,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Known.PREMIUM
                         REGULAR -> Known.REGULAR
+                        PREMIUM_CALL_SCREENING -> Known.PREMIUM_CALL_SCREENING
                         else -> throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
                     }
 
@@ -9820,6 +9956,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
                         other.machineDetectionSpeechEndThreshold &&
@@ -9870,6 +10007,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
                     machineDetectionSpeechThreshold,
@@ -9905,7 +10043,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class ApplicationDefault
@@ -9926,6 +10064,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
             private val machineDetectionSpeechThreshold: JsonField<Long>,
@@ -10005,6 +10144,9 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionPromptEndTimeout")
+                @ExcludeMissing
+                machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("MachineDetectionSilenceTimeout")
                 @ExcludeMissing
                 machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of(),
@@ -10101,6 +10243,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
                 machineDetectionSpeechThreshold,
@@ -10239,7 +10382,9 @@ private constructor(
                 deepfakeDetectionCallbackUrl.getOptional("DeepfakeDetectionCallbackUrl")
 
             /**
-             * Allows you to chose between Premium and Standard detections.
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -10273,6 +10418,16 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Silence duration threshold after a call screening prompt before ending prompt
+             * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionPromptEndTimeout(): Optional<Long> =
+                machineDetectionPromptEndTimeout.getOptional("MachineDetectionPromptEndTimeout")
 
             /**
              * If initial silence duration is greater than this value, consider it a machine.
@@ -10688,6 +10843,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
+             *
+             * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("MachineDetectionPromptEndTimeout")
+            @ExcludeMissing
+            fun _machineDetectionPromptEndTimeout(): JsonField<Long> =
+                machineDetectionPromptEndTimeout
+
+            /**
              * Returns the raw JSON value of [machineDetectionSilenceTimeout].
              *
              * Unlike [machineDetectionSilenceTimeout], this method doesn't throw if the JSON field
@@ -11001,6 +11167,7 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechThreshold: JsonField<Long> = JsonMissing.of()
@@ -11054,6 +11221,8 @@ private constructor(
                     fallbackUrl = applicationDefault.fallbackUrl
                     from = applicationDefault.from
                     machineDetection = applicationDefault.machineDetection
+                    machineDetectionPromptEndTimeout =
+                        applicationDefault.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout =
                         applicationDefault.machineDetectionSilenceTimeout
                     machineDetectionSpeechEndThreshold =
@@ -11293,7 +11462,11 @@ private constructor(
                         this.deepfakeDetectionCallbackUrl = deepfakeDetectionCallbackUrl
                     }
 
-                /** Allows you to chose between Premium and Standard detections. */
+                /**
+                 * Allows you to choose between Regular, Premium, and PremiumCallScreening
+                 * detections. See
+                 * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+                 */
                 fun detectionMode(detectionMode: DetectionMode) =
                     detectionMode(JsonField.of(detectionMode))
 
@@ -11353,6 +11526,26 @@ private constructor(
                  */
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
+                }
+
+                /**
+                 * Silence duration threshold after a call screening prompt before ending prompt
+                 * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+                 */
+                fun machineDetectionPromptEndTimeout(machineDetectionPromptEndTimeout: Long) =
+                    machineDetectionPromptEndTimeout(JsonField.of(machineDetectionPromptEndTimeout))
+
+                /**
+                 * Sets [Builder.machineDetectionPromptEndTimeout] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionPromptEndTimeout] with a
+                 * well-typed [Long] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionPromptEndTimeout(
+                    machineDetectionPromptEndTimeout: JsonField<Long>
+                ) = apply {
+                    this.machineDetectionPromptEndTimeout = machineDetectionPromptEndTimeout
                 }
 
                 /**
@@ -11873,6 +12066,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
                         machineDetectionSpeechThreshold,
@@ -11938,6 +12132,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
                 machineDetectionSpeechThreshold()
@@ -12001,6 +12196,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechThreshold.asKnown().isPresent) 1 else 0) +
@@ -12697,7 +12893,11 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** Allows you to chose between Premium and Standard detections. */
+            /**
+             * Allows you to choose between Regular, Premium, and PremiumCallScreening detections.
+             * See
+             * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+             */
             class DetectionMode
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
@@ -12718,6 +12918,8 @@ private constructor(
 
                     @JvmField val REGULAR = of("Regular")
 
+                    @JvmField val PREMIUM_CALL_SCREENING = of("PremiumCallScreening")
+
                     @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
                 }
 
@@ -12725,6 +12927,7 @@ private constructor(
                 enum class Known {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                 }
 
                 /**
@@ -12740,6 +12943,7 @@ private constructor(
                 enum class Value {
                     PREMIUM,
                     REGULAR,
+                    PREMIUM_CALL_SCREENING,
                     /**
                      * An enum member indicating that [DetectionMode] was instantiated with an
                      * unknown value.
@@ -12758,6 +12962,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Value.PREMIUM
                         REGULAR -> Value.REGULAR
+                        PREMIUM_CALL_SCREENING -> Value.PREMIUM_CALL_SCREENING
                         else -> Value._UNKNOWN
                     }
 
@@ -12774,6 +12979,7 @@ private constructor(
                     when (this) {
                         PREMIUM -> Known.PREMIUM
                         REGULAR -> Known.REGULAR
+                        PREMIUM_CALL_SCREENING -> Known.PREMIUM_CALL_SCREENING
                         else -> throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
                     }
 
@@ -14526,6 +14732,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
                         other.machineDetectionSpeechEndThreshold &&
@@ -14576,6 +14783,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
                     machineDetectionSpeechThreshold,
@@ -14612,7 +14820,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
     }
 

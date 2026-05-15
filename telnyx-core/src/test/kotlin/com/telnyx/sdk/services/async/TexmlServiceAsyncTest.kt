@@ -51,6 +51,7 @@ internal class TexmlServiceAsyncTest {
                     )
                     .detectionMode(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
                     .machineDetection(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+                    .machineDetectionPromptEndTimeout(5000L)
                     .machineDetectionSilenceTimeout(2000L)
                     .machineDetectionSpeechEndThreshold(2000L)
                     .machineDetectionSpeechThreshold(2000L)
