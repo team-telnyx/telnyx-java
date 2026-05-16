@@ -170,8 +170,8 @@ private constructor(
 
     /**
      * The media_name used for the fax's media. Must point to a file previously uploaded to
-     * api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents
-     * can't be submitted together.
+     * api.telnyx.com/v2/media by the same user/organization. Supported formats: PDF, TIFF, JPEG,
+     * PNG, DOC, DOCX, RTF, and TXT. media_name and media_url/contents can't be submitted together.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -179,8 +179,8 @@ private constructor(
     fun mediaName(): Optional<String> = mediaName.getOptional("media_name")
 
     /**
-     * The URL (or list of URLs) to the PDF used for the fax's media. media_url and
-     * media_name/contents can't be submitted together.
+     * The URL (or list of URLs) to the fax document. Supported formats: PDF, TIFF, JPEG, PNG, DOC,
+     * DOCX, RTF, and TXT. media_url and media_name/contents can't be submitted together.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -581,8 +581,9 @@ private constructor(
 
         /**
          * The media_name used for the fax's media. Must point to a file previously uploaded to
-         * api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents
-         * can't be submitted together.
+         * api.telnyx.com/v2/media by the same user/organization. Supported formats: PDF, TIFF,
+         * JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and media_url/contents can't be submitted
+         * together.
          */
         fun mediaName(mediaName: String) = mediaName(JsonField.of(mediaName))
 
@@ -596,8 +597,8 @@ private constructor(
         fun mediaName(mediaName: JsonField<String>) = apply { this.mediaName = mediaName }
 
         /**
-         * The URL (or list of URLs) to the PDF used for the fax's media. media_url and
-         * media_name/contents can't be submitted together.
+         * The URL (or list of URLs) to the fax document. Supported formats: PDF, TIFF, JPEG, PNG,
+         * DOC, DOCX, RTF, and TXT. media_url and media_name/contents can't be submitted together.
          */
         fun mediaUrl(mediaUrl: String) = mediaUrl(JsonField.of(mediaUrl))
 

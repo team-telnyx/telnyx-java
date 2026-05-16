@@ -311,6 +311,13 @@ private constructor(
             transcriptionEngineConfig(TranscriptionEngineConfig.ofAssemblyAi(assemblyAi))
 
         /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofSpeechmatics(speechmatics)`.
+         */
+        fun transcriptionEngineConfig(speechmatics: TranscriptionEngineSpeechmaticsConfig) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofSpeechmatics(speechmatics))
+
+        /**
          * Alias for calling [transcriptionEngineConfig] with `TranscriptionEngineConfig.ofA(a)`.
          */
         fun transcriptionEngineConfig(a: TranscriptionEngineAConfig) =
@@ -504,6 +511,8 @@ private constructor(
 
             @JvmField val ASSEMBLY_AI = of("AssemblyAI")
 
+            @JvmField val SPEECHMATICS = of("Speechmatics")
+
             @JvmField val A = of("A")
 
             @JvmField val B = of("B")
@@ -519,6 +528,7 @@ private constructor(
             AZURE,
             X_AI,
             ASSEMBLY_AI,
+            SPEECHMATICS,
             A,
             B,
         }
@@ -539,6 +549,7 @@ private constructor(
             AZURE,
             X_AI,
             ASSEMBLY_AI,
+            SPEECHMATICS,
             A,
             B,
             /**
@@ -563,6 +574,7 @@ private constructor(
                 AZURE -> Value.AZURE
                 X_AI -> Value.X_AI
                 ASSEMBLY_AI -> Value.ASSEMBLY_AI
+                SPEECHMATICS -> Value.SPEECHMATICS
                 A -> Value.A
                 B -> Value.B
                 else -> Value._UNKNOWN
@@ -585,6 +597,7 @@ private constructor(
                 AZURE -> Known.AZURE
                 X_AI -> Known.X_AI
                 ASSEMBLY_AI -> Known.ASSEMBLY_AI
+                SPEECHMATICS -> Known.SPEECHMATICS
                 A -> Known.A
                 B -> Known.B
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
@@ -660,6 +673,7 @@ private constructor(
         private val azure: TranscriptionEngineAzureConfig? = null,
         private val xAi: TranscriptionEngineXaiConfig? = null,
         private val assemblyAi: TranscriptionEngineAssemblyaiConfig? = null,
+        private val speechmatics: TranscriptionEngineSpeechmaticsConfig? = null,
         private val a: TranscriptionEngineAConfig? = null,
         private val b: TranscriptionEngineBConfig? = null,
         private val deepgramNova2: DeepgramNova2Config? = null,
@@ -677,6 +691,9 @@ private constructor(
 
         fun assemblyAi(): Optional<TranscriptionEngineAssemblyaiConfig> =
             Optional.ofNullable(assemblyAi)
+
+        fun speechmatics(): Optional<TranscriptionEngineSpeechmaticsConfig> =
+            Optional.ofNullable(speechmatics)
 
         fun a(): Optional<TranscriptionEngineAConfig> = Optional.ofNullable(a)
 
@@ -696,6 +713,8 @@ private constructor(
 
         fun isAssemblyAi(): Boolean = assemblyAi != null
 
+        fun isSpeechmatics(): Boolean = speechmatics != null
+
         fun isA(): Boolean = a != null
 
         fun isB(): Boolean = b != null
@@ -714,6 +733,9 @@ private constructor(
 
         fun asAssemblyAi(): TranscriptionEngineAssemblyaiConfig =
             assemblyAi.getOrThrow("assemblyAi")
+
+        fun asSpeechmatics(): TranscriptionEngineSpeechmaticsConfig =
+            speechmatics.getOrThrow("speechmatics")
 
         fun asA(): TranscriptionEngineAConfig = a.getOrThrow("a")
 
@@ -761,6 +783,7 @@ private constructor(
                 azure != null -> visitor.visitAzure(azure)
                 xAi != null -> visitor.visitXAi(xAi)
                 assemblyAi != null -> visitor.visitAssemblyAi(assemblyAi)
+                speechmatics != null -> visitor.visitSpeechmatics(speechmatics)
                 a != null -> visitor.visitA(a)
                 b != null -> visitor.visitB(b)
                 deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
@@ -804,6 +827,12 @@ private constructor(
 
                     override fun visitAssemblyAi(assemblyAi: TranscriptionEngineAssemblyaiConfig) {
                         assemblyAi.validate()
+                    }
+
+                    override fun visitSpeechmatics(
+                        speechmatics: TranscriptionEngineSpeechmaticsConfig
+                    ) {
+                        speechmatics.validate()
                     }
 
                     override fun visitA(a: TranscriptionEngineAConfig) {
@@ -858,6 +887,10 @@ private constructor(
                     override fun visitAssemblyAi(assemblyAi: TranscriptionEngineAssemblyaiConfig) =
                         assemblyAi.validity()
 
+                    override fun visitSpeechmatics(
+                        speechmatics: TranscriptionEngineSpeechmaticsConfig
+                    ) = speechmatics.validity()
+
                     override fun visitA(a: TranscriptionEngineAConfig) = a.validity()
 
                     override fun visitB(b: TranscriptionEngineBConfig) = b.validity()
@@ -883,6 +916,7 @@ private constructor(
                 azure == other.azure &&
                 xAi == other.xAi &&
                 assemblyAi == other.assemblyAi &&
+                speechmatics == other.speechmatics &&
                 a == other.a &&
                 b == other.b &&
                 deepgramNova2 == other.deepgramNova2 &&
@@ -890,7 +924,18 @@ private constructor(
         }
 
         override fun hashCode(): Int =
-            Objects.hash(google, telnyx, azure, xAi, assemblyAi, a, b, deepgramNova2, deepgramNova3)
+            Objects.hash(
+                google,
+                telnyx,
+                azure,
+                xAi,
+                assemblyAi,
+                speechmatics,
+                a,
+                b,
+                deepgramNova2,
+                deepgramNova3,
+            )
 
         override fun toString(): String =
             when {
@@ -899,6 +944,7 @@ private constructor(
                 azure != null -> "TranscriptionEngineConfig{azure=$azure}"
                 xAi != null -> "TranscriptionEngineConfig{xAi=$xAi}"
                 assemblyAi != null -> "TranscriptionEngineConfig{assemblyAi=$assemblyAi}"
+                speechmatics != null -> "TranscriptionEngineConfig{speechmatics=$speechmatics}"
                 a != null -> "TranscriptionEngineConfig{a=$a}"
                 b != null -> "TranscriptionEngineConfig{b=$b}"
                 deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
@@ -928,6 +974,10 @@ private constructor(
             fun ofAssemblyAi(assemblyAi: TranscriptionEngineAssemblyaiConfig) =
                 TranscriptionEngineConfig(assemblyAi = assemblyAi)
 
+            @JvmStatic
+            fun ofSpeechmatics(speechmatics: TranscriptionEngineSpeechmaticsConfig) =
+                TranscriptionEngineConfig(speechmatics = speechmatics)
+
             @JvmStatic fun ofA(a: TranscriptionEngineAConfig) = TranscriptionEngineConfig(a = a)
 
             @JvmStatic fun ofB(b: TranscriptionEngineBConfig) = TranscriptionEngineConfig(b = b)
@@ -956,6 +1006,8 @@ private constructor(
             fun visitXAi(xAi: TranscriptionEngineXaiConfig): T
 
             fun visitAssemblyAi(assemblyAi: TranscriptionEngineAssemblyaiConfig): T
+
+            fun visitSpeechmatics(speechmatics: TranscriptionEngineSpeechmaticsConfig): T
 
             fun visitA(a: TranscriptionEngineAConfig): T
 
@@ -1031,6 +1083,14 @@ private constructor(
                             ?.let { TranscriptionEngineConfig(assemblyAi = it, _json = json) }
                             ?: TranscriptionEngineConfig(_json = json)
                     }
+                    "Speechmatics" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<TranscriptionEngineSpeechmaticsConfig>(),
+                            )
+                            ?.let { TranscriptionEngineConfig(speechmatics = it, _json = json) }
+                            ?: TranscriptionEngineConfig(_json = json)
+                    }
                     "A" -> {
                         return tryDeserialize(node, jacksonTypeRef<TranscriptionEngineAConfig>())
                             ?.let { TranscriptionEngineConfig(a = it, _json = json) }
@@ -1071,6 +1131,7 @@ private constructor(
                     value.azure != null -> generator.writeObject(value.azure)
                     value.xAi != null -> generator.writeObject(value.xAi)
                     value.assemblyAi != null -> generator.writeObject(value.assemblyAi)
+                    value.speechmatics != null -> generator.writeObject(value.speechmatics)
                     value.a != null -> generator.writeObject(value.a)
                     value.b != null -> generator.writeObject(value.b)
                     value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)

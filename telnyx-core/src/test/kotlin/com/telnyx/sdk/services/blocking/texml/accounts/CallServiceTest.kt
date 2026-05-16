@@ -103,6 +103,7 @@ internal class CallServiceTest {
                             .machineDetection(
                                 CallCallsParams.Params.WithUrl.MachineDetection.ENABLE
                             )
+                            .machineDetectionPromptEndTimeout(5000L)
                             .machineDetectionSilenceTimeout(2000L)
                             .machineDetectionSpeechEndThreshold(2000L)
                             .machineDetectionSpeechThreshold(2000L)

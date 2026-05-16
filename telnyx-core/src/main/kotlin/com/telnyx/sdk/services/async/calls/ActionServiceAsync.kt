@@ -43,6 +43,8 @@ import com.telnyx.sdk.models.calls.actions.ActionSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionSpeakResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStartNoiseSuppressionParams
@@ -59,6 +61,8 @@ import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionParams
 import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantResponse
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayParams
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingResponse
 import com.telnyx.sdk.models.calls.actions.ActionStopGatherParams
@@ -821,6 +825,62 @@ interface ActionServiceAsync {
         startAiAssistant(callControlId, ActionStartAiAssistantParams.none(), requestOptions)
 
     /**
+     * Start a Conversation Relay session on an active call. Conversation Relay connects the call
+     * audio to your WebSocket so your application can exchange realtime messages with the caller
+     * while Telnyx handles speech recognition and text-to-speech. Only one AI Assistant or
+     * Conversation Relay session can be active on a call at a time.
+     *
+     * **Expected Webhooks:**
+     * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If the customer
+     *   WebSocket disconnects, the webhook payload `reason` is `customer_disconnect`.
+     */
+    fun startConversationRelay(
+        callControlId: String
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(
+            params.toBuilder().callControlId(callControlId).build(),
+            requestOptions,
+        )
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(callControlId, params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionStartConversationRelayResponse>
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        params: ActionStartConversationRelayParams
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(params, RequestOptions.none())
+
+    /** @see startConversationRelay */
+    fun startConversationRelay(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionStartConversationRelayResponse> =
+        startConversationRelay(
+            callControlId,
+            ActionStartConversationRelayParams.none(),
+            requestOptions,
+        )
+
+    /**
      * Call forking allows you to stream the media from a call to a specific target in realtime.
      * This stream can be used to enable realtime audio analysis to support a variety of use cases,
      * including fraud detection, or the creation of AI-generated audio responses. Requests must
@@ -1155,6 +1215,53 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionStopAiAssistantResponse> =
         stopAiAssistant(callControlId, ActionStopAiAssistantParams.none(), requestOptions)
+
+    /** Stop the active Conversation Relay session on a call. */
+    fun stopConversationRelay(
+        callControlId: String
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        stopConversationRelay(callControlId, ActionStopConversationRelayParams.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        stopConversationRelay(
+            params.toBuilder().callControlId(callControlId).build(),
+            requestOptions,
+        )
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        stopConversationRelay(callControlId, params, RequestOptions.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        params: ActionStopConversationRelayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionStopConversationRelayResponse>
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        params: ActionStopConversationRelayParams
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        stopConversationRelay(params, RequestOptions.none())
+
+    /** @see stopConversationRelay */
+    fun stopConversationRelay(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionStopConversationRelayResponse> =
+        stopConversationRelay(
+            callControlId,
+            ActionStopConversationRelayParams.none(),
+            requestOptions,
+        )
 
     /**
      * Stop forking a call.
@@ -2305,6 +2412,57 @@ interface ActionServiceAsync {
             startAiAssistant(callControlId, ActionStartAiAssistantParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/conversation_relay_start`, but is otherwise the same as
+         * [ActionServiceAsync.startConversationRelay].
+         */
+        fun startConversationRelay(
+            callControlId: String
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(callControlId, ActionStartConversationRelayParams.none())
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            callControlId: String,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(
+                params.toBuilder().callControlId(callControlId).build(),
+                requestOptions,
+            )
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            callControlId: String,
+            params: ActionStartConversationRelayParams = ActionStartConversationRelayParams.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(callControlId, params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>>
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            params: ActionStartConversationRelayParams
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(params, RequestOptions.none())
+
+        /** @see startConversationRelay */
+        fun startConversationRelay(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionStartConversationRelayResponse>> =
+            startConversationRelay(
+                callControlId,
+                ActionStartConversationRelayParams.none(),
+                requestOptions,
+            )
+
+        /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_start`, but
          * is otherwise the same as [ActionServiceAsync.startForking].
          */
@@ -2634,6 +2792,57 @@ interface ActionServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ActionStopAiAssistantResponse>> =
             stopAiAssistant(callControlId, ActionStopAiAssistantParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/conversation_relay_stop`, but is otherwise the same as
+         * [ActionServiceAsync.stopConversationRelay].
+         */
+        fun stopConversationRelay(
+            callControlId: String
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> =
+            stopConversationRelay(callControlId, ActionStopConversationRelayParams.none())
+
+        /** @see stopConversationRelay */
+        fun stopConversationRelay(
+            callControlId: String,
+            params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> =
+            stopConversationRelay(
+                params.toBuilder().callControlId(callControlId).build(),
+                requestOptions,
+            )
+
+        /** @see stopConversationRelay */
+        fun stopConversationRelay(
+            callControlId: String,
+            params: ActionStopConversationRelayParams = ActionStopConversationRelayParams.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> =
+            stopConversationRelay(callControlId, params, RequestOptions.none())
+
+        /** @see stopConversationRelay */
+        fun stopConversationRelay(
+            params: ActionStopConversationRelayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>>
+
+        /** @see stopConversationRelay */
+        fun stopConversationRelay(
+            params: ActionStopConversationRelayParams
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> =
+            stopConversationRelay(params, RequestOptions.none())
+
+        /** @see stopConversationRelay */
+        fun stopConversationRelay(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionStopConversationRelayResponse>> =
+            stopConversationRelay(
+                callControlId,
+                ActionStopConversationRelayParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/fork_stop`, but is

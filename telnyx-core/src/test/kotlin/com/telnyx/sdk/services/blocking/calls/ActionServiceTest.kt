@@ -36,6 +36,7 @@ import com.telnyx.sdk.models.calls.actions.ActionSendDtmfParams
 import com.telnyx.sdk.models.calls.actions.ActionSendSipInfoParams
 import com.telnyx.sdk.models.calls.actions.ActionSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantParams
+import com.telnyx.sdk.models.calls.actions.ActionStartConversationRelayParams
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStartNoiseSuppressionParams
 import com.telnyx.sdk.models.calls.actions.ActionStartPlaybackParams
@@ -44,6 +45,7 @@ import com.telnyx.sdk.models.calls.actions.ActionStartSiprecParams
 import com.telnyx.sdk.models.calls.actions.ActionStartStreamingParams
 import com.telnyx.sdk.models.calls.actions.ActionStartTranscriptionParams
 import com.telnyx.sdk.models.calls.actions.ActionStopAiAssistantParams
+import com.telnyx.sdk.models.calls.actions.ActionStopConversationRelayParams
 import com.telnyx.sdk.models.calls.actions.ActionStopForkingParams
 import com.telnyx.sdk.models.calls.actions.ActionStopGatherParams
 import com.telnyx.sdk.models.calls.actions.ActionStopNoiseSuppressionParams
@@ -861,6 +863,110 @@ internal class ActionServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun startConversationRelay() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.calls().actions()
+
+        val response =
+            actionService.startConversationRelay(
+                ActionStartConversationRelayParams.builder()
+                    .callControlId("call_control_id")
+                    .assistant(
+                        ActionStartConversationRelayParams.Assistant.builder()
+                            .dynamicVariables(
+                                ActionStartConversationRelayParams.Assistant.DynamicVariables
+                                    .builder()
+                                    .putAdditionalProperty("customer_id", JsonValue.from("12345"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .conversationRelayDtmfDetection(true)
+                    .conversationRelaySettings(
+                        ActionStartConversationRelayParams.ConversationRelaySettings.builder()
+                            .url("wss://example.com/conversation-relay")
+                            .dtmfDetection(true)
+                            .interruptible(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .Interruptible
+                                    .SPEECH
+                            )
+                            .interruptibleGreeting(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .InterruptibleGreeting
+                                    .ANY
+                            )
+                            .addLanguage(
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .Language
+                                    .builder()
+                                    .code("en-US")
+                                    .speechModel("nova-2")
+                                    .transcriptionProvider("Deepgram")
+                                    .ttsProvider("ElevenLabs")
+                                    .voice("alice")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .conversationRelayUrl("wss://example.com/conversation-relay")
+                    .greeting("Hi! Ask me anything!")
+                    .interruptionSettings(
+                        ActionStartConversationRelayParams.InterruptionSettings.builder()
+                            .enable(true)
+                            .interruptible(
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .Interruptible
+                                    .SPEECH
+                            )
+                            .interruptibleGreeting(
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .InterruptibleGreeting
+                                    .SPEECH
+                            )
+                            .welcomeGreetingInterruptible(
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .WelcomeGreetingInterruptible
+                                    .SPEECH
+                            )
+                            .build()
+                    )
+                    .language("en-US")
+                    .addLanguage(
+                        ActionStartConversationRelayParams.Language.builder()
+                            .code("en-US")
+                            .speechModel("nova-2")
+                            .transcriptionProvider("Deepgram")
+                            .ttsProvider("ElevenLabs")
+                            .voice("alice")
+                            .build()
+                    )
+                    .transcription(
+                        ActionStartConversationRelayParams.Transcription.builder()
+                            .language("en-US")
+                            .model("nova-2")
+                            .provider("deepgram")
+                            .build()
+                    )
+                    .transcriptionLanguage("en-US")
+                    .ttsLanguage("es")
+                    .voice("Telnyx.KokoroTTS.af")
+                    .voiceSettings(
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
+                    )
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun startForking() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
@@ -1114,6 +1220,24 @@ internal class ActionServiceTest {
         val response =
             actionService.stopAiAssistant(
                 ActionStopAiAssistantParams.builder()
+                    .callControlId("call_control_id")
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun stopConversationRelay() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.calls().actions()
+
+        val response =
+            actionService.stopConversationRelay(
+                ActionStopConversationRelayParams.builder()
                     .callControlId("call_control_id")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")

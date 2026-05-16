@@ -93,16 +93,16 @@ interface AiServiceAsync {
     /** @see createResponse */
     @Deprecated("deprecated")
     fun createResponse(
-        body: AiCreateResponseParams.Body,
+        params: AiCreateResponseParams.Params,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AiCreateResponseResponse> =
-        createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
+        createResponse(AiCreateResponseParams.builder().params(params).build(), requestOptions)
 
     /** @see createResponse */
     @Deprecated("deprecated")
     fun createResponse(
-        body: AiCreateResponseParams.Body
-    ): CompletableFuture<AiCreateResponseResponse> = createResponse(body, RequestOptions.none())
+        params: AiCreateResponseParams.Params
+    ): CompletableFuture<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
 
     /**
      * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -217,17 +217,17 @@ interface AiServiceAsync {
         /** @see createResponse */
         @Deprecated("deprecated")
         fun createResponse(
-            body: AiCreateResponseParams.Body,
+            params: AiCreateResponseParams.Params,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> =
-            createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
+            createResponse(AiCreateResponseParams.builder().params(params).build(), requestOptions)
 
         /** @see createResponse */
         @Deprecated("deprecated")
         fun createResponse(
-            body: AiCreateResponseParams.Body
+            params: AiCreateResponseParams.Params
         ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> =
-            createResponse(body, RequestOptions.none())
+            createResponse(params, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
