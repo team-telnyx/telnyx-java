@@ -19,10 +19,13 @@ class TranscriptionSettingsConfig
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val eagerEotThreshold: JsonField<Double>,
+    private val enableEndpointDetection: JsonField<Boolean>,
     private val endOfTurnConfidenceThreshold: JsonField<Double>,
     private val eotThreshold: JsonField<Double>,
     private val eotTimeoutMs: JsonField<Long>,
+    private val interimResults: JsonField<Boolean>,
     private val keyterm: JsonField<String>,
+    private val maxEndpointDelayMs: JsonField<Long>,
     private val maxTurnSilence: JsonField<Long>,
     private val minTurnSilence: JsonField<Long>,
     private val numerals: JsonField<Boolean>,
@@ -35,6 +38,9 @@ private constructor(
         @JsonProperty("eager_eot_threshold")
         @ExcludeMissing
         eagerEotThreshold: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("enable_endpoint_detection")
+        @ExcludeMissing
+        enableEndpointDetection: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("end_of_turn_confidence_threshold")
         @ExcludeMissing
         endOfTurnConfidenceThreshold: JsonField<Double> = JsonMissing.of(),
@@ -44,7 +50,13 @@ private constructor(
         @JsonProperty("eot_timeout_ms")
         @ExcludeMissing
         eotTimeoutMs: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("interim_results")
+        @ExcludeMissing
+        interimResults: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("keyterm") @ExcludeMissing keyterm: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("max_endpoint_delay_ms")
+        @ExcludeMissing
+        maxEndpointDelayMs: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("max_turn_silence")
         @ExcludeMissing
         maxTurnSilence: JsonField<Long> = JsonMissing.of(),
@@ -57,10 +69,13 @@ private constructor(
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
         eagerEotThreshold,
+        enableEndpointDetection,
         endOfTurnConfidenceThreshold,
         eotThreshold,
         eotTimeoutMs,
+        interimResults,
         keyterm,
+        maxEndpointDelayMs,
         maxTurnSilence,
         minTurnSilence,
         numerals,
@@ -77,6 +92,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun eagerEotThreshold(): Optional<Double> = eagerEotThreshold.getOptional("eager_eot_threshold")
+
+    /**
+     * Available only for soniox/stt-rt-v4. When true, Soniox emits end-of-utterance events at the
+     * cadence configured by `max_endpoint_delay_ms`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun enableEndpointDetection(): Optional<Boolean> =
+        enableEndpointDetection.getOptional("enable_endpoint_detection")
 
     /**
      * Available only for assemblyai/universal-streaming. Confidence level required to trigger an
@@ -107,6 +132,15 @@ private constructor(
     fun eotTimeoutMs(): Optional<Long> = eotTimeoutMs.getOptional("eot_timeout_ms")
 
     /**
+     * Available only for soniox/stt-rt-v4. When true, Soniox streams interim (non-final) results in
+     * addition to finalized transcripts.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
+
+    /**
      * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms to
      * boost for recognition during transcription. Helps improve accuracy for domain-specific
      * terminology, proper nouns, or uncommon words. This field may be templated with
@@ -118,6 +152,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun keyterm(): Optional<String> = keyterm.getOptional("keyterm")
+
+    /**
+     * Available only for soniox/stt-rt-v4. Maximum silence (in milliseconds) before Soniox emits an
+     * end-of-utterance event. Only honored when `enable_endpoint_detection` is true.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxEndpointDelayMs(): Optional<Long> =
+        maxEndpointDelayMs.getOptional("max_endpoint_delay_ms")
 
     /**
      * Available only for assemblyai/universal-streaming. Maximum duration of silence in
@@ -160,6 +204,16 @@ private constructor(
     fun _eagerEotThreshold(): JsonField<Double> = eagerEotThreshold
 
     /**
+     * Returns the raw JSON value of [enableEndpointDetection].
+     *
+     * Unlike [enableEndpointDetection], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("enable_endpoint_detection")
+    @ExcludeMissing
+    fun _enableEndpointDetection(): JsonField<Boolean> = enableEndpointDetection
+
+    /**
      * Returns the raw JSON value of [endOfTurnConfidenceThreshold].
      *
      * Unlike [endOfTurnConfidenceThreshold], this method doesn't throw if the JSON field has an
@@ -188,11 +242,30 @@ private constructor(
     fun _eotTimeoutMs(): JsonField<Long> = eotTimeoutMs
 
     /**
+     * Returns the raw JSON value of [interimResults].
+     *
+     * Unlike [interimResults], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("interim_results")
+    @ExcludeMissing
+    fun _interimResults(): JsonField<Boolean> = interimResults
+
+    /**
      * Returns the raw JSON value of [keyterm].
      *
      * Unlike [keyterm], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("keyterm") @ExcludeMissing fun _keyterm(): JsonField<String> = keyterm
+
+    /**
+     * Returns the raw JSON value of [maxEndpointDelayMs].
+     *
+     * Unlike [maxEndpointDelayMs], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("max_endpoint_delay_ms")
+    @ExcludeMissing
+    fun _maxEndpointDelayMs(): JsonField<Long> = maxEndpointDelayMs
 
     /**
      * Returns the raw JSON value of [maxTurnSilence].
@@ -252,10 +325,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var eagerEotThreshold: JsonField<Double> = JsonMissing.of()
+        private var enableEndpointDetection: JsonField<Boolean> = JsonMissing.of()
         private var endOfTurnConfidenceThreshold: JsonField<Double> = JsonMissing.of()
         private var eotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotTimeoutMs: JsonField<Long> = JsonMissing.of()
+        private var interimResults: JsonField<Boolean> = JsonMissing.of()
         private var keyterm: JsonField<String> = JsonMissing.of()
+        private var maxEndpointDelayMs: JsonField<Long> = JsonMissing.of()
         private var maxTurnSilence: JsonField<Long> = JsonMissing.of()
         private var minTurnSilence: JsonField<Long> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
@@ -265,10 +341,13 @@ private constructor(
         @JvmSynthetic
         internal fun from(transcriptionSettingsConfig: TranscriptionSettingsConfig) = apply {
             eagerEotThreshold = transcriptionSettingsConfig.eagerEotThreshold
+            enableEndpointDetection = transcriptionSettingsConfig.enableEndpointDetection
             endOfTurnConfidenceThreshold = transcriptionSettingsConfig.endOfTurnConfidenceThreshold
             eotThreshold = transcriptionSettingsConfig.eotThreshold
             eotTimeoutMs = transcriptionSettingsConfig.eotTimeoutMs
+            interimResults = transcriptionSettingsConfig.interimResults
             keyterm = transcriptionSettingsConfig.keyterm
+            maxEndpointDelayMs = transcriptionSettingsConfig.maxEndpointDelayMs
             maxTurnSilence = transcriptionSettingsConfig.maxTurnSilence
             minTurnSilence = transcriptionSettingsConfig.minTurnSilence
             numerals = transcriptionSettingsConfig.numerals
@@ -293,6 +372,24 @@ private constructor(
          */
         fun eagerEotThreshold(eagerEotThreshold: JsonField<Double>) = apply {
             this.eagerEotThreshold = eagerEotThreshold
+        }
+
+        /**
+         * Available only for soniox/stt-rt-v4. When true, Soniox emits end-of-utterance events at
+         * the cadence configured by `max_endpoint_delay_ms`.
+         */
+        fun enableEndpointDetection(enableEndpointDetection: Boolean) =
+            enableEndpointDetection(JsonField.of(enableEndpointDetection))
+
+        /**
+         * Sets [Builder.enableEndpointDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.enableEndpointDetection] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun enableEndpointDetection(enableEndpointDetection: JsonField<Boolean>) = apply {
+            this.enableEndpointDetection = enableEndpointDetection
         }
 
         /**
@@ -346,6 +443,23 @@ private constructor(
         fun eotTimeoutMs(eotTimeoutMs: JsonField<Long>) = apply { this.eotTimeoutMs = eotTimeoutMs }
 
         /**
+         * Available only for soniox/stt-rt-v4. When true, Soniox streams interim (non-final)
+         * results in addition to finalized transcripts.
+         */
+        fun interimResults(interimResults: Boolean) = interimResults(JsonField.of(interimResults))
+
+        /**
+         * Sets [Builder.interimResults] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interimResults] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun interimResults(interimResults: JsonField<Boolean>) = apply {
+            this.interimResults = interimResults
+        }
+
+        /**
          * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms
          * to boost for recognition during transcription. Helps improve accuracy for domain-specific
          * terminology, proper nouns, or uncommon words. This field may be templated with
@@ -362,6 +476,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun keyterm(keyterm: JsonField<String>) = apply { this.keyterm = keyterm }
+
+        /**
+         * Available only for soniox/stt-rt-v4. Maximum silence (in milliseconds) before Soniox
+         * emits an end-of-utterance event. Only honored when `enable_endpoint_detection` is true.
+         */
+        fun maxEndpointDelayMs(maxEndpointDelayMs: Long) =
+            maxEndpointDelayMs(JsonField.of(maxEndpointDelayMs))
+
+        /**
+         * Sets [Builder.maxEndpointDelayMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxEndpointDelayMs] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun maxEndpointDelayMs(maxEndpointDelayMs: JsonField<Long>) = apply {
+            this.maxEndpointDelayMs = maxEndpointDelayMs
+        }
 
         /**
          * Available only for assemblyai/universal-streaming. Maximum duration of silence in
@@ -446,10 +578,13 @@ private constructor(
         fun build(): TranscriptionSettingsConfig =
             TranscriptionSettingsConfig(
                 eagerEotThreshold,
+                enableEndpointDetection,
                 endOfTurnConfidenceThreshold,
                 eotThreshold,
                 eotTimeoutMs,
+                interimResults,
                 keyterm,
+                maxEndpointDelayMs,
                 maxTurnSilence,
                 minTurnSilence,
                 numerals,
@@ -474,10 +609,13 @@ private constructor(
         }
 
         eagerEotThreshold()
+        enableEndpointDetection()
         endOfTurnConfidenceThreshold()
         eotThreshold()
         eotTimeoutMs()
+        interimResults()
         keyterm()
+        maxEndpointDelayMs()
         maxTurnSilence()
         minTurnSilence()
         numerals()
@@ -501,10 +639,13 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (eagerEotThreshold.asKnown().isPresent) 1 else 0) +
+            (if (enableEndpointDetection.asKnown().isPresent) 1 else 0) +
             (if (endOfTurnConfidenceThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotTimeoutMs.asKnown().isPresent) 1 else 0) +
+            (if (interimResults.asKnown().isPresent) 1 else 0) +
             (if (keyterm.asKnown().isPresent) 1 else 0) +
+            (if (maxEndpointDelayMs.asKnown().isPresent) 1 else 0) +
             (if (maxTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (minTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
@@ -517,10 +658,13 @@ private constructor(
 
         return other is TranscriptionSettingsConfig &&
             eagerEotThreshold == other.eagerEotThreshold &&
+            enableEndpointDetection == other.enableEndpointDetection &&
             endOfTurnConfidenceThreshold == other.endOfTurnConfidenceThreshold &&
             eotThreshold == other.eotThreshold &&
             eotTimeoutMs == other.eotTimeoutMs &&
+            interimResults == other.interimResults &&
             keyterm == other.keyterm &&
+            maxEndpointDelayMs == other.maxEndpointDelayMs &&
             maxTurnSilence == other.maxTurnSilence &&
             minTurnSilence == other.minTurnSilence &&
             numerals == other.numerals &&
@@ -531,10 +675,13 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             eagerEotThreshold,
+            enableEndpointDetection,
             endOfTurnConfidenceThreshold,
             eotThreshold,
             eotTimeoutMs,
+            interimResults,
             keyterm,
+            maxEndpointDelayMs,
             maxTurnSilence,
             minTurnSilence,
             numerals,
@@ -546,5 +693,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, keyterm=$keyterm, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, enableEndpointDetection=$enableEndpointDetection, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, interimResults=$interimResults, keyterm=$keyterm, maxEndpointDelayMs=$maxEndpointDelayMs, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }

@@ -19,7 +19,7 @@ internal class AiServiceTest {
 
         val response =
             aiService.createResponse(
-                AiCreateResponseParams.Params.builder()
+                AiCreateResponseParams.Body.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
