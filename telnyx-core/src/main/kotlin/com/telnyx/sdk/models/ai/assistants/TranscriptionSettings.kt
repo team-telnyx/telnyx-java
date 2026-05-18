@@ -55,6 +55,8 @@ private constructor(
      * models will automatically detect the language. For `deepgram/flux`, supported values are:
      * `auto` (Telnyx language detection controls the language hint), `multi` (no language hint),
      * and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+     * For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO 639-1
+     * codes (e.g. `en`, `es`) bias detection toward that language.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -71,6 +73,8 @@ private constructor(
      * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
      *   detection.
      * - `xai/grok-stt` is a multilingual Grok STT model.
+     * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection and
+     *   configurable endpointing.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -187,7 +191,8 @@ private constructor(
          * models will automatically detect the language. For `deepgram/flux`, supported values are:
          * `auto` (Telnyx language detection controls the language hint), `multi` (no language
          * hint), and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`,
-         * and `nl`.
+         * and `nl`. For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox
+         * auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -209,6 +214,8 @@ private constructor(
          * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable
          *   turn detection.
          * - `xai/grok-stt` is a multilingual Grok STT model.
+         * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection
+         *   and configurable endpointing.
          */
         fun model(model: Model) = model(JsonField.of(model))
 
@@ -336,6 +343,8 @@ private constructor(
      * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
      *   detection.
      * - `xai/grok-stt` is a multilingual Grok STT model.
+     * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection and
+     *   configurable endpointing.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -363,6 +372,8 @@ private constructor(
 
             @JvmField val XAI_GROK_STT = of("xai/grok-stt")
 
+            @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
+
             @JvmField val DISTIL_WHISPER_DISTIL_LARGE_V2 = of("distil-whisper/distil-large-v2")
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
@@ -378,6 +389,7 @@ private constructor(
             AZURE_FAST,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
+            SONIOX_STT_RT_V4,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
         }
@@ -398,6 +410,7 @@ private constructor(
             AZURE_FAST,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
+            SONIOX_STT_RT_V4,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -419,6 +432,7 @@ private constructor(
                 AZURE_FAST -> Value.AZURE_FAST
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
+                SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> Value._UNKNOWN
@@ -441,6 +455,7 @@ private constructor(
                 AZURE_FAST -> Known.AZURE_FAST
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
+                SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")

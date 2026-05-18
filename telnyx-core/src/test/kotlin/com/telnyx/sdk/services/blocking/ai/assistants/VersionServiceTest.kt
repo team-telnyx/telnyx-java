@@ -334,10 +334,13 @@ internal class VersionServiceTest {
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
                                             .eagerEotThreshold(0.3)
+                                            .enableEndpointDetection(true)
                                             .endOfTurnConfidenceThreshold(0.0)
                                             .eotThreshold(0.5)
                                             .eotTimeoutMs(500L)
+                                            .interimResults(true)
                                             .keyterm("keyterm")
+                                            .maxEndpointDelayMs(500L)
                                             .maxTurnSilence(100L)
                                             .minTurnSilence(100L)
                                             .numerals(true)

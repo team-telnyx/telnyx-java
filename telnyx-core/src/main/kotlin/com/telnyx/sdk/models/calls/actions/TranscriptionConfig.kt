@@ -41,7 +41,9 @@ private constructor(
      * models will automatically detect the language. Supported and meaningful values depend on the
      * selected transcription `model`. For `deepgram/flux`, supported values are: `auto` (Telnyx
      * language detection controls the language hint), `multi` (no language hint), and
-     * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+     * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
+     * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO 639-1
+     * codes (e.g. `en`, `es`) bias detection toward that language.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -55,6 +57,8 @@ private constructor(
      * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
      * - `assemblyai/universal-streaming` for live streaming transcription.
      * - `xai/grok-stt` for live streaming transcription.
+     * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
+     *   detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -120,6 +124,8 @@ private constructor(
          * the selected transcription `model`. For `deepgram/flux`, supported values are: `auto`
          * (Telnyx language detection controls the language hint), `multi` (no language hint), and
          * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+         * For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO
+         * 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -138,6 +144,8 @@ private constructor(
          * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
          * - `assemblyai/universal-streaming` for live streaming transcription.
          * - `xai/grok-stt` for live streaming transcription.
+         * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic
+         *   language detection.
          * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported
          *   regions require `api_key_ref`.
          * - `google/latest_long` for non-streaming multilingual transcription.
@@ -229,6 +237,8 @@ private constructor(
      * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
      * - `assemblyai/universal-streaming` for live streaming transcription.
      * - `xai/grok-stt` for live streaming transcription.
+     * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
+     *   detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -267,6 +277,8 @@ private constructor(
 
             @JvmField val XAI_GROK_STT = of("xai/grok-stt")
 
+            @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
+
             @JvmField val AZURE_FAST = of("azure/fast")
 
             @JvmField val AZURE_REALTIME = of("azure/realtime")
@@ -290,6 +302,7 @@ private constructor(
             SPEECHMATICS_ENHANCED,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
+            SONIOX_STT_RT_V4,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -315,6 +328,7 @@ private constructor(
             SPEECHMATICS_ENHANCED,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
+            SONIOX_STT_RT_V4,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -341,6 +355,7 @@ private constructor(
                 SPEECHMATICS_ENHANCED -> Value.SPEECHMATICS_ENHANCED
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
+                SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 AZURE_FAST -> Value.AZURE_FAST
                 AZURE_REALTIME -> Value.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Value.GOOGLE_LATEST_LONG
@@ -368,6 +383,7 @@ private constructor(
                 SPEECHMATICS_ENHANCED -> Known.SPEECHMATICS_ENHANCED
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
+                SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 AZURE_FAST -> Known.AZURE_FAST
                 AZURE_REALTIME -> Known.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Known.GOOGLE_LATEST_LONG

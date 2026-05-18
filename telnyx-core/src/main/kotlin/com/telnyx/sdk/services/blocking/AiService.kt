@@ -92,15 +92,15 @@ interface AiService {
     /** @see createResponse */
     @Deprecated("deprecated")
     fun createResponse(
-        params: AiCreateResponseParams.Params,
+        body: AiCreateResponseParams.Body,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AiCreateResponseResponse =
-        createResponse(AiCreateResponseParams.builder().params(params).build(), requestOptions)
+        createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
     /** @see createResponse */
     @Deprecated("deprecated")
-    fun createResponse(params: AiCreateResponseParams.Params): AiCreateResponseResponse =
-        createResponse(params, RequestOptions.none())
+    fun createResponse(body: AiCreateResponseParams.Body): AiCreateResponseResponse =
+        createResponse(body, RequestOptions.none())
 
     /**
      * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -214,17 +214,17 @@ interface AiService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
-            params: AiCreateResponseParams.Params,
+            body: AiCreateResponseParams.Body,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AiCreateResponseResponse> =
-            createResponse(AiCreateResponseParams.builder().params(params).build(), requestOptions)
+            createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
         /** @see createResponse */
         @Deprecated("deprecated")
         @MustBeClosed
         fun createResponse(
-            params: AiCreateResponseParams.Params
-        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
+            body: AiCreateResponseParams.Body
+        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(body, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
