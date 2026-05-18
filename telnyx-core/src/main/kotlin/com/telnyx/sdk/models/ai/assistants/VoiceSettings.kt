@@ -942,6 +942,7 @@ private constructor(
         private constructor(
             private val type: JsonValue,
             private val value: JsonField<PredefinedMediaValue>,
+            private val volume: JsonField<Double>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -951,7 +952,8 @@ private constructor(
                 @JsonProperty("value")
                 @ExcludeMissing
                 value: JsonField<PredefinedMediaValue> = JsonMissing.of(),
-            ) : this(type, value, mutableMapOf())
+                @JsonProperty("volume") @ExcludeMissing volume: JsonField<Double> = JsonMissing.of(),
+            ) : this(type, value, volume, mutableMapOf())
 
             /**
              * Select from predefined media options.
@@ -976,6 +978,15 @@ private constructor(
             fun value(): PredefinedMediaValue = value.getRequired("value")
 
             /**
+             * Volume level for the predefined background audio. Supports values from 0.1 to 1.0 in
+             * 0.1 increments.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun volume(): Optional<Double> = volume.getOptional("volume")
+
+            /**
              * Returns the raw JSON value of [value].
              *
              * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
@@ -983,6 +994,13 @@ private constructor(
             @JsonProperty("value")
             @ExcludeMissing
             fun _value(): JsonField<PredefinedMediaValue> = value
+
+            /**
+             * Returns the raw JSON value of [volume].
+             *
+             * Unlike [volume], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("volume") @ExcludeMissing fun _volume(): JsonField<Double> = volume
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1014,12 +1032,14 @@ private constructor(
 
                 private var type: JsonValue = JsonValue.from("predefined_media")
                 private var value: JsonField<PredefinedMediaValue>? = null
+                private var volume: JsonField<Double> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(predefinedMedia: PredefinedMedia) = apply {
                     type = predefinedMedia.type
                     value = predefinedMedia.value
+                    volume = predefinedMedia.volume
                     additionalProperties = predefinedMedia.additionalProperties.toMutableMap()
                 }
 
@@ -1048,6 +1068,21 @@ private constructor(
                  * or not yet supported value.
                  */
                 fun value(value: JsonField<PredefinedMediaValue>) = apply { this.value = value }
+
+                /**
+                 * Volume level for the predefined background audio. Supports values from 0.1 to 1.0
+                 * in 0.1 increments.
+                 */
+                fun volume(volume: Double) = volume(JsonField.of(volume))
+
+                /**
+                 * Sets [Builder.volume] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.volume] with a well-typed [Double] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun volume(volume: JsonField<Double>) = apply { this.volume = volume }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1087,6 +1122,7 @@ private constructor(
                     PredefinedMedia(
                         type,
                         checkRequired("value", value),
+                        volume,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -1114,6 +1150,7 @@ private constructor(
                     }
                 }
                 value().validate()
+                volume()
                 validated = true
             }
 
@@ -1134,7 +1171,8 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 type.let { if (it == JsonValue.from("predefined_media")) 1 else 0 } +
-                    (value.asKnown().getOrNull()?.validity() ?: 0)
+                    (value.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (volume.asKnown().isPresent) 1 else 0)
 
             /** The predefined media to use. `silence` disables background audio. */
             class PredefinedMediaValue
@@ -1290,15 +1328,18 @@ private constructor(
                 return other is PredefinedMedia &&
                     type == other.type &&
                     value == other.value &&
+                    volume == other.volume &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(type, value, additionalProperties) }
+            private val hashCode: Int by lazy {
+                Objects.hash(type, value, volume, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PredefinedMedia{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                "PredefinedMedia{type=$type, value=$value, volume=$volume, additionalProperties=$additionalProperties}"
         }
 
         class MediaUrl
