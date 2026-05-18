@@ -284,9 +284,15 @@ internal class UpdateAssistantTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .predefinedMediaBackgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
-                                .SILENCE
+                        .backgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                .value(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                        .PredefinedMediaValue
+                                        .SILENCE
+                                )
+                                .volume(0.1)
+                                .build()
                         )
                         .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
@@ -604,8 +610,14 @@ internal class UpdateAssistantTest {
                 VoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
-                    .predefinedMediaBackgroundAudio(
-                        VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                    .backgroundAudio(
+                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                            .value(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                    .SILENCE
+                            )
+                            .volume(0.1)
+                            .build()
                     )
                     .expressiveMode(true)
                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
@@ -893,9 +905,15 @@ internal class UpdateAssistantTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .predefinedMediaBackgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
-                                .SILENCE
+                        .backgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                .value(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                        .PredefinedMediaValue
+                                        .SILENCE
+                                )
+                                .volume(0.1)
+                                .build()
                         )
                         .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
