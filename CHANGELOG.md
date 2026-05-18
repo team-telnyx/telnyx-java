@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.55.0 (2026-05-18)
+
+Full Changelog: [v6.54.0...v6.55.0](https://github.com/team-telnyx/telnyx-java/compare/v6.54.0...v6.55.0)
+
+### Features
+
+* Add assistant background audio volume to OpenAPI spec ([d83239a](https://github.com/team-telnyx/telnyx-java/commit/d83239a7df296aba7b5921a0ee225ea4de8099ba))
+* Telapps 101 soniox spec ([8f916c7](https://github.com/team-telnyx/telnyx-java/commit/8f916c7d363387d179d2a3e1f7f44510e859ff19))
+
 ## 6.54.0 (2026-05-15)
 
 Full Changelog: [v6.53.0...v6.54.0](https://github.com/team-telnyx/telnyx-java/compare/v6.53.0...v6.54.0)
