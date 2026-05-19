@@ -267,10 +267,13 @@ internal class UpdateAssistantTest {
                         .settings(
                             TranscriptionSettingsConfig.builder()
                                 .eagerEotThreshold(0.3)
+                                .enableEndpointDetection(true)
                                 .endOfTurnConfidenceThreshold(0.0)
                                 .eotThreshold(0.5)
                                 .eotTimeoutMs(500L)
+                                .interimResults(true)
                                 .keyterm("keyterm")
+                                .maxEndpointDelayMs(500L)
                                 .maxTurnSilence(100L)
                                 .minTurnSilence(100L)
                                 .numerals(true)
@@ -284,9 +287,15 @@ internal class UpdateAssistantTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .predefinedMediaBackgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
-                                .SILENCE
+                        .backgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                .value(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                        .PredefinedMediaValue
+                                        .SILENCE
+                                )
+                                .volume(0.1)
+                                .build()
                         )
                         .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
@@ -586,10 +595,13 @@ internal class UpdateAssistantTest {
                     .settings(
                         TranscriptionSettingsConfig.builder()
                             .eagerEotThreshold(0.3)
+                            .enableEndpointDetection(true)
                             .endOfTurnConfidenceThreshold(0.0)
                             .eotThreshold(0.5)
                             .eotTimeoutMs(500L)
+                            .interimResults(true)
                             .keyterm("keyterm")
+                            .maxEndpointDelayMs(500L)
                             .maxTurnSilence(100L)
                             .minTurnSilence(100L)
                             .numerals(true)
@@ -604,8 +616,14 @@ internal class UpdateAssistantTest {
                 VoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
-                    .predefinedMediaBackgroundAudio(
-                        VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                    .backgroundAudio(
+                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                            .value(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                    .SILENCE
+                            )
+                            .volume(0.1)
+                            .build()
                     )
                     .expressiveMode(true)
                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
@@ -876,10 +894,13 @@ internal class UpdateAssistantTest {
                         .settings(
                             TranscriptionSettingsConfig.builder()
                                 .eagerEotThreshold(0.3)
+                                .enableEndpointDetection(true)
                                 .endOfTurnConfidenceThreshold(0.0)
                                 .eotThreshold(0.5)
                                 .eotTimeoutMs(500L)
+                                .interimResults(true)
                                 .keyterm("keyterm")
+                                .maxEndpointDelayMs(500L)
                                 .maxTurnSilence(100L)
                                 .minTurnSilence(100L)
                                 .numerals(true)
@@ -893,9 +914,15 @@ internal class UpdateAssistantTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .predefinedMediaBackgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
-                                .SILENCE
+                        .backgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                .value(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                        .PredefinedMediaValue
+                                        .SILENCE
+                                )
+                                .volume(0.1)
+                                .build()
                         )
                         .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)

@@ -100,18 +100,6 @@ private constructor(
         /** Alias for calling [params] with `Params.ofWithTeXml(withTeXml)`. */
         fun params(withTeXml: Params.WithTeXml) = params(Params.ofWithTeXml(withTeXml))
 
-        /**
-         * Alias for calling [params] with the following:
-         * ```java
-         * Params.WithTeXml.builder()
-         *     .url("Url")
-         *     .texml(texml)
-         *     .build()
-         * ```
-         */
-        fun withTeXmlParams(texml: String) =
-            params(Params.WithTeXml.builder().url("Url").texml(texml).build())
-
         /** Alias for calling [params] with `Params.ofApplicationDefault(applicationDefault)`. */
         fun params(applicationDefault: Params.ApplicationDefault) =
             params(Params.ofApplicationDefault(applicationDefault))
@@ -440,9 +428,6 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Params {
                 val json = JsonValue.fromJsonNode(node)
-                val url = json.asObject().getOrNull()?.get("Url")?.asString()?.getOrNull()
-
-                when (url) {}
 
                 val bestMatches =
                     sequenceOf(
