@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.56.0 (2026-05-20)
+
+Full Changelog: [v6.55.0...v6.56.0](https://github.com/team-telnyx/telnyx-java/compare/v6.55.0...v6.56.0)
+
+### Features
+
+* TELAPPS-483: Add async webhook timeout to OpenAPI ([bdf37bc](https://github.com/team-telnyx/telnyx-java/commit/bdf37bccfa72d0f1b3c31a976bbccd870c86b189))
+
 ## 6.55.0 (2026-05-18)
 
 Full Changelog: [v6.54.0...v6.55.0](https://github.com/team-telnyx/telnyx-java/compare/v6.54.0...v6.55.0)
