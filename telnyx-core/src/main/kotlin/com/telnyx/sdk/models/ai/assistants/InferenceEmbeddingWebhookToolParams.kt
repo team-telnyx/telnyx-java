@@ -337,6 +337,7 @@ private constructor(
         private val name: JsonField<String>,
         private val url: JsonField<String>,
         private val async: JsonField<Boolean>,
+        private val asyncTimeoutMs: JsonField<Long>,
         private val bodyParameters: JsonField<BodyParameters>,
         private val headers: JsonField<List<Header>>,
         private val method: JsonField<Method>,
@@ -355,6 +356,9 @@ private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
             @JsonProperty("async") @ExcludeMissing async: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("async_timeout_ms")
+            @ExcludeMissing
+            asyncTimeoutMs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("body_parameters")
             @ExcludeMissing
             bodyParameters: JsonField<BodyParameters> = JsonMissing.of(),
@@ -379,6 +383,7 @@ private constructor(
             name,
             url,
             async,
+            asyncTimeoutMs,
             bodyParameters,
             headers,
             method,
@@ -423,6 +428,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun async(): Optional<Boolean> = async.getOptional("async")
+
+        /**
+         * Maximum time in milliseconds that the conversation worker waits for an async webhook
+         * response before returning "Submitted" to the LLM. If unset, the platform default
+         * (currently 300ms) is used.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun asyncTimeoutMs(): Optional<Long> = asyncTimeoutMs.getOptional("async_timeout_ms")
 
         /**
          * The body parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -528,6 +543,16 @@ private constructor(
         @JsonProperty("async") @ExcludeMissing fun _async(): JsonField<Boolean> = async
 
         /**
+         * Returns the raw JSON value of [asyncTimeoutMs].
+         *
+         * Unlike [asyncTimeoutMs], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("async_timeout_ms")
+        @ExcludeMissing
+        fun _asyncTimeoutMs(): JsonField<Long> = asyncTimeoutMs
+
+        /**
          * Returns the raw JSON value of [bodyParameters].
          *
          * Unlike [bodyParameters], this method doesn't throw if the JSON field has an unexpected
@@ -623,6 +648,7 @@ private constructor(
             private var name: JsonField<String>? = null
             private var url: JsonField<String>? = null
             private var async: JsonField<Boolean> = JsonMissing.of()
+            private var asyncTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var bodyParameters: JsonField<BodyParameters> = JsonMissing.of()
             private var headers: JsonField<MutableList<Header>>? = null
             private var method: JsonField<Method> = JsonMissing.of()
@@ -639,6 +665,7 @@ private constructor(
                 name = webhook.name
                 url = webhook.url
                 async = webhook.async
+                asyncTimeoutMs = webhook.asyncTimeoutMs
                 bodyParameters = webhook.bodyParameters
                 headers = webhook.headers.map { it.toMutableList() }
                 method = webhook.method
@@ -705,6 +732,24 @@ private constructor(
              * supported value.
              */
             fun async(async: JsonField<Boolean>) = apply { this.async = async }
+
+            /**
+             * Maximum time in milliseconds that the conversation worker waits for an async webhook
+             * response before returning "Submitted" to the LLM. If unset, the platform default
+             * (currently 300ms) is used.
+             */
+            fun asyncTimeoutMs(asyncTimeoutMs: Long) = asyncTimeoutMs(JsonField.of(asyncTimeoutMs))
+
+            /**
+             * Sets [Builder.asyncTimeoutMs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asyncTimeoutMs] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun asyncTimeoutMs(asyncTimeoutMs: JsonField<Long>) = apply {
+                this.asyncTimeoutMs = asyncTimeoutMs
+            }
 
             /**
              * The body parameters the webhook tool accepts, described as a JSON Schema object.
@@ -892,6 +937,7 @@ private constructor(
                     checkRequired("name", name),
                     checkRequired("url", url),
                     async,
+                    asyncTimeoutMs,
                     bodyParameters,
                     (headers ?: JsonMissing.of()).map { it.toImmutable() },
                     method,
@@ -923,6 +969,7 @@ private constructor(
             name()
             url()
             async()
+            asyncTimeoutMs()
             bodyParameters().ifPresent { it.validate() }
             headers().ifPresent { it.forEach { it.validate() } }
             method().ifPresent { it.validate() }
@@ -953,6 +1000,7 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (url.asKnown().isPresent) 1 else 0) +
                 (if (async.asKnown().isPresent) 1 else 0) +
+                (if (asyncTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (bodyParameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (headers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (method.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3084,6 +3132,7 @@ private constructor(
                 name == other.name &&
                 url == other.url &&
                 async == other.async &&
+                asyncTimeoutMs == other.asyncTimeoutMs &&
                 bodyParameters == other.bodyParameters &&
                 headers == other.headers &&
                 method == other.method &&
@@ -3100,6 +3149,7 @@ private constructor(
                 name,
                 url,
                 async,
+                asyncTimeoutMs,
                 bodyParameters,
                 headers,
                 method,
@@ -3114,7 +3164,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Webhook{description=$description, name=$name, url=$url, async=$async, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
+            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

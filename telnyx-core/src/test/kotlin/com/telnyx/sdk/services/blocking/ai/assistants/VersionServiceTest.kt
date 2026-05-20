@@ -233,6 +233,7 @@ internal class VersionServiceTest {
                                     .name("name")
                                     .url("https://example.com/api/v1/function")
                                     .async(true)
+                                    .asyncTimeoutMs(1L)
                                     .bodyParameters(
                                         InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
                                             .builder()
