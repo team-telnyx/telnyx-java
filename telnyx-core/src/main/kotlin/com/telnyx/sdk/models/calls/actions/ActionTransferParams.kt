@@ -57,7 +57,10 @@ private constructor(
      * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
      * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to enable
      * DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it
-     * takes precedence over any per-endpoint `secure` URI parameter.
+     * takes precedence over any per-endpoint `secure` URI parameter. You may also append a comma
+     * followed by DTMF digits (e.g. `+18004247767,200`) to play those digits as DTMF once the
+     * transfer destination answers — equivalent to setting `send_digits_on_answer` separately. If
+     * both are present, the explicit `send_digits_on_answer` parameter takes precedence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -287,6 +290,19 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recordTrim(): Optional<RecordTrim> = body.recordTrim()
+
+    /**
+     * DTMF digits to send automatically after the transfer destination answers. Useful for reaching
+     * an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
+     * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64
+     * characters. When omitted, no automatic DTMF is sent. May also be supplied inline by appending
+     * `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are present, this explicit
+     * field takes precedence.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendDigitsOnAnswer(): Optional<String> = body.sendDigitsOnAnswer()
 
     /**
      * SIP Authentication password used for SIP challenges.
@@ -589,6 +605,14 @@ private constructor(
     fun _recordTrim(): JsonField<RecordTrim> = body._recordTrim()
 
     /**
+     * Returns the raw JSON value of [sendDigitsOnAnswer].
+     *
+     * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _sendDigitsOnAnswer(): JsonField<String> = body._sendDigitsOnAnswer()
+
+    /**
      * Returns the raw JSON value of [sipAuthPassword].
      *
      * Unlike [sipAuthPassword], this method doesn't throw if the JSON field has an unexpected type.
@@ -756,7 +780,11 @@ private constructor(
          * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
          * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to
          * enable DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or
-         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
+         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter. You may also
+         * append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play those digits as
+         * DTMF once the transfer destination answers — equivalent to setting
+         * `send_digits_on_answer` separately. If both are present, the explicit
+         * `send_digits_on_answer` parameter takes precedence.
          */
         fun to(to: String) = apply { body.to(to) }
 
@@ -1171,6 +1199,29 @@ private constructor(
          * supported value.
          */
         fun recordTrim(recordTrim: JsonField<RecordTrim>) = apply { body.recordTrim(recordTrim) }
+
+        /**
+         * DTMF digits to send automatically after the transfer destination answers. Useful for
+         * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called
+         * party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
+         * `#`. Maximum 64 characters. When omitted, no automatic DTMF is sent. May also be supplied
+         * inline by appending `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are
+         * present, this explicit field takes precedence.
+         */
+        fun sendDigitsOnAnswer(sendDigitsOnAnswer: String) = apply {
+            body.sendDigitsOnAnswer(sendDigitsOnAnswer)
+        }
+
+        /**
+         * Sets [Builder.sendDigitsOnAnswer] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendDigitsOnAnswer] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sendDigitsOnAnswer(sendDigitsOnAnswer: JsonField<String>) = apply {
+            body.sendDigitsOnAnswer(sendDigitsOnAnswer)
+        }
 
         /** SIP Authentication password used for SIP challenges. */
         fun sipAuthPassword(sipAuthPassword: String) = apply {
@@ -1590,6 +1641,7 @@ private constructor(
         private val recordTimeoutSecs: JsonField<Int>,
         private val recordTrack: JsonField<RecordTrack>,
         private val recordTrim: JsonField<RecordTrim>,
+        private val sendDigitsOnAnswer: JsonField<String>,
         private val sipAuthPassword: JsonField<String>,
         private val sipAuthUsername: JsonField<String>,
         private val sipHeaders: JsonField<List<SipHeader>>,
@@ -1674,6 +1726,9 @@ private constructor(
             @JsonProperty("record_trim")
             @ExcludeMissing
             recordTrim: JsonField<RecordTrim> = JsonMissing.of(),
+            @JsonProperty("send_digits_on_answer")
+            @ExcludeMissing
+            sendDigitsOnAnswer: JsonField<String> = JsonMissing.of(),
             @JsonProperty("sip_auth_password")
             @ExcludeMissing
             sipAuthPassword: JsonField<String> = JsonMissing.of(),
@@ -1741,6 +1796,7 @@ private constructor(
             recordTimeoutSecs,
             recordTrack,
             recordTrim,
+            sendDigitsOnAnswer,
             sipAuthPassword,
             sipAuthUsername,
             sipHeaders,
@@ -1762,7 +1818,11 @@ private constructor(
          * The DID or SIP URI to dial out to. For SIP URI destinations, append `;secure=true` or
          * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls` to
          * enable DTLS media encryption for that endpoint. If `media_encryption` is set to `SRTP` or
-         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
+         * `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter. You may also
+         * append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play those digits as
+         * DTMF once the transfer destination answers — equivalent to setting
+         * `send_digits_on_answer` separately. If both are present, the explicit
+         * `send_digits_on_answer` parameter takes precedence.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1998,6 +2058,20 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordTrim(): Optional<RecordTrim> = recordTrim.getOptional("record_trim")
+
+        /**
+         * DTMF digits to send automatically after the transfer destination answers. Useful for
+         * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called
+         * party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
+         * `#`. Maximum 64 characters. When omitted, no automatic DTMF is sent. May also be supplied
+         * inline by appending `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are
+         * present, this explicit field takes precedence.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sendDigitsOnAnswer(): Optional<String> =
+            sendDigitsOnAnswer.getOptional("send_digits_on_answer")
 
         /**
          * SIP Authentication password used for SIP challenges.
@@ -2346,6 +2420,16 @@ private constructor(
         fun _recordTrim(): JsonField<RecordTrim> = recordTrim
 
         /**
+         * Returns the raw JSON value of [sendDigitsOnAnswer].
+         *
+         * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("send_digits_on_answer")
+        @ExcludeMissing
+        fun _sendDigitsOnAnswer(): JsonField<String> = sendDigitsOnAnswer
+
+        /**
          * Returns the raw JSON value of [sipAuthPassword].
          *
          * Unlike [sipAuthPassword], this method doesn't throw if the JSON field has an unexpected
@@ -2535,6 +2619,7 @@ private constructor(
             private var recordTimeoutSecs: JsonField<Int> = JsonMissing.of()
             private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
             private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
+            private var sendDigitsOnAnswer: JsonField<String> = JsonMissing.of()
             private var sipAuthPassword: JsonField<String> = JsonMissing.of()
             private var sipAuthUsername: JsonField<String> = JsonMissing.of()
             private var sipHeaders: JsonField<MutableList<SipHeader>>? = null
@@ -2577,6 +2662,7 @@ private constructor(
                 recordTimeoutSecs = body.recordTimeoutSecs
                 recordTrack = body.recordTrack
                 recordTrim = body.recordTrim
+                sendDigitsOnAnswer = body.sendDigitsOnAnswer
                 sipAuthPassword = body.sipAuthPassword
                 sipAuthUsername = body.sipAuthUsername
                 sipHeaders = body.sipHeaders.map { it.toMutableList() }
@@ -2599,6 +2685,10 @@ private constructor(
              * `;secure=srtp` to enable SRTP media encryption for that endpoint, or `;secure=dtls`
              * to enable DTLS media encryption for that endpoint. If `media_encryption` is set to
              * `SRTP` or `DTLS`, it takes precedence over any per-endpoint `secure` URI parameter.
+             * You may also append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play
+             * those digits as DTMF once the transfer destination answers — equivalent to setting
+             * `send_digits_on_answer` separately. If both are present, the explicit
+             * `send_digits_on_answer` parameter takes precedence.
              */
             fun to(to: String) = to(JsonField.of(to))
 
@@ -3022,6 +3112,29 @@ private constructor(
                 this.recordTrim = recordTrim
             }
 
+            /**
+             * DTMF digits to send automatically after the transfer destination answers. Useful for
+             * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the
+             * called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s
+             * pause), `*`, `#`. Maximum 64 characters. When omitted, no automatic DTMF is sent. May
+             * also be supplied inline by appending `,<digits>` to `to` (e.g.
+             * `to=+18004247767,200`); if both forms are present, this explicit field takes
+             * precedence.
+             */
+            fun sendDigitsOnAnswer(sendDigitsOnAnswer: String) =
+                sendDigitsOnAnswer(JsonField.of(sendDigitsOnAnswer))
+
+            /**
+             * Sets [Builder.sendDigitsOnAnswer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendDigitsOnAnswer] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sendDigitsOnAnswer(sendDigitsOnAnswer: JsonField<String>) = apply {
+                this.sendDigitsOnAnswer = sendDigitsOnAnswer
+            }
+
             /** SIP Authentication password used for SIP challenges. */
             fun sipAuthPassword(sipAuthPassword: String) =
                 sipAuthPassword(JsonField.of(sipAuthPassword))
@@ -3321,6 +3434,7 @@ private constructor(
                     recordTimeoutSecs,
                     recordTrack,
                     recordTrim,
+                    sendDigitsOnAnswer,
                     sipAuthPassword,
                     sipAuthUsername,
                     (sipHeaders ?: JsonMissing.of()).map { it.toImmutable() },
@@ -3379,6 +3493,7 @@ private constructor(
             recordTimeoutSecs()
             recordTrack().ifPresent { it.validate() }
             recordTrim().ifPresent { it.validate() }
+            sendDigitsOnAnswer()
             sipAuthPassword()
             sipAuthUsername()
             sipHeaders().ifPresent { it.forEach { it.validate() } }
@@ -3436,6 +3551,7 @@ private constructor(
                 (if (recordTimeoutSecs.asKnown().isPresent) 1 else 0) +
                 (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (sendDigitsOnAnswer.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
                 (sipHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -3481,6 +3597,7 @@ private constructor(
                 recordTimeoutSecs == other.recordTimeoutSecs &&
                 recordTrack == other.recordTrack &&
                 recordTrim == other.recordTrim &&
+                sendDigitsOnAnswer == other.sendDigitsOnAnswer &&
                 sipAuthPassword == other.sipAuthPassword &&
                 sipAuthUsername == other.sipAuthUsername &&
                 sipHeaders == other.sipHeaders &&
@@ -3524,6 +3641,7 @@ private constructor(
                 recordTimeoutSecs,
                 recordTrack,
                 recordTrim,
+                sendDigitsOnAnswer,
                 sipAuthPassword,
                 sipAuthUsername,
                 sipHeaders,
@@ -3545,7 +3663,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendDigitsOnAnswer=$sendDigitsOnAnswer, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
