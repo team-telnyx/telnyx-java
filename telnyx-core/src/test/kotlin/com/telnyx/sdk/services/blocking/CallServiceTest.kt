@@ -188,6 +188,7 @@ internal class CallServiceTest {
                     .recordTimeoutSecs(100)
                     .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
                     .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)
+                    .sendDigitsOnAnswer("wwww200")
                     .sendSilenceWhenIdle(true)
                     .sipAuthPassword("password")
                     .sipAuthUsername("username")
