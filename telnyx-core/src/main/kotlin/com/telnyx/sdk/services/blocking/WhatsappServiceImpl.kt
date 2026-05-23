@@ -9,6 +9,8 @@ import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateServiceImpl
+import com.telnyx.sdk.services.blocking.whatsapp.UserDataService
+import com.telnyx.sdk.services.blocking.whatsapp.UserDataServiceImpl
 import java.util.function.Consumer
 
 class WhatsappServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -26,6 +28,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
     private val phoneNumbers: PhoneNumberService by lazy { PhoneNumberServiceImpl(clientOptions) }
 
+    private val userData: UserDataService by lazy { UserDataServiceImpl(clientOptions) }
+
     override fun withRawResponse(): WhatsappService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappService =
@@ -40,6 +44,9 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
     /** Manage Whatsapp phone numbers */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
 
+    /** Manage Whatsapp business accounts */
+    override fun userData(): UserDataService = userData
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WhatsappService.WithRawResponse {
 
@@ -53,6 +60,10 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
         private val phoneNumbers: PhoneNumberService.WithRawResponse by lazy {
             PhoneNumberServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val userData: UserDataService.WithRawResponse by lazy {
+            UserDataServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -70,5 +81,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
         /** Manage Whatsapp phone numbers */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
+
+        /** Manage Whatsapp business accounts */
+        override fun userData(): UserDataService.WithRawResponse = userData
     }
 }
