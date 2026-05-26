@@ -310,6 +310,8 @@ import com.telnyx.sdk.services.async.VoiceCloneServiceAsync
 import com.telnyx.sdk.services.async.VoiceCloneServiceAsyncImpl
 import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
 import com.telnyx.sdk.services.async.VoiceDesignServiceAsyncImpl
+import com.telnyx.sdk.services.async.VoiceSdkCallReportServiceAsync
+import com.telnyx.sdk.services.async.VoiceSdkCallReportServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookServiceAsync
@@ -990,6 +992,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         UacConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val voiceSdkCallReport: VoiceSdkCallReportServiceAsync by lazy {
+        VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync by lazy {
+        VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1499,6 +1509,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionServiceAsync = uacConnections
+
+    override fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync = voiceSdkCallReport
+
+    /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+    override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
 
     override fun close() = clientOptions.close()
 
@@ -2198,6 +2213,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             UacConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val voiceSdkCallReport: VoiceSdkCallReportServiceAsync.WithRawResponse by lazy {
+            VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync.WithRawResponse by lazy {
+            VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2758,5 +2781,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionServiceAsync.WithRawResponse = uacConnections
+
+        override fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync.WithRawResponse =
+            voiceSdkCallReport
+
+        /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+        override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =
+            voiceSdkCallReports
     }
 }

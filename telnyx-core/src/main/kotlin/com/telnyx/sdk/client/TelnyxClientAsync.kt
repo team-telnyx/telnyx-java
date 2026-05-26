@@ -156,6 +156,7 @@ import com.telnyx.sdk.services.async.VirtualCrossConnectServiceAsync
 import com.telnyx.sdk.services.async.VirtualCrossConnectsCoverageServiceAsync
 import com.telnyx.sdk.services.async.VoiceCloneServiceAsync
 import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
+import com.telnyx.sdk.services.async.VoiceSdkCallReportServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
@@ -679,6 +680,11 @@ interface TelnyxClientAsync {
     /** UAC connection operations */
     fun uacConnections(): UacConnectionServiceAsync
 
+    fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync
+
+    /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+    fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1179,5 +1185,10 @@ interface TelnyxClientAsync {
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
+
+        fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync.WithRawResponse
+
+        /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+        fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
     }
 }

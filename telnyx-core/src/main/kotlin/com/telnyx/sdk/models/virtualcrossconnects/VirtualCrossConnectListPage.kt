@@ -18,14 +18,14 @@ private constructor(
     private val service: VirtualCrossConnectService,
     private val params: VirtualCrossConnectListParams,
     private val response: VirtualCrossConnectListPageResponse,
-) : Page<VirtualCrossConnectCombined> {
+) : Page<VirtualCrossConnectListResponse> {
 
     /**
      * Delegates to [VirtualCrossConnectListPageResponse], but gracefully handles missing data.
      *
      * @see VirtualCrossConnectListPageResponse.data
      */
-    fun data(): List<VirtualCrossConnectCombined> =
+    fun data(): List<VirtualCrossConnectListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VirtualCrossConnectCombined> = data()
+    override fun items(): List<VirtualCrossConnectListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): VirtualCrossConnectListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<VirtualCrossConnectCombined> = AutoPager.from(this)
+    fun autoPager(): AutoPager<VirtualCrossConnectListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): VirtualCrossConnectListParams = params

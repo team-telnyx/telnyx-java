@@ -69,19 +69,21 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    InferenceEmbedding.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    InferenceEmbedding.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -94,7 +96,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -134,6 +136,7 @@ internal class InferenceEmbeddingTest {
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
                                 .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                .stopOnConversationEnd(true)
                                 .build()
                         )
                         .supportsUnauthenticatedWebCalls(true)
@@ -378,20 +381,22 @@ internal class InferenceEmbeddingTest {
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
         assertThat(inferenceEmbedding.integrations().getOrNull())
             .containsExactly(
-                AssistantIntegration.builder()
+                InferenceEmbedding.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(inferenceEmbedding.interruptionSettings())
             .contains(
-                InferenceEmbeddingInterruptionSettings.builder()
+                InferenceEmbedding.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -404,7 +409,9 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(inferenceEmbedding.mcpServers().getOrNull())
-            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .containsExactly(
+                InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(inferenceEmbedding.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -448,6 +455,7 @@ internal class InferenceEmbeddingTest {
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
                             .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
+                            .stopOnConversationEnd(true)
                             .build()
                     )
                     .supportsUnauthenticatedWebCalls(true)
@@ -719,19 +727,21 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    InferenceEmbedding.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    InferenceEmbedding.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -744,7 +754,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -784,6 +794,7 @@ internal class InferenceEmbeddingTest {
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
                                 .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                .stopOnConversationEnd(true)
                                 .build()
                         )
                         .supportsUnauthenticatedWebCalls(true)

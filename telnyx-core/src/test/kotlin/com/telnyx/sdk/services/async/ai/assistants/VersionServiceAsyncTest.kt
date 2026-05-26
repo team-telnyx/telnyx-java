@@ -4,22 +4,17 @@ package com.telnyx.sdk.services.async.ai.assistants
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
-import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
-import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
 import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
-import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
-import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
@@ -111,19 +106,23 @@ internal class VersionServiceAsyncTest {
                             )
                             .instructions("instructions")
                             .addIntegration(
-                                AssistantIntegration.builder()
+                                UpdateAssistant.Integration.builder()
                                     .integrationId("integration_id")
                                     .addAllowedList("string")
                                     .build()
                             )
                             .interruptionSettings(
-                                InferenceEmbeddingInterruptionSettings.builder()
+                                UpdateAssistant.InterruptionSettings.builder()
                                     .disableGreetingInterruption(true)
                                     .enable(true)
                                     .startSpeakingPlan(
-                                        StartSpeakingPlan.builder()
+                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                            .builder()
                                             .transcriptionEndpointingPlan(
-                                                TranscriptionEndpointingPlan.builder()
+                                                UpdateAssistant.InterruptionSettings
+                                                    .StartSpeakingPlan
+                                                    .TranscriptionEndpointingPlan
+                                                    .builder()
                                                     .onNoPunctuationSeconds(0.0f)
                                                     .onNumberSeconds(0.0f)
                                                     .onPunctuationSeconds(0.0f)
@@ -136,7 +135,7 @@ internal class VersionServiceAsyncTest {
                             )
                             .llmApiKeyRef("llm_api_key_ref")
                             .addMcpServer(
-                                AssistantMcpServer.builder()
+                                UpdateAssistant.McpServer.builder()
                                     .id("id")
                                     .addAllowedTool("string")
                                     .build()
@@ -187,6 +186,7 @@ internal class VersionServiceAsyncTest {
                                             )
                                             .enabled(true)
                                             .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                            .stopOnConversationEnd(true)
                                             .build()
                                     )
                                     .supportsUnauthenticatedWebCalls(true)
