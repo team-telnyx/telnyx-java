@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.57.1 (2026-05-25)
+
+Full Changelog: [v6.57.0...v6.57.1](https://github.com/team-telnyx/telnyx-java/compare/v6.57.0...v6.57.1)
+
+### Chores
+
+* update example date in inference embedding ([4f80fc5](https://github.com/team-telnyx/telnyx-java/commit/4f80fc5c81f239684725866bca80fd705695438c))
+
 ## 6.57.0 (2026-05-22)
 
 Full Changelog: [v6.56.0...v6.57.0](https://github.com/team-telnyx/telnyx-java/compare/v6.56.0...v6.57.0)
