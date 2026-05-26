@@ -1045,6 +1045,7 @@ private constructor(
         private val channels: JsonField<Channels>,
         private val enabled: JsonField<Boolean>,
         private val format: JsonField<Format>,
+        private val stopOnConversationEnd: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1055,7 +1056,10 @@ private constructor(
             channels: JsonField<Channels> = JsonMissing.of(),
             @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("format") @ExcludeMissing format: JsonField<Format> = JsonMissing.of(),
-        ) : this(channels, enabled, format, mutableMapOf())
+            @JsonProperty("stop_on_conversation_end")
+            @ExcludeMissing
+            stopOnConversationEnd: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(channels, enabled, format, stopOnConversationEnd, mutableMapOf())
 
         /**
          * The number of channels for the recording. 'single' for mono, 'dual' for stereo.
@@ -1083,6 +1087,17 @@ private constructor(
         fun format(): Optional<Format> = format.getOptional("format")
 
         /**
+         * When enabled, the call recording will stop when the conversation ends (for example, when
+         * the assistant hangs up or the call is transferred). When disabled, recording continues
+         * until the call itself ends.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun stopOnConversationEnd(): Optional<Boolean> =
+            stopOnConversationEnd.getOptional("stop_on_conversation_end")
+
+        /**
          * Returns the raw JSON value of [channels].
          *
          * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
@@ -1102,6 +1117,16 @@ private constructor(
          * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("format") @ExcludeMissing fun _format(): JsonField<Format> = format
+
+        /**
+         * Returns the raw JSON value of [stopOnConversationEnd].
+         *
+         * Unlike [stopOnConversationEnd], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("stop_on_conversation_end")
+        @ExcludeMissing
+        fun _stopOnConversationEnd(): JsonField<Boolean> = stopOnConversationEnd
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1127,6 +1152,7 @@ private constructor(
             private var channels: JsonField<Channels> = JsonMissing.of()
             private var enabled: JsonField<Boolean> = JsonMissing.of()
             private var format: JsonField<Format> = JsonMissing.of()
+            private var stopOnConversationEnd: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1134,6 +1160,7 @@ private constructor(
                 channels = recordingSettings.channels
                 enabled = recordingSettings.enabled
                 format = recordingSettings.format
+                stopOnConversationEnd = recordingSettings.stopOnConversationEnd
                 additionalProperties = recordingSettings.additionalProperties.toMutableMap()
             }
 
@@ -1176,6 +1203,25 @@ private constructor(
              */
             fun format(format: JsonField<Format>) = apply { this.format = format }
 
+            /**
+             * When enabled, the call recording will stop when the conversation ends (for example,
+             * when the assistant hangs up or the call is transferred). When disabled, recording
+             * continues until the call itself ends.
+             */
+            fun stopOnConversationEnd(stopOnConversationEnd: Boolean) =
+                stopOnConversationEnd(JsonField.of(stopOnConversationEnd))
+
+            /**
+             * Sets [Builder.stopOnConversationEnd] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.stopOnConversationEnd] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun stopOnConversationEnd(stopOnConversationEnd: JsonField<Boolean>) = apply {
+                this.stopOnConversationEnd = stopOnConversationEnd
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1201,7 +1247,13 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): RecordingSettings =
-                RecordingSettings(channels, enabled, format, additionalProperties.toMutableMap())
+                RecordingSettings(
+                    channels,
+                    enabled,
+                    format,
+                    stopOnConversationEnd,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1223,6 +1275,7 @@ private constructor(
             channels().ifPresent { it.validate() }
             enabled()
             format().ifPresent { it.validate() }
+            stopOnConversationEnd()
             validated = true
         }
 
@@ -1244,7 +1297,8 @@ private constructor(
         internal fun validity(): Int =
             (channels.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (enabled.asKnown().isPresent) 1 else 0) +
-                (format.asKnown().getOrNull()?.validity() ?: 0)
+                (format.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (stopOnConversationEnd.asKnown().isPresent) 1 else 0)
 
         /** The number of channels for the recording. 'single' for mono, 'dual' for stereo. */
         class Channels @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -1536,17 +1590,18 @@ private constructor(
                 channels == other.channels &&
                 enabled == other.enabled &&
                 format == other.format &&
+                stopOnConversationEnd == other.stopOnConversationEnd &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(channels, enabled, format, additionalProperties)
+            Objects.hash(channels, enabled, format, stopOnConversationEnd, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "RecordingSettings{channels=$channels, enabled=$enabled, format=$format, additionalProperties=$additionalProperties}"
+            "RecordingSettings{channels=$channels, enabled=$enabled, format=$format, stopOnConversationEnd=$stopOnConversationEnd, additionalProperties=$additionalProperties}"
     }
 
     /**
