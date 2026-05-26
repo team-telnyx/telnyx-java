@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.58.0 (2026-05-26)
+
+Full Changelog: [v6.57.1...v6.58.0](https://github.com/team-telnyx/telnyx-java/compare/v6.57.1...v6.58.0)
+
+### Features
+
+* TELAPPS-523: document stop_on_conversation_end on assistant recording_settings ([ca9bc3f](https://github.com/team-telnyx/telnyx-java/commit/ca9bc3f310479ecfeb548bebfff9b6778b64fa97))
+
+
+### Chores
+
+* update example date in audit-logs for pipeline sync ([4074527](https://github.com/team-telnyx/telnyx-java/commit/4074527ac769910200d76c058d595fc1663f2697))
+
+
+### Documentation
+
+* add voice sdk debug call report spec ([32a759a](https://github.com/team-telnyx/telnyx-java/commit/32a759ab030a4d7a6a0e45489a0f79ec12351be5))
+
 ## 6.57.1 (2026-05-25)
 
 Full Changelog: [v6.57.0...v6.57.1](https://github.com/team-telnyx/telnyx-java/compare/v6.57.0...v6.57.1)
