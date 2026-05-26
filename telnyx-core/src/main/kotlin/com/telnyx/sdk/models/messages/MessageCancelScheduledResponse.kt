@@ -34,6 +34,7 @@ private constructor(
     private val from: JsonField<From>,
     private val media: JsonField<List<Media>>,
     private val messagingProfileId: JsonField<String>,
+    private val numChars: JsonField<Long>,
     private val organizationId: JsonField<String>,
     private val parts: JsonField<Long>,
     private val receivedAt: JsonField<OffsetDateTime>,
@@ -77,6 +78,7 @@ private constructor(
         @JsonProperty("messaging_profile_id")
         @ExcludeMissing
         messagingProfileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("num_chars") @ExcludeMissing numChars: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("organization_id")
         @ExcludeMissing
         organizationId: JsonField<String> = JsonMissing.of(),
@@ -128,6 +130,7 @@ private constructor(
         from,
         media,
         messagingProfileId,
+        numChars,
         organizationId,
         parts,
         receivedAt,
@@ -230,6 +233,14 @@ private constructor(
      */
     fun messagingProfileId(): Optional<String> =
         messagingProfileId.getOptional("messaging_profile_id")
+
+    /**
+     * The number of characters in the message text
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun numChars(): Optional<Long> = numChars.getOptional("num_chars")
 
     /**
      * The id of the organization the messaging profile belongs to.
@@ -460,6 +471,13 @@ private constructor(
     fun _messagingProfileId(): JsonField<String> = messagingProfileId
 
     /**
+     * Returns the raw JSON value of [numChars].
+     *
+     * Unlike [numChars], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("num_chars") @ExcludeMissing fun _numChars(): JsonField<Long> = numChars
+
+    /**
      * Returns the raw JSON value of [organizationId].
      *
      * Unlike [organizationId], this method doesn't throw if the JSON field has an unexpected type.
@@ -635,6 +653,7 @@ private constructor(
         private var from: JsonField<From> = JsonMissing.of()
         private var media: JsonField<MutableList<Media>>? = null
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
+        private var numChars: JsonField<Long> = JsonMissing.of()
         private var organizationId: JsonField<String> = JsonMissing.of()
         private var parts: JsonField<Long> = JsonMissing.of()
         private var receivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -667,6 +686,7 @@ private constructor(
             from = messageCancelScheduledResponse.from
             media = messageCancelScheduledResponse.media.map { it.toMutableList() }
             messagingProfileId = messageCancelScheduledResponse.messagingProfileId
+            numChars = messageCancelScheduledResponse.numChars
             organizationId = messageCancelScheduledResponse.organizationId
             parts = messageCancelScheduledResponse.parts
             receivedAt = messageCancelScheduledResponse.receivedAt
@@ -874,6 +894,17 @@ private constructor(
         fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
             this.messagingProfileId = messagingProfileId
         }
+
+        /** The number of characters in the message text */
+        fun numChars(numChars: Long) = numChars(JsonField.of(numChars))
+
+        /**
+         * Sets [Builder.numChars] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.numChars] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun numChars(numChars: JsonField<Long>) = apply { this.numChars = numChars }
 
         /** The id of the organization the messaging profile belongs to. */
         fun organizationId(organizationId: String) = organizationId(JsonField.of(organizationId))
@@ -1195,6 +1226,7 @@ private constructor(
                 from,
                 (media ?: JsonMissing.of()).map { it.toImmutable() },
                 messagingProfileId,
+                numChars,
                 organizationId,
                 parts,
                 receivedAt,
@@ -1242,6 +1274,7 @@ private constructor(
         from().ifPresent { it.validate() }
         media().ifPresent { it.forEach { it.validate() } }
         messagingProfileId()
+        numChars()
         organizationId()
         parts()
         receivedAt()
@@ -1288,6 +1321,7 @@ private constructor(
             (from.asKnown().getOrNull()?.validity() ?: 0) +
             (media.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
+            (if (numChars.asKnown().isPresent) 1 else 0) +
             (if (organizationId.asKnown().isPresent) 1 else 0) +
             (if (parts.asKnown().isPresent) 1 else 0) +
             (if (receivedAt.asKnown().isPresent) 1 else 0) +
@@ -4406,6 +4440,7 @@ private constructor(
             from == other.from &&
             media == other.media &&
             messagingProfileId == other.messagingProfileId &&
+            numChars == other.numChars &&
             organizationId == other.organizationId &&
             parts == other.parts &&
             receivedAt == other.receivedAt &&
@@ -4439,6 +4474,7 @@ private constructor(
             from,
             media,
             messagingProfileId,
+            numChars,
             organizationId,
             parts,
             receivedAt,
@@ -4463,5 +4499,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageCancelScheduledResponse{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MessageCancelScheduledResponse{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

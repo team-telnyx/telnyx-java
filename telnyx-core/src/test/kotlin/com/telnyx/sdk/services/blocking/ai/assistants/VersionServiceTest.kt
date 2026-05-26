@@ -186,6 +186,7 @@ internal class VersionServiceTest {
                                             )
                                             .enabled(true)
                                             .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                            .stopOnConversationEnd(true)
                                             .build()
                                     )
                                     .supportsUnauthenticatedWebCalls(true)
