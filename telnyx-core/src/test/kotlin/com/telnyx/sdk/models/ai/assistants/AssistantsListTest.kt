@@ -72,19 +72,23 @@ internal class AssistantsListTest {
                             InsightSettings.builder().insightGroupId("insight_group_id").build()
                         )
                         .addIntegration(
-                            AssistantIntegration.builder()
+                            InferenceEmbedding.Integration.builder()
                                 .integrationId("integration_id")
                                 .addAllowedList("string")
                                 .build()
                         )
                         .interruptionSettings(
-                            InferenceEmbeddingInterruptionSettings.builder()
+                            InferenceEmbedding.InterruptionSettings.builder()
                                 .disableGreetingInterruption(true)
                                 .enable(true)
                                 .startSpeakingPlan(
-                                    StartSpeakingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .builder()
                                         .transcriptionEndpointingPlan(
-                                            TranscriptionEndpointingPlan.builder()
+                                            InferenceEmbedding.InterruptionSettings
+                                                .StartSpeakingPlan
+                                                .TranscriptionEndpointingPlan
+                                                .builder()
                                                 .onNoPunctuationSeconds(0.0f)
                                                 .onNumberSeconds(0.0f)
                                                 .onPunctuationSeconds(0.0f)
@@ -97,7 +101,10 @@ internal class AssistantsListTest {
                         )
                         .llmApiKeyRef("llm_api_key_ref")
                         .addMcpServer(
-                            AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                            InferenceEmbedding.McpServer.builder()
+                                .id("id")
+                                .addAllowedTool("string")
+                                .build()
                         )
                         .messagingSettings(
                             MessagingSettings.builder()
@@ -407,19 +414,21 @@ internal class AssistantsListTest {
                         InsightSettings.builder().insightGroupId("insight_group_id").build()
                     )
                     .addIntegration(
-                        AssistantIntegration.builder()
+                        InferenceEmbedding.Integration.builder()
                             .integrationId("integration_id")
                             .addAllowedList("string")
                             .build()
                     )
                     .interruptionSettings(
-                        InferenceEmbeddingInterruptionSettings.builder()
+                        InferenceEmbedding.InterruptionSettings.builder()
                             .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
-                                StartSpeakingPlan.builder()
+                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                                     .transcriptionEndpointingPlan(
-                                        TranscriptionEndpointingPlan.builder()
+                                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                            .TranscriptionEndpointingPlan
+                                            .builder()
                                             .onNoPunctuationSeconds(0.0f)
                                             .onNumberSeconds(0.0f)
                                             .onPunctuationSeconds(0.0f)
@@ -432,7 +441,10 @@ internal class AssistantsListTest {
                     )
                     .llmApiKeyRef("llm_api_key_ref")
                     .addMcpServer(
-                        AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                        InferenceEmbedding.McpServer.builder()
+                            .id("id")
+                            .addAllowedTool("string")
+                            .build()
                     )
                     .messagingSettings(
                         MessagingSettings.builder()
@@ -732,19 +744,23 @@ internal class AssistantsListTest {
                             InsightSettings.builder().insightGroupId("insight_group_id").build()
                         )
                         .addIntegration(
-                            AssistantIntegration.builder()
+                            InferenceEmbedding.Integration.builder()
                                 .integrationId("integration_id")
                                 .addAllowedList("string")
                                 .build()
                         )
                         .interruptionSettings(
-                            InferenceEmbeddingInterruptionSettings.builder()
+                            InferenceEmbedding.InterruptionSettings.builder()
                                 .disableGreetingInterruption(true)
                                 .enable(true)
                                 .startSpeakingPlan(
-                                    StartSpeakingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .builder()
                                         .transcriptionEndpointingPlan(
-                                            TranscriptionEndpointingPlan.builder()
+                                            InferenceEmbedding.InterruptionSettings
+                                                .StartSpeakingPlan
+                                                .TranscriptionEndpointingPlan
+                                                .builder()
                                                 .onNoPunctuationSeconds(0.0f)
                                                 .onNumberSeconds(0.0f)
                                                 .onPunctuationSeconds(0.0f)
@@ -757,7 +773,10 @@ internal class AssistantsListTest {
                         )
                         .llmApiKeyRef("llm_api_key_ref")
                         .addMcpServer(
-                            AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                            InferenceEmbedding.McpServer.builder()
+                                .id("id")
+                                .addAllowedTool("string")
+                                .build()
                         )
                         .messagingSettings(
                             MessagingSettings.builder()

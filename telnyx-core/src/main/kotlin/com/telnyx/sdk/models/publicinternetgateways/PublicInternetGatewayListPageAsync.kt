@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PublicInternetGatewayListParams,
     private val response: PublicInternetGatewayListPageResponse,
-) : PageAsync<PublicInternetGatewayRead> {
+) : PageAsync<PublicInternetGatewayListResponse> {
 
     /**
      * Delegates to [PublicInternetGatewayListPageResponse], but gracefully handles missing data.
      *
      * @see PublicInternetGatewayListPageResponse.data
      */
-    fun data(): List<PublicInternetGatewayRead> =
+    fun data(): List<PublicInternetGatewayListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PublicInternetGatewayRead> = data()
+    override fun items(): List<PublicInternetGatewayListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PublicInternetGatewayListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PublicInternetGatewayRead> =
+    fun autoPager(): AutoPagerAsync<PublicInternetGatewayListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

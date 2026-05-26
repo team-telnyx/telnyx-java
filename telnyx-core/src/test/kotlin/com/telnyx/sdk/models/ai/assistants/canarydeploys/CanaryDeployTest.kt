@@ -15,11 +15,11 @@ internal class CanaryDeployTest {
         val canaryDeploy =
             CanaryDeploy.builder()
                 .addRule(
-                    RuleInput.builder()
+                    CanaryDeploy.Rule.builder()
                         .serve(
-                            Serve.builder()
+                            CanaryDeploy.Rule.Serve.builder()
                                 .addRollout(
-                                    RolloutSlot.builder()
+                                    CanaryDeploy.Rule.Serve.Rollout.builder()
                                         .versionId("version_id")
                                         .weight(0.0)
                                         .build()
@@ -28,9 +28,9 @@ internal class CanaryDeployTest {
                                 .build()
                         )
                         .addMatch(
-                            Clause.builder()
+                            CanaryDeploy.Rule.Match.builder()
                                 .attribute("attribute")
-                                .operator(Clause.Operator.IN)
+                                .operator(CanaryDeploy.Rule.Match.Operator.IN)
                                 .addValue("string")
                                 .build()
                         )
@@ -40,19 +40,22 @@ internal class CanaryDeployTest {
 
         assertThat(canaryDeploy.rules().getOrNull())
             .containsExactly(
-                RuleInput.builder()
+                CanaryDeploy.Rule.builder()
                     .serve(
-                        Serve.builder()
+                        CanaryDeploy.Rule.Serve.builder()
                             .addRollout(
-                                RolloutSlot.builder().versionId("version_id").weight(0.0).build()
+                                CanaryDeploy.Rule.Serve.Rollout.builder()
+                                    .versionId("version_id")
+                                    .weight(0.0)
+                                    .build()
                             )
                             .versionId("version_id")
                             .build()
                     )
                     .addMatch(
-                        Clause.builder()
+                        CanaryDeploy.Rule.Match.builder()
                             .attribute("attribute")
-                            .operator(Clause.Operator.IN)
+                            .operator(CanaryDeploy.Rule.Match.Operator.IN)
                             .addValue("string")
                             .build()
                     )
@@ -66,11 +69,11 @@ internal class CanaryDeployTest {
         val canaryDeploy =
             CanaryDeploy.builder()
                 .addRule(
-                    RuleInput.builder()
+                    CanaryDeploy.Rule.builder()
                         .serve(
-                            Serve.builder()
+                            CanaryDeploy.Rule.Serve.builder()
                                 .addRollout(
-                                    RolloutSlot.builder()
+                                    CanaryDeploy.Rule.Serve.Rollout.builder()
                                         .versionId("version_id")
                                         .weight(0.0)
                                         .build()
@@ -79,9 +82,9 @@ internal class CanaryDeployTest {
                                 .build()
                         )
                         .addMatch(
-                            Clause.builder()
+                            CanaryDeploy.Rule.Match.builder()
                                 .attribute("attribute")
-                                .operator(Clause.Operator.IN)
+                                .operator(CanaryDeploy.Rule.Match.Operator.IN)
                                 .addValue("string")
                                 .build()
                         )
