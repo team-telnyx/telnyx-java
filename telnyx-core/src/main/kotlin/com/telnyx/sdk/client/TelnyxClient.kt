@@ -136,6 +136,7 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
+import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -680,6 +681,9 @@ interface TelnyxClient {
     /** UAC connection operations */
     fun uacConnections(): UacConnectionService
 
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    fun speechToText(): SpeechToTextService
+
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportService
 
@@ -1180,6 +1184,9 @@ interface TelnyxClient {
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionService.WithRawResponse
+
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        fun speechToText(): SpeechToTextService.WithRawResponse
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse
