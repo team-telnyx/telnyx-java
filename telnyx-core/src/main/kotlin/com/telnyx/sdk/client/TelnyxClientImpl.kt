@@ -270,6 +270,8 @@ import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
+import com.telnyx.sdk.services.blocking.SpeechToTextService
+import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -950,6 +952,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         UacConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val speechToText: SpeechToTextService by lazy {
+        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val voiceSdkCallReports: VoiceSdkCallReportService by lazy {
         VoiceSdkCallReportServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1449,6 +1455,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionService = uacConnections
+
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    override fun speechToText(): SpeechToTextService = speechToText
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportService = voiceSdkCallReports
@@ -2129,6 +2138,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
+            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val voiceSdkCallReports: VoiceSdkCallReportService.WithRawResponse by lazy {
             VoiceSdkCallReportServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2680,6 +2693,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections
+
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse =
