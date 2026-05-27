@@ -16,7 +16,9 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalMode
 import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
+import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
+import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
@@ -149,6 +151,108 @@ internal class CallServiceAsyncTest {
                             )
                             .addWhisperCallControlId(
                                 "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+                            )
+                            .build()
+                    )
+                    .conversationRelayConfig(
+                        CallDialParams.ConversationRelayConfig.builder()
+                            .url("wss://example.com/conversation-relay")
+                            .customParameters(
+                                CallDialParams.ConversationRelayConfig.CustomParameters.builder()
+                                    .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .dtmfDetection(true)
+                            .greeting("Hi! Ask me anything!")
+                            .interruptible(
+                                CallDialParams.ConversationRelayConfig.Interruptible.SPEECH
+                            )
+                            .interruptibleGreeting(
+                                CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
+                            )
+                            .interruptionSettings(
+                                CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                    .builder()
+                                    .enable(true)
+                                    .interruptible(
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                            .Interruptible
+                                            .SPEECH
+                                    )
+                                    .interruptibleGreeting(
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                            .InterruptibleGreeting
+                                            .SPEECH
+                                    )
+                                    .welcomeGreetingInterruptible(
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                            .WelcomeGreetingInterruptible
+                                            .SPEECH
+                                    )
+                                    .build()
+                            )
+                            .language("en-US")
+                            .addLanguage(
+                                CallDialParams.ConversationRelayConfig.Language.builder()
+                                    .language("en-US")
+                                    .speechModel("nova-3")
+                                    .transcriptionEngine(
+                                        CallDialParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngine
+                                            .DEEPGRAM
+                                    )
+                                    .transcriptionEngineConfig(
+                                        CallDialParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngineConfig
+                                            .builder()
+                                            .putAdditionalProperty(
+                                                "transcription_model",
+                                                JsonValue.from("bar"),
+                                            )
+                                            .build()
+                                    )
+                                    .transcriptionProvider("Deepgram")
+                                    .ttsProvider("telnyx")
+                                    .voice("Telnyx.Ultra.alloy")
+                                    .voiceSettings(
+                                        ElevenLabsVoiceSettings.builder()
+                                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                                            .apiKeyRef("my_elevenlabs_api_key")
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .provider("elevenlabs")
+                            .structuredProvider(
+                                CallDialParams.ConversationRelayConfig.StructuredProvider.builder()
+                                    .putAdditionalProperty("voice_id", JsonValue.from("bar"))
+                                    .putAdditionalProperty("model_id", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .transcriptionEngine(
+                                CallDialParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                            )
+                            .transcriptionEngineConfig(
+                                CallDialParams.ConversationRelayConfig.TranscriptionEngineConfig
+                                    .builder()
+                                    .putAdditionalProperty(
+                                        "transcription_model",
+                                        JsonValue.from("bar"),
+                                    )
+                                    .putAdditionalProperty("interim_results", JsonValue.from("bar"))
+                                    .putAdditionalProperty(
+                                        "keywords_boosting",
+                                        JsonValue.from("bar"),
+                                    )
+                                    .build()
+                            )
+                            .ttsProvider("telnyx")
+                            .voice("Telnyx.KokoroTTS.af")
+                            .voiceSettings(
+                                TelnyxVoiceSettings.builder()
+                                    .type(TelnyxVoiceSettings.Type.TELNYX)
+                                    .voiceSpeed(1.0f)
+                                    .build()
                             )
                             .build()
                     )
