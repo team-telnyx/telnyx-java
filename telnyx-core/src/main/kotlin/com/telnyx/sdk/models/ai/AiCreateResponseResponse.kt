@@ -10,7 +10,7 @@ import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 
-class AiCreateResponseDeprecatedResponse
+class AiCreateResponseResponse
 @JsonCreator
 private constructor(
     @com.fasterxml.jackson.annotation.JsonValue
@@ -25,24 +25,19 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [AiCreateResponseDeprecatedResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [AiCreateResponseResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AiCreateResponseDeprecatedResponse]. */
+    /** A builder for [AiCreateResponseResponse]. */
     class Builder internal constructor() {
 
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(aiCreateResponseDeprecatedResponse: AiCreateResponseDeprecatedResponse) =
-            apply {
-                additionalProperties =
-                    aiCreateResponseDeprecatedResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(aiCreateResponseResponse: AiCreateResponseResponse) = apply {
+            additionalProperties = aiCreateResponseResponse.additionalProperties.toMutableMap()
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -64,12 +59,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AiCreateResponseDeprecatedResponse].
+         * Returns an immutable instance of [AiCreateResponseResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AiCreateResponseDeprecatedResponse =
-            AiCreateResponseDeprecatedResponse(additionalProperties.toImmutable())
+        fun build(): AiCreateResponseResponse =
+            AiCreateResponseResponse(additionalProperties.toImmutable())
     }
 
     private var validated: Boolean = false
@@ -82,7 +77,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): AiCreateResponseDeprecatedResponse = apply {
+    fun validate(): AiCreateResponseResponse = apply {
         if (validated) {
             return@apply
         }
@@ -112,7 +107,7 @@ private constructor(
             return true
         }
 
-        return other is AiCreateResponseDeprecatedResponse &&
+        return other is AiCreateResponseResponse &&
             additionalProperties == other.additionalProperties
     }
 
@@ -120,6 +115,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "AiCreateResponseDeprecatedResponse{additionalProperties=$additionalProperties}"
+    override fun toString() = "AiCreateResponseResponse{additionalProperties=$additionalProperties}"
 }

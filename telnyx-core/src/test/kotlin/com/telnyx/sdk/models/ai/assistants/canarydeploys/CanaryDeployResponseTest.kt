@@ -17,11 +17,11 @@ internal class CanaryDeployResponseTest {
                 .assistantId("assistant_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addRule(
-                    CanaryDeployResponse.Rule.builder()
+                    RuleOutput.builder()
                         .serve(
-                            CanaryDeployResponse.Rule.Serve.builder()
+                            Serve.builder()
                                 .addRollout(
-                                    CanaryDeployResponse.Rule.Serve.Rollout.builder()
+                                    RolloutSlot.builder()
                                         .versionId("version_id")
                                         .weight(0.0)
                                         .build()
@@ -30,9 +30,9 @@ internal class CanaryDeployResponseTest {
                                 .build()
                         )
                         .addMatch(
-                            CanaryDeployResponse.Rule.Match.builder()
+                            Clause.builder()
                                 .attribute("attribute")
-                                .operator(CanaryDeployResponse.Rule.Match.Operator.IN)
+                                .operator(Clause.Operator.IN)
                                 .addValue("string")
                                 .build()
                         )
@@ -46,22 +46,19 @@ internal class CanaryDeployResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(canaryDeployResponse.rules())
             .containsExactly(
-                CanaryDeployResponse.Rule.builder()
+                RuleOutput.builder()
                     .serve(
-                        CanaryDeployResponse.Rule.Serve.builder()
+                        Serve.builder()
                             .addRollout(
-                                CanaryDeployResponse.Rule.Serve.Rollout.builder()
-                                    .versionId("version_id")
-                                    .weight(0.0)
-                                    .build()
+                                RolloutSlot.builder().versionId("version_id").weight(0.0).build()
                             )
                             .versionId("version_id")
                             .build()
                     )
                     .addMatch(
-                        CanaryDeployResponse.Rule.Match.builder()
+                        Clause.builder()
                             .attribute("attribute")
-                            .operator(CanaryDeployResponse.Rule.Match.Operator.IN)
+                            .operator(Clause.Operator.IN)
                             .addValue("string")
                             .build()
                     )
@@ -79,11 +76,11 @@ internal class CanaryDeployResponseTest {
                 .assistantId("assistant_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addRule(
-                    CanaryDeployResponse.Rule.builder()
+                    RuleOutput.builder()
                         .serve(
-                            CanaryDeployResponse.Rule.Serve.builder()
+                            Serve.builder()
                                 .addRollout(
-                                    CanaryDeployResponse.Rule.Serve.Rollout.builder()
+                                    RolloutSlot.builder()
                                         .versionId("version_id")
                                         .weight(0.0)
                                         .build()
@@ -92,9 +89,9 @@ internal class CanaryDeployResponseTest {
                                 .build()
                         )
                         .addMatch(
-                            CanaryDeployResponse.Rule.Match.builder()
+                            Clause.builder()
                                 .attribute("attribute")
-                                .operator(CanaryDeployResponse.Rule.Match.Operator.IN)
+                                .operator(Clause.Operator.IN)
                                 .addValue("string")
                                 .build()
                         )

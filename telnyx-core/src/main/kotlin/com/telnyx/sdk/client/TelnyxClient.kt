@@ -680,8 +680,6 @@ interface TelnyxClient {
     /** UAC connection operations */
     fun uacConnections(): UacConnectionService
 
-    fun voiceSdkCallReport(): VoiceSdkCallReportService
-
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportService
 
@@ -1182,8 +1180,6 @@ interface TelnyxClient {
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionService.WithRawResponse
-
-        fun voiceSdkCallReport(): VoiceSdkCallReportService.WithRawResponse
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse

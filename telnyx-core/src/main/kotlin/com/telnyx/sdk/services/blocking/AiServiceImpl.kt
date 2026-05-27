@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -116,12 +116,12 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun tools(): ToolService = tools
 
     @Deprecated("deprecated")
-    override fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
+    override fun createResponse(
+        params: AiCreateResponseParams,
         requestOptions: RequestOptions,
-    ): AiCreateResponseDeprecatedResponse =
+    ): AiCreateResponseResponse =
         // post /ai/responses
-        withRawResponse().createResponseDeprecated(params, requestOptions).parse()
+        withRawResponse().createResponse(params, requestOptions).parse()
 
     @Deprecated("deprecated")
     override fun retrieveModels(
@@ -229,14 +229,14 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         /** Configure AI assistant specifications */
         override fun tools(): ToolService.WithRawResponse = tools
 
-        private val createResponseDeprecatedHandler: Handler<AiCreateResponseDeprecatedResponse> =
-            jsonHandler<AiCreateResponseDeprecatedResponse>(clientOptions.jsonMapper)
+        private val createResponseHandler: Handler<AiCreateResponseResponse> =
+            jsonHandler<AiCreateResponseResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
-        override fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
+        override fun createResponse(
+            params: AiCreateResponseParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> {
+        ): HttpResponseFor<AiCreateResponseResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -249,7 +249,7 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createResponseDeprecatedHandler.handle(it) }
+                    .use { createResponseHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

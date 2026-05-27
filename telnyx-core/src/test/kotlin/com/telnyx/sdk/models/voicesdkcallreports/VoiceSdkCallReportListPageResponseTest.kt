@@ -50,9 +50,9 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .segment(0L)
-                        .statsOfUnnamedSchemaWithArrayParent4s(
+                        .statsOfUnnamedSchemaWithArrayParent1s(
                             listOf(
-                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
+                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent1
                                     .builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
@@ -121,9 +121,9 @@ internal class VoiceSdkCallReportListPageResponseTest {
                     )
                     .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .segment(0L)
-                    .statsOfUnnamedSchemaWithArrayParent4s(
+                    .statsOfUnnamedSchemaWithArrayParent1s(
                         listOf(
-                            VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
+                            VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent1
                                 .builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
@@ -200,9 +200,9 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .segment(0L)
-                        .statsOfUnnamedSchemaWithArrayParent4s(
+                        .statsOfUnnamedSchemaWithArrayParent1s(
                             listOf(
-                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
+                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent1
                                     .builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
