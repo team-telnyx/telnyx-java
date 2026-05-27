@@ -21,7 +21,7 @@ import java.util.Objects
  * the `conversation` parameter with a Telnyx Conversation ID to leverage persistent conversations.
  */
 @Deprecated("deprecated")
-class AiCreateResponseDeprecatedParams
+class AiCreateResponseParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -43,8 +43,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [AiCreateResponseDeprecatedParams].
+         * Returns a mutable builder for constructing an instance of [AiCreateResponseParams].
          *
          * The following fields are required:
          * ```java
@@ -54,7 +53,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AiCreateResponseDeprecatedParams]. */
+    /** A builder for [AiCreateResponseParams]. */
     class Builder internal constructor() {
 
         private var body: Body? = null
@@ -62,13 +61,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(aiCreateResponseDeprecatedParams: AiCreateResponseDeprecatedParams) =
-            apply {
-                body = aiCreateResponseDeprecatedParams.body
-                additionalHeaders = aiCreateResponseDeprecatedParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    aiCreateResponseDeprecatedParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(aiCreateResponseParams: AiCreateResponseParams) = apply {
+            body = aiCreateResponseParams.body
+            additionalHeaders = aiCreateResponseParams.additionalHeaders.toBuilder()
+            additionalQueryParams = aiCreateResponseParams.additionalQueryParams.toBuilder()
+        }
 
         fun body(body: Body) = apply { this.body = body }
 
@@ -171,7 +168,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AiCreateResponseDeprecatedParams].
+         * Returns an immutable instance of [AiCreateResponseParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -182,8 +179,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): AiCreateResponseDeprecatedParams =
-            AiCreateResponseDeprecatedParams(
+        fun build(): AiCreateResponseParams =
+            AiCreateResponseParams(
                 checkRequired("body", body),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -309,7 +306,7 @@ private constructor(
             return true
         }
 
-        return other is AiCreateResponseDeprecatedParams &&
+        return other is AiCreateResponseParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -318,5 +315,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AiCreateResponseDeprecatedParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiCreateResponseParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

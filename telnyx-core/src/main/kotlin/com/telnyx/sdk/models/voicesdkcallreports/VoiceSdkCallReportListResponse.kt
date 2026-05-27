@@ -619,11 +619,11 @@ private constructor(
 
         /**
          * Alias for calling [stats] with
-         * `Stats.ofUnnamedSchemaWithArrayParent4s(unnamedSchemaWithArrayParent4s)`.
+         * `Stats.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)`.
          */
-        fun statsOfUnnamedSchemaWithArrayParent4s(
-            unnamedSchemaWithArrayParent4s: List<Stats.UnnamedSchemaWithArrayParent4>
-        ) = stats(Stats.ofUnnamedSchemaWithArrayParent4s(unnamedSchemaWithArrayParent4s))
+        fun statsOfUnnamedSchemaWithArrayParent1s(
+            unnamedSchemaWithArrayParent1s: List<Stats.UnnamedSchemaWithArrayParent1>
+        ) = stats(Stats.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s))
 
         /** Alias for calling [stats] with `Stats.ofUnionMember1(unionMember1)`. */
         fun stats(unionMember1: Stats.UnionMember1) = stats(Stats.ofUnionMember1(unionMember1))
@@ -2543,25 +2543,25 @@ private constructor(
     @JsonSerialize(using = Stats.Serializer::class)
     class Stats
     private constructor(
-        private val unnamedSchemaWithArrayParent4s: List<UnnamedSchemaWithArrayParent4>? = null,
+        private val unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>? = null,
         private val unionMember1: UnionMember1? = null,
         private val _json: JsonValue? = null,
     ) {
 
         /** Raw interval stats snapshots emitted by the Voice SDK. */
-        fun unnamedSchemaWithArrayParent4s(): Optional<List<UnnamedSchemaWithArrayParent4>> =
-            Optional.ofNullable(unnamedSchemaWithArrayParent4s)
+        fun unnamedSchemaWithArrayParent1s(): Optional<List<UnnamedSchemaWithArrayParent1>> =
+            Optional.ofNullable(unnamedSchemaWithArrayParent1s)
 
         /** Raw stats object emitted by the Voice SDK. */
         fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
 
-        fun isUnnamedSchemaWithArrayParent4s(): Boolean = unnamedSchemaWithArrayParent4s != null
+        fun isUnnamedSchemaWithArrayParent1s(): Boolean = unnamedSchemaWithArrayParent1s != null
 
         fun isUnionMember1(): Boolean = unionMember1 != null
 
         /** Raw interval stats snapshots emitted by the Voice SDK. */
-        fun asUnnamedSchemaWithArrayParent4s(): List<UnnamedSchemaWithArrayParent4> =
-            unnamedSchemaWithArrayParent4s.getOrThrow("unnamedSchemaWithArrayParent4s")
+        fun asUnnamedSchemaWithArrayParent1s(): List<UnnamedSchemaWithArrayParent1> =
+            unnamedSchemaWithArrayParent1s.getOrThrow("unnamedSchemaWithArrayParent1s")
 
         /** Raw stats object emitted by the Voice SDK. */
         fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
@@ -2580,8 +2580,8 @@ private constructor(
          *
          * Optional<String> result = stats.accept(new Stats.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitUnnamedSchemaWithArrayParent4s(List<UnnamedSchemaWithArrayParent4> unnamedSchemaWithArrayParent4s) {
-         *         return Optional.of(unnamedSchemaWithArrayParent4s.toString());
+         *     public Optional<String> visitUnnamedSchemaWithArrayParent1s(List<UnnamedSchemaWithArrayParent1> unnamedSchemaWithArrayParent1s) {
+         *         return Optional.of(unnamedSchemaWithArrayParent1s.toString());
          *     }
          *
          *     // ...
@@ -2599,8 +2599,8 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unnamedSchemaWithArrayParent4s != null ->
-                    visitor.visitUnnamedSchemaWithArrayParent4s(unnamedSchemaWithArrayParent4s)
+                unnamedSchemaWithArrayParent1s != null ->
+                    visitor.visitUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)
                 unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
                 else -> visitor.unknown(_json)
             }
@@ -2623,10 +2623,10 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitUnnamedSchemaWithArrayParent4s(
-                        unnamedSchemaWithArrayParent4s: List<UnnamedSchemaWithArrayParent4>
+                    override fun visitUnnamedSchemaWithArrayParent1s(
+                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
                     ) {
-                        unnamedSchemaWithArrayParent4s.forEach { it.validate() }
+                        unnamedSchemaWithArrayParent1s.forEach { it.validate() }
                     }
 
                     override fun visitUnionMember1(unionMember1: UnionMember1) {
@@ -2655,9 +2655,9 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitUnnamedSchemaWithArrayParent4s(
-                        unnamedSchemaWithArrayParent4s: List<UnnamedSchemaWithArrayParent4>
-                    ) = unnamedSchemaWithArrayParent4s.sumOf { it.validity().toInt() }
+                    override fun visitUnnamedSchemaWithArrayParent1s(
+                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
+                    ) = unnamedSchemaWithArrayParent1s.sumOf { it.validity().toInt() }
 
                     override fun visitUnionMember1(unionMember1: UnionMember1) =
                         unionMember1.validity()
@@ -2672,16 +2672,16 @@ private constructor(
             }
 
             return other is Stats &&
-                unnamedSchemaWithArrayParent4s == other.unnamedSchemaWithArrayParent4s &&
+                unnamedSchemaWithArrayParent1s == other.unnamedSchemaWithArrayParent1s &&
                 unionMember1 == other.unionMember1
         }
 
-        override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent4s, unionMember1)
+        override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent1s, unionMember1)
 
         override fun toString(): String =
             when {
-                unnamedSchemaWithArrayParent4s != null ->
-                    "Stats{unnamedSchemaWithArrayParent4s=$unnamedSchemaWithArrayParent4s}"
+                unnamedSchemaWithArrayParent1s != null ->
+                    "Stats{unnamedSchemaWithArrayParent1s=$unnamedSchemaWithArrayParent1s}"
                 unionMember1 != null -> "Stats{unionMember1=$unionMember1}"
                 _json != null -> "Stats{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Stats")
@@ -2691,9 +2691,9 @@ private constructor(
 
             /** Raw interval stats snapshots emitted by the Voice SDK. */
             @JvmStatic
-            fun ofUnnamedSchemaWithArrayParent4s(
-                unnamedSchemaWithArrayParent4s: List<UnnamedSchemaWithArrayParent4>
-            ) = Stats(unnamedSchemaWithArrayParent4s = unnamedSchemaWithArrayParent4s.toImmutable())
+            fun ofUnnamedSchemaWithArrayParent1s(
+                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
+            ) = Stats(unnamedSchemaWithArrayParent1s = unnamedSchemaWithArrayParent1s.toImmutable())
 
             /** Raw stats object emitted by the Voice SDK. */
             @JvmStatic
@@ -2704,8 +2704,8 @@ private constructor(
         interface Visitor<out T> {
 
             /** Raw interval stats snapshots emitted by the Voice SDK. */
-            fun visitUnnamedSchemaWithArrayParent4s(
-                unnamedSchemaWithArrayParent4s: List<UnnamedSchemaWithArrayParent4>
+            fun visitUnnamedSchemaWithArrayParent1s(
+                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
             ): T
 
             /** Raw stats object emitted by the Voice SDK. */
@@ -2738,9 +2738,9 @@ private constructor(
                             },
                             tryDeserialize(
                                     node,
-                                    jacksonTypeRef<List<UnnamedSchemaWithArrayParent4>>(),
+                                    jacksonTypeRef<List<UnnamedSchemaWithArrayParent1>>(),
                                 )
-                                ?.let { Stats(unnamedSchemaWithArrayParent4s = it, _json = json) },
+                                ?.let { Stats(unnamedSchemaWithArrayParent1s = it, _json = json) },
                         )
                         .filterNotNull()
                         .allMaxBy { it.validity() }
@@ -2766,8 +2766,8 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.unnamedSchemaWithArrayParent4s != null ->
-                        generator.writeObject(value.unnamedSchemaWithArrayParent4s)
+                    value.unnamedSchemaWithArrayParent1s != null ->
+                        generator.writeObject(value.unnamedSchemaWithArrayParent1s)
                     value.unionMember1 != null -> generator.writeObject(value.unionMember1)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Stats")
@@ -2779,7 +2779,7 @@ private constructor(
          * Raw stats snapshot. It may include WebRTC RTCStatsReport-style entries and audio,
          * connection, ICE, or transport metrics.
          */
-        class UnnamedSchemaWithArrayParent4
+        class UnnamedSchemaWithArrayParent1
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -2796,21 +2796,21 @@ private constructor(
 
                 /**
                  * Returns a mutable builder for constructing an instance of
-                 * [UnnamedSchemaWithArrayParent4].
+                 * [UnnamedSchemaWithArrayParent1].
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnnamedSchemaWithArrayParent4]. */
+            /** A builder for [UnnamedSchemaWithArrayParent1]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unnamedSchemaWithArrayParent4: UnnamedSchemaWithArrayParent4) =
+                internal fun from(unnamedSchemaWithArrayParent1: UnnamedSchemaWithArrayParent1) =
                     apply {
                         additionalProperties =
-                            unnamedSchemaWithArrayParent4.additionalProperties.toMutableMap()
+                            unnamedSchemaWithArrayParent1.additionalProperties.toMutableMap()
                     }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2836,12 +2836,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnnamedSchemaWithArrayParent4].
+                 * Returns an immutable instance of [UnnamedSchemaWithArrayParent1].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnnamedSchemaWithArrayParent4 =
-                    UnnamedSchemaWithArrayParent4(additionalProperties.toImmutable())
+                fun build(): UnnamedSchemaWithArrayParent1 =
+                    UnnamedSchemaWithArrayParent1(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -2856,7 +2856,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnnamedSchemaWithArrayParent4 = apply {
+            fun validate(): UnnamedSchemaWithArrayParent1 = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2887,7 +2887,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnnamedSchemaWithArrayParent4 &&
+                return other is UnnamedSchemaWithArrayParent1 &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -2896,7 +2896,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnnamedSchemaWithArrayParent4{additionalProperties=$additionalProperties}"
+                "UnnamedSchemaWithArrayParent1{additionalProperties=$additionalProperties}"
         }
 
         /** Raw stats object emitted by the Voice SDK. */

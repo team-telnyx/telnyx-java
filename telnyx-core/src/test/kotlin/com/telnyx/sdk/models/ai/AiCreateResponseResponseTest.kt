@@ -8,12 +8,12 @@ import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AiCreateResponseDeprecatedResponseTest {
+internal class AiCreateResponseResponseTest {
 
     @Test
     fun create() {
-        val aiCreateResponseDeprecatedResponse =
-            AiCreateResponseDeprecatedResponse.builder()
+        val aiCreateResponseResponse =
+            AiCreateResponseResponse.builder()
                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
     }
@@ -21,18 +21,17 @@ internal class AiCreateResponseDeprecatedResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val aiCreateResponseDeprecatedResponse =
-            AiCreateResponseDeprecatedResponse.builder()
+        val aiCreateResponseResponse =
+            AiCreateResponseResponse.builder()
                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
 
-        val roundtrippedAiCreateResponseDeprecatedResponse =
+        val roundtrippedAiCreateResponseResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(aiCreateResponseDeprecatedResponse),
-                jacksonTypeRef<AiCreateResponseDeprecatedResponse>(),
+                jsonMapper.writeValueAsString(aiCreateResponseResponse),
+                jacksonTypeRef<AiCreateResponseResponse>(),
             )
 
-        assertThat(roundtrippedAiCreateResponseDeprecatedResponse)
-            .isEqualTo(aiCreateResponseDeprecatedResponse)
+        assertThat(roundtrippedAiCreateResponseResponse).isEqualTo(aiCreateResponseResponse)
     }
 }

@@ -992,10 +992,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         UacConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val voiceSdkCallReport: VoiceSdkCallReportServiceAsync by lazy {
-        VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync by lazy {
         VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -1509,8 +1505,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionServiceAsync = uacConnections
-
-    override fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync = voiceSdkCallReport
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
@@ -2213,10 +2207,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             UacConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val voiceSdkCallReport: VoiceSdkCallReportServiceAsync.WithRawResponse by lazy {
-            VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync.WithRawResponse by lazy {
             VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2781,9 +2771,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionServiceAsync.WithRawResponse = uacConnections
-
-        override fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync.WithRawResponse =
-            voiceSdkCallReport
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =

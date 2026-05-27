@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -79,33 +79,28 @@ interface AiService {
      * persistent conversations.
      */
     @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams
-    ): AiCreateResponseDeprecatedResponse = createResponseDeprecated(params, RequestOptions.none())
+    fun createResponse(params: AiCreateResponseParams): AiCreateResponseResponse =
+        createResponse(params, RequestOptions.none())
 
-    /** @see createResponseDeprecated */
+    /** @see createResponse */
     @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
+    fun createResponse(
+        params: AiCreateResponseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiCreateResponseDeprecatedResponse
+    ): AiCreateResponseResponse
 
-    /** @see createResponseDeprecated */
+    /** @see createResponse */
     @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        body: AiCreateResponseDeprecatedParams.Body,
+    fun createResponse(
+        body: AiCreateResponseParams.Body,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiCreateResponseDeprecatedResponse =
-        createResponseDeprecated(
-            AiCreateResponseDeprecatedParams.builder().body(body).build(),
-            requestOptions,
-        )
+    ): AiCreateResponseResponse =
+        createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
-    /** @see createResponseDeprecated */
+    /** @see createResponse */
     @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        body: AiCreateResponseDeprecatedParams.Body
-    ): AiCreateResponseDeprecatedResponse = createResponseDeprecated(body, RequestOptions.none())
+    fun createResponse(body: AiCreateResponseParams.Body): AiCreateResponseResponse =
+        createResponse(body, RequestOptions.none())
 
     /**
      * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -199,42 +194,37 @@ interface AiService {
 
         /**
          * Returns a raw HTTP response for `post /ai/responses`, but is otherwise the same as
-         * [AiService.createResponseDeprecated].
+         * [AiService.createResponse].
          */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(params, RequestOptions.none())
+        fun createResponse(
+            params: AiCreateResponseParams
+        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
 
-        /** @see createResponseDeprecated */
+        /** @see createResponse */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
+        fun createResponse(
+            params: AiCreateResponseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse>
+        ): HttpResponseFor<AiCreateResponseResponse>
 
-        /** @see createResponseDeprecated */
+        /** @see createResponse */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun createResponseDeprecated(
-            body: AiCreateResponseDeprecatedParams.Body,
+        fun createResponse(
+            body: AiCreateResponseParams.Body,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.builder().body(body).build(),
-                requestOptions,
-            )
+        ): HttpResponseFor<AiCreateResponseResponse> =
+            createResponse(AiCreateResponseParams.builder().body(body).build(), requestOptions)
 
-        /** @see createResponseDeprecated */
+        /** @see createResponse */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun createResponseDeprecated(
-            body: AiCreateResponseDeprecatedParams.Body
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(body, RequestOptions.none())
+        fun createResponse(
+            body: AiCreateResponseParams.Body
+        ): HttpResponseFor<AiCreateResponseResponse> = createResponse(body, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as

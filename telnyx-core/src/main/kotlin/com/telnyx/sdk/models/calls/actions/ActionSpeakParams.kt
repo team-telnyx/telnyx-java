@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.AzureVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.RimeVoiceSettings
+import com.telnyx.sdk.models.XaiVoiceSettings
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -90,7 +91,7 @@ private constructor(
      *   `speech-2.8-turbo`. Use `voice_settings` to configure speed, volume, pitch, and
      *   language_boost.
      * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported model_ids:
-     *   `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+     *   `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use `voice_settings` to configure voice_speed.
      * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
      *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate, and
      *   format.
@@ -363,7 +364,8 @@ private constructor(
          *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
          *   configure speed, volume, pitch, and language_boost.
          * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
-         *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+         *   model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use `voice_settings` to configure
+         *   voice_speed.
          * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
          *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
@@ -553,7 +555,7 @@ private constructor(
         fun voiceSettingsInworld() = apply { body.voiceSettingsInworld() }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-        fun voiceSettings(xai: VoiceSettings.Xai) = apply { body.voiceSettings(xai) }
+        fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -803,7 +805,8 @@ private constructor(
          *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
          *   configure speed, volume, pitch, and language_boost.
          * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
-         *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+         *   model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use `voice_settings` to configure
+         *   voice_speed.
          * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
          *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
@@ -1089,7 +1092,8 @@ private constructor(
              *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
              *   configure speed, volume, pitch, and language_boost.
              * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
-             *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+             *   model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use `voice_settings` to configure
+             *   voice_speed.
              * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`).
              *   Only `Turbo` model is supported. Use `voice_settings` to configure precision,
              *   sample_rate, and format.
@@ -1289,7 +1293,7 @@ private constructor(
             fun voiceSettingsInworld() = voiceSettings(VoiceSettings.ofInworld())
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-            fun voiceSettings(xai: VoiceSettings.Xai) = voiceSettings(VoiceSettings.ofXai(xai))
+            fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2178,7 +2182,7 @@ private constructor(
         private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
         private val inworld: JsonValue? = null,
-        private val xai: Xai? = null,
+        private val xai: XaiVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -2198,7 +2202,7 @@ private constructor(
 
         fun inworld(): Optional<JsonValue> = Optional.ofNullable(inworld)
 
-        fun xai(): Optional<Xai> = Optional.ofNullable(xai)
+        fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
 
         fun isElevenlabs(): Boolean = elevenlabs != null
 
@@ -2234,7 +2238,7 @@ private constructor(
 
         fun asInworld(): JsonValue = inworld.getOrThrow("inworld")
 
-        fun asXai(): Xai = xai.getOrThrow("xai")
+        fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2337,7 +2341,7 @@ private constructor(
                         }
                     }
 
-                    override fun visitXai(xai: Xai) {
+                    override fun visitXai(xai: XaiVoiceSettings) {
                         xai.validate()
                     }
                 }
@@ -2384,7 +2388,7 @@ private constructor(
                             if (it == JsonValue.from(mapOf("type" to "inworld"))) 1 else 0
                         }
 
-                    override fun visitXai(xai: Xai) = xai.validity()
+                    override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -2448,7 +2452,7 @@ private constructor(
             @JvmStatic
             fun ofInworld() = VoiceSettings(inworld = JsonValue.from(mapOf("type" to "inworld")))
 
-            @JvmStatic fun ofXai(xai: Xai) = VoiceSettings(xai = xai)
+            @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
         }
 
         /**
@@ -2473,7 +2477,7 @@ private constructor(
 
             fun visitInworld(inworld: JsonValue): T
 
-            fun visitXai(xai: Xai): T
+            fun visitXai(xai: XaiVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2538,7 +2542,7 @@ private constructor(
                             ?.takeIf { it.isValid() } ?: VoiceSettings(_json = json)
                     }
                     "xai" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Xai>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {
                             VoiceSettings(xai = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
@@ -2569,203 +2573,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
-        }
-
-        class Xai
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val type: JsonValue,
-            private val language: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                @JsonProperty("language")
-                @ExcludeMissing
-                language: JsonField<String> = JsonMissing.of(),
-            ) : this(type, language, mutableMapOf())
-
-            /**
-             * Voice settings provider type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("xai")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Language code, or `auto` to detect automatically.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun language(): Optional<String> = language.getOptional("language")
-
-            /**
-             * Returns the raw JSON value of [language].
-             *
-             * Unlike [language], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Xai]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Xai]. */
-            class Builder internal constructor() {
-
-                private var type: JsonValue = JsonValue.from("xai")
-                private var language: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(xai: Xai) = apply {
-                    type = xai.type
-                    language = xai.language
-                    additionalProperties = xai.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("xai")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                /** Language code, or `auto` to detect automatically. */
-                fun language(language: String) = language(JsonField.of(language))
-
-                /**
-                 * Sets [Builder.language] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.language] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun language(language: JsonField<String>) = apply { this.language = language }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Xai].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Xai = Xai(type, language, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Xai = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                _type().let {
-                    if (it != JsonValue.from("xai")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                language()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                type.let { if (it == JsonValue.from("xai")) 1 else 0 } +
-                    (if (language.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Xai &&
-                    type == other.type &&
-                    language == other.language &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(type, language, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Xai{type=$type, language=$language, additionalProperties=$additionalProperties}"
         }
     }
 
