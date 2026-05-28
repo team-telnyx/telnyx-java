@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.CallDialParams
+import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
+import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -232,20 +234,17 @@ internal class ServiceParamsTest {
                             CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
                         )
                         .interruptionSettings(
-                            CallDialParams.ConversationRelayConfig.InterruptionSettings.builder()
+                            ConversationRelayInterruptionSettings.builder()
                                 .enable(true)
                                 .interruptible(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                        .Interruptible
-                                        .SPEECH
+                                    ConversationRelayInterruptionSettings.Interruptible.SPEECH
                                 )
                                 .interruptibleGreeting(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                        .InterruptibleGreeting
+                                    ConversationRelayInterruptionSettings.InterruptibleGreeting
                                         .SPEECH
                                 )
                                 .welcomeGreetingInterruptible(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                    ConversationRelayInterruptionSettings
                                         .WelcomeGreetingInterruptible
                                         .SPEECH
                                 )
@@ -253,18 +252,14 @@ internal class ServiceParamsTest {
                         )
                         .language("en-US")
                         .addLanguage(
-                            CallDialParams.ConversationRelayConfig.Language.builder()
+                            ConversationRelayLanguage.builder()
                                 .language("en-US")
                                 .speechModel("nova-3")
                                 .transcriptionEngine(
-                                    CallDialParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngine
-                                        .DEEPGRAM
+                                    ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                 )
                                 .transcriptionEngineConfig(
-                                    CallDialParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngineConfig
-                                        .builder()
+                                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                         .putAdditionalProperty(
                                             "transcription_model",
                                             JsonValue.from("bar"),

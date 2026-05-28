@@ -27,22 +27,13 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .logsOfVoiceSdkCallReportLogEntries(
                             listOf(
-                                VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.builder()
                                     .context(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Context
-                                            .builder()
+                                        VoiceSdkCallReportLogEntry.Context.builder()
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .level(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Level
-                                            .DEBUG
-                                    )
+                                    .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                     .message("message")
                                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
@@ -101,19 +92,13 @@ internal class VoiceSdkCallReportListPageResponseTest {
                     )
                     .logsOfVoiceSdkCallReportLogEntries(
                         listOf(
-                            VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                            VoiceSdkCallReportLogEntry.builder()
                                 .context(
-                                    VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                        .Context
-                                        .builder()
+                                    VoiceSdkCallReportLogEntry.Context.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .level(
-                                    VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                        .Level
-                                        .DEBUG
-                                )
+                                .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                 .message("message")
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
@@ -177,22 +162,13 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .logsOfVoiceSdkCallReportLogEntries(
                             listOf(
-                                VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.builder()
                                     .context(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Context
-                                            .builder()
+                                        VoiceSdkCallReportLogEntry.Context.builder()
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .level(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Level
-                                            .DEBUG
-                                    )
+                                    .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                     .message("message")
                                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()

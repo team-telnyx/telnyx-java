@@ -25,19 +25,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .logsOfVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -88,19 +82,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
             .contains(
                 VoiceSdkCallReportRetrieveResponse.Logs.ofVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -162,19 +150,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .logsOfVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
