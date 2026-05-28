@@ -742,6 +742,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val reports: ReportService by lazy { ReportServiceImpl(clientOptionsWithUserAgent) }
 
+    private val speechToText: SpeechToTextService by lazy {
+        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val requirementGroups: RequirementGroupService by lazy {
         RequirementGroupServiceImpl(clientOptionsWithUserAgent)
     }
@@ -950,10 +954,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val uacConnections: UacConnectionService by lazy {
         UacConnectionServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val speechToText: SpeechToTextService by lazy {
-        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val voiceSdkCallReports: VoiceSdkCallReportService by lazy {
@@ -1287,6 +1287,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     override fun reports(): ReportService = reports
 
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    override fun speechToText(): SpeechToTextService = speechToText
+
     /** Requirement Groups */
     override fun requirementGroups(): RequirementGroupService = requirementGroups
 
@@ -1455,9 +1458,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionService = uacConnections
-
-    /** Discover available speech-to-text providers, models, and supported languages. */
-    override fun speechToText(): SpeechToTextService = speechToText
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportService = voiceSdkCallReports
@@ -1911,6 +1911,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             ReportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
+            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val requirementGroups: RequirementGroupService.WithRawResponse by lazy {
             RequirementGroupServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2136,10 +2140,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         private val uacConnections: UacConnectionService.WithRawResponse by lazy {
             UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
-            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val voiceSdkCallReports: VoiceSdkCallReportService.WithRawResponse by lazy {
@@ -2509,6 +2509,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun reports(): ReportService.WithRawResponse = reports
 
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
+
         /** Requirement Groups */
         override fun requirementGroups(): RequirementGroupService.WithRawResponse =
             requirementGroups
@@ -2693,9 +2696,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections
-
-        /** Discover available speech-to-text providers, models, and supported languages. */
-        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse =

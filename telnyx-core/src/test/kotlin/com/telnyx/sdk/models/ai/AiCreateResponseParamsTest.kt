@@ -11,8 +11,8 @@ internal class AiCreateResponseParamsTest {
     @Test
     fun create() {
         AiCreateResponseParams.builder()
-            .body(
-                AiCreateResponseParams.Body.builder()
+            .input(
+                AiCreateResponseParams.Input.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
@@ -24,8 +24,8 @@ internal class AiCreateResponseParamsTest {
     fun body() {
         val params =
             AiCreateResponseParams.builder()
-                .body(
-                    AiCreateResponseParams.Body.builder()
+                .input(
+                    AiCreateResponseParams.Input.builder()
                         .putAdditionalProperty("model", JsonValue.from("bar"))
                         .putAdditionalProperty("input", JsonValue.from("bar"))
                         .build()
@@ -36,7 +36,7 @@ internal class AiCreateResponseParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                AiCreateResponseParams.Body.builder()
+                AiCreateResponseParams.Input.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()

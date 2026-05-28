@@ -776,6 +776,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         ReportServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val speechToText: SpeechToTextServiceAsync by lazy {
+        SpeechToTextServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val requirementGroups: RequirementGroupServiceAsync by lazy {
         RequirementGroupServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -992,10 +996,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     private val uacConnections: UacConnectionServiceAsync by lazy {
         UacConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val speechToText: SpeechToTextServiceAsync by lazy {
-        SpeechToTextServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync by lazy {
@@ -1339,6 +1339,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun reports(): ReportServiceAsync = reports
 
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    override fun speechToText(): SpeechToTextServiceAsync = speechToText
+
     /** Requirement Groups */
     override fun requirementGroups(): RequirementGroupServiceAsync = requirementGroups
 
@@ -1511,9 +1514,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionServiceAsync = uacConnections
-
-    /** Discover available speech-to-text providers, models, and supported languages. */
-    override fun speechToText(): SpeechToTextServiceAsync = speechToText
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
@@ -1982,6 +1982,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             ReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val speechToText: SpeechToTextServiceAsync.WithRawResponse by lazy {
+            SpeechToTextServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val requirementGroups: RequirementGroupServiceAsync.WithRawResponse by lazy {
             RequirementGroupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2214,10 +2218,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         private val uacConnections: UacConnectionServiceAsync.WithRawResponse by lazy {
             UacConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val speechToText: SpeechToTextServiceAsync.WithRawResponse by lazy {
-            SpeechToTextServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val voiceSdkCallReports: VoiceSdkCallReportServiceAsync.WithRawResponse by lazy {
@@ -2594,6 +2594,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun reports(): ReportServiceAsync.WithRawResponse = reports
 
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
+
         /** Requirement Groups */
         override fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse =
             requirementGroups
@@ -2784,9 +2787,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionServiceAsync.WithRawResponse = uacConnections
-
-        /** Discover available speech-to-text providers, models, and supported languages. */
-        override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =
