@@ -23,14 +23,14 @@ import java.util.Objects
 @Deprecated("deprecated")
 class AiCreateResponseParams
 private constructor(
-    private val body: Body,
+    private val input: Input,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun body(): Body = body
+    fun input(): Input = input
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = input._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -47,7 +47,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .input()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -56,18 +56,18 @@ private constructor(
     /** A builder for [AiCreateResponseParams]. */
     class Builder internal constructor() {
 
-        private var body: Body? = null
+        private var input: Input? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(aiCreateResponseParams: AiCreateResponseParams) = apply {
-            body = aiCreateResponseParams.body
+            input = aiCreateResponseParams.input
             additionalHeaders = aiCreateResponseParams.additionalHeaders.toBuilder()
             additionalQueryParams = aiCreateResponseParams.additionalQueryParams.toBuilder()
         }
 
-        fun body(body: Body) = apply { this.body = body }
+        fun input(input: Input) = apply { this.input = input }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -174,26 +174,26 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .input()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AiCreateResponseParams =
             AiCreateResponseParams(
-                checkRequired("body", body),
+                checkRequired("input", input),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Input = input
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
+    class Input
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -208,18 +208,18 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /** Returns a mutable builder for constructing an instance of [Input]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Body]. */
+        /** A builder for [Input]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                additionalProperties = body.additionalProperties.toMutableMap()
+            internal fun from(input: Input) = apply {
+                additionalProperties = input.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -242,11 +242,11 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Body].
+             * Returns an immutable instance of [Input].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(additionalProperties.toImmutable())
+            fun build(): Input = Input(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -260,7 +260,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Body = apply {
+        fun validate(): Input = apply {
             if (validated) {
                 return@apply
             }
@@ -291,14 +291,14 @@ private constructor(
                 return true
             }
 
-            return other is Body && additionalProperties == other.additionalProperties
+            return other is Input && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{additionalProperties=$additionalProperties}"
+        override fun toString() = "Input{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -307,13 +307,13 @@ private constructor(
         }
 
         return other is AiCreateResponseParams &&
-            body == other.body &&
+            input == other.input &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(input, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AiCreateResponseParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiCreateResponseParams{input=$input, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

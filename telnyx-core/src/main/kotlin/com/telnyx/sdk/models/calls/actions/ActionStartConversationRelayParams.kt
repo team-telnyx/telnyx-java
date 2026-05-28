@@ -210,7 +210,10 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun transcription(): Optional<Transcription> = body.transcription()
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
+    fun transcription(): Optional<Transcription> = body.transcription()
 
     /**
      * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
@@ -416,7 +419,10 @@ private constructor(
      *
      * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated") fun _transcription(): JsonField<Transcription> = body._transcription()
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
+    fun _transcription(): JsonField<Transcription> = body._transcription()
 
     /**
      * Returns the raw JSON value of [transcriptionEngine].
@@ -799,7 +805,9 @@ private constructor(
          * Not supported for Conversation Relay start requests. Use `transcription_engine` and
          * `transcription_engine_config` instead.
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(transcription: Transcription) = apply {
             body.transcription(transcription)
         }
@@ -811,7 +819,9 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(transcription: JsonField<Transcription>) = apply {
             body.transcription(transcription)
         }
@@ -1396,7 +1406,9 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(): Optional<Transcription> = transcription.getOptional("transcription")
 
         /**
@@ -1632,7 +1644,9 @@ private constructor(
          * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         @JsonProperty("transcription")
         @ExcludeMissing
         fun _transcription(): JsonField<Transcription> = transcription
@@ -2047,7 +2061,9 @@ private constructor(
              * Not supported for Conversation Relay start requests. Use `transcription_engine` and
              * `transcription_engine_config` instead.
              */
-            @Deprecated("deprecated")
+            @Deprecated(
+                "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+            )
             fun transcription(transcription: Transcription) =
                 transcription(JsonField.of(transcription))
 
@@ -2058,7 +2074,9 @@ private constructor(
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
-            @Deprecated("deprecated")
+            @Deprecated(
+                "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+            )
             fun transcription(transcription: JsonField<Transcription>) = apply {
                 this.transcription = transcription
             }
@@ -3952,7 +3970,9 @@ private constructor(
      * Not supported for Conversation Relay start requests. Use `transcription_engine` and
      * `transcription_engine_config` instead.
      */
-    @Deprecated("deprecated")
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
     class Transcription
     @JsonCreator
     private constructor(

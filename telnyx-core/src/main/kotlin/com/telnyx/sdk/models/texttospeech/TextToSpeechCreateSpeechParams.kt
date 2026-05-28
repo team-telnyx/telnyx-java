@@ -39,7 +39,7 @@ import kotlin.jvm.optionals.getOrNull
  * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
  * control. Use the `telnyx` provider-specific parameters to configure these features.
  */
-class TextToSpeechGenerateParams
+class TextToSpeechCreateSpeechParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -304,15 +304,16 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): TextToSpeechGenerateParams = builder().build()
+        @JvmStatic fun none(): TextToSpeechCreateSpeechParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of [TextToSpeechGenerateParams].
+         * Returns a mutable builder for constructing an instance of
+         * [TextToSpeechCreateSpeechParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TextToSpeechGenerateParams]. */
+    /** A builder for [TextToSpeechCreateSpeechParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -320,10 +321,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(textToSpeechGenerateParams: TextToSpeechGenerateParams) = apply {
-            body = textToSpeechGenerateParams.body.toBuilder()
-            additionalHeaders = textToSpeechGenerateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = textToSpeechGenerateParams.additionalQueryParams.toBuilder()
+        internal fun from(textToSpeechCreateSpeechParams: TextToSpeechCreateSpeechParams) = apply {
+            body = textToSpeechCreateSpeechParams.body.toBuilder()
+            additionalHeaders = textToSpeechCreateSpeechParams.additionalHeaders.toBuilder()
+            additionalQueryParams = textToSpeechCreateSpeechParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -663,12 +664,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TextToSpeechGenerateParams].
+         * Returns an immutable instance of [TextToSpeechCreateSpeechParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TextToSpeechGenerateParams =
-            TextToSpeechGenerateParams(
+        fun build(): TextToSpeechCreateSpeechParams =
+            TextToSpeechCreateSpeechParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -5603,7 +5604,7 @@ private constructor(
             return true
         }
 
-        return other is TextToSpeechGenerateParams &&
+        return other is TextToSpeechCreateSpeechParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -5612,5 +5613,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TextToSpeechGenerateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TextToSpeechCreateSpeechParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

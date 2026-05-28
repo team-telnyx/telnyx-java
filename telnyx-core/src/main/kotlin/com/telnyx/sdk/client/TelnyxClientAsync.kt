@@ -515,6 +515,9 @@ interface TelnyxClientAsync {
 
     fun reports(): ReportServiceAsync
 
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    fun speechToText(): SpeechToTextServiceAsync
+
     /** Requirement Groups */
     fun requirementGroups(): RequirementGroupServiceAsync
 
@@ -680,9 +683,6 @@ interface TelnyxClientAsync {
 
     /** UAC connection operations */
     fun uacConnections(): UacConnectionServiceAsync
-
-    /** Discover available speech-to-text providers, models, and supported languages. */
-    fun speechToText(): SpeechToTextServiceAsync
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
@@ -1021,6 +1021,9 @@ interface TelnyxClientAsync {
 
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
         /** Requirement Groups */
         fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse
 
@@ -1187,9 +1190,6 @@ interface TelnyxClientAsync {
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
-
-        /** Discover available speech-to-text providers, models, and supported languages. */
-        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
