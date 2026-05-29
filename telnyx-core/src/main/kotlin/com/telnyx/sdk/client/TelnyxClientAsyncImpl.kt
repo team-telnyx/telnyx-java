@@ -268,6 +268,8 @@ import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsyncImpl
+import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsync
+import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsyncImpl
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsyncImpl
 import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
@@ -1002,6 +1004,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val sipRegistrationStatus: SipRegistrationStatusServiceAsync by lazy {
+        SipRegistrationStatusServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1517,6 +1523,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
+
+    /** Look up SIP registration status across credential types */
+    override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
 
     override fun close() = clientOptions.close()
 
@@ -2224,6 +2233,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sipRegistrationStatus:
+            SipRegistrationStatusServiceAsync.WithRawResponse by lazy {
+            SipRegistrationStatusServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2791,5 +2805,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =
             voiceSdkCallReports
+
+        /** Look up SIP registration status across credential types */
+        override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
+            sipRegistrationStatus
     }
 }

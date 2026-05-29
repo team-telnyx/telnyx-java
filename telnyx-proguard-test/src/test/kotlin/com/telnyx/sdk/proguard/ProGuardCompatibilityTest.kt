@@ -219,6 +219,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.pronunciationDicts()).isNotNull()
         assertThat(client.uacConnections()).isNotNull()
         assertThat(client.voiceSdkCallReports()).isNotNull()
+        assertThat(client.sipRegistrationStatus()).isNotNull()
     }
 
     @Test
