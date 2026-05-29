@@ -136,6 +136,7 @@ import com.telnyx.sdk.services.async.SimCardOrderPreviewServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
+import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
@@ -514,6 +515,9 @@ interface TelnyxClientAsync {
 
     fun reports(): ReportServiceAsync
 
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    fun speechToText(): SpeechToTextServiceAsync
+
     /** Requirement Groups */
     fun requirementGroups(): RequirementGroupServiceAsync
 
@@ -679,8 +683,6 @@ interface TelnyxClientAsync {
 
     /** UAC connection operations */
     fun uacConnections(): UacConnectionServiceAsync
-
-    fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
@@ -1019,6 +1021,9 @@ interface TelnyxClientAsync {
 
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
         /** Requirement Groups */
         fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse
 
@@ -1185,8 +1190,6 @@ interface TelnyxClientAsync {
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
-
-        fun voiceSdkCallReport(): VoiceSdkCallReportServiceAsync.WithRawResponse
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse

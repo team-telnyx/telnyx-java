@@ -25,19 +25,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .logsOfVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -45,9 +39,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .segment(0L)
-                .statsOfUnnamedSchemaWithArrayParent3s(
+                .statsOfUnnamedSchemaWithArrayParent0s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
@@ -88,19 +82,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
             .contains(
                 VoiceSdkCallReportRetrieveResponse.Logs.ofVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -112,9 +100,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
         assertThat(voiceSdkCallReportRetrieveResponse.segment()).contains(0L)
         assertThat(voiceSdkCallReportRetrieveResponse.stats())
             .contains(
-                VoiceSdkCallReportRetrieveResponse.Stats.ofUnnamedSchemaWithArrayParent3s(
+                VoiceSdkCallReportRetrieveResponse.Stats.ofUnnamedSchemaWithArrayParent0s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
@@ -162,19 +150,13 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .logsOfVoiceSdkCallReportLogEntries(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                        VoiceSdkCallReportLogEntry.builder()
                             .context(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Context
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.Context.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .level(
-                                VoiceSdkCallReportRetrieveResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .Level
-                                    .DEBUG
-                            )
+                            .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                             .message("message")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -182,9 +164,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .segment(0L)
-                .statsOfUnnamedSchemaWithArrayParent3s(
+                .statsOfUnnamedSchemaWithArrayParent0s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()

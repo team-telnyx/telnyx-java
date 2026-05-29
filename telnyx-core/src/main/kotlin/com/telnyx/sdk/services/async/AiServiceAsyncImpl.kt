@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -128,12 +128,12 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun tools(): ToolServiceAsync = tools
 
     @Deprecated("deprecated")
-    override fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
+    override fun createResponse(
+        params: AiCreateResponseParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AiCreateResponseDeprecatedResponse> =
+    ): CompletableFuture<AiCreateResponseResponse> =
         // post /ai/responses
-        withRawResponse().createResponseDeprecated(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createResponse(params, requestOptions).thenApply { it.parse() }
 
     @Deprecated("deprecated")
     override fun retrieveModels(
@@ -241,14 +241,14 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         /** Configure AI assistant specifications */
         override fun tools(): ToolServiceAsync.WithRawResponse = tools
 
-        private val createResponseDeprecatedHandler: Handler<AiCreateResponseDeprecatedResponse> =
-            jsonHandler<AiCreateResponseDeprecatedResponse>(clientOptions.jsonMapper)
+        private val createResponseHandler: Handler<AiCreateResponseResponse> =
+            jsonHandler<AiCreateResponseResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
-        override fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
+        override fun createResponse(
+            params: AiCreateResponseParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>> {
+        ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -263,7 +263,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createResponseDeprecatedHandler.handle(it) }
+                            .use { createResponseHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

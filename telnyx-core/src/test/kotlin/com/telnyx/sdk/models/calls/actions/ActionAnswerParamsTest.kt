@@ -5,6 +5,8 @@ package com.telnyx.sdk.models.calls.actions
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
+import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
+import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -87,6 +89,90 @@ internal class ActionAnswerParamsTest {
             .billingGroupId("f5586561-8ff0-4291-a0ac-84fe544797bd")
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+            .conversationRelayConfig(
+                ActionAnswerParams.ConversationRelayConfig.builder()
+                    .url("wss://example.com/conversation-relay")
+                    .customParameters(
+                        ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                            .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .dtmfDetection(true)
+                    .greeting("Hi! Ask me anything!")
+                    .interruptible(ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH)
+                    .interruptibleGreeting(
+                        ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
+                    )
+                    .interruptionSettings(
+                        ConversationRelayInterruptionSettings.builder()
+                            .enable(true)
+                            .interruptible(
+                                ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                            )
+                            .interruptibleGreeting(
+                                ConversationRelayInterruptionSettings.InterruptibleGreeting.SPEECH
+                            )
+                            .welcomeGreetingInterruptible(
+                                ConversationRelayInterruptionSettings.WelcomeGreetingInterruptible
+                                    .SPEECH
+                            )
+                            .build()
+                    )
+                    .language("en-US")
+                    .addLanguage(
+                        ConversationRelayLanguage.builder()
+                            .language("en-US")
+                            .speechModel("nova-3")
+                            .transcriptionEngine(
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                            )
+                            .transcriptionEngineConfig(
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
+                                    .putAdditionalProperty(
+                                        "transcription_model",
+                                        JsonValue.from("bar"),
+                                    )
+                                    .build()
+                            )
+                            .transcriptionProvider("Deepgram")
+                            .ttsProvider("telnyx")
+                            .voice("Telnyx.Ultra.alloy")
+                            .voiceSettings(
+                                ElevenLabsVoiceSettings.builder()
+                                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                                    .apiKeyRef("my_elevenlabs_api_key")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .provider("elevenlabs")
+                    .structuredProvider(
+                        ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                            .putAdditionalProperty("voice_id", JsonValue.from("bar"))
+                            .putAdditionalProperty("model_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .transcriptionEngine(
+                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                    )
+                    .transcriptionEngineConfig(
+                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
+                            .builder()
+                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                            .putAdditionalProperty("interim_results", JsonValue.from("bar"))
+                            .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .ttsProvider("telnyx")
+                    .voice("Telnyx.KokoroTTS.af")
+                    .voiceSettings(
+                        TelnyxVoiceSettings.builder()
+                            .type(TelnyxVoiceSettings.Type.TELNYX)
+                            .voiceSpeed(1.0f)
+                            .build()
+                    )
+                    .build()
+            )
             .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
             .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
             .deepfakeDetection(
@@ -261,6 +347,94 @@ internal class ActionAnswerParamsTest {
                 .billingGroupId("f5586561-8ff0-4291-a0ac-84fe544797bd")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .conversationRelayConfig(
+                    ActionAnswerParams.ConversationRelayConfig.builder()
+                        .url("wss://example.com/conversation-relay")
+                        .customParameters(
+                            ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                                .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .dtmfDetection(true)
+                        .greeting("Hi! Ask me anything!")
+                        .interruptible(
+                            ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH
+                        )
+                        .interruptibleGreeting(
+                            ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
+                        )
+                        .interruptionSettings(
+                            ConversationRelayInterruptionSettings.builder()
+                                .enable(true)
+                                .interruptible(
+                                    ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                                )
+                                .interruptibleGreeting(
+                                    ConversationRelayInterruptionSettings.InterruptibleGreeting
+                                        .SPEECH
+                                )
+                                .welcomeGreetingInterruptible(
+                                    ConversationRelayInterruptionSettings
+                                        .WelcomeGreetingInterruptible
+                                        .SPEECH
+                                )
+                                .build()
+                        )
+                        .language("en-US")
+                        .addLanguage(
+                            ConversationRelayLanguage.builder()
+                                .language("en-US")
+                                .speechModel("nova-3")
+                                .transcriptionEngine(
+                                    ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                                )
+                                .transcriptionEngineConfig(
+                                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
+                                        .putAdditionalProperty(
+                                            "transcription_model",
+                                            JsonValue.from("bar"),
+                                        )
+                                        .build()
+                                )
+                                .transcriptionProvider("Deepgram")
+                                .ttsProvider("telnyx")
+                                .voice("Telnyx.Ultra.alloy")
+                                .voiceSettings(
+                                    ElevenLabsVoiceSettings.builder()
+                                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                                        .apiKeyRef("my_elevenlabs_api_key")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .provider("elevenlabs")
+                        .structuredProvider(
+                            ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                                .putAdditionalProperty("voice_id", JsonValue.from("bar"))
+                                .putAdditionalProperty("model_id", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .transcriptionEngine(
+                            ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                        )
+                        .transcriptionEngineConfig(
+                            ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
+                                .builder()
+                                .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                                .putAdditionalProperty("interim_results", JsonValue.from("bar"))
+                                .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .ttsProvider("telnyx")
+                        .voice("Telnyx.KokoroTTS.af")
+                        .voiceSettings(
+                            TelnyxVoiceSettings.builder()
+                                .type(TelnyxVoiceSettings.Type.TELNYX)
+                                .voiceSpeed(1.0f)
+                                .build()
+                        )
+                        .build()
+                )
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
                 .deepfakeDetection(
@@ -423,6 +597,91 @@ internal class ActionAnswerParamsTest {
         assertThat(body.billingGroupId()).contains("f5586561-8ff0-4291-a0ac-84fe544797bd")
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(body.conversationRelayConfig())
+            .contains(
+                ActionAnswerParams.ConversationRelayConfig.builder()
+                    .url("wss://example.com/conversation-relay")
+                    .customParameters(
+                        ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                            .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .dtmfDetection(true)
+                    .greeting("Hi! Ask me anything!")
+                    .interruptible(ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH)
+                    .interruptibleGreeting(
+                        ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
+                    )
+                    .interruptionSettings(
+                        ConversationRelayInterruptionSettings.builder()
+                            .enable(true)
+                            .interruptible(
+                                ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                            )
+                            .interruptibleGreeting(
+                                ConversationRelayInterruptionSettings.InterruptibleGreeting.SPEECH
+                            )
+                            .welcomeGreetingInterruptible(
+                                ConversationRelayInterruptionSettings.WelcomeGreetingInterruptible
+                                    .SPEECH
+                            )
+                            .build()
+                    )
+                    .language("en-US")
+                    .addLanguage(
+                        ConversationRelayLanguage.builder()
+                            .language("en-US")
+                            .speechModel("nova-3")
+                            .transcriptionEngine(
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                            )
+                            .transcriptionEngineConfig(
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
+                                    .putAdditionalProperty(
+                                        "transcription_model",
+                                        JsonValue.from("bar"),
+                                    )
+                                    .build()
+                            )
+                            .transcriptionProvider("Deepgram")
+                            .ttsProvider("telnyx")
+                            .voice("Telnyx.Ultra.alloy")
+                            .voiceSettings(
+                                ElevenLabsVoiceSettings.builder()
+                                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                                    .apiKeyRef("my_elevenlabs_api_key")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .provider("elevenlabs")
+                    .structuredProvider(
+                        ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                            .putAdditionalProperty("voice_id", JsonValue.from("bar"))
+                            .putAdditionalProperty("model_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .transcriptionEngine(
+                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                    )
+                    .transcriptionEngineConfig(
+                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
+                            .builder()
+                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                            .putAdditionalProperty("interim_results", JsonValue.from("bar"))
+                            .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .ttsProvider("telnyx")
+                    .voice("Telnyx.KokoroTTS.af")
+                    .voiceSettings(
+                        TelnyxVoiceSettings.builder()
+                            .type(TelnyxVoiceSettings.Type.TELNYX)
+                            .voiceSpeed(1.0f)
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.customHeaders().getOrNull())
             .containsExactly(
                 CustomSipHeader.builder().name("head_1").value("val_1").build(),

@@ -29,8 +29,13 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.AzureVoiceSettings
+import com.telnyx.sdk.models.InworldVoiceSettings
+import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.RimeVoiceSettings
+import com.telnyx.sdk.models.XaiVoiceSettings
+import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
+import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -92,11 +97,9 @@ private constructor(
     fun conversationRelayDtmfDetection(): Optional<Boolean> = body.conversationRelayDtmfDetection()
 
     /**
-     * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
-     * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
-     * shorthand for `interruption_settings.interruptible` and
-     * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for the
-     * full interruption settings shape.
+     * Conversation Relay connection settings. This object can provide `url`, `dtmf_detection`,
+     * `interruptible`, `interruptible_greeting`, and `languages`. Top-level aliases override nested
+     * values when both are present.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -113,6 +116,23 @@ private constructor(
     fun conversationRelayUrl(): Optional<String> = body.conversationRelayUrl()
 
     /**
+     * Custom key-value parameters forwarded to the relay session as `assistant.dynamic_variables`.
+     * If `assistant.dynamic_variables` is also present, these values are merged in.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun customParameters(): Optional<CustomParameters> = body.customParameters()
+
+    /**
+     * Public alias for `conversation_relay_dtmf_detection`. If both are present, this value wins.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dtmfDetection(): Optional<Boolean> = body.dtmfDetection()
+
+    /**
      * Text played when the relay session starts.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -121,16 +141,37 @@ private constructor(
     fun greeting(): Optional<String> = body.greeting()
 
     /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+     * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows DTMF
+     * only.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interruptible(): Optional<Interruptible> = body.interruptible()
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+     * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows DTMF
+     * only.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interruptibleGreeting(): Optional<InterruptibleGreeting> = body.interruptibleGreeting()
+
+    /**
      * Settings for handling caller interruptions during Conversation Relay speech.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun interruptionSettings(): Optional<InterruptionSettings> = body.interruptionSettings()
+    fun interruptionSettings(): Optional<ConversationRelayInterruptionSettings> =
+        body.interruptionSettings()
 
     /**
      * Default language for the relay session. This value is used for both text-to-speech and speech
-     * recognition unless `tts_language` or `transcription_language` are provided.
+     * recognition.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -138,37 +179,80 @@ private constructor(
     fun language(): Optional<String> = body.language()
 
     /**
-     * Language-specific TTS and transcription settings. Use this when the relay session needs
-     * per-language provider, voice, or speech model configuration.
+     * Per-language TTS and transcription settings.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun languages(): Optional<List<Language>> = body.languages()
+    fun languages(): Optional<List<ConversationRelayLanguage>> = body.languages()
 
     /**
-     * Speech-to-text settings for Conversation Relay.
+     * Structured voice provider. Must be supplied together with `structured_provider`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun provider(): Optional<String> = body.provider()
+
+    /**
+     * Provider-specific structured voice settings. Must be supplied together with `provider`;
+     * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun structuredProvider(): Optional<StructuredProvider> = body.structuredProvider()
+
+    /**
+     * Not supported for Conversation Relay start requests. Use `transcription_engine` and
+     * `transcription_engine_config` instead.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
     fun transcription(): Optional<Transcription> = body.transcription()
 
     /**
-     * Language to use for speech recognition. Overrides `language` for transcription when provided.
+     * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+     * supported for backward compatibility. For Conversation Relay, use this field with
+     * `transcription_engine_config`; the `transcription` object is not supported.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transcriptionLanguage(): Optional<String> = body.transcriptionLanguage()
+    fun transcriptionEngine(): Optional<TranscriptionEngine> = body.transcriptionEngine()
 
     /**
-     * Language to use for text-to-speech. Overrides `language` for TTS when provided.
+     * Engine-specific transcription settings for Conversation Relay. This accepts the same
+     * provider-specific options used by the Call Transcription Start command, such as
+     * `transcription_model`, without requiring the engine discriminator to be repeated inside this
+     * object.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun ttsLanguage(): Optional<String> = body.ttsLanguage()
+    fun transcriptionEngineConfig(): Optional<TranscriptionEngineConfig> =
+        body.transcriptionEngineConfig()
+
+    /**
+     * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun ttsProvider(): Optional<String> = body.ttsProvider()
+
+    /**
+     * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`. If both are
+     * present, this value wins.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun url(): Optional<String> = body.url()
 
     /**
      * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS
@@ -256,6 +340,21 @@ private constructor(
     fun _conversationRelayUrl(): JsonField<String> = body._conversationRelayUrl()
 
     /**
+     * Returns the raw JSON value of [customParameters].
+     *
+     * Unlike [customParameters], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _customParameters(): JsonField<CustomParameters> = body._customParameters()
+
+    /**
+     * Returns the raw JSON value of [dtmfDetection].
+     *
+     * Unlike [dtmfDetection], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _dtmfDetection(): JsonField<Boolean> = body._dtmfDetection()
+
+    /**
      * Returns the raw JSON value of [greeting].
      *
      * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
@@ -263,12 +362,28 @@ private constructor(
     fun _greeting(): JsonField<String> = body._greeting()
 
     /**
+     * Returns the raw JSON value of [interruptible].
+     *
+     * Unlike [interruptible], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _interruptible(): JsonField<Interruptible> = body._interruptible()
+
+    /**
+     * Returns the raw JSON value of [interruptibleGreeting].
+     *
+     * Unlike [interruptibleGreeting], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _interruptibleGreeting(): JsonField<InterruptibleGreeting> = body._interruptibleGreeting()
+
+    /**
      * Returns the raw JSON value of [interruptionSettings].
      *
      * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _interruptionSettings(): JsonField<InterruptionSettings> = body._interruptionSettings()
+    fun _interruptionSettings(): JsonField<ConversationRelayInterruptionSettings> =
+        body._interruptionSettings()
 
     /**
      * Returns the raw JSON value of [language].
@@ -282,29 +397,63 @@ private constructor(
      *
      * Unlike [languages], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _languages(): JsonField<List<Language>> = body._languages()
+    fun _languages(): JsonField<List<ConversationRelayLanguage>> = body._languages()
+
+    /**
+     * Returns the raw JSON value of [provider].
+     *
+     * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _provider(): JsonField<String> = body._provider()
+
+    /**
+     * Returns the raw JSON value of [structuredProvider].
+     *
+     * Unlike [structuredProvider], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _structuredProvider(): JsonField<StructuredProvider> = body._structuredProvider()
 
     /**
      * Returns the raw JSON value of [transcription].
      *
      * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
      */
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
     fun _transcription(): JsonField<Transcription> = body._transcription()
 
     /**
-     * Returns the raw JSON value of [transcriptionLanguage].
+     * Returns the raw JSON value of [transcriptionEngine].
      *
-     * Unlike [transcriptionLanguage], this method doesn't throw if the JSON field has an unexpected
+     * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _transcriptionLanguage(): JsonField<String> = body._transcriptionLanguage()
+    fun _transcriptionEngine(): JsonField<TranscriptionEngine> = body._transcriptionEngine()
 
     /**
-     * Returns the raw JSON value of [ttsLanguage].
+     * Returns the raw JSON value of [transcriptionEngineConfig].
      *
-     * Unlike [ttsLanguage], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [transcriptionEngineConfig], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
-    fun _ttsLanguage(): JsonField<String> = body._ttsLanguage()
+    fun _transcriptionEngineConfig(): JsonField<TranscriptionEngineConfig> =
+        body._transcriptionEngineConfig()
+
+    /**
+     * Returns the raw JSON value of [ttsProvider].
+     *
+     * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _ttsProvider(): JsonField<String> = body._ttsProvider()
+
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _url(): JsonField<String> = body._url()
 
     /**
      * Returns the raw JSON value of [voice].
@@ -442,11 +591,9 @@ private constructor(
             }
 
         /**
-         * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
-         * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
-         * shorthand for `interruption_settings.interruptible` and
-         * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for
-         * the full interruption settings shape.
+         * Conversation Relay connection settings. This object can provide `url`, `dtmf_detection`,
+         * `interruptible`, `interruptible_greeting`, and `languages`. Top-level aliases override
+         * nested values when both are present.
          */
         fun conversationRelaySettings(conversationRelaySettings: ConversationRelaySettings) =
             apply {
@@ -482,6 +629,43 @@ private constructor(
             body.conversationRelayUrl(conversationRelayUrl)
         }
 
+        /**
+         * Custom key-value parameters forwarded to the relay session as
+         * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present, these
+         * values are merged in.
+         */
+        fun customParameters(customParameters: CustomParameters) = apply {
+            body.customParameters(customParameters)
+        }
+
+        /**
+         * Sets [Builder.customParameters] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customParameters] with a well-typed [CustomParameters]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun customParameters(customParameters: JsonField<CustomParameters>) = apply {
+            body.customParameters(customParameters)
+        }
+
+        /**
+         * Public alias for `conversation_relay_dtmf_detection`. If both are present, this value
+         * wins.
+         */
+        fun dtmfDetection(dtmfDetection: Boolean) = apply { body.dtmfDetection(dtmfDetection) }
+
+        /**
+         * Sets [Builder.dtmfDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dtmfDetection] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun dtmfDetection(dtmfDetection: JsonField<Boolean>) = apply {
+            body.dtmfDetection(dtmfDetection)
+        }
+
         /** Text played when the relay session starts. */
         fun greeting(greeting: String) = apply { body.greeting(greeting) }
 
@@ -493,25 +677,66 @@ private constructor(
          */
         fun greeting(greeting: JsonField<String>) = apply { body.greeting(greeting) }
 
-        /** Settings for handling caller interruptions during Conversation Relay speech. */
-        fun interruptionSettings(interruptionSettings: InterruptionSettings) = apply {
-            body.interruptionSettings(interruptionSettings)
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        fun interruptible(interruptible: Interruptible) = apply {
+            body.interruptible(interruptible)
         }
+
+        /**
+         * Sets [Builder.interruptible] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interruptible] with a well-typed [Interruptible] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun interruptible(interruptible: JsonField<Interruptible>) = apply {
+            body.interruptible(interruptible)
+        }
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        fun interruptibleGreeting(interruptibleGreeting: InterruptibleGreeting) = apply {
+            body.interruptibleGreeting(interruptibleGreeting)
+        }
+
+        /**
+         * Sets [Builder.interruptibleGreeting] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interruptibleGreeting] with a well-typed
+         * [InterruptibleGreeting] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun interruptibleGreeting(interruptibleGreeting: JsonField<InterruptibleGreeting>) = apply {
+            body.interruptibleGreeting(interruptibleGreeting)
+        }
+
+        /** Settings for handling caller interruptions during Conversation Relay speech. */
+        fun interruptionSettings(interruptionSettings: ConversationRelayInterruptionSettings) =
+            apply {
+                body.interruptionSettings(interruptionSettings)
+            }
 
         /**
          * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.interruptionSettings] with a well-typed
-         * [InterruptionSettings] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
+         * [ConversationRelayInterruptionSettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun interruptionSettings(interruptionSettings: JsonField<InterruptionSettings>) = apply {
-            body.interruptionSettings(interruptionSettings)
-        }
+        fun interruptionSettings(
+            interruptionSettings: JsonField<ConversationRelayInterruptionSettings>
+        ) = apply { body.interruptionSettings(interruptionSettings) }
 
         /**
          * Default language for the relay session. This value is used for both text-to-speech and
-         * speech recognition unless `tts_language` or `transcription_language` are provided.
+         * speech recognition.
          */
         fun language(language: String) = apply { body.language(language) }
 
@@ -523,29 +748,66 @@ private constructor(
          */
         fun language(language: JsonField<String>) = apply { body.language(language) }
 
-        /**
-         * Language-specific TTS and transcription settings. Use this when the relay session needs
-         * per-language provider, voice, or speech model configuration.
-         */
-        fun languages(languages: List<Language>) = apply { body.languages(languages) }
+        /** Per-language TTS and transcription settings. */
+        fun languages(languages: List<ConversationRelayLanguage>) = apply {
+            body.languages(languages)
+        }
 
         /**
          * Sets [Builder.languages] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.languages] with a well-typed `List<Language>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.languages] with a well-typed
+         * `List<ConversationRelayLanguage>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun languages(languages: JsonField<List<Language>>) = apply { body.languages(languages) }
+        fun languages(languages: JsonField<List<ConversationRelayLanguage>>) = apply {
+            body.languages(languages)
+        }
 
         /**
-         * Adds a single [Language] to [languages].
+         * Adds a single [ConversationRelayLanguage] to [languages].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addLanguage(language: Language) = apply { body.addLanguage(language) }
+        fun addLanguage(language: ConversationRelayLanguage) = apply { body.addLanguage(language) }
 
-        /** Speech-to-text settings for Conversation Relay. */
+        /** Structured voice provider. Must be supplied together with `structured_provider`. */
+        fun provider(provider: String) = apply { body.provider(provider) }
+
+        /**
+         * Sets [Builder.provider] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.provider] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun provider(provider: JsonField<String>) = apply { body.provider(provider) }
+
+        /**
+         * Provider-specific structured voice settings. Must be supplied together with `provider`;
+         * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+         */
+        fun structuredProvider(structuredProvider: StructuredProvider) = apply {
+            body.structuredProvider(structuredProvider)
+        }
+
+        /**
+         * Sets [Builder.structuredProvider] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.structuredProvider] with a well-typed
+         * [StructuredProvider] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun structuredProvider(structuredProvider: JsonField<StructuredProvider>) = apply {
+            body.structuredProvider(structuredProvider)
+        }
+
+        /**
+         * Not supported for Conversation Relay start requests. Use `transcription_engine` and
+         * `transcription_engine_config` instead.
+         */
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(transcription: Transcription) = apply {
             body.transcription(transcription)
         }
@@ -557,40 +819,80 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(transcription: JsonField<Transcription>) = apply {
             body.transcription(transcription)
         }
 
         /**
-         * Language to use for speech recognition. Overrides `language` for transcription when
-         * provided.
+         * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+         * supported for backward compatibility. For Conversation Relay, use this field with
+         * `transcription_engine_config`; the `transcription` object is not supported.
          */
-        fun transcriptionLanguage(transcriptionLanguage: String) = apply {
-            body.transcriptionLanguage(transcriptionLanguage)
+        fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) = apply {
+            body.transcriptionEngine(transcriptionEngine)
         }
 
         /**
-         * Sets [Builder.transcriptionLanguage] to an arbitrary JSON value.
+         * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.transcriptionLanguage] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.transcriptionEngine] with a well-typed
+         * [TranscriptionEngine] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
-        fun transcriptionLanguage(transcriptionLanguage: JsonField<String>) = apply {
-            body.transcriptionLanguage(transcriptionLanguage)
+        fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) = apply {
+            body.transcriptionEngine(transcriptionEngine)
         }
 
-        /** Language to use for text-to-speech. Overrides `language` for TTS when provided. */
-        fun ttsLanguage(ttsLanguage: String) = apply { body.ttsLanguage(ttsLanguage) }
+        /**
+         * Engine-specific transcription settings for Conversation Relay. This accepts the same
+         * provider-specific options used by the Call Transcription Start command, such as
+         * `transcription_model`, without requiring the engine discriminator to be repeated inside
+         * this object.
+         */
+        fun transcriptionEngineConfig(transcriptionEngineConfig: TranscriptionEngineConfig) =
+            apply {
+                body.transcriptionEngineConfig(transcriptionEngineConfig)
+            }
 
         /**
-         * Sets [Builder.ttsLanguage] to an arbitrary JSON value.
+         * Sets [Builder.transcriptionEngineConfig] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ttsLanguage] with a well-typed [String] value instead.
+         * You should usually call [Builder.transcriptionEngineConfig] with a well-typed
+         * [TranscriptionEngineConfig] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun transcriptionEngineConfig(
+            transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>
+        ) = apply { body.transcriptionEngineConfig(transcriptionEngineConfig) }
+
+        /** Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`. */
+        fun ttsProvider(ttsProvider: String) = apply { body.ttsProvider(ttsProvider) }
+
+        /**
+         * Sets [Builder.ttsProvider] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ttsProvider] with a well-typed [String] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun ttsLanguage(ttsLanguage: JsonField<String>) = apply { body.ttsLanguage(ttsLanguage) }
+        fun ttsProvider(ttsProvider: JsonField<String>) = apply { body.ttsProvider(ttsProvider) }
+
+        /**
+         * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`. If both
+         * are present, this value wins.
+         */
+        fun url(url: String) = apply { body.url(url) }
+
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun url(url: JsonField<String>) = apply { body.url(url) }
 
         /**
          * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and
@@ -656,6 +958,9 @@ private constructor(
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
 
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+        fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
+
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
         fun voiceSettings(azure: AzureVoiceSettings) = apply { body.voiceSettings(azure) }
 
@@ -665,8 +970,11 @@ private constructor(
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
         fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
 
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
+        fun voiceSettings(inworld: InworldVoiceSettings) = apply { body.voiceSettings(inworld) }
+
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-        fun voiceSettings(xai: VoiceSettings.Xai) = apply { body.voiceSettings(xai) }
+        fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -812,9 +1120,10 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /**
-     * Start a Conversation Relay session. Provide either `conversation_relay_url` or
-     * `conversation_relay_settings.url`; when both nested and top-level equivalents are provided,
-     * top-level values take precedence as described on `conversation_relay_settings`.
+     * Start a Conversation Relay session. You may provide the WebSocket URL as `url`,
+     * `conversation_relay_url`, or `conversation_relay_settings.url`; top-level values take
+     * precedence over nested settings. Use `transcription_engine` and `transcription_engine_config`
+     * for speech-to-text configuration; the `transcription` object is not supported.
      */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -825,13 +1134,21 @@ private constructor(
         private val conversationRelayDtmfDetection: JsonField<Boolean>,
         private val conversationRelaySettings: JsonField<ConversationRelaySettings>,
         private val conversationRelayUrl: JsonField<String>,
+        private val customParameters: JsonField<CustomParameters>,
+        private val dtmfDetection: JsonField<Boolean>,
         private val greeting: JsonField<String>,
-        private val interruptionSettings: JsonField<InterruptionSettings>,
+        private val interruptible: JsonField<Interruptible>,
+        private val interruptibleGreeting: JsonField<InterruptibleGreeting>,
+        private val interruptionSettings: JsonField<ConversationRelayInterruptionSettings>,
         private val language: JsonField<String>,
-        private val languages: JsonField<List<Language>>,
+        private val languages: JsonField<List<ConversationRelayLanguage>>,
+        private val provider: JsonField<String>,
+        private val structuredProvider: JsonField<StructuredProvider>,
         private val transcription: JsonField<Transcription>,
-        private val transcriptionLanguage: JsonField<String>,
-        private val ttsLanguage: JsonField<String>,
+        private val transcriptionEngine: JsonField<TranscriptionEngine>,
+        private val transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>,
+        private val ttsProvider: JsonField<String>,
+        private val url: JsonField<String>,
         private val voice: JsonField<String>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -857,27 +1174,50 @@ private constructor(
             @JsonProperty("conversation_relay_url")
             @ExcludeMissing
             conversationRelayUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("custom_parameters")
+            @ExcludeMissing
+            customParameters: JsonField<CustomParameters> = JsonMissing.of(),
+            @JsonProperty("dtmf_detection")
+            @ExcludeMissing
+            dtmfDetection: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("interruptible")
+            @ExcludeMissing
+            interruptible: JsonField<Interruptible> = JsonMissing.of(),
+            @JsonProperty("interruptible_greeting")
+            @ExcludeMissing
+            interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of(),
             @JsonProperty("interruption_settings")
             @ExcludeMissing
-            interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of(),
+            interruptionSettings: JsonField<ConversationRelayInterruptionSettings> =
+                JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
             @JsonProperty("languages")
             @ExcludeMissing
-            languages: JsonField<List<Language>> = JsonMissing.of(),
+            languages: JsonField<List<ConversationRelayLanguage>> = JsonMissing.of(),
+            @JsonProperty("provider")
+            @ExcludeMissing
+            provider: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("structured_provider")
+            @ExcludeMissing
+            structuredProvider: JsonField<StructuredProvider> = JsonMissing.of(),
             @JsonProperty("transcription")
             @ExcludeMissing
             transcription: JsonField<Transcription> = JsonMissing.of(),
-            @JsonProperty("transcription_language")
+            @JsonProperty("transcription_engine")
             @ExcludeMissing
-            transcriptionLanguage: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("tts_language")
+            transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
+            @JsonProperty("transcription_engine_config")
             @ExcludeMissing
-            ttsLanguage: JsonField<String> = JsonMissing.of(),
+            transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> = JsonMissing.of(),
+            @JsonProperty("tts_provider")
+            @ExcludeMissing
+            ttsProvider: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
@@ -889,13 +1229,21 @@ private constructor(
             conversationRelayDtmfDetection,
             conversationRelaySettings,
             conversationRelayUrl,
+            customParameters,
+            dtmfDetection,
             greeting,
+            interruptible,
+            interruptibleGreeting,
             interruptionSettings,
             language,
             languages,
+            provider,
+            structuredProvider,
             transcription,
-            transcriptionLanguage,
-            ttsLanguage,
+            transcriptionEngine,
+            transcriptionEngineConfig,
+            ttsProvider,
+            url,
             voice,
             voiceSettings,
             mutableMapOf(),
@@ -938,11 +1286,9 @@ private constructor(
             conversationRelayDtmfDetection.getOptional("conversation_relay_dtmf_detection")
 
         /**
-         * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
-         * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
-         * shorthand for `interruption_settings.interruptible` and
-         * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for
-         * the full interruption settings shape.
+         * Conversation Relay connection settings. This object can provide `url`, `dtmf_detection`,
+         * `interruptible`, `interruptible_greeting`, and `languages`. Top-level aliases override
+         * nested values when both are present.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -960,6 +1306,26 @@ private constructor(
             conversationRelayUrl.getOptional("conversation_relay_url")
 
         /**
+         * Custom key-value parameters forwarded to the relay session as
+         * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present, these
+         * values are merged in.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customParameters(): Optional<CustomParameters> =
+            customParameters.getOptional("custom_parameters")
+
+        /**
+         * Public alias for `conversation_relay_dtmf_detection`. If both are present, this value
+         * wins.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dtmfDetection(): Optional<Boolean> = dtmfDetection.getOptional("dtmf_detection")
+
+        /**
          * Text played when the relay session starts.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -968,17 +1334,38 @@ private constructor(
         fun greeting(): Optional<String> = greeting.getOptional("greeting")
 
         /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptible(): Optional<Interruptible> = interruptible.getOptional("interruptible")
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptibleGreeting(): Optional<InterruptibleGreeting> =
+            interruptibleGreeting.getOptional("interruptible_greeting")
+
+        /**
          * Settings for handling caller interruptions during Conversation Relay speech.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun interruptionSettings(): Optional<InterruptionSettings> =
+        fun interruptionSettings(): Optional<ConversationRelayInterruptionSettings> =
             interruptionSettings.getOptional("interruption_settings")
 
         /**
          * Default language for the relay session. This value is used for both text-to-speech and
-         * speech recognition unless `tts_language` or `transcription_language` are provided.
+         * speech recognition.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -986,39 +1373,83 @@ private constructor(
         fun language(): Optional<String> = language.getOptional("language")
 
         /**
-         * Language-specific TTS and transcription settings. Use this when the relay session needs
-         * per-language provider, voice, or speech model configuration.
+         * Per-language TTS and transcription settings.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun languages(): Optional<List<Language>> = languages.getOptional("languages")
+        fun languages(): Optional<List<ConversationRelayLanguage>> =
+            languages.getOptional("languages")
 
         /**
-         * Speech-to-text settings for Conversation Relay.
+         * Structured voice provider. Must be supplied together with `structured_provider`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
+        fun provider(): Optional<String> = provider.getOptional("provider")
+
+        /**
+         * Provider-specific structured voice settings. Must be supplied together with `provider`;
+         * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun structuredProvider(): Optional<StructuredProvider> =
+            structuredProvider.getOptional("structured_provider")
+
+        /**
+         * Not supported for Conversation Relay start requests. Use `transcription_engine` and
+         * `transcription_engine_config` instead.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         fun transcription(): Optional<Transcription> = transcription.getOptional("transcription")
 
         /**
-         * Language to use for speech recognition. Overrides `language` for transcription when
-         * provided.
+         * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+         * supported for backward compatibility. For Conversation Relay, use this field with
+         * `transcription_engine_config`; the `transcription` object is not supported.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun transcriptionLanguage(): Optional<String> =
-            transcriptionLanguage.getOptional("transcription_language")
+        fun transcriptionEngine(): Optional<TranscriptionEngine> =
+            transcriptionEngine.getOptional("transcription_engine")
 
         /**
-         * Language to use for text-to-speech. Overrides `language` for TTS when provided.
+         * Engine-specific transcription settings for Conversation Relay. This accepts the same
+         * provider-specific options used by the Call Transcription Start command, such as
+         * `transcription_model`, without requiring the engine discriminator to be repeated inside
+         * this object.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun ttsLanguage(): Optional<String> = ttsLanguage.getOptional("tts_language")
+        fun transcriptionEngineConfig(): Optional<TranscriptionEngineConfig> =
+            transcriptionEngineConfig.getOptional("transcription_engine_config")
+
+        /**
+         * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun ttsProvider(): Optional<String> = ttsProvider.getOptional("tts_provider")
+
+        /**
+         * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`. If both
+         * are present, this value wins.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun url(): Optional<String> = url.getOptional("url")
 
         /**
          * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and
@@ -1117,11 +1548,51 @@ private constructor(
         fun _conversationRelayUrl(): JsonField<String> = conversationRelayUrl
 
         /**
+         * Returns the raw JSON value of [customParameters].
+         *
+         * Unlike [customParameters], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_parameters")
+        @ExcludeMissing
+        fun _customParameters(): JsonField<CustomParameters> = customParameters
+
+        /**
+         * Returns the raw JSON value of [dtmfDetection].
+         *
+         * Unlike [dtmfDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dtmf_detection")
+        @ExcludeMissing
+        fun _dtmfDetection(): JsonField<Boolean> = dtmfDetection
+
+        /**
          * Returns the raw JSON value of [greeting].
          *
          * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("greeting") @ExcludeMissing fun _greeting(): JsonField<String> = greeting
+
+        /**
+         * Returns the raw JSON value of [interruptible].
+         *
+         * Unlike [interruptible], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("interruptible")
+        @ExcludeMissing
+        fun _interruptible(): JsonField<Interruptible> = interruptible
+
+        /**
+         * Returns the raw JSON value of [interruptibleGreeting].
+         *
+         * Unlike [interruptibleGreeting], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruptible_greeting")
+        @ExcludeMissing
+        fun _interruptibleGreeting(): JsonField<InterruptibleGreeting> = interruptibleGreeting
 
         /**
          * Returns the raw JSON value of [interruptionSettings].
@@ -1131,7 +1602,8 @@ private constructor(
          */
         @JsonProperty("interruption_settings")
         @ExcludeMissing
-        fun _interruptionSettings(): JsonField<InterruptionSettings> = interruptionSettings
+        fun _interruptionSettings(): JsonField<ConversationRelayInterruptionSettings> =
+            interruptionSettings
 
         /**
          * Returns the raw JSON value of [language].
@@ -1147,7 +1619,24 @@ private constructor(
          */
         @JsonProperty("languages")
         @ExcludeMissing
-        fun _languages(): JsonField<List<Language>> = languages
+        fun _languages(): JsonField<List<ConversationRelayLanguage>> = languages
+
+        /**
+         * Returns the raw JSON value of [provider].
+         *
+         * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<String> = provider
+
+        /**
+         * Returns the raw JSON value of [structuredProvider].
+         *
+         * Unlike [structuredProvider], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("structured_provider")
+        @ExcludeMissing
+        fun _structuredProvider(): JsonField<StructuredProvider> = structuredProvider
 
         /**
          * Returns the raw JSON value of [transcription].
@@ -1155,28 +1644,49 @@ private constructor(
          * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
+        @Deprecated(
+            "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+        )
         @JsonProperty("transcription")
         @ExcludeMissing
         fun _transcription(): JsonField<Transcription> = transcription
 
         /**
-         * Returns the raw JSON value of [transcriptionLanguage].
+         * Returns the raw JSON value of [transcriptionEngine].
          *
-         * Unlike [transcriptionLanguage], this method doesn't throw if the JSON field has an
+         * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an
          * unexpected type.
          */
-        @JsonProperty("transcription_language")
+        @JsonProperty("transcription_engine")
         @ExcludeMissing
-        fun _transcriptionLanguage(): JsonField<String> = transcriptionLanguage
+        fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
 
         /**
-         * Returns the raw JSON value of [ttsLanguage].
+         * Returns the raw JSON value of [transcriptionEngineConfig].
          *
-         * Unlike [ttsLanguage], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [transcriptionEngineConfig], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
-        @JsonProperty("tts_language")
+        @JsonProperty("transcription_engine_config")
         @ExcludeMissing
-        fun _ttsLanguage(): JsonField<String> = ttsLanguage
+        fun _transcriptionEngineConfig(): JsonField<TranscriptionEngineConfig> =
+            transcriptionEngineConfig
+
+        /**
+         * Returns the raw JSON value of [ttsProvider].
+         *
+         * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tts_provider")
+        @ExcludeMissing
+        fun _ttsProvider(): JsonField<String> = ttsProvider
+
+        /**
+         * Returns the raw JSON value of [url].
+         *
+         * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
         /**
          * Returns the raw JSON value of [voice].
@@ -1223,13 +1733,23 @@ private constructor(
             private var conversationRelaySettings: JsonField<ConversationRelaySettings> =
                 JsonMissing.of()
             private var conversationRelayUrl: JsonField<String> = JsonMissing.of()
+            private var customParameters: JsonField<CustomParameters> = JsonMissing.of()
+            private var dtmfDetection: JsonField<Boolean> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
-            private var interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of()
+            private var interruptible: JsonField<Interruptible> = JsonMissing.of()
+            private var interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of()
+            private var interruptionSettings: JsonField<ConversationRelayInterruptionSettings> =
+                JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
-            private var languages: JsonField<MutableList<Language>>? = null
+            private var languages: JsonField<MutableList<ConversationRelayLanguage>>? = null
+            private var provider: JsonField<String> = JsonMissing.of()
+            private var structuredProvider: JsonField<StructuredProvider> = JsonMissing.of()
             private var transcription: JsonField<Transcription> = JsonMissing.of()
-            private var transcriptionLanguage: JsonField<String> = JsonMissing.of()
-            private var ttsLanguage: JsonField<String> = JsonMissing.of()
+            private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
+            private var transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> =
+                JsonMissing.of()
+            private var ttsProvider: JsonField<String> = JsonMissing.of()
+            private var url: JsonField<String> = JsonMissing.of()
             private var voice: JsonField<String> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1242,13 +1762,21 @@ private constructor(
                 conversationRelayDtmfDetection = body.conversationRelayDtmfDetection
                 conversationRelaySettings = body.conversationRelaySettings
                 conversationRelayUrl = body.conversationRelayUrl
+                customParameters = body.customParameters
+                dtmfDetection = body.dtmfDetection
                 greeting = body.greeting
+                interruptible = body.interruptible
+                interruptibleGreeting = body.interruptibleGreeting
                 interruptionSettings = body.interruptionSettings
                 language = body.language
                 languages = body.languages.map { it.toMutableList() }
+                provider = body.provider
+                structuredProvider = body.structuredProvider
                 transcription = body.transcription
-                transcriptionLanguage = body.transcriptionLanguage
-                ttsLanguage = body.ttsLanguage
+                transcriptionEngine = body.transcriptionEngine
+                transcriptionEngineConfig = body.transcriptionEngineConfig
+                ttsProvider = body.ttsProvider
+                url = body.url
                 voice = body.voice
                 voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -1318,11 +1846,9 @@ private constructor(
                 }
 
             /**
-             * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
-             * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields
-             * are shorthand for `interruption_settings.interruptible` and
-             * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings`
-             * for the full interruption settings shape.
+             * Conversation Relay connection settings. This object can provide `url`,
+             * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
+             * Top-level aliases override nested values when both are present.
              */
             fun conversationRelaySettings(conversationRelaySettings: ConversationRelaySettings) =
                 conversationRelaySettings(JsonField.of(conversationRelaySettings))
@@ -1356,6 +1882,42 @@ private constructor(
                 this.conversationRelayUrl = conversationRelayUrl
             }
 
+            /**
+             * Custom key-value parameters forwarded to the relay session as
+             * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present,
+             * these values are merged in.
+             */
+            fun customParameters(customParameters: CustomParameters) =
+                customParameters(JsonField.of(customParameters))
+
+            /**
+             * Sets [Builder.customParameters] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customParameters] with a well-typed
+             * [CustomParameters] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun customParameters(customParameters: JsonField<CustomParameters>) = apply {
+                this.customParameters = customParameters
+            }
+
+            /**
+             * Public alias for `conversation_relay_dtmf_detection`. If both are present, this value
+             * wins.
+             */
+            fun dtmfDetection(dtmfDetection: Boolean) = dtmfDetection(JsonField.of(dtmfDetection))
+
+            /**
+             * Sets [Builder.dtmfDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dtmfDetection] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dtmfDetection(dtmfDetection: JsonField<Boolean>) = apply {
+                this.dtmfDetection = dtmfDetection
+            }
+
             /** Text played when the relay session starts. */
             fun greeting(greeting: String) = greeting(JsonField.of(greeting))
 
@@ -1368,26 +1930,63 @@ private constructor(
              */
             fun greeting(greeting: JsonField<String>) = apply { this.greeting = greeting }
 
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptible(interruptible: Interruptible) =
+                interruptible(JsonField.of(interruptible))
+
+            /**
+             * Sets [Builder.interruptible] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptible] with a well-typed [Interruptible]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun interruptible(interruptible: JsonField<Interruptible>) = apply {
+                this.interruptible = interruptible
+            }
+
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: InterruptibleGreeting) =
+                interruptibleGreeting(JsonField.of(interruptibleGreeting))
+
+            /**
+             * Sets [Builder.interruptibleGreeting] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptibleGreeting] with a well-typed
+             * [InterruptibleGreeting] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: JsonField<InterruptibleGreeting>) =
+                apply {
+                    this.interruptibleGreeting = interruptibleGreeting
+                }
+
             /** Settings for handling caller interruptions during Conversation Relay speech. */
-            fun interruptionSettings(interruptionSettings: InterruptionSettings) =
+            fun interruptionSettings(interruptionSettings: ConversationRelayInterruptionSettings) =
                 interruptionSettings(JsonField.of(interruptionSettings))
 
             /**
              * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.interruptionSettings] with a well-typed
-             * [InterruptionSettings] value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
+             * [ConversationRelayInterruptionSettings] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
              */
-            fun interruptionSettings(interruptionSettings: JsonField<InterruptionSettings>) =
-                apply {
-                    this.interruptionSettings = interruptionSettings
-                }
+            fun interruptionSettings(
+                interruptionSettings: JsonField<ConversationRelayInterruptionSettings>
+            ) = apply { this.interruptionSettings = interruptionSettings }
 
             /**
              * Default language for the relay session. This value is used for both text-to-speech
-             * and speech recognition unless `tts_language` or `transcription_language` are
-             * provided.
+             * and speech recognition.
              */
             fun language(language: String) = language(JsonField.of(language))
 
@@ -1400,36 +1999,71 @@ private constructor(
              */
             fun language(language: JsonField<String>) = apply { this.language = language }
 
-            /**
-             * Language-specific TTS and transcription settings. Use this when the relay session
-             * needs per-language provider, voice, or speech model configuration.
-             */
-            fun languages(languages: List<Language>) = languages(JsonField.of(languages))
+            /** Per-language TTS and transcription settings. */
+            fun languages(languages: List<ConversationRelayLanguage>) =
+                languages(JsonField.of(languages))
 
             /**
              * Sets [Builder.languages] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.languages] with a well-typed `List<Language>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.languages] with a well-typed
+             * `List<ConversationRelayLanguage>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun languages(languages: JsonField<List<Language>>) = apply {
+            fun languages(languages: JsonField<List<ConversationRelayLanguage>>) = apply {
                 this.languages = languages.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [Language] to [languages].
+             * Adds a single [ConversationRelayLanguage] to [languages].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addLanguage(language: Language) = apply {
+            fun addLanguage(language: ConversationRelayLanguage) = apply {
                 languages =
                     (languages ?: JsonField.of(mutableListOf())).also {
                         checkKnown("languages", it).add(language)
                     }
             }
 
-            /** Speech-to-text settings for Conversation Relay. */
+            /** Structured voice provider. Must be supplied together with `structured_provider`. */
+            fun provider(provider: String) = provider(JsonField.of(provider))
+
+            /**
+             * Sets [Builder.provider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.provider] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provider(provider: JsonField<String>) = apply { this.provider = provider }
+
+            /**
+             * Provider-specific structured voice settings. Must be supplied together with
+             * `provider`; Telnyx sends the value as the nested provider configuration for
+             * Conversation Relay.
+             */
+            fun structuredProvider(structuredProvider: StructuredProvider) =
+                structuredProvider(JsonField.of(structuredProvider))
+
+            /**
+             * Sets [Builder.structuredProvider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.structuredProvider] with a well-typed
+             * [StructuredProvider] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun structuredProvider(structuredProvider: JsonField<StructuredProvider>) = apply {
+                this.structuredProvider = structuredProvider
+            }
+
+            /**
+             * Not supported for Conversation Relay start requests. Use `transcription_engine` and
+             * `transcription_engine_config` instead.
+             */
+            @Deprecated(
+                "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+            )
             fun transcription(transcription: Transcription) =
                 transcription(JsonField.of(transcription))
 
@@ -1440,41 +2074,82 @@ private constructor(
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
+            @Deprecated(
+                "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+            )
             fun transcription(transcription: JsonField<Transcription>) = apply {
                 this.transcription = transcription
             }
 
             /**
-             * Language to use for speech recognition. Overrides `language` for transcription when
-             * provided.
+             * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx`
+             * are supported for backward compatibility. For Conversation Relay, use this field with
+             * `transcription_engine_config`; the `transcription` object is not supported.
              */
-            fun transcriptionLanguage(transcriptionLanguage: String) =
-                transcriptionLanguage(JsonField.of(transcriptionLanguage))
+            fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
+                transcriptionEngine(JsonField.of(transcriptionEngine))
 
             /**
-             * Sets [Builder.transcriptionLanguage] to an arbitrary JSON value.
+             * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transcriptionLanguage] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.transcriptionEngine] with a well-typed
+             * [TranscriptionEngine] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
-            fun transcriptionLanguage(transcriptionLanguage: JsonField<String>) = apply {
-                this.transcriptionLanguage = transcriptionLanguage
+            fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) = apply {
+                this.transcriptionEngine = transcriptionEngine
             }
 
-            /** Language to use for text-to-speech. Overrides `language` for TTS when provided. */
-            fun ttsLanguage(ttsLanguage: String) = ttsLanguage(JsonField.of(ttsLanguage))
+            /**
+             * Engine-specific transcription settings for Conversation Relay. This accepts the same
+             * provider-specific options used by the Call Transcription Start command, such as
+             * `transcription_model`, without requiring the engine discriminator to be repeated
+             * inside this object.
+             */
+            fun transcriptionEngineConfig(transcriptionEngineConfig: TranscriptionEngineConfig) =
+                transcriptionEngineConfig(JsonField.of(transcriptionEngineConfig))
 
             /**
-             * Sets [Builder.ttsLanguage] to an arbitrary JSON value.
+             * Sets [Builder.transcriptionEngineConfig] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.ttsLanguage] with a well-typed [String] value
+             * You should usually call [Builder.transcriptionEngineConfig] with a well-typed
+             * [TranscriptionEngineConfig] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun transcriptionEngineConfig(
+                transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>
+            ) = apply { this.transcriptionEngineConfig = transcriptionEngineConfig }
+
+            /**
+             * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`.
+             */
+            fun ttsProvider(ttsProvider: String) = ttsProvider(JsonField.of(ttsProvider))
+
+            /**
+             * Sets [Builder.ttsProvider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ttsProvider] with a well-typed [String] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun ttsLanguage(ttsLanguage: JsonField<String>) = apply {
-                this.ttsLanguage = ttsLanguage
+            fun ttsProvider(ttsProvider: JsonField<String>) = apply {
+                this.ttsProvider = ttsProvider
             }
+
+            /**
+             * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`. If
+             * both are present, this value wins.
+             */
+            fun url(url: String) = url(JsonField.of(url))
+
+            /**
+             * Sets [Builder.url] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.url] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun url(url: JsonField<String>) = apply { this.url = url }
 
             /**
              * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx
@@ -1540,6 +2215,10 @@ private constructor(
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
 
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
+
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
             fun voiceSettings(azure: AzureVoiceSettings) =
                 voiceSettings(VoiceSettings.ofAzure(azure))
@@ -1551,8 +2230,12 @@ private constructor(
             fun voiceSettings(resemble: ResembleVoiceSettings) =
                 voiceSettings(VoiceSettings.ofResemble(resemble))
 
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
+            fun voiceSettings(inworld: InworldVoiceSettings) =
+                voiceSettings(VoiceSettings.ofInworld(inworld))
+
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-            fun voiceSettings(xai: VoiceSettings.Xai) = voiceSettings(VoiceSettings.ofXai(xai))
+            fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1586,13 +2269,21 @@ private constructor(
                     conversationRelayDtmfDetection,
                     conversationRelaySettings,
                     conversationRelayUrl,
+                    customParameters,
+                    dtmfDetection,
                     greeting,
+                    interruptible,
+                    interruptibleGreeting,
                     interruptionSettings,
                     language,
                     (languages ?: JsonMissing.of()).map { it.toImmutable() },
+                    provider,
+                    structuredProvider,
                     transcription,
-                    transcriptionLanguage,
-                    ttsLanguage,
+                    transcriptionEngine,
+                    transcriptionEngineConfig,
+                    ttsProvider,
+                    url,
                     voice,
                     voiceSettings,
                     additionalProperties.toMutableMap(),
@@ -1621,13 +2312,21 @@ private constructor(
             conversationRelayDtmfDetection()
             conversationRelaySettings().ifPresent { it.validate() }
             conversationRelayUrl()
+            customParameters().ifPresent { it.validate() }
+            dtmfDetection()
             greeting()
+            interruptible().ifPresent { it.validate() }
+            interruptibleGreeting().ifPresent { it.validate() }
             interruptionSettings().ifPresent { it.validate() }
             language()
             languages().ifPresent { it.forEach { it.validate() } }
+            provider()
+            structuredProvider().ifPresent { it.validate() }
             transcription().ifPresent { it.validate() }
-            transcriptionLanguage()
-            ttsLanguage()
+            transcriptionEngine().ifPresent { it.validate() }
+            transcriptionEngineConfig().ifPresent { it.validate() }
+            ttsProvider()
+            url()
             voice()
             voiceSettings().ifPresent { it.validate() }
             validated = true
@@ -1655,13 +2354,21 @@ private constructor(
                 (if (conversationRelayDtmfDetection.asKnown().isPresent) 1 else 0) +
                 (conversationRelaySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (conversationRelayUrl.asKnown().isPresent) 1 else 0) +
+                (customParameters.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (dtmfDetection.asKnown().isPresent) 1 else 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
+                (interruptible.asKnown().getOrNull()?.validity() ?: 0) +
+                (interruptibleGreeting.asKnown().getOrNull()?.validity() ?: 0) +
                 (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (languages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (provider.asKnown().isPresent) 1 else 0) +
+                (structuredProvider.asKnown().getOrNull()?.validity() ?: 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (transcriptionLanguage.asKnown().isPresent) 1 else 0) +
-                (if (ttsLanguage.asKnown().isPresent) 1 else 0) +
+                (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                (transcriptionEngineConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (ttsProvider.asKnown().isPresent) 1 else 0) +
+                (if (url.asKnown().isPresent) 1 else 0) +
                 (if (voice.asKnown().isPresent) 1 else 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1677,13 +2384,21 @@ private constructor(
                 conversationRelayDtmfDetection == other.conversationRelayDtmfDetection &&
                 conversationRelaySettings == other.conversationRelaySettings &&
                 conversationRelayUrl == other.conversationRelayUrl &&
+                customParameters == other.customParameters &&
+                dtmfDetection == other.dtmfDetection &&
                 greeting == other.greeting &&
+                interruptible == other.interruptible &&
+                interruptibleGreeting == other.interruptibleGreeting &&
                 interruptionSettings == other.interruptionSettings &&
                 language == other.language &&
                 languages == other.languages &&
+                provider == other.provider &&
+                structuredProvider == other.structuredProvider &&
                 transcription == other.transcription &&
-                transcriptionLanguage == other.transcriptionLanguage &&
-                ttsLanguage == other.ttsLanguage &&
+                transcriptionEngine == other.transcriptionEngine &&
+                transcriptionEngineConfig == other.transcriptionEngineConfig &&
+                ttsProvider == other.ttsProvider &&
+                url == other.url &&
                 voice == other.voice &&
                 voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
@@ -1697,13 +2412,21 @@ private constructor(
                 conversationRelayDtmfDetection,
                 conversationRelaySettings,
                 conversationRelayUrl,
+                customParameters,
+                dtmfDetection,
                 greeting,
+                interruptible,
+                interruptibleGreeting,
                 interruptionSettings,
                 language,
                 languages,
+                provider,
+                structuredProvider,
                 transcription,
-                transcriptionLanguage,
-                ttsLanguage,
+                transcriptionEngine,
+                transcriptionEngineConfig,
+                ttsProvider,
+                url,
                 voice,
                 voiceSettings,
                 additionalProperties,
@@ -1713,7 +2436,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, conversationRelayDtmfDetection=$conversationRelayDtmfDetection, conversationRelaySettings=$conversationRelaySettings, conversationRelayUrl=$conversationRelayUrl, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, languages=$languages, transcription=$transcription, transcriptionLanguage=$transcriptionLanguage, ttsLanguage=$ttsLanguage, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, conversationRelayDtmfDetection=$conversationRelayDtmfDetection, conversationRelaySettings=$conversationRelaySettings, conversationRelayUrl=$conversationRelayUrl, customParameters=$customParameters, dtmfDetection=$dtmfDetection, greeting=$greeting, interruptible=$interruptible, interruptibleGreeting=$interruptibleGreeting, interruptionSettings=$interruptionSettings, language=$language, languages=$languages, provider=$provider, structuredProvider=$structuredProvider, transcription=$transcription, transcriptionEngine=$transcriptionEngine, transcriptionEngineConfig=$transcriptionEngineConfig, ttsProvider=$ttsProvider, url=$url, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1996,11 +2719,9 @@ private constructor(
     }
 
     /**
-     * Conversation Relay connection settings. This object is used by TeXML Call Scripting's
-     * `<ConversationRelay>` verb. The `interruptible` and `interruptible_greeting` fields are
-     * shorthand for `interruption_settings.interruptible` and
-     * `interruption_settings.interruptible_greeting`; use top-level `interruption_settings` for the
-     * full interruption settings shape.
+     * Conversation Relay connection settings. This object can provide `url`, `dtmf_detection`,
+     * `interruptible`, `interruptible_greeting`, and `languages`. Top-level aliases override nested
+     * values when both are present.
      */
     class ConversationRelaySettings
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2009,7 +2730,7 @@ private constructor(
         private val dtmfDetection: JsonField<Boolean>,
         private val interruptible: JsonField<Interruptible>,
         private val interruptibleGreeting: JsonField<InterruptibleGreeting>,
-        private val languages: JsonField<List<Language>>,
+        private val languages: JsonField<List<ConversationRelayLanguage>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2027,7 +2748,7 @@ private constructor(
             interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of(),
             @JsonProperty("languages")
             @ExcludeMissing
-            languages: JsonField<List<Language>> = JsonMissing.of(),
+            languages: JsonField<List<ConversationRelayLanguage>> = JsonMissing.of(),
         ) : this(
             url,
             dtmfDetection,
@@ -2080,7 +2801,8 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun languages(): Optional<List<Language>> = languages.getOptional("languages")
+        fun languages(): Optional<List<ConversationRelayLanguage>> =
+            languages.getOptional("languages")
 
         /**
          * Returns the raw JSON value of [url].
@@ -2126,7 +2848,7 @@ private constructor(
          */
         @JsonProperty("languages")
         @ExcludeMissing
-        fun _languages(): JsonField<List<Language>> = languages
+        fun _languages(): JsonField<List<ConversationRelayLanguage>> = languages
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2161,7 +2883,7 @@ private constructor(
             private var dtmfDetection: JsonField<Boolean> = JsonMissing.of()
             private var interruptible: JsonField<Interruptible> = JsonMissing.of()
             private var interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of()
-            private var languages: JsonField<MutableList<Language>>? = null
+            private var languages: JsonField<MutableList<ConversationRelayLanguage>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2243,25 +2965,26 @@ private constructor(
                 }
 
             /** Language-specific TTS and transcription settings. */
-            fun languages(languages: List<Language>) = languages(JsonField.of(languages))
+            fun languages(languages: List<ConversationRelayLanguage>) =
+                languages(JsonField.of(languages))
 
             /**
              * Sets [Builder.languages] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.languages] with a well-typed `List<Language>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.languages] with a well-typed
+             * `List<ConversationRelayLanguage>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun languages(languages: JsonField<List<Language>>) = apply {
+            fun languages(languages: JsonField<List<ConversationRelayLanguage>>) = apply {
                 this.languages = languages.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [Language] to [languages].
+             * Adds a single [ConversationRelayLanguage] to [languages].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addLanguage(language: Language) = apply {
+            fun addLanguage(language: ConversationRelayLanguage) = apply {
                 languages =
                     (languages ?: JsonField.of(mutableListOf())).also {
                         checkKnown("languages", it).add(language)
@@ -2676,339 +3399,6 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        /** Language-specific speech and transcription settings for Conversation Relay. */
-        class Language
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val code: JsonField<String>,
-            private val speechModel: JsonField<String>,
-            private val transcriptionProvider: JsonField<String>,
-            private val ttsProvider: JsonField<String>,
-            private val voice: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("speech_model")
-                @ExcludeMissing
-                speechModel: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transcription_provider")
-                @ExcludeMissing
-                transcriptionProvider: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("tts_provider")
-                @ExcludeMissing
-                ttsProvider: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
-            ) : this(code, speechModel, transcriptionProvider, ttsProvider, voice, mutableMapOf())
-
-            /**
-             * BCP 47 language code.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun code(): Optional<String> = code.getOptional("code")
-
-            /**
-             * Speech recognition model for this language.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun speechModel(): Optional<String> = speechModel.getOptional("speech_model")
-
-            /**
-             * Speech-to-text provider for this language.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun transcriptionProvider(): Optional<String> =
-                transcriptionProvider.getOptional("transcription_provider")
-
-            /**
-             * Text-to-speech provider for this language.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun ttsProvider(): Optional<String> = ttsProvider.getOptional("tts_provider")
-
-            /**
-             * Voice identifier for this language.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<String> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [code].
-             *
-             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-            /**
-             * Returns the raw JSON value of [speechModel].
-             *
-             * Unlike [speechModel], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("speech_model")
-            @ExcludeMissing
-            fun _speechModel(): JsonField<String> = speechModel
-
-            /**
-             * Returns the raw JSON value of [transcriptionProvider].
-             *
-             * Unlike [transcriptionProvider], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("transcription_provider")
-            @ExcludeMissing
-            fun _transcriptionProvider(): JsonField<String> = transcriptionProvider
-
-            /**
-             * Returns the raw JSON value of [ttsProvider].
-             *
-             * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("tts_provider")
-            @ExcludeMissing
-            fun _ttsProvider(): JsonField<String> = ttsProvider
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Language]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Language]. */
-            class Builder internal constructor() {
-
-                private var code: JsonField<String> = JsonMissing.of()
-                private var speechModel: JsonField<String> = JsonMissing.of()
-                private var transcriptionProvider: JsonField<String> = JsonMissing.of()
-                private var ttsProvider: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(language: Language) = apply {
-                    code = language.code
-                    speechModel = language.speechModel
-                    transcriptionProvider = language.transcriptionProvider
-                    ttsProvider = language.ttsProvider
-                    voice = language.voice
-                    additionalProperties = language.additionalProperties.toMutableMap()
-                }
-
-                /** BCP 47 language code. */
-                fun code(code: String) = code(JsonField.of(code))
-
-                /**
-                 * Sets [Builder.code] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.code] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun code(code: JsonField<String>) = apply { this.code = code }
-
-                /** Speech recognition model for this language. */
-                fun speechModel(speechModel: String) = speechModel(JsonField.of(speechModel))
-
-                /**
-                 * Sets [Builder.speechModel] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.speechModel] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun speechModel(speechModel: JsonField<String>) = apply {
-                    this.speechModel = speechModel
-                }
-
-                /** Speech-to-text provider for this language. */
-                fun transcriptionProvider(transcriptionProvider: String) =
-                    transcriptionProvider(JsonField.of(transcriptionProvider))
-
-                /**
-                 * Sets [Builder.transcriptionProvider] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transcriptionProvider] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun transcriptionProvider(transcriptionProvider: JsonField<String>) = apply {
-                    this.transcriptionProvider = transcriptionProvider
-                }
-
-                /** Text-to-speech provider for this language. */
-                fun ttsProvider(ttsProvider: String) = ttsProvider(JsonField.of(ttsProvider))
-
-                /**
-                 * Sets [Builder.ttsProvider] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ttsProvider] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun ttsProvider(ttsProvider: JsonField<String>) = apply {
-                    this.ttsProvider = ttsProvider
-                }
-
-                /** Voice identifier for this language. */
-                fun voice(voice: String) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun voice(voice: JsonField<String>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Language].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Language =
-                    Language(
-                        code,
-                        speechModel,
-                        transcriptionProvider,
-                        ttsProvider,
-                        voice,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Language = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                code()
-                speechModel()
-                transcriptionProvider()
-                ttsProvider()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (code.asKnown().isPresent) 1 else 0) +
-                    (if (speechModel.asKnown().isPresent) 1 else 0) +
-                    (if (transcriptionProvider.asKnown().isPresent) 1 else 0) +
-                    (if (ttsProvider.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Language &&
-                    code == other.code &&
-                    speechModel == other.speechModel &&
-                    transcriptionProvider == other.transcriptionProvider &&
-                    ttsProvider == other.ttsProvider &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    code,
-                    speechModel,
-                    transcriptionProvider,
-                    ttsProvider,
-                    voice,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Language{code=$code, speechModel=$speechModel, transcriptionProvider=$transcriptionProvider, ttsProvider=$ttsProvider, voice=$voice, additionalProperties=$additionalProperties}"
-        }
-
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -3040,226 +3430,38 @@ private constructor(
             "ConversationRelaySettings{url=$url, dtmfDetection=$dtmfDetection, interruptible=$interruptible, interruptibleGreeting=$interruptibleGreeting, languages=$languages, additionalProperties=$additionalProperties}"
     }
 
-    /** Settings for handling caller interruptions during Conversation Relay speech. */
-    class InterruptionSettings
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    /**
+     * Custom key-value parameters forwarded to the relay session as `assistant.dynamic_variables`.
+     * If `assistant.dynamic_variables` is also present, these values are merged in.
+     */
+    class CustomParameters
+    @JsonCreator
     private constructor(
-        private val enable: JsonField<Boolean>,
-        private val interruptible: JsonField<Interruptible>,
-        private val interruptibleGreeting: JsonField<InterruptibleGreeting>,
-        private val welcomeGreetingInterruptible: JsonField<WelcomeGreetingInterruptible>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("enable") @ExcludeMissing enable: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("interruptible")
-            @ExcludeMissing
-            interruptible: JsonField<Interruptible> = JsonMissing.of(),
-            @JsonProperty("interruptible_greeting")
-            @ExcludeMissing
-            interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of(),
-            @JsonProperty("welcome_greeting_interruptible")
-            @ExcludeMissing
-            welcomeGreetingInterruptible: JsonField<WelcomeGreetingInterruptible> = JsonMissing.of(),
-        ) : this(
-            enable,
-            interruptible,
-            interruptibleGreeting,
-            welcomeGreetingInterruptible,
-            mutableMapOf(),
-        )
-
-        /**
-         * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is equivalent
-         * to `interruptible=none`.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun enable(): Optional<Boolean> = enable.getOptional("enable")
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun interruptible(): Optional<Interruptible> = interruptible.getOptional("interruptible")
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun interruptibleGreeting(): Optional<InterruptibleGreeting> =
-            interruptibleGreeting.getOptional("interruptible_greeting")
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun welcomeGreetingInterruptible(): Optional<WelcomeGreetingInterruptible> =
-            welcomeGreetingInterruptible.getOptional("welcome_greeting_interruptible")
-
-        /**
-         * Returns the raw JSON value of [enable].
-         *
-         * Unlike [enable], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("enable") @ExcludeMissing fun _enable(): JsonField<Boolean> = enable
-
-        /**
-         * Returns the raw JSON value of [interruptible].
-         *
-         * Unlike [interruptible], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("interruptible")
-        @ExcludeMissing
-        fun _interruptible(): JsonField<Interruptible> = interruptible
-
-        /**
-         * Returns the raw JSON value of [interruptibleGreeting].
-         *
-         * Unlike [interruptibleGreeting], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("interruptible_greeting")
-        @ExcludeMissing
-        fun _interruptibleGreeting(): JsonField<InterruptibleGreeting> = interruptibleGreeting
-
-        /**
-         * Returns the raw JSON value of [welcomeGreetingInterruptible].
-         *
-         * Unlike [welcomeGreetingInterruptible], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("welcome_greeting_interruptible")
-        @ExcludeMissing
-        fun _welcomeGreetingInterruptible(): JsonField<WelcomeGreetingInterruptible> =
-            welcomeGreetingInterruptible
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [InterruptionSettings]. */
+            /** Returns a mutable builder for constructing an instance of [CustomParameters]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [InterruptionSettings]. */
+        /** A builder for [CustomParameters]. */
         class Builder internal constructor() {
 
-            private var enable: JsonField<Boolean> = JsonMissing.of()
-            private var interruptible: JsonField<Interruptible> = JsonMissing.of()
-            private var interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of()
-            private var welcomeGreetingInterruptible: JsonField<WelcomeGreetingInterruptible> =
-                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(interruptionSettings: InterruptionSettings) = apply {
-                enable = interruptionSettings.enable
-                interruptible = interruptionSettings.interruptible
-                interruptibleGreeting = interruptionSettings.interruptibleGreeting
-                welcomeGreetingInterruptible = interruptionSettings.welcomeGreetingInterruptible
-                additionalProperties = interruptionSettings.additionalProperties.toMutableMap()
+            internal fun from(customParameters: CustomParameters) = apply {
+                additionalProperties = customParameters.additionalProperties.toMutableMap()
             }
-
-            /**
-             * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is
-             * equivalent to `interruptible=none`.
-             */
-            fun enable(enable: Boolean) = enable(JsonField.of(enable))
-
-            /**
-             * Sets [Builder.enable] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.enable] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun enable(enable: JsonField<Boolean>) = apply { this.enable = enable }
-
-            /**
-             * Controls when caller input can interrupt assistant speech. `any` allows speech or
-             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
-             * `dtmf` allows DTMF only.
-             */
-            fun interruptible(interruptible: Interruptible) =
-                interruptible(JsonField.of(interruptible))
-
-            /**
-             * Sets [Builder.interruptible] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.interruptible] with a well-typed [Interruptible]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun interruptible(interruptible: JsonField<Interruptible>) = apply {
-                this.interruptible = interruptible
-            }
-
-            /**
-             * Controls when caller input can interrupt assistant speech. `any` allows speech or
-             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
-             * `dtmf` allows DTMF only.
-             */
-            fun interruptibleGreeting(interruptibleGreeting: InterruptibleGreeting) =
-                interruptibleGreeting(JsonField.of(interruptibleGreeting))
-
-            /**
-             * Sets [Builder.interruptibleGreeting] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.interruptibleGreeting] with a well-typed
-             * [InterruptibleGreeting] value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
-             */
-            fun interruptibleGreeting(interruptibleGreeting: JsonField<InterruptibleGreeting>) =
-                apply {
-                    this.interruptibleGreeting = interruptibleGreeting
-                }
-
-            /**
-             * Controls when caller input can interrupt assistant speech. `any` allows speech or
-             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
-             * `dtmf` allows DTMF only.
-             */
-            fun welcomeGreetingInterruptible(
-                welcomeGreetingInterruptible: WelcomeGreetingInterruptible
-            ) = welcomeGreetingInterruptible(JsonField.of(welcomeGreetingInterruptible))
-
-            /**
-             * Sets [Builder.welcomeGreetingInterruptible] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.welcomeGreetingInterruptible] with a well-typed
-             * [WelcomeGreetingInterruptible] value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
-             */
-            fun welcomeGreetingInterruptible(
-                welcomeGreetingInterruptible: JsonField<WelcomeGreetingInterruptible>
-            ) = apply { this.welcomeGreetingInterruptible = welcomeGreetingInterruptible }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3281,18 +3483,11 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [InterruptionSettings].
+             * Returns an immutable instance of [CustomParameters].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): InterruptionSettings =
-                InterruptionSettings(
-                    enable,
-                    interruptible,
-                    interruptibleGreeting,
-                    welcomeGreetingInterruptible,
-                    additionalProperties.toMutableMap(),
-                )
+            fun build(): CustomParameters = CustomParameters(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -3306,15 +3501,11 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): InterruptionSettings = apply {
+        fun validate(): CustomParameters = apply {
             if (validated) {
                 return@apply
             }
 
-            enable()
-            interruptible().ifPresent { it.validate() }
-            interruptibleGreeting().ifPresent { it.validate() }
-            welcomeGreetingInterruptible().ifPresent { it.validate() }
             validated = true
         }
 
@@ -3334,738 +3525,367 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (enable.asKnown().isPresent) 1 else 0) +
-                (interruptible.asKnown().getOrNull()?.validity() ?: 0) +
-                (interruptibleGreeting.asKnown().getOrNull()?.validity() ?: 0) +
-                (welcomeGreetingInterruptible.asKnown().getOrNull()?.validity() ?: 0)
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         */
-        class Interruptible @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val NONE = of("none")
-
-                @JvmField val ANY = of("any")
-
-                @JvmField val SPEECH = of("speech")
-
-                @JvmField val DTMF = of("dtmf")
-
-                @JvmStatic fun of(value: String) = Interruptible(JsonField.of(value))
-            }
-
-            /** An enum containing [Interruptible]'s known values. */
-            enum class Known {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-            }
-
-            /**
-             * An enum containing [Interruptible]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Interruptible] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-                /**
-                 * An enum member indicating that [Interruptible] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    NONE -> Value.NONE
-                    ANY -> Value.ANY
-                    SPEECH -> Value.SPEECH
-                    DTMF -> Value.DTMF
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    NONE -> Known.NONE
-                    ANY -> Known.ANY
-                    SPEECH -> Known.SPEECH
-                    DTMF -> Known.DTMF
-                    else -> throw TelnyxInvalidDataException("Unknown Interruptible: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Interruptible = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Interruptible && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         */
-        class InterruptibleGreeting
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val NONE = of("none")
-
-                @JvmField val ANY = of("any")
-
-                @JvmField val SPEECH = of("speech")
-
-                @JvmField val DTMF = of("dtmf")
-
-                @JvmStatic fun of(value: String) = InterruptibleGreeting(JsonField.of(value))
-            }
-
-            /** An enum containing [InterruptibleGreeting]'s known values. */
-            enum class Known {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-            }
-
-            /**
-             * An enum containing [InterruptibleGreeting]'s known values, as well as an [_UNKNOWN]
-             * member.
-             *
-             * An instance of [InterruptibleGreeting] can contain an unknown value in a couple of
-             * cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-                /**
-                 * An enum member indicating that [InterruptibleGreeting] was instantiated with an
-                 * unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    NONE -> Value.NONE
-                    ANY -> Value.ANY
-                    SPEECH -> Value.SPEECH
-                    DTMF -> Value.DTMF
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    NONE -> Known.NONE
-                    ANY -> Known.ANY
-                    SPEECH -> Known.SPEECH
-                    DTMF -> Known.DTMF
-                    else ->
-                        throw TelnyxInvalidDataException("Unknown InterruptibleGreeting: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): InterruptibleGreeting = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is InterruptibleGreeting && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
-         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
-         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
-         * DTMF only.
-         */
-        class WelcomeGreetingInterruptible
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val NONE = of("none")
-
-                @JvmField val ANY = of("any")
-
-                @JvmField val SPEECH = of("speech")
-
-                @JvmField val DTMF = of("dtmf")
-
-                @JvmStatic fun of(value: String) = WelcomeGreetingInterruptible(JsonField.of(value))
-            }
-
-            /** An enum containing [WelcomeGreetingInterruptible]'s known values. */
-            enum class Known {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-            }
-
-            /**
-             * An enum containing [WelcomeGreetingInterruptible]'s known values, as well as an
-             * [_UNKNOWN] member.
-             *
-             * An instance of [WelcomeGreetingInterruptible] can contain an unknown value in a
-             * couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                NONE,
-                ANY,
-                SPEECH,
-                DTMF,
-                /**
-                 * An enum member indicating that [WelcomeGreetingInterruptible] was instantiated
-                 * with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    NONE -> Value.NONE
-                    ANY -> Value.ANY
-                    SPEECH -> Value.SPEECH
-                    DTMF -> Value.DTMF
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    NONE -> Known.NONE
-                    ANY -> Known.ANY
-                    SPEECH -> Known.SPEECH
-                    DTMF -> Known.DTMF
-                    else ->
-                        throw TelnyxInvalidDataException(
-                            "Unknown WelcomeGreetingInterruptible: $value"
-                        )
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): WelcomeGreetingInterruptible = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is WelcomeGreetingInterruptible && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is InterruptionSettings &&
-                enable == other.enable &&
-                interruptible == other.interruptible &&
-                interruptibleGreeting == other.interruptibleGreeting &&
-                welcomeGreetingInterruptible == other.welcomeGreetingInterruptible &&
-                additionalProperties == other.additionalProperties
+            return other is CustomParameters && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                enable,
-                interruptible,
-                interruptibleGreeting,
-                welcomeGreetingInterruptible,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "InterruptionSettings{enable=$enable, interruptible=$interruptible, interruptibleGreeting=$interruptibleGreeting, welcomeGreetingInterruptible=$welcomeGreetingInterruptible, additionalProperties=$additionalProperties}"
+        override fun toString() = "CustomParameters{additionalProperties=$additionalProperties}"
     }
 
-    /** Language-specific speech and transcription settings for Conversation Relay. */
-    class Language
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val code: JsonField<String>,
-        private val speechModel: JsonField<String>,
-        private val transcriptionProvider: JsonField<String>,
-        private val ttsProvider: JsonField<String>,
-        private val voice: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("speech_model")
-            @ExcludeMissing
-            speechModel: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("transcription_provider")
-            @ExcludeMissing
-            transcriptionProvider: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("tts_provider")
-            @ExcludeMissing
-            ttsProvider: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
-        ) : this(code, speechModel, transcriptionProvider, ttsProvider, voice, mutableMapOf())
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+     * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows DTMF
+     * only.
+     */
+    class Interruptible @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
-         * BCP 47 language code.
+         * Returns this class instance's raw value.
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        fun code(): Optional<String> = code.getOptional("code")
-
-        /**
-         * Speech recognition model for this language.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun speechModel(): Optional<String> = speechModel.getOptional("speech_model")
-
-        /**
-         * Speech-to-text provider for this language.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun transcriptionProvider(): Optional<String> =
-            transcriptionProvider.getOptional("transcription_provider")
-
-        /**
-         * Text-to-speech provider for this language.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun ttsProvider(): Optional<String> = ttsProvider.getOptional("tts_provider")
-
-        /**
-         * Voice identifier for this language.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun voice(): Optional<String> = voice.getOptional("voice")
-
-        /**
-         * Returns the raw JSON value of [code].
-         *
-         * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-        /**
-         * Returns the raw JSON value of [speechModel].
-         *
-         * Unlike [speechModel], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("speech_model")
-        @ExcludeMissing
-        fun _speechModel(): JsonField<String> = speechModel
-
-        /**
-         * Returns the raw JSON value of [transcriptionProvider].
-         *
-         * Unlike [transcriptionProvider], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("transcription_provider")
-        @ExcludeMissing
-        fun _transcriptionProvider(): JsonField<String> = transcriptionProvider
-
-        /**
-         * Returns the raw JSON value of [ttsProvider].
-         *
-         * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("tts_provider")
-        @ExcludeMissing
-        fun _ttsProvider(): JsonField<String> = ttsProvider
-
-        /**
-         * Returns the raw JSON value of [voice].
-         *
-         * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Language]. */
-            @JvmStatic fun builder() = Builder()
+            @JvmField val NONE = of("none")
+
+            @JvmField val ANY = of("any")
+
+            @JvmField val SPEECH = of("speech")
+
+            @JvmField val DTMF = of("dtmf")
+
+            @JvmStatic fun of(value: String) = Interruptible(JsonField.of(value))
         }
 
-        /** A builder for [Language]. */
-        class Builder internal constructor() {
+        /** An enum containing [Interruptible]'s known values. */
+        enum class Known {
+            NONE,
+            ANY,
+            SPEECH,
+            DTMF,
+        }
 
-            private var code: JsonField<String> = JsonMissing.of()
-            private var speechModel: JsonField<String> = JsonMissing.of()
-            private var transcriptionProvider: JsonField<String> = JsonMissing.of()
-            private var ttsProvider: JsonField<String> = JsonMissing.of()
-            private var voice: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(language: Language) = apply {
-                code = language.code
-                speechModel = language.speechModel
-                transcriptionProvider = language.transcriptionProvider
-                ttsProvider = language.ttsProvider
-                voice = language.voice
-                additionalProperties = language.additionalProperties.toMutableMap()
-            }
-
-            /** BCP 47 language code. */
-            fun code(code: String) = code(JsonField.of(code))
-
+        /**
+         * An enum containing [Interruptible]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Interruptible] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            NONE,
+            ANY,
+            SPEECH,
+            DTMF,
             /**
-             * Sets [Builder.code] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.code] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
+             * An enum member indicating that [Interruptible] was instantiated with an unknown
              * value.
              */
-            fun code(code: JsonField<String>) = apply { this.code = code }
+            _UNKNOWN,
+        }
 
-            /** Speech recognition model for this language. */
-            fun speechModel(speechModel: String) = speechModel(JsonField.of(speechModel))
-
-            /**
-             * Sets [Builder.speechModel] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.speechModel] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun speechModel(speechModel: JsonField<String>) = apply {
-                this.speechModel = speechModel
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                NONE -> Value.NONE
+                ANY -> Value.ANY
+                SPEECH -> Value.SPEECH
+                DTMF -> Value.DTMF
+                else -> Value._UNKNOWN
             }
 
-            /** Speech-to-text provider for this language. */
-            fun transcriptionProvider(transcriptionProvider: String) =
-                transcriptionProvider(JsonField.of(transcriptionProvider))
-
-            /**
-             * Sets [Builder.transcriptionProvider] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.transcriptionProvider] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun transcriptionProvider(transcriptionProvider: JsonField<String>) = apply {
-                this.transcriptionProvider = transcriptionProvider
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                NONE -> Known.NONE
+                ANY -> Known.ANY
+                SPEECH -> Known.SPEECH
+                DTMF -> Known.DTMF
+                else -> throw TelnyxInvalidDataException("Unknown Interruptible: $value")
             }
 
-            /** Text-to-speech provider for this language. */
-            fun ttsProvider(ttsProvider: String) = ttsProvider(JsonField.of(ttsProvider))
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
 
-            /**
-             * Sets [Builder.ttsProvider] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ttsProvider] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun ttsProvider(ttsProvider: JsonField<String>) = apply {
-                this.ttsProvider = ttsProvider
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Interruptible = apply {
+            if (validated) {
+                return@apply
             }
 
-            /** Voice identifier for this language. */
-            fun voice(voice: String) = voice(JsonField.of(voice))
+            known()
+            validated = true
+        }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Interruptible && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+     * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows DTMF
+     * only.
+     */
+    class InterruptibleGreeting
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val NONE = of("none")
+
+            @JvmField val ANY = of("any")
+
+            @JvmField val SPEECH = of("speech")
+
+            @JvmField val DTMF = of("dtmf")
+
+            @JvmStatic fun of(value: String) = InterruptibleGreeting(JsonField.of(value))
+        }
+
+        /** An enum containing [InterruptibleGreeting]'s known values. */
+        enum class Known {
+            NONE,
+            ANY,
+            SPEECH,
+            DTMF,
+        }
+
+        /**
+         * An enum containing [InterruptibleGreeting]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [InterruptibleGreeting] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            NONE,
+            ANY,
+            SPEECH,
+            DTMF,
             /**
-             * Sets [Builder.voice] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.voice] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * An enum member indicating that [InterruptibleGreeting] was instantiated with an
+             * unknown value.
              */
-            fun voice(voice: JsonField<String>) = apply { this.voice = voice }
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                NONE -> Value.NONE
+                ANY -> Value.ANY
+                SPEECH -> Value.SPEECH
+                DTMF -> Value.DTMF
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                NONE -> Known.NONE
+                ANY -> Known.ANY
+                SPEECH -> Known.SPEECH
+                DTMF -> Known.DTMF
+                else -> throw TelnyxInvalidDataException("Unknown InterruptibleGreeting: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): InterruptibleGreeting = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InterruptibleGreeting && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Provider-specific structured voice settings. Must be supplied together with `provider`;
+     * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+     */
+    class StructuredProvider
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [StructuredProvider]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [StructuredProvider]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(structuredProvider: StructuredProvider) = apply {
+                additionalProperties = structuredProvider.additionalProperties.toMutableMap()
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4087,19 +3907,11 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Language].
+             * Returns an immutable instance of [StructuredProvider].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Language =
-                Language(
-                    code,
-                    speechModel,
-                    transcriptionProvider,
-                    ttsProvider,
-                    voice,
-                    additionalProperties.toMutableMap(),
-                )
+            fun build(): StructuredProvider = StructuredProvider(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -4113,16 +3925,11 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Language = apply {
+        fun validate(): StructuredProvider = apply {
             if (validated) {
                 return@apply
             }
 
-            code()
-            speechModel()
-            transcriptionProvider()
-            ttsProvider()
-            voice()
             validated = true
         }
 
@@ -4142,116 +3949,40 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (code.asKnown().isPresent) 1 else 0) +
-                (if (speechModel.asKnown().isPresent) 1 else 0) +
-                (if (transcriptionProvider.asKnown().isPresent) 1 else 0) +
-                (if (ttsProvider.asKnown().isPresent) 1 else 0) +
-                (if (voice.asKnown().isPresent) 1 else 0)
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Language &&
-                code == other.code &&
-                speechModel == other.speechModel &&
-                transcriptionProvider == other.transcriptionProvider &&
-                ttsProvider == other.ttsProvider &&
-                voice == other.voice &&
-                additionalProperties == other.additionalProperties
+            return other is StructuredProvider && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                code,
-                speechModel,
-                transcriptionProvider,
-                ttsProvider,
-                voice,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Language{code=$code, speechModel=$speechModel, transcriptionProvider=$transcriptionProvider, ttsProvider=$ttsProvider, voice=$voice, additionalProperties=$additionalProperties}"
+        override fun toString() = "StructuredProvider{additionalProperties=$additionalProperties}"
     }
 
-    /** Speech-to-text settings for Conversation Relay. */
+    /**
+     * Not supported for Conversation Relay start requests. Use `transcription_engine` and
+     * `transcription_engine_config` instead.
+     */
+    @Deprecated(
+        "Not supported for Conversation Relay start requests. Use `transcription_engine` and `transcription_engine_config` instead."
+    )
     class Transcription
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    @JsonCreator
     private constructor(
-        private val language: JsonField<String>,
-        private val model: JsonField<String>,
-        private val provider: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("language")
-            @ExcludeMissing
-            language: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("provider") @ExcludeMissing provider: JsonField<String> = JsonMissing.of(),
-        ) : this(language, model, provider, mutableMapOf())
-
-        /**
-         * Transcription language.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun language(): Optional<String> = language.getOptional("language")
-
-        /**
-         * Transcription model to use.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun model(): Optional<String> = model.getOptional("model")
-
-        /**
-         * Transcription provider to use.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun provider(): Optional<String> = provider.getOptional("provider")
-
-        /**
-         * Returns the raw JSON value of [language].
-         *
-         * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
-
-        /**
-         * Returns the raw JSON value of [model].
-         *
-         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
-
-        /**
-         * Returns the raw JSON value of [provider].
-         *
-         * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<String> = provider
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
 
@@ -4264,54 +3995,12 @@ private constructor(
         /** A builder for [Transcription]. */
         class Builder internal constructor() {
 
-            private var language: JsonField<String> = JsonMissing.of()
-            private var model: JsonField<String> = JsonMissing.of()
-            private var provider: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(transcription: Transcription) = apply {
-                language = transcription.language
-                model = transcription.model
-                provider = transcription.provider
                 additionalProperties = transcription.additionalProperties.toMutableMap()
             }
-
-            /** Transcription language. */
-            fun language(language: String) = language(JsonField.of(language))
-
-            /**
-             * Sets [Builder.language] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.language] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun language(language: JsonField<String>) = apply { this.language = language }
-
-            /** Transcription model to use. */
-            fun model(model: String) = model(JsonField.of(model))
-
-            /**
-             * Sets [Builder.model] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.model] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun model(model: JsonField<String>) = apply { this.model = model }
-
-            /** Transcription provider to use. */
-            fun provider(provider: String) = provider(JsonField.of(provider))
-
-            /**
-             * Sets [Builder.provider] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.provider] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun provider(provider: JsonField<String>) = apply { this.provider = provider }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4337,8 +4026,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Transcription =
-                Transcription(language, model, provider, additionalProperties.toMutableMap())
+            fun build(): Transcription = Transcription(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -4357,9 +4045,6 @@ private constructor(
                 return@apply
             }
 
-            language()
-            model()
-            provider()
             validated = true
         }
 
@@ -4379,30 +4064,333 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (language.asKnown().isPresent) 1 else 0) +
-                (if (model.asKnown().isPresent) 1 else 0) +
-                (if (provider.asKnown().isPresent) 1 else 0)
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Transcription &&
-                language == other.language &&
-                model == other.model &&
-                provider == other.provider &&
+            return other is Transcription && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Transcription{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+     * supported for backward compatibility. For Conversation Relay, use this field with
+     * `transcription_engine_config`; the `transcription` object is not supported.
+     */
+    class TranscriptionEngine
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val GOOGLE = of("Google")
+
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val DEEPGRAM = of("Deepgram")
+
+            @JvmField val AZURE = of("Azure")
+
+            @JvmField val X_AI = of("xAI")
+
+            @JvmField val ASSEMBLY_AI = of("AssemblyAI")
+
+            @JvmField val SPEECHMATICS = of("Speechmatics")
+
+            @JvmField val SONIOX = of("Soniox")
+
+            @JvmField val A = of("A")
+
+            @JvmField val B = of("B")
+
+            @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
+        }
+
+        /** An enum containing [TranscriptionEngine]'s known values. */
+        enum class Known {
+            GOOGLE,
+            TELNYX,
+            DEEPGRAM,
+            AZURE,
+            X_AI,
+            ASSEMBLY_AI,
+            SPEECHMATICS,
+            SONIOX,
+            A,
+            B,
+        }
+
+        /**
+         * An enum containing [TranscriptionEngine]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [TranscriptionEngine] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            GOOGLE,
+            TELNYX,
+            DEEPGRAM,
+            AZURE,
+            X_AI,
+            ASSEMBLY_AI,
+            SPEECHMATICS,
+            SONIOX,
+            A,
+            B,
+            /**
+             * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                GOOGLE -> Value.GOOGLE
+                TELNYX -> Value.TELNYX
+                DEEPGRAM -> Value.DEEPGRAM
+                AZURE -> Value.AZURE
+                X_AI -> Value.X_AI
+                ASSEMBLY_AI -> Value.ASSEMBLY_AI
+                SPEECHMATICS -> Value.SPEECHMATICS
+                SONIOX -> Value.SONIOX
+                A -> Value.A
+                B -> Value.B
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                GOOGLE -> Known.GOOGLE
+                TELNYX -> Known.TELNYX
+                DEEPGRAM -> Known.DEEPGRAM
+                AZURE -> Known.AZURE
+                X_AI -> Known.X_AI
+                ASSEMBLY_AI -> Known.ASSEMBLY_AI
+                SPEECHMATICS -> Known.SPEECHMATICS
+                SONIOX -> Known.SONIOX
+                A -> Known.A
+                B -> Known.B
+                else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): TranscriptionEngine = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TranscriptionEngine && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Engine-specific transcription settings for Conversation Relay. This accepts the same
+     * provider-specific options used by the Call Transcription Start command, such as
+     * `transcription_model`, without requiring the engine discriminator to be repeated inside this
+     * object.
+     */
+    class TranscriptionEngineConfig
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [TranscriptionEngineConfig].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [TranscriptionEngineConfig]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(transcriptionEngineConfig: TranscriptionEngineConfig) = apply {
+                additionalProperties = transcriptionEngineConfig.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TranscriptionEngineConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): TranscriptionEngineConfig =
+                TranscriptionEngineConfig(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): TranscriptionEngineConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TranscriptionEngineConfig &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(language, model, provider, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Transcription{language=$language, model=$model, provider=$provider, additionalProperties=$additionalProperties}"
+            "TranscriptionEngineConfig{additionalProperties=$additionalProperties}"
     }
 
     /** The settings associated with the voice selected */
@@ -4413,10 +4401,12 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
+        private val minimax: MinimaxVoiceSettings? = null,
         private val azure: AzureVoiceSettings? = null,
         private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
-        private val xai: Xai? = null,
+        private val inworld: InworldVoiceSettings? = null,
+        private val xai: XaiVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -4426,13 +4416,17 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
+        fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
+
         fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
 
         fun rime(): Optional<RimeVoiceSettings> = Optional.ofNullable(rime)
 
         fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
 
-        fun xai(): Optional<Xai> = Optional.ofNullable(xai)
+        fun inworld(): Optional<InworldVoiceSettings> = Optional.ofNullable(inworld)
+
+        fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
 
         fun isElevenlabs(): Boolean = elevenlabs != null
 
@@ -4440,11 +4434,15 @@ private constructor(
 
         fun isAws(): Boolean = aws != null
 
+        fun isMinimax(): Boolean = minimax != null
+
         fun isAzure(): Boolean = azure != null
 
         fun isRime(): Boolean = rime != null
 
         fun isResemble(): Boolean = resemble != null
+
+        fun isInworld(): Boolean = inworld != null
 
         fun isXai(): Boolean = xai != null
 
@@ -4454,13 +4452,17 @@ private constructor(
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
 
+        fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
+
         fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
 
         fun asRime(): RimeVoiceSettings = rime.getOrThrow("rime")
 
         fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
-        fun asXai(): Xai = xai.getOrThrow("xai")
+        fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
+
+        fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -4498,9 +4500,11 @@ private constructor(
                 elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
+                minimax != null -> visitor.visitMinimax(minimax)
                 azure != null -> visitor.visitAzure(azure)
                 rime != null -> visitor.visitRime(rime)
                 resemble != null -> visitor.visitResemble(resemble)
+                inworld != null -> visitor.visitInworld(inworld)
                 xai != null -> visitor.visitXai(xai)
                 else -> visitor.unknown(_json)
             }
@@ -4535,6 +4539,10 @@ private constructor(
                         aws.validate()
                     }
 
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) {
+                        minimax.validate()
+                    }
+
                     override fun visitAzure(azure: AzureVoiceSettings) {
                         azure.validate()
                     }
@@ -4547,7 +4555,11 @@ private constructor(
                         resemble.validate()
                     }
 
-                    override fun visitXai(xai: Xai) {
+                    override fun visitInworld(inworld: InworldVoiceSettings) {
+                        inworld.validate()
+                    }
+
+                    override fun visitXai(xai: XaiVoiceSettings) {
                         xai.validate()
                     }
                 }
@@ -4580,6 +4592,8 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
+
                     override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
 
                     override fun visitRime(rime: RimeVoiceSettings) = rime.validity()
@@ -4587,7 +4601,9 @@ private constructor(
                     override fun visitResemble(resemble: ResembleVoiceSettings) =
                         resemble.validity()
 
-                    override fun visitXai(xai: Xai) = xai.validity()
+                    override fun visitInworld(inworld: InworldVoiceSettings) = inworld.validity()
+
+                    override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -4602,23 +4618,27 @@ private constructor(
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
                 aws == other.aws &&
+                minimax == other.minimax &&
                 azure == other.azure &&
                 rime == other.rime &&
                 resemble == other.resemble &&
+                inworld == other.inworld &&
                 xai == other.xai
         }
 
         override fun hashCode(): Int =
-            Objects.hash(elevenlabs, telnyx, aws, azure, rime, resemble, xai)
+            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble, inworld, xai)
 
         override fun toString(): String =
             when {
                 elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
+                minimax != null -> "VoiceSettings{minimax=$minimax}"
                 azure != null -> "VoiceSettings{azure=$azure}"
                 rime != null -> "VoiceSettings{rime=$rime}"
                 resemble != null -> "VoiceSettings{resemble=$resemble}"
+                inworld != null -> "VoiceSettings{inworld=$inworld}"
                 xai != null -> "VoiceSettings{xai=$xai}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
@@ -4634,6 +4654,9 @@ private constructor(
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
 
+            @JvmStatic
+            fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
+
             @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
 
             @JvmStatic fun ofRime(rime: RimeVoiceSettings) = VoiceSettings(rime = rime)
@@ -4641,7 +4664,10 @@ private constructor(
             @JvmStatic
             fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
 
-            @JvmStatic fun ofXai(xai: Xai) = VoiceSettings(xai = xai)
+            @JvmStatic
+            fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
+
+            @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
         }
 
         /**
@@ -4656,13 +4682,17 @@ private constructor(
 
             fun visitAws(aws: AwsVoiceSettings): T
 
+            fun visitMinimax(minimax: MinimaxVoiceSettings): T
+
             fun visitAzure(azure: AzureVoiceSettings): T
 
             fun visitRime(rime: RimeVoiceSettings): T
 
             fun visitResemble(resemble: ResembleVoiceSettings): T
 
-            fun visitXai(xai: Xai): T
+            fun visitInworld(inworld: InworldVoiceSettings): T
+
+            fun visitXai(xai: XaiVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -4701,6 +4731,11 @@ private constructor(
                             VoiceSettings(aws = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "minimax" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())?.let {
+                            VoiceSettings(minimax = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                     "azure" -> {
                         return tryDeserialize(node, jacksonTypeRef<AzureVoiceSettings>())?.let {
                             VoiceSettings(azure = it, _json = json)
@@ -4716,8 +4751,13 @@ private constructor(
                             VoiceSettings(resemble = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "inworld" -> {
+                        return tryDeserialize(node, jacksonTypeRef<InworldVoiceSettings>())?.let {
+                            VoiceSettings(inworld = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                     "xai" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Xai>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {
                             VoiceSettings(xai = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
@@ -4738,211 +4778,16 @@ private constructor(
                     value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
+                    value.minimax != null -> generator.writeObject(value.minimax)
                     value.azure != null -> generator.writeObject(value.azure)
                     value.rime != null -> generator.writeObject(value.rime)
                     value.resemble != null -> generator.writeObject(value.resemble)
+                    value.inworld != null -> generator.writeObject(value.inworld)
                     value.xai != null -> generator.writeObject(value.xai)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
-        }
-
-        class Xai
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val type: JsonValue,
-            private val language: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                @JsonProperty("language")
-                @ExcludeMissing
-                language: JsonField<String> = JsonMissing.of(),
-            ) : this(type, language, mutableMapOf())
-
-            /**
-             * Voice settings provider type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("xai")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Language code, or `auto` to detect automatically.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun language(): Optional<String> = language.getOptional("language")
-
-            /**
-             * Returns the raw JSON value of [language].
-             *
-             * Unlike [language], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Xai]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Xai]. */
-            class Builder internal constructor() {
-
-                private var type: JsonValue = JsonValue.from("xai")
-                private var language: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(xai: Xai) = apply {
-                    type = xai.type
-                    language = xai.language
-                    additionalProperties = xai.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("xai")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                /** Language code, or `auto` to detect automatically. */
-                fun language(language: String) = language(JsonField.of(language))
-
-                /**
-                 * Sets [Builder.language] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.language] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun language(language: JsonField<String>) = apply { this.language = language }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Xai].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Xai = Xai(type, language, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Xai = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                _type().let {
-                    if (it != JsonValue.from("xai")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                language()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                type.let { if (it == JsonValue.from("xai")) 1 else 0 } +
-                    (if (language.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Xai &&
-                    type == other.type &&
-                    language == other.language &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(type, language, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Xai{type=$type, language=$language, additionalProperties=$additionalProperties}"
         }
     }
 

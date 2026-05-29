@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.59.0 (2026-05-28)
+
+Full Changelog: [v6.58.0...v6.59.0](https://github.com/team-telnyx/telnyx-java/compare/v6.58.0...v6.59.0)
+
+### Features
+
+* **api:** manual updates ([1094d20](https://github.com/team-telnyx/telnyx-java/commit/1094d20518818a9c58a2d70eb109de03376c706d))
+* **api:** manual updates ([8353f2a](https://github.com/team-telnyx/telnyx-java/commit/8353f2a2d434d140752b79b4c12c6be429bfcd77))
+* **api:** manual updates ([6680bec](https://github.com/team-telnyx/telnyx-java/commit/6680becaf8a9e980d8184d88e71ad998b27e1fa6))
+* TELAPPS-406: document GET /speech-to-text/providers endpoint ([b927c32](https://github.com/team-telnyx/telnyx-java/commit/b927c320a41256b57b627fb92c11645e9fcda929))
+* TELAPPS-531: document Rime ArcanaV3 and Coda voice models ([4d489ae](https://github.com/team-telnyx/telnyx-java/commit/4d489ae6cf1bf06cc052dfabb3cff7f9aa362510))
+* TELAPPS-5698 document conversation relay API shape ([5b5469a](https://github.com/team-telnyx/telnyx-java/commit/5b5469ae6003840ea9b12fbe77e0dc2ec04b9dbe))
+
+
+### Chores
+
+* update example date in audit-logs for pipeline sync ([941ac08](https://github.com/team-telnyx/telnyx-java/commit/941ac0876782fce1b7e3d32ad0a17ba55063a6e4))
+
 ## 6.58.0 (2026-05-26)
 
 Full Changelog: [v6.57.1...v6.58.0](https://github.com/team-telnyx/telnyx-java/compare/v6.57.1...v6.58.0)
