@@ -135,6 +135,7 @@ import com.telnyx.sdk.services.blocking.SimCardGroupService
 import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
+import com.telnyx.sdk.services.blocking.SipRegistrationStatusService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
@@ -687,6 +688,9 @@ interface TelnyxClient {
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportService
 
+    /** Look up SIP registration status across credential types */
+    fun sipRegistrationStatus(): SipRegistrationStatusService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1190,5 +1194,8 @@ interface TelnyxClient {
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse
+
+        /** Look up SIP registration status across credential types */
+        fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse
     }
 }
