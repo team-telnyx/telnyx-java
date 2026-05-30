@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.60.0 (2026-05-29)
+
+Full Changelog: [v6.59.0...v6.60.0](https://github.com/team-telnyx/telnyx-java/compare/v6.59.0...v6.60.0)
+
+### Features
+
+* **sip-registration-status:** add OpenAPI spec for /v2/sip_registration_status ([e5525fc](https://github.com/team-telnyx/telnyx-java/commit/e5525fcb086909690fa9e4642eeab92d6343fc6f))
+
 ## 6.59.0 (2026-05-28)
 
 Full Changelog: [v6.58.0...v6.59.0](https://github.com/team-telnyx/telnyx-java/compare/v6.58.0...v6.59.0)

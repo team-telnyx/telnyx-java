@@ -268,6 +268,8 @@ import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardOrderServiceImpl
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
+import com.telnyx.sdk.services.blocking.SipRegistrationStatusService
+import com.telnyx.sdk.services.blocking.SipRegistrationStatusServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
 import com.telnyx.sdk.services.blocking.SpeechToTextService
@@ -960,6 +962,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         VoiceSdkCallReportServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val sipRegistrationStatus: SipRegistrationStatusService by lazy {
+        SipRegistrationStatusServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1461,6 +1467,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportService = voiceSdkCallReports
+
+    /** Look up SIP registration status across credential types */
+    override fun sipRegistrationStatus(): SipRegistrationStatusService = sipRegistrationStatus
 
     override fun close() = clientOptions.close()
 
@@ -2146,6 +2155,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             VoiceSdkCallReportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sipRegistrationStatus: SipRegistrationStatusService.WithRawResponse by lazy {
+            SipRegistrationStatusServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2700,5 +2713,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse =
             voiceSdkCallReports
+
+        /** Look up SIP registration status across credential types */
+        override fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse =
+            sipRegistrationStatus
     }
 }
