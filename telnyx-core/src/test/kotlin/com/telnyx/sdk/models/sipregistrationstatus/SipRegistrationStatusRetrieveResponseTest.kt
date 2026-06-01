@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.sipregistrationstatus
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,8 +14,22 @@ internal class SipRegistrationStatusRetrieveResponseTest {
     fun create() {
         val sipRegistrationStatusRetrieveResponse =
             SipRegistrationStatusRetrieveResponse.builder()
+                .b2buaExternal(
+                    SipRegistrationStatusRetrieveResponse.B2buaExternal.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .b2buaInternal(
+                    SipRegistrationStatusRetrieveResponse.B2buaInternal.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .connectionId("connection_id")
                 .connectionName("connection_name")
+                .credentialType(
+                    SipRegistrationStatusRetrieveResponse.CredentialType.UAC_EXTERNAL_CREDENTIAL
+                )
+                .externalState("REGED")
                 .externalUacSettings(
                     SipRegistrationStatusRetrieveResponse.ExternalUacSettings.builder()
                         .authUsername("auth_username")
@@ -31,7 +46,7 @@ internal class SipRegistrationStatusRetrieveResponseTest {
                 )
                 .internalUacSettings(
                     SipRegistrationStatusRetrieveResponse.InternalUacSettings.builder()
-                        .destinationUri("1006@assistant-abc123.sip.telnyx.com")
+                        .destinationUri("destination_uri")
                         .build()
                 )
                 .lastRegistrationResponse("200 OK")
@@ -41,9 +56,24 @@ internal class SipRegistrationStatusRetrieveResponseTest {
                 .username("username")
                 .build()
 
+        assertThat(sipRegistrationStatusRetrieveResponse.b2buaExternal())
+            .contains(
+                SipRegistrationStatusRetrieveResponse.B2buaExternal.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
+        assertThat(sipRegistrationStatusRetrieveResponse.b2buaInternal())
+            .contains(
+                SipRegistrationStatusRetrieveResponse.B2buaInternal.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(sipRegistrationStatusRetrieveResponse.connectionId()).contains("connection_id")
         assertThat(sipRegistrationStatusRetrieveResponse.connectionName())
             .contains("connection_name")
+        assertThat(sipRegistrationStatusRetrieveResponse.credentialType())
+            .contains(SipRegistrationStatusRetrieveResponse.CredentialType.UAC_EXTERNAL_CREDENTIAL)
+        assertThat(sipRegistrationStatusRetrieveResponse.externalState()).contains("REGED")
         assertThat(sipRegistrationStatusRetrieveResponse.externalUacSettings())
             .contains(
                 SipRegistrationStatusRetrieveResponse.ExternalUacSettings.builder()
@@ -62,7 +92,7 @@ internal class SipRegistrationStatusRetrieveResponseTest {
         assertThat(sipRegistrationStatusRetrieveResponse.internalUacSettings())
             .contains(
                 SipRegistrationStatusRetrieveResponse.InternalUacSettings.builder()
-                    .destinationUri("1006@assistant-abc123.sip.telnyx.com")
+                    .destinationUri("destination_uri")
                     .build()
             )
         assertThat(sipRegistrationStatusRetrieveResponse.lastRegistrationResponse())
@@ -78,8 +108,22 @@ internal class SipRegistrationStatusRetrieveResponseTest {
         val jsonMapper = jsonMapper()
         val sipRegistrationStatusRetrieveResponse =
             SipRegistrationStatusRetrieveResponse.builder()
+                .b2buaExternal(
+                    SipRegistrationStatusRetrieveResponse.B2buaExternal.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .b2buaInternal(
+                    SipRegistrationStatusRetrieveResponse.B2buaInternal.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .connectionId("connection_id")
                 .connectionName("connection_name")
+                .credentialType(
+                    SipRegistrationStatusRetrieveResponse.CredentialType.UAC_EXTERNAL_CREDENTIAL
+                )
+                .externalState("REGED")
                 .externalUacSettings(
                     SipRegistrationStatusRetrieveResponse.ExternalUacSettings.builder()
                         .authUsername("auth_username")
@@ -96,7 +140,7 @@ internal class SipRegistrationStatusRetrieveResponseTest {
                 )
                 .internalUacSettings(
                     SipRegistrationStatusRetrieveResponse.InternalUacSettings.builder()
-                        .destinationUri("1006@assistant-abc123.sip.telnyx.com")
+                        .destinationUri("destination_uri")
                         .build()
                 )
                 .lastRegistrationResponse("200 OK")

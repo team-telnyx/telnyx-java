@@ -10,7 +10,7 @@ import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusRetrieve
 import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusRetrieveResponse
 import java.util.function.Consumer
 
-/** Look up SIP registration status across credential types */
+/** Look up the live SIP registration status of a UAC connection. */
 interface SipRegistrationStatusService {
 
     /**
@@ -26,8 +26,9 @@ interface SipRegistrationStatusService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SipRegistrationStatusService
 
     /**
-     * Returns the live SIP registration state of a connection or credential. Supports UAC
-     * third-party credentials, telephony credentials, and SIP credential connections.
+     * Returns the live SIP registration state of a UAC connection: whether it is currently
+     * registered, when it last registered, and the last response Telnyx received from the
+     * registrar. Only `uac_external_credential` is supported today.
      */
     fun retrieve(
         params: SipRegistrationStatusRetrieveParams

@@ -19,7 +19,7 @@ import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusRetrieve
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Look up SIP registration status across credential types */
+/** Look up the live SIP registration status of a UAC connection. */
 class SipRegistrationStatusServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : SipRegistrationStatusServiceAsync {
 
