@@ -343,7 +343,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    /** The request body when creating a verification. */
+    /** The request body when creating a WhatsApp verification. */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
