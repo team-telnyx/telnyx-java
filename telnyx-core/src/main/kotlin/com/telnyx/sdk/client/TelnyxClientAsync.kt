@@ -688,7 +688,7 @@ interface TelnyxClientAsync {
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
 
-    /** Look up SIP registration status across credential types */
+    /** Look up the live SIP registration status of a UAC connection. */
     fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
 
     /**
@@ -1198,7 +1198,7 @@ interface TelnyxClientAsync {
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
 
-        /** Look up SIP registration status across credential types */
+        /** Look up the live SIP registration status of a UAC connection. */
         fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
     }
 }
