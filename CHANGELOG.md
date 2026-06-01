@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.60.1 (2026-06-01)
+
+Full Changelog: [v6.60.0...v6.60.1](https://github.com/team-telnyx/telnyx-java/compare/v6.60.0...v6.60.1)
+
+### Bug Fixes
+
+* **verify:** correct WhatsApp verification type example ([6ca6776](https://github.com/team-telnyx/telnyx-java/commit/6ca6776be3a940a7a72b74b4bd1b57b2d9fd8375))
+
 ## 6.60.0 (2026-05-29)
 
 Full Changelog: [v6.59.0...v6.60.0](https://github.com/team-telnyx/telnyx-java/compare/v6.59.0...v6.60.0)
