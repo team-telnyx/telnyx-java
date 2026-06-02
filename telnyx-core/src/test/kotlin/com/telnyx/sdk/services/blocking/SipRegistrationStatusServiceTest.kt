@@ -22,7 +22,6 @@ internal class SipRegistrationStatusServiceTest {
                     .credentialType(
                         SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
                     )
-                    .userId("user_id")
                     .build()
             )
 
