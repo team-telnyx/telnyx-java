@@ -622,7 +622,7 @@ private constructor(
             @JsonProperty("next_action_at")
             @ExcludeMissing
             nextActionAt: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("sipUriUserHost")
+            @JsonProperty("sip_uri_user_host")
             @ExcludeMissing
             sipUriUserHost: JsonField<String> = JsonMissing.of(),
             @JsonProperty("uptime") @ExcludeMissing uptime: JsonField<Long> = JsonMissing.of(),
@@ -674,7 +674,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun sipUriUserHost(): Optional<String> = sipUriUserHost.getOptional("sipUriUserHost")
+        fun sipUriUserHost(): Optional<String> = sipUriUserHost.getOptional("sip_uri_user_host")
 
         /**
          * Registration uptime reported by the registrar.
@@ -723,7 +723,7 @@ private constructor(
          * Unlike [sipUriUserHost], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
-        @JsonProperty("sipUriUserHost")
+        @JsonProperty("sip_uri_user_host")
         @ExcludeMissing
         fun _sipUriUserHost(): JsonField<String> = sipUriUserHost
 
