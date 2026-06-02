@@ -15,7 +15,6 @@ internal class SipRegistrationStatusRetrieveParamsTest {
             .credentialType(
                 SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
             )
-            .userId("user_id")
             .build()
     }
 
@@ -27,7 +26,6 @@ internal class SipRegistrationStatusRetrieveParamsTest {
                 .credentialType(
                     SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
                 )
-                .userId("user_id")
                 .build()
 
         val queryParams = params._queryParams()
@@ -37,7 +35,6 @@ internal class SipRegistrationStatusRetrieveParamsTest {
                 QueryParams.builder()
                     .put("connection_id", "connection_id")
                     .put("credential_type", "uac_external_credential")
-                    .put("user_id", "user_id")
                     .build()
             )
     }
