@@ -1524,7 +1524,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
 
-    /** Look up the live SIP registration status of a UAC connection. */
+    /** UAC connection operations */
     override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
 
     override fun close() = clientOptions.close()
@@ -2806,7 +2806,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =
             voiceSdkCallReports
 
-        /** Look up the live SIP registration status of a UAC connection. */
+        /** UAC connection operations */
         override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
             sipRegistrationStatus
     }

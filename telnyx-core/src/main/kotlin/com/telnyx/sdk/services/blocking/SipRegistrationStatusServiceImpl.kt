@@ -18,7 +18,7 @@ import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusRetrieve
 import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusRetrieveResponse
 import java.util.function.Consumer
 
-/** Look up the live SIP registration status of a UAC connection. */
+/** UAC connection operations */
 class SipRegistrationStatusServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : SipRegistrationStatusService {
 
