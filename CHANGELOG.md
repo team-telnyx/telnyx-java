@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.60.2 (2026-06-01)
+
+Full Changelog: [v6.60.1...v6.60.2](https://github.com/team-telnyx/telnyx-java/compare/v6.60.1...v6.60.2)
+
+### Bug Fixes
+
+* **sip-registration-status:** scope to phase 1 uac_third-party_credential ([5fe935a](https://github.com/team-telnyx/telnyx-java/commit/5fe935abd65cd75dfac3ee02b0070d609085a3c2))
+
 ## 6.60.1 (2026-06-01)
 
 Full Changelog: [v6.60.0...v6.60.1](https://github.com/team-telnyx/telnyx-java/compare/v6.60.0...v6.60.1)

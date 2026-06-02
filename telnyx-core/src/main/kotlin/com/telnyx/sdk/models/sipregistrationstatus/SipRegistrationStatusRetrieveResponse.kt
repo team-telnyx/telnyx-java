@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -20,8 +21,12 @@ import kotlin.jvm.optionals.getOrNull
 class SipRegistrationStatusRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val b2buaExternal: JsonField<B2buaExternal>,
+    private val b2buaInternal: JsonField<B2buaInternal>,
     private val connectionId: JsonField<String>,
     private val connectionName: JsonField<String>,
+    private val credentialType: JsonField<CredentialType>,
+    private val externalState: JsonField<String>,
     private val externalUacSettings: JsonField<ExternalUacSettings>,
     private val internalUacSettings: JsonField<InternalUacSettings>,
     private val lastRegistrationResponse: JsonField<String>,
@@ -34,12 +39,24 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("b2bua_external")
+        @ExcludeMissing
+        b2buaExternal: JsonField<B2buaExternal> = JsonMissing.of(),
+        @JsonProperty("b2bua_internal")
+        @ExcludeMissing
+        b2buaInternal: JsonField<B2buaInternal> = JsonMissing.of(),
         @JsonProperty("connection_id")
         @ExcludeMissing
         connectionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("connection_name")
         @ExcludeMissing
         connectionName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("credential_type")
+        @ExcludeMissing
+        credentialType: JsonField<CredentialType> = JsonMissing.of(),
+        @JsonProperty("external_state")
+        @ExcludeMissing
+        externalState: JsonField<String> = JsonMissing.of(),
         @JsonProperty("external_uac_settings")
         @ExcludeMissing
         externalUacSettings: JsonField<ExternalUacSettings> = JsonMissing.of(),
@@ -56,8 +73,12 @@ private constructor(
         @JsonProperty("user_id") @ExcludeMissing userId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
     ) : this(
+        b2buaExternal,
+        b2buaInternal,
         connectionId,
         connectionName,
+        credentialType,
+        externalState,
         externalUacSettings,
         internalUacSettings,
         lastRegistrationResponse,
@@ -69,7 +90,23 @@ private constructor(
     )
 
     /**
-     * Identifier of the resource.
+     * Raw external-side registration block reported by the registrar.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun b2buaExternal(): Optional<B2buaExternal> = b2buaExternal.getOptional("b2bua_external")
+
+    /**
+     * Raw internal-side block reported by the registrar.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun b2buaInternal(): Optional<B2buaInternal> = b2buaInternal.getOptional("b2bua_internal")
+
+    /**
+     * Identifier of the UAC connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -83,6 +120,22 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun connectionName(): Optional<String> = connectionName.getOptional("connection_name")
+
+    /**
+     * The credential type that was looked up.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun credentialType(): Optional<CredentialType> = credentialType.getOptional("credential_type")
+
+    /**
+     * Registration state on the external (UAC / PBX) side, e.g. REGED.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun externalState(): Optional<String> = externalState.getOptional("external_state")
 
     /**
      * Outward-facing SIP settings used for registration. Password is redacted.
@@ -128,7 +181,7 @@ private constructor(
     fun registered(): Optional<Boolean> = registered.getOptional("registered")
 
     /**
-     * Owner of the resource.
+     * Owner of the connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -142,6 +195,24 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun username(): Optional<String> = username.getOptional("username")
+
+    /**
+     * Returns the raw JSON value of [b2buaExternal].
+     *
+     * Unlike [b2buaExternal], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("b2bua_external")
+    @ExcludeMissing
+    fun _b2buaExternal(): JsonField<B2buaExternal> = b2buaExternal
+
+    /**
+     * Returns the raw JSON value of [b2buaInternal].
+     *
+     * Unlike [b2buaInternal], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("b2bua_internal")
+    @ExcludeMissing
+    fun _b2buaInternal(): JsonField<B2buaInternal> = b2buaInternal
 
     /**
      * Returns the raw JSON value of [connectionId].
@@ -160,6 +231,24 @@ private constructor(
     @JsonProperty("connection_name")
     @ExcludeMissing
     fun _connectionName(): JsonField<String> = connectionName
+
+    /**
+     * Returns the raw JSON value of [credentialType].
+     *
+     * Unlike [credentialType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("credential_type")
+    @ExcludeMissing
+    fun _credentialType(): JsonField<CredentialType> = credentialType
+
+    /**
+     * Returns the raw JSON value of [externalState].
+     *
+     * Unlike [externalState], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_state")
+    @ExcludeMissing
+    fun _externalState(): JsonField<String> = externalState
 
     /**
      * Returns the raw JSON value of [externalUacSettings].
@@ -243,8 +332,12 @@ private constructor(
     /** A builder for [SipRegistrationStatusRetrieveResponse]. */
     class Builder internal constructor() {
 
+        private var b2buaExternal: JsonField<B2buaExternal> = JsonMissing.of()
+        private var b2buaInternal: JsonField<B2buaInternal> = JsonMissing.of()
         private var connectionId: JsonField<String> = JsonMissing.of()
         private var connectionName: JsonField<String> = JsonMissing.of()
+        private var credentialType: JsonField<CredentialType> = JsonMissing.of()
+        private var externalState: JsonField<String> = JsonMissing.of()
         private var externalUacSettings: JsonField<ExternalUacSettings> = JsonMissing.of()
         private var internalUacSettings: JsonField<InternalUacSettings> = JsonMissing.of()
         private var lastRegistrationResponse: JsonField<String> = JsonMissing.of()
@@ -258,8 +351,12 @@ private constructor(
         internal fun from(
             sipRegistrationStatusRetrieveResponse: SipRegistrationStatusRetrieveResponse
         ) = apply {
+            b2buaExternal = sipRegistrationStatusRetrieveResponse.b2buaExternal
+            b2buaInternal = sipRegistrationStatusRetrieveResponse.b2buaInternal
             connectionId = sipRegistrationStatusRetrieveResponse.connectionId
             connectionName = sipRegistrationStatusRetrieveResponse.connectionName
+            credentialType = sipRegistrationStatusRetrieveResponse.credentialType
+            externalState = sipRegistrationStatusRetrieveResponse.externalState
             externalUacSettings = sipRegistrationStatusRetrieveResponse.externalUacSettings
             internalUacSettings = sipRegistrationStatusRetrieveResponse.internalUacSettings
             lastRegistrationResponse =
@@ -272,7 +369,35 @@ private constructor(
                 sipRegistrationStatusRetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        /** Identifier of the resource. */
+        /** Raw external-side registration block reported by the registrar. */
+        fun b2buaExternal(b2buaExternal: B2buaExternal) = b2buaExternal(JsonField.of(b2buaExternal))
+
+        /**
+         * Sets [Builder.b2buaExternal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.b2buaExternal] with a well-typed [B2buaExternal] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun b2buaExternal(b2buaExternal: JsonField<B2buaExternal>) = apply {
+            this.b2buaExternal = b2buaExternal
+        }
+
+        /** Raw internal-side block reported by the registrar. */
+        fun b2buaInternal(b2buaInternal: B2buaInternal) = b2buaInternal(JsonField.of(b2buaInternal))
+
+        /**
+         * Sets [Builder.b2buaInternal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.b2buaInternal] with a well-typed [B2buaInternal] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun b2buaInternal(b2buaInternal: JsonField<B2buaInternal>) = apply {
+            this.b2buaInternal = b2buaInternal
+        }
+
+        /** Identifier of the UAC connection. */
         fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
 
         /**
@@ -298,6 +423,35 @@ private constructor(
          */
         fun connectionName(connectionName: JsonField<String>) = apply {
             this.connectionName = connectionName
+        }
+
+        /** The credential type that was looked up. */
+        fun credentialType(credentialType: CredentialType) =
+            credentialType(JsonField.of(credentialType))
+
+        /**
+         * Sets [Builder.credentialType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.credentialType] with a well-typed [CredentialType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun credentialType(credentialType: JsonField<CredentialType>) = apply {
+            this.credentialType = credentialType
+        }
+
+        /** Registration state on the external (UAC / PBX) side, e.g. REGED. */
+        fun externalState(externalState: String) = externalState(JsonField.of(externalState))
+
+        /**
+         * Sets [Builder.externalState] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalState] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalState(externalState: JsonField<String>) = apply {
+            this.externalState = externalState
         }
 
         /** Outward-facing SIP settings used for registration. Password is redacted. */
@@ -369,7 +523,7 @@ private constructor(
          */
         fun registered(registered: JsonField<Boolean>) = apply { this.registered = registered }
 
-        /** Owner of the resource. */
+        /** Owner of the connection. */
         fun userId(userId: String) = userId(JsonField.of(userId))
 
         /**
@@ -417,8 +571,12 @@ private constructor(
          */
         fun build(): SipRegistrationStatusRetrieveResponse =
             SipRegistrationStatusRetrieveResponse(
+                b2buaExternal,
+                b2buaInternal,
                 connectionId,
                 connectionName,
+                credentialType,
+                externalState,
                 externalUacSettings,
                 internalUacSettings,
                 lastRegistrationResponse,
@@ -445,8 +603,12 @@ private constructor(
             return@apply
         }
 
+        b2buaExternal().ifPresent { it.validate() }
+        b2buaInternal().ifPresent { it.validate() }
         connectionId()
         connectionName()
+        credentialType().ifPresent { it.validate() }
+        externalState()
         externalUacSettings().ifPresent { it.validate() }
         internalUacSettings().ifPresent { it.validate() }
         lastRegistrationResponse()
@@ -472,8 +634,12 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (connectionId.asKnown().isPresent) 1 else 0) +
+        (b2buaExternal.asKnown().getOrNull()?.validity() ?: 0) +
+            (b2buaInternal.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (connectionId.asKnown().isPresent) 1 else 0) +
             (if (connectionName.asKnown().isPresent) 1 else 0) +
+            (credentialType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (externalState.asKnown().isPresent) 1 else 0) +
             (externalUacSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (internalUacSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (lastRegistrationResponse.asKnown().isPresent) 1 else 0) +
@@ -481,6 +647,357 @@ private constructor(
             (if (registered.asKnown().isPresent) 1 else 0) +
             (if (userId.asKnown().isPresent) 1 else 0) +
             (if (username.asKnown().isPresent) 1 else 0)
+
+    /** Raw external-side registration block reported by the registrar. */
+    class B2buaExternal
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [B2buaExternal]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [B2buaExternal]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(b2buaExternal: B2buaExternal) = apply {
+                additionalProperties = b2buaExternal.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [B2buaExternal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): B2buaExternal = B2buaExternal(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): B2buaExternal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is B2buaExternal && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "B2buaExternal{additionalProperties=$additionalProperties}"
+    }
+
+    /** Raw internal-side block reported by the registrar. */
+    class B2buaInternal
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [B2buaInternal]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [B2buaInternal]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(b2buaInternal: B2buaInternal) = apply {
+                additionalProperties = b2buaInternal.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [B2buaInternal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): B2buaInternal = B2buaInternal(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): B2buaInternal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is B2buaInternal && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "B2buaInternal{additionalProperties=$additionalProperties}"
+    }
+
+    /** The credential type that was looked up. */
+    class CredentialType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val UAC_EXTERNAL_CREDENTIAL = of("uac_external_credential")
+
+            @JvmStatic fun of(value: String) = CredentialType(JsonField.of(value))
+        }
+
+        /** An enum containing [CredentialType]'s known values. */
+        enum class Known {
+            UAC_EXTERNAL_CREDENTIAL
+        }
+
+        /**
+         * An enum containing [CredentialType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [CredentialType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            UAC_EXTERNAL_CREDENTIAL,
+            /**
+             * An enum member indicating that [CredentialType] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                UAC_EXTERNAL_CREDENTIAL -> Value.UAC_EXTERNAL_CREDENTIAL
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                UAC_EXTERNAL_CREDENTIAL -> Known.UAC_EXTERNAL_CREDENTIAL
+                else -> throw TelnyxInvalidDataException("Unknown CredentialType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): CredentialType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CredentialType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     /** Outward-facing SIP settings used for registration. Password is redacted. */
     class ExternalUacSettings
@@ -556,6 +1073,8 @@ private constructor(
         fun outboundProxy(): Optional<String> = outboundProxy.getOptional("outbound_proxy")
 
         /**
+         * Always redacted.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -740,6 +1259,7 @@ private constructor(
                 this.outboundProxy = outboundProxy
             }
 
+            /** Always redacted. */
             fun password(password: String) = password(JsonField.of(password))
 
             /**
@@ -1222,8 +1742,12 @@ private constructor(
         }
 
         return other is SipRegistrationStatusRetrieveResponse &&
+            b2buaExternal == other.b2buaExternal &&
+            b2buaInternal == other.b2buaInternal &&
             connectionId == other.connectionId &&
             connectionName == other.connectionName &&
+            credentialType == other.credentialType &&
+            externalState == other.externalState &&
             externalUacSettings == other.externalUacSettings &&
             internalUacSettings == other.internalUacSettings &&
             lastRegistrationResponse == other.lastRegistrationResponse &&
@@ -1236,8 +1760,12 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            b2buaExternal,
+            b2buaInternal,
             connectionId,
             connectionName,
+            credentialType,
+            externalState,
             externalUacSettings,
             internalUacSettings,
             lastRegistrationResponse,
@@ -1252,5 +1780,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SipRegistrationStatusRetrieveResponse{connectionId=$connectionId, connectionName=$connectionName, externalUacSettings=$externalUacSettings, internalUacSettings=$internalUacSettings, lastRegistrationResponse=$lastRegistrationResponse, pairState=$pairState, registered=$registered, userId=$userId, username=$username, additionalProperties=$additionalProperties}"
+        "SipRegistrationStatusRetrieveResponse{b2buaExternal=$b2buaExternal, b2buaInternal=$b2buaInternal, connectionId=$connectionId, connectionName=$connectionName, credentialType=$credentialType, externalState=$externalState, externalUacSettings=$externalUacSettings, internalUacSettings=$internalUacSettings, lastRegistrationResponse=$lastRegistrationResponse, pairState=$pairState, registered=$registered, userId=$userId, username=$username, additionalProperties=$additionalProperties}"
 }

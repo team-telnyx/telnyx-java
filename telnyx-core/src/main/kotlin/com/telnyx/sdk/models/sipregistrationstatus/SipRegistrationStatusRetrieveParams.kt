@@ -13,8 +13,9 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 
 /**
- * Returns the live SIP registration state of a connection or credential. Supports UAC third-party
- * credentials, telephony credentials, and SIP credential connections.
+ * Returns the live SIP registration state of a UAC connection: whether it is currently registered,
+ * when it last registered, and the last response Telnyx received from the registrar. Only
+ * `uac_external_credential` is supported today.
  */
 class SipRegistrationStatusRetrieveParams
 private constructor(
@@ -25,10 +26,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Identifier of the connection or credential to look up. */
+    /** Identifier of the UAC connection to look up. */
     fun connectionId(): String = connectionId
 
-    /** The kind of credential to look up. */
+    /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
     fun credentialType(): CredentialType = credentialType
 
     /** Owner of the connection. Used to authorize the lookup. */
@@ -79,10 +80,10 @@ private constructor(
                 sipRegistrationStatusRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        /** Identifier of the connection or credential to look up. */
+        /** Identifier of the UAC connection to look up. */
         fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
 
-        /** The kind of credential to look up. */
+        /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
         fun credentialType(credentialType: CredentialType) = apply {
             this.credentialType = credentialType
         }
@@ -224,7 +225,7 @@ private constructor(
             }
             .build()
 
-    /** The kind of credential to look up. */
+    /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
     class CredentialType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -242,18 +243,12 @@ private constructor(
 
             @JvmField val UAC_EXTERNAL_CREDENTIAL = of("uac_external_credential")
 
-            @JvmField val TELEPHONY_CREDENTIAL = of("telephony_credential")
-
-            @JvmField val SIP_CREDENTIAL_CONNECTION = of("sip_credential_connection")
-
             @JvmStatic fun of(value: String) = CredentialType(JsonField.of(value))
         }
 
         /** An enum containing [CredentialType]'s known values. */
         enum class Known {
-            UAC_EXTERNAL_CREDENTIAL,
-            TELEPHONY_CREDENTIAL,
-            SIP_CREDENTIAL_CONNECTION,
+            UAC_EXTERNAL_CREDENTIAL
         }
 
         /**
@@ -267,8 +262,6 @@ private constructor(
          */
         enum class Value {
             UAC_EXTERNAL_CREDENTIAL,
-            TELEPHONY_CREDENTIAL,
-            SIP_CREDENTIAL_CONNECTION,
             /**
              * An enum member indicating that [CredentialType] was instantiated with an unknown
              * value.
@@ -286,8 +279,6 @@ private constructor(
         fun value(): Value =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Value.UAC_EXTERNAL_CREDENTIAL
-                TELEPHONY_CREDENTIAL -> Value.TELEPHONY_CREDENTIAL
-                SIP_CREDENTIAL_CONNECTION -> Value.SIP_CREDENTIAL_CONNECTION
                 else -> Value._UNKNOWN
             }
 
@@ -303,8 +294,6 @@ private constructor(
         fun known(): Known =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Known.UAC_EXTERNAL_CREDENTIAL
-                TELEPHONY_CREDENTIAL -> Known.TELEPHONY_CREDENTIAL
-                SIP_CREDENTIAL_CONNECTION -> Known.SIP_CREDENTIAL_CONNECTION
                 else -> throw TelnyxInvalidDataException("Unknown CredentialType: $value")
             }
 
