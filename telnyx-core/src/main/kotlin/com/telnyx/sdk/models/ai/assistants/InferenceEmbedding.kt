@@ -4782,9 +4782,7 @@ private constructor(
             fun id(): String = id.getRequired("id")
 
             /**
-             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`, or
-             * `tool_result`. A `tool_result` condition is only valid on an edge leaving a tool
-             * node.
+             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -4905,8 +4903,7 @@ private constructor(
 
                 /**
                  * Condition that gates the transition. Discriminated by `type`: `llm`,
-                 * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
-                 * edge leaving a tool node.
+                 * `expression`.
                  */
                 fun condition(condition: Condition) = condition(JsonField.of(condition))
 
@@ -5077,21 +5074,6 @@ private constructor(
                             .build()
                     )
 
-                /** Alias for calling [condition] with `Condition.ofToolResult(toolResult)`. */
-                fun condition(toolResult: Condition.ToolResult) =
-                    condition(Condition.ofToolResult(toolResult))
-
-                /**
-                 * Alias for calling [condition] with the following:
-                 * ```java
-                 * Condition.ToolResult.builder()
-                 *     .outcome(outcome)
-                 *     .build()
-                 * ```
-                 */
-                fun toolResultCondition(outcome: Condition.ToolResult.Outcome) =
-                    condition(Condition.ToolResult.builder().outcome(outcome).build())
-
                 /** ID of the node this edge transitions away from. */
                 fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
 
@@ -5242,9 +5224,7 @@ private constructor(
                     (target.asKnown().getOrNull()?.validity() ?: 0)
 
             /**
-             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`, or
-             * `tool_result`. A `tool_result` condition is only valid on an edge leaving a tool
-             * node.
+             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`.
              */
             @JsonDeserialize(using = Condition.Deserializer::class)
             @JsonSerialize(using = Condition.Serializer::class)
@@ -5252,7 +5232,6 @@ private constructor(
             private constructor(
                 private val llm: Llm? = null,
                 private val expression: Expression? = null,
-                private val toolResult: ToolResult? = null,
                 private val _json: JsonValue? = null,
             ) {
 
@@ -5274,23 +5253,9 @@ private constructor(
                  */
                 fun expression(): Optional<Expression> = Optional.ofNullable(expression)
 
-                /**
-                 * Edge condition that fires on the outcome of a tool node's execution.
-                 *
-                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
-                 * exactly one tool as a deliberate flow step; this condition routes on whether that
-                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
-                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
-                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
-                 * unambiguous.
-                 */
-                fun toolResult(): Optional<ToolResult> = Optional.ofNullable(toolResult)
-
                 fun isLlm(): Boolean = llm != null
 
                 fun isExpression(): Boolean = expression != null
-
-                fun isToolResult(): Boolean = toolResult != null
 
                 /**
                  * Edge condition evaluated by the LLM from a natural-language prompt.
@@ -5309,18 +5274,6 @@ private constructor(
                  * known variables — it's cheaper and predictable.
                  */
                 fun asExpression(): Expression = expression.getOrThrow("expression")
-
-                /**
-                 * Edge condition that fires on the outcome of a tool node's execution.
-                 *
-                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
-                 * exactly one tool as a deliberate flow step; this condition routes on whether that
-                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
-                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
-                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
-                 * unambiguous.
-                 */
-                fun asToolResult(): ToolResult = toolResult.getOrThrow("toolResult")
 
                 fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -5358,7 +5311,6 @@ private constructor(
                     when {
                         llm != null -> visitor.visitLlm(llm)
                         expression != null -> visitor.visitExpression(expression)
-                        toolResult != null -> visitor.visitToolResult(toolResult)
                         else -> visitor.unknown(_json)
                     }
 
@@ -5388,10 +5340,6 @@ private constructor(
                             override fun visitExpression(expression: Expression) {
                                 expression.validate()
                             }
-
-                            override fun visitToolResult(toolResult: ToolResult) {
-                                toolResult.validate()
-                            }
                         }
                     )
                     validated = true
@@ -5420,9 +5368,6 @@ private constructor(
                             override fun visitExpression(expression: Expression) =
                                 expression.validity()
 
-                            override fun visitToolResult(toolResult: ToolResult) =
-                                toolResult.validity()
-
                             override fun unknown(json: JsonValue?) = 0
                         }
                     )
@@ -5432,19 +5377,15 @@ private constructor(
                         return true
                     }
 
-                    return other is Condition &&
-                        llm == other.llm &&
-                        expression == other.expression &&
-                        toolResult == other.toolResult
+                    return other is Condition && llm == other.llm && expression == other.expression
                 }
 
-                override fun hashCode(): Int = Objects.hash(llm, expression, toolResult)
+                override fun hashCode(): Int = Objects.hash(llm, expression)
 
                 override fun toString(): String =
                     when {
                         llm != null -> "Condition{llm=$llm}"
                         expression != null -> "Condition{expression=$expression}"
-                        toolResult != null -> "Condition{toolResult=$toolResult}"
                         _json != null -> "Condition{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid Condition")
                     }
@@ -5469,19 +5410,6 @@ private constructor(
                      */
                     @JvmStatic
                     fun ofExpression(expression: Expression) = Condition(expression = expression)
-
-                    /**
-                     * Edge condition that fires on the outcome of a tool node's execution.
-                     *
-                     * Only valid on edges leaving a tool node (``type == "tool"``). A tool node
-                     * runs exactly one tool as a deliberate flow step; this condition routes on
-                     * whether that tool reported ``success`` or ``failure``. Use it to split the
-                     * happy path from the error path after a tool runs (e.g. payment succeeded vs.
-                     * declined). There is no ``tool_id`` field — the tool node has a single tool,
-                     * so the outcome is unambiguous.
-                     */
-                    @JvmStatic
-                    fun ofToolResult(toolResult: ToolResult) = Condition(toolResult = toolResult)
                 }
 
                 /**
@@ -5507,18 +5435,6 @@ private constructor(
                      * clean function of known variables — it's cheaper and predictable.
                      */
                     fun visitExpression(expression: Expression): T
-
-                    /**
-                     * Edge condition that fires on the outcome of a tool node's execution.
-                     *
-                     * Only valid on edges leaving a tool node (``type == "tool"``). A tool node
-                     * runs exactly one tool as a deliberate flow step; this condition routes on
-                     * whether that tool reported ``success`` or ``failure``. Use it to split the
-                     * happy path from the error path after a tool runs (e.g. payment succeeded vs.
-                     * declined). There is no ``tool_id`` field — the tool node has a single tool,
-                     * so the outcome is unambiguous.
-                     */
-                    fun visitToolResult(toolResult: ToolResult): T
 
                     /**
                      * Maps an unknown variant of [Condition] to a value of type [T].
@@ -5552,11 +5468,6 @@ private constructor(
                                     Condition(expression = it, _json = json)
                                 } ?: Condition(_json = json)
                             }
-                            "tool_result" -> {
-                                return tryDeserialize(node, jacksonTypeRef<ToolResult>())?.let {
-                                    Condition(toolResult = it, _json = json)
-                                } ?: Condition(_json = json)
-                            }
                         }
 
                         return Condition(_json = json)
@@ -5573,7 +5484,6 @@ private constructor(
                         when {
                             value.llm != null -> generator.writeObject(value.llm)
                             value.expression != null -> generator.writeObject(value.expression)
-                            value.toolResult != null -> generator.writeObject(value.toolResult)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid Condition")
                         }
@@ -16736,383 +16646,6 @@ private constructor(
 
                     override fun toString() =
                         "Expression{expression=$expression, type=$type, additionalProperties=$additionalProperties}"
-                }
-
-                /**
-                 * Edge condition that fires on the outcome of a tool node's execution.
-                 *
-                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
-                 * exactly one tool as a deliberate flow step; this condition routes on whether that
-                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
-                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
-                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
-                 * unambiguous.
-                 */
-                class ToolResult
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val outcome: JsonField<Outcome>,
-                    private val type: JsonValue,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("outcome")
-                        @ExcludeMissing
-                        outcome: JsonField<Outcome> = JsonMissing.of(),
-                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                    ) : this(outcome, type, mutableMapOf())
-
-                    /**
-                     * Match either the tool node's success or failure outcome.
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
-                     */
-                    fun outcome(): Outcome = outcome.getRequired("outcome")
-
-                    /**
-                     * Expected to always return the following:
-                     * ```java
-                     * JsonValue.from("tool_result")
-                     * ```
-                     *
-                     * However, this method can be useful for debugging and logging (e.g. if the
-                     * server responded with an unexpected value).
-                     */
-                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-                    /**
-                     * Returns the raw JSON value of [outcome].
-                     *
-                     * Unlike [outcome], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("outcome")
-                    @ExcludeMissing
-                    fun _outcome(): JsonField<Outcome> = outcome
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of [ToolResult].
-                         *
-                         * The following fields are required:
-                         * ```java
-                         * .outcome()
-                         * ```
-                         */
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    /** A builder for [ToolResult]. */
-                    class Builder internal constructor() {
-
-                        private var outcome: JsonField<Outcome>? = null
-                        private var type: JsonValue = JsonValue.from("tool_result")
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(toolResult: ToolResult) = apply {
-                            outcome = toolResult.outcome
-                            type = toolResult.type
-                            additionalProperties = toolResult.additionalProperties.toMutableMap()
-                        }
-
-                        /** Match either the tool node's success or failure outcome. */
-                        fun outcome(outcome: Outcome) = outcome(JsonField.of(outcome))
-
-                        /**
-                         * Sets [Builder.outcome] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.outcome] with a well-typed [Outcome]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun outcome(outcome: JsonField<Outcome>) = apply { this.outcome = outcome }
-
-                        /**
-                         * Sets the field to an arbitrary JSON value.
-                         *
-                         * It is usually unnecessary to call this method because the field defaults
-                         * to the following:
-                         * ```java
-                         * JsonValue.from("tool_result")
-                         * ```
-                         *
-                         * This method is primarily for setting the field to an undocumented or not
-                         * yet supported value.
-                         */
-                        fun type(type: JsonValue) = apply { this.type = type }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [ToolResult].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```java
-                         * .outcome()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
-                         */
-                        fun build(): ToolResult =
-                            ToolResult(
-                                checkRequired("outcome", outcome),
-                                type,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
-                     *   match its expected type.
-                     */
-                    fun validate(): ToolResult = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        outcome().validate()
-                        _type().let {
-                            if (it != JsonValue.from("tool_result")) {
-                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                            }
-                        }
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: TelnyxInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    @JvmSynthetic
-                    internal fun validity(): Int =
-                        (outcome.asKnown().getOrNull()?.validity() ?: 0) +
-                            type.let { if (it == JsonValue.from("tool_result")) 1 else 0 }
-
-                    /** Match either the tool node's success or failure outcome. */
-                    class Outcome
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            @JvmField val SUCCESS = of("success")
-
-                            @JvmField val FAILURE = of("failure")
-
-                            @JvmStatic fun of(value: String) = Outcome(JsonField.of(value))
-                        }
-
-                        /** An enum containing [Outcome]'s known values. */
-                        enum class Known {
-                            SUCCESS,
-                            FAILURE,
-                        }
-
-                        /**
-                         * An enum containing [Outcome]'s known values, as well as an [_UNKNOWN]
-                         * member.
-                         *
-                         * An instance of [Outcome] can contain an unknown value in a couple of
-                         * cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            SUCCESS,
-                            FAILURE,
-                            /**
-                             * An enum member indicating that [Outcome] was instantiated with an
-                             * unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                SUCCESS -> Value.SUCCESS
-                                FAILURE -> Value.FAILURE
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value is a
-                         *   not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                SUCCESS -> Known.SUCCESS
-                                FAILURE -> Known.FAILURE
-                                else -> throw TelnyxInvalidDataException("Unknown Outcome: $value")
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value does
-                         *   not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString().orElseThrow {
-                                TelnyxInvalidDataException("Value is not a String")
-                            }
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws TelnyxInvalidDataException if any value type in this object
-                         *   doesn't match its expected type.
-                         */
-                        fun validate(): Outcome = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: TelnyxInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        @JvmSynthetic
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is Outcome && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is ToolResult &&
-                            outcome == other.outcome &&
-                            type == other.type &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(outcome, type, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "ToolResult{outcome=$outcome, type=$type, additionalProperties=$additionalProperties}"
                 }
             }
 
