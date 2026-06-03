@@ -8,8 +8,6 @@ import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
-import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
-import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -199,17 +197,24 @@ internal class ActionServiceTest {
                                     .DTMF
                             )
                             .interruptionSettings(
-                                ConversationRelayInterruptionSettings.builder()
+                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
+                                    .builder()
                                     .enable(true)
                                     .interruptible(
-                                        ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                                        ActionAnswerParams.ConversationRelayConfig
+                                            .InterruptionSettings
+                                            .Interruptible
+                                            .SPEECH
                                     )
                                     .interruptibleGreeting(
-                                        ConversationRelayInterruptionSettings.InterruptibleGreeting
+                                        ActionAnswerParams.ConversationRelayConfig
+                                            .InterruptionSettings
+                                            .InterruptibleGreeting
                                             .SPEECH
                                     )
                                     .welcomeGreetingInterruptible(
-                                        ConversationRelayInterruptionSettings
+                                        ActionAnswerParams.ConversationRelayConfig
+                                            .InterruptionSettings
                                             .WelcomeGreetingInterruptible
                                             .SPEECH
                                     )
@@ -217,14 +222,17 @@ internal class ActionServiceTest {
                             )
                             .language("en-US")
                             .addLanguage(
-                                ConversationRelayLanguage.builder()
+                                ActionAnswerParams.ConversationRelayConfig.Language.builder()
                                     .language("en-US")
                                     .speechModel("nova-3")
                                     .transcriptionEngine(
-                                        ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                                        ActionAnswerParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngine
+                                            .DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
+                                        ActionAnswerParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngineConfig
                                             .builder()
                                             .putAdditionalProperty(
                                                 "transcription_model",
@@ -1002,14 +1010,21 @@ internal class ActionServiceTest {
                                     .DTMF
                             )
                             .addLanguage(
-                                ConversationRelayLanguage.builder()
+                                ActionStartConversationRelayParams.ConversationRelaySettings
+                                    .Language
+                                    .builder()
                                     .language("en-US")
                                     .speechModel("nova-3")
                                     .transcriptionEngine(
-                                        ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                                        ActionStartConversationRelayParams.ConversationRelaySettings
+                                            .Language
+                                            .TranscriptionEngine
+                                            .DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
+                                        ActionStartConversationRelayParams.ConversationRelaySettings
+                                            .Language
+                                            .TranscriptionEngineConfig
                                             .builder()
                                             .putAdditionalProperty(
                                                 "transcription_model",
@@ -1043,30 +1058,38 @@ internal class ActionServiceTest {
                         ActionStartConversationRelayParams.InterruptibleGreeting.DTMF
                     )
                     .interruptionSettings(
-                        ConversationRelayInterruptionSettings.builder()
+                        ActionStartConversationRelayParams.InterruptionSettings.builder()
                             .enable(true)
                             .interruptible(
-                                ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .Interruptible
+                                    .SPEECH
                             )
                             .interruptibleGreeting(
-                                ConversationRelayInterruptionSettings.InterruptibleGreeting.SPEECH
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .InterruptibleGreeting
+                                    .SPEECH
                             )
                             .welcomeGreetingInterruptible(
-                                ConversationRelayInterruptionSettings.WelcomeGreetingInterruptible
+                                ActionStartConversationRelayParams.InterruptionSettings
+                                    .WelcomeGreetingInterruptible
                                     .SPEECH
                             )
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        ConversationRelayLanguage.builder()
+                        ActionStartConversationRelayParams.Language.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                                ActionStartConversationRelayParams.Language.TranscriptionEngine
+                                    .DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
+                                ActionStartConversationRelayParams.Language
+                                    .TranscriptionEngineConfig
+                                    .builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),

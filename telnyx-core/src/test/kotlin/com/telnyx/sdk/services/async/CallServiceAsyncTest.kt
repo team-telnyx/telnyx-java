@@ -7,8 +7,6 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.CallDialParams
-import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
-import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -173,17 +171,21 @@ internal class CallServiceAsyncTest {
                                 CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
                             )
                             .interruptionSettings(
-                                ConversationRelayInterruptionSettings.builder()
+                                CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                    .builder()
                                     .enable(true)
                                     .interruptible(
-                                        ConversationRelayInterruptionSettings.Interruptible.SPEECH
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                            .Interruptible
+                                            .SPEECH
                                     )
                                     .interruptibleGreeting(
-                                        ConversationRelayInterruptionSettings.InterruptibleGreeting
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
+                                            .InterruptibleGreeting
                                             .SPEECH
                                     )
                                     .welcomeGreetingInterruptible(
-                                        ConversationRelayInterruptionSettings
+                                        CallDialParams.ConversationRelayConfig.InterruptionSettings
                                             .WelcomeGreetingInterruptible
                                             .SPEECH
                                     )
@@ -191,14 +193,17 @@ internal class CallServiceAsyncTest {
                             )
                             .language("en-US")
                             .addLanguage(
-                                ConversationRelayLanguage.builder()
+                                CallDialParams.ConversationRelayConfig.Language.builder()
                                     .language("en-US")
                                     .speechModel("nova-3")
                                     .transcriptionEngine(
-                                        ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
+                                        CallDialParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngine
+                                            .DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
+                                        CallDialParams.ConversationRelayConfig.Language
+                                            .TranscriptionEngineConfig
                                             .builder()
                                             .putAdditionalProperty(
                                                 "transcription_model",

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -16,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.texttospeech.TextToSpeechCreateSpeechParams
-import com.telnyx.sdk.models.texttospeech.TextToSpeechCreateSpeechResponse
-import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import java.util.concurrent.CompletableFuture
@@ -37,19 +35,12 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TextToSpeechServiceAsync =
         TextToSpeechServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createSpeech(
-        params: TextToSpeechCreateSpeechParams,
+    override fun generate(
+        params: TextToSpeechGenerateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TextToSpeechCreateSpeechResponse> =
+    ): CompletableFuture<TextToSpeechGenerateResponse> =
         // post /text-to-speech/speech
-        withRawResponse().createSpeech(params, requestOptions).thenApply { it.parse() }
-
-    override fun generateSpeech(
-        params: TextToSpeechGenerateSpeechParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // get /text-to-speech/speech
-        withRawResponse().generateSpeech(params, requestOptions).thenAccept {}
+        withRawResponse().generate(params, requestOptions).thenApply { it.parse() }
 
     override fun listVoices(
         params: TextToSpeechListVoicesParams,
@@ -71,13 +62,13 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createSpeechHandler: Handler<TextToSpeechCreateSpeechResponse> =
-            jsonHandler<TextToSpeechCreateSpeechResponse>(clientOptions.jsonMapper)
+        private val generateHandler: Handler<TextToSpeechGenerateResponse> =
+            jsonHandler<TextToSpeechGenerateResponse>(clientOptions.jsonMapper)
 
-        override fun createSpeech(
-            params: TextToSpeechCreateSpeechParams,
+        override fun generate(
+            params: TextToSpeechGenerateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TextToSpeechCreateSpeechResponse>> {
+        ): CompletableFuture<HttpResponseFor<TextToSpeechGenerateResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -92,35 +83,12 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createSpeechHandler.handle(it) }
+                            .use { generateHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
                             }
-                    }
-                }
-        }
-
-        private val generateSpeechHandler: Handler<Void?> = emptyHandler()
-
-        override fun generateSpeech(
-            params: TextToSpeechGenerateSpeechParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("text-to-speech", "speech")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { generateSpeechHandler.handle(it) }
                     }
                 }
         }

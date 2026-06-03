@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.AiCreateResponseParams
-import com.telnyx.sdk.models.ai.AiCreateResponseResponse
+import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
+import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
@@ -79,30 +79,35 @@ interface AiServiceAsync {
      * persistent conversations.
      */
     @Deprecated("deprecated")
-    fun createResponse(
-        params: AiCreateResponseParams
-    ): CompletableFuture<AiCreateResponseResponse> = createResponse(params, RequestOptions.none())
+    fun createResponseDeprecated(
+        params: AiCreateResponseDeprecatedParams
+    ): CompletableFuture<AiCreateResponseDeprecatedResponse> =
+        createResponseDeprecated(params, RequestOptions.none())
 
-    /** @see createResponse */
+    /** @see createResponseDeprecated */
     @Deprecated("deprecated")
-    fun createResponse(
-        params: AiCreateResponseParams,
+    fun createResponseDeprecated(
+        params: AiCreateResponseDeprecatedParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AiCreateResponseResponse>
+    ): CompletableFuture<AiCreateResponseDeprecatedResponse>
 
-    /** @see createResponse */
+    /** @see createResponseDeprecated */
     @Deprecated("deprecated")
-    fun createResponse(
-        input: AiCreateResponseParams.Input,
+    fun createResponseDeprecated(
+        body: AiCreateResponseDeprecatedParams.Body,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AiCreateResponseResponse> =
-        createResponse(AiCreateResponseParams.builder().input(input).build(), requestOptions)
+    ): CompletableFuture<AiCreateResponseDeprecatedResponse> =
+        createResponseDeprecated(
+            AiCreateResponseDeprecatedParams.builder().body(body).build(),
+            requestOptions,
+        )
 
-    /** @see createResponse */
+    /** @see createResponseDeprecated */
     @Deprecated("deprecated")
-    fun createResponse(
-        input: AiCreateResponseParams.Input
-    ): CompletableFuture<AiCreateResponseResponse> = createResponse(input, RequestOptions.none())
+    fun createResponseDeprecated(
+        body: AiCreateResponseDeprecatedParams.Body
+    ): CompletableFuture<AiCreateResponseDeprecatedResponse> =
+        createResponseDeprecated(body, RequestOptions.none())
 
     /**
      * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -199,35 +204,38 @@ interface AiServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /ai/responses`, but is otherwise the same as
-         * [AiServiceAsync.createResponse].
+         * [AiServiceAsync.createResponseDeprecated].
          */
         @Deprecated("deprecated")
-        fun createResponse(
-            params: AiCreateResponseParams
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> =
-            createResponse(params, RequestOptions.none())
+        fun createResponseDeprecated(
+            params: AiCreateResponseDeprecatedParams
+        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>> =
+            createResponseDeprecated(params, RequestOptions.none())
 
-        /** @see createResponse */
+        /** @see createResponseDeprecated */
         @Deprecated("deprecated")
-        fun createResponse(
-            params: AiCreateResponseParams,
+        fun createResponseDeprecated(
+            params: AiCreateResponseDeprecatedParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>>
+        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>>
 
-        /** @see createResponse */
+        /** @see createResponseDeprecated */
         @Deprecated("deprecated")
-        fun createResponse(
-            input: AiCreateResponseParams.Input,
+        fun createResponseDeprecated(
+            body: AiCreateResponseDeprecatedParams.Body,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> =
-            createResponse(AiCreateResponseParams.builder().input(input).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>> =
+            createResponseDeprecated(
+                AiCreateResponseDeprecatedParams.builder().body(body).build(),
+                requestOptions,
+            )
 
-        /** @see createResponse */
+        /** @see createResponseDeprecated */
         @Deprecated("deprecated")
-        fun createResponse(
-            input: AiCreateResponseParams.Input
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseResponse>> =
-            createResponse(input, RequestOptions.none())
+        fun createResponseDeprecated(
+            body: AiCreateResponseDeprecatedParams.Body
+        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>> =
+            createResponseDeprecated(body, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as

@@ -35,6 +35,18 @@ private constructor(
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
 
     /**
+     * Conversation flow as supplied by API clients (create / update).
+     *
+     * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+     * node/edge IDs, that `start_node_id` references a real node, and that every edge's endpoints
+     * reference real nodes.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationFlow(): Optional<UpdateAssistant.ConversationFlow> = body.conversationFlow()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -280,6 +292,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun promoteToMain(): Optional<Boolean> = body.promoteToMain()
+
+    /**
+     * Returns the raw JSON value of [conversationFlow].
+     *
+     * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _conversationFlow(): JsonField<UpdateAssistant.ConversationFlow> = body._conversationFlow()
 
     /**
      * Returns the raw JSON value of [description].
@@ -539,14 +559,37 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [conversationFlow]
          * - [description]
          * - [dynamicVariables]
          * - [dynamicVariablesWebhookTimeoutMs]
          * - [dynamicVariablesWebhookUrl]
-         * - [enabledFeatures]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * Conversation flow as supplied by API clients (create / update).
+         *
+         * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+         * node/edge IDs, that `start_node_id` references a real node, and that every edge's
+         * endpoints reference real nodes.
+         */
+        fun conversationFlow(conversationFlow: UpdateAssistant.ConversationFlow) = apply {
+            body.conversationFlow(conversationFlow)
+        }
+
+        /**
+         * Sets [Builder.conversationFlow] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationFlow] with a well-typed
+         * [UpdateAssistant.ConversationFlow] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
+        fun conversationFlow(conversationFlow: JsonField<UpdateAssistant.ConversationFlow>) =
+            apply {
+                body.conversationFlow(conversationFlow)
+            }
 
         fun description(description: String) = apply { body.description(description) }
 
@@ -1366,6 +1409,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val conversationFlow: JsonField<UpdateAssistant.ConversationFlow>,
         private val description: JsonField<String>,
         private val dynamicVariables: JsonField<UpdateAssistant.DynamicVariables>,
         private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
@@ -1400,6 +1444,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("conversation_flow")
+            @ExcludeMissing
+            conversationFlow: JsonField<UpdateAssistant.ConversationFlow> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
@@ -1483,6 +1530,7 @@ private constructor(
             @ExcludeMissing
             promoteToMain: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
+            conversationFlow,
             description,
             dynamicVariables,
             dynamicVariablesWebhookTimeoutMs,
@@ -1517,6 +1565,7 @@ private constructor(
 
         fun toUpdateAssistant(): UpdateAssistant =
             UpdateAssistant.builder()
+                .conversationFlow(conversationFlow)
                 .description(description)
                 .dynamicVariables(dynamicVariables)
                 .dynamicVariablesWebhookTimeoutMs(dynamicVariablesWebhookTimeoutMs)
@@ -1546,6 +1595,19 @@ private constructor(
                 .voiceSettings(voiceSettings)
                 .widgetSettings(widgetSettings)
                 .build()
+
+        /**
+         * Conversation flow as supplied by API clients (create / update).
+         *
+         * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+         * node/edge IDs, that `start_node_id` references a real node, and that every edge's
+         * endpoints reference real nodes.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conversationFlow(): Optional<UpdateAssistant.ConversationFlow> =
+            conversationFlow.getOptional("conversation_flow")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1807,6 +1869,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun promoteToMain(): Optional<Boolean> = promoteToMain.getOptional("promote_to_main")
+
+        /**
+         * Returns the raw JSON value of [conversationFlow].
+         *
+         * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("conversation_flow")
+        @ExcludeMissing
+        fun _conversationFlow(): JsonField<UpdateAssistant.ConversationFlow> = conversationFlow
 
         /**
          * Returns the raw JSON value of [description].
@@ -2099,6 +2171,8 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var conversationFlow: JsonField<UpdateAssistant.ConversationFlow> =
+                JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var dynamicVariables: JsonField<UpdateAssistant.DynamicVariables> =
                 JsonMissing.of()
@@ -2135,6 +2209,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                conversationFlow = body.conversationFlow
                 description = body.description
                 dynamicVariables = body.dynamicVariables
                 dynamicVariablesWebhookTimeoutMs = body.dynamicVariablesWebhookTimeoutMs
@@ -2166,6 +2241,28 @@ private constructor(
                 promoteToMain = body.promoteToMain
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
+
+            /**
+             * Conversation flow as supplied by API clients (create / update).
+             *
+             * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+             * unique node/edge IDs, that `start_node_id` references a real node, and that every
+             * edge's endpoints reference real nodes.
+             */
+            fun conversationFlow(conversationFlow: UpdateAssistant.ConversationFlow) =
+                conversationFlow(JsonField.of(conversationFlow))
+
+            /**
+             * Sets [Builder.conversationFlow] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conversationFlow] with a well-typed
+             * [UpdateAssistant.ConversationFlow] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun conversationFlow(conversationFlow: JsonField<UpdateAssistant.ConversationFlow>) =
+                apply {
+                    this.conversationFlow = conversationFlow
+                }
 
             fun description(description: String) = description(JsonField.of(description))
 
@@ -2896,6 +2993,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
+                    conversationFlow,
                     description,
                     dynamicVariables,
                     dynamicVariablesWebhookTimeoutMs,
@@ -2945,6 +3043,7 @@ private constructor(
                 return@apply
             }
 
+            conversationFlow().ifPresent { it.validate() }
             description()
             dynamicVariables().ifPresent { it.validate() }
             dynamicVariablesWebhookTimeoutMs()
@@ -2993,7 +3092,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (description.asKnown().isPresent) 1 else 0) +
+            (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (description.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (dynamicVariablesWebhookTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
@@ -3029,6 +3129,7 @@ private constructor(
             }
 
             return other is Body &&
+                conversationFlow == other.conversationFlow &&
                 description == other.description &&
                 dynamicVariables == other.dynamicVariables &&
                 dynamicVariablesWebhookTimeoutMs == other.dynamicVariablesWebhookTimeoutMs &&
@@ -3063,6 +3164,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                conversationFlow,
                 description,
                 dynamicVariables,
                 dynamicVariablesWebhookTimeoutMs,
@@ -3099,7 +3201,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

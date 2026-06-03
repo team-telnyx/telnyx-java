@@ -6,13 +6,13 @@ import com.telnyx.sdk.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AiCreateResponseParamsTest {
+internal class AiCreateResponseDeprecatedParamsTest {
 
     @Test
     fun create() {
-        AiCreateResponseParams.builder()
-            .input(
-                AiCreateResponseParams.Input.builder()
+        AiCreateResponseDeprecatedParams.builder()
+            .body(
+                AiCreateResponseDeprecatedParams.Body.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
@@ -23,9 +23,9 @@ internal class AiCreateResponseParamsTest {
     @Test
     fun body() {
         val params =
-            AiCreateResponseParams.builder()
-                .input(
-                    AiCreateResponseParams.Input.builder()
+            AiCreateResponseDeprecatedParams.builder()
+                .body(
+                    AiCreateResponseDeprecatedParams.Body.builder()
                         .putAdditionalProperty("model", JsonValue.from("bar"))
                         .putAdditionalProperty("input", JsonValue.from("bar"))
                         .build()
@@ -36,7 +36,7 @@ internal class AiCreateResponseParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                AiCreateResponseParams.Input.builder()
+                AiCreateResponseDeprecatedParams.Body.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
