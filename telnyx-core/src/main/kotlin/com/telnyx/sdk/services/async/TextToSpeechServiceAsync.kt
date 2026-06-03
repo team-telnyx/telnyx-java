@@ -4,11 +4,9 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.texttospeech.TextToSpeechCreateSpeechParams
-import com.telnyx.sdk.models.texttospeech.TextToSpeechCreateSpeechResponse
-import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import java.util.concurrent.CompletableFuture
@@ -45,67 +43,23 @@ interface TextToSpeechServiceAsync {
      * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and
      * volume control. Use the `telnyx` provider-specific parameters to configure these features.
      */
-    fun createSpeech(): CompletableFuture<TextToSpeechCreateSpeechResponse> =
-        createSpeech(TextToSpeechCreateSpeechParams.none())
+    fun generate(): CompletableFuture<TextToSpeechGenerateResponse> =
+        generate(TextToSpeechGenerateParams.none())
 
-    /** @see createSpeech */
-    fun createSpeech(
-        params: TextToSpeechCreateSpeechParams = TextToSpeechCreateSpeechParams.none(),
+    /** @see generate */
+    fun generate(
+        params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TextToSpeechCreateSpeechResponse>
+    ): CompletableFuture<TextToSpeechGenerateResponse>
 
-    /** @see createSpeech */
-    fun createSpeech(
-        params: TextToSpeechCreateSpeechParams = TextToSpeechCreateSpeechParams.none()
-    ): CompletableFuture<TextToSpeechCreateSpeechResponse> =
-        createSpeech(params, RequestOptions.none())
+    /** @see generate */
+    fun generate(
+        params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none()
+    ): CompletableFuture<TextToSpeechGenerateResponse> = generate(params, RequestOptions.none())
 
-    /** @see createSpeech */
-    fun createSpeech(
-        requestOptions: RequestOptions
-    ): CompletableFuture<TextToSpeechCreateSpeechResponse> =
-        createSpeech(TextToSpeechCreateSpeechParams.none(), requestOptions)
-
-    /**
-     * Open a WebSocket connection to stream text and receive synthesized audio in real time.
-     * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header. Send
-     * JSON frames with text to synthesize; receive JSON frames containing base64-encoded audio
-     * chunks.
-     *
-     * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`, `resemble`,
-     * `elevenlabs`, `xai`.
-     *
-     * **Connection flow:**
-     * 1. Open WebSocket with query parameters specifying provider, voice, and model.
-     * 2. Send an initial handshake message `{"text": " "}` (single space) with optional
-     *    `voice_settings` to initialize the session.
-     * 3. Send text messages as `{"text": "Hello world"}`.
-     * 4. Receive audio chunks as JSON frames with base64-encoded audio.
-     * 5. A final frame with `isFinal: true` indicates the end of audio for the current text.
-     *
-     * To interrupt and restart synthesis mid-stream, send `{"force": true}` — the current worker is
-     * stopped and a new one is started.
-     *
-     * **Note:** The Telnyx `Ultra` model is not available over WebSocket. Use the HTTP POST
-     * `/text-to-speech/speech` endpoint instead.
-     */
-    fun generateSpeech(): CompletableFuture<Void?> =
-        generateSpeech(TextToSpeechGenerateSpeechParams.none())
-
-    /** @see generateSpeech */
-    fun generateSpeech(
-        params: TextToSpeechGenerateSpeechParams = TextToSpeechGenerateSpeechParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see generateSpeech */
-    fun generateSpeech(
-        params: TextToSpeechGenerateSpeechParams = TextToSpeechGenerateSpeechParams.none()
-    ): CompletableFuture<Void?> = generateSpeech(params, RequestOptions.none())
-
-    /** @see generateSpeech */
-    fun generateSpeech(requestOptions: RequestOptions): CompletableFuture<Void?> =
-        generateSpeech(TextToSpeechGenerateSpeechParams.none(), requestOptions)
+    /** @see generate */
+    fun generate(requestOptions: RequestOptions): CompletableFuture<TextToSpeechGenerateResponse> =
+        generate(TextToSpeechGenerateParams.none(), requestOptions)
 
     /**
      * Retrieve a list of available voices from one or all TTS providers. When `provider` is
@@ -151,50 +105,28 @@ interface TextToSpeechServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /text-to-speech/speech`, but is otherwise the same
-         * as [TextToSpeechServiceAsync.createSpeech].
+         * as [TextToSpeechServiceAsync.generate].
          */
-        fun createSpeech(): CompletableFuture<HttpResponseFor<TextToSpeechCreateSpeechResponse>> =
-            createSpeech(TextToSpeechCreateSpeechParams.none())
+        fun generate(): CompletableFuture<HttpResponseFor<TextToSpeechGenerateResponse>> =
+            generate(TextToSpeechGenerateParams.none())
 
-        /** @see createSpeech */
-        fun createSpeech(
-            params: TextToSpeechCreateSpeechParams = TextToSpeechCreateSpeechParams.none(),
+        /** @see generate */
+        fun generate(
+            params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TextToSpeechCreateSpeechResponse>>
+        ): CompletableFuture<HttpResponseFor<TextToSpeechGenerateResponse>>
 
-        /** @see createSpeech */
-        fun createSpeech(
-            params: TextToSpeechCreateSpeechParams = TextToSpeechCreateSpeechParams.none()
-        ): CompletableFuture<HttpResponseFor<TextToSpeechCreateSpeechResponse>> =
-            createSpeech(params, RequestOptions.none())
+        /** @see generate */
+        fun generate(
+            params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none()
+        ): CompletableFuture<HttpResponseFor<TextToSpeechGenerateResponse>> =
+            generate(params, RequestOptions.none())
 
-        /** @see createSpeech */
-        fun createSpeech(
+        /** @see generate */
+        fun generate(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TextToSpeechCreateSpeechResponse>> =
-            createSpeech(TextToSpeechCreateSpeechParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /text-to-speech/speech`, but is otherwise the same
-         * as [TextToSpeechServiceAsync.generateSpeech].
-         */
-        fun generateSpeech(): CompletableFuture<HttpResponse> =
-            generateSpeech(TextToSpeechGenerateSpeechParams.none())
-
-        /** @see generateSpeech */
-        fun generateSpeech(
-            params: TextToSpeechGenerateSpeechParams = TextToSpeechGenerateSpeechParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see generateSpeech */
-        fun generateSpeech(
-            params: TextToSpeechGenerateSpeechParams = TextToSpeechGenerateSpeechParams.none()
-        ): CompletableFuture<HttpResponse> = generateSpeech(params, RequestOptions.none())
-
-        /** @see generateSpeech */
-        fun generateSpeech(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            generateSpeech(TextToSpeechGenerateSpeechParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<TextToSpeechGenerateResponse>> =
+            generate(TextToSpeechGenerateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /text-to-speech/voices`, but is otherwise the same

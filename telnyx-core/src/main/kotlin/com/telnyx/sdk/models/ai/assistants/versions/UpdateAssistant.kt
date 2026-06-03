@@ -6,11 +6,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
+import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
@@ -42,6 +55,7 @@ import kotlin.jvm.optionals.getOrNull
 class UpdateAssistant
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val conversationFlow: JsonField<ConversationFlow>,
     private val description: JsonField<String>,
     private val dynamicVariables: JsonField<DynamicVariables>,
     private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
@@ -75,6 +89,9 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("conversation_flow")
+        @ExcludeMissing
+        conversationFlow: JsonField<ConversationFlow> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -152,6 +169,7 @@ private constructor(
         @ExcludeMissing
         widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
     ) : this(
+        conversationFlow,
         description,
         dynamicVariables,
         dynamicVariablesWebhookTimeoutMs,
@@ -182,6 +200,19 @@ private constructor(
         widgetSettings,
         mutableMapOf(),
     )
+
+    /**
+     * Conversation flow as supplied by API clients (create / update).
+     *
+     * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+     * node/edge IDs, that `start_node_id` references a real node, and that every edge's endpoints
+     * reference real nodes.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationFlow(): Optional<ConversationFlow> =
+        conversationFlow.getOptional("conversation_flow")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -433,6 +464,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun widgetSettings(): Optional<WidgetSettings> = widgetSettings.getOptional("widget_settings")
+
+    /**
+     * Returns the raw JSON value of [conversationFlow].
+     *
+     * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("conversation_flow")
+    @ExcludeMissing
+    fun _conversationFlow(): JsonField<ConversationFlow> = conversationFlow
 
     /**
      * Returns the raw JSON value of [description].
@@ -703,6 +744,7 @@ private constructor(
     /** A builder for [UpdateAssistant]. */
     class Builder internal constructor() {
 
+        private var conversationFlow: JsonField<ConversationFlow> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
         private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
@@ -737,6 +779,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(updateAssistant: UpdateAssistant) = apply {
+            conversationFlow = updateAssistant.conversationFlow
             description = updateAssistant.description
             dynamicVariables = updateAssistant.dynamicVariables
             dynamicVariablesWebhookTimeoutMs = updateAssistant.dynamicVariablesWebhookTimeoutMs
@@ -766,6 +809,27 @@ private constructor(
             voiceSettings = updateAssistant.voiceSettings
             widgetSettings = updateAssistant.widgetSettings
             additionalProperties = updateAssistant.additionalProperties.toMutableMap()
+        }
+
+        /**
+         * Conversation flow as supplied by API clients (create / update).
+         *
+         * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+         * node/edge IDs, that `start_node_id` references a real node, and that every edge's
+         * endpoints reference real nodes.
+         */
+        fun conversationFlow(conversationFlow: ConversationFlow) =
+            conversationFlow(JsonField.of(conversationFlow))
+
+        /**
+         * Sets [Builder.conversationFlow] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationFlow] with a well-typed [ConversationFlow]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun conversationFlow(conversationFlow: JsonField<ConversationFlow>) = apply {
+            this.conversationFlow = conversationFlow
         }
 
         fun description(description: String) = description(JsonField.of(description))
@@ -1463,6 +1527,7 @@ private constructor(
          */
         fun build(): UpdateAssistant =
             UpdateAssistant(
+                conversationFlow,
                 description,
                 dynamicVariables,
                 dynamicVariablesWebhookTimeoutMs,
@@ -1510,6 +1575,7 @@ private constructor(
             return@apply
         }
 
+        conversationFlow().ifPresent { it.validate() }
         description()
         dynamicVariables().ifPresent { it.validate() }
         dynamicVariablesWebhookTimeoutMs()
@@ -1556,7 +1622,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (description.asKnown().isPresent) 1 else 0) +
+        (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (description.asKnown().isPresent) 1 else 0) +
             (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
             (if (dynamicVariablesWebhookTimeoutMs.asKnown().isPresent) 1 else 0) +
             (if (dynamicVariablesWebhookUrl.asKnown().isPresent) 1 else 0) +
@@ -1584,6 +1651,16346 @@ private constructor(
             (if (versionName.asKnown().isPresent) 1 else 0) +
             (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (widgetSettings.asKnown().getOrNull()?.validity() ?: 0)
+
+    /**
+     * Conversation flow as supplied by API clients (create / update).
+     *
+     * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
+     * node/edge IDs, that `start_node_id` references a real node, and that every edge's endpoints
+     * reference real nodes.
+     */
+    class ConversationFlow
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val nodes: JsonField<List<Node>>,
+        private val startNodeId: JsonField<String>,
+        private val edges: JsonField<List<Edge>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("nodes") @ExcludeMissing nodes: JsonField<List<Node>> = JsonMissing.of(),
+            @JsonProperty("start_node_id")
+            @ExcludeMissing
+            startNodeId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("edges") @ExcludeMissing edges: JsonField<List<Edge>> = JsonMissing.of(),
+        ) : this(nodes, startNodeId, edges, mutableMapOf())
+
+        /**
+         * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node (`type:
+         * prompt`) or a tool node (`type: tool`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun nodes(): List<Node> = nodes.getRequired("nodes")
+
+        /**
+         * ID of the node where the conversation begins.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun startNodeId(): String = startNodeId.getRequired("start_node_id")
+
+        /**
+         * Directed transitions between nodes. May be empty for a single-node flow.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun edges(): Optional<List<Edge>> = edges.getOptional("edges")
+
+        /**
+         * Returns the raw JSON value of [nodes].
+         *
+         * Unlike [nodes], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("nodes") @ExcludeMissing fun _nodes(): JsonField<List<Node>> = nodes
+
+        /**
+         * Returns the raw JSON value of [startNodeId].
+         *
+         * Unlike [startNodeId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("start_node_id")
+        @ExcludeMissing
+        fun _startNodeId(): JsonField<String> = startNodeId
+
+        /**
+         * Returns the raw JSON value of [edges].
+         *
+         * Unlike [edges], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("edges") @ExcludeMissing fun _edges(): JsonField<List<Edge>> = edges
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ConversationFlow].
+             *
+             * The following fields are required:
+             * ```java
+             * .nodes()
+             * .startNodeId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ConversationFlow]. */
+        class Builder internal constructor() {
+
+            private var nodes: JsonField<MutableList<Node>>? = null
+            private var startNodeId: JsonField<String>? = null
+            private var edges: JsonField<MutableList<Edge>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(conversationFlow: ConversationFlow) = apply {
+                nodes = conversationFlow.nodes.map { it.toMutableList() }
+                startNodeId = conversationFlow.startNodeId
+                edges = conversationFlow.edges.map { it.toMutableList() }
+                additionalProperties = conversationFlow.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
+             * (`type: prompt`) or a tool node (`type: tool`).
+             */
+            fun nodes(nodes: List<Node>) = nodes(JsonField.of(nodes))
+
+            /**
+             * Sets [Builder.nodes] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.nodes] with a well-typed `List<Node>` value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun nodes(nodes: JsonField<List<Node>>) = apply {
+                this.nodes = nodes.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Node] to [nodes].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addNode(node: Node) = apply {
+                nodes =
+                    (nodes ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("nodes", it).add(node)
+                    }
+            }
+
+            /** Alias for calling [addNode] with `Node.ofPrompt(prompt)`. */
+            fun addNode(prompt: Node.Prompt) = addNode(Node.ofPrompt(prompt))
+
+            /** Alias for calling [addNode] with `Node.ofTool(tool)`. */
+            fun addNode(tool: Node.Tool) = addNode(Node.ofTool(tool))
+
+            /** ID of the node where the conversation begins. */
+            fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
+
+            /**
+             * Sets [Builder.startNodeId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.startNodeId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun startNodeId(startNodeId: JsonField<String>) = apply {
+                this.startNodeId = startNodeId
+            }
+
+            /** Directed transitions between nodes. May be empty for a single-node flow. */
+            fun edges(edges: List<Edge>) = edges(JsonField.of(edges))
+
+            /**
+             * Sets [Builder.edges] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.edges] with a well-typed `List<Edge>` value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun edges(edges: JsonField<List<Edge>>) = apply {
+                this.edges = edges.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Edge] to [edges].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addEdge(edge: Edge) = apply {
+                edges =
+                    (edges ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("edges", it).add(edge)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ConversationFlow].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .nodes()
+             * .startNodeId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ConversationFlow =
+                ConversationFlow(
+                    checkRequired("nodes", nodes).map { it.toImmutable() },
+                    checkRequired("startNodeId", startNodeId),
+                    (edges ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ConversationFlow = apply {
+            if (validated) {
+                return@apply
+            }
+
+            nodes().forEach { it.validate() }
+            startNodeId()
+            edges().ifPresent { it.forEach { it.validate() } }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (nodes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (startNodeId.asKnown().isPresent) 1 else 0) +
+                (edges.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+        /**
+         * One step in a conversation flow, as supplied by API clients.
+         *
+         * Each node carries the prompt, tool scope, and optional overrides for
+         * model/voice/transcription. Unset overrides cascade from the assistant.
+         */
+        @JsonDeserialize(using = Node.Deserializer::class)
+        @JsonSerialize(using = Node.Serializer::class)
+        class Node
+        private constructor(
+            private val prompt: Prompt? = null,
+            private val tool: Tool? = null,
+            private val _json: JsonValue? = null,
+        ) {
+
+            /**
+             * One step in a conversation flow, as supplied by API clients.
+             *
+             * Each node carries the prompt, tool scope, and optional overrides for
+             * model/voice/transcription. Unset overrides cascade from the assistant.
+             */
+            fun prompt(): Optional<Prompt> = Optional.ofNullable(prompt)
+
+            /**
+             * A standalone tool step in a conversation flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+             * turn. Reaching it deterministically runs one shared tool (arguments filled from
+             * matching dynamic variables by name), then routes on the result via outgoing
+             * `tool_result` edges.
+             */
+            fun tool(): Optional<Tool> = Optional.ofNullable(tool)
+
+            fun isPrompt(): Boolean = prompt != null
+
+            fun isTool(): Boolean = tool != null
+
+            /**
+             * One step in a conversation flow, as supplied by API clients.
+             *
+             * Each node carries the prompt, tool scope, and optional overrides for
+             * model/voice/transcription. Unset overrides cascade from the assistant.
+             */
+            fun asPrompt(): Prompt = prompt.getOrThrow("prompt")
+
+            /**
+             * A standalone tool step in a conversation flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+             * turn. Reaching it deterministically runs one shared tool (arguments filled from
+             * matching dynamic variables by name), then routes on the result via outgoing
+             * `tool_result` edges.
+             */
+            fun asTool(): Tool = tool.getOrThrow("tool")
+
+            fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             *
+             * Note that this method is _not_ forwards compatible with new variants from the API,
+             * unless [visitor] overrides [Visitor.unknown]. To handle variants not known to this
+             * version of the SDK gracefully, consider overriding [Visitor.unknown]:
+             * ```java
+             * import com.telnyx.sdk.core.JsonValue;
+             * import java.util.Optional;
+             *
+             * Optional<String> result = node.accept(new Node.Visitor<Optional<String>>() {
+             *     @Override
+             *     public Optional<String> visitPrompt(Prompt prompt) {
+             *         return Optional.of(prompt.toString());
+             *     }
+             *
+             *     // ...
+             *
+             *     @Override
+             *     public Optional<String> unknown(JsonValue json) {
+             *         // Or inspect the `json`.
+             *         return Optional.empty();
+             *     }
+             * });
+             * ```
+             *
+             * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+             *   [visitor] and the current variant is unknown.
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    prompt != null -> visitor.visitPrompt(prompt)
+                    tool != null -> visitor.visitTool(tool)
+                    else -> visitor.unknown(_json)
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Node = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accept(
+                    object : Visitor<Unit> {
+                        override fun visitPrompt(prompt: Prompt) {
+                            prompt.validate()
+                        }
+
+                        override fun visitTool(tool: Tool) {
+                            tool.validate()
+                        }
+                    }
+                )
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                accept(
+                    object : Visitor<Int> {
+                        override fun visitPrompt(prompt: Prompt) = prompt.validity()
+
+                        override fun visitTool(tool: Tool) = tool.validity()
+
+                        override fun unknown(json: JsonValue?) = 0
+                    }
+                )
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Node && prompt == other.prompt && tool == other.tool
+            }
+
+            override fun hashCode(): Int = Objects.hash(prompt, tool)
+
+            override fun toString(): String =
+                when {
+                    prompt != null -> "Node{prompt=$prompt}"
+                    tool != null -> "Node{tool=$tool}"
+                    _json != null -> "Node{_unknown=$_json}"
+                    else -> throw IllegalStateException("Invalid Node")
+                }
+
+            companion object {
+
+                /**
+                 * One step in a conversation flow, as supplied by API clients.
+                 *
+                 * Each node carries the prompt, tool scope, and optional overrides for
+                 * model/voice/transcription. Unset overrides cascade from the assistant.
+                 */
+                @JvmStatic fun ofPrompt(prompt: Prompt) = Node(prompt = prompt)
+
+                /**
+                 * A standalone tool step in a conversation flow, as supplied by clients.
+                 *
+                 * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+                 * turn. Reaching it deterministically runs one shared tool (arguments filled from
+                 * matching dynamic variables by name), then routes on the result via outgoing
+                 * `tool_result` edges.
+                 */
+                @JvmStatic fun ofTool(tool: Tool) = Node(tool = tool)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [Node] to a value of type [T].
+             */
+            interface Visitor<out T> {
+
+                /**
+                 * One step in a conversation flow, as supplied by API clients.
+                 *
+                 * Each node carries the prompt, tool scope, and optional overrides for
+                 * model/voice/transcription. Unset overrides cascade from the assistant.
+                 */
+                fun visitPrompt(prompt: Prompt): T
+
+                /**
+                 * A standalone tool step in a conversation flow, as supplied by clients.
+                 *
+                 * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+                 * turn. Reaching it deterministically runs one shared tool (arguments filled from
+                 * matching dynamic variables by name), then routes on the result via outgoing
+                 * `tool_result` edges.
+                 */
+                fun visitTool(tool: Tool): T
+
+                /**
+                 * Maps an unknown variant of [Node] to a value of type [T].
+                 *
+                 * An instance of [Node] can contain an unknown variant if it was deserialized from
+                 * data that doesn't match any known variant. For example, if the SDK is on an older
+                 * version than the API, then the API may respond with new variants that the SDK is
+                 * unaware of.
+                 *
+                 * @throws TelnyxInvalidDataException in the default implementation.
+                 */
+                fun unknown(json: JsonValue?): T {
+                    throw TelnyxInvalidDataException("Unknown Node: $json")
+                }
+            }
+
+            internal class Deserializer : BaseDeserializer<Node>(Node::class) {
+
+                override fun ObjectCodec.deserialize(node: JsonNode): Node {
+                    val json = JsonValue.fromJsonNode(node)
+                    val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
+
+                    when (type) {
+                        "prompt" -> {
+                            return tryDeserialize(node, jacksonTypeRef<Prompt>())?.let {
+                                Node(prompt = it, _json = json)
+                            } ?: Node(_json = json)
+                        }
+                        "tool" -> {
+                            return tryDeserialize(node, jacksonTypeRef<Tool>())?.let {
+                                Node(tool = it, _json = json)
+                            } ?: Node(_json = json)
+                        }
+                    }
+
+                    return Node(_json = json)
+                }
+            }
+
+            internal class Serializer : BaseSerializer<Node>(Node::class) {
+
+                override fun serialize(
+                    value: Node,
+                    generator: JsonGenerator,
+                    provider: SerializerProvider,
+                ) {
+                    when {
+                        value.prompt != null -> generator.writeObject(value.prompt)
+                        value.tool != null -> generator.writeObject(value.tool)
+                        value._json != null -> generator.writeObject(value._json)
+                        else -> throw IllegalStateException("Invalid Node")
+                    }
+                }
+            }
+
+            /**
+             * One step in a conversation flow, as supplied by API clients.
+             *
+             * Each node carries the prompt, tool scope, and optional overrides for
+             * model/voice/transcription. Unset overrides cascade from the assistant.
+             */
+            class Prompt
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val id: JsonField<String>,
+                private val instructions: JsonField<String>,
+                private val externalLlm: JsonField<ExternalLlmReq>,
+                private val instructionsMode: JsonField<InstructionsMode>,
+                private val llmApiKeyRef: JsonField<String>,
+                private val model: JsonField<String>,
+                private val name: JsonField<String>,
+                private val position: JsonField<Position>,
+                private val sharedToolIds: JsonField<List<String>>,
+                private val toolsMode: JsonField<ToolsMode>,
+                private val transcription: JsonField<TranscriptionSettings>,
+                private val type: JsonField<Type>,
+                private val voiceSettings: JsonField<VoiceSettings>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("instructions")
+                    @ExcludeMissing
+                    instructions: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("external_llm")
+                    @ExcludeMissing
+                    externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of(),
+                    @JsonProperty("instructions_mode")
+                    @ExcludeMissing
+                    instructionsMode: JsonField<InstructionsMode> = JsonMissing.of(),
+                    @JsonProperty("llm_api_key_ref")
+                    @ExcludeMissing
+                    llmApiKeyRef: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("model")
+                    @ExcludeMissing
+                    model: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("name")
+                    @ExcludeMissing
+                    name: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("position")
+                    @ExcludeMissing
+                    position: JsonField<Position> = JsonMissing.of(),
+                    @JsonProperty("shared_tool_ids")
+                    @ExcludeMissing
+                    sharedToolIds: JsonField<List<String>> = JsonMissing.of(),
+                    @JsonProperty("tools_mode")
+                    @ExcludeMissing
+                    toolsMode: JsonField<ToolsMode> = JsonMissing.of(),
+                    @JsonProperty("transcription")
+                    @ExcludeMissing
+                    transcription: JsonField<TranscriptionSettings> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                    @JsonProperty("voice_settings")
+                    @ExcludeMissing
+                    voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+                ) : this(
+                    id,
+                    instructions,
+                    externalLlm,
+                    instructionsMode,
+                    llmApiKeyRef,
+                    model,
+                    name,
+                    position,
+                    sharedToolIds,
+                    toolsMode,
+                    transcription,
+                    type,
+                    voiceSettings,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * Caller-supplied unique identifier for this node within the flow.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun id(): String = id.getRequired("id")
+
+                /**
+                 * Prompt that drives the LLM while this node is active. Required.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun instructions(): String = instructions.getRequired("instructions")
+
+                /**
+                 * Override for `Assistant.external_llm` while this node is active. Use this to
+                 * route a node's turns to a different external LLM (different `model`, `base_url`,
+                 * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+                 * Mutually exclusive with `model` on the node (a single LLM identity per node).
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun externalLlm(): Optional<ExternalLlmReq> =
+                    externalLlm.getOptional("external_llm")
+
+                /**
+                 * How `instructions` combine with the assistant-level instructions. `replace`
+                 * (default): the node's instructions are used alone. `append`: the node's
+                 * instructions are concatenated after the assistant's instructions.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun instructionsMode(): Optional<InstructionsMode> =
+                    instructionsMode.getOptional("instructions_mode")
+
+                /**
+                 * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+                 * LLM bundle — see `model` for cascade semantics.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun llmApiKeyRef(): Optional<String> = llmApiKeyRef.getOptional("llm_api_key_ref")
+
+                /**
+                 * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+                 * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+                 * the node, all three are taken from the node and the assistant-level LLM identity
+                 * is not consulted. When none of the three is set, the assistant's bundle cascades
+                 * unchanged.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun model(): Optional<String> = model.getOptional("model")
+
+                /**
+                 * Optional human-readable label, displayed in authoring UIs.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun name(): Optional<String> = name.getOptional("name")
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun position(): Optional<Position> = position.getOptional("position")
+
+                /**
+                 * IDs of shared (org-level) tools available at this node. Knowledge bases are
+                 * attached the same way — via a shared retrieval tool. Tools not listed here are
+                 * not callable while this node is active.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun sharedToolIds(): Optional<List<String>> =
+                    sharedToolIds.getOptional("shared_tool_ids")
+
+                /**
+                 * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+                 * (default): only the node's tools are callable. `append`: the node's tools are
+                 * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun toolsMode(): Optional<ToolsMode> = toolsMode.getOptional("tools_mode")
+
+                /**
+                 * Per-node transcription override (model/language/region). Unset fields cascade
+                 * from the assistant-level transcription.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun transcription(): Optional<TranscriptionSettings> =
+                    transcription.getOptional("transcription")
+
+                /**
+                 * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+                 * standalone tool execution (see `ToolNodeReq`).
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun type(): Optional<Type> = type.getOptional("type")
+
+                /**
+                 * Per-node voice override. Only fields set here override the assistant-level voice
+                 * settings; unset fields cascade.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun voiceSettings(): Optional<VoiceSettings> =
+                    voiceSettings.getOptional("voice_settings")
+
+                /**
+                 * Returns the raw JSON value of [id].
+                 *
+                 * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+                /**
+                 * Returns the raw JSON value of [instructions].
+                 *
+                 * Unlike [instructions], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("instructions")
+                @ExcludeMissing
+                fun _instructions(): JsonField<String> = instructions
+
+                /**
+                 * Returns the raw JSON value of [externalLlm].
+                 *
+                 * Unlike [externalLlm], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("external_llm")
+                @ExcludeMissing
+                fun _externalLlm(): JsonField<ExternalLlmReq> = externalLlm
+
+                /**
+                 * Returns the raw JSON value of [instructionsMode].
+                 *
+                 * Unlike [instructionsMode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("instructions_mode")
+                @ExcludeMissing
+                fun _instructionsMode(): JsonField<InstructionsMode> = instructionsMode
+
+                /**
+                 * Returns the raw JSON value of [llmApiKeyRef].
+                 *
+                 * Unlike [llmApiKeyRef], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("llm_api_key_ref")
+                @ExcludeMissing
+                fun _llmApiKeyRef(): JsonField<String> = llmApiKeyRef
+
+                /**
+                 * Returns the raw JSON value of [model].
+                 *
+                 * Unlike [model], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                /**
+                 * Returns the raw JSON value of [position].
+                 *
+                 * Unlike [position], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("position")
+                @ExcludeMissing
+                fun _position(): JsonField<Position> = position
+
+                /**
+                 * Returns the raw JSON value of [sharedToolIds].
+                 *
+                 * Unlike [sharedToolIds], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("shared_tool_ids")
+                @ExcludeMissing
+                fun _sharedToolIds(): JsonField<List<String>> = sharedToolIds
+
+                /**
+                 * Returns the raw JSON value of [toolsMode].
+                 *
+                 * Unlike [toolsMode], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("tools_mode")
+                @ExcludeMissing
+                fun _toolsMode(): JsonField<ToolsMode> = toolsMode
+
+                /**
+                 * Returns the raw JSON value of [transcription].
+                 *
+                 * Unlike [transcription], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("transcription")
+                @ExcludeMissing
+                fun _transcription(): JsonField<TranscriptionSettings> = transcription
+
+                /**
+                 * Returns the raw JSON value of [type].
+                 *
+                 * Unlike [type], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                /**
+                 * Returns the raw JSON value of [voiceSettings].
+                 *
+                 * Unlike [voiceSettings], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("voice_settings")
+                @ExcludeMissing
+                fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Prompt].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .instructions()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Prompt]. */
+                class Builder internal constructor() {
+
+                    private var id: JsonField<String>? = null
+                    private var instructions: JsonField<String>? = null
+                    private var externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of()
+                    private var instructionsMode: JsonField<InstructionsMode> = JsonMissing.of()
+                    private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
+                    private var model: JsonField<String> = JsonMissing.of()
+                    private var name: JsonField<String> = JsonMissing.of()
+                    private var position: JsonField<Position> = JsonMissing.of()
+                    private var sharedToolIds: JsonField<MutableList<String>>? = null
+                    private var toolsMode: JsonField<ToolsMode> = JsonMissing.of()
+                    private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
+                    private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(prompt: Prompt) = apply {
+                        id = prompt.id
+                        instructions = prompt.instructions
+                        externalLlm = prompt.externalLlm
+                        instructionsMode = prompt.instructionsMode
+                        llmApiKeyRef = prompt.llmApiKeyRef
+                        model = prompt.model
+                        name = prompt.name
+                        position = prompt.position
+                        sharedToolIds = prompt.sharedToolIds.map { it.toMutableList() }
+                        toolsMode = prompt.toolsMode
+                        transcription = prompt.transcription
+                        type = prompt.type
+                        voiceSettings = prompt.voiceSettings
+                        additionalProperties = prompt.additionalProperties.toMutableMap()
+                    }
+
+                    /** Caller-supplied unique identifier for this node within the flow. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /**
+                     * Sets [Builder.id] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.id] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun id(id: JsonField<String>) = apply { this.id = id }
+
+                    /** Prompt that drives the LLM while this node is active. Required. */
+                    fun instructions(instructions: String) =
+                        instructions(JsonField.of(instructions))
+
+                    /**
+                     * Sets [Builder.instructions] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.instructions] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun instructions(instructions: JsonField<String>) = apply {
+                        this.instructions = instructions
+                    }
+
+                    /**
+                     * Override for `Assistant.external_llm` while this node is active. Use this to
+                     * route a node's turns to a different external LLM (different `model`,
+                     * `base_url`, credentials). Part of the LLM bundle — see `model` for cascade
+                     * semantics. Mutually exclusive with `model` on the node (a single LLM identity
+                     * per node).
+                     */
+                    fun externalLlm(externalLlm: ExternalLlmReq) =
+                        externalLlm(JsonField.of(externalLlm))
+
+                    /**
+                     * Sets [Builder.externalLlm] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.externalLlm] with a well-typed
+                     * [ExternalLlmReq] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+                        this.externalLlm = externalLlm
+                    }
+
+                    /**
+                     * How `instructions` combine with the assistant-level instructions. `replace`
+                     * (default): the node's instructions are used alone. `append`: the node's
+                     * instructions are concatenated after the assistant's instructions.
+                     */
+                    fun instructionsMode(instructionsMode: InstructionsMode) =
+                        instructionsMode(JsonField.of(instructionsMode))
+
+                    /**
+                     * Sets [Builder.instructionsMode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.instructionsMode] with a well-typed
+                     * [InstructionsMode] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun instructionsMode(instructionsMode: JsonField<InstructionsMode>) = apply {
+                        this.instructionsMode = instructionsMode
+                    }
+
+                    /**
+                     * Override for `Assistant.llm_api_key_ref` while this node is active. Part of
+                     * the LLM bundle — see `model` for cascade semantics.
+                     */
+                    fun llmApiKeyRef(llmApiKeyRef: String) =
+                        llmApiKeyRef(JsonField.of(llmApiKeyRef))
+
+                    /**
+                     * Sets [Builder.llmApiKeyRef] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.llmApiKeyRef] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun llmApiKeyRef(llmApiKeyRef: JsonField<String>) = apply {
+                        this.llmApiKeyRef = llmApiKeyRef
+                    }
+
+                    /**
+                     * Override for `Assistant.model` while this node is active. Part of the LLM
+                     * bundle (`model` + `llm_api_key_ref` + `external_llm`): when any of the three
+                     * is set on the node, all three are taken from the node and the assistant-level
+                     * LLM identity is not consulted. When none of the three is set, the assistant's
+                     * bundle cascades unchanged.
+                     */
+                    fun model(model: String) = model(JsonField.of(model))
+
+                    /**
+                     * Sets [Builder.model] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.model] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun model(model: JsonField<String>) = apply { this.model = model }
+
+                    /** Optional human-readable label, displayed in authoring UIs. */
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    /**
+                     * Optional canvas coordinates used by authoring UIs to lay out the graph.
+                     * Ignored by the runtime; round-trips so frontends can persist graph layout
+                     * across reloads.
+                     */
+                    fun position(position: Position) = position(JsonField.of(position))
+
+                    /**
+                     * Sets [Builder.position] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.position] with a well-typed [Position] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun position(position: JsonField<Position>) = apply { this.position = position }
+
+                    /**
+                     * IDs of shared (org-level) tools available at this node. Knowledge bases are
+                     * attached the same way — via a shared retrieval tool. Tools not listed here
+                     * are not callable while this node is active.
+                     */
+                    fun sharedToolIds(sharedToolIds: List<String>) =
+                        sharedToolIds(JsonField.of(sharedToolIds))
+
+                    /**
+                     * Sets [Builder.sharedToolIds] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.sharedToolIds] with a well-typed
+                     * `List<String>` value instead. This method is primarily for setting the field
+                     * to an undocumented or not yet supported value.
+                     */
+                    fun sharedToolIds(sharedToolIds: JsonField<List<String>>) = apply {
+                        this.sharedToolIds = sharedToolIds.map { it.toMutableList() }
+                    }
+
+                    /**
+                     * Adds a single [String] to [sharedToolIds].
+                     *
+                     * @throws IllegalStateException if the field was previously set to a non-list.
+                     */
+                    fun addSharedToolId(sharedToolId: String) = apply {
+                        sharedToolIds =
+                            (sharedToolIds ?: JsonField.of(mutableListOf())).also {
+                                checkKnown("sharedToolIds", it).add(sharedToolId)
+                            }
+                    }
+
+                    /**
+                     * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+                     * (default): only the node's tools are callable. `append`: the node's tools are
+                     * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+                     */
+                    fun toolsMode(toolsMode: ToolsMode) = toolsMode(JsonField.of(toolsMode))
+
+                    /**
+                     * Sets [Builder.toolsMode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.toolsMode] with a well-typed [ToolsMode]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun toolsMode(toolsMode: JsonField<ToolsMode>) = apply {
+                        this.toolsMode = toolsMode
+                    }
+
+                    /**
+                     * Per-node transcription override (model/language/region). Unset fields cascade
+                     * from the assistant-level transcription.
+                     */
+                    fun transcription(transcription: TranscriptionSettings) =
+                        transcription(JsonField.of(transcription))
+
+                    /**
+                     * Sets [Builder.transcription] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.transcription] with a well-typed
+                     * [TranscriptionSettings] value instead. This method is primarily for setting
+                     * the field to an undocumented or not yet supported value.
+                     */
+                    fun transcription(transcription: JsonField<TranscriptionSettings>) = apply {
+                        this.transcription = transcription
+                    }
+
+                    /**
+                     * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is
+                     * a standalone tool execution (see `ToolNodeReq`).
+                     */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * Sets [Builder.type] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.type] with a well-typed [Type] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    /**
+                     * Per-node voice override. Only fields set here override the assistant-level
+                     * voice settings; unset fields cascade.
+                     */
+                    fun voiceSettings(voiceSettings: VoiceSettings) =
+                        voiceSettings(JsonField.of(voiceSettings))
+
+                    /**
+                     * Sets [Builder.voiceSettings] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.voiceSettings] with a well-typed
+                     * [VoiceSettings] value instead. This method is primarily for setting the field
+                     * to an undocumented or not yet supported value.
+                     */
+                    fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+                        this.voiceSettings = voiceSettings
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Prompt].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .instructions()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Prompt =
+                        Prompt(
+                            checkRequired("id", id),
+                            checkRequired("instructions", instructions),
+                            externalLlm,
+                            instructionsMode,
+                            llmApiKeyRef,
+                            model,
+                            name,
+                            position,
+                            (sharedToolIds ?: JsonMissing.of()).map { it.toImmutable() },
+                            toolsMode,
+                            transcription,
+                            type,
+                            voiceSettings,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Prompt = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    id()
+                    instructions()
+                    externalLlm().ifPresent { it.validate() }
+                    instructionsMode().ifPresent { it.validate() }
+                    llmApiKeyRef()
+                    model()
+                    name()
+                    position().ifPresent { it.validate() }
+                    sharedToolIds()
+                    toolsMode().ifPresent { it.validate() }
+                    transcription().ifPresent { it.validate() }
+                    type().ifPresent { it.validate() }
+                    voiceSettings().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (id.asKnown().isPresent) 1 else 0) +
+                        (if (instructions.asKnown().isPresent) 1 else 0) +
+                        (externalLlm.asKnown().getOrNull()?.validity() ?: 0) +
+                        (instructionsMode.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
+                        (if (model.asKnown().isPresent) 1 else 0) +
+                        (if (name.asKnown().isPresent) 1 else 0) +
+                        (position.asKnown().getOrNull()?.validity() ?: 0) +
+                        (sharedToolIds.asKnown().getOrNull()?.size ?: 0) +
+                        (toolsMode.asKnown().getOrNull()?.validity() ?: 0) +
+                        (transcription.asKnown().getOrNull()?.validity() ?: 0) +
+                        (type.asKnown().getOrNull()?.validity() ?: 0) +
+                        (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * How `instructions` combine with the assistant-level instructions. `replace`
+                 * (default): the node's instructions are used alone. `append`: the node's
+                 * instructions are concatenated after the assistant's instructions.
+                 */
+                class InstructionsMode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val REPLACE = of("replace")
+
+                        @JvmField val APPEND = of("append")
+
+                        @JvmStatic fun of(value: String) = InstructionsMode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [InstructionsMode]'s known values. */
+                    enum class Known {
+                        REPLACE,
+                        APPEND,
+                    }
+
+                    /**
+                     * An enum containing [InstructionsMode]'s known values, as well as an
+                     * [_UNKNOWN] member.
+                     *
+                     * An instance of [InstructionsMode] can contain an unknown value in a couple of
+                     * cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        REPLACE,
+                        APPEND,
+                        /**
+                         * An enum member indicating that [InstructionsMode] was instantiated with
+                         * an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            REPLACE -> Value.REPLACE
+                            APPEND -> Value.APPEND
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            REPLACE -> Known.REPLACE
+                            APPEND -> Known.APPEND
+                            else ->
+                                throw TelnyxInvalidDataException("Unknown InstructionsMode: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): InstructionsMode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is InstructionsMode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 */
+                class Position
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val x: JsonField<Double>,
+                    private val y: JsonField<Double>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("x") @ExcludeMissing x: JsonField<Double> = JsonMissing.of(),
+                        @JsonProperty("y") @ExcludeMissing y: JsonField<Double> = JsonMissing.of(),
+                    ) : this(x, y, mutableMapOf())
+
+                    /**
+                     * Horizontal coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun x(): Double = x.getRequired("x")
+
+                    /**
+                     * Vertical coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun y(): Double = y.getRequired("y")
+
+                    /**
+                     * Returns the raw JSON value of [x].
+                     *
+                     * Unlike [x], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("x") @ExcludeMissing fun _x(): JsonField<Double> = x
+
+                    /**
+                     * Returns the raw JSON value of [y].
+                     *
+                     * Unlike [y], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("y") @ExcludeMissing fun _y(): JsonField<Double> = y
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Position].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Position]. */
+                    class Builder internal constructor() {
+
+                        private var x: JsonField<Double>? = null
+                        private var y: JsonField<Double>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(position: Position) = apply {
+                            x = position.x
+                            y = position.y
+                            additionalProperties = position.additionalProperties.toMutableMap()
+                        }
+
+                        /** Horizontal coordinate in the authoring canvas. */
+                        fun x(x: Double) = x(JsonField.of(x))
+
+                        /**
+                         * Sets [Builder.x] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.x] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun x(x: JsonField<Double>) = apply { this.x = x }
+
+                        /** Vertical coordinate in the authoring canvas. */
+                        fun y(y: Double) = y(JsonField.of(y))
+
+                        /**
+                         * Sets [Builder.y] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.y] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun y(y: JsonField<Double>) = apply { this.y = y }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Position].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Position =
+                            Position(
+                                checkRequired("x", x),
+                                checkRequired("y", y),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Position = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        x()
+                        y()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (x.asKnown().isPresent) 1 else 0) +
+                            (if (y.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Position &&
+                            x == other.x &&
+                            y == other.y &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(x, y, additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Position{x=$x, y=$y, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+                 * (default): only the node's tools are callable. `append`: the node's tools are
+                 * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+                 */
+                class ToolsMode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val REPLACE = of("replace")
+
+                        @JvmField val APPEND = of("append")
+
+                        @JvmStatic fun of(value: String) = ToolsMode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [ToolsMode]'s known values. */
+                    enum class Known {
+                        REPLACE,
+                        APPEND,
+                    }
+
+                    /**
+                     * An enum containing [ToolsMode]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [ToolsMode] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        REPLACE,
+                        APPEND,
+                        /**
+                         * An enum member indicating that [ToolsMode] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            REPLACE -> Value.REPLACE
+                            APPEND -> Value.APPEND
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            REPLACE -> Known.REPLACE
+                            APPEND -> Known.APPEND
+                            else -> throw TelnyxInvalidDataException("Unknown ToolsMode: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): ToolsMode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is ToolsMode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /**
+                 * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+                 * standalone tool execution (see `ToolNodeReq`).
+                 */
+                class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val PROMPT = of("prompt")
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Type]'s known values. */
+                    enum class Known {
+                        PROMPT
+                    }
+
+                    /**
+                     * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Type] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        PROMPT,
+                        /**
+                         * An enum member indicating that [Type] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            PROMPT -> Value.PROMPT
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            PROMPT -> Known.PROMPT
+                            else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Type = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Prompt &&
+                        id == other.id &&
+                        instructions == other.instructions &&
+                        externalLlm == other.externalLlm &&
+                        instructionsMode == other.instructionsMode &&
+                        llmApiKeyRef == other.llmApiKeyRef &&
+                        model == other.model &&
+                        name == other.name &&
+                        position == other.position &&
+                        sharedToolIds == other.sharedToolIds &&
+                        toolsMode == other.toolsMode &&
+                        transcription == other.transcription &&
+                        type == other.type &&
+                        voiceSettings == other.voiceSettings &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        id,
+                        instructions,
+                        externalLlm,
+                        instructionsMode,
+                        llmApiKeyRef,
+                        model,
+                        name,
+                        position,
+                        sharedToolIds,
+                        toolsMode,
+                        transcription,
+                        type,
+                        voiceSettings,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Prompt{id=$id, instructions=$instructions, externalLlm=$externalLlm, instructionsMode=$instructionsMode, llmApiKeyRef=$llmApiKeyRef, model=$model, name=$name, position=$position, sharedToolIds=$sharedToolIds, toolsMode=$toolsMode, transcription=$transcription, type=$type, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * A standalone tool step in a conversation flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+             * turn. Reaching it deterministically runs one shared tool (arguments filled from
+             * matching dynamic variables by name), then routes on the result via outgoing
+             * `tool_result` edges.
+             */
+            class Tool
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val id: JsonField<String>,
+                private val sharedToolId: JsonField<String>,
+                private val name: JsonField<String>,
+                private val position: JsonField<Position>,
+                private val type: JsonField<Type>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("shared_tool_id")
+                    @ExcludeMissing
+                    sharedToolId: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("name")
+                    @ExcludeMissing
+                    name: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("position")
+                    @ExcludeMissing
+                    position: JsonField<Position> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                ) : this(id, sharedToolId, name, position, type, mutableMapOf())
+
+                /**
+                 * Caller-supplied unique identifier for this node within the flow.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun id(): String = id.getRequired("id")
+
+                /**
+                 * ID of the single shared (org-level) tool this node executes. When the flow
+                 * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+                 * `tool_result` edges then route on the outcome. Arguments are filled from the
+                 * conversation's dynamic variables by name — a dynamic variable whose name matches
+                 * one of the tool's parameters supplies that argument. Cross-validated against the
+                 * org's shared tools on write.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun sharedToolId(): String = sharedToolId.getRequired("shared_tool_id")
+
+                /**
+                 * Optional human-readable label, displayed in authoring UIs.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun name(): Optional<String> = name.getOptional("name")
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun position(): Optional<Position> = position.getOptional("position")
+
+                /**
+                 * Node kind discriminator. Always `tool` for a tool node.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun type(): Optional<Type> = type.getOptional("type")
+
+                /**
+                 * Returns the raw JSON value of [id].
+                 *
+                 * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+                /**
+                 * Returns the raw JSON value of [sharedToolId].
+                 *
+                 * Unlike [sharedToolId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("shared_tool_id")
+                @ExcludeMissing
+                fun _sharedToolId(): JsonField<String> = sharedToolId
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                /**
+                 * Returns the raw JSON value of [position].
+                 *
+                 * Unlike [position], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("position")
+                @ExcludeMissing
+                fun _position(): JsonField<Position> = position
+
+                /**
+                 * Returns the raw JSON value of [type].
+                 *
+                 * Unlike [type], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Tool].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .sharedToolId()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Tool]. */
+                class Builder internal constructor() {
+
+                    private var id: JsonField<String>? = null
+                    private var sharedToolId: JsonField<String>? = null
+                    private var name: JsonField<String> = JsonMissing.of()
+                    private var position: JsonField<Position> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(tool: Tool) = apply {
+                        id = tool.id
+                        sharedToolId = tool.sharedToolId
+                        name = tool.name
+                        position = tool.position
+                        type = tool.type
+                        additionalProperties = tool.additionalProperties.toMutableMap()
+                    }
+
+                    /** Caller-supplied unique identifier for this node within the flow. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /**
+                     * Sets [Builder.id] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.id] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun id(id: JsonField<String>) = apply { this.id = id }
+
+                    /**
+                     * ID of the single shared (org-level) tool this node executes. When the flow
+                     * reaches this node the tool runs as a deliberate step (no LLM turn); its
+                     * outgoing `tool_result` edges then route on the outcome. Arguments are filled
+                     * from the conversation's dynamic variables by name — a dynamic variable whose
+                     * name matches one of the tool's parameters supplies that argument.
+                     * Cross-validated against the org's shared tools on write.
+                     */
+                    fun sharedToolId(sharedToolId: String) =
+                        sharedToolId(JsonField.of(sharedToolId))
+
+                    /**
+                     * Sets [Builder.sharedToolId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.sharedToolId] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun sharedToolId(sharedToolId: JsonField<String>) = apply {
+                        this.sharedToolId = sharedToolId
+                    }
+
+                    /** Optional human-readable label, displayed in authoring UIs. */
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    /**
+                     * Optional canvas coordinates used by authoring UIs to lay out the graph.
+                     * Ignored by the runtime; round-trips so frontends can persist graph layout
+                     * across reloads.
+                     */
+                    fun position(position: Position) = position(JsonField.of(position))
+
+                    /**
+                     * Sets [Builder.position] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.position] with a well-typed [Position] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun position(position: JsonField<Position>) = apply { this.position = position }
+
+                    /** Node kind discriminator. Always `tool` for a tool node. */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * Sets [Builder.type] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.type] with a well-typed [Type] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Tool].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .sharedToolId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Tool =
+                        Tool(
+                            checkRequired("id", id),
+                            checkRequired("sharedToolId", sharedToolId),
+                            name,
+                            position,
+                            type,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Tool = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    id()
+                    sharedToolId()
+                    name()
+                    position().ifPresent { it.validate() }
+                    type().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (id.asKnown().isPresent) 1 else 0) +
+                        (if (sharedToolId.asKnown().isPresent) 1 else 0) +
+                        (if (name.asKnown().isPresent) 1 else 0) +
+                        (position.asKnown().getOrNull()?.validity() ?: 0) +
+                        (type.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 */
+                class Position
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val x: JsonField<Double>,
+                    private val y: JsonField<Double>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("x") @ExcludeMissing x: JsonField<Double> = JsonMissing.of(),
+                        @JsonProperty("y") @ExcludeMissing y: JsonField<Double> = JsonMissing.of(),
+                    ) : this(x, y, mutableMapOf())
+
+                    /**
+                     * Horizontal coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun x(): Double = x.getRequired("x")
+
+                    /**
+                     * Vertical coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun y(): Double = y.getRequired("y")
+
+                    /**
+                     * Returns the raw JSON value of [x].
+                     *
+                     * Unlike [x], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("x") @ExcludeMissing fun _x(): JsonField<Double> = x
+
+                    /**
+                     * Returns the raw JSON value of [y].
+                     *
+                     * Unlike [y], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("y") @ExcludeMissing fun _y(): JsonField<Double> = y
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Position].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Position]. */
+                    class Builder internal constructor() {
+
+                        private var x: JsonField<Double>? = null
+                        private var y: JsonField<Double>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(position: Position) = apply {
+                            x = position.x
+                            y = position.y
+                            additionalProperties = position.additionalProperties.toMutableMap()
+                        }
+
+                        /** Horizontal coordinate in the authoring canvas. */
+                        fun x(x: Double) = x(JsonField.of(x))
+
+                        /**
+                         * Sets [Builder.x] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.x] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun x(x: JsonField<Double>) = apply { this.x = x }
+
+                        /** Vertical coordinate in the authoring canvas. */
+                        fun y(y: Double) = y(JsonField.of(y))
+
+                        /**
+                         * Sets [Builder.y] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.y] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun y(y: JsonField<Double>) = apply { this.y = y }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Position].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Position =
+                            Position(
+                                checkRequired("x", x),
+                                checkRequired("y", y),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Position = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        x()
+                        y()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (x.asKnown().isPresent) 1 else 0) +
+                            (if (y.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Position &&
+                            x == other.x &&
+                            y == other.y &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(x, y, additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Position{x=$x, y=$y, additionalProperties=$additionalProperties}"
+                }
+
+                /** Node kind discriminator. Always `tool` for a tool node. */
+                class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val TOOL = of("tool")
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Type]'s known values. */
+                    enum class Known {
+                        TOOL
+                    }
+
+                    /**
+                     * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Type] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        TOOL,
+                        /**
+                         * An enum member indicating that [Type] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            TOOL -> Value.TOOL
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            TOOL -> Known.TOOL
+                            else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Type = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Tool &&
+                        id == other.id &&
+                        sharedToolId == other.sharedToolId &&
+                        name == other.name &&
+                        position == other.position &&
+                        type == other.type &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(id, sharedToolId, name, position, type, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Tool{id=$id, sharedToolId=$sharedToolId, name=$name, position=$position, type=$type, additionalProperties=$additionalProperties}"
+            }
+        }
+
+        /**
+         * Directed transition from one node to a target, gated by a condition.
+         *
+         * The target is either another node in the same flow (`NodeTarget`) or a different
+         * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the runtime
+         * evaluates them in the order they're declared and takes the first whose condition is true.
+         */
+        class Edge
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val id: JsonField<String>,
+            private val condition: JsonField<Condition>,
+            private val startNodeId: JsonField<String>,
+            private val target: JsonField<Target>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("condition")
+                @ExcludeMissing
+                condition: JsonField<Condition> = JsonMissing.of(),
+                @JsonProperty("start_node_id")
+                @ExcludeMissing
+                startNodeId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("target") @ExcludeMissing target: JsonField<Target> = JsonMissing.of(),
+            ) : this(id, condition, startNodeId, target, mutableMapOf())
+
+            /**
+             * Caller-supplied unique identifier for this edge within the flow.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun id(): String = id.getRequired("id")
+
+            /**
+             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`, or
+             * `tool_result`. A `tool_result` condition is only valid on an edge leaving a tool
+             * node.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun condition(): Condition = condition.getRequired("condition")
+
+            /**
+             * ID of the node this edge transitions away from.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun startNodeId(): String = startNodeId.getRequired("start_node_id")
+
+            /**
+             * Destination of the transition. Discriminated by `type`: `node` (jump to another node
+             * in this flow) or `assistant` (hand off to a different assistant).
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun target(): Target = target.getRequired("target")
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            /**
+             * Returns the raw JSON value of [condition].
+             *
+             * Unlike [condition], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("condition")
+            @ExcludeMissing
+            fun _condition(): JsonField<Condition> = condition
+
+            /**
+             * Returns the raw JSON value of [startNodeId].
+             *
+             * Unlike [startNodeId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("start_node_id")
+            @ExcludeMissing
+            fun _startNodeId(): JsonField<String> = startNodeId
+
+            /**
+             * Returns the raw JSON value of [target].
+             *
+             * Unlike [target], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("target") @ExcludeMissing fun _target(): JsonField<Target> = target
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Edge].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .condition()
+                 * .startNodeId()
+                 * .target()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Edge]. */
+            class Builder internal constructor() {
+
+                private var id: JsonField<String>? = null
+                private var condition: JsonField<Condition>? = null
+                private var startNodeId: JsonField<String>? = null
+                private var target: JsonField<Target>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(edge: Edge) = apply {
+                    id = edge.id
+                    condition = edge.condition
+                    startNodeId = edge.startNodeId
+                    target = edge.target
+                    additionalProperties = edge.additionalProperties.toMutableMap()
+                }
+
+                /** Caller-supplied unique identifier for this edge within the flow. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /**
+                 * Condition that gates the transition. Discriminated by `type`: `llm`,
+                 * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
+                 * edge leaving a tool node.
+                 */
+                fun condition(condition: Condition) = condition(JsonField.of(condition))
+
+                /**
+                 * Sets [Builder.condition] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.condition] with a well-typed [Condition] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun condition(condition: JsonField<Condition>) = apply {
+                    this.condition = condition
+                }
+
+                /** Alias for calling [condition] with `Condition.ofLlm(llm)`. */
+                fun condition(llm: Condition.Llm) = condition(Condition.ofLlm(llm))
+
+                /**
+                 * Alias for calling [condition] with the following:
+                 * ```java
+                 * Condition.Llm.builder()
+                 *     .prompt(prompt)
+                 *     .build()
+                 * ```
+                 */
+                fun llmCondition(prompt: String) =
+                    condition(Condition.Llm.builder().prompt(prompt).build())
+
+                /** Alias for calling [condition] with `Condition.ofExpression(expression)`. */
+                fun condition(expression: Condition.Expression) =
+                    condition(Condition.ofExpression(expression))
+
+                /**
+                 * Alias for calling [condition] with the following:
+                 * ```java
+                 * Condition.Expression.builder()
+                 *     .expression(expression)
+                 *     .build()
+                 * ```
+                 */
+                fun expressionCondition(expression: Condition.Expression.InnerExpression) =
+                    condition(Condition.Expression.builder().expression(expression).build())
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofComparison(comparison)`.
+                 */
+                fun expressionCondition(
+                    comparison: Condition.Expression.InnerExpression.Comparison
+                ) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.ofComparison(comparison)
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofBoolOp(boolOp)`.
+                 */
+                fun expressionCondition(boolOp: Condition.Expression.InnerExpression.BoolOp) =
+                    expressionCondition(Condition.Expression.InnerExpression.ofBoolOp(boolOp))
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofArithmetic(arithmetic)`.
+                 */
+                fun expressionCondition(
+                    arithmetic: Condition.Expression.InnerExpression.Arithmetic
+                ) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.ofArithmetic(arithmetic)
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofVariable(variable)`.
+                 */
+                fun expressionCondition(variable: Condition.Expression.InnerExpression.Variable) =
+                    expressionCondition(Condition.Expression.InnerExpression.ofVariable(variable))
+
+                /**
+                 * Alias for calling [expressionCondition] with the following:
+                 * ```java
+                 * Condition.Expression.InnerExpression.Variable.builder()
+                 *     .name(name)
+                 *     .build()
+                 * ```
+                 */
+                fun variableExpressionCondition(name: String) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.Variable.builder().name(name).build()
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofStringLiteral(stringLiteral)`.
+                 */
+                fun expressionCondition(
+                    stringLiteral: Condition.Expression.InnerExpression.StringLiteral
+                ) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.ofStringLiteral(stringLiteral)
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with the following:
+                 * ```java
+                 * Condition.Expression.InnerExpression.StringLiteral.builder()
+                 *     .value(value)
+                 *     .build()
+                 * ```
+                 */
+                fun stringLiteralExpressionCondition(value: String) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.StringLiteral.builder()
+                            .value(value)
+                            .build()
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofNumberLiteral(numberLiteral)`.
+                 */
+                fun expressionCondition(
+                    numberLiteral: Condition.Expression.InnerExpression.NumberLiteral
+                ) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.ofNumberLiteral(numberLiteral)
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with the following:
+                 * ```java
+                 * Condition.Expression.InnerExpression.NumberLiteral.builder()
+                 *     .value(value)
+                 *     .build()
+                 * ```
+                 */
+                fun numberLiteralExpressionCondition(value: Double) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.NumberLiteral.builder()
+                            .value(value)
+                            .build()
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with
+                 * `Condition.Expression.InnerExpression.ofBoolLiteral(boolLiteral)`.
+                 */
+                fun expressionCondition(
+                    boolLiteral: Condition.Expression.InnerExpression.BoolLiteral
+                ) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.ofBoolLiteral(boolLiteral)
+                    )
+
+                /**
+                 * Alias for calling [expressionCondition] with the following:
+                 * ```java
+                 * Condition.Expression.InnerExpression.BoolLiteral.builder()
+                 *     .value(value)
+                 *     .build()
+                 * ```
+                 */
+                fun boolLiteralExpressionCondition(value: Boolean) =
+                    expressionCondition(
+                        Condition.Expression.InnerExpression.BoolLiteral.builder()
+                            .value(value)
+                            .build()
+                    )
+
+                /** Alias for calling [condition] with `Condition.ofToolResult(toolResult)`. */
+                fun condition(toolResult: Condition.ToolResult) =
+                    condition(Condition.ofToolResult(toolResult))
+
+                /**
+                 * Alias for calling [condition] with the following:
+                 * ```java
+                 * Condition.ToolResult.builder()
+                 *     .outcome(outcome)
+                 *     .build()
+                 * ```
+                 */
+                fun toolResultCondition(outcome: Condition.ToolResult.Outcome) =
+                    condition(Condition.ToolResult.builder().outcome(outcome).build())
+
+                /** ID of the node this edge transitions away from. */
+                fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
+
+                /**
+                 * Sets [Builder.startNodeId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.startNodeId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun startNodeId(startNodeId: JsonField<String>) = apply {
+                    this.startNodeId = startNodeId
+                }
+
+                /**
+                 * Destination of the transition. Discriminated by `type`: `node` (jump to another
+                 * node in this flow) or `assistant` (hand off to a different assistant).
+                 */
+                fun target(target: Target) = target(JsonField.of(target))
+
+                /**
+                 * Sets [Builder.target] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.target] with a well-typed [Target] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun target(target: JsonField<Target>) = apply { this.target = target }
+
+                /** Alias for calling [target] with `Target.ofNode(node)`. */
+                fun target(node: Target.Node) = target(Target.ofNode(node))
+
+                /**
+                 * Alias for calling [target] with the following:
+                 * ```java
+                 * Target.Node.builder()
+                 *     .nodeId(nodeId)
+                 *     .build()
+                 * ```
+                 */
+                fun nodeTarget(nodeId: String) =
+                    target(Target.Node.builder().nodeId(nodeId).build())
+
+                /** Alias for calling [target] with `Target.ofAssistant(assistant)`. */
+                fun target(assistant: Target.Assistant) = target(Target.ofAssistant(assistant))
+
+                /**
+                 * Alias for calling [target] with the following:
+                 * ```java
+                 * Target.Assistant.builder()
+                 *     .assistantId(assistantId)
+                 *     .build()
+                 * ```
+                 */
+                fun assistantTarget(assistantId: String) =
+                    target(Target.Assistant.builder().assistantId(assistantId).build())
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Edge].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .condition()
+                 * .startNodeId()
+                 * .target()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Edge =
+                    Edge(
+                        checkRequired("id", id),
+                        checkRequired("condition", condition),
+                        checkRequired("startNodeId", startNodeId),
+                        checkRequired("target", target),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Edge = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                condition().validate()
+                startNodeId()
+                target().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (id.asKnown().isPresent) 1 else 0) +
+                    (condition.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (startNodeId.asKnown().isPresent) 1 else 0) +
+                    (target.asKnown().getOrNull()?.validity() ?: 0)
+
+            /**
+             * Condition that gates the transition. Discriminated by `type`: `llm`, `expression`, or
+             * `tool_result`. A `tool_result` condition is only valid on an edge leaving a tool
+             * node.
+             */
+            @JsonDeserialize(using = Condition.Deserializer::class)
+            @JsonSerialize(using = Condition.Serializer::class)
+            class Condition
+            private constructor(
+                private val llm: Llm? = null,
+                private val expression: Expression? = null,
+                private val toolResult: ToolResult? = null,
+                private val _json: JsonValue? = null,
+            ) {
+
+                /**
+                 * Edge condition evaluated by the LLM from a natural-language prompt.
+                 *
+                 * The model is asked to judge the prompt against conversation context and returns
+                 * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
+                 * expression (e.g. 'user wants to escalate to a human').
+                 */
+                fun llm(): Optional<Llm> = Optional.ofNullable(llm)
+
+                /**
+                 * Edge condition evaluated as a deterministic expression AST.
+                 *
+                 * The expression is computed against runtime dynamic variables and must evaluate to
+                 * a boolean. Prefer this over `LLMCondition` when the rule is a clean function of
+                 * known variables — it's cheaper and predictable.
+                 */
+                fun expression(): Optional<Expression> = Optional.ofNullable(expression)
+
+                /**
+                 * Edge condition that fires on the outcome of a tool node's execution.
+                 *
+                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
+                 * exactly one tool as a deliberate flow step; this condition routes on whether that
+                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
+                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
+                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
+                 * unambiguous.
+                 */
+                fun toolResult(): Optional<ToolResult> = Optional.ofNullable(toolResult)
+
+                fun isLlm(): Boolean = llm != null
+
+                fun isExpression(): Boolean = expression != null
+
+                fun isToolResult(): Boolean = toolResult != null
+
+                /**
+                 * Edge condition evaluated by the LLM from a natural-language prompt.
+                 *
+                 * The model is asked to judge the prompt against conversation context and returns
+                 * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
+                 * expression (e.g. 'user wants to escalate to a human').
+                 */
+                fun asLlm(): Llm = llm.getOrThrow("llm")
+
+                /**
+                 * Edge condition evaluated as a deterministic expression AST.
+                 *
+                 * The expression is computed against runtime dynamic variables and must evaluate to
+                 * a boolean. Prefer this over `LLMCondition` when the rule is a clean function of
+                 * known variables — it's cheaper and predictable.
+                 */
+                fun asExpression(): Expression = expression.getOrThrow("expression")
+
+                /**
+                 * Edge condition that fires on the outcome of a tool node's execution.
+                 *
+                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
+                 * exactly one tool as a deliberate flow step; this condition routes on whether that
+                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
+                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
+                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
+                 * unambiguous.
+                 */
+                fun asToolResult(): ToolResult = toolResult.getOrThrow("toolResult")
+
+                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                /**
+                 * Maps this instance's current variant to a value of type [T] using the given
+                 * [visitor].
+                 *
+                 * Note that this method is _not_ forwards compatible with new variants from the
+                 * API, unless [visitor] overrides [Visitor.unknown]. To handle variants not known
+                 * to this version of the SDK gracefully, consider overriding [Visitor.unknown]:
+                 * ```java
+                 * import com.telnyx.sdk.core.JsonValue;
+                 * import java.util.Optional;
+                 *
+                 * Optional<String> result = condition.accept(new Condition.Visitor<Optional<String>>() {
+                 *     @Override
+                 *     public Optional<String> visitLlm(Llm llm) {
+                 *         return Optional.of(llm.toString());
+                 *     }
+                 *
+                 *     // ...
+                 *
+                 *     @Override
+                 *     public Optional<String> unknown(JsonValue json) {
+                 *         // Or inspect the `json`.
+                 *         return Optional.empty();
+                 *     }
+                 * });
+                 * ```
+                 *
+                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+                 *   [visitor] and the current variant is unknown.
+                 */
+                fun <T> accept(visitor: Visitor<T>): T =
+                    when {
+                        llm != null -> visitor.visitLlm(llm)
+                        expression != null -> visitor.visitExpression(expression)
+                        toolResult != null -> visitor.visitToolResult(toolResult)
+                        else -> visitor.unknown(_json)
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Condition = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    accept(
+                        object : Visitor<Unit> {
+                            override fun visitLlm(llm: Llm) {
+                                llm.validate()
+                            }
+
+                            override fun visitExpression(expression: Expression) {
+                                expression.validate()
+                            }
+
+                            override fun visitToolResult(toolResult: ToolResult) {
+                                toolResult.validate()
+                            }
+                        }
+                    )
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    accept(
+                        object : Visitor<Int> {
+                            override fun visitLlm(llm: Llm) = llm.validity()
+
+                            override fun visitExpression(expression: Expression) =
+                                expression.validity()
+
+                            override fun visitToolResult(toolResult: ToolResult) =
+                                toolResult.validity()
+
+                            override fun unknown(json: JsonValue?) = 0
+                        }
+                    )
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Condition &&
+                        llm == other.llm &&
+                        expression == other.expression &&
+                        toolResult == other.toolResult
+                }
+
+                override fun hashCode(): Int = Objects.hash(llm, expression, toolResult)
+
+                override fun toString(): String =
+                    when {
+                        llm != null -> "Condition{llm=$llm}"
+                        expression != null -> "Condition{expression=$expression}"
+                        toolResult != null -> "Condition{toolResult=$toolResult}"
+                        _json != null -> "Condition{_unknown=$_json}"
+                        else -> throw IllegalStateException("Invalid Condition")
+                    }
+
+                companion object {
+
+                    /**
+                     * Edge condition evaluated by the LLM from a natural-language prompt.
+                     *
+                     * The model is asked to judge the prompt against conversation context and
+                     * returns true/false. Use this for fuzzy intents that aren't expressible as a
+                     * deterministic expression (e.g. 'user wants to escalate to a human').
+                     */
+                    @JvmStatic fun ofLlm(llm: Llm) = Condition(llm = llm)
+
+                    /**
+                     * Edge condition evaluated as a deterministic expression AST.
+                     *
+                     * The expression is computed against runtime dynamic variables and must
+                     * evaluate to a boolean. Prefer this over `LLMCondition` when the rule is a
+                     * clean function of known variables — it's cheaper and predictable.
+                     */
+                    @JvmStatic
+                    fun ofExpression(expression: Expression) = Condition(expression = expression)
+
+                    /**
+                     * Edge condition that fires on the outcome of a tool node's execution.
+                     *
+                     * Only valid on edges leaving a tool node (``type == "tool"``). A tool node
+                     * runs exactly one tool as a deliberate flow step; this condition routes on
+                     * whether that tool reported ``success`` or ``failure``. Use it to split the
+                     * happy path from the error path after a tool runs (e.g. payment succeeded vs.
+                     * declined). There is no ``tool_id`` field — the tool node has a single tool,
+                     * so the outcome is unambiguous.
+                     */
+                    @JvmStatic
+                    fun ofToolResult(toolResult: ToolResult) = Condition(toolResult = toolResult)
+                }
+
+                /**
+                 * An interface that defines how to map each variant of [Condition] to a value of
+                 * type [T].
+                 */
+                interface Visitor<out T> {
+
+                    /**
+                     * Edge condition evaluated by the LLM from a natural-language prompt.
+                     *
+                     * The model is asked to judge the prompt against conversation context and
+                     * returns true/false. Use this for fuzzy intents that aren't expressible as a
+                     * deterministic expression (e.g. 'user wants to escalate to a human').
+                     */
+                    fun visitLlm(llm: Llm): T
+
+                    /**
+                     * Edge condition evaluated as a deterministic expression AST.
+                     *
+                     * The expression is computed against runtime dynamic variables and must
+                     * evaluate to a boolean. Prefer this over `LLMCondition` when the rule is a
+                     * clean function of known variables — it's cheaper and predictable.
+                     */
+                    fun visitExpression(expression: Expression): T
+
+                    /**
+                     * Edge condition that fires on the outcome of a tool node's execution.
+                     *
+                     * Only valid on edges leaving a tool node (``type == "tool"``). A tool node
+                     * runs exactly one tool as a deliberate flow step; this condition routes on
+                     * whether that tool reported ``success`` or ``failure``. Use it to split the
+                     * happy path from the error path after a tool runs (e.g. payment succeeded vs.
+                     * declined). There is no ``tool_id`` field — the tool node has a single tool,
+                     * so the outcome is unambiguous.
+                     */
+                    fun visitToolResult(toolResult: ToolResult): T
+
+                    /**
+                     * Maps an unknown variant of [Condition] to a value of type [T].
+                     *
+                     * An instance of [Condition] can contain an unknown variant if it was
+                     * deserialized from data that doesn't match any known variant. For example, if
+                     * the SDK is on an older version than the API, then the API may respond with
+                     * new variants that the SDK is unaware of.
+                     *
+                     * @throws TelnyxInvalidDataException in the default implementation.
+                     */
+                    fun unknown(json: JsonValue?): T {
+                        throw TelnyxInvalidDataException("Unknown Condition: $json")
+                    }
+                }
+
+                internal class Deserializer : BaseDeserializer<Condition>(Condition::class) {
+
+                    override fun ObjectCodec.deserialize(node: JsonNode): Condition {
+                        val json = JsonValue.fromJsonNode(node)
+                        val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
+
+                        when (type) {
+                            "llm" -> {
+                                return tryDeserialize(node, jacksonTypeRef<Llm>())?.let {
+                                    Condition(llm = it, _json = json)
+                                } ?: Condition(_json = json)
+                            }
+                            "expression" -> {
+                                return tryDeserialize(node, jacksonTypeRef<Expression>())?.let {
+                                    Condition(expression = it, _json = json)
+                                } ?: Condition(_json = json)
+                            }
+                            "tool_result" -> {
+                                return tryDeserialize(node, jacksonTypeRef<ToolResult>())?.let {
+                                    Condition(toolResult = it, _json = json)
+                                } ?: Condition(_json = json)
+                            }
+                        }
+
+                        return Condition(_json = json)
+                    }
+                }
+
+                internal class Serializer : BaseSerializer<Condition>(Condition::class) {
+
+                    override fun serialize(
+                        value: Condition,
+                        generator: JsonGenerator,
+                        provider: SerializerProvider,
+                    ) {
+                        when {
+                            value.llm != null -> generator.writeObject(value.llm)
+                            value.expression != null -> generator.writeObject(value.expression)
+                            value.toolResult != null -> generator.writeObject(value.toolResult)
+                            value._json != null -> generator.writeObject(value._json)
+                            else -> throw IllegalStateException("Invalid Condition")
+                        }
+                    }
+                }
+
+                /**
+                 * Edge condition evaluated by the LLM from a natural-language prompt.
+                 *
+                 * The model is asked to judge the prompt against conversation context and returns
+                 * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
+                 * expression (e.g. 'user wants to escalate to a human').
+                 */
+                class Llm
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val prompt: JsonField<String>,
+                    private val type: JsonValue,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("prompt")
+                        @ExcludeMissing
+                        prompt: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                    ) : this(prompt, type, mutableMapOf())
+
+                    /**
+                     * Natural-language criterion the LLM judges as true/false.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun prompt(): String = prompt.getRequired("prompt")
+
+                    /**
+                     * Expected to always return the following:
+                     * ```java
+                     * JsonValue.from("llm")
+                     * ```
+                     *
+                     * However, this method can be useful for debugging and logging (e.g. if the
+                     * server responded with an unexpected value).
+                     */
+                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                    /**
+                     * Returns the raw JSON value of [prompt].
+                     *
+                     * Unlike [prompt], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("prompt")
+                    @ExcludeMissing
+                    fun _prompt(): JsonField<String> = prompt
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Llm].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .prompt()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Llm]. */
+                    class Builder internal constructor() {
+
+                        private var prompt: JsonField<String>? = null
+                        private var type: JsonValue = JsonValue.from("llm")
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(llm: Llm) = apply {
+                            prompt = llm.prompt
+                            type = llm.type
+                            additionalProperties = llm.additionalProperties.toMutableMap()
+                        }
+
+                        /** Natural-language criterion the LLM judges as true/false. */
+                        fun prompt(prompt: String) = prompt(JsonField.of(prompt))
+
+                        /**
+                         * Sets [Builder.prompt] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.prompt] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun prompt(prompt: JsonField<String>) = apply { this.prompt = prompt }
+
+                        /**
+                         * Sets the field to an arbitrary JSON value.
+                         *
+                         * It is usually unnecessary to call this method because the field defaults
+                         * to the following:
+                         * ```java
+                         * JsonValue.from("llm")
+                         * ```
+                         *
+                         * This method is primarily for setting the field to an undocumented or not
+                         * yet supported value.
+                         */
+                        fun type(type: JsonValue) = apply { this.type = type }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Llm].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .prompt()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Llm =
+                            Llm(
+                                checkRequired("prompt", prompt),
+                                type,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Llm = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        prompt()
+                        _type().let {
+                            if (it != JsonValue.from("llm")) {
+                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                            }
+                        }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (prompt.asKnown().isPresent) 1 else 0) +
+                            type.let { if (it == JsonValue.from("llm")) 1 else 0 }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Llm &&
+                            prompt == other.prompt &&
+                            type == other.type &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(prompt, type, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Llm{prompt=$prompt, type=$type, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * Edge condition evaluated as a deterministic expression AST.
+                 *
+                 * The expression is computed against runtime dynamic variables and must evaluate to
+                 * a boolean. Prefer this over `LLMCondition` when the rule is a clean function of
+                 * known variables — it's cheaper and predictable.
+                 */
+                class Expression
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val expression: JsonField<InnerExpression>,
+                    private val type: JsonValue,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("expression")
+                        @ExcludeMissing
+                        expression: JsonField<InnerExpression> = JsonMissing.of(),
+                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                    ) : this(expression, type, mutableMapOf())
+
+                    /**
+                     * Root of the expression AST. Must evaluate to a boolean.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun expression(): InnerExpression = expression.getRequired("expression")
+
+                    /**
+                     * Expected to always return the following:
+                     * ```java
+                     * JsonValue.from("expression")
+                     * ```
+                     *
+                     * However, this method can be useful for debugging and logging (e.g. if the
+                     * server responded with an unexpected value).
+                     */
+                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                    /**
+                     * Returns the raw JSON value of [expression].
+                     *
+                     * Unlike [expression], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("expression")
+                    @ExcludeMissing
+                    fun _expression(): JsonField<InnerExpression> = expression
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Expression].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .expression()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Expression]. */
+                    class Builder internal constructor() {
+
+                        private var expression: JsonField<InnerExpression>? = null
+                        private var type: JsonValue = JsonValue.from("expression")
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(expression: Expression) = apply {
+                            this.expression = expression.expression
+                            type = expression.type
+                            additionalProperties = expression.additionalProperties.toMutableMap()
+                        }
+
+                        /** Root of the expression AST. Must evaluate to a boolean. */
+                        fun expression(expression: InnerExpression) =
+                            expression(JsonField.of(expression))
+
+                        /**
+                         * Sets [Builder.expression] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expression] with a well-typed
+                         * [InnerExpression] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun expression(expression: JsonField<InnerExpression>) = apply {
+                            this.expression = expression
+                        }
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofComparison(comparison)`.
+                         */
+                        fun expression(comparison: InnerExpression.Comparison) =
+                            expression(InnerExpression.ofComparison(comparison))
+
+                        /**
+                         * Alias for calling [expression] with `InnerExpression.ofBoolOp(boolOp)`.
+                         */
+                        fun expression(boolOp: InnerExpression.BoolOp) =
+                            expression(InnerExpression.ofBoolOp(boolOp))
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofArithmetic(arithmetic)`.
+                         */
+                        fun expression(arithmetic: InnerExpression.Arithmetic) =
+                            expression(InnerExpression.ofArithmetic(arithmetic))
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofVariable(variable)`.
+                         */
+                        fun expression(variable: InnerExpression.Variable) =
+                            expression(InnerExpression.ofVariable(variable))
+
+                        /**
+                         * Alias for calling [expression] with the following:
+                         * ```java
+                         * InnerExpression.Variable.builder()
+                         *     .name(name)
+                         *     .build()
+                         * ```
+                         */
+                        fun variableExpression(name: String) =
+                            expression(InnerExpression.Variable.builder().name(name).build())
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofStringLiteral(stringLiteral)`.
+                         */
+                        fun expression(stringLiteral: InnerExpression.StringLiteral) =
+                            expression(InnerExpression.ofStringLiteral(stringLiteral))
+
+                        /**
+                         * Alias for calling [expression] with the following:
+                         * ```java
+                         * InnerExpression.StringLiteral.builder()
+                         *     .value(value)
+                         *     .build()
+                         * ```
+                         */
+                        fun stringLiteralExpression(value: String) =
+                            expression(InnerExpression.StringLiteral.builder().value(value).build())
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofNumberLiteral(numberLiteral)`.
+                         */
+                        fun expression(numberLiteral: InnerExpression.NumberLiteral) =
+                            expression(InnerExpression.ofNumberLiteral(numberLiteral))
+
+                        /**
+                         * Alias for calling [expression] with the following:
+                         * ```java
+                         * InnerExpression.NumberLiteral.builder()
+                         *     .value(value)
+                         *     .build()
+                         * ```
+                         */
+                        fun numberLiteralExpression(value: Double) =
+                            expression(InnerExpression.NumberLiteral.builder().value(value).build())
+
+                        /**
+                         * Alias for calling [expression] with
+                         * `InnerExpression.ofBoolLiteral(boolLiteral)`.
+                         */
+                        fun expression(boolLiteral: InnerExpression.BoolLiteral) =
+                            expression(InnerExpression.ofBoolLiteral(boolLiteral))
+
+                        /**
+                         * Alias for calling [expression] with the following:
+                         * ```java
+                         * InnerExpression.BoolLiteral.builder()
+                         *     .value(value)
+                         *     .build()
+                         * ```
+                         */
+                        fun boolLiteralExpression(value: Boolean) =
+                            expression(InnerExpression.BoolLiteral.builder().value(value).build())
+
+                        /**
+                         * Sets the field to an arbitrary JSON value.
+                         *
+                         * It is usually unnecessary to call this method because the field defaults
+                         * to the following:
+                         * ```java
+                         * JsonValue.from("expression")
+                         * ```
+                         *
+                         * This method is primarily for setting the field to an undocumented or not
+                         * yet supported value.
+                         */
+                        fun type(type: JsonValue) = apply { this.type = type }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Expression].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .expression()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Expression =
+                            Expression(
+                                checkRequired("expression", expression),
+                                type,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Expression = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        expression().validate()
+                        _type().let {
+                            if (it != JsonValue.from("expression")) {
+                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                            }
+                        }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (expression.asKnown().getOrNull()?.validity() ?: 0) +
+                            type.let { if (it == JsonValue.from("expression")) 1 else 0 }
+
+                    /** Root of the expression AST. Must evaluate to a boolean. */
+                    @JsonDeserialize(using = InnerExpression.Deserializer::class)
+                    @JsonSerialize(using = InnerExpression.Serializer::class)
+                    class InnerExpression
+                    private constructor(
+                        private val comparison: Comparison? = null,
+                        private val boolOp: BoolOp? = null,
+                        private val arithmetic: Arithmetic? = null,
+                        private val variable: Variable? = null,
+                        private val stringLiteral: StringLiteral? = null,
+                        private val numberLiteral: NumberLiteral? = null,
+                        private val boolLiteral: BoolLiteral? = null,
+                        private val _json: JsonValue? = null,
+                    ) {
+
+                        /**
+                         * Compare two sub-expressions with a relational or membership operator.
+                         *
+                         * Evaluates to a boolean. Used in edge conditions to gate transitions on
+                         * runtime values, e.g. `user_age >= 18` or `tier == "gold"`.
+                         */
+                        fun comparison(): Optional<Comparison> = Optional.ofNullable(comparison)
+
+                        /**
+                         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+                         *
+                         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+                         */
+                        fun boolOp(): Optional<BoolOp> = Optional.ofNullable(boolOp)
+
+                        /**
+                         * Numeric expression: applies an arithmetic operator to two
+                         * sub-expressions.
+                         *
+                         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`.
+                         * Both operands should resolve to numbers at runtime.
+                         */
+                        fun arithmetic(): Optional<Arithmetic> = Optional.ofNullable(arithmetic)
+
+                        /**
+                         * Reference a dynamic variable by name.
+                         *
+                         * Resolved at runtime from the assistant's dynamic-variables context (see
+                         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+                         */
+                        fun variable(): Optional<Variable> = Optional.ofNullable(variable)
+
+                        /** Constant string value. */
+                        fun stringLiteral(): Optional<StringLiteral> =
+                            Optional.ofNullable(stringLiteral)
+
+                        /**
+                         * Constant numeric value (float; integers are accepted and stored as
+                         * float).
+                         */
+                        fun numberLiteral(): Optional<NumberLiteral> =
+                            Optional.ofNullable(numberLiteral)
+
+                        /** Constant boolean value. Useful for unconditional ('always') edges. */
+                        fun boolLiteral(): Optional<BoolLiteral> = Optional.ofNullable(boolLiteral)
+
+                        fun isComparison(): Boolean = comparison != null
+
+                        fun isBoolOp(): Boolean = boolOp != null
+
+                        fun isArithmetic(): Boolean = arithmetic != null
+
+                        fun isVariable(): Boolean = variable != null
+
+                        fun isStringLiteral(): Boolean = stringLiteral != null
+
+                        fun isNumberLiteral(): Boolean = numberLiteral != null
+
+                        fun isBoolLiteral(): Boolean = boolLiteral != null
+
+                        /**
+                         * Compare two sub-expressions with a relational or membership operator.
+                         *
+                         * Evaluates to a boolean. Used in edge conditions to gate transitions on
+                         * runtime values, e.g. `user_age >= 18` or `tier == "gold"`.
+                         */
+                        fun asComparison(): Comparison = comparison.getOrThrow("comparison")
+
+                        /**
+                         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+                         *
+                         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+                         */
+                        fun asBoolOp(): BoolOp = boolOp.getOrThrow("boolOp")
+
+                        /**
+                         * Numeric expression: applies an arithmetic operator to two
+                         * sub-expressions.
+                         *
+                         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`.
+                         * Both operands should resolve to numbers at runtime.
+                         */
+                        fun asArithmetic(): Arithmetic = arithmetic.getOrThrow("arithmetic")
+
+                        /**
+                         * Reference a dynamic variable by name.
+                         *
+                         * Resolved at runtime from the assistant's dynamic-variables context (see
+                         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+                         */
+                        fun asVariable(): Variable = variable.getOrThrow("variable")
+
+                        /** Constant string value. */
+                        fun asStringLiteral(): StringLiteral =
+                            stringLiteral.getOrThrow("stringLiteral")
+
+                        /**
+                         * Constant numeric value (float; integers are accepted and stored as
+                         * float).
+                         */
+                        fun asNumberLiteral(): NumberLiteral =
+                            numberLiteral.getOrThrow("numberLiteral")
+
+                        /** Constant boolean value. Useful for unconditional ('always') edges. */
+                        fun asBoolLiteral(): BoolLiteral = boolLiteral.getOrThrow("boolLiteral")
+
+                        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                        /**
+                         * Maps this instance's current variant to a value of type [T] using the
+                         * given [visitor].
+                         *
+                         * Note that this method is _not_ forwards compatible with new variants from
+                         * the API, unless [visitor] overrides [Visitor.unknown]. To handle variants
+                         * not known to this version of the SDK gracefully, consider overriding
+                         * [Visitor.unknown]:
+                         * ```java
+                         * import com.telnyx.sdk.core.JsonValue;
+                         * import java.util.Optional;
+                         *
+                         * Optional<String> result = innerExpression.accept(new InnerExpression.Visitor<Optional<String>>() {
+                         *     @Override
+                         *     public Optional<String> visitComparison(Comparison comparison) {
+                         *         return Optional.of(comparison.toString());
+                         *     }
+                         *
+                         *     // ...
+                         *
+                         *     @Override
+                         *     public Optional<String> unknown(JsonValue json) {
+                         *         // Or inspect the `json`.
+                         *         return Optional.empty();
+                         *     }
+                         * });
+                         * ```
+                         *
+                         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden
+                         *   in [visitor] and the current variant is unknown.
+                         */
+                        fun <T> accept(visitor: Visitor<T>): T =
+                            when {
+                                comparison != null -> visitor.visitComparison(comparison)
+                                boolOp != null -> visitor.visitBoolOp(boolOp)
+                                arithmetic != null -> visitor.visitArithmetic(arithmetic)
+                                variable != null -> visitor.visitVariable(variable)
+                                stringLiteral != null -> visitor.visitStringLiteral(stringLiteral)
+                                numberLiteral != null -> visitor.visitNumberLiteral(numberLiteral)
+                                boolLiteral != null -> visitor.visitBoolLiteral(boolLiteral)
+                                else -> visitor.unknown(_json)
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws TelnyxInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): InnerExpression = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            accept(
+                                object : Visitor<Unit> {
+                                    override fun visitComparison(comparison: Comparison) {
+                                        comparison.validate()
+                                    }
+
+                                    override fun visitBoolOp(boolOp: BoolOp) {
+                                        boolOp.validate()
+                                    }
+
+                                    override fun visitArithmetic(arithmetic: Arithmetic) {
+                                        arithmetic.validate()
+                                    }
+
+                                    override fun visitVariable(variable: Variable) {
+                                        variable.validate()
+                                    }
+
+                                    override fun visitStringLiteral(stringLiteral: StringLiteral) {
+                                        stringLiteral.validate()
+                                    }
+
+                                    override fun visitNumberLiteral(numberLiteral: NumberLiteral) {
+                                        numberLiteral.validate()
+                                    }
+
+                                    override fun visitBoolLiteral(boolLiteral: BoolLiteral) {
+                                        boolLiteral.validate()
+                                    }
+                                }
+                            )
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int =
+                            accept(
+                                object : Visitor<Int> {
+                                    override fun visitComparison(comparison: Comparison) =
+                                        comparison.validity()
+
+                                    override fun visitBoolOp(boolOp: BoolOp) = boolOp.validity()
+
+                                    override fun visitArithmetic(arithmetic: Arithmetic) =
+                                        arithmetic.validity()
+
+                                    override fun visitVariable(variable: Variable) =
+                                        variable.validity()
+
+                                    override fun visitStringLiteral(stringLiteral: StringLiteral) =
+                                        stringLiteral.validity()
+
+                                    override fun visitNumberLiteral(numberLiteral: NumberLiteral) =
+                                        numberLiteral.validity()
+
+                                    override fun visitBoolLiteral(boolLiteral: BoolLiteral) =
+                                        boolLiteral.validity()
+
+                                    override fun unknown(json: JsonValue?) = 0
+                                }
+                            )
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is InnerExpression &&
+                                comparison == other.comparison &&
+                                boolOp == other.boolOp &&
+                                arithmetic == other.arithmetic &&
+                                variable == other.variable &&
+                                stringLiteral == other.stringLiteral &&
+                                numberLiteral == other.numberLiteral &&
+                                boolLiteral == other.boolLiteral
+                        }
+
+                        override fun hashCode(): Int =
+                            Objects.hash(
+                                comparison,
+                                boolOp,
+                                arithmetic,
+                                variable,
+                                stringLiteral,
+                                numberLiteral,
+                                boolLiteral,
+                            )
+
+                        override fun toString(): String =
+                            when {
+                                comparison != null -> "InnerExpression{comparison=$comparison}"
+                                boolOp != null -> "InnerExpression{boolOp=$boolOp}"
+                                arithmetic != null -> "InnerExpression{arithmetic=$arithmetic}"
+                                variable != null -> "InnerExpression{variable=$variable}"
+                                stringLiteral != null ->
+                                    "InnerExpression{stringLiteral=$stringLiteral}"
+                                numberLiteral != null ->
+                                    "InnerExpression{numberLiteral=$numberLiteral}"
+                                boolLiteral != null -> "InnerExpression{boolLiteral=$boolLiteral}"
+                                _json != null -> "InnerExpression{_unknown=$_json}"
+                                else -> throw IllegalStateException("Invalid InnerExpression")
+                            }
+
+                        companion object {
+
+                            /**
+                             * Compare two sub-expressions with a relational or membership operator.
+                             *
+                             * Evaluates to a boolean. Used in edge conditions to gate transitions
+                             * on runtime values, e.g. `user_age >= 18` or `tier == "gold"`.
+                             */
+                            @JvmStatic
+                            fun ofComparison(comparison: Comparison) =
+                                InnerExpression(comparison = comparison)
+
+                            /**
+                             * Combine sub-expressions with a logical operator (`and` / `or` /
+                             * `not`).
+                             *
+                             * `and` and `or` accept two or more operands; `not` accepts exactly
+                             * one.
+                             */
+                            @JvmStatic
+                            fun ofBoolOp(boolOp: BoolOp) = InnerExpression(boolOp = boolOp)
+
+                            /**
+                             * Numeric expression: applies an arithmetic operator to two
+                             * sub-expressions.
+                             *
+                             * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`.
+                             * Both operands should resolve to numbers at runtime.
+                             */
+                            @JvmStatic
+                            fun ofArithmetic(arithmetic: Arithmetic) =
+                                InnerExpression(arithmetic = arithmetic)
+
+                            /**
+                             * Reference a dynamic variable by name.
+                             *
+                             * Resolved at runtime from the assistant's dynamic-variables context
+                             * (see `Assistant.dynamic_variables` and the dynamic-variables
+                             * webhook).
+                             */
+                            @JvmStatic
+                            fun ofVariable(variable: Variable) =
+                                InnerExpression(variable = variable)
+
+                            /** Constant string value. */
+                            @JvmStatic
+                            fun ofStringLiteral(stringLiteral: StringLiteral) =
+                                InnerExpression(stringLiteral = stringLiteral)
+
+                            /**
+                             * Constant numeric value (float; integers are accepted and stored as
+                             * float).
+                             */
+                            @JvmStatic
+                            fun ofNumberLiteral(numberLiteral: NumberLiteral) =
+                                InnerExpression(numberLiteral = numberLiteral)
+
+                            /**
+                             * Constant boolean value. Useful for unconditional ('always') edges.
+                             */
+                            @JvmStatic
+                            fun ofBoolLiteral(boolLiteral: BoolLiteral) =
+                                InnerExpression(boolLiteral = boolLiteral)
+                        }
+
+                        /**
+                         * An interface that defines how to map each variant of [InnerExpression] to
+                         * a value of type [T].
+                         */
+                        interface Visitor<out T> {
+
+                            /**
+                             * Compare two sub-expressions with a relational or membership operator.
+                             *
+                             * Evaluates to a boolean. Used in edge conditions to gate transitions
+                             * on runtime values, e.g. `user_age >= 18` or `tier == "gold"`.
+                             */
+                            fun visitComparison(comparison: Comparison): T
+
+                            /**
+                             * Combine sub-expressions with a logical operator (`and` / `or` /
+                             * `not`).
+                             *
+                             * `and` and `or` accept two or more operands; `not` accepts exactly
+                             * one.
+                             */
+                            fun visitBoolOp(boolOp: BoolOp): T
+
+                            /**
+                             * Numeric expression: applies an arithmetic operator to two
+                             * sub-expressions.
+                             *
+                             * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`.
+                             * Both operands should resolve to numbers at runtime.
+                             */
+                            fun visitArithmetic(arithmetic: Arithmetic): T
+
+                            /**
+                             * Reference a dynamic variable by name.
+                             *
+                             * Resolved at runtime from the assistant's dynamic-variables context
+                             * (see `Assistant.dynamic_variables` and the dynamic-variables
+                             * webhook).
+                             */
+                            fun visitVariable(variable: Variable): T
+
+                            /** Constant string value. */
+                            fun visitStringLiteral(stringLiteral: StringLiteral): T
+
+                            /**
+                             * Constant numeric value (float; integers are accepted and stored as
+                             * float).
+                             */
+                            fun visitNumberLiteral(numberLiteral: NumberLiteral): T
+
+                            /**
+                             * Constant boolean value. Useful for unconditional ('always') edges.
+                             */
+                            fun visitBoolLiteral(boolLiteral: BoolLiteral): T
+
+                            /**
+                             * Maps an unknown variant of [InnerExpression] to a value of type [T].
+                             *
+                             * An instance of [InnerExpression] can contain an unknown variant if it
+                             * was deserialized from data that doesn't match any known variant. For
+                             * example, if the SDK is on an older version than the API, then the API
+                             * may respond with new variants that the SDK is unaware of.
+                             *
+                             * @throws TelnyxInvalidDataException in the default implementation.
+                             */
+                            fun unknown(json: JsonValue?): T {
+                                throw TelnyxInvalidDataException("Unknown InnerExpression: $json")
+                            }
+                        }
+
+                        internal class Deserializer :
+                            BaseDeserializer<InnerExpression>(InnerExpression::class) {
+
+                            override fun ObjectCodec.deserialize(node: JsonNode): InnerExpression {
+                                val json = JsonValue.fromJsonNode(node)
+                                val type =
+                                    json
+                                        .asObject()
+                                        .getOrNull()
+                                        ?.get("type")
+                                        ?.asString()
+                                        ?.getOrNull()
+
+                                when (type) {
+                                    "comparison" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<Comparison>())
+                                            ?.let { InnerExpression(comparison = it, _json = json) }
+                                            ?: InnerExpression(_json = json)
+                                    }
+                                    "bool_op" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<BoolOp>())?.let {
+                                            InnerExpression(boolOp = it, _json = json)
+                                        } ?: InnerExpression(_json = json)
+                                    }
+                                    "arithmetic" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<Arithmetic>())
+                                            ?.let { InnerExpression(arithmetic = it, _json = json) }
+                                            ?: InnerExpression(_json = json)
+                                    }
+                                    "variable" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<Variable>())
+                                            ?.let { InnerExpression(variable = it, _json = json) }
+                                            ?: InnerExpression(_json = json)
+                                    }
+                                    "string_literal" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<StringLiteral>())
+                                            ?.let {
+                                                InnerExpression(stringLiteral = it, _json = json)
+                                            } ?: InnerExpression(_json = json)
+                                    }
+                                    "number_literal" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<NumberLiteral>())
+                                            ?.let {
+                                                InnerExpression(numberLiteral = it, _json = json)
+                                            } ?: InnerExpression(_json = json)
+                                    }
+                                    "bool_literal" -> {
+                                        return tryDeserialize(node, jacksonTypeRef<BoolLiteral>())
+                                            ?.let {
+                                                InnerExpression(boolLiteral = it, _json = json)
+                                            } ?: InnerExpression(_json = json)
+                                    }
+                                }
+
+                                return InnerExpression(_json = json)
+                            }
+                        }
+
+                        internal class Serializer :
+                            BaseSerializer<InnerExpression>(InnerExpression::class) {
+
+                            override fun serialize(
+                                value: InnerExpression,
+                                generator: JsonGenerator,
+                                provider: SerializerProvider,
+                            ) {
+                                when {
+                                    value.comparison != null ->
+                                        generator.writeObject(value.comparison)
+                                    value.boolOp != null -> generator.writeObject(value.boolOp)
+                                    value.arithmetic != null ->
+                                        generator.writeObject(value.arithmetic)
+                                    value.variable != null -> generator.writeObject(value.variable)
+                                    value.stringLiteral != null ->
+                                        generator.writeObject(value.stringLiteral)
+                                    value.numberLiteral != null ->
+                                        generator.writeObject(value.numberLiteral)
+                                    value.boolLiteral != null ->
+                                        generator.writeObject(value.boolLiteral)
+                                    value._json != null -> generator.writeObject(value._json)
+                                    else -> throw IllegalStateException("Invalid InnerExpression")
+                                }
+                            }
+                        }
+
+                        /**
+                         * Compare two sub-expressions with a relational or membership operator.
+                         *
+                         * Evaluates to a boolean. Used in edge conditions to gate transitions on
+                         * runtime values, e.g. `user_age >= 18` or `tier == "gold"`.
+                         */
+                        class Comparison
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val left: JsonField<Left>,
+                            private val op: JsonField<Op>,
+                            private val right: JsonField<Right>,
+                            private val type: JsonValue,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("left")
+                                @ExcludeMissing
+                                left: JsonField<Left> = JsonMissing.of(),
+                                @JsonProperty("op")
+                                @ExcludeMissing
+                                op: JsonField<Op> = JsonMissing.of(),
+                                @JsonProperty("right")
+                                @ExcludeMissing
+                                right: JsonField<Right> = JsonMissing.of(),
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                            ) : this(left, op, right, type, mutableMapOf())
+
+                            /**
+                             * Left-hand operand sub-expression.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun left(): Left = left.getRequired("left")
+
+                            /**
+                             * Relational/membership operator. `contains` / `not_contains` apply to
+                             * strings (substring) and arrays (membership).
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun op(): Op = op.getRequired("op")
+
+                            /**
+                             * Right-hand operand sub-expression.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun right(): Right = right.getRequired("right")
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("comparison")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Returns the raw JSON value of [left].
+                             *
+                             * Unlike [left], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("left")
+                            @ExcludeMissing
+                            fun _left(): JsonField<Left> = left
+
+                            /**
+                             * Returns the raw JSON value of [op].
+                             *
+                             * Unlike [op], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("op") @ExcludeMissing fun _op(): JsonField<Op> = op
+
+                            /**
+                             * Returns the raw JSON value of [right].
+                             *
+                             * Unlike [right], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("right")
+                            @ExcludeMissing
+                            fun _right(): JsonField<Right> = right
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Comparison].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .left()
+                                 * .op()
+                                 * .right()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [Comparison]. */
+                            class Builder internal constructor() {
+
+                                private var left: JsonField<Left>? = null
+                                private var op: JsonField<Op>? = null
+                                private var right: JsonField<Right>? = null
+                                private var type: JsonValue = JsonValue.from("comparison")
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(comparison: Comparison) = apply {
+                                    left = comparison.left
+                                    op = comparison.op
+                                    right = comparison.right
+                                    type = comparison.type
+                                    additionalProperties =
+                                        comparison.additionalProperties.toMutableMap()
+                                }
+
+                                /** Left-hand operand sub-expression. */
+                                fun left(left: Left) = left(JsonField.of(left))
+
+                                /**
+                                 * Sets [Builder.left] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.left] with a well-typed [Left]
+                                 * value instead. This method is primarily for setting the field to
+                                 * an undocumented or not yet supported value.
+                                 */
+                                fun left(left: JsonField<Left>) = apply { this.left = left }
+
+                                /** Alias for calling [left] with `Left.ofJsonValue(jsonValue)`. */
+                                fun left(jsonValue: JsonValue) = left(Left.ofJsonValue(jsonValue))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofDynamicVariableExpression(dynamicVariableExpression)`.
+                                 */
+                                fun left(
+                                    dynamicVariableExpression: Left.DynamicVariableExpression
+                                ) =
+                                    left(
+                                        Left.ofDynamicVariableExpression(dynamicVariableExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofStringLiteralExpression(stringLiteralExpression)`.
+                                 */
+                                fun left(stringLiteralExpression: Left.StringLiteralExpression) =
+                                    left(Left.ofStringLiteralExpression(stringLiteralExpression))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofNumberLiteralExpression(numberLiteralExpression)`.
+                                 */
+                                fun left(numberLiteralExpression: Left.NumberLiteralExpression) =
+                                    left(Left.ofNumberLiteralExpression(numberLiteralExpression))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofBooleanLiteralExpression(booleanLiteralExpression)`.
+                                 */
+                                fun left(booleanLiteralExpression: Left.BooleanLiteralExpression) =
+                                    left(Left.ofBooleanLiteralExpression(booleanLiteralExpression))
+
+                                /**
+                                 * Relational/membership operator. `contains` / `not_contains` apply
+                                 * to strings (substring) and arrays (membership).
+                                 */
+                                fun op(op: Op) = op(JsonField.of(op))
+
+                                /**
+                                 * Sets [Builder.op] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.op] with a well-typed [Op] value
+                                 * instead. This method is primarily for setting the field to an
+                                 * undocumented or not yet supported value.
+                                 */
+                                fun op(op: JsonField<Op>) = apply { this.op = op }
+
+                                /** Right-hand operand sub-expression. */
+                                fun right(right: Right) = right(JsonField.of(right))
+
+                                /**
+                                 * Sets [Builder.right] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.right] with a well-typed [Right]
+                                 * value instead. This method is primarily for setting the field to
+                                 * an undocumented or not yet supported value.
+                                 */
+                                fun right(right: JsonField<Right>) = apply { this.right = right }
+
+                                /**
+                                 * Alias for calling [right] with `Right.ofJsonValue(jsonValue)`.
+                                 */
+                                fun right(jsonValue: JsonValue) =
+                                    right(Right.ofJsonValue(jsonValue))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofDynamicVariableExpression(dynamicVariableExpression)`.
+                                 */
+                                fun right(
+                                    dynamicVariableExpression: Right.DynamicVariableExpression
+                                ) =
+                                    right(
+                                        Right.ofDynamicVariableExpression(dynamicVariableExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofStringLiteralExpression(stringLiteralExpression)`.
+                                 */
+                                fun right(stringLiteralExpression: Right.StringLiteralExpression) =
+                                    right(Right.ofStringLiteralExpression(stringLiteralExpression))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofNumberLiteralExpression(numberLiteralExpression)`.
+                                 */
+                                fun right(numberLiteralExpression: Right.NumberLiteralExpression) =
+                                    right(Right.ofNumberLiteralExpression(numberLiteralExpression))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofBooleanLiteralExpression(booleanLiteralExpression)`.
+                                 */
+                                fun right(
+                                    booleanLiteralExpression: Right.BooleanLiteralExpression
+                                ) =
+                                    right(
+                                        Right.ofBooleanLiteralExpression(booleanLiteralExpression)
+                                    )
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("comparison")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [Comparison].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .left()
+                                 * .op()
+                                 * .right()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): Comparison =
+                                    Comparison(
+                                        checkRequired("left", left),
+                                        checkRequired("op", op),
+                                        checkRequired("right", right),
+                                        type,
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): Comparison = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                left().validate()
+                                op().validate()
+                                right().validate()
+                                _type().let {
+                                    if (it != JsonValue.from("comparison")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                (left.asKnown().getOrNull()?.validity() ?: 0) +
+                                    (op.asKnown().getOrNull()?.validity() ?: 0) +
+                                    (right.asKnown().getOrNull()?.validity() ?: 0) +
+                                    type.let { if (it == JsonValue.from("comparison")) 1 else 0 }
+
+                            /** Left-hand operand sub-expression. */
+                            @JsonDeserialize(using = Left.Deserializer::class)
+                            @JsonSerialize(using = Left.Serializer::class)
+                            class Left
+                            private constructor(
+                                private val jsonValue: JsonValue? = null,
+                                private val dynamicVariableExpression: DynamicVariableExpression? =
+                                    null,
+                                private val stringLiteralExpression: StringLiteralExpression? =
+                                    null,
+                                private val numberLiteralExpression: NumberLiteralExpression? =
+                                    null,
+                                private val booleanLiteralExpression: BooleanLiteralExpression? =
+                                    null,
+                                private val _json: JsonValue? = null,
+                            ) {
+
+                                fun jsonValue(): Optional<JsonValue> =
+                                    Optional.ofNullable(jsonValue)
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun dynamicVariableExpression():
+                                    Optional<DynamicVariableExpression> =
+                                    Optional.ofNullable(dynamicVariableExpression)
+
+                                /** Constant string value. */
+                                fun stringLiteralExpression(): Optional<StringLiteralExpression> =
+                                    Optional.ofNullable(stringLiteralExpression)
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun numberLiteralExpression(): Optional<NumberLiteralExpression> =
+                                    Optional.ofNullable(numberLiteralExpression)
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun booleanLiteralExpression(): Optional<BooleanLiteralExpression> =
+                                    Optional.ofNullable(booleanLiteralExpression)
+
+                                fun isJsonValue(): Boolean = jsonValue != null
+
+                                fun isDynamicVariableExpression(): Boolean =
+                                    dynamicVariableExpression != null
+
+                                fun isStringLiteralExpression(): Boolean =
+                                    stringLiteralExpression != null
+
+                                fun isNumberLiteralExpression(): Boolean =
+                                    numberLiteralExpression != null
+
+                                fun isBooleanLiteralExpression(): Boolean =
+                                    booleanLiteralExpression != null
+
+                                fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun asDynamicVariableExpression(): DynamicVariableExpression =
+                                    dynamicVariableExpression.getOrThrow(
+                                        "dynamicVariableExpression"
+                                    )
+
+                                /** Constant string value. */
+                                fun asStringLiteralExpression(): StringLiteralExpression =
+                                    stringLiteralExpression.getOrThrow("stringLiteralExpression")
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun asNumberLiteralExpression(): NumberLiteralExpression =
+                                    numberLiteralExpression.getOrThrow("numberLiteralExpression")
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun asBooleanLiteralExpression(): BooleanLiteralExpression =
+                                    booleanLiteralExpression.getOrThrow("booleanLiteralExpression")
+
+                                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                                /**
+                                 * Maps this instance's current variant to a value of type [T] using
+                                 * the given [visitor].
+                                 *
+                                 * Note that this method is _not_ forwards compatible with new
+                                 * variants from the API, unless [visitor] overrides
+                                 * [Visitor.unknown]. To handle variants not known to this version
+                                 * of the SDK gracefully, consider overriding [Visitor.unknown]:
+                                 * ```java
+                                 * import com.telnyx.sdk.core.JsonValue;
+                                 * import java.util.Optional;
+                                 *
+                                 * Optional<String> result = left.accept(new Left.Visitor<Optional<String>>() {
+                                 *     @Override
+                                 *     public Optional<String> visitJsonValue(JsonValue jsonValue) {
+                                 *         return Optional.of(jsonValue.toString());
+                                 *     }
+                                 *
+                                 *     // ...
+                                 *
+                                 *     @Override
+                                 *     public Optional<String> unknown(JsonValue json) {
+                                 *         // Or inspect the `json`.
+                                 *         return Optional.empty();
+                                 *     }
+                                 * });
+                                 * ```
+                                 *
+                                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not
+                                 *   overridden in [visitor] and the current variant is unknown.
+                                 */
+                                fun <T> accept(visitor: Visitor<T>): T =
+                                    when {
+                                        jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                                        dynamicVariableExpression != null ->
+                                            visitor.visitDynamicVariableExpression(
+                                                dynamicVariableExpression
+                                            )
+                                        stringLiteralExpression != null ->
+                                            visitor.visitStringLiteralExpression(
+                                                stringLiteralExpression
+                                            )
+                                        numberLiteralExpression != null ->
+                                            visitor.visitNumberLiteralExpression(
+                                                numberLiteralExpression
+                                            )
+                                        booleanLiteralExpression != null ->
+                                            visitor.visitBooleanLiteralExpression(
+                                                booleanLiteralExpression
+                                            )
+                                        else -> visitor.unknown(_json)
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Left = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    accept(
+                                        object : Visitor<Unit> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) {}
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) {
+                                                dynamicVariableExpression.validate()
+                                            }
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) {
+                                                stringLiteralExpression.validate()
+                                            }
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) {
+                                                numberLiteralExpression.validate()
+                                            }
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) {
+                                                booleanLiteralExpression.validate()
+                                            }
+                                        }
+                                    )
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    accept(
+                                        object : Visitor<Int> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) = 1
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) = dynamicVariableExpression.validity()
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) = stringLiteralExpression.validity()
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) = numberLiteralExpression.validity()
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) = booleanLiteralExpression.validity()
+
+                                            override fun unknown(json: JsonValue?) = 0
+                                        }
+                                    )
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Left &&
+                                        jsonValue == other.jsonValue &&
+                                        dynamicVariableExpression ==
+                                            other.dynamicVariableExpression &&
+                                        stringLiteralExpression == other.stringLiteralExpression &&
+                                        numberLiteralExpression == other.numberLiteralExpression &&
+                                        booleanLiteralExpression == other.booleanLiteralExpression
+                                }
+
+                                override fun hashCode(): Int =
+                                    Objects.hash(
+                                        jsonValue,
+                                        dynamicVariableExpression,
+                                        stringLiteralExpression,
+                                        numberLiteralExpression,
+                                        booleanLiteralExpression,
+                                    )
+
+                                override fun toString(): String =
+                                    when {
+                                        jsonValue != null -> "Left{jsonValue=$jsonValue}"
+                                        dynamicVariableExpression != null ->
+                                            "Left{dynamicVariableExpression=$dynamicVariableExpression}"
+                                        stringLiteralExpression != null ->
+                                            "Left{stringLiteralExpression=$stringLiteralExpression}"
+                                        numberLiteralExpression != null ->
+                                            "Left{numberLiteralExpression=$numberLiteralExpression}"
+                                        booleanLiteralExpression != null ->
+                                            "Left{booleanLiteralExpression=$booleanLiteralExpression}"
+                                        _json != null -> "Left{_unknown=$_json}"
+                                        else -> throw IllegalStateException("Invalid Left")
+                                    }
+
+                                companion object {
+
+                                    @JvmStatic
+                                    fun ofJsonValue(jsonValue: JsonValue) =
+                                        Left(jsonValue = jsonValue)
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    @JvmStatic
+                                    fun ofDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ) = Left(dynamicVariableExpression = dynamicVariableExpression)
+
+                                    /** Constant string value. */
+                                    @JvmStatic
+                                    fun ofStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ) = Left(stringLiteralExpression = stringLiteralExpression)
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    @JvmStatic
+                                    fun ofNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ) = Left(numberLiteralExpression = numberLiteralExpression)
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    @JvmStatic
+                                    fun ofBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ) = Left(booleanLiteralExpression = booleanLiteralExpression)
+                                }
+
+                                /**
+                                 * An interface that defines how to map each variant of [Left] to a
+                                 * value of type [T].
+                                 */
+                                interface Visitor<out T> {
+
+                                    fun visitJsonValue(jsonValue: JsonValue): T
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    fun visitDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ): T
+
+                                    /** Constant string value. */
+                                    fun visitStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    fun visitNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    fun visitBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Maps an unknown variant of [Left] to a value of type [T].
+                                     *
+                                     * An instance of [Left] can contain an unknown variant if it
+                                     * was deserialized from data that doesn't match any known
+                                     * variant. For example, if the SDK is on an older version than
+                                     * the API, then the API may respond with new variants that the
+                                     * SDK is unaware of.
+                                     *
+                                     * @throws TelnyxInvalidDataException in the default
+                                     *   implementation.
+                                     */
+                                    fun unknown(json: JsonValue?): T {
+                                        throw TelnyxInvalidDataException("Unknown Left: $json")
+                                    }
+                                }
+
+                                internal class Deserializer : BaseDeserializer<Left>(Left::class) {
+
+                                    override fun ObjectCodec.deserialize(node: JsonNode): Left {
+                                        val json = JsonValue.fromJsonNode(node)
+
+                                        val bestMatches =
+                                            sequenceOf(
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                DynamicVariableExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                dynamicVariableExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                StringLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                stringLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                NumberLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                numberLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                BooleanLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                booleanLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<JsonValue>(),
+                                                        )
+                                                        ?.let { Left(jsonValue = it, _json = json) },
+                                                )
+                                                .filterNotNull()
+                                                .allMaxBy { it.validity() }
+                                                .toList()
+                                        return when (bestMatches.size) {
+                                            // This can happen if what we're deserializing is
+                                            // completely incompatible with all the possible
+                                            // variants.
+                                            0 -> Left(_json = json)
+                                            1 -> bestMatches.single()
+                                            // If there's more than one match with the highest
+                                            // validity, then use the first completely valid match,
+                                            // or simply the first match if none are completely
+                                            // valid.
+                                            else ->
+                                                bestMatches.firstOrNull { it.isValid() }
+                                                    ?: bestMatches.first()
+                                        }
+                                    }
+                                }
+
+                                internal class Serializer : BaseSerializer<Left>(Left::class) {
+
+                                    override fun serialize(
+                                        value: Left,
+                                        generator: JsonGenerator,
+                                        provider: SerializerProvider,
+                                    ) {
+                                        when {
+                                            value.jsonValue != null ->
+                                                generator.writeObject(value.jsonValue)
+                                            value.dynamicVariableExpression != null ->
+                                                generator.writeObject(
+                                                    value.dynamicVariableExpression
+                                                )
+                                            value.stringLiteralExpression != null ->
+                                                generator.writeObject(value.stringLiteralExpression)
+                                            value.numberLiteralExpression != null ->
+                                                generator.writeObject(value.numberLiteralExpression)
+                                            value.booleanLiteralExpression != null ->
+                                                generator.writeObject(
+                                                    value.booleanLiteralExpression
+                                                )
+                                            value._json != null ->
+                                                generator.writeObject(value._json)
+                                            else -> throw IllegalStateException("Invalid Left")
+                                        }
+                                    }
+                                }
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                class DynamicVariableExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val name: JsonField<String>,
+                                    private val type: JsonValue,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("name")
+                                        @ExcludeMissing
+                                        name: JsonField<String> = JsonMissing.of(),
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                    ) : this(name, type, mutableMapOf())
+
+                                    /**
+                                     * Variable name to look up in the runtime context.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun name(): String = name.getRequired("name")
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("variable")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Returns the raw JSON value of [name].
+                                     *
+                                     * Unlike [name], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("name")
+                                    @ExcludeMissing
+                                    fun _name(): JsonField<String> = name
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [DynamicVariableExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var name: JsonField<String>? = null
+                                        private var type: JsonValue = JsonValue.from("variable")
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            dynamicVariableExpression: DynamicVariableExpression
+                                        ) = apply {
+                                            name = dynamicVariableExpression.name
+                                            type = dynamicVariableExpression.type
+                                            additionalProperties =
+                                                dynamicVariableExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /** Variable name to look up in the runtime context. */
+                                        fun name(name: String) = name(JsonField.of(name))
+
+                                        /**
+                                         * Sets [Builder.name] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.name] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun name(name: JsonField<String>) = apply {
+                                            this.name = name
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("variable")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): DynamicVariableExpression =
+                                            DynamicVariableExpression(
+                                                checkRequired("name", name),
+                                                type,
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): DynamicVariableExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        name()
+                                        _type().let {
+                                            if (it != JsonValue.from("variable")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        (if (name.asKnown().isPresent) 1 else 0) +
+                                            type.let {
+                                                if (it == JsonValue.from("variable")) 1 else 0
+                                            }
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is DynamicVariableExpression &&
+                                            name == other.name &&
+                                            type == other.type &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(name, type, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "DynamicVariableExpression{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                                }
+
+                                /** Constant string value. */
+                                class StringLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<String>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<String> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("string_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal string value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): String = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<String> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [StringLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("string_literal")
+                                        private var value: JsonField<String>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            stringLiteralExpression: StringLiteralExpression
+                                        ) = apply {
+                                            type = stringLiteralExpression.type
+                                            value = stringLiteralExpression.value
+                                            additionalProperties =
+                                                stringLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("string_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal string value. */
+                                        fun value(value: String) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<String>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): StringLiteralExpression =
+                                            StringLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): StringLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("string_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("string_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is StringLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "StringLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                class NumberLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Double>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Double> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("number_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal numeric value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Double = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Double> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [NumberLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("number_literal")
+                                        private var value: JsonField<Double>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            numberLiteralExpression: NumberLiteralExpression
+                                        ) = apply {
+                                            type = numberLiteralExpression.type
+                                            value = numberLiteralExpression.value
+                                            additionalProperties =
+                                                numberLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("number_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal numeric value. */
+                                        fun value(value: Double) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Double] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Double>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): NumberLiteralExpression =
+                                            NumberLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): NumberLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("number_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("number_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is NumberLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "NumberLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                class BooleanLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Boolean>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Boolean> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("bool_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal boolean value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Boolean = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Boolean> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [BooleanLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue = JsonValue.from("bool_literal")
+                                        private var value: JsonField<Boolean>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            booleanLiteralExpression: BooleanLiteralExpression
+                                        ) = apply {
+                                            type = booleanLiteralExpression.type
+                                            value = booleanLiteralExpression.value
+                                            additionalProperties =
+                                                booleanLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("bool_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal boolean value. */
+                                        fun value(value: Boolean) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Boolean] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Boolean>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): BooleanLiteralExpression =
+                                            BooleanLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): BooleanLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("bool_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("bool_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is BooleanLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "BooleanLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+                            }
+
+                            /**
+                             * Relational/membership operator. `contains` / `not_contains` apply to
+                             * strings (substring) and arrays (membership).
+                             */
+                            class Op
+                            @JsonCreator
+                            private constructor(private val value: JsonField<String>) : Enum {
+
+                                /**
+                                 * Returns this class instance's raw value.
+                                 *
+                                 * This is usually only useful if this instance was deserialized
+                                 * from data that doesn't match any known member, and you want to
+                                 * know that value. For example, if the SDK is on an older version
+                                 * than the API, then the API may respond with new members that the
+                                 * SDK is unaware of.
+                                 */
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                companion object {
+
+                                    @JvmField val EQUALS = of("==")
+
+                                    @JvmField val NOT_EQUALS = of("!=")
+
+                                    @JvmField val LESS = of("<")
+
+                                    @JvmField val LESS_OR_EQUALS = of("<=")
+
+                                    @JvmField val GREATER = of(">")
+
+                                    @JvmField val GREATER_OR_EQUALS = of(">=")
+
+                                    @JvmField val CONTAINS = of("contains")
+
+                                    @JvmField val NOT_CONTAINS = of("not_contains")
+
+                                    @JvmStatic fun of(value: String) = Op(JsonField.of(value))
+                                }
+
+                                /** An enum containing [Op]'s known values. */
+                                enum class Known {
+                                    EQUALS,
+                                    NOT_EQUALS,
+                                    LESS,
+                                    LESS_OR_EQUALS,
+                                    GREATER,
+                                    GREATER_OR_EQUALS,
+                                    CONTAINS,
+                                    NOT_CONTAINS,
+                                }
+
+                                /**
+                                 * An enum containing [Op]'s known values, as well as an [_UNKNOWN]
+                                 * member.
+                                 *
+                                 * An instance of [Op] can contain an unknown value in a couple of
+                                 * cases:
+                                 * - It was deserialized from data that doesn't match any known
+                                 *   member. For example, if the SDK is on an older version than the
+                                 *   API, then the API may respond with new members that the SDK is
+                                 *   unaware of.
+                                 * - It was constructed with an arbitrary value using the [of]
+                                 *   method.
+                                 */
+                                enum class Value {
+                                    EQUALS,
+                                    NOT_EQUALS,
+                                    LESS,
+                                    LESS_OR_EQUALS,
+                                    GREATER,
+                                    GREATER_OR_EQUALS,
+                                    CONTAINS,
+                                    NOT_CONTAINS,
+                                    /**
+                                     * An enum member indicating that [Op] was instantiated with an
+                                     * unknown value.
+                                     */
+                                    _UNKNOWN,
+                                }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value, or [Value._UNKNOWN] if the class was instantiated with an
+                                 * unknown value.
+                                 *
+                                 * Use the [known] method instead if you're certain the value is
+                                 * always known or if you want to throw for the unknown case.
+                                 */
+                                fun value(): Value =
+                                    when (this) {
+                                        EQUALS -> Value.EQUALS
+                                        NOT_EQUALS -> Value.NOT_EQUALS
+                                        LESS -> Value.LESS
+                                        LESS_OR_EQUALS -> Value.LESS_OR_EQUALS
+                                        GREATER -> Value.GREATER
+                                        GREATER_OR_EQUALS -> Value.GREATER_OR_EQUALS
+                                        CONTAINS -> Value.CONTAINS
+                                        NOT_CONTAINS -> Value.NOT_CONTAINS
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value.
+                                 *
+                                 * Use the [value] method instead if you're uncertain the value is
+                                 * always known and don't want to throw for the unknown case.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   is a not a known member.
+                                 */
+                                fun known(): Known =
+                                    when (this) {
+                                        EQUALS -> Known.EQUALS
+                                        NOT_EQUALS -> Known.NOT_EQUALS
+                                        LESS -> Known.LESS
+                                        LESS_OR_EQUALS -> Known.LESS_OR_EQUALS
+                                        GREATER -> Known.GREATER
+                                        GREATER_OR_EQUALS -> Known.GREATER_OR_EQUALS
+                                        CONTAINS -> Known.CONTAINS
+                                        NOT_CONTAINS -> Known.NOT_CONTAINS
+                                        else ->
+                                            throw TelnyxInvalidDataException("Unknown Op: $value")
+                                    }
+
+                                /**
+                                 * Returns this class instance's primitive wire representation.
+                                 *
+                                 * This differs from the [toString] method because that method is
+                                 * primarily for debugging and generally doesn't throw.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   does not have the expected primitive type.
+                                 */
+                                fun asString(): String =
+                                    _value().asString().orElseThrow {
+                                        TelnyxInvalidDataException("Value is not a String")
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Op = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    known()
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    if (value() == Value._UNKNOWN) 0 else 1
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Op && value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+                            }
+
+                            /** Right-hand operand sub-expression. */
+                            @JsonDeserialize(using = Right.Deserializer::class)
+                            @JsonSerialize(using = Right.Serializer::class)
+                            class Right
+                            private constructor(
+                                private val jsonValue: JsonValue? = null,
+                                private val dynamicVariableExpression: DynamicVariableExpression? =
+                                    null,
+                                private val stringLiteralExpression: StringLiteralExpression? =
+                                    null,
+                                private val numberLiteralExpression: NumberLiteralExpression? =
+                                    null,
+                                private val booleanLiteralExpression: BooleanLiteralExpression? =
+                                    null,
+                                private val _json: JsonValue? = null,
+                            ) {
+
+                                fun jsonValue(): Optional<JsonValue> =
+                                    Optional.ofNullable(jsonValue)
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun dynamicVariableExpression():
+                                    Optional<DynamicVariableExpression> =
+                                    Optional.ofNullable(dynamicVariableExpression)
+
+                                /** Constant string value. */
+                                fun stringLiteralExpression(): Optional<StringLiteralExpression> =
+                                    Optional.ofNullable(stringLiteralExpression)
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun numberLiteralExpression(): Optional<NumberLiteralExpression> =
+                                    Optional.ofNullable(numberLiteralExpression)
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun booleanLiteralExpression(): Optional<BooleanLiteralExpression> =
+                                    Optional.ofNullable(booleanLiteralExpression)
+
+                                fun isJsonValue(): Boolean = jsonValue != null
+
+                                fun isDynamicVariableExpression(): Boolean =
+                                    dynamicVariableExpression != null
+
+                                fun isStringLiteralExpression(): Boolean =
+                                    stringLiteralExpression != null
+
+                                fun isNumberLiteralExpression(): Boolean =
+                                    numberLiteralExpression != null
+
+                                fun isBooleanLiteralExpression(): Boolean =
+                                    booleanLiteralExpression != null
+
+                                fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun asDynamicVariableExpression(): DynamicVariableExpression =
+                                    dynamicVariableExpression.getOrThrow(
+                                        "dynamicVariableExpression"
+                                    )
+
+                                /** Constant string value. */
+                                fun asStringLiteralExpression(): StringLiteralExpression =
+                                    stringLiteralExpression.getOrThrow("stringLiteralExpression")
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun asNumberLiteralExpression(): NumberLiteralExpression =
+                                    numberLiteralExpression.getOrThrow("numberLiteralExpression")
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun asBooleanLiteralExpression(): BooleanLiteralExpression =
+                                    booleanLiteralExpression.getOrThrow("booleanLiteralExpression")
+
+                                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                                /**
+                                 * Maps this instance's current variant to a value of type [T] using
+                                 * the given [visitor].
+                                 *
+                                 * Note that this method is _not_ forwards compatible with new
+                                 * variants from the API, unless [visitor] overrides
+                                 * [Visitor.unknown]. To handle variants not known to this version
+                                 * of the SDK gracefully, consider overriding [Visitor.unknown]:
+                                 * ```java
+                                 * import com.telnyx.sdk.core.JsonValue;
+                                 * import java.util.Optional;
+                                 *
+                                 * Optional<String> result = right.accept(new Right.Visitor<Optional<String>>() {
+                                 *     @Override
+                                 *     public Optional<String> visitJsonValue(JsonValue jsonValue) {
+                                 *         return Optional.of(jsonValue.toString());
+                                 *     }
+                                 *
+                                 *     // ...
+                                 *
+                                 *     @Override
+                                 *     public Optional<String> unknown(JsonValue json) {
+                                 *         // Or inspect the `json`.
+                                 *         return Optional.empty();
+                                 *     }
+                                 * });
+                                 * ```
+                                 *
+                                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not
+                                 *   overridden in [visitor] and the current variant is unknown.
+                                 */
+                                fun <T> accept(visitor: Visitor<T>): T =
+                                    when {
+                                        jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                                        dynamicVariableExpression != null ->
+                                            visitor.visitDynamicVariableExpression(
+                                                dynamicVariableExpression
+                                            )
+                                        stringLiteralExpression != null ->
+                                            visitor.visitStringLiteralExpression(
+                                                stringLiteralExpression
+                                            )
+                                        numberLiteralExpression != null ->
+                                            visitor.visitNumberLiteralExpression(
+                                                numberLiteralExpression
+                                            )
+                                        booleanLiteralExpression != null ->
+                                            visitor.visitBooleanLiteralExpression(
+                                                booleanLiteralExpression
+                                            )
+                                        else -> visitor.unknown(_json)
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Right = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    accept(
+                                        object : Visitor<Unit> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) {}
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) {
+                                                dynamicVariableExpression.validate()
+                                            }
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) {
+                                                stringLiteralExpression.validate()
+                                            }
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) {
+                                                numberLiteralExpression.validate()
+                                            }
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) {
+                                                booleanLiteralExpression.validate()
+                                            }
+                                        }
+                                    )
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    accept(
+                                        object : Visitor<Int> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) = 1
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) = dynamicVariableExpression.validity()
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) = stringLiteralExpression.validity()
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) = numberLiteralExpression.validity()
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) = booleanLiteralExpression.validity()
+
+                                            override fun unknown(json: JsonValue?) = 0
+                                        }
+                                    )
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Right &&
+                                        jsonValue == other.jsonValue &&
+                                        dynamicVariableExpression ==
+                                            other.dynamicVariableExpression &&
+                                        stringLiteralExpression == other.stringLiteralExpression &&
+                                        numberLiteralExpression == other.numberLiteralExpression &&
+                                        booleanLiteralExpression == other.booleanLiteralExpression
+                                }
+
+                                override fun hashCode(): Int =
+                                    Objects.hash(
+                                        jsonValue,
+                                        dynamicVariableExpression,
+                                        stringLiteralExpression,
+                                        numberLiteralExpression,
+                                        booleanLiteralExpression,
+                                    )
+
+                                override fun toString(): String =
+                                    when {
+                                        jsonValue != null -> "Right{jsonValue=$jsonValue}"
+                                        dynamicVariableExpression != null ->
+                                            "Right{dynamicVariableExpression=$dynamicVariableExpression}"
+                                        stringLiteralExpression != null ->
+                                            "Right{stringLiteralExpression=$stringLiteralExpression}"
+                                        numberLiteralExpression != null ->
+                                            "Right{numberLiteralExpression=$numberLiteralExpression}"
+                                        booleanLiteralExpression != null ->
+                                            "Right{booleanLiteralExpression=$booleanLiteralExpression}"
+                                        _json != null -> "Right{_unknown=$_json}"
+                                        else -> throw IllegalStateException("Invalid Right")
+                                    }
+
+                                companion object {
+
+                                    @JvmStatic
+                                    fun ofJsonValue(jsonValue: JsonValue) =
+                                        Right(jsonValue = jsonValue)
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    @JvmStatic
+                                    fun ofDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ) = Right(dynamicVariableExpression = dynamicVariableExpression)
+
+                                    /** Constant string value. */
+                                    @JvmStatic
+                                    fun ofStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ) = Right(stringLiteralExpression = stringLiteralExpression)
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    @JvmStatic
+                                    fun ofNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ) = Right(numberLiteralExpression = numberLiteralExpression)
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    @JvmStatic
+                                    fun ofBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ) = Right(booleanLiteralExpression = booleanLiteralExpression)
+                                }
+
+                                /**
+                                 * An interface that defines how to map each variant of [Right] to a
+                                 * value of type [T].
+                                 */
+                                interface Visitor<out T> {
+
+                                    fun visitJsonValue(jsonValue: JsonValue): T
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    fun visitDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ): T
+
+                                    /** Constant string value. */
+                                    fun visitStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    fun visitNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    fun visitBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Maps an unknown variant of [Right] to a value of type [T].
+                                     *
+                                     * An instance of [Right] can contain an unknown variant if it
+                                     * was deserialized from data that doesn't match any known
+                                     * variant. For example, if the SDK is on an older version than
+                                     * the API, then the API may respond with new variants that the
+                                     * SDK is unaware of.
+                                     *
+                                     * @throws TelnyxInvalidDataException in the default
+                                     *   implementation.
+                                     */
+                                    fun unknown(json: JsonValue?): T {
+                                        throw TelnyxInvalidDataException("Unknown Right: $json")
+                                    }
+                                }
+
+                                internal class Deserializer :
+                                    BaseDeserializer<Right>(Right::class) {
+
+                                    override fun ObjectCodec.deserialize(node: JsonNode): Right {
+                                        val json = JsonValue.fromJsonNode(node)
+
+                                        val bestMatches =
+                                            sequenceOf(
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                DynamicVariableExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                dynamicVariableExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                StringLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                stringLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                NumberLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                numberLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                BooleanLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                booleanLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<JsonValue>(),
+                                                        )
+                                                        ?.let {
+                                                            Right(jsonValue = it, _json = json)
+                                                        },
+                                                )
+                                                .filterNotNull()
+                                                .allMaxBy { it.validity() }
+                                                .toList()
+                                        return when (bestMatches.size) {
+                                            // This can happen if what we're deserializing is
+                                            // completely incompatible with all the possible
+                                            // variants.
+                                            0 -> Right(_json = json)
+                                            1 -> bestMatches.single()
+                                            // If there's more than one match with the highest
+                                            // validity, then use the first completely valid match,
+                                            // or simply the first match if none are completely
+                                            // valid.
+                                            else ->
+                                                bestMatches.firstOrNull { it.isValid() }
+                                                    ?: bestMatches.first()
+                                        }
+                                    }
+                                }
+
+                                internal class Serializer : BaseSerializer<Right>(Right::class) {
+
+                                    override fun serialize(
+                                        value: Right,
+                                        generator: JsonGenerator,
+                                        provider: SerializerProvider,
+                                    ) {
+                                        when {
+                                            value.jsonValue != null ->
+                                                generator.writeObject(value.jsonValue)
+                                            value.dynamicVariableExpression != null ->
+                                                generator.writeObject(
+                                                    value.dynamicVariableExpression
+                                                )
+                                            value.stringLiteralExpression != null ->
+                                                generator.writeObject(value.stringLiteralExpression)
+                                            value.numberLiteralExpression != null ->
+                                                generator.writeObject(value.numberLiteralExpression)
+                                            value.booleanLiteralExpression != null ->
+                                                generator.writeObject(
+                                                    value.booleanLiteralExpression
+                                                )
+                                            value._json != null ->
+                                                generator.writeObject(value._json)
+                                            else -> throw IllegalStateException("Invalid Right")
+                                        }
+                                    }
+                                }
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                class DynamicVariableExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val name: JsonField<String>,
+                                    private val type: JsonValue,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("name")
+                                        @ExcludeMissing
+                                        name: JsonField<String> = JsonMissing.of(),
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                    ) : this(name, type, mutableMapOf())
+
+                                    /**
+                                     * Variable name to look up in the runtime context.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun name(): String = name.getRequired("name")
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("variable")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Returns the raw JSON value of [name].
+                                     *
+                                     * Unlike [name], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("name")
+                                    @ExcludeMissing
+                                    fun _name(): JsonField<String> = name
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [DynamicVariableExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var name: JsonField<String>? = null
+                                        private var type: JsonValue = JsonValue.from("variable")
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            dynamicVariableExpression: DynamicVariableExpression
+                                        ) = apply {
+                                            name = dynamicVariableExpression.name
+                                            type = dynamicVariableExpression.type
+                                            additionalProperties =
+                                                dynamicVariableExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /** Variable name to look up in the runtime context. */
+                                        fun name(name: String) = name(JsonField.of(name))
+
+                                        /**
+                                         * Sets [Builder.name] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.name] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun name(name: JsonField<String>) = apply {
+                                            this.name = name
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("variable")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): DynamicVariableExpression =
+                                            DynamicVariableExpression(
+                                                checkRequired("name", name),
+                                                type,
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): DynamicVariableExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        name()
+                                        _type().let {
+                                            if (it != JsonValue.from("variable")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        (if (name.asKnown().isPresent) 1 else 0) +
+                                            type.let {
+                                                if (it == JsonValue.from("variable")) 1 else 0
+                                            }
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is DynamicVariableExpression &&
+                                            name == other.name &&
+                                            type == other.type &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(name, type, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "DynamicVariableExpression{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                                }
+
+                                /** Constant string value. */
+                                class StringLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<String>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<String> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("string_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal string value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): String = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<String> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [StringLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("string_literal")
+                                        private var value: JsonField<String>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            stringLiteralExpression: StringLiteralExpression
+                                        ) = apply {
+                                            type = stringLiteralExpression.type
+                                            value = stringLiteralExpression.value
+                                            additionalProperties =
+                                                stringLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("string_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal string value. */
+                                        fun value(value: String) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<String>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): StringLiteralExpression =
+                                            StringLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): StringLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("string_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("string_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is StringLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "StringLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                class NumberLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Double>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Double> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("number_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal numeric value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Double = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Double> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [NumberLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("number_literal")
+                                        private var value: JsonField<Double>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            numberLiteralExpression: NumberLiteralExpression
+                                        ) = apply {
+                                            type = numberLiteralExpression.type
+                                            value = numberLiteralExpression.value
+                                            additionalProperties =
+                                                numberLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("number_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal numeric value. */
+                                        fun value(value: Double) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Double] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Double>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): NumberLiteralExpression =
+                                            NumberLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): NumberLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("number_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("number_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is NumberLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "NumberLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                class BooleanLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Boolean>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Boolean> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("bool_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal boolean value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Boolean = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Boolean> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [BooleanLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue = JsonValue.from("bool_literal")
+                                        private var value: JsonField<Boolean>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            booleanLiteralExpression: BooleanLiteralExpression
+                                        ) = apply {
+                                            type = booleanLiteralExpression.type
+                                            value = booleanLiteralExpression.value
+                                            additionalProperties =
+                                                booleanLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("bool_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal boolean value. */
+                                        fun value(value: Boolean) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Boolean] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Boolean>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): BooleanLiteralExpression =
+                                            BooleanLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): BooleanLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("bool_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("bool_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is BooleanLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "BooleanLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+                            }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Comparison &&
+                                    left == other.left &&
+                                    op == other.op &&
+                                    right == other.right &&
+                                    type == other.type &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(left, op, right, type, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "Comparison{left=$left, op=$op, right=$right, type=$type, additionalProperties=$additionalProperties}"
+                        }
+
+                        /**
+                         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+                         *
+                         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+                         */
+                        class BoolOp
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val op: JsonField<Op>,
+                            private val operands: JsonField<List<Operand>>,
+                            private val type: JsonValue,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("op")
+                                @ExcludeMissing
+                                op: JsonField<Op> = JsonMissing.of(),
+                                @JsonProperty("operands")
+                                @ExcludeMissing
+                                operands: JsonField<List<Operand>> = JsonMissing.of(),
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                            ) : this(op, operands, type, mutableMapOf())
+
+                            /**
+                             * Logical operator. `not` is unary; `and`/`or` are n-ary (>=2).
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun op(): Op = op.getRequired("op")
+
+                            /**
+                             * Operand sub-expressions. Length must be exactly 1 for `not` and >= 2
+                             * for `and`/`or`.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun operands(): List<Operand> = operands.getRequired("operands")
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("bool_op")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Returns the raw JSON value of [op].
+                             *
+                             * Unlike [op], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("op") @ExcludeMissing fun _op(): JsonField<Op> = op
+
+                            /**
+                             * Returns the raw JSON value of [operands].
+                             *
+                             * Unlike [operands], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("operands")
+                            @ExcludeMissing
+                            fun _operands(): JsonField<List<Operand>> = operands
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [BoolOp].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .op()
+                                 * .operands()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [BoolOp]. */
+                            class Builder internal constructor() {
+
+                                private var op: JsonField<Op>? = null
+                                private var operands: JsonField<MutableList<Operand>>? = null
+                                private var type: JsonValue = JsonValue.from("bool_op")
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(boolOp: BoolOp) = apply {
+                                    op = boolOp.op
+                                    operands = boolOp.operands.map { it.toMutableList() }
+                                    type = boolOp.type
+                                    additionalProperties =
+                                        boolOp.additionalProperties.toMutableMap()
+                                }
+
+                                /** Logical operator. `not` is unary; `and`/`or` are n-ary (>=2). */
+                                fun op(op: Op) = op(JsonField.of(op))
+
+                                /**
+                                 * Sets [Builder.op] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.op] with a well-typed [Op] value
+                                 * instead. This method is primarily for setting the field to an
+                                 * undocumented or not yet supported value.
+                                 */
+                                fun op(op: JsonField<Op>) = apply { this.op = op }
+
+                                /**
+                                 * Operand sub-expressions. Length must be exactly 1 for `not`
+                                 * and >= 2 for `and`/`or`.
+                                 */
+                                fun operands(operands: List<Operand>) =
+                                    operands(JsonField.of(operands))
+
+                                /**
+                                 * Sets [Builder.operands] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.operands] with a well-typed
+                                 * `List<Operand>` value instead. This method is primarily for
+                                 * setting the field to an undocumented or not yet supported value.
+                                 */
+                                fun operands(operands: JsonField<List<Operand>>) = apply {
+                                    this.operands = operands.map { it.toMutableList() }
+                                }
+
+                                /**
+                                 * Adds a single [Operand] to [operands].
+                                 *
+                                 * @throws IllegalStateException if the field was previously set to
+                                 *   a non-list.
+                                 */
+                                fun addOperand(operand: Operand) = apply {
+                                    operands =
+                                        (operands ?: JsonField.of(mutableListOf())).also {
+                                            checkKnown("operands", it).add(operand)
+                                        }
+                                }
+
+                                /**
+                                 * Alias for calling [addOperand] with
+                                 * `Operand.ofJsonValue(jsonValue)`.
+                                 */
+                                fun addOperand(jsonValue: JsonValue) =
+                                    addOperand(Operand.ofJsonValue(jsonValue))
+
+                                /**
+                                 * Alias for calling [addOperand] with
+                                 * `Operand.ofDynamicVariableExpression(dynamicVariableExpression)`.
+                                 */
+                                fun addOperand(
+                                    dynamicVariableExpression: Operand.DynamicVariableExpression
+                                ) =
+                                    addOperand(
+                                        Operand.ofDynamicVariableExpression(
+                                            dynamicVariableExpression
+                                        )
+                                    )
+
+                                /**
+                                 * Alias for calling [addOperand] with
+                                 * `Operand.ofStringLiteralExpression(stringLiteralExpression)`.
+                                 */
+                                fun addOperand(
+                                    stringLiteralExpression: Operand.StringLiteralExpression
+                                ) =
+                                    addOperand(
+                                        Operand.ofStringLiteralExpression(stringLiteralExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [addOperand] with
+                                 * `Operand.ofNumberLiteralExpression(numberLiteralExpression)`.
+                                 */
+                                fun addOperand(
+                                    numberLiteralExpression: Operand.NumberLiteralExpression
+                                ) =
+                                    addOperand(
+                                        Operand.ofNumberLiteralExpression(numberLiteralExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [addOperand] with
+                                 * `Operand.ofBooleanLiteralExpression(booleanLiteralExpression)`.
+                                 */
+                                fun addOperand(
+                                    booleanLiteralExpression: Operand.BooleanLiteralExpression
+                                ) =
+                                    addOperand(
+                                        Operand.ofBooleanLiteralExpression(booleanLiteralExpression)
+                                    )
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("bool_op")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [BoolOp].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .op()
+                                 * .operands()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): BoolOp =
+                                    BoolOp(
+                                        checkRequired("op", op),
+                                        checkRequired("operands", operands).map {
+                                            it.toImmutable()
+                                        },
+                                        type,
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): BoolOp = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                op().validate()
+                                operands().forEach { it.validate() }
+                                _type().let {
+                                    if (it != JsonValue.from("bool_op")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                (op.asKnown().getOrNull()?.validity() ?: 0) +
+                                    (operands.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                                        ?: 0) +
+                                    type.let { if (it == JsonValue.from("bool_op")) 1 else 0 }
+
+                            /** Logical operator. `not` is unary; `and`/`or` are n-ary (>=2). */
+                            class Op
+                            @JsonCreator
+                            private constructor(private val value: JsonField<String>) : Enum {
+
+                                /**
+                                 * Returns this class instance's raw value.
+                                 *
+                                 * This is usually only useful if this instance was deserialized
+                                 * from data that doesn't match any known member, and you want to
+                                 * know that value. For example, if the SDK is on an older version
+                                 * than the API, then the API may respond with new members that the
+                                 * SDK is unaware of.
+                                 */
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                companion object {
+
+                                    @JvmField val AND = of("and")
+
+                                    @JvmField val OR = of("or")
+
+                                    @JvmField val NOT = of("not")
+
+                                    @JvmStatic fun of(value: String) = Op(JsonField.of(value))
+                                }
+
+                                /** An enum containing [Op]'s known values. */
+                                enum class Known {
+                                    AND,
+                                    OR,
+                                    NOT,
+                                }
+
+                                /**
+                                 * An enum containing [Op]'s known values, as well as an [_UNKNOWN]
+                                 * member.
+                                 *
+                                 * An instance of [Op] can contain an unknown value in a couple of
+                                 * cases:
+                                 * - It was deserialized from data that doesn't match any known
+                                 *   member. For example, if the SDK is on an older version than the
+                                 *   API, then the API may respond with new members that the SDK is
+                                 *   unaware of.
+                                 * - It was constructed with an arbitrary value using the [of]
+                                 *   method.
+                                 */
+                                enum class Value {
+                                    AND,
+                                    OR,
+                                    NOT,
+                                    /**
+                                     * An enum member indicating that [Op] was instantiated with an
+                                     * unknown value.
+                                     */
+                                    _UNKNOWN,
+                                }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value, or [Value._UNKNOWN] if the class was instantiated with an
+                                 * unknown value.
+                                 *
+                                 * Use the [known] method instead if you're certain the value is
+                                 * always known or if you want to throw for the unknown case.
+                                 */
+                                fun value(): Value =
+                                    when (this) {
+                                        AND -> Value.AND
+                                        OR -> Value.OR
+                                        NOT -> Value.NOT
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value.
+                                 *
+                                 * Use the [value] method instead if you're uncertain the value is
+                                 * always known and don't want to throw for the unknown case.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   is a not a known member.
+                                 */
+                                fun known(): Known =
+                                    when (this) {
+                                        AND -> Known.AND
+                                        OR -> Known.OR
+                                        NOT -> Known.NOT
+                                        else ->
+                                            throw TelnyxInvalidDataException("Unknown Op: $value")
+                                    }
+
+                                /**
+                                 * Returns this class instance's primitive wire representation.
+                                 *
+                                 * This differs from the [toString] method because that method is
+                                 * primarily for debugging and generally doesn't throw.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   does not have the expected primitive type.
+                                 */
+                                fun asString(): String =
+                                    _value().asString().orElseThrow {
+                                        TelnyxInvalidDataException("Value is not a String")
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Op = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    known()
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    if (value() == Value._UNKNOWN) 0 else 1
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Op && value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+                            }
+
+                            /**
+                             * Reference a dynamic variable by name.
+                             *
+                             * Resolved at runtime from the assistant's dynamic-variables context
+                             * (see `Assistant.dynamic_variables` and the dynamic-variables
+                             * webhook).
+                             */
+                            @JsonDeserialize(using = Operand.Deserializer::class)
+                            @JsonSerialize(using = Operand.Serializer::class)
+                            class Operand
+                            private constructor(
+                                private val jsonValue: JsonValue? = null,
+                                private val dynamicVariableExpression: DynamicVariableExpression? =
+                                    null,
+                                private val stringLiteralExpression: StringLiteralExpression? =
+                                    null,
+                                private val numberLiteralExpression: NumberLiteralExpression? =
+                                    null,
+                                private val booleanLiteralExpression: BooleanLiteralExpression? =
+                                    null,
+                                private val _json: JsonValue? = null,
+                            ) {
+
+                                fun jsonValue(): Optional<JsonValue> =
+                                    Optional.ofNullable(jsonValue)
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun dynamicVariableExpression():
+                                    Optional<DynamicVariableExpression> =
+                                    Optional.ofNullable(dynamicVariableExpression)
+
+                                /** Constant string value. */
+                                fun stringLiteralExpression(): Optional<StringLiteralExpression> =
+                                    Optional.ofNullable(stringLiteralExpression)
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun numberLiteralExpression(): Optional<NumberLiteralExpression> =
+                                    Optional.ofNullable(numberLiteralExpression)
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun booleanLiteralExpression(): Optional<BooleanLiteralExpression> =
+                                    Optional.ofNullable(booleanLiteralExpression)
+
+                                fun isJsonValue(): Boolean = jsonValue != null
+
+                                fun isDynamicVariableExpression(): Boolean =
+                                    dynamicVariableExpression != null
+
+                                fun isStringLiteralExpression(): Boolean =
+                                    stringLiteralExpression != null
+
+                                fun isNumberLiteralExpression(): Boolean =
+                                    numberLiteralExpression != null
+
+                                fun isBooleanLiteralExpression(): Boolean =
+                                    booleanLiteralExpression != null
+
+                                fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun asDynamicVariableExpression(): DynamicVariableExpression =
+                                    dynamicVariableExpression.getOrThrow(
+                                        "dynamicVariableExpression"
+                                    )
+
+                                /** Constant string value. */
+                                fun asStringLiteralExpression(): StringLiteralExpression =
+                                    stringLiteralExpression.getOrThrow("stringLiteralExpression")
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun asNumberLiteralExpression(): NumberLiteralExpression =
+                                    numberLiteralExpression.getOrThrow("numberLiteralExpression")
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun asBooleanLiteralExpression(): BooleanLiteralExpression =
+                                    booleanLiteralExpression.getOrThrow("booleanLiteralExpression")
+
+                                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                                /**
+                                 * Maps this instance's current variant to a value of type [T] using
+                                 * the given [visitor].
+                                 *
+                                 * Note that this method is _not_ forwards compatible with new
+                                 * variants from the API, unless [visitor] overrides
+                                 * [Visitor.unknown]. To handle variants not known to this version
+                                 * of the SDK gracefully, consider overriding [Visitor.unknown]:
+                                 * ```java
+                                 * import com.telnyx.sdk.core.JsonValue;
+                                 * import java.util.Optional;
+                                 *
+                                 * Optional<String> result = operand.accept(new Operand.Visitor<Optional<String>>() {
+                                 *     @Override
+                                 *     public Optional<String> visitJsonValue(JsonValue jsonValue) {
+                                 *         return Optional.of(jsonValue.toString());
+                                 *     }
+                                 *
+                                 *     // ...
+                                 *
+                                 *     @Override
+                                 *     public Optional<String> unknown(JsonValue json) {
+                                 *         // Or inspect the `json`.
+                                 *         return Optional.empty();
+                                 *     }
+                                 * });
+                                 * ```
+                                 *
+                                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not
+                                 *   overridden in [visitor] and the current variant is unknown.
+                                 */
+                                fun <T> accept(visitor: Visitor<T>): T =
+                                    when {
+                                        jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                                        dynamicVariableExpression != null ->
+                                            visitor.visitDynamicVariableExpression(
+                                                dynamicVariableExpression
+                                            )
+                                        stringLiteralExpression != null ->
+                                            visitor.visitStringLiteralExpression(
+                                                stringLiteralExpression
+                                            )
+                                        numberLiteralExpression != null ->
+                                            visitor.visitNumberLiteralExpression(
+                                                numberLiteralExpression
+                                            )
+                                        booleanLiteralExpression != null ->
+                                            visitor.visitBooleanLiteralExpression(
+                                                booleanLiteralExpression
+                                            )
+                                        else -> visitor.unknown(_json)
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Operand = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    accept(
+                                        object : Visitor<Unit> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) {}
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) {
+                                                dynamicVariableExpression.validate()
+                                            }
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) {
+                                                stringLiteralExpression.validate()
+                                            }
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) {
+                                                numberLiteralExpression.validate()
+                                            }
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) {
+                                                booleanLiteralExpression.validate()
+                                            }
+                                        }
+                                    )
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    accept(
+                                        object : Visitor<Int> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) = 1
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) = dynamicVariableExpression.validity()
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) = stringLiteralExpression.validity()
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) = numberLiteralExpression.validity()
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) = booleanLiteralExpression.validity()
+
+                                            override fun unknown(json: JsonValue?) = 0
+                                        }
+                                    )
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Operand &&
+                                        jsonValue == other.jsonValue &&
+                                        dynamicVariableExpression ==
+                                            other.dynamicVariableExpression &&
+                                        stringLiteralExpression == other.stringLiteralExpression &&
+                                        numberLiteralExpression == other.numberLiteralExpression &&
+                                        booleanLiteralExpression == other.booleanLiteralExpression
+                                }
+
+                                override fun hashCode(): Int =
+                                    Objects.hash(
+                                        jsonValue,
+                                        dynamicVariableExpression,
+                                        stringLiteralExpression,
+                                        numberLiteralExpression,
+                                        booleanLiteralExpression,
+                                    )
+
+                                override fun toString(): String =
+                                    when {
+                                        jsonValue != null -> "Operand{jsonValue=$jsonValue}"
+                                        dynamicVariableExpression != null ->
+                                            "Operand{dynamicVariableExpression=$dynamicVariableExpression}"
+                                        stringLiteralExpression != null ->
+                                            "Operand{stringLiteralExpression=$stringLiteralExpression}"
+                                        numberLiteralExpression != null ->
+                                            "Operand{numberLiteralExpression=$numberLiteralExpression}"
+                                        booleanLiteralExpression != null ->
+                                            "Operand{booleanLiteralExpression=$booleanLiteralExpression}"
+                                        _json != null -> "Operand{_unknown=$_json}"
+                                        else -> throw IllegalStateException("Invalid Operand")
+                                    }
+
+                                companion object {
+
+                                    @JvmStatic
+                                    fun ofJsonValue(jsonValue: JsonValue) =
+                                        Operand(jsonValue = jsonValue)
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    @JvmStatic
+                                    fun ofDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ) =
+                                        Operand(
+                                            dynamicVariableExpression = dynamicVariableExpression
+                                        )
+
+                                    /** Constant string value. */
+                                    @JvmStatic
+                                    fun ofStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ) = Operand(stringLiteralExpression = stringLiteralExpression)
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    @JvmStatic
+                                    fun ofNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ) = Operand(numberLiteralExpression = numberLiteralExpression)
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    @JvmStatic
+                                    fun ofBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ) = Operand(booleanLiteralExpression = booleanLiteralExpression)
+                                }
+
+                                /**
+                                 * An interface that defines how to map each variant of [Operand] to
+                                 * a value of type [T].
+                                 */
+                                interface Visitor<out T> {
+
+                                    fun visitJsonValue(jsonValue: JsonValue): T
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    fun visitDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ): T
+
+                                    /** Constant string value. */
+                                    fun visitStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    fun visitNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    fun visitBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Maps an unknown variant of [Operand] to a value of type [T].
+                                     *
+                                     * An instance of [Operand] can contain an unknown variant if it
+                                     * was deserialized from data that doesn't match any known
+                                     * variant. For example, if the SDK is on an older version than
+                                     * the API, then the API may respond with new variants that the
+                                     * SDK is unaware of.
+                                     *
+                                     * @throws TelnyxInvalidDataException in the default
+                                     *   implementation.
+                                     */
+                                    fun unknown(json: JsonValue?): T {
+                                        throw TelnyxInvalidDataException("Unknown Operand: $json")
+                                    }
+                                }
+
+                                internal class Deserializer :
+                                    BaseDeserializer<Operand>(Operand::class) {
+
+                                    override fun ObjectCodec.deserialize(node: JsonNode): Operand {
+                                        val json = JsonValue.fromJsonNode(node)
+
+                                        val bestMatches =
+                                            sequenceOf(
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                DynamicVariableExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Operand(
+                                                                dynamicVariableExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                StringLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Operand(
+                                                                stringLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                NumberLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Operand(
+                                                                numberLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                BooleanLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Operand(
+                                                                booleanLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<JsonValue>(),
+                                                        )
+                                                        ?.let {
+                                                            Operand(jsonValue = it, _json = json)
+                                                        },
+                                                )
+                                                .filterNotNull()
+                                                .allMaxBy { it.validity() }
+                                                .toList()
+                                        return when (bestMatches.size) {
+                                            // This can happen if what we're deserializing is
+                                            // completely incompatible with all the possible
+                                            // variants.
+                                            0 -> Operand(_json = json)
+                                            1 -> bestMatches.single()
+                                            // If there's more than one match with the highest
+                                            // validity, then use the first completely valid match,
+                                            // or simply the first match if none are completely
+                                            // valid.
+                                            else ->
+                                                bestMatches.firstOrNull { it.isValid() }
+                                                    ?: bestMatches.first()
+                                        }
+                                    }
+                                }
+
+                                internal class Serializer :
+                                    BaseSerializer<Operand>(Operand::class) {
+
+                                    override fun serialize(
+                                        value: Operand,
+                                        generator: JsonGenerator,
+                                        provider: SerializerProvider,
+                                    ) {
+                                        when {
+                                            value.jsonValue != null ->
+                                                generator.writeObject(value.jsonValue)
+                                            value.dynamicVariableExpression != null ->
+                                                generator.writeObject(
+                                                    value.dynamicVariableExpression
+                                                )
+                                            value.stringLiteralExpression != null ->
+                                                generator.writeObject(value.stringLiteralExpression)
+                                            value.numberLiteralExpression != null ->
+                                                generator.writeObject(value.numberLiteralExpression)
+                                            value.booleanLiteralExpression != null ->
+                                                generator.writeObject(
+                                                    value.booleanLiteralExpression
+                                                )
+                                            value._json != null ->
+                                                generator.writeObject(value._json)
+                                            else -> throw IllegalStateException("Invalid Operand")
+                                        }
+                                    }
+                                }
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                class DynamicVariableExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val name: JsonField<String>,
+                                    private val type: JsonValue,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("name")
+                                        @ExcludeMissing
+                                        name: JsonField<String> = JsonMissing.of(),
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                    ) : this(name, type, mutableMapOf())
+
+                                    /**
+                                     * Variable name to look up in the runtime context.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun name(): String = name.getRequired("name")
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("variable")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Returns the raw JSON value of [name].
+                                     *
+                                     * Unlike [name], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("name")
+                                    @ExcludeMissing
+                                    fun _name(): JsonField<String> = name
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [DynamicVariableExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var name: JsonField<String>? = null
+                                        private var type: JsonValue = JsonValue.from("variable")
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            dynamicVariableExpression: DynamicVariableExpression
+                                        ) = apply {
+                                            name = dynamicVariableExpression.name
+                                            type = dynamicVariableExpression.type
+                                            additionalProperties =
+                                                dynamicVariableExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /** Variable name to look up in the runtime context. */
+                                        fun name(name: String) = name(JsonField.of(name))
+
+                                        /**
+                                         * Sets [Builder.name] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.name] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun name(name: JsonField<String>) = apply {
+                                            this.name = name
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("variable")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): DynamicVariableExpression =
+                                            DynamicVariableExpression(
+                                                checkRequired("name", name),
+                                                type,
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): DynamicVariableExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        name()
+                                        _type().let {
+                                            if (it != JsonValue.from("variable")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        (if (name.asKnown().isPresent) 1 else 0) +
+                                            type.let {
+                                                if (it == JsonValue.from("variable")) 1 else 0
+                                            }
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is DynamicVariableExpression &&
+                                            name == other.name &&
+                                            type == other.type &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(name, type, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "DynamicVariableExpression{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                                }
+
+                                /** Constant string value. */
+                                class StringLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<String>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<String> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("string_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal string value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): String = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<String> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [StringLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("string_literal")
+                                        private var value: JsonField<String>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            stringLiteralExpression: StringLiteralExpression
+                                        ) = apply {
+                                            type = stringLiteralExpression.type
+                                            value = stringLiteralExpression.value
+                                            additionalProperties =
+                                                stringLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("string_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal string value. */
+                                        fun value(value: String) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<String>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): StringLiteralExpression =
+                                            StringLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): StringLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("string_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("string_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is StringLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "StringLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                class NumberLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Double>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Double> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("number_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal numeric value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Double = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Double> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [NumberLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("number_literal")
+                                        private var value: JsonField<Double>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            numberLiteralExpression: NumberLiteralExpression
+                                        ) = apply {
+                                            type = numberLiteralExpression.type
+                                            value = numberLiteralExpression.value
+                                            additionalProperties =
+                                                numberLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("number_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal numeric value. */
+                                        fun value(value: Double) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Double] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Double>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): NumberLiteralExpression =
+                                            NumberLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): NumberLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("number_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("number_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is NumberLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "NumberLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                class BooleanLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Boolean>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Boolean> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("bool_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal boolean value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Boolean = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Boolean> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [BooleanLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue = JsonValue.from("bool_literal")
+                                        private var value: JsonField<Boolean>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            booleanLiteralExpression: BooleanLiteralExpression
+                                        ) = apply {
+                                            type = booleanLiteralExpression.type
+                                            value = booleanLiteralExpression.value
+                                            additionalProperties =
+                                                booleanLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("bool_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal boolean value. */
+                                        fun value(value: Boolean) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Boolean] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Boolean>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): BooleanLiteralExpression =
+                                            BooleanLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): BooleanLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("bool_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("bool_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is BooleanLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "BooleanLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+                            }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is BoolOp &&
+                                    op == other.op &&
+                                    operands == other.operands &&
+                                    type == other.type &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(op, operands, type, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "BoolOp{op=$op, operands=$operands, type=$type, additionalProperties=$additionalProperties}"
+                        }
+
+                        /**
+                         * Numeric expression: applies an arithmetic operator to two
+                         * sub-expressions.
+                         *
+                         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`.
+                         * Both operands should resolve to numbers at runtime.
+                         */
+                        class Arithmetic
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val left: JsonField<Left>,
+                            private val op: JsonField<Op>,
+                            private val right: JsonField<Right>,
+                            private val type: JsonValue,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("left")
+                                @ExcludeMissing
+                                left: JsonField<Left> = JsonMissing.of(),
+                                @JsonProperty("op")
+                                @ExcludeMissing
+                                op: JsonField<Op> = JsonMissing.of(),
+                                @JsonProperty("right")
+                                @ExcludeMissing
+                                right: JsonField<Right> = JsonMissing.of(),
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                            ) : this(left, op, right, type, mutableMapOf())
+
+                            /**
+                             * Left-hand operand sub-expression.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun left(): Left = left.getRequired("left")
+
+                            /**
+                             * Arithmetic operator applied to `left` and `right`.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun op(): Op = op.getRequired("op")
+
+                            /**
+                             * Right-hand operand sub-expression.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun right(): Right = right.getRequired("right")
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("arithmetic")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Returns the raw JSON value of [left].
+                             *
+                             * Unlike [left], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("left")
+                            @ExcludeMissing
+                            fun _left(): JsonField<Left> = left
+
+                            /**
+                             * Returns the raw JSON value of [op].
+                             *
+                             * Unlike [op], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("op") @ExcludeMissing fun _op(): JsonField<Op> = op
+
+                            /**
+                             * Returns the raw JSON value of [right].
+                             *
+                             * Unlike [right], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("right")
+                            @ExcludeMissing
+                            fun _right(): JsonField<Right> = right
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Arithmetic].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .left()
+                                 * .op()
+                                 * .right()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [Arithmetic]. */
+                            class Builder internal constructor() {
+
+                                private var left: JsonField<Left>? = null
+                                private var op: JsonField<Op>? = null
+                                private var right: JsonField<Right>? = null
+                                private var type: JsonValue = JsonValue.from("arithmetic")
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(arithmetic: Arithmetic) = apply {
+                                    left = arithmetic.left
+                                    op = arithmetic.op
+                                    right = arithmetic.right
+                                    type = arithmetic.type
+                                    additionalProperties =
+                                        arithmetic.additionalProperties.toMutableMap()
+                                }
+
+                                /** Left-hand operand sub-expression. */
+                                fun left(left: Left) = left(JsonField.of(left))
+
+                                /**
+                                 * Sets [Builder.left] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.left] with a well-typed [Left]
+                                 * value instead. This method is primarily for setting the field to
+                                 * an undocumented or not yet supported value.
+                                 */
+                                fun left(left: JsonField<Left>) = apply { this.left = left }
+
+                                /** Alias for calling [left] with `Left.ofJsonValue(jsonValue)`. */
+                                fun left(jsonValue: JsonValue) = left(Left.ofJsonValue(jsonValue))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofDynamicVariableExpression(dynamicVariableExpression)`.
+                                 */
+                                fun left(
+                                    dynamicVariableExpression: Left.DynamicVariableExpression
+                                ) =
+                                    left(
+                                        Left.ofDynamicVariableExpression(dynamicVariableExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofStringLiteralExpression(stringLiteralExpression)`.
+                                 */
+                                fun left(stringLiteralExpression: Left.StringLiteralExpression) =
+                                    left(Left.ofStringLiteralExpression(stringLiteralExpression))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofNumberLiteralExpression(numberLiteralExpression)`.
+                                 */
+                                fun left(numberLiteralExpression: Left.NumberLiteralExpression) =
+                                    left(Left.ofNumberLiteralExpression(numberLiteralExpression))
+
+                                /**
+                                 * Alias for calling [left] with
+                                 * `Left.ofBooleanLiteralExpression(booleanLiteralExpression)`.
+                                 */
+                                fun left(booleanLiteralExpression: Left.BooleanLiteralExpression) =
+                                    left(Left.ofBooleanLiteralExpression(booleanLiteralExpression))
+
+                                /** Arithmetic operator applied to `left` and `right`. */
+                                fun op(op: Op) = op(JsonField.of(op))
+
+                                /**
+                                 * Sets [Builder.op] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.op] with a well-typed [Op] value
+                                 * instead. This method is primarily for setting the field to an
+                                 * undocumented or not yet supported value.
+                                 */
+                                fun op(op: JsonField<Op>) = apply { this.op = op }
+
+                                /** Right-hand operand sub-expression. */
+                                fun right(right: Right) = right(JsonField.of(right))
+
+                                /**
+                                 * Sets [Builder.right] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.right] with a well-typed [Right]
+                                 * value instead. This method is primarily for setting the field to
+                                 * an undocumented or not yet supported value.
+                                 */
+                                fun right(right: JsonField<Right>) = apply { this.right = right }
+
+                                /**
+                                 * Alias for calling [right] with `Right.ofJsonValue(jsonValue)`.
+                                 */
+                                fun right(jsonValue: JsonValue) =
+                                    right(Right.ofJsonValue(jsonValue))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofDynamicVariableExpression(dynamicVariableExpression)`.
+                                 */
+                                fun right(
+                                    dynamicVariableExpression: Right.DynamicVariableExpression
+                                ) =
+                                    right(
+                                        Right.ofDynamicVariableExpression(dynamicVariableExpression)
+                                    )
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofStringLiteralExpression(stringLiteralExpression)`.
+                                 */
+                                fun right(stringLiteralExpression: Right.StringLiteralExpression) =
+                                    right(Right.ofStringLiteralExpression(stringLiteralExpression))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofNumberLiteralExpression(numberLiteralExpression)`.
+                                 */
+                                fun right(numberLiteralExpression: Right.NumberLiteralExpression) =
+                                    right(Right.ofNumberLiteralExpression(numberLiteralExpression))
+
+                                /**
+                                 * Alias for calling [right] with
+                                 * `Right.ofBooleanLiteralExpression(booleanLiteralExpression)`.
+                                 */
+                                fun right(
+                                    booleanLiteralExpression: Right.BooleanLiteralExpression
+                                ) =
+                                    right(
+                                        Right.ofBooleanLiteralExpression(booleanLiteralExpression)
+                                    )
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("arithmetic")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [Arithmetic].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .left()
+                                 * .op()
+                                 * .right()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): Arithmetic =
+                                    Arithmetic(
+                                        checkRequired("left", left),
+                                        checkRequired("op", op),
+                                        checkRequired("right", right),
+                                        type,
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): Arithmetic = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                left().validate()
+                                op().validate()
+                                right().validate()
+                                _type().let {
+                                    if (it != JsonValue.from("arithmetic")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                (left.asKnown().getOrNull()?.validity() ?: 0) +
+                                    (op.asKnown().getOrNull()?.validity() ?: 0) +
+                                    (right.asKnown().getOrNull()?.validity() ?: 0) +
+                                    type.let { if (it == JsonValue.from("arithmetic")) 1 else 0 }
+
+                            /** Left-hand operand sub-expression. */
+                            @JsonDeserialize(using = Left.Deserializer::class)
+                            @JsonSerialize(using = Left.Serializer::class)
+                            class Left
+                            private constructor(
+                                private val jsonValue: JsonValue? = null,
+                                private val dynamicVariableExpression: DynamicVariableExpression? =
+                                    null,
+                                private val stringLiteralExpression: StringLiteralExpression? =
+                                    null,
+                                private val numberLiteralExpression: NumberLiteralExpression? =
+                                    null,
+                                private val booleanLiteralExpression: BooleanLiteralExpression? =
+                                    null,
+                                private val _json: JsonValue? = null,
+                            ) {
+
+                                fun jsonValue(): Optional<JsonValue> =
+                                    Optional.ofNullable(jsonValue)
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun dynamicVariableExpression():
+                                    Optional<DynamicVariableExpression> =
+                                    Optional.ofNullable(dynamicVariableExpression)
+
+                                /** Constant string value. */
+                                fun stringLiteralExpression(): Optional<StringLiteralExpression> =
+                                    Optional.ofNullable(stringLiteralExpression)
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun numberLiteralExpression(): Optional<NumberLiteralExpression> =
+                                    Optional.ofNullable(numberLiteralExpression)
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun booleanLiteralExpression(): Optional<BooleanLiteralExpression> =
+                                    Optional.ofNullable(booleanLiteralExpression)
+
+                                fun isJsonValue(): Boolean = jsonValue != null
+
+                                fun isDynamicVariableExpression(): Boolean =
+                                    dynamicVariableExpression != null
+
+                                fun isStringLiteralExpression(): Boolean =
+                                    stringLiteralExpression != null
+
+                                fun isNumberLiteralExpression(): Boolean =
+                                    numberLiteralExpression != null
+
+                                fun isBooleanLiteralExpression(): Boolean =
+                                    booleanLiteralExpression != null
+
+                                fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun asDynamicVariableExpression(): DynamicVariableExpression =
+                                    dynamicVariableExpression.getOrThrow(
+                                        "dynamicVariableExpression"
+                                    )
+
+                                /** Constant string value. */
+                                fun asStringLiteralExpression(): StringLiteralExpression =
+                                    stringLiteralExpression.getOrThrow("stringLiteralExpression")
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun asNumberLiteralExpression(): NumberLiteralExpression =
+                                    numberLiteralExpression.getOrThrow("numberLiteralExpression")
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun asBooleanLiteralExpression(): BooleanLiteralExpression =
+                                    booleanLiteralExpression.getOrThrow("booleanLiteralExpression")
+
+                                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                                /**
+                                 * Maps this instance's current variant to a value of type [T] using
+                                 * the given [visitor].
+                                 *
+                                 * Note that this method is _not_ forwards compatible with new
+                                 * variants from the API, unless [visitor] overrides
+                                 * [Visitor.unknown]. To handle variants not known to this version
+                                 * of the SDK gracefully, consider overriding [Visitor.unknown]:
+                                 * ```java
+                                 * import com.telnyx.sdk.core.JsonValue;
+                                 * import java.util.Optional;
+                                 *
+                                 * Optional<String> result = left.accept(new Left.Visitor<Optional<String>>() {
+                                 *     @Override
+                                 *     public Optional<String> visitJsonValue(JsonValue jsonValue) {
+                                 *         return Optional.of(jsonValue.toString());
+                                 *     }
+                                 *
+                                 *     // ...
+                                 *
+                                 *     @Override
+                                 *     public Optional<String> unknown(JsonValue json) {
+                                 *         // Or inspect the `json`.
+                                 *         return Optional.empty();
+                                 *     }
+                                 * });
+                                 * ```
+                                 *
+                                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not
+                                 *   overridden in [visitor] and the current variant is unknown.
+                                 */
+                                fun <T> accept(visitor: Visitor<T>): T =
+                                    when {
+                                        jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                                        dynamicVariableExpression != null ->
+                                            visitor.visitDynamicVariableExpression(
+                                                dynamicVariableExpression
+                                            )
+                                        stringLiteralExpression != null ->
+                                            visitor.visitStringLiteralExpression(
+                                                stringLiteralExpression
+                                            )
+                                        numberLiteralExpression != null ->
+                                            visitor.visitNumberLiteralExpression(
+                                                numberLiteralExpression
+                                            )
+                                        booleanLiteralExpression != null ->
+                                            visitor.visitBooleanLiteralExpression(
+                                                booleanLiteralExpression
+                                            )
+                                        else -> visitor.unknown(_json)
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Left = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    accept(
+                                        object : Visitor<Unit> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) {}
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) {
+                                                dynamicVariableExpression.validate()
+                                            }
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) {
+                                                stringLiteralExpression.validate()
+                                            }
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) {
+                                                numberLiteralExpression.validate()
+                                            }
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) {
+                                                booleanLiteralExpression.validate()
+                                            }
+                                        }
+                                    )
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    accept(
+                                        object : Visitor<Int> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) = 1
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) = dynamicVariableExpression.validity()
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) = stringLiteralExpression.validity()
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) = numberLiteralExpression.validity()
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) = booleanLiteralExpression.validity()
+
+                                            override fun unknown(json: JsonValue?) = 0
+                                        }
+                                    )
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Left &&
+                                        jsonValue == other.jsonValue &&
+                                        dynamicVariableExpression ==
+                                            other.dynamicVariableExpression &&
+                                        stringLiteralExpression == other.stringLiteralExpression &&
+                                        numberLiteralExpression == other.numberLiteralExpression &&
+                                        booleanLiteralExpression == other.booleanLiteralExpression
+                                }
+
+                                override fun hashCode(): Int =
+                                    Objects.hash(
+                                        jsonValue,
+                                        dynamicVariableExpression,
+                                        stringLiteralExpression,
+                                        numberLiteralExpression,
+                                        booleanLiteralExpression,
+                                    )
+
+                                override fun toString(): String =
+                                    when {
+                                        jsonValue != null -> "Left{jsonValue=$jsonValue}"
+                                        dynamicVariableExpression != null ->
+                                            "Left{dynamicVariableExpression=$dynamicVariableExpression}"
+                                        stringLiteralExpression != null ->
+                                            "Left{stringLiteralExpression=$stringLiteralExpression}"
+                                        numberLiteralExpression != null ->
+                                            "Left{numberLiteralExpression=$numberLiteralExpression}"
+                                        booleanLiteralExpression != null ->
+                                            "Left{booleanLiteralExpression=$booleanLiteralExpression}"
+                                        _json != null -> "Left{_unknown=$_json}"
+                                        else -> throw IllegalStateException("Invalid Left")
+                                    }
+
+                                companion object {
+
+                                    @JvmStatic
+                                    fun ofJsonValue(jsonValue: JsonValue) =
+                                        Left(jsonValue = jsonValue)
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    @JvmStatic
+                                    fun ofDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ) = Left(dynamicVariableExpression = dynamicVariableExpression)
+
+                                    /** Constant string value. */
+                                    @JvmStatic
+                                    fun ofStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ) = Left(stringLiteralExpression = stringLiteralExpression)
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    @JvmStatic
+                                    fun ofNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ) = Left(numberLiteralExpression = numberLiteralExpression)
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    @JvmStatic
+                                    fun ofBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ) = Left(booleanLiteralExpression = booleanLiteralExpression)
+                                }
+
+                                /**
+                                 * An interface that defines how to map each variant of [Left] to a
+                                 * value of type [T].
+                                 */
+                                interface Visitor<out T> {
+
+                                    fun visitJsonValue(jsonValue: JsonValue): T
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    fun visitDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ): T
+
+                                    /** Constant string value. */
+                                    fun visitStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    fun visitNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    fun visitBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Maps an unknown variant of [Left] to a value of type [T].
+                                     *
+                                     * An instance of [Left] can contain an unknown variant if it
+                                     * was deserialized from data that doesn't match any known
+                                     * variant. For example, if the SDK is on an older version than
+                                     * the API, then the API may respond with new variants that the
+                                     * SDK is unaware of.
+                                     *
+                                     * @throws TelnyxInvalidDataException in the default
+                                     *   implementation.
+                                     */
+                                    fun unknown(json: JsonValue?): T {
+                                        throw TelnyxInvalidDataException("Unknown Left: $json")
+                                    }
+                                }
+
+                                internal class Deserializer : BaseDeserializer<Left>(Left::class) {
+
+                                    override fun ObjectCodec.deserialize(node: JsonNode): Left {
+                                        val json = JsonValue.fromJsonNode(node)
+
+                                        val bestMatches =
+                                            sequenceOf(
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                DynamicVariableExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                dynamicVariableExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                StringLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                stringLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                NumberLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                numberLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                BooleanLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Left(
+                                                                booleanLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<JsonValue>(),
+                                                        )
+                                                        ?.let { Left(jsonValue = it, _json = json) },
+                                                )
+                                                .filterNotNull()
+                                                .allMaxBy { it.validity() }
+                                                .toList()
+                                        return when (bestMatches.size) {
+                                            // This can happen if what we're deserializing is
+                                            // completely incompatible with all the possible
+                                            // variants.
+                                            0 -> Left(_json = json)
+                                            1 -> bestMatches.single()
+                                            // If there's more than one match with the highest
+                                            // validity, then use the first completely valid match,
+                                            // or simply the first match if none are completely
+                                            // valid.
+                                            else ->
+                                                bestMatches.firstOrNull { it.isValid() }
+                                                    ?: bestMatches.first()
+                                        }
+                                    }
+                                }
+
+                                internal class Serializer : BaseSerializer<Left>(Left::class) {
+
+                                    override fun serialize(
+                                        value: Left,
+                                        generator: JsonGenerator,
+                                        provider: SerializerProvider,
+                                    ) {
+                                        when {
+                                            value.jsonValue != null ->
+                                                generator.writeObject(value.jsonValue)
+                                            value.dynamicVariableExpression != null ->
+                                                generator.writeObject(
+                                                    value.dynamicVariableExpression
+                                                )
+                                            value.stringLiteralExpression != null ->
+                                                generator.writeObject(value.stringLiteralExpression)
+                                            value.numberLiteralExpression != null ->
+                                                generator.writeObject(value.numberLiteralExpression)
+                                            value.booleanLiteralExpression != null ->
+                                                generator.writeObject(
+                                                    value.booleanLiteralExpression
+                                                )
+                                            value._json != null ->
+                                                generator.writeObject(value._json)
+                                            else -> throw IllegalStateException("Invalid Left")
+                                        }
+                                    }
+                                }
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                class DynamicVariableExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val name: JsonField<String>,
+                                    private val type: JsonValue,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("name")
+                                        @ExcludeMissing
+                                        name: JsonField<String> = JsonMissing.of(),
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                    ) : this(name, type, mutableMapOf())
+
+                                    /**
+                                     * Variable name to look up in the runtime context.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun name(): String = name.getRequired("name")
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("variable")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Returns the raw JSON value of [name].
+                                     *
+                                     * Unlike [name], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("name")
+                                    @ExcludeMissing
+                                    fun _name(): JsonField<String> = name
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [DynamicVariableExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var name: JsonField<String>? = null
+                                        private var type: JsonValue = JsonValue.from("variable")
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            dynamicVariableExpression: DynamicVariableExpression
+                                        ) = apply {
+                                            name = dynamicVariableExpression.name
+                                            type = dynamicVariableExpression.type
+                                            additionalProperties =
+                                                dynamicVariableExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /** Variable name to look up in the runtime context. */
+                                        fun name(name: String) = name(JsonField.of(name))
+
+                                        /**
+                                         * Sets [Builder.name] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.name] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun name(name: JsonField<String>) = apply {
+                                            this.name = name
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("variable")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): DynamicVariableExpression =
+                                            DynamicVariableExpression(
+                                                checkRequired("name", name),
+                                                type,
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): DynamicVariableExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        name()
+                                        _type().let {
+                                            if (it != JsonValue.from("variable")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        (if (name.asKnown().isPresent) 1 else 0) +
+                                            type.let {
+                                                if (it == JsonValue.from("variable")) 1 else 0
+                                            }
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is DynamicVariableExpression &&
+                                            name == other.name &&
+                                            type == other.type &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(name, type, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "DynamicVariableExpression{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                                }
+
+                                /** Constant string value. */
+                                class StringLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<String>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<String> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("string_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal string value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): String = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<String> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [StringLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("string_literal")
+                                        private var value: JsonField<String>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            stringLiteralExpression: StringLiteralExpression
+                                        ) = apply {
+                                            type = stringLiteralExpression.type
+                                            value = stringLiteralExpression.value
+                                            additionalProperties =
+                                                stringLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("string_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal string value. */
+                                        fun value(value: String) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<String>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): StringLiteralExpression =
+                                            StringLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): StringLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("string_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("string_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is StringLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "StringLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                class NumberLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Double>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Double> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("number_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal numeric value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Double = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Double> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [NumberLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("number_literal")
+                                        private var value: JsonField<Double>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            numberLiteralExpression: NumberLiteralExpression
+                                        ) = apply {
+                                            type = numberLiteralExpression.type
+                                            value = numberLiteralExpression.value
+                                            additionalProperties =
+                                                numberLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("number_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal numeric value. */
+                                        fun value(value: Double) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Double] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Double>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): NumberLiteralExpression =
+                                            NumberLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): NumberLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("number_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("number_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is NumberLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "NumberLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                class BooleanLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Boolean>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Boolean> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("bool_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal boolean value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Boolean = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Boolean> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [BooleanLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue = JsonValue.from("bool_literal")
+                                        private var value: JsonField<Boolean>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            booleanLiteralExpression: BooleanLiteralExpression
+                                        ) = apply {
+                                            type = booleanLiteralExpression.type
+                                            value = booleanLiteralExpression.value
+                                            additionalProperties =
+                                                booleanLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("bool_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal boolean value. */
+                                        fun value(value: Boolean) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Boolean] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Boolean>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): BooleanLiteralExpression =
+                                            BooleanLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): BooleanLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("bool_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("bool_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is BooleanLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "BooleanLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+                            }
+
+                            /** Arithmetic operator applied to `left` and `right`. */
+                            class Op
+                            @JsonCreator
+                            private constructor(private val value: JsonField<String>) : Enum {
+
+                                /**
+                                 * Returns this class instance's raw value.
+                                 *
+                                 * This is usually only useful if this instance was deserialized
+                                 * from data that doesn't match any known member, and you want to
+                                 * know that value. For example, if the SDK is on an older version
+                                 * than the API, then the API may respond with new members that the
+                                 * SDK is unaware of.
+                                 */
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                companion object {
+
+                                    @JvmField val plus = of("+")
+
+                                    @JvmField val minus = of("-")
+
+                                    @JvmField val STAR = of("*")
+
+                                    @JvmField val Unknown2 = of("/")
+
+                                    @JvmField val Unknown3 = of("%")
+
+                                    @JvmStatic fun of(value: String) = Op(JsonField.of(value))
+                                }
+
+                                /** An enum containing [Op]'s known values. */
+                                enum class Known {
+                                    plus,
+                                    minus,
+                                    STAR,
+                                    Unknown2,
+                                    Unknown3,
+                                }
+
+                                /**
+                                 * An enum containing [Op]'s known values, as well as an [_UNKNOWN]
+                                 * member.
+                                 *
+                                 * An instance of [Op] can contain an unknown value in a couple of
+                                 * cases:
+                                 * - It was deserialized from data that doesn't match any known
+                                 *   member. For example, if the SDK is on an older version than the
+                                 *   API, then the API may respond with new members that the SDK is
+                                 *   unaware of.
+                                 * - It was constructed with an arbitrary value using the [of]
+                                 *   method.
+                                 */
+                                enum class Value {
+                                    plus,
+                                    minus,
+                                    STAR,
+                                    Unknown2,
+                                    Unknown3,
+                                    /**
+                                     * An enum member indicating that [Op] was instantiated with an
+                                     * unknown value.
+                                     */
+                                    _UNKNOWN,
+                                }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value, or [Value._UNKNOWN] if the class was instantiated with an
+                                 * unknown value.
+                                 *
+                                 * Use the [known] method instead if you're certain the value is
+                                 * always known or if you want to throw for the unknown case.
+                                 */
+                                fun value(): Value =
+                                    when (this) {
+                                        plus -> Value.plus
+                                        minus -> Value.minus
+                                        STAR -> Value.STAR
+                                        Unknown2 -> Value.Unknown2
+                                        Unknown3 -> Value.Unknown3
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                /**
+                                 * Returns an enum member corresponding to this class instance's
+                                 * value.
+                                 *
+                                 * Use the [value] method instead if you're uncertain the value is
+                                 * always known and don't want to throw for the unknown case.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   is a not a known member.
+                                 */
+                                fun known(): Known =
+                                    when (this) {
+                                        plus -> Known.plus
+                                        minus -> Known.minus
+                                        STAR -> Known.STAR
+                                        Unknown2 -> Known.Unknown2
+                                        Unknown3 -> Known.Unknown3
+                                        else ->
+                                            throw TelnyxInvalidDataException("Unknown Op: $value")
+                                    }
+
+                                /**
+                                 * Returns this class instance's primitive wire representation.
+                                 *
+                                 * This differs from the [toString] method because that method is
+                                 * primarily for debugging and generally doesn't throw.
+                                 *
+                                 * @throws TelnyxInvalidDataException if this class instance's value
+                                 *   does not have the expected primitive type.
+                                 */
+                                fun asString(): String =
+                                    _value().asString().orElseThrow {
+                                        TelnyxInvalidDataException("Value is not a String")
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Op = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    known()
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    if (value() == Value._UNKNOWN) 0 else 1
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Op && value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+                            }
+
+                            /** Right-hand operand sub-expression. */
+                            @JsonDeserialize(using = Right.Deserializer::class)
+                            @JsonSerialize(using = Right.Serializer::class)
+                            class Right
+                            private constructor(
+                                private val jsonValue: JsonValue? = null,
+                                private val dynamicVariableExpression: DynamicVariableExpression? =
+                                    null,
+                                private val stringLiteralExpression: StringLiteralExpression? =
+                                    null,
+                                private val numberLiteralExpression: NumberLiteralExpression? =
+                                    null,
+                                private val booleanLiteralExpression: BooleanLiteralExpression? =
+                                    null,
+                                private val _json: JsonValue? = null,
+                            ) {
+
+                                fun jsonValue(): Optional<JsonValue> =
+                                    Optional.ofNullable(jsonValue)
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun dynamicVariableExpression():
+                                    Optional<DynamicVariableExpression> =
+                                    Optional.ofNullable(dynamicVariableExpression)
+
+                                /** Constant string value. */
+                                fun stringLiteralExpression(): Optional<StringLiteralExpression> =
+                                    Optional.ofNullable(stringLiteralExpression)
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun numberLiteralExpression(): Optional<NumberLiteralExpression> =
+                                    Optional.ofNullable(numberLiteralExpression)
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun booleanLiteralExpression(): Optional<BooleanLiteralExpression> =
+                                    Optional.ofNullable(booleanLiteralExpression)
+
+                                fun isJsonValue(): Boolean = jsonValue != null
+
+                                fun isDynamicVariableExpression(): Boolean =
+                                    dynamicVariableExpression != null
+
+                                fun isStringLiteralExpression(): Boolean =
+                                    stringLiteralExpression != null
+
+                                fun isNumberLiteralExpression(): Boolean =
+                                    numberLiteralExpression != null
+
+                                fun isBooleanLiteralExpression(): Boolean =
+                                    booleanLiteralExpression != null
+
+                                fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                fun asDynamicVariableExpression(): DynamicVariableExpression =
+                                    dynamicVariableExpression.getOrThrow(
+                                        "dynamicVariableExpression"
+                                    )
+
+                                /** Constant string value. */
+                                fun asStringLiteralExpression(): StringLiteralExpression =
+                                    stringLiteralExpression.getOrThrow("stringLiteralExpression")
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                fun asNumberLiteralExpression(): NumberLiteralExpression =
+                                    numberLiteralExpression.getOrThrow("numberLiteralExpression")
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                fun asBooleanLiteralExpression(): BooleanLiteralExpression =
+                                    booleanLiteralExpression.getOrThrow("booleanLiteralExpression")
+
+                                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                                /**
+                                 * Maps this instance's current variant to a value of type [T] using
+                                 * the given [visitor].
+                                 *
+                                 * Note that this method is _not_ forwards compatible with new
+                                 * variants from the API, unless [visitor] overrides
+                                 * [Visitor.unknown]. To handle variants not known to this version
+                                 * of the SDK gracefully, consider overriding [Visitor.unknown]:
+                                 * ```java
+                                 * import com.telnyx.sdk.core.JsonValue;
+                                 * import java.util.Optional;
+                                 *
+                                 * Optional<String> result = right.accept(new Right.Visitor<Optional<String>>() {
+                                 *     @Override
+                                 *     public Optional<String> visitJsonValue(JsonValue jsonValue) {
+                                 *         return Optional.of(jsonValue.toString());
+                                 *     }
+                                 *
+                                 *     // ...
+                                 *
+                                 *     @Override
+                                 *     public Optional<String> unknown(JsonValue json) {
+                                 *         // Or inspect the `json`.
+                                 *         return Optional.empty();
+                                 *     }
+                                 * });
+                                 * ```
+                                 *
+                                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not
+                                 *   overridden in [visitor] and the current variant is unknown.
+                                 */
+                                fun <T> accept(visitor: Visitor<T>): T =
+                                    when {
+                                        jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                                        dynamicVariableExpression != null ->
+                                            visitor.visitDynamicVariableExpression(
+                                                dynamicVariableExpression
+                                            )
+                                        stringLiteralExpression != null ->
+                                            visitor.visitStringLiteralExpression(
+                                                stringLiteralExpression
+                                            )
+                                        numberLiteralExpression != null ->
+                                            visitor.visitNumberLiteralExpression(
+                                                numberLiteralExpression
+                                            )
+                                        booleanLiteralExpression != null ->
+                                            visitor.visitBooleanLiteralExpression(
+                                                booleanLiteralExpression
+                                            )
+                                        else -> visitor.unknown(_json)
+                                    }
+
+                                private var validated: Boolean = false
+
+                                /**
+                                 * Validates that the types of all values in this object match their
+                                 * expected types recursively.
+                                 *
+                                 * This method is _not_ forwards compatible with new types from the
+                                 * API for existing fields.
+                                 *
+                                 * @throws TelnyxInvalidDataException if any value type in this
+                                 *   object doesn't match its expected type.
+                                 */
+                                fun validate(): Right = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    accept(
+                                        object : Visitor<Unit> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) {}
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) {
+                                                dynamicVariableExpression.validate()
+                                            }
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) {
+                                                stringLiteralExpression.validate()
+                                            }
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) {
+                                                numberLiteralExpression.validate()
+                                            }
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) {
+                                                booleanLiteralExpression.validate()
+                                            }
+                                        }
+                                    )
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: TelnyxInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                @JvmSynthetic
+                                internal fun validity(): Int =
+                                    accept(
+                                        object : Visitor<Int> {
+                                            override fun visitJsonValue(jsonValue: JsonValue) = 1
+
+                                            override fun visitDynamicVariableExpression(
+                                                dynamicVariableExpression: DynamicVariableExpression
+                                            ) = dynamicVariableExpression.validity()
+
+                                            override fun visitStringLiteralExpression(
+                                                stringLiteralExpression: StringLiteralExpression
+                                            ) = stringLiteralExpression.validity()
+
+                                            override fun visitNumberLiteralExpression(
+                                                numberLiteralExpression: NumberLiteralExpression
+                                            ) = numberLiteralExpression.validity()
+
+                                            override fun visitBooleanLiteralExpression(
+                                                booleanLiteralExpression: BooleanLiteralExpression
+                                            ) = booleanLiteralExpression.validity()
+
+                                            override fun unknown(json: JsonValue?) = 0
+                                        }
+                                    )
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Right &&
+                                        jsonValue == other.jsonValue &&
+                                        dynamicVariableExpression ==
+                                            other.dynamicVariableExpression &&
+                                        stringLiteralExpression == other.stringLiteralExpression &&
+                                        numberLiteralExpression == other.numberLiteralExpression &&
+                                        booleanLiteralExpression == other.booleanLiteralExpression
+                                }
+
+                                override fun hashCode(): Int =
+                                    Objects.hash(
+                                        jsonValue,
+                                        dynamicVariableExpression,
+                                        stringLiteralExpression,
+                                        numberLiteralExpression,
+                                        booleanLiteralExpression,
+                                    )
+
+                                override fun toString(): String =
+                                    when {
+                                        jsonValue != null -> "Right{jsonValue=$jsonValue}"
+                                        dynamicVariableExpression != null ->
+                                            "Right{dynamicVariableExpression=$dynamicVariableExpression}"
+                                        stringLiteralExpression != null ->
+                                            "Right{stringLiteralExpression=$stringLiteralExpression}"
+                                        numberLiteralExpression != null ->
+                                            "Right{numberLiteralExpression=$numberLiteralExpression}"
+                                        booleanLiteralExpression != null ->
+                                            "Right{booleanLiteralExpression=$booleanLiteralExpression}"
+                                        _json != null -> "Right{_unknown=$_json}"
+                                        else -> throw IllegalStateException("Invalid Right")
+                                    }
+
+                                companion object {
+
+                                    @JvmStatic
+                                    fun ofJsonValue(jsonValue: JsonValue) =
+                                        Right(jsonValue = jsonValue)
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    @JvmStatic
+                                    fun ofDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ) = Right(dynamicVariableExpression = dynamicVariableExpression)
+
+                                    /** Constant string value. */
+                                    @JvmStatic
+                                    fun ofStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ) = Right(stringLiteralExpression = stringLiteralExpression)
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    @JvmStatic
+                                    fun ofNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ) = Right(numberLiteralExpression = numberLiteralExpression)
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    @JvmStatic
+                                    fun ofBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ) = Right(booleanLiteralExpression = booleanLiteralExpression)
+                                }
+
+                                /**
+                                 * An interface that defines how to map each variant of [Right] to a
+                                 * value of type [T].
+                                 */
+                                interface Visitor<out T> {
+
+                                    fun visitJsonValue(jsonValue: JsonValue): T
+
+                                    /**
+                                     * Reference a dynamic variable by name.
+                                     *
+                                     * Resolved at runtime from the assistant's dynamic-variables
+                                     * context (see `Assistant.dynamic_variables` and the
+                                     * dynamic-variables webhook).
+                                     */
+                                    fun visitDynamicVariableExpression(
+                                        dynamicVariableExpression: DynamicVariableExpression
+                                    ): T
+
+                                    /** Constant string value. */
+                                    fun visitStringLiteralExpression(
+                                        stringLiteralExpression: StringLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant numeric value (float; integers are accepted and
+                                     * stored as float).
+                                     */
+                                    fun visitNumberLiteralExpression(
+                                        numberLiteralExpression: NumberLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Constant boolean value. Useful for unconditional ('always')
+                                     * edges.
+                                     */
+                                    fun visitBooleanLiteralExpression(
+                                        booleanLiteralExpression: BooleanLiteralExpression
+                                    ): T
+
+                                    /**
+                                     * Maps an unknown variant of [Right] to a value of type [T].
+                                     *
+                                     * An instance of [Right] can contain an unknown variant if it
+                                     * was deserialized from data that doesn't match any known
+                                     * variant. For example, if the SDK is on an older version than
+                                     * the API, then the API may respond with new variants that the
+                                     * SDK is unaware of.
+                                     *
+                                     * @throws TelnyxInvalidDataException in the default
+                                     *   implementation.
+                                     */
+                                    fun unknown(json: JsonValue?): T {
+                                        throw TelnyxInvalidDataException("Unknown Right: $json")
+                                    }
+                                }
+
+                                internal class Deserializer :
+                                    BaseDeserializer<Right>(Right::class) {
+
+                                    override fun ObjectCodec.deserialize(node: JsonNode): Right {
+                                        val json = JsonValue.fromJsonNode(node)
+
+                                        val bestMatches =
+                                            sequenceOf(
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                DynamicVariableExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                dynamicVariableExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                StringLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                stringLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                NumberLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                numberLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<
+                                                                BooleanLiteralExpression
+                                                            >(),
+                                                        )
+                                                        ?.let {
+                                                            Right(
+                                                                booleanLiteralExpression = it,
+                                                                _json = json,
+                                                            )
+                                                        },
+                                                    tryDeserialize(
+                                                            node,
+                                                            jacksonTypeRef<JsonValue>(),
+                                                        )
+                                                        ?.let {
+                                                            Right(jsonValue = it, _json = json)
+                                                        },
+                                                )
+                                                .filterNotNull()
+                                                .allMaxBy { it.validity() }
+                                                .toList()
+                                        return when (bestMatches.size) {
+                                            // This can happen if what we're deserializing is
+                                            // completely incompatible with all the possible
+                                            // variants.
+                                            0 -> Right(_json = json)
+                                            1 -> bestMatches.single()
+                                            // If there's more than one match with the highest
+                                            // validity, then use the first completely valid match,
+                                            // or simply the first match if none are completely
+                                            // valid.
+                                            else ->
+                                                bestMatches.firstOrNull { it.isValid() }
+                                                    ?: bestMatches.first()
+                                        }
+                                    }
+                                }
+
+                                internal class Serializer : BaseSerializer<Right>(Right::class) {
+
+                                    override fun serialize(
+                                        value: Right,
+                                        generator: JsonGenerator,
+                                        provider: SerializerProvider,
+                                    ) {
+                                        when {
+                                            value.jsonValue != null ->
+                                                generator.writeObject(value.jsonValue)
+                                            value.dynamicVariableExpression != null ->
+                                                generator.writeObject(
+                                                    value.dynamicVariableExpression
+                                                )
+                                            value.stringLiteralExpression != null ->
+                                                generator.writeObject(value.stringLiteralExpression)
+                                            value.numberLiteralExpression != null ->
+                                                generator.writeObject(value.numberLiteralExpression)
+                                            value.booleanLiteralExpression != null ->
+                                                generator.writeObject(
+                                                    value.booleanLiteralExpression
+                                                )
+                                            value._json != null ->
+                                                generator.writeObject(value._json)
+                                            else -> throw IllegalStateException("Invalid Right")
+                                        }
+                                    }
+                                }
+
+                                /**
+                                 * Reference a dynamic variable by name.
+                                 *
+                                 * Resolved at runtime from the assistant's dynamic-variables
+                                 * context (see `Assistant.dynamic_variables` and the
+                                 * dynamic-variables webhook).
+                                 */
+                                class DynamicVariableExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val name: JsonField<String>,
+                                    private val type: JsonValue,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("name")
+                                        @ExcludeMissing
+                                        name: JsonField<String> = JsonMissing.of(),
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                    ) : this(name, type, mutableMapOf())
+
+                                    /**
+                                     * Variable name to look up in the runtime context.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun name(): String = name.getRequired("name")
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("variable")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Returns the raw JSON value of [name].
+                                     *
+                                     * Unlike [name], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("name")
+                                    @ExcludeMissing
+                                    fun _name(): JsonField<String> = name
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [DynamicVariableExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var name: JsonField<String>? = null
+                                        private var type: JsonValue = JsonValue.from("variable")
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            dynamicVariableExpression: DynamicVariableExpression
+                                        ) = apply {
+                                            name = dynamicVariableExpression.name
+                                            type = dynamicVariableExpression.type
+                                            additionalProperties =
+                                                dynamicVariableExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /** Variable name to look up in the runtime context. */
+                                        fun name(name: String) = name(JsonField.of(name))
+
+                                        /**
+                                         * Sets [Builder.name] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.name] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun name(name: JsonField<String>) = apply {
+                                            this.name = name
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("variable")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [DynamicVariableExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .name()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): DynamicVariableExpression =
+                                            DynamicVariableExpression(
+                                                checkRequired("name", name),
+                                                type,
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): DynamicVariableExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        name()
+                                        _type().let {
+                                            if (it != JsonValue.from("variable")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        (if (name.asKnown().isPresent) 1 else 0) +
+                                            type.let {
+                                                if (it == JsonValue.from("variable")) 1 else 0
+                                            }
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is DynamicVariableExpression &&
+                                            name == other.name &&
+                                            type == other.type &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(name, type, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "DynamicVariableExpression{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                                }
+
+                                /** Constant string value. */
+                                class StringLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<String>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<String> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("string_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal string value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): String = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<String> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [StringLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("string_literal")
+                                        private var value: JsonField<String>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            stringLiteralExpression: StringLiteralExpression
+                                        ) = apply {
+                                            type = stringLiteralExpression.type
+                                            value = stringLiteralExpression.value
+                                            additionalProperties =
+                                                stringLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("string_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal string value. */
+                                        fun value(value: String) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [String] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<String>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [StringLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): StringLiteralExpression =
+                                            StringLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): StringLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("string_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("string_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is StringLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "StringLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant numeric value (float; integers are accepted and stored
+                                 * as float).
+                                 */
+                                class NumberLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Double>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Double> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("number_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal numeric value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Double = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Double> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [NumberLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue =
+                                            JsonValue.from("number_literal")
+                                        private var value: JsonField<Double>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            numberLiteralExpression: NumberLiteralExpression
+                                        ) = apply {
+                                            type = numberLiteralExpression.type
+                                            value = numberLiteralExpression.value
+                                            additionalProperties =
+                                                numberLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("number_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal numeric value. */
+                                        fun value(value: Double) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Double] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Double>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [NumberLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): NumberLiteralExpression =
+                                            NumberLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): NumberLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("number_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("number_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is NumberLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "NumberLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+
+                                /**
+                                 * Constant boolean value. Useful for unconditional ('always')
+                                 * edges.
+                                 */
+                                class BooleanLiteralExpression
+                                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                                private constructor(
+                                    private val type: JsonValue,
+                                    private val value: JsonField<Boolean>,
+                                    private val additionalProperties: MutableMap<String, JsonValue>,
+                                ) {
+
+                                    @JsonCreator
+                                    private constructor(
+                                        @JsonProperty("type")
+                                        @ExcludeMissing
+                                        type: JsonValue = JsonMissing.of(),
+                                        @JsonProperty("value")
+                                        @ExcludeMissing
+                                        value: JsonField<Boolean> = JsonMissing.of(),
+                                    ) : this(type, value, mutableMapOf())
+
+                                    /**
+                                     * Expected to always return the following:
+                                     * ```java
+                                     * JsonValue.from("bool_literal")
+                                     * ```
+                                     *
+                                     * However, this method can be useful for debugging and logging
+                                     * (e.g. if the server responded with an unexpected value).
+                                     */
+                                    @JsonProperty("type")
+                                    @ExcludeMissing
+                                    fun _type(): JsonValue = type
+
+                                    /**
+                                     * Literal boolean value.
+                                     *
+                                     * @throws TelnyxInvalidDataException if the JSON field has an
+                                     *   unexpected type or is unexpectedly missing or null (e.g. if
+                                     *   the server responded with an unexpected value).
+                                     */
+                                    fun value(): Boolean = value.getRequired("value")
+
+                                    /**
+                                     * Returns the raw JSON value of [value].
+                                     *
+                                     * Unlike [value], this method doesn't throw if the JSON field
+                                     * has an unexpected type.
+                                     */
+                                    @JsonProperty("value")
+                                    @ExcludeMissing
+                                    fun _value(): JsonField<Boolean> = value
+
+                                    @JsonAnySetter
+                                    private fun putAdditionalProperty(
+                                        key: String,
+                                        value: JsonValue,
+                                    ) {
+                                        additionalProperties.put(key, value)
+                                    }
+
+                                    @JsonAnyGetter
+                                    @ExcludeMissing
+                                    fun _additionalProperties(): Map<String, JsonValue> =
+                                        Collections.unmodifiableMap(additionalProperties)
+
+                                    fun toBuilder() = Builder().from(this)
+
+                                    companion object {
+
+                                        /**
+                                         * Returns a mutable builder for constructing an instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         */
+                                        @JvmStatic fun builder() = Builder()
+                                    }
+
+                                    /** A builder for [BooleanLiteralExpression]. */
+                                    class Builder internal constructor() {
+
+                                        private var type: JsonValue = JsonValue.from("bool_literal")
+                                        private var value: JsonField<Boolean>? = null
+                                        private var additionalProperties:
+                                            MutableMap<String, JsonValue> =
+                                            mutableMapOf()
+
+                                        @JvmSynthetic
+                                        internal fun from(
+                                            booleanLiteralExpression: BooleanLiteralExpression
+                                        ) = apply {
+                                            type = booleanLiteralExpression.type
+                                            value = booleanLiteralExpression.value
+                                            additionalProperties =
+                                                booleanLiteralExpression.additionalProperties
+                                                    .toMutableMap()
+                                        }
+
+                                        /**
+                                         * Sets the field to an arbitrary JSON value.
+                                         *
+                                         * It is usually unnecessary to call this method because the
+                                         * field defaults to the following:
+                                         * ```java
+                                         * JsonValue.from("bool_literal")
+                                         * ```
+                                         *
+                                         * This method is primarily for setting the field to an
+                                         * undocumented or not yet supported value.
+                                         */
+                                        fun type(type: JsonValue) = apply { this.type = type }
+
+                                        /** Literal boolean value. */
+                                        fun value(value: Boolean) = value(JsonField.of(value))
+
+                                        /**
+                                         * Sets [Builder.value] to an arbitrary JSON value.
+                                         *
+                                         * You should usually call [Builder.value] with a well-typed
+                                         * [Boolean] value instead. This method is primarily for
+                                         * setting the field to an undocumented or not yet supported
+                                         * value.
+                                         */
+                                        fun value(value: JsonField<Boolean>) = apply {
+                                            this.value = value
+                                        }
+
+                                        fun additionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.clear()
+                                            putAllAdditionalProperties(additionalProperties)
+                                        }
+
+                                        fun putAdditionalProperty(key: String, value: JsonValue) =
+                                            apply {
+                                                additionalProperties.put(key, value)
+                                            }
+
+                                        fun putAllAdditionalProperties(
+                                            additionalProperties: Map<String, JsonValue>
+                                        ) = apply {
+                                            this.additionalProperties.putAll(additionalProperties)
+                                        }
+
+                                        fun removeAdditionalProperty(key: String) = apply {
+                                            additionalProperties.remove(key)
+                                        }
+
+                                        fun removeAllAdditionalProperties(keys: Set<String>) =
+                                            apply {
+                                                keys.forEach(::removeAdditionalProperty)
+                                            }
+
+                                        /**
+                                         * Returns an immutable instance of
+                                         * [BooleanLiteralExpression].
+                                         *
+                                         * Further updates to this [Builder] will not mutate the
+                                         * returned instance.
+                                         *
+                                         * The following fields are required:
+                                         * ```java
+                                         * .value()
+                                         * ```
+                                         *
+                                         * @throws IllegalStateException if any required field is
+                                         *   unset.
+                                         */
+                                        fun build(): BooleanLiteralExpression =
+                                            BooleanLiteralExpression(
+                                                type,
+                                                checkRequired("value", value),
+                                                additionalProperties.toMutableMap(),
+                                            )
+                                    }
+
+                                    private var validated: Boolean = false
+
+                                    /**
+                                     * Validates that the types of all values in this object match
+                                     * their expected types recursively.
+                                     *
+                                     * This method is _not_ forwards compatible with new types from
+                                     * the API for existing fields.
+                                     *
+                                     * @throws TelnyxInvalidDataException if any value type in this
+                                     *   object doesn't match its expected type.
+                                     */
+                                    fun validate(): BooleanLiteralExpression = apply {
+                                        if (validated) {
+                                            return@apply
+                                        }
+
+                                        _type().let {
+                                            if (it != JsonValue.from("bool_literal")) {
+                                                throw TelnyxInvalidDataException(
+                                                    "'type' is invalid, received $it"
+                                                )
+                                            }
+                                        }
+                                        value()
+                                        validated = true
+                                    }
+
+                                    fun isValid(): Boolean =
+                                        try {
+                                            validate()
+                                            true
+                                        } catch (e: TelnyxInvalidDataException) {
+                                            false
+                                        }
+
+                                    /**
+                                     * Returns a score indicating how many valid values are
+                                     * contained in this object recursively.
+                                     *
+                                     * Used for best match union deserialization.
+                                     */
+                                    @JvmSynthetic
+                                    internal fun validity(): Int =
+                                        type.let {
+                                            if (it == JsonValue.from("bool_literal")) 1 else 0
+                                        } + (if (value.asKnown().isPresent) 1 else 0)
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is BooleanLiteralExpression &&
+                                            type == other.type &&
+                                            value == other.value &&
+                                            additionalProperties == other.additionalProperties
+                                    }
+
+                                    private val hashCode: Int by lazy {
+                                        Objects.hash(type, value, additionalProperties)
+                                    }
+
+                                    override fun hashCode(): Int = hashCode
+
+                                    override fun toString() =
+                                        "BooleanLiteralExpression{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                                }
+                            }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Arithmetic &&
+                                    left == other.left &&
+                                    op == other.op &&
+                                    right == other.right &&
+                                    type == other.type &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(left, op, right, type, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "Arithmetic{left=$left, op=$op, right=$right, type=$type, additionalProperties=$additionalProperties}"
+                        }
+
+                        /**
+                         * Reference a dynamic variable by name.
+                         *
+                         * Resolved at runtime from the assistant's dynamic-variables context (see
+                         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+                         */
+                        class Variable
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val name: JsonField<String>,
+                            private val type: JsonValue,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("name")
+                                @ExcludeMissing
+                                name: JsonField<String> = JsonMissing.of(),
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                            ) : this(name, type, mutableMapOf())
+
+                            /**
+                             * Variable name to look up in the runtime context.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun name(): String = name.getRequired("name")
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("variable")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Returns the raw JSON value of [name].
+                             *
+                             * Unlike [name], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("name")
+                            @ExcludeMissing
+                            fun _name(): JsonField<String> = name
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Variable].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .name()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [Variable]. */
+                            class Builder internal constructor() {
+
+                                private var name: JsonField<String>? = null
+                                private var type: JsonValue = JsonValue.from("variable")
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(variable: Variable) = apply {
+                                    name = variable.name
+                                    type = variable.type
+                                    additionalProperties =
+                                        variable.additionalProperties.toMutableMap()
+                                }
+
+                                /** Variable name to look up in the runtime context. */
+                                fun name(name: String) = name(JsonField.of(name))
+
+                                /**
+                                 * Sets [Builder.name] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.name] with a well-typed [String]
+                                 * value instead. This method is primarily for setting the field to
+                                 * an undocumented or not yet supported value.
+                                 */
+                                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("variable")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [Variable].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .name()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): Variable =
+                                    Variable(
+                                        checkRequired("name", name),
+                                        type,
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): Variable = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                name()
+                                _type().let {
+                                    if (it != JsonValue.from("variable")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                (if (name.asKnown().isPresent) 1 else 0) +
+                                    type.let { if (it == JsonValue.from("variable")) 1 else 0 }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Variable &&
+                                    name == other.name &&
+                                    type == other.type &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(name, type, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "Variable{name=$name, type=$type, additionalProperties=$additionalProperties}"
+                        }
+
+                        /** Constant string value. */
+                        class StringLiteral
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val type: JsonValue,
+                            private val value: JsonField<String>,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                                @JsonProperty("value")
+                                @ExcludeMissing
+                                value: JsonField<String> = JsonMissing.of(),
+                            ) : this(type, value, mutableMapOf())
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("string_literal")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Literal string value.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun value(): String = value.getRequired("value")
+
+                            /**
+                             * Returns the raw JSON value of [value].
+                             *
+                             * Unlike [value], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("value")
+                            @ExcludeMissing
+                            fun _value(): JsonField<String> = value
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [StringLiteral].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [StringLiteral]. */
+                            class Builder internal constructor() {
+
+                                private var type: JsonValue = JsonValue.from("string_literal")
+                                private var value: JsonField<String>? = null
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(stringLiteral: StringLiteral) = apply {
+                                    type = stringLiteral.type
+                                    value = stringLiteral.value
+                                    additionalProperties =
+                                        stringLiteral.additionalProperties.toMutableMap()
+                                }
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("string_literal")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                /** Literal string value. */
+                                fun value(value: String) = value(JsonField.of(value))
+
+                                /**
+                                 * Sets [Builder.value] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.value] with a well-typed
+                                 * [String] value instead. This method is primarily for setting the
+                                 * field to an undocumented or not yet supported value.
+                                 */
+                                fun value(value: JsonField<String>) = apply { this.value = value }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [StringLiteral].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): StringLiteral =
+                                    StringLiteral(
+                                        type,
+                                        checkRequired("value", value),
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): StringLiteral = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                _type().let {
+                                    if (it != JsonValue.from("string_literal")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                value()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                type.let { if (it == JsonValue.from("string_literal")) 1 else 0 } +
+                                    (if (value.asKnown().isPresent) 1 else 0)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is StringLiteral &&
+                                    type == other.type &&
+                                    value == other.value &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(type, value, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "StringLiteral{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                        }
+
+                        /**
+                         * Constant numeric value (float; integers are accepted and stored as
+                         * float).
+                         */
+                        class NumberLiteral
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val type: JsonValue,
+                            private val value: JsonField<Double>,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                                @JsonProperty("value")
+                                @ExcludeMissing
+                                value: JsonField<Double> = JsonMissing.of(),
+                            ) : this(type, value, mutableMapOf())
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("number_literal")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Literal numeric value.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun value(): Double = value.getRequired("value")
+
+                            /**
+                             * Returns the raw JSON value of [value].
+                             *
+                             * Unlike [value], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("value")
+                            @ExcludeMissing
+                            fun _value(): JsonField<Double> = value
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [NumberLiteral].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [NumberLiteral]. */
+                            class Builder internal constructor() {
+
+                                private var type: JsonValue = JsonValue.from("number_literal")
+                                private var value: JsonField<Double>? = null
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(numberLiteral: NumberLiteral) = apply {
+                                    type = numberLiteral.type
+                                    value = numberLiteral.value
+                                    additionalProperties =
+                                        numberLiteral.additionalProperties.toMutableMap()
+                                }
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("number_literal")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                /** Literal numeric value. */
+                                fun value(value: Double) = value(JsonField.of(value))
+
+                                /**
+                                 * Sets [Builder.value] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.value] with a well-typed
+                                 * [Double] value instead. This method is primarily for setting the
+                                 * field to an undocumented or not yet supported value.
+                                 */
+                                fun value(value: JsonField<Double>) = apply { this.value = value }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [NumberLiteral].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): NumberLiteral =
+                                    NumberLiteral(
+                                        type,
+                                        checkRequired("value", value),
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): NumberLiteral = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                _type().let {
+                                    if (it != JsonValue.from("number_literal")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                value()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                type.let { if (it == JsonValue.from("number_literal")) 1 else 0 } +
+                                    (if (value.asKnown().isPresent) 1 else 0)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NumberLiteral &&
+                                    type == other.type &&
+                                    value == other.value &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(type, value, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "NumberLiteral{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                        }
+
+                        /** Constant boolean value. Useful for unconditional ('always') edges. */
+                        class BoolLiteral
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                        private constructor(
+                            private val type: JsonValue,
+                            private val value: JsonField<Boolean>,
+                            private val additionalProperties: MutableMap<String, JsonValue>,
+                        ) {
+
+                            @JsonCreator
+                            private constructor(
+                                @JsonProperty("type")
+                                @ExcludeMissing
+                                type: JsonValue = JsonMissing.of(),
+                                @JsonProperty("value")
+                                @ExcludeMissing
+                                value: JsonField<Boolean> = JsonMissing.of(),
+                            ) : this(type, value, mutableMapOf())
+
+                            /**
+                             * Expected to always return the following:
+                             * ```java
+                             * JsonValue.from("bool_literal")
+                             * ```
+                             *
+                             * However, this method can be useful for debugging and logging (e.g. if
+                             * the server responded with an unexpected value).
+                             */
+                            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                            /**
+                             * Literal boolean value.
+                             *
+                             * @throws TelnyxInvalidDataException if the JSON field has an
+                             *   unexpected type or is unexpectedly missing or null (e.g. if the
+                             *   server responded with an unexpected value).
+                             */
+                            fun value(): Boolean = value.getRequired("value")
+
+                            /**
+                             * Returns the raw JSON value of [value].
+                             *
+                             * Unlike [value], this method doesn't throw if the JSON field has an
+                             * unexpected type.
+                             */
+                            @JsonProperty("value")
+                            @ExcludeMissing
+                            fun _value(): JsonField<Boolean> = value
+
+                            @JsonAnySetter
+                            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                                additionalProperties.put(key, value)
+                            }
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                Collections.unmodifiableMap(additionalProperties)
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [BoolLiteral].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [BoolLiteral]. */
+                            class Builder internal constructor() {
+
+                                private var type: JsonValue = JsonValue.from("bool_literal")
+                                private var value: JsonField<Boolean>? = null
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(boolLiteral: BoolLiteral) = apply {
+                                    type = boolLiteral.type
+                                    value = boolLiteral.value
+                                    additionalProperties =
+                                        boolLiteral.additionalProperties.toMutableMap()
+                                }
+
+                                /**
+                                 * Sets the field to an arbitrary JSON value.
+                                 *
+                                 * It is usually unnecessary to call this method because the field
+                                 * defaults to the following:
+                                 * ```java
+                                 * JsonValue.from("bool_literal")
+                                 * ```
+                                 *
+                                 * This method is primarily for setting the field to an undocumented
+                                 * or not yet supported value.
+                                 */
+                                fun type(type: JsonValue) = apply { this.type = type }
+
+                                /** Literal boolean value. */
+                                fun value(value: Boolean) = value(JsonField.of(value))
+
+                                /**
+                                 * Sets [Builder.value] to an arbitrary JSON value.
+                                 *
+                                 * You should usually call [Builder.value] with a well-typed
+                                 * [Boolean] value instead. This method is primarily for setting the
+                                 * field to an undocumented or not yet supported value.
+                                 */
+                                fun value(value: JsonField<Boolean>) = apply { this.value = value }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [BoolLiteral].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .value()
+                                 * ```
+                                 *
+                                 * @throws IllegalStateException if any required field is unset.
+                                 */
+                                fun build(): BoolLiteral =
+                                    BoolLiteral(
+                                        type,
+                                        checkRequired("value", value),
+                                        additionalProperties.toMutableMap(),
+                                    )
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): BoolLiteral = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                _type().let {
+                                    if (it != JsonValue.from("bool_literal")) {
+                                        throw TelnyxInvalidDataException(
+                                            "'type' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                                value()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                type.let { if (it == JsonValue.from("bool_literal")) 1 else 0 } +
+                                    (if (value.asKnown().isPresent) 1 else 0)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is BoolLiteral &&
+                                    type == other.type &&
+                                    value == other.value &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy {
+                                Objects.hash(type, value, additionalProperties)
+                            }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "BoolLiteral{type=$type, value=$value, additionalProperties=$additionalProperties}"
+                        }
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Expression &&
+                            expression == other.expression &&
+                            type == other.type &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(expression, type, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Expression{expression=$expression, type=$type, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * Edge condition that fires on the outcome of a tool node's execution.
+                 *
+                 * Only valid on edges leaving a tool node (``type == "tool"``). A tool node runs
+                 * exactly one tool as a deliberate flow step; this condition routes on whether that
+                 * tool reported ``success`` or ``failure``. Use it to split the happy path from the
+                 * error path after a tool runs (e.g. payment succeeded vs. declined). There is no
+                 * ``tool_id`` field — the tool node has a single tool, so the outcome is
+                 * unambiguous.
+                 */
+                class ToolResult
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val outcome: JsonField<Outcome>,
+                    private val type: JsonValue,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("outcome")
+                        @ExcludeMissing
+                        outcome: JsonField<Outcome> = JsonMissing.of(),
+                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                    ) : this(outcome, type, mutableMapOf())
+
+                    /**
+                     * Match either the tool node's success or failure outcome.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun outcome(): Outcome = outcome.getRequired("outcome")
+
+                    /**
+                     * Expected to always return the following:
+                     * ```java
+                     * JsonValue.from("tool_result")
+                     * ```
+                     *
+                     * However, this method can be useful for debugging and logging (e.g. if the
+                     * server responded with an unexpected value).
+                     */
+                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                    /**
+                     * Returns the raw JSON value of [outcome].
+                     *
+                     * Unlike [outcome], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("outcome")
+                    @ExcludeMissing
+                    fun _outcome(): JsonField<Outcome> = outcome
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [ToolResult].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .outcome()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [ToolResult]. */
+                    class Builder internal constructor() {
+
+                        private var outcome: JsonField<Outcome>? = null
+                        private var type: JsonValue = JsonValue.from("tool_result")
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(toolResult: ToolResult) = apply {
+                            outcome = toolResult.outcome
+                            type = toolResult.type
+                            additionalProperties = toolResult.additionalProperties.toMutableMap()
+                        }
+
+                        /** Match either the tool node's success or failure outcome. */
+                        fun outcome(outcome: Outcome) = outcome(JsonField.of(outcome))
+
+                        /**
+                         * Sets [Builder.outcome] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.outcome] with a well-typed [Outcome]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun outcome(outcome: JsonField<Outcome>) = apply { this.outcome = outcome }
+
+                        /**
+                         * Sets the field to an arbitrary JSON value.
+                         *
+                         * It is usually unnecessary to call this method because the field defaults
+                         * to the following:
+                         * ```java
+                         * JsonValue.from("tool_result")
+                         * ```
+                         *
+                         * This method is primarily for setting the field to an undocumented or not
+                         * yet supported value.
+                         */
+                        fun type(type: JsonValue) = apply { this.type = type }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [ToolResult].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .outcome()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): ToolResult =
+                            ToolResult(
+                                checkRequired("outcome", outcome),
+                                type,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): ToolResult = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        outcome().validate()
+                        _type().let {
+                            if (it != JsonValue.from("tool_result")) {
+                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                            }
+                        }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (outcome.asKnown().getOrNull()?.validity() ?: 0) +
+                            type.let { if (it == JsonValue.from("tool_result")) 1 else 0 }
+
+                    /** Match either the tool node's success or failure outcome. */
+                    class Outcome
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            @JvmField val SUCCESS = of("success")
+
+                            @JvmField val FAILURE = of("failure")
+
+                            @JvmStatic fun of(value: String) = Outcome(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Outcome]'s known values. */
+                        enum class Known {
+                            SUCCESS,
+                            FAILURE,
+                        }
+
+                        /**
+                         * An enum containing [Outcome]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Outcome] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            SUCCESS,
+                            FAILURE,
+                            /**
+                             * An enum member indicating that [Outcome] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                SUCCESS -> Value.SUCCESS
+                                FAILURE -> Value.FAILURE
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                SUCCESS -> Known.SUCCESS
+                                FAILURE -> Known.FAILURE
+                                else -> throw TelnyxInvalidDataException("Unknown Outcome: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                TelnyxInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws TelnyxInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): Outcome = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Outcome && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is ToolResult &&
+                            outcome == other.outcome &&
+                            type == other.type &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(outcome, type, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "ToolResult{outcome=$outcome, type=$type, additionalProperties=$additionalProperties}"
+                }
+            }
+
+            /**
+             * Destination of the transition. Discriminated by `type`: `node` (jump to another node
+             * in this flow) or `assistant` (hand off to a different assistant).
+             */
+            @JsonDeserialize(using = Target.Deserializer::class)
+            @JsonSerialize(using = Target.Serializer::class)
+            class Target
+            private constructor(
+                private val node: Node? = null,
+                private val assistant: Assistant? = null,
+                private val _json: JsonValue? = null,
+            ) {
+
+                /**
+                 * Edge target referencing another node within the same flow.
+                 *
+                 * The runtime transitions the active node to `node_id` and continues processing
+                 * within the current assistant's flow.
+                 */
+                fun node(): Optional<Node> = Optional.ofNullable(node)
+
+                /**
+                 * Edge target referencing a different assistant.
+                 *
+                 * When the edge fires, the conversation hands off to `assistant_id`: the active
+                 * assistant on the conversation row is rewritten and the new assistant's flow
+                 * starts at its own `start_node_id`. The current turn's LLM response is delivered
+                 * to the user as-is; subsequent turns route to the new assistant.
+                 */
+                fun assistant(): Optional<Assistant> = Optional.ofNullable(assistant)
+
+                fun isNode(): Boolean = node != null
+
+                fun isAssistant(): Boolean = assistant != null
+
+                /**
+                 * Edge target referencing another node within the same flow.
+                 *
+                 * The runtime transitions the active node to `node_id` and continues processing
+                 * within the current assistant's flow.
+                 */
+                fun asNode(): Node = node.getOrThrow("node")
+
+                /**
+                 * Edge target referencing a different assistant.
+                 *
+                 * When the edge fires, the conversation hands off to `assistant_id`: the active
+                 * assistant on the conversation row is rewritten and the new assistant's flow
+                 * starts at its own `start_node_id`. The current turn's LLM response is delivered
+                 * to the user as-is; subsequent turns route to the new assistant.
+                 */
+                fun asAssistant(): Assistant = assistant.getOrThrow("assistant")
+
+                fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+                /**
+                 * Maps this instance's current variant to a value of type [T] using the given
+                 * [visitor].
+                 *
+                 * Note that this method is _not_ forwards compatible with new variants from the
+                 * API, unless [visitor] overrides [Visitor.unknown]. To handle variants not known
+                 * to this version of the SDK gracefully, consider overriding [Visitor.unknown]:
+                 * ```java
+                 * import com.telnyx.sdk.core.JsonValue;
+                 * import java.util.Optional;
+                 *
+                 * Optional<String> result = target.accept(new Target.Visitor<Optional<String>>() {
+                 *     @Override
+                 *     public Optional<String> visitNode(Node node) {
+                 *         return Optional.of(node.toString());
+                 *     }
+                 *
+                 *     // ...
+                 *
+                 *     @Override
+                 *     public Optional<String> unknown(JsonValue json) {
+                 *         // Or inspect the `json`.
+                 *         return Optional.empty();
+                 *     }
+                 * });
+                 * ```
+                 *
+                 * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+                 *   [visitor] and the current variant is unknown.
+                 */
+                fun <T> accept(visitor: Visitor<T>): T =
+                    when {
+                        node != null -> visitor.visitNode(node)
+                        assistant != null -> visitor.visitAssistant(assistant)
+                        else -> visitor.unknown(_json)
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Target = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    accept(
+                        object : Visitor<Unit> {
+                            override fun visitNode(node: Node) {
+                                node.validate()
+                            }
+
+                            override fun visitAssistant(assistant: Assistant) {
+                                assistant.validate()
+                            }
+                        }
+                    )
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    accept(
+                        object : Visitor<Int> {
+                            override fun visitNode(node: Node) = node.validity()
+
+                            override fun visitAssistant(assistant: Assistant) = assistant.validity()
+
+                            override fun unknown(json: JsonValue?) = 0
+                        }
+                    )
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Target && node == other.node && assistant == other.assistant
+                }
+
+                override fun hashCode(): Int = Objects.hash(node, assistant)
+
+                override fun toString(): String =
+                    when {
+                        node != null -> "Target{node=$node}"
+                        assistant != null -> "Target{assistant=$assistant}"
+                        _json != null -> "Target{_unknown=$_json}"
+                        else -> throw IllegalStateException("Invalid Target")
+                    }
+
+                companion object {
+
+                    /**
+                     * Edge target referencing another node within the same flow.
+                     *
+                     * The runtime transitions the active node to `node_id` and continues processing
+                     * within the current assistant's flow.
+                     */
+                    @JvmStatic fun ofNode(node: Node) = Target(node = node)
+
+                    /**
+                     * Edge target referencing a different assistant.
+                     *
+                     * When the edge fires, the conversation hands off to `assistant_id`: the active
+                     * assistant on the conversation row is rewritten and the new assistant's flow
+                     * starts at its own `start_node_id`. The current turn's LLM response is
+                     * delivered to the user as-is; subsequent turns route to the new assistant.
+                     */
+                    @JvmStatic fun ofAssistant(assistant: Assistant) = Target(assistant = assistant)
+                }
+
+                /**
+                 * An interface that defines how to map each variant of [Target] to a value of type
+                 * [T].
+                 */
+                interface Visitor<out T> {
+
+                    /**
+                     * Edge target referencing another node within the same flow.
+                     *
+                     * The runtime transitions the active node to `node_id` and continues processing
+                     * within the current assistant's flow.
+                     */
+                    fun visitNode(node: Node): T
+
+                    /**
+                     * Edge target referencing a different assistant.
+                     *
+                     * When the edge fires, the conversation hands off to `assistant_id`: the active
+                     * assistant on the conversation row is rewritten and the new assistant's flow
+                     * starts at its own `start_node_id`. The current turn's LLM response is
+                     * delivered to the user as-is; subsequent turns route to the new assistant.
+                     */
+                    fun visitAssistant(assistant: Assistant): T
+
+                    /**
+                     * Maps an unknown variant of [Target] to a value of type [T].
+                     *
+                     * An instance of [Target] can contain an unknown variant if it was deserialized
+                     * from data that doesn't match any known variant. For example, if the SDK is on
+                     * an older version than the API, then the API may respond with new variants
+                     * that the SDK is unaware of.
+                     *
+                     * @throws TelnyxInvalidDataException in the default implementation.
+                     */
+                    fun unknown(json: JsonValue?): T {
+                        throw TelnyxInvalidDataException("Unknown Target: $json")
+                    }
+                }
+
+                internal class Deserializer : BaseDeserializer<Target>(Target::class) {
+
+                    override fun ObjectCodec.deserialize(node: JsonNode): Target {
+                        val json = JsonValue.fromJsonNode(node)
+                        val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
+
+                        when (type) {
+                            "node" -> {
+                                return tryDeserialize(node, jacksonTypeRef<Node>())?.let {
+                                    Target(node = it, _json = json)
+                                } ?: Target(_json = json)
+                            }
+                            "assistant" -> {
+                                return tryDeserialize(node, jacksonTypeRef<Assistant>())?.let {
+                                    Target(assistant = it, _json = json)
+                                } ?: Target(_json = json)
+                            }
+                        }
+
+                        return Target(_json = json)
+                    }
+                }
+
+                internal class Serializer : BaseSerializer<Target>(Target::class) {
+
+                    override fun serialize(
+                        value: Target,
+                        generator: JsonGenerator,
+                        provider: SerializerProvider,
+                    ) {
+                        when {
+                            value.node != null -> generator.writeObject(value.node)
+                            value.assistant != null -> generator.writeObject(value.assistant)
+                            value._json != null -> generator.writeObject(value._json)
+                            else -> throw IllegalStateException("Invalid Target")
+                        }
+                    }
+                }
+
+                /**
+                 * Edge target referencing another node within the same flow.
+                 *
+                 * The runtime transitions the active node to `node_id` and continues processing
+                 * within the current assistant's flow.
+                 */
+                class Node
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val nodeId: JsonField<String>,
+                    private val type: JsonValue,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("node_id")
+                        @ExcludeMissing
+                        nodeId: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                    ) : this(nodeId, type, mutableMapOf())
+
+                    /**
+                     * ID of the node this edge transitions into.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun nodeId(): String = nodeId.getRequired("node_id")
+
+                    /**
+                     * Expected to always return the following:
+                     * ```java
+                     * JsonValue.from("node")
+                     * ```
+                     *
+                     * However, this method can be useful for debugging and logging (e.g. if the
+                     * server responded with an unexpected value).
+                     */
+                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                    /**
+                     * Returns the raw JSON value of [nodeId].
+                     *
+                     * Unlike [nodeId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("node_id")
+                    @ExcludeMissing
+                    fun _nodeId(): JsonField<String> = nodeId
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Node].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .nodeId()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Node]. */
+                    class Builder internal constructor() {
+
+                        private var nodeId: JsonField<String>? = null
+                        private var type: JsonValue = JsonValue.from("node")
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(node: Node) = apply {
+                            nodeId = node.nodeId
+                            type = node.type
+                            additionalProperties = node.additionalProperties.toMutableMap()
+                        }
+
+                        /** ID of the node this edge transitions into. */
+                        fun nodeId(nodeId: String) = nodeId(JsonField.of(nodeId))
+
+                        /**
+                         * Sets [Builder.nodeId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.nodeId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun nodeId(nodeId: JsonField<String>) = apply { this.nodeId = nodeId }
+
+                        /**
+                         * Sets the field to an arbitrary JSON value.
+                         *
+                         * It is usually unnecessary to call this method because the field defaults
+                         * to the following:
+                         * ```java
+                         * JsonValue.from("node")
+                         * ```
+                         *
+                         * This method is primarily for setting the field to an undocumented or not
+                         * yet supported value.
+                         */
+                        fun type(type: JsonValue) = apply { this.type = type }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Node].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .nodeId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Node =
+                            Node(
+                                checkRequired("nodeId", nodeId),
+                                type,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Node = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        nodeId()
+                        _type().let {
+                            if (it != JsonValue.from("node")) {
+                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                            }
+                        }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (nodeId.asKnown().isPresent) 1 else 0) +
+                            type.let { if (it == JsonValue.from("node")) 1 else 0 }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Node &&
+                            nodeId == other.nodeId &&
+                            type == other.type &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(nodeId, type, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Node{nodeId=$nodeId, type=$type, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * Edge target referencing a different assistant.
+                 *
+                 * When the edge fires, the conversation hands off to `assistant_id`: the active
+                 * assistant on the conversation row is rewritten and the new assistant's flow
+                 * starts at its own `start_node_id`. The current turn's LLM response is delivered
+                 * to the user as-is; subsequent turns route to the new assistant.
+                 */
+                class Assistant
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val assistantId: JsonField<String>,
+                    private val type: JsonValue,
+                    private val position: JsonField<Position>,
+                    private val voiceMode: JsonField<VoiceMode>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("assistant_id")
+                        @ExcludeMissing
+                        assistantId: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                        @JsonProperty("position")
+                        @ExcludeMissing
+                        position: JsonField<Position> = JsonMissing.of(),
+                        @JsonProperty("voice_mode")
+                        @ExcludeMissing
+                        voiceMode: JsonField<VoiceMode> = JsonMissing.of(),
+                    ) : this(assistantId, type, position, voiceMode, mutableMapOf())
+
+                    /**
+                     * ID of the assistant the conversation transitions to.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun assistantId(): String = assistantId.getRequired("assistant_id")
+
+                    /**
+                     * Expected to always return the following:
+                     * ```java
+                     * JsonValue.from("assistant")
+                     * ```
+                     *
+                     * However, this method can be useful for debugging and logging (e.g. if the
+                     * server responded with an unexpected value).
+                     */
+                    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                    /**
+                     * Optional canvas coordinates for rendering the target assistant as a node in
+                     * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+                     * frontends can persist graph layout across reloads. When multiple edges target
+                     * the same assistant, each edge's `position` is independent (frontends
+                     * typically use the first non-null one).
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun position(): Optional<Position> = position.getOptional("position")
+
+                    /**
+                     * Voice behavior when handing off to the target assistant, mirroring the
+                     * handoff tool's `voice_mode`. `unified` (default) keeps the current voice
+                     * across the handoff; `distinct` lets the target assistant speak with its own
+                     * configured voice. Only applies to assistant targets — node targets override
+                     * voice via the node's own `voice_settings`.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun voiceMode(): Optional<VoiceMode> = voiceMode.getOptional("voice_mode")
+
+                    /**
+                     * Returns the raw JSON value of [assistantId].
+                     *
+                     * Unlike [assistantId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("assistant_id")
+                    @ExcludeMissing
+                    fun _assistantId(): JsonField<String> = assistantId
+
+                    /**
+                     * Returns the raw JSON value of [position].
+                     *
+                     * Unlike [position], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("position")
+                    @ExcludeMissing
+                    fun _position(): JsonField<Position> = position
+
+                    /**
+                     * Returns the raw JSON value of [voiceMode].
+                     *
+                     * Unlike [voiceMode], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("voice_mode")
+                    @ExcludeMissing
+                    fun _voiceMode(): JsonField<VoiceMode> = voiceMode
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Assistant].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .assistantId()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Assistant]. */
+                    class Builder internal constructor() {
+
+                        private var assistantId: JsonField<String>? = null
+                        private var type: JsonValue = JsonValue.from("assistant")
+                        private var position: JsonField<Position> = JsonMissing.of()
+                        private var voiceMode: JsonField<VoiceMode> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(assistant: Assistant) = apply {
+                            assistantId = assistant.assistantId
+                            type = assistant.type
+                            position = assistant.position
+                            voiceMode = assistant.voiceMode
+                            additionalProperties = assistant.additionalProperties.toMutableMap()
+                        }
+
+                        /** ID of the assistant the conversation transitions to. */
+                        fun assistantId(assistantId: String) =
+                            assistantId(JsonField.of(assistantId))
+
+                        /**
+                         * Sets [Builder.assistantId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.assistantId] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun assistantId(assistantId: JsonField<String>) = apply {
+                            this.assistantId = assistantId
+                        }
+
+                        /**
+                         * Sets the field to an arbitrary JSON value.
+                         *
+                         * It is usually unnecessary to call this method because the field defaults
+                         * to the following:
+                         * ```java
+                         * JsonValue.from("assistant")
+                         * ```
+                         *
+                         * This method is primarily for setting the field to an undocumented or not
+                         * yet supported value.
+                         */
+                        fun type(type: JsonValue) = apply { this.type = type }
+
+                        /**
+                         * Optional canvas coordinates for rendering the target assistant as a node
+                         * in authoring UIs. Pure presentation — the runtime ignores it; round-trips
+                         * so frontends can persist graph layout across reloads. When multiple edges
+                         * target the same assistant, each edge's `position` is independent
+                         * (frontends typically use the first non-null one).
+                         */
+                        fun position(position: Position) = position(JsonField.of(position))
+
+                        /**
+                         * Sets [Builder.position] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.position] with a well-typed [Position]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun position(position: JsonField<Position>) = apply {
+                            this.position = position
+                        }
+
+                        /**
+                         * Voice behavior when handing off to the target assistant, mirroring the
+                         * handoff tool's `voice_mode`. `unified` (default) keeps the current voice
+                         * across the handoff; `distinct` lets the target assistant speak with its
+                         * own configured voice. Only applies to assistant targets — node targets
+                         * override voice via the node's own `voice_settings`.
+                         */
+                        fun voiceMode(voiceMode: VoiceMode) = voiceMode(JsonField.of(voiceMode))
+
+                        /**
+                         * Sets [Builder.voiceMode] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.voiceMode] with a well-typed [VoiceMode]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun voiceMode(voiceMode: JsonField<VoiceMode>) = apply {
+                            this.voiceMode = voiceMode
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Assistant].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .assistantId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Assistant =
+                            Assistant(
+                                checkRequired("assistantId", assistantId),
+                                type,
+                                position,
+                                voiceMode,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Assistant = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        assistantId()
+                        _type().let {
+                            if (it != JsonValue.from("assistant")) {
+                                throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                            }
+                        }
+                        position().ifPresent { it.validate() }
+                        voiceMode().ifPresent { it.validate() }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (assistantId.asKnown().isPresent) 1 else 0) +
+                            type.let { if (it == JsonValue.from("assistant")) 1 else 0 } +
+                            (position.asKnown().getOrNull()?.validity() ?: 0) +
+                            (voiceMode.asKnown().getOrNull()?.validity() ?: 0)
+
+                    /**
+                     * Optional canvas coordinates for rendering the target assistant as a node in
+                     * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+                     * frontends can persist graph layout across reloads. When multiple edges target
+                     * the same assistant, each edge's `position` is independent (frontends
+                     * typically use the first non-null one).
+                     */
+                    class Position
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                    private constructor(
+                        private val x: JsonField<Double>,
+                        private val y: JsonField<Double>,
+                        private val additionalProperties: MutableMap<String, JsonValue>,
+                    ) {
+
+                        @JsonCreator
+                        private constructor(
+                            @JsonProperty("x")
+                            @ExcludeMissing
+                            x: JsonField<Double> = JsonMissing.of(),
+                            @JsonProperty("y")
+                            @ExcludeMissing
+                            y: JsonField<Double> = JsonMissing.of(),
+                        ) : this(x, y, mutableMapOf())
+
+                        /**
+                         * Horizontal coordinate in the authoring canvas.
+                         *
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
+                        fun x(): Double = x.getRequired("x")
+
+                        /**
+                         * Vertical coordinate in the authoring canvas.
+                         *
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
+                        fun y(): Double = y.getRequired("y")
+
+                        /**
+                         * Returns the raw JSON value of [x].
+                         *
+                         * Unlike [x], this method doesn't throw if the JSON field has an unexpected
+                         * type.
+                         */
+                        @JsonProperty("x") @ExcludeMissing fun _x(): JsonField<Double> = x
+
+                        /**
+                         * Returns the raw JSON value of [y].
+                         *
+                         * Unlike [y], this method doesn't throw if the JSON field has an unexpected
+                         * type.
+                         */
+                        @JsonProperty("y") @ExcludeMissing fun _y(): JsonField<Double> = y
+
+                        @JsonAnySetter
+                        private fun putAdditionalProperty(key: String, value: JsonValue) {
+                            additionalProperties.put(key, value)
+                        }
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> =
+                            Collections.unmodifiableMap(additionalProperties)
+
+                        fun toBuilder() = Builder().from(this)
+
+                        companion object {
+
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Position].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .x()
+                             * .y()
+                             * ```
+                             */
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        /** A builder for [Position]. */
+                        class Builder internal constructor() {
+
+                            private var x: JsonField<Double>? = null
+                            private var y: JsonField<Double>? = null
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(position: Position) = apply {
+                                x = position.x
+                                y = position.y
+                                additionalProperties = position.additionalProperties.toMutableMap()
+                            }
+
+                            /** Horizontal coordinate in the authoring canvas. */
+                            fun x(x: Double) = x(JsonField.of(x))
+
+                            /**
+                             * Sets [Builder.x] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.x] with a well-typed [Double] value
+                             * instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun x(x: JsonField<Double>) = apply { this.x = x }
+
+                            /** Vertical coordinate in the authoring canvas. */
+                            fun y(y: Double) = y(JsonField.of(y))
+
+                            /**
+                             * Sets [Builder.y] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.y] with a well-typed [Double] value
+                             * instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun y(y: JsonField<Double>) = apply { this.y = y }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun removeAdditionalProperty(key: String) = apply {
+                                additionalProperties.remove(key)
+                            }
+
+                            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                keys.forEach(::removeAdditionalProperty)
+                            }
+
+                            /**
+                             * Returns an immutable instance of [Position].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .x()
+                             * .y()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
+                            fun build(): Position =
+                                Position(
+                                    checkRequired("x", x),
+                                    checkRequired("y", y),
+                                    additionalProperties.toMutableMap(),
+                                )
+                        }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws TelnyxInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): Position = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            x()
+                            y()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int =
+                            (if (x.asKnown().isPresent) 1 else 0) +
+                                (if (y.asKnown().isPresent) 1 else 0)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Position &&
+                                x == other.x &&
+                                y == other.y &&
+                                additionalProperties == other.additionalProperties
+                        }
+
+                        private val hashCode: Int by lazy {
+                            Objects.hash(x, y, additionalProperties)
+                        }
+
+                        override fun hashCode(): Int = hashCode
+
+                        override fun toString() =
+                            "Position{x=$x, y=$y, additionalProperties=$additionalProperties}"
+                    }
+
+                    /**
+                     * Voice behavior when handing off to the target assistant, mirroring the
+                     * handoff tool's `voice_mode`. `unified` (default) keeps the current voice
+                     * across the handoff; `distinct` lets the target assistant speak with its own
+                     * configured voice. Only applies to assistant targets — node targets override
+                     * voice via the node's own `voice_settings`.
+                     */
+                    class VoiceMode
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            @JvmField val UNIFIED = of("unified")
+
+                            @JvmField val DISTINCT = of("distinct")
+
+                            @JvmStatic fun of(value: String) = VoiceMode(JsonField.of(value))
+                        }
+
+                        /** An enum containing [VoiceMode]'s known values. */
+                        enum class Known {
+                            UNIFIED,
+                            DISTINCT,
+                        }
+
+                        /**
+                         * An enum containing [VoiceMode]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [VoiceMode] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            UNIFIED,
+                            DISTINCT,
+                            /**
+                             * An enum member indicating that [VoiceMode] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                UNIFIED -> Value.UNIFIED
+                                DISTINCT -> Value.DISTINCT
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                UNIFIED -> Known.UNIFIED
+                                DISTINCT -> Known.DISTINCT
+                                else ->
+                                    throw TelnyxInvalidDataException("Unknown VoiceMode: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                TelnyxInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws TelnyxInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): VoiceMode = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is VoiceMode && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Assistant &&
+                            assistantId == other.assistantId &&
+                            type == other.type &&
+                            position == other.position &&
+                            voiceMode == other.voiceMode &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(assistantId, type, position, voiceMode, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Assistant{assistantId=$assistantId, type=$type, position=$position, voiceMode=$voiceMode, additionalProperties=$additionalProperties}"
+                }
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Edge &&
+                    id == other.id &&
+                    condition == other.condition &&
+                    startNodeId == other.startNodeId &&
+                    target == other.target &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(id, condition, startNodeId, target, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Edge{id=$id, condition=$condition, startNodeId=$startNodeId, target=$target, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ConversationFlow &&
+                nodes == other.nodes &&
+                startNodeId == other.startNodeId &&
+                edges == other.edges &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(nodes, startNodeId, edges, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ConversationFlow{nodes=$nodes, startNodeId=$startNodeId, edges=$edges, additionalProperties=$additionalProperties}"
+    }
 
     /** Map of dynamic variables and their default values */
     class DynamicVariables
@@ -1700,6 +18107,7 @@ private constructor(
         }
 
         return other is UpdateAssistant &&
+            conversationFlow == other.conversationFlow &&
             description == other.description &&
             dynamicVariables == other.dynamicVariables &&
             dynamicVariablesWebhookTimeoutMs == other.dynamicVariablesWebhookTimeoutMs &&
@@ -1733,6 +18141,7 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            conversationFlow,
             description,
             dynamicVariables,
             dynamicVariablesWebhookTimeoutMs,
@@ -1768,5 +18177,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UpdateAssistant{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+        "UpdateAssistant{conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
 }

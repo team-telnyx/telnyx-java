@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.AiCreateResponseParams
+import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -13,13 +13,13 @@ internal class AiServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun createResponse() {
+    fun createResponseDeprecated() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val aiServiceAsync = client.ai()
 
         val responseFuture =
-            aiServiceAsync.createResponse(
-                AiCreateResponseParams.Input.builder()
+            aiServiceAsync.createResponseDeprecated(
+                AiCreateResponseDeprecatedParams.Body.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()

@@ -161,7 +161,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.regions()).isNotNull()
         assertThat(client.regulatoryRequirements()).isNotNull()
         assertThat(client.reports()).isNotNull()
-        assertThat(client.speechToText()).isNotNull()
         assertThat(client.requirementGroups()).isNotNull()
         assertThat(client.requirementTypes()).isNotNull()
         assertThat(client.requirements()).isNotNull()
@@ -218,8 +217,9 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.termsOfService()).isNotNull()
         assertThat(client.pronunciationDicts()).isNotNull()
         assertThat(client.uacConnections()).isNotNull()
-        assertThat(client.voiceSdkCallReports()).isNotNull()
         assertThat(client.sipRegistrationStatus()).isNotNull()
+        assertThat(client.speechToText()).isNotNull()
+        assertThat(client.voiceSdkCallReports()).isNotNull()
     }
 
     @Test
