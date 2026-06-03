@@ -19,8 +19,10 @@ import kotlin.jvm.optionals.getOrNull
  *
  * Service types:
  * * `streaming` — standalone WebSocket transcription via `/speech-to-text/transcription`.
- * * `file_transcription` — file-based transcription via `/ai/audio/transcriptions`.
- * * `in_call_transcription` — live call transcription via Call Control `transcription_start`.
+ * * `file_based` — file-based transcription via `/ai/audio/transcriptions`.
+ * * `in_call` — live call transcription via Call Control `transcription_start`.
+ * * `ai_assistant` — STT configured on a Call Control AI Assistant via voice-assistant
+ *   `TranscriptionConfig` (covers both live-streaming and non-streaming/batch models).
  *
  * Use this endpoint to discover which (provider, model) combinations are available for the surface
  * you need, and which language codes each accepts. `auto` in a `languages` array indicates the
@@ -42,7 +44,13 @@ private constructor(
      */
     fun provider(): Optional<Provider> = Optional.ofNullable(provider)
 
-    /** Filter to entries that support the given service type. */
+    /**
+     * Filter to entries that support the given service type. For backward compatibility with the
+     * values that briefly shipped before the product-aligned rename, the legacy aliases
+     * `file_transcription`, `in_call_transcription`, and `ai_assistant_transcription` are silently
+     * accepted and normalized to `file_based`, `in_call`, and `ai_assistant` respectively. The
+     * response always emits the canonical (post-rename) values.
+     */
     fun serviceType(): Optional<ServiceType> = Optional.ofNullable(serviceType)
 
     /** Additional headers to send with the request. */
@@ -93,7 +101,13 @@ private constructor(
         /** Alias for calling [Builder.provider] with `provider.orElse(null)`. */
         fun provider(provider: Optional<Provider>) = provider(provider.getOrNull())
 
-        /** Filter to entries that support the given service type. */
+        /**
+         * Filter to entries that support the given service type. For backward compatibility with
+         * the values that briefly shipped before the product-aligned rename, the legacy aliases
+         * `file_transcription`, `in_call_transcription`, and `ai_assistant_transcription` are
+         * silently accepted and normalized to `file_based`, `in_call`, and `ai_assistant`
+         * respectively. The response always emits the canonical (post-rename) values.
+         */
         fun serviceType(serviceType: ServiceType?) = apply { this.serviceType = serviceType }
 
         /** Alias for calling [Builder.serviceType] with `serviceType.orElse(null)`. */
@@ -404,7 +418,13 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Filter to entries that support the given service type. */
+    /**
+     * Filter to entries that support the given service type. For backward compatibility with the
+     * values that briefly shipped before the product-aligned rename, the legacy aliases
+     * `file_transcription`, `in_call_transcription`, and `ai_assistant_transcription` are silently
+     * accepted and normalized to `file_based`, `in_call`, and `ai_assistant` respectively. The
+     * response always emits the canonical (post-rename) values.
+     */
     class ServiceType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -422,9 +442,11 @@ private constructor(
 
             @JvmField val STREAMING = of("streaming")
 
-            @JvmField val FILE_TRANSCRIPTION = of("file_transcription")
+            @JvmField val FILE_BASED = of("file_based")
 
-            @JvmField val IN_CALL_TRANSCRIPTION = of("in_call_transcription")
+            @JvmField val IN_CALL = of("in_call")
+
+            @JvmField val AI_ASSISTANT = of("ai_assistant")
 
             @JvmStatic fun of(value: String) = ServiceType(JsonField.of(value))
         }
@@ -432,8 +454,9 @@ private constructor(
         /** An enum containing [ServiceType]'s known values. */
         enum class Known {
             STREAMING,
-            FILE_TRANSCRIPTION,
-            IN_CALL_TRANSCRIPTION,
+            FILE_BASED,
+            IN_CALL,
+            AI_ASSISTANT,
         }
 
         /**
@@ -447,8 +470,9 @@ private constructor(
          */
         enum class Value {
             STREAMING,
-            FILE_TRANSCRIPTION,
-            IN_CALL_TRANSCRIPTION,
+            FILE_BASED,
+            IN_CALL,
+            AI_ASSISTANT,
             /**
              * An enum member indicating that [ServiceType] was instantiated with an unknown value.
              */
@@ -465,8 +489,9 @@ private constructor(
         fun value(): Value =
             when (this) {
                 STREAMING -> Value.STREAMING
-                FILE_TRANSCRIPTION -> Value.FILE_TRANSCRIPTION
-                IN_CALL_TRANSCRIPTION -> Value.IN_CALL_TRANSCRIPTION
+                FILE_BASED -> Value.FILE_BASED
+                IN_CALL -> Value.IN_CALL
+                AI_ASSISTANT -> Value.AI_ASSISTANT
                 else -> Value._UNKNOWN
             }
 
@@ -482,8 +507,9 @@ private constructor(
         fun known(): Known =
             when (this) {
                 STREAMING -> Known.STREAMING
-                FILE_TRANSCRIPTION -> Known.FILE_TRANSCRIPTION
-                IN_CALL_TRANSCRIPTION -> Known.IN_CALL_TRANSCRIPTION
+                FILE_BASED -> Known.FILE_BASED
+                IN_CALL -> Known.IN_CALL
+                AI_ASSISTANT -> Known.AI_ASSISTANT
                 else -> throw TelnyxInvalidDataException("Unknown ServiceType: $value")
             }
 

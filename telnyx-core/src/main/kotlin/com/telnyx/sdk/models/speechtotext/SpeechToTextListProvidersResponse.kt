@@ -215,11 +215,13 @@ private constructor(
         (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** A (provider, model) tuple along with its supported service types and languages. */
+    /**
+     * A (provider, model) tuple along with the service surfaces it supports. Each entry in
+     * `service_types` describes one surface and the languages accepted on it.
+     */
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val languages: JsonField<List<String>>,
         private val model: JsonField<String>,
         private val provider: JsonField<String>,
         private val serviceTypes: JsonField<List<ServiceType>>,
@@ -228,9 +230,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("languages")
-            @ExcludeMissing
-            languages: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("provider")
             @ExcludeMissing
@@ -238,16 +237,7 @@ private constructor(
             @JsonProperty("service_types")
             @ExcludeMissing
             serviceTypes: JsonField<List<ServiceType>> = JsonMissing.of(),
-        ) : this(languages, model, provider, serviceTypes, mutableMapOf())
-
-        /**
-         * Languages this (provider, model) accepts, in the provider's native code format. `auto`
-         * indicates the provider performs language detection.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun languages(): List<String> = languages.getRequired("languages")
+        ) : this(model, provider, serviceTypes, mutableMapOf())
 
         /**
          * Provider-scoped model name.
@@ -266,21 +256,13 @@ private constructor(
         fun provider(): String = provider.getRequired("provider")
 
         /**
-         * Service surfaces this (provider, model) supports.
+         * Service surfaces this (provider, model) supports. When the request filters by
+         * `service_type`, only the matching nested entry is returned for each matching model.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun serviceTypes(): List<ServiceType> = serviceTypes.getRequired("service_types")
-
-        /**
-         * Returns the raw JSON value of [languages].
-         *
-         * Unlike [languages], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("languages")
-        @ExcludeMissing
-        fun _languages(): JsonField<List<String>> = languages
 
         /**
          * Returns the raw JSON value of [model].
@@ -325,7 +307,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .languages()
              * .model()
              * .provider()
              * .serviceTypes()
@@ -337,7 +318,6 @@ private constructor(
         /** A builder for [Data]. */
         class Builder internal constructor() {
 
-            private var languages: JsonField<MutableList<String>>? = null
             private var model: JsonField<String>? = null
             private var provider: JsonField<String>? = null
             private var serviceTypes: JsonField<MutableList<ServiceType>>? = null
@@ -345,40 +325,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(data: Data) = apply {
-                languages = data.languages.map { it.toMutableList() }
                 model = data.model
                 provider = data.provider
                 serviceTypes = data.serviceTypes.map { it.toMutableList() }
                 additionalProperties = data.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Languages this (provider, model) accepts, in the provider's native code format.
-             * `auto` indicates the provider performs language detection.
-             */
-            fun languages(languages: List<String>) = languages(JsonField.of(languages))
-
-            /**
-             * Sets [Builder.languages] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.languages] with a well-typed `List<String>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun languages(languages: JsonField<List<String>>) = apply {
-                this.languages = languages.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [String] to [languages].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addLanguage(language: String) = apply {
-                languages =
-                    (languages ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("languages", it).add(language)
-                    }
             }
 
             /** Provider-scoped model name. */
@@ -405,7 +355,10 @@ private constructor(
              */
             fun provider(provider: JsonField<String>) = apply { this.provider = provider }
 
-            /** Service surfaces this (provider, model) supports. */
+            /**
+             * Service surfaces this (provider, model) supports. When the request filters by
+             * `service_type`, only the matching nested entry is returned for each matching model.
+             */
             fun serviceTypes(serviceTypes: List<ServiceType>) =
                 serviceTypes(JsonField.of(serviceTypes))
 
@@ -458,7 +411,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .languages()
              * .model()
              * .provider()
              * .serviceTypes()
@@ -468,7 +420,6 @@ private constructor(
              */
             fun build(): Data =
                 Data(
-                    checkRequired("languages", languages).map { it.toImmutable() },
                     checkRequired("model", model),
                     checkRequired("provider", provider),
                     checkRequired("serviceTypes", serviceTypes).map { it.toImmutable() },
@@ -492,7 +443,6 @@ private constructor(
                 return@apply
             }
 
-            languages()
             model()
             provider()
             serviceTypes().forEach { it.validate() }
@@ -515,108 +465,198 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (languages.asKnown().getOrNull()?.size ?: 0) +
-                (if (model.asKnown().isPresent) 1 else 0) +
+            (if (model.asKnown().isPresent) 1 else 0) +
                 (if (provider.asKnown().isPresent) 1 else 0) +
                 (serviceTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
-        /** Service surface a model is available on. */
-        class ServiceType @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
+        /**
+         * A supported service surface for a given (provider, model), along with the language codes
+         * accepted on that surface. Language support can differ per surface — for example, a model
+         * may accept a narrower language set for streaming than for file transcription.
+         */
+        class ServiceType
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val languages: JsonField<List<String>>,
+            private val type: JsonField<Type>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("languages")
+                @ExcludeMissing
+                languages: JsonField<List<String>> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            ) : this(languages, type, mutableMapOf())
 
             /**
-             * Returns this class instance's raw value.
+             * Languages accepted on this service surface, in the provider's native code format.
+             * `auto` indicates the provider performs language detection.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            fun languages(): List<String> = languages.getRequired("languages")
+
+            /**
+             * Service surface a model is available on. `ai_assistant` is the STT surface configured
+             * via Call Control voice-assistant transcription; it covers both live-streaming and
+             * non-streaming/batch models (matching the `TranscriptionConfig.model` enum on
+             * `call-control` voice assistants).
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun type(): Type = type.getRequired("type")
+
+            /**
+             * Returns the raw JSON value of [languages].
+             *
+             * Unlike [languages], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("languages")
+            @ExcludeMissing
+            fun _languages(): JsonField<List<String>> = languages
+
+            /**
+             * Returns the raw JSON value of [type].
+             *
+             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
 
             companion object {
 
-                @JvmField val STREAMING = of("streaming")
-
-                @JvmField val FILE_TRANSCRIPTION = of("file_transcription")
-
-                @JvmField val IN_CALL_TRANSCRIPTION = of("in_call_transcription")
-
-                @JvmStatic fun of(value: String) = ServiceType(JsonField.of(value))
-            }
-
-            /** An enum containing [ServiceType]'s known values. */
-            enum class Known {
-                STREAMING,
-                FILE_TRANSCRIPTION,
-                IN_CALL_TRANSCRIPTION,
-            }
-
-            /**
-             * An enum containing [ServiceType]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [ServiceType] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                STREAMING,
-                FILE_TRANSCRIPTION,
-                IN_CALL_TRANSCRIPTION,
                 /**
-                 * An enum member indicating that [ServiceType] was instantiated with an unknown
-                 * value.
+                 * Returns a mutable builder for constructing an instance of [ServiceType].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .languages()
+                 * .type()
+                 * ```
                  */
-                _UNKNOWN,
+                @JvmStatic fun builder() = Builder()
             }
 
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    STREAMING -> Value.STREAMING
-                    FILE_TRANSCRIPTION -> Value.FILE_TRANSCRIPTION
-                    IN_CALL_TRANSCRIPTION -> Value.IN_CALL_TRANSCRIPTION
-                    else -> Value._UNKNOWN
+            /** A builder for [ServiceType]. */
+            class Builder internal constructor() {
+
+                private var languages: JsonField<MutableList<String>>? = null
+                private var type: JsonField<Type>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(serviceType: ServiceType) = apply {
+                    languages = serviceType.languages.map { it.toMutableList() }
+                    type = serviceType.type
+                    additionalProperties = serviceType.additionalProperties.toMutableMap()
                 }
 
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    STREAMING -> Known.STREAMING
-                    FILE_TRANSCRIPTION -> Known.FILE_TRANSCRIPTION
-                    IN_CALL_TRANSCRIPTION -> Known.IN_CALL_TRANSCRIPTION
-                    else -> throw TelnyxInvalidDataException("Unknown ServiceType: $value")
+                /**
+                 * Languages accepted on this service surface, in the provider's native code format.
+                 * `auto` indicates the provider performs language detection.
+                 */
+                fun languages(languages: List<String>) = languages(JsonField.of(languages))
+
+                /**
+                 * Sets [Builder.languages] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.languages] with a well-typed `List<String>`
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun languages(languages: JsonField<List<String>>) = apply {
+                    this.languages = languages.map { it.toMutableList() }
                 }
 
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
+                /**
+                 * Adds a single [String] to [languages].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addLanguage(language: String) = apply {
+                    languages =
+                        (languages ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("languages", it).add(language)
+                        }
                 }
+
+                /**
+                 * Service surface a model is available on. `ai_assistant` is the STT surface
+                 * configured via Call Control voice-assistant transcription; it covers both
+                 * live-streaming and non-streaming/batch models (matching the
+                 * `TranscriptionConfig.model` enum on `call-control` voice assistants).
+                 */
+                fun type(type: Type) = type(JsonField.of(type))
+
+                /**
+                 * Sets [Builder.type] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ServiceType].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .languages()
+                 * .type()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): ServiceType =
+                    ServiceType(
+                        checkRequired("languages", languages).map { it.toImmutable() },
+                        checkRequired("type", type),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
 
             private var validated: Boolean = false
 
@@ -635,7 +675,8 @@ private constructor(
                     return@apply
                 }
 
-                known()
+                languages()
+                type().validate()
                 validated = true
             }
 
@@ -653,19 +694,188 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (languages.asKnown().getOrNull()?.size ?: 0) +
+                    (type.asKnown().getOrNull()?.validity() ?: 0)
+
+            /**
+             * Service surface a model is available on. `ai_assistant` is the STT surface configured
+             * via Call Control voice-assistant transcription; it covers both live-streaming and
+             * non-streaming/batch models (matching the `TranscriptionConfig.model` enum on
+             * `call-control` voice assistants).
+             */
+            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val STREAMING = of("streaming")
+
+                    @JvmField val FILE_BASED = of("file_based")
+
+                    @JvmField val IN_CALL = of("in_call")
+
+                    @JvmField val AI_ASSISTANT = of("ai_assistant")
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                /** An enum containing [Type]'s known values. */
+                enum class Known {
+                    STREAMING,
+                    FILE_BASED,
+                    IN_CALL,
+                    AI_ASSISTANT,
+                }
+
+                /**
+                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Type] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    STREAMING,
+                    FILE_BASED,
+                    IN_CALL,
+                    AI_ASSISTANT,
+                    /**
+                     * An enum member indicating that [Type] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        STREAMING -> Value.STREAMING
+                        FILE_BASED -> Value.FILE_BASED
+                        IN_CALL -> Value.IN_CALL
+                        AI_ASSISTANT -> Value.AI_ASSISTANT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        STREAMING -> Known.STREAMING
+                        FILE_BASED -> Known.FILE_BASED
+                        IN_CALL -> Known.IN_CALL
+                        AI_ASSISTANT -> Known.AI_ASSISTANT
+                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is ServiceType && value == other.value
+                return other is ServiceType &&
+                    languages == other.languages &&
+                    type == other.type &&
+                    additionalProperties == other.additionalProperties
             }
 
-            override fun hashCode() = value.hashCode()
+            private val hashCode: Int by lazy {
+                Objects.hash(languages, type, additionalProperties)
+            }
 
-            override fun toString() = value.toString()
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ServiceType{languages=$languages, type=$type, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -674,7 +884,6 @@ private constructor(
             }
 
             return other is Data &&
-                languages == other.languages &&
                 model == other.model &&
                 provider == other.provider &&
                 serviceTypes == other.serviceTypes &&
@@ -682,13 +891,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(languages, model, provider, serviceTypes, additionalProperties)
+            Objects.hash(model, provider, serviceTypes, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{languages=$languages, model=$model, provider=$provider, serviceTypes=$serviceTypes, additionalProperties=$additionalProperties}"
+            "Data{model=$model, provider=$provider, serviceTypes=$serviceTypes, additionalProperties=$additionalProperties}"
     }
 
     class Meta
