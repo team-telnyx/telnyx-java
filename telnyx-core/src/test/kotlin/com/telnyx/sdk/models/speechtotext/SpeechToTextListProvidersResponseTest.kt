@@ -15,11 +15,16 @@ internal class SpeechToTextListProvidersResponseTest {
             SpeechToTextListProvidersResponse.builder()
                 .addData(
                     SpeechToTextListProvidersResponse.Data.builder()
-                        .languages(listOf("en", "es", "fr"))
-                        .model("nova-3")
+                        .model("deepgram/nova-3")
                         .provider("deepgram")
                         .addServiceType(
-                            SpeechToTextListProvidersResponse.Data.ServiceType.STREAMING
+                            SpeechToTextListProvidersResponse.Data.ServiceType.builder()
+                                .languages(listOf("en", "es", "fr"))
+                                .type(
+                                    SpeechToTextListProvidersResponse.Data.ServiceType.Type
+                                        .STREAMING
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -29,10 +34,14 @@ internal class SpeechToTextListProvidersResponseTest {
         assertThat(speechToTextListProvidersResponse.data())
             .containsExactly(
                 SpeechToTextListProvidersResponse.Data.builder()
-                    .languages(listOf("en", "es", "fr"))
-                    .model("nova-3")
+                    .model("deepgram/nova-3")
                     .provider("deepgram")
-                    .addServiceType(SpeechToTextListProvidersResponse.Data.ServiceType.STREAMING)
+                    .addServiceType(
+                        SpeechToTextListProvidersResponse.Data.ServiceType.builder()
+                            .languages(listOf("en", "es", "fr"))
+                            .type(SpeechToTextListProvidersResponse.Data.ServiceType.Type.STREAMING)
+                            .build()
+                    )
                     .build()
             )
         assertThat(speechToTextListProvidersResponse.meta())
@@ -46,11 +55,16 @@ internal class SpeechToTextListProvidersResponseTest {
             SpeechToTextListProvidersResponse.builder()
                 .addData(
                     SpeechToTextListProvidersResponse.Data.builder()
-                        .languages(listOf("en", "es", "fr"))
-                        .model("nova-3")
+                        .model("deepgram/nova-3")
                         .provider("deepgram")
                         .addServiceType(
-                            SpeechToTextListProvidersResponse.Data.ServiceType.STREAMING
+                            SpeechToTextListProvidersResponse.Data.ServiceType.builder()
+                                .languages(listOf("en", "es", "fr"))
+                                .type(
+                                    SpeechToTextListProvidersResponse.Data.ServiceType.Type
+                                        .STREAMING
+                                )
+                                .build()
                         )
                         .build()
                 )
