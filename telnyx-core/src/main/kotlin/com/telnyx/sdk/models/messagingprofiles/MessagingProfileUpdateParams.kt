@@ -43,6 +43,14 @@ private constructor(
     fun id(): Optional<String> = body.id()
 
     /**
+     * The ID of the AI assistant associated with this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun aiAssistantId(): Optional<String> = body.aiAssistantId()
+
+    /**
      * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric
      * sender ID.
      *
@@ -218,6 +226,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _id(): JsonField<String> = body._id()
+
+    /**
+     * Returns the raw JSON value of [aiAssistantId].
+     *
+     * Unlike [aiAssistantId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _aiAssistantId(): JsonField<String> = body._aiAssistantId()
 
     /**
      * Returns the raw JSON value of [alphaSender].
@@ -411,10 +426,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [id]
+         * - [aiAssistantId]
          * - [alphaSender]
          * - [createdAt]
          * - [dailySpendLimit]
-         * - [dailySpendLimitEnabled]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -429,6 +444,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { body.id(id) }
+
+        /** The ID of the AI assistant associated with this messaging profile. */
+        fun aiAssistantId(aiAssistantId: String?) = apply { body.aiAssistantId(aiAssistantId) }
+
+        /** Alias for calling [Builder.aiAssistantId] with `aiAssistantId.orElse(null)`. */
+        fun aiAssistantId(aiAssistantId: Optional<String>) =
+            aiAssistantId(aiAssistantId.getOrNull())
+
+        /**
+         * Sets [Builder.aiAssistantId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.aiAssistantId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun aiAssistantId(aiAssistantId: JsonField<String>) = apply {
+            body.aiAssistantId(aiAssistantId)
+        }
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -908,6 +941,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
+        private val aiAssistantId: JsonField<String>,
         private val alphaSender: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val dailySpendLimit: JsonField<String>,
@@ -933,6 +967,9 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ai_assistant_id")
+            @ExcludeMissing
+            aiAssistantId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("alpha_sender")
             @ExcludeMissing
             alphaSender: JsonField<String> = JsonMissing.of(),
@@ -988,6 +1025,7 @@ private constructor(
             whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
         ) : this(
             id,
+            aiAssistantId,
             alphaSender,
             createdAt,
             dailySpendLimit,
@@ -1017,6 +1055,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun id(): Optional<String> = id.getOptional("id")
+
+        /**
+         * The ID of the AI assistant associated with this messaging profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun aiAssistantId(): Optional<String> = aiAssistantId.getOptional("ai_assistant_id")
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -1203,6 +1249,16 @@ private constructor(
          * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [aiAssistantId].
+         *
+         * Unlike [aiAssistantId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ai_assistant_id")
+        @ExcludeMissing
+        fun _aiAssistantId(): JsonField<String> = aiAssistantId
 
         /**
          * Returns the raw JSON value of [alphaSender].
@@ -1401,6 +1457,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String> = JsonMissing.of()
+            private var aiAssistantId: JsonField<String> = JsonMissing.of()
             private var alphaSender: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var dailySpendLimit: JsonField<String> = JsonMissing.of()
@@ -1425,6 +1482,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 id = body.id
+                aiAssistantId = body.aiAssistantId
                 alphaSender = body.alphaSender
                 createdAt = body.createdAt
                 dailySpendLimit = body.dailySpendLimit
@@ -1458,6 +1516,25 @@ private constructor(
              * value.
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /** The ID of the AI assistant associated with this messaging profile. */
+            fun aiAssistantId(aiAssistantId: String?) =
+                aiAssistantId(JsonField.ofNullable(aiAssistantId))
+
+            /** Alias for calling [Builder.aiAssistantId] with `aiAssistantId.orElse(null)`. */
+            fun aiAssistantId(aiAssistantId: Optional<String>) =
+                aiAssistantId(aiAssistantId.getOrNull())
+
+            /**
+             * Sets [Builder.aiAssistantId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.aiAssistantId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun aiAssistantId(aiAssistantId: JsonField<String>) = apply {
+                this.aiAssistantId = aiAssistantId
+            }
 
             /**
              * The alphanumeric sender ID to use when sending to destinations that require an
@@ -1827,6 +1904,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     id,
+                    aiAssistantId,
                     alphaSender,
                     createdAt,
                     dailySpendLimit,
@@ -1867,6 +1945,7 @@ private constructor(
             }
 
             id()
+            aiAssistantId()
             alphaSender()
             createdAt()
             dailySpendLimit()
@@ -1906,6 +1985,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
+                (if (aiAssistantId.asKnown().isPresent) 1 else 0) +
                 (if (alphaSender.asKnown().isPresent) 1 else 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
@@ -1933,6 +2013,7 @@ private constructor(
 
             return other is Body &&
                 id == other.id &&
+                aiAssistantId == other.aiAssistantId &&
                 alphaSender == other.alphaSender &&
                 createdAt == other.createdAt &&
                 dailySpendLimit == other.dailySpendLimit &&
@@ -1958,6 +2039,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 id,
+                aiAssistantId,
                 alphaSender,
                 createdAt,
                 dailySpendLimit,
@@ -1984,7 +2066,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Body{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */
