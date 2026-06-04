@@ -27,7 +27,6 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.AzureVoiceSettings
-import com.telnyx.sdk.models.InworldVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.RimeVoiceSettings
@@ -712,8 +711,8 @@ private constructor(
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
         fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
 
-        /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
-        fun voiceSettings(inworld: InworldVoiceSettings) = apply { body.voiceSettings(inworld) }
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld()`. */
+        fun voiceSettingsInworld() = apply { body.voiceSettingsInworld() }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
         fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
@@ -1664,9 +1663,8 @@ private constructor(
             fun voiceSettings(resemble: ResembleVoiceSettings) =
                 voiceSettings(VoiceSettings.ofResemble(resemble))
 
-            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
-            fun voiceSettings(inworld: InworldVoiceSettings) =
-                voiceSettings(VoiceSettings.ofInworld(inworld))
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld()`. */
+            fun voiceSettingsInworld() = voiceSettings(VoiceSettings.ofInworld())
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
             fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
@@ -2439,7 +2437,7 @@ private constructor(
         private val azure: AzureVoiceSettings? = null,
         private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
-        private val inworld: InworldVoiceSettings? = null,
+        private val inworld: JsonValue? = null,
         private val xai: XaiVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
@@ -2458,7 +2456,7 @@ private constructor(
 
         fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
 
-        fun inworld(): Optional<InworldVoiceSettings> = Optional.ofNullable(inworld)
+        fun inworld(): Optional<JsonValue> = Optional.ofNullable(inworld)
 
         fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
 
@@ -2494,7 +2492,7 @@ private constructor(
 
         fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
-        fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
+        fun asInworld(): JsonValue = inworld.getOrThrow("inworld")
 
         fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
 
@@ -2589,8 +2587,14 @@ private constructor(
                         resemble.validate()
                     }
 
-                    override fun visitInworld(inworld: InworldVoiceSettings) {
-                        inworld.validate()
+                    override fun visitInworld(inworld: JsonValue) {
+                        inworld.let {
+                            if (it != JsonValue.from(mapOf("type" to "inworld"))) {
+                                throw TelnyxInvalidDataException(
+                                    "'inworld' is invalid, received $it"
+                                )
+                            }
+                        }
                     }
 
                     override fun visitXai(xai: XaiVoiceSettings) {
@@ -2635,7 +2639,10 @@ private constructor(
                     override fun visitResemble(resemble: ResembleVoiceSettings) =
                         resemble.validity()
 
-                    override fun visitInworld(inworld: InworldVoiceSettings) = inworld.validity()
+                    override fun visitInworld(inworld: JsonValue) =
+                        inworld.let {
+                            if (it == JsonValue.from(mapOf("type" to "inworld"))) 1 else 0
+                        }
 
                     override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
 
@@ -2699,7 +2706,7 @@ private constructor(
             fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
 
             @JvmStatic
-            fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
+            fun ofInworld() = VoiceSettings(inworld = JsonValue.from(mapOf("type" to "inworld")))
 
             @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
         }
@@ -2724,7 +2731,7 @@ private constructor(
 
             fun visitResemble(resemble: ResembleVoiceSettings): T
 
-            fun visitInworld(inworld: InworldVoiceSettings): T
+            fun visitInworld(inworld: JsonValue): T
 
             fun visitXai(xai: XaiVoiceSettings): T
 
@@ -2786,9 +2793,9 @@ private constructor(
                         } ?: VoiceSettings(_json = json)
                     }
                     "inworld" -> {
-                        return tryDeserialize(node, jacksonTypeRef<InworldVoiceSettings>())?.let {
-                            VoiceSettings(inworld = it, _json = json)
-                        } ?: VoiceSettings(_json = json)
+                        return tryDeserialize(node, jacksonTypeRef<JsonValue>())
+                            ?.let { VoiceSettings(inworld = it, _json = json) }
+                            ?.takeIf { it.isValid() } ?: VoiceSettings(_json = json)
                     }
                     "xai" -> {
                         return tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {

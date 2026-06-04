@@ -21,7 +21,6 @@ class SipRegistrationStatusRetrieveParams
 private constructor(
     private val connectionId: String,
     private val credentialType: CredentialType,
-    private val userId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -31,9 +30,6 @@ private constructor(
 
     /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
     fun credentialType(): CredentialType = credentialType
-
-    /** Owner of the connection. Used to authorize the lookup. */
-    fun userId(): String = userId
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -53,7 +49,6 @@ private constructor(
          * ```java
          * .connectionId()
          * .credentialType()
-         * .userId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -64,7 +59,6 @@ private constructor(
 
         private var connectionId: String? = null
         private var credentialType: CredentialType? = null
-        private var userId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -74,7 +68,6 @@ private constructor(
         ) = apply {
             connectionId = sipRegistrationStatusRetrieveParams.connectionId
             credentialType = sipRegistrationStatusRetrieveParams.credentialType
-            userId = sipRegistrationStatusRetrieveParams.userId
             additionalHeaders = sipRegistrationStatusRetrieveParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 sipRegistrationStatusRetrieveParams.additionalQueryParams.toBuilder()
@@ -87,9 +80,6 @@ private constructor(
         fun credentialType(credentialType: CredentialType) = apply {
             this.credentialType = credentialType
         }
-
-        /** Owner of the connection. Used to authorize the lookup. */
-        fun userId(userId: String) = apply { this.userId = userId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,7 +188,6 @@ private constructor(
          * ```java
          * .connectionId()
          * .credentialType()
-         * .userId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -207,7 +196,6 @@ private constructor(
             SipRegistrationStatusRetrieveParams(
                 checkRequired("connectionId", connectionId),
                 checkRequired("credentialType", credentialType),
-                checkRequired("userId", userId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -220,7 +208,6 @@ private constructor(
             .apply {
                 put("connection_id", connectionId)
                 put("credential_type", credentialType.toString())
-                put("user_id", userId)
                 putAll(additionalQueryParams)
             }
             .build()
@@ -366,14 +353,13 @@ private constructor(
         return other is SipRegistrationStatusRetrieveParams &&
             connectionId == other.connectionId &&
             credentialType == other.credentialType &&
-            userId == other.userId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(connectionId, credentialType, userId, additionalHeaders, additionalQueryParams)
+        Objects.hash(connectionId, credentialType, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SipRegistrationStatusRetrieveParams{connectionId=$connectionId, credentialType=$credentialType, userId=$userId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SipRegistrationStatusRetrieveParams{connectionId=$connectionId, credentialType=$credentialType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

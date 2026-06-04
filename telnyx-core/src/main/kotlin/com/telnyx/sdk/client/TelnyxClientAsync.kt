@@ -516,9 +516,6 @@ interface TelnyxClientAsync {
 
     fun reports(): ReportServiceAsync
 
-    /** Discover available speech-to-text providers, models, and supported languages. */
-    fun speechToText(): SpeechToTextServiceAsync
-
     /** Requirement Groups */
     fun requirementGroups(): RequirementGroupServiceAsync
 
@@ -685,11 +682,14 @@ interface TelnyxClientAsync {
     /** UAC connection operations */
     fun uacConnections(): UacConnectionServiceAsync
 
+    /** UAC connection operations */
+    fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
+
+    /** Discover available speech-to-text providers, models, and supported languages. */
+    fun speechToText(): SpeechToTextServiceAsync
+
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
-
-    /** Look up the live SIP registration status of a UAC connection. */
-    fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1025,9 +1025,6 @@ interface TelnyxClientAsync {
 
         fun reports(): ReportServiceAsync.WithRawResponse
 
-        /** Discover available speech-to-text providers, models, and supported languages. */
-        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
-
         /** Requirement Groups */
         fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse
 
@@ -1195,10 +1192,13 @@ interface TelnyxClientAsync {
         /** UAC connection operations */
         fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
 
+        /** UAC connection operations */
+        fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
+
+        /** Discover available speech-to-text providers, models, and supported languages. */
+        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
-
-        /** Look up the live SIP registration status of a UAC connection. */
-        fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
     }
 }

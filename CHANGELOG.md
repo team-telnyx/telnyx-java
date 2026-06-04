@@ -1,5 +1,28 @@
 # Changelog
 
+## 6.61.0 (2026-06-03)
+
+Full Changelog: [v6.60.2...v6.61.0](https://github.com/team-telnyx/telnyx-java/compare/v6.60.2...v6.61.0)
+
+### Features
+
+* AI-assistants conversation flow ([3556c97](https://github.com/team-telnyx/telnyx-java/commit/3556c9766c7a54c1b362dabe4446630813437a87))
+* **sip-registration-status:** finalize phase 1 response shape with status mapping ([223104a](https://github.com/team-telnyx/telnyx-java/commit/223104a9686a8ced8ec9540a2e7c15e22ce91e52))
+* TELAPPS-406: nest service_types with per-service languages in STT spec ([65ad5d9](https://github.com/team-telnyx/telnyx-java/commit/65ad5d98e635c7452f4aee40096378e012b5c0f0))
+* Update conversation flow ([69e0f56](https://github.com/team-telnyx/telnyx-java/commit/69e0f5669c4fae33055412cc5153ba407d319964))
+
+
+### Bug Fixes
+
+* **sip-registration-status:** drop user_id query param ([cc203c8](https://github.com/team-telnyx/telnyx-java/commit/cc203c8c77669f14ca98e4b923ab20f7429445f1))
+* **sip-registration-status:** move operation under UAC Connections tag ([4a30666](https://github.com/team-telnyx/telnyx-java/commit/4a30666cc058c5f93c68f412f42636b41720f724))
+* **sip-registration-status:** rename detail field to sip_uri_user_host ([8d61b57](https://github.com/team-telnyx/telnyx-java/commit/8d61b57a64a73a5053a68ea617f0fbbc8f52d3d7))
+
+
+### Chores
+
+* update example date in audit-logs for pipeline sync ([2f2efb4](https://github.com/team-telnyx/telnyx-java/commit/2f2efb45878bbf9a966aa8c1dfa5dc240b07ec0f))
+
 ## 6.60.2 (2026-06-01)
 
 Full Changelog: [v6.60.1...v6.60.2](https://github.com/team-telnyx/telnyx-java/compare/v6.60.1...v6.60.2)

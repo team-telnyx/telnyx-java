@@ -16,7 +16,7 @@ import java.util.Objects
 import java.util.Optional
 
 /** Response when `output_type` is `base64_output`. */
-class TextToSpeechCreateSpeechResponse
+class TextToSpeechGenerateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val base64Audio: JsonField<String>,
@@ -62,25 +62,22 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [TextToSpeechCreateSpeechResponse].
+         * Returns a mutable builder for constructing an instance of [TextToSpeechGenerateResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TextToSpeechCreateSpeechResponse]. */
+    /** A builder for [TextToSpeechGenerateResponse]. */
     class Builder internal constructor() {
 
         private var base64Audio: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(textToSpeechCreateSpeechResponse: TextToSpeechCreateSpeechResponse) =
-            apply {
-                base64Audio = textToSpeechCreateSpeechResponse.base64Audio
-                additionalProperties =
-                    textToSpeechCreateSpeechResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(textToSpeechGenerateResponse: TextToSpeechGenerateResponse) = apply {
+            base64Audio = textToSpeechGenerateResponse.base64Audio
+            additionalProperties = textToSpeechGenerateResponse.additionalProperties.toMutableMap()
+        }
 
         /** Base64-encoded audio data. */
         fun base64Audio(base64Audio: String) = base64Audio(JsonField.of(base64Audio))
@@ -114,12 +111,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TextToSpeechCreateSpeechResponse].
+         * Returns an immutable instance of [TextToSpeechGenerateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TextToSpeechCreateSpeechResponse =
-            TextToSpeechCreateSpeechResponse(base64Audio, additionalProperties.toMutableMap())
+        fun build(): TextToSpeechGenerateResponse =
+            TextToSpeechGenerateResponse(base64Audio, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -132,7 +129,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): TextToSpeechCreateSpeechResponse = apply {
+    fun validate(): TextToSpeechGenerateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -161,7 +158,7 @@ private constructor(
             return true
         }
 
-        return other is TextToSpeechCreateSpeechResponse &&
+        return other is TextToSpeechGenerateResponse &&
             base64Audio == other.base64Audio &&
             additionalProperties == other.additionalProperties
     }
@@ -171,5 +168,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TextToSpeechCreateSpeechResponse{base64Audio=$base64Audio, additionalProperties=$additionalProperties}"
+        "TextToSpeechGenerateResponse{base64Audio=$base64Audio, additionalProperties=$additionalProperties}"
 }
