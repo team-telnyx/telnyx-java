@@ -1515,6 +1515,7 @@ private constructor(
             private val from: JsonField<String>,
             private val targets: JsonField<Targets>,
             private val customHeaders: JsonField<List<CustomHeader>>,
+            private val description: JsonField<String>,
             private val voicemailDetection: JsonField<VoicemailDetection>,
             private val warmMessageDelayMs: JsonField<Long>,
             private val warmTransferInstructions: JsonField<String>,
@@ -1530,6 +1531,9 @@ private constructor(
                 @JsonProperty("custom_headers")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("description")
+                @ExcludeMissing
+                description: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("voicemail_detection")
                 @ExcludeMissing
                 voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
@@ -1543,6 +1547,7 @@ private constructor(
                 from,
                 targets,
                 customHeaders,
+                description,
                 voicemailDetection,
                 warmMessageDelayMs,
                 warmTransferInstructions,
@@ -1578,6 +1583,17 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("custom_headers")
+
+            /**
+             * A description of the transfer tool. By default, Telnyx generates this automatically
+             * based on the configured targets. Typically only set when importing an assistant from
+             * another provider that allowed a custom description; in that case the provided value
+             * is preserved. Most users should leave this empty and let Telnyx manage it.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun description(): Optional<String> = description.getOptional("description")
 
             /**
              * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
@@ -1635,6 +1651,16 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
+
+            /**
+             * Returns the raw JSON value of [description].
+             *
+             * Unlike [description], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("description")
+            @ExcludeMissing
+            fun _description(): JsonField<String> = description
 
             /**
              * Returns the raw JSON value of [voicemailDetection].
@@ -1698,6 +1724,7 @@ private constructor(
                 private var from: JsonField<String>? = null
                 private var targets: JsonField<Targets>? = null
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var description: JsonField<String> = JsonMissing.of()
                 private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
                 private var warmMessageDelayMs: JsonField<Long> = JsonMissing.of()
                 private var warmTransferInstructions: JsonField<String> = JsonMissing.of()
@@ -1708,6 +1735,7 @@ private constructor(
                     from = transferConfig.from
                     targets = transferConfig.targets
                     customHeaders = transferConfig.customHeaders.map { it.toMutableList() }
+                    description = transferConfig.description
                     voicemailDetection = transferConfig.voicemailDetection
                     warmMessageDelayMs = transferConfig.warmMessageDelayMs
                     warmTransferInstructions = transferConfig.warmTransferInstructions
@@ -1774,6 +1802,26 @@ private constructor(
                         (customHeaders ?: JsonField.of(mutableListOf())).also {
                             checkKnown("customHeaders", it).add(customHeader)
                         }
+                }
+
+                /**
+                 * A description of the transfer tool. By default, Telnyx generates this
+                 * automatically based on the configured targets. Typically only set when importing
+                 * an assistant from another provider that allowed a custom description; in that
+                 * case the provided value is preserved. Most users should leave this empty and let
+                 * Telnyx manage it.
+                 */
+                fun description(description: String) = description(JsonField.of(description))
+
+                /**
+                 * Sets [Builder.description] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.description] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun description(description: JsonField<String>) = apply {
+                    this.description = description
                 }
 
                 /**
@@ -1888,6 +1936,7 @@ private constructor(
                         checkRequired("from", from),
                         checkRequired("targets", targets),
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        description,
                         voicemailDetection,
                         warmMessageDelayMs,
                         warmTransferInstructions,
@@ -1915,6 +1964,7 @@ private constructor(
                 from()
                 targets().validate()
                 customHeaders().ifPresent { it.forEach { it.validate() } }
+                description()
                 voicemailDetection().ifPresent { it.validate() }
                 warmMessageDelayMs()
                 warmTransferInstructions()
@@ -1940,6 +1990,7 @@ private constructor(
                 (if (from.asKnown().isPresent) 1 else 0) +
                     (targets.asKnown().getOrNull()?.validity() ?: 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (if (description.asKnown().isPresent) 1 else 0) +
                     (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (warmMessageDelayMs.asKnown().isPresent) 1 else 0) +
                     (if (warmTransferInstructions.asKnown().isPresent) 1 else 0)
@@ -4482,6 +4533,7 @@ private constructor(
                     from == other.from &&
                     targets == other.targets &&
                     customHeaders == other.customHeaders &&
+                    description == other.description &&
                     voicemailDetection == other.voicemailDetection &&
                     warmMessageDelayMs == other.warmMessageDelayMs &&
                     warmTransferInstructions == other.warmTransferInstructions &&
@@ -4493,6 +4545,7 @@ private constructor(
                     from,
                     targets,
                     customHeaders,
+                    description,
                     voicemailDetection,
                     warmMessageDelayMs,
                     warmTransferInstructions,
@@ -4503,7 +4556,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
