@@ -368,6 +368,7 @@ internal class AssistantToolTest {
                                 .value("value")
                                 .build()
                         )
+                        .description("Transfer the call to a human agent.")
                         .voicemailDetection(
                             AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                 .detectionConfig(
@@ -460,6 +461,7 @@ internal class AssistantToolTest {
                                     .value("value")
                                     .build()
                             )
+                            .description("Transfer the call to a human agent.")
                             .voicemailDetection(
                                 AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                     .detectionConfig(
