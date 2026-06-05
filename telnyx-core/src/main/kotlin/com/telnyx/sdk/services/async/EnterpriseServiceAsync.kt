@@ -6,6 +6,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
@@ -15,11 +17,13 @@ import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
+import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
+import com.telnyx.sdk.services.async.enterprises.UsageServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Enterprise management for Branded Calling and Number Reputation services */
+/** Manage the legal-entity record that owns your DIRs and phone numbers. */
 interface EnterpriseServiceAsync {
 
     /**
@@ -34,18 +38,27 @@ interface EnterpriseServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseServiceAsync
 
-    /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun reputation(): ReputationServiceAsync
 
     /**
-     * Create a new enterprise for Branded Calling / Number Reputation services.
+     * A Display Identity Record (DIR) is the verified calling identity (display name, logo, call
+     * reasons) shown to recipients on outbound calls.
+     */
+    fun dir(): DirServiceAsync
+
+    fun usage(): UsageServiceAsync
+
+    /**
+     * Create the legal entity that owns your Number Reputation registrations.
      *
-     * Registers the enterprise in the Branded Calling / Number Reputation services, enabling it to
-     * create Display Identity Records (DIRs) or enroll in Number Reputation monitoring.
+     * The response carries a server-assigned `id` you will use for every subsequent call. After
+     * creating an enterprise and agreeing to the Number Reputation Terms of Service (`POST
+     * /terms_of_service/number_reputation/agree`), enable reputation monitoring via `POST
+     * /enterprises/{enterprise_id}/reputation`.
      *
-     * **Required Fields:** `legal_name`, `doing_business_as`, `organization_type`, `country_code`,
-     * `website`, `fein`, `industry`, `number_of_employees`, `organization_legal_type`,
-     * `organization_contact`, `billing_contact`, `organization_physical_address`, `billing_address`
+     * An enterprise is shared across Telnyx products; if you also use Branded Calling, the same
+     * enterprise is reused.
      */
     fun create(params: EnterpriseCreateParams): CompletableFuture<EnterpriseCreateResponse> =
         create(params, RequestOptions.none())
@@ -56,7 +69,10 @@ interface EnterpriseServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EnterpriseCreateResponse>
 
-    /** Retrieve details of a specific enterprise by ID. */
+    /**
+     * Retrieve a single enterprise by id. Returns `404` if the id does not exist or does not belong
+     * to your account.
+     */
     fun retrieve(enterpriseId: String): CompletableFuture<EnterpriseRetrieveResponse> =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
@@ -93,8 +109,10 @@ interface EnterpriseServiceAsync {
         retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
     /**
-     * Update enterprise information. All fields are optional — only the provided fields will be
-     * updated.
+     * Replace the enterprise's mutable fields. Only mutable fields may be sent. Server-assigned and
+     * immutable fields (`id`, `record_type`, `created_at`, `updated_at`, status fields,
+     * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in
+     * the body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
      */
     fun update(enterpriseId: String): CompletableFuture<EnterpriseUpdateResponse> =
         update(enterpriseId, EnterpriseUpdateParams.none())
@@ -131,7 +149,9 @@ interface EnterpriseServiceAsync {
     ): CompletableFuture<EnterpriseUpdateResponse> =
         update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
-    /** Retrieve a paginated list of enterprises associated with your account. */
+    /**
+     * Return the enterprises you own, paginated. The default page size is 20; the maximum is 250.
+     */
     fun list(): CompletableFuture<EnterpriseListPageAsync> = list(EnterpriseListParams.none())
 
     /** @see list */
@@ -149,7 +169,11 @@ interface EnterpriseServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<EnterpriseListPageAsync> =
         list(EnterpriseListParams.none(), requestOptions)
 
-    /** Delete an enterprise and all associated resources. This action is irreversible. */
+    /**
+     * Delete an enterprise. Fails with `400` if the enterprise still has dependent resources (e.g.
+     * active reputation settings or registered numbers); remove those first. Returns `404` if the
+     * enterprise does not exist or does not belong to your account.
+     */
     fun delete(enterpriseId: String): CompletableFuture<Void?> =
         delete(enterpriseId, EnterpriseDeleteParams.none())
 
@@ -182,6 +206,73 @@ interface EnterpriseServiceAsync {
         delete(enterpriseId, EnterpriseDeleteParams.none(), requestOptions)
 
     /**
+     * Branded Calling is a paid product that must be activated on each enterprise. Activation is
+     * idempotent:
+     * - First call: marks the enterprise as activated and begins onboarding it with the Branded
+     *   Calling platform asynchronously. Returns `200` with `branded_calling_enabled: true`.
+     * - Re-call after success: no-op, returns the same enterprise body.
+     * - Re-call after a prior failure: re-queues onboarding, returns `200`.
+     *
+     * Prerequisite: the calling user must have agreed to the Branded Calling Terms of Service
+     * (`POST /terms_of_service/branded_calling/agree`). Without that, this endpoint returns `403
+     * terms_of_service_not_accepted`.
+     *
+     * Failure modes:
+     * - `403` — Branded Calling Terms of Service not accepted.
+     * - `404` — enterprise does not exist or does not belong to your account.
+     *
+     * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
+     * pricing.
+     */
+    fun activateBrandedCalling(
+        enterpriseId: String
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        params: EnterpriseActivateBrandedCallingParams =
+            EnterpriseActivateBrandedCallingParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        activateBrandedCalling(
+            params.toBuilder().enterpriseId(enterpriseId).build(),
+            requestOptions,
+        )
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        params: EnterpriseActivateBrandedCallingParams =
+            EnterpriseActivateBrandedCallingParams.none(),
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        params: EnterpriseActivateBrandedCallingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse>
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        params: EnterpriseActivateBrandedCallingParams
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        activateBrandedCalling(params, RequestOptions.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        activateBrandedCalling(
+            enterpriseId,
+            EnterpriseActivateBrandedCallingParams.none(),
+            requestOptions,
+        )
+
+    /**
      * A view of [EnterpriseServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -196,8 +287,16 @@ interface EnterpriseServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseServiceAsync.WithRawResponse
 
-        /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun reputation(): ReputationServiceAsync.WithRawResponse
+
+        /**
+         * A Display Identity Record (DIR) is the verified calling identity (display name, logo,
+         * call reasons) shown to recipients on outbound calls.
+         */
+        fun dir(): DirServiceAsync.WithRawResponse
+
+        fun usage(): UsageServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises`, but is otherwise the same as
@@ -362,5 +461,57 @@ interface EnterpriseServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             delete(enterpriseId, EnterpriseDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/branded_calling`, but
+         * is otherwise the same as [EnterpriseServiceAsync.activateBrandedCalling].
+         */
+        fun activateBrandedCalling(
+            enterpriseId: String
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
+            activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+
+        /** @see activateBrandedCalling */
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            params: EnterpriseActivateBrandedCallingParams =
+                EnterpriseActivateBrandedCallingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
+            activateBrandedCalling(
+                params.toBuilder().enterpriseId(enterpriseId).build(),
+                requestOptions,
+            )
+
+        /** @see activateBrandedCalling */
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            params: EnterpriseActivateBrandedCallingParams =
+                EnterpriseActivateBrandedCallingParams.none(),
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
+            activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+
+        /** @see activateBrandedCalling */
+        fun activateBrandedCalling(
+            params: EnterpriseActivateBrandedCallingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>>
+
+        /** @see activateBrandedCalling */
+        fun activateBrandedCalling(
+            params: EnterpriseActivateBrandedCallingParams
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
+            activateBrandedCalling(params, RequestOptions.none())
+
+        /** @see activateBrandedCalling */
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
+            activateBrandedCalling(
+                enterpriseId,
+                EnterpriseActivateBrandedCallingParams.none(),
+                requestOptions,
+            )
     }
 }

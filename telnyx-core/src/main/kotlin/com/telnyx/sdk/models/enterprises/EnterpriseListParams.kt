@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a paginated list of enterprises associated with your account. */
+/** Return the enterprises you own, paginated. The default page size is 20; the maximum is 250. */
 class EnterpriseListParams
 private constructor(
     private val legalName: String?,
@@ -19,13 +19,13 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Filter by legal name (partial match) */
+    /** Filter by legal name (partial match). */
     fun legalName(): Optional<String> = Optional.ofNullable(legalName)
 
-    /** Page number (1-indexed) */
+    /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
-    /** Number of items per page */
+    /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
@@ -62,13 +62,13 @@ private constructor(
             additionalQueryParams = enterpriseListParams.additionalQueryParams.toBuilder()
         }
 
-        /** Filter by legal name (partial match) */
+        /** Filter by legal name (partial match). */
         fun legalName(legalName: String?) = apply { this.legalName = legalName }
 
         /** Alias for calling [Builder.legalName] with `legalName.orElse(null)`. */
         fun legalName(legalName: Optional<String>) = legalName(legalName.getOrNull())
 
-        /** Page number (1-indexed) */
+        /** 1-based page number. Out-of-range values return an empty page with correct meta. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -81,7 +81,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
-        /** Number of items per page */
+        /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**

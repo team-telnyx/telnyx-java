@@ -20,10 +20,7 @@ interface ReputationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationServiceAsync
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun numbers(): NumberServiceAsync
 
     /**
@@ -41,10 +38,7 @@ interface ReputationServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationServiceAsync.WithRawResponse
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun numbers(): NumberServiceAsync.WithRawResponse
     }
 }

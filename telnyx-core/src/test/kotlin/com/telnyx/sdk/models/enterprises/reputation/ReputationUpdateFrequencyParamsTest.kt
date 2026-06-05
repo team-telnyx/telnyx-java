@@ -10,8 +10,8 @@ internal class ReputationUpdateFrequencyParamsTest {
     @Test
     fun create() {
         ReputationUpdateFrequencyParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.BUSINESS_DAILY)
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
             .build()
     }
 
@@ -19,11 +19,11 @@ internal class ReputationUpdateFrequencyParamsTest {
     fun pathParams() {
         val params =
             ReputationUpdateFrequencyParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.BUSINESS_DAILY)
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -32,13 +32,13 @@ internal class ReputationUpdateFrequencyParamsTest {
     fun body() {
         val params =
             ReputationUpdateFrequencyParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.BUSINESS_DAILY)
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
                 .build()
 
         val body = params._body()
 
         assertThat(body.checkFrequency())
-            .isEqualTo(ReputationUpdateFrequencyParams.CheckFrequency.BUSINESS_DAILY)
+            .isEqualTo(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
     }
 }

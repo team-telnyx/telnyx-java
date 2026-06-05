@@ -10,21 +10,21 @@ internal class NumberRetrieveParamsTest {
 
     @Test
     fun create() {
-        NumberRetrieveParams.builder().phoneNumber("+16035551234").fresh(true).build()
+        NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
     }
 
     @Test
     fun pathParams() {
-        val params = NumberRetrieveParams.builder().phoneNumber("+16035551234").build()
+        val params = NumberRetrieveParams.builder().phoneNumber("+19493253498").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("+16035551234")
+        assertThat(params._pathParam(0)).isEqualTo("+19493253498")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
-        val params = NumberRetrieveParams.builder().phoneNumber("+16035551234").fresh(true).build()
+        val params = NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
 
         val queryParams = params._queryParams()
 
@@ -33,7 +33,7 @@ internal class NumberRetrieveParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = NumberRetrieveParams.builder().phoneNumber("+16035551234").build()
+        val params = NumberRetrieveParams.builder().phoneNumber("+19493253498").build()
 
         val queryParams = params._queryParams()
 

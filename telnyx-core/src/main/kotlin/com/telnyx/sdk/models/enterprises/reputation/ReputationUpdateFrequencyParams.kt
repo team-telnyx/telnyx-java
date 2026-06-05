@@ -22,18 +22,11 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Update how often reputation data is automatically refreshed.
+ * Update how often Telnyx refreshes the reputation data for this enterprise's registered numbers.
+ * The new frequency takes effect on the next scheduled refresh.
  *
- * **Note:** The enterprise must have `approved` reputation settings. Updating frequency on
- * `pending` or `rejected` settings will return an error.
- *
- * **Available Frequencies:**
- * - `business_daily` — Monday–Friday
- * - `daily` — Every day including weekends
- * - `weekly` — Once per week
- * - `biweekly` — Once every two weeks
- * - `monthly` — Once per month
- * - `never` — Manual refresh only (no automatic checks)
+ * The enterprise's reputation must be in `approved` status. A request made while the status is
+ * `pending` is rejected with `400 Bad Request`.
  */
 class ReputationUpdateFrequencyParams
 private constructor(
@@ -46,7 +39,8 @@ private constructor(
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
 
     /**
-     * New frequency for refreshing reputation data
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -116,7 +110,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** New frequency for refreshing reputation data */
+        /**
+         * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+         * numbers.
+         */
         fun checkFrequency(checkFrequency: CheckFrequency) = apply {
             body.checkFrequency(checkFrequency)
         }
@@ -297,7 +294,8 @@ private constructor(
         ) : this(checkFrequency, mutableMapOf())
 
         /**
-         * New frequency for refreshing reputation data
+         * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+         * numbers.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -351,7 +349,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** New frequency for refreshing reputation data */
+            /**
+             * How often Telnyx refreshes the stored reputation data for this enterprise's
+             * registered numbers.
+             */
             fun checkFrequency(checkFrequency: CheckFrequency) =
                 checkFrequency(JsonField.of(checkFrequency))
 
@@ -459,7 +460,10 @@ private constructor(
             "Body{checkFrequency=$checkFrequency, additionalProperties=$additionalProperties}"
     }
 
-    /** New frequency for refreshing reputation data */
+    /**
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
+     */
     class CheckFrequency @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

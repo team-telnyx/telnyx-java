@@ -10,13 +10,13 @@ internal class EnterpriseListParamsTest {
 
     @Test
     fun create() {
-        EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+        EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(10L).build()
     }
 
     @Test
     fun queryParams() {
         val params =
-            EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+            EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(10L).build()
 
         val queryParams = params._queryParams()
 
@@ -25,7 +25,7 @@ internal class EnterpriseListParamsTest {
                 QueryParams.builder()
                     .put("legal_name", "Acme")
                     .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[size]", "10")
                     .build()
             )
     }

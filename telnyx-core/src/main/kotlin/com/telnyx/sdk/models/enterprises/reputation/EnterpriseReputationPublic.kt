@@ -27,6 +27,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val enterpriseId: JsonField<String>,
     private val loaDocumentId: JsonField<String>,
+    private val loaStatus: JsonField<LoaStatus>,
     private val rejectionReasons: JsonField<List<String>>,
     private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -47,6 +48,9 @@ private constructor(
         @JsonProperty("loa_document_id")
         @ExcludeMissing
         loaDocumentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("loa_status")
+        @ExcludeMissing
+        loaStatus: JsonField<LoaStatus> = JsonMissing.of(),
         @JsonProperty("rejection_reasons")
         @ExcludeMissing
         rejectionReasons: JsonField<List<String>> = JsonMissing.of(),
@@ -59,6 +63,7 @@ private constructor(
         createdAt,
         enterpriseId,
         loaDocumentId,
+        loaStatus,
         rejectionReasons,
         status,
         updatedAt,
@@ -66,7 +71,8 @@ private constructor(
     )
 
     /**
-     * Frequency for refreshing reputation data
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -74,23 +80,19 @@ private constructor(
     fun checkFrequency(): Optional<CheckFrequency> = checkFrequency.getOptional("check_frequency")
 
     /**
-     * When the reputation settings were created
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
 
     /**
-     * ID of the associated enterprise
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun enterpriseId(): Optional<String> = enterpriseId.getOptional("enterprise_id")
 
     /**
-     * ID of the signed LOA document
+     * Id of the signed LOA document.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -98,7 +100,16 @@ private constructor(
     fun loaDocumentId(): Optional<String> = loaDocumentId.getOptional("loa_document_id")
 
     /**
-     * Reasons for rejection (present when status is rejected)
+     * Customer-facing Letter-of-Authorization verification state. `approved` is required (alongside
+     * reputation status) before phone numbers can be added.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loaStatus(): Optional<LoaStatus> = loaStatus.getOptional("loa_status")
+
+    /**
+     * Populated when `status` is `rejected`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -107,7 +118,7 @@ private constructor(
         rejectionReasons.getOptional("rejection_reasons")
 
     /**
-     * Current enrollment status
+     * Lifecycle status of the enterprise's Phone Number Reputation activation.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -115,8 +126,6 @@ private constructor(
     fun status(): Optional<Status> = status.getOptional("status")
 
     /**
-     * When the reputation settings were last updated
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -157,6 +166,13 @@ private constructor(
     @JsonProperty("loa_document_id")
     @ExcludeMissing
     fun _loaDocumentId(): JsonField<String> = loaDocumentId
+
+    /**
+     * Returns the raw JSON value of [loaStatus].
+     *
+     * Unlike [loaStatus], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("loa_status") @ExcludeMissing fun _loaStatus(): JsonField<LoaStatus> = loaStatus
 
     /**
      * Returns the raw JSON value of [rejectionReasons].
@@ -211,6 +227,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var enterpriseId: JsonField<String> = JsonMissing.of()
         private var loaDocumentId: JsonField<String> = JsonMissing.of()
+        private var loaStatus: JsonField<LoaStatus> = JsonMissing.of()
         private var rejectionReasons: JsonField<MutableList<String>>? = null
         private var status: JsonField<Status> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -222,6 +239,7 @@ private constructor(
             createdAt = enterpriseReputationPublic.createdAt
             enterpriseId = enterpriseReputationPublic.enterpriseId
             loaDocumentId = enterpriseReputationPublic.loaDocumentId
+            loaStatus = enterpriseReputationPublic.loaStatus
             rejectionReasons =
                 enterpriseReputationPublic.rejectionReasons.map { it.toMutableList() }
             status = enterpriseReputationPublic.status
@@ -229,7 +247,10 @@ private constructor(
             additionalProperties = enterpriseReputationPublic.additionalProperties.toMutableMap()
         }
 
-        /** Frequency for refreshing reputation data */
+        /**
+         * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+         * numbers.
+         */
         fun checkFrequency(checkFrequency: CheckFrequency) =
             checkFrequency(JsonField.of(checkFrequency))
 
@@ -244,7 +265,6 @@ private constructor(
             this.checkFrequency = checkFrequency
         }
 
-        /** When the reputation settings were created */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -256,7 +276,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** ID of the associated enterprise */
         fun enterpriseId(enterpriseId: String) = enterpriseId(JsonField.of(enterpriseId))
 
         /**
@@ -270,7 +289,7 @@ private constructor(
             this.enterpriseId = enterpriseId
         }
 
-        /** ID of the signed LOA document */
+        /** Id of the signed LOA document. */
         fun loaDocumentId(loaDocumentId: String?) =
             loaDocumentId(JsonField.ofNullable(loaDocumentId))
 
@@ -289,7 +308,22 @@ private constructor(
             this.loaDocumentId = loaDocumentId
         }
 
-        /** Reasons for rejection (present when status is rejected) */
+        /**
+         * Customer-facing Letter-of-Authorization verification state. `approved` is required
+         * (alongside reputation status) before phone numbers can be added.
+         */
+        fun loaStatus(loaStatus: LoaStatus) = loaStatus(JsonField.of(loaStatus))
+
+        /**
+         * Sets [Builder.loaStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loaStatus] with a well-typed [LoaStatus] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun loaStatus(loaStatus: JsonField<LoaStatus>) = apply { this.loaStatus = loaStatus }
+
+        /** Populated when `status` is `rejected`. */
         fun rejectionReasons(rejectionReasons: List<String>?) =
             rejectionReasons(JsonField.ofNullable(rejectionReasons))
 
@@ -320,7 +354,7 @@ private constructor(
                 }
         }
 
-        /** Current enrollment status */
+        /** Lifecycle status of the enterprise's Phone Number Reputation activation. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -331,7 +365,6 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** When the reputation settings were last updated */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -373,6 +406,7 @@ private constructor(
                 createdAt,
                 enterpriseId,
                 loaDocumentId,
+                loaStatus,
                 (rejectionReasons ?: JsonMissing.of()).map { it.toImmutable() },
                 status,
                 updatedAt,
@@ -399,6 +433,7 @@ private constructor(
         createdAt()
         enterpriseId()
         loaDocumentId()
+        loaStatus().ifPresent { it.validate() }
         rejectionReasons()
         status().ifPresent { it.validate() }
         updatedAt()
@@ -424,11 +459,15 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (enterpriseId.asKnown().isPresent) 1 else 0) +
             (if (loaDocumentId.asKnown().isPresent) 1 else 0) +
+            (loaStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (rejectionReasons.asKnown().getOrNull()?.size ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
-    /** Frequency for refreshing reputation data */
+    /**
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
+     */
     class CheckFrequency @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -591,8 +630,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Current enrollment status */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /**
+     * Customer-facing Letter-of-Authorization verification state. `approved` is required (alongside
+     * reputation status) before phone numbers can be added.
+     */
+    class LoaStatus @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -612,23 +654,20 @@ private constructor(
 
             @JvmField val REJECTED = of("rejected")
 
-            @JvmField val DELETED = of("deleted")
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            @JvmStatic fun of(value: String) = LoaStatus(JsonField.of(value))
         }
 
-        /** An enum containing [Status]'s known values. */
+        /** An enum containing [LoaStatus]'s known values. */
         enum class Known {
             PENDING,
             APPROVED,
             REJECTED,
-            DELETED,
         }
 
         /**
-         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         * An enum containing [LoaStatus]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * An instance of [LoaStatus] can contain an unknown value in a couple of cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
@@ -638,8 +677,9 @@ private constructor(
             PENDING,
             APPROVED,
             REJECTED,
-            DELETED,
-            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            /**
+             * An enum member indicating that [LoaStatus] was instantiated with an unknown value.
+             */
             _UNKNOWN,
         }
 
@@ -655,7 +695,6 @@ private constructor(
                 PENDING -> Value.PENDING
                 APPROVED -> Value.APPROVED
                 REJECTED -> Value.REJECTED
-                DELETED -> Value.DELETED
                 else -> Value._UNKNOWN
             }
 
@@ -673,7 +712,153 @@ private constructor(
                 PENDING -> Known.PENDING
                 APPROVED -> Known.APPROVED
                 REJECTED -> Known.REJECTED
+                else -> throw TelnyxInvalidDataException("Unknown LoaStatus: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): LoaStatus = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LoaStatus && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Lifecycle status of the enterprise's Phone Number Reputation activation. */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PENDING = of("pending")
+
+            @JvmField val APPROVED = of("approved")
+
+            @JvmField val DELETED = of("deleted")
+
+            @JvmField val REJECTED = of("rejected")
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING,
+            APPROVED,
+            DELETED,
+            REJECTED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING,
+            APPROVED,
+            DELETED,
+            REJECTED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                APPROVED -> Value.APPROVED
+                DELETED -> Value.DELETED
+                REJECTED -> Value.REJECTED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                APPROVED -> Known.APPROVED
                 DELETED -> Known.DELETED
+                REJECTED -> Known.REJECTED
                 else -> throw TelnyxInvalidDataException("Unknown Status: $value")
             }
 
@@ -748,6 +933,7 @@ private constructor(
             createdAt == other.createdAt &&
             enterpriseId == other.enterpriseId &&
             loaDocumentId == other.loaDocumentId &&
+            loaStatus == other.loaStatus &&
             rejectionReasons == other.rejectionReasons &&
             status == other.status &&
             updatedAt == other.updatedAt &&
@@ -760,6 +946,7 @@ private constructor(
             createdAt,
             enterpriseId,
             loaDocumentId,
+            loaStatus,
             rejectionReasons,
             status,
             updatedAt,
@@ -770,5 +957,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EnterpriseReputationPublic{checkFrequency=$checkFrequency, createdAt=$createdAt, enterpriseId=$enterpriseId, loaDocumentId=$loaDocumentId, rejectionReasons=$rejectionReasons, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "EnterpriseReputationPublic{checkFrequency=$checkFrequency, createdAt=$createdAt, enterpriseId=$enterpriseId, loaDocumentId=$loaDocumentId, loaStatus=$loaStatus, rejectionReasons=$rejectionReasons, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

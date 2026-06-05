@@ -9,14 +9,14 @@ internal class NumberDeleteParamsTest {
 
     @Test
     fun create() {
-        NumberDeleteParams.builder().phoneNumber("+16035551234").build()
+        NumberDeleteParams.builder().phoneNumber("+19493253498").build()
     }
 
     @Test
     fun pathParams() {
-        val params = NumberDeleteParams.builder().phoneNumber("+16035551234").build()
+        val params = NumberDeleteParams.builder().phoneNumber("+19493253498").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("+16035551234")
+        assertThat(params._pathParam(0)).isEqualTo("+19493253498")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

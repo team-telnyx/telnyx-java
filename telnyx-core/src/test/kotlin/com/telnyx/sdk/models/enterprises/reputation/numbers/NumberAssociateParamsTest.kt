@@ -10,8 +10,9 @@ internal class NumberAssociateParamsTest {
     @Test
     fun create() {
         NumberAssociateParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .addPhoneNumber("+16035551234")
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .addPhoneNumber("+19493253498")
+            .addPhoneNumber("+12134445566")
             .build()
     }
 
@@ -19,11 +20,12 @@ internal class NumberAssociateParamsTest {
     fun pathParams() {
         val params =
             NumberAssociateParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .addPhoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .addPhoneNumber("+19493253498")
+                .addPhoneNumber("+12134445566")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -32,12 +34,13 @@ internal class NumberAssociateParamsTest {
     fun body() {
         val params =
             NumberAssociateParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .addPhoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .addPhoneNumber("+19493253498")
+                .addPhoneNumber("+12134445566")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.phoneNumbers()).containsExactly("+16035551234")
+        assertThat(body.phoneNumbers()).containsExactly("+19493253498", "+12134445566")
     }
 }

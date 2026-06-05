@@ -45,9 +45,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .segment(0L)
-                .statsOfUnnamedSchemaWithArrayParent0s(
+                .statsOfUnnamedSchemaWithArrayParent3s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
@@ -112,9 +112,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
         assertThat(voiceSdkCallReportRetrieveResponse.segment()).contains(0L)
         assertThat(voiceSdkCallReportRetrieveResponse.stats())
             .contains(
-                VoiceSdkCallReportRetrieveResponse.Stats.ofUnnamedSchemaWithArrayParent0s(
+                VoiceSdkCallReportRetrieveResponse.Stats.ofUnnamedSchemaWithArrayParent3s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
@@ -182,9 +182,9 @@ internal class VoiceSdkCallReportRetrieveResponseTest {
                 )
                 .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .segment(0L)
-                .statsOfUnnamedSchemaWithArrayParent0s(
+                .statsOfUnnamedSchemaWithArrayParent3s(
                     listOf(
-                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent0
+                        VoiceSdkCallReportRetrieveResponse.Stats.UnnamedSchemaWithArrayParent3
                             .builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()

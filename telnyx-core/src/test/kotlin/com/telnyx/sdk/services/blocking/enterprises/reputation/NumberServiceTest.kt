@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.enterprises.reputation
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -20,8 +21,8 @@ internal class NumberServiceTest {
         val number =
             numberService.retrieve(
                 NumberRetrieveParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .phoneNumber("+16035551234")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .phoneNumber("+19493253498")
                     .fresh(true)
                     .build()
             )
@@ -35,7 +36,7 @@ internal class NumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.enterprises().reputation().numbers()
 
-        val page = numberService.list("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val page = numberService.list("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
         page.response().validate()
     }
@@ -49,8 +50,9 @@ internal class NumberServiceTest {
         val response =
             numberService.associate(
                 NumberAssociateParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .addPhoneNumber("+16035551234")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .addPhoneNumber("+19493253498")
+                    .addPhoneNumber("+12134445566")
                     .build()
             )
 
@@ -65,9 +67,26 @@ internal class NumberServiceTest {
 
         numberService.disassociate(
             NumberDisassociateParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .phoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .phoneNumber("+19493253498")
                 .build()
         )
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun refresh() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val numberService = client.enterprises().reputation().numbers()
+
+        val response =
+            numberService.refresh(
+                NumberRefreshParams.builder()
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .addPhoneNumber("+19493253498")
+                    .build()
+            )
+
+        response.validate()
     }
 }

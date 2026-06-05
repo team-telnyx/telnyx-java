@@ -10,10 +10,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * List all phone numbers associated with an enterprise for Number Reputation monitoring.
- *
- * Returns phone numbers with their cached reputation data (if available). Supports pagination and
- * filtering by phone number.
+ * Paginated list of phone numbers registered for reputation monitoring under this enterprise. The
+ * response includes the latest reputation snapshot per number where one has been collected.
  */
 class NumberListParams
 private constructor(
@@ -27,13 +25,13 @@ private constructor(
 
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
 
-    /** Page number (1-indexed) */
+    /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
-    /** Number of items per page */
+    /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
-    /** Filter by specific phone number (E.164 format) */
+    /** Filter by specific phone number (E.164 format). */
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
     /** Additional headers to send with the request. */
@@ -77,7 +75,7 @@ private constructor(
         /** Alias for calling [Builder.enterpriseId] with `enterpriseId.orElse(null)`. */
         fun enterpriseId(enterpriseId: Optional<String>) = enterpriseId(enterpriseId.getOrNull())
 
-        /** Page number (1-indexed) */
+        /** 1-based page number. Out-of-range values return an empty page with correct meta. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -90,7 +88,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
-        /** Number of items per page */
+        /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**
@@ -103,7 +101,7 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
-        /** Filter by specific phone number (E.164 format) */
+        /** Filter by specific phone number (E.164 format). */
         fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
         /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */

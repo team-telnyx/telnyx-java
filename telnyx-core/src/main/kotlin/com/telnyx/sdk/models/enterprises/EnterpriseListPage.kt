@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.enterprises
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MetaInfo
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import java.util.Objects
 import java.util.Optional
@@ -33,7 +32,7 @@ private constructor(
      *
      * @see EnterpriseListPageResponse.meta
      */
-    fun meta(): Optional<MetaInfo> = response._meta().getOptional("meta")
+    fun meta(): Optional<EnterpriseListPageResponse.Meta> = response._meta().getOptional("meta")
 
     override fun items(): List<EnterprisePublic> = data()
 

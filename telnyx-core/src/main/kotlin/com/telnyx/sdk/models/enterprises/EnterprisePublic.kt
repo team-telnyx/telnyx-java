@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -24,6 +23,7 @@ private constructor(
     private val id: JsonField<String>,
     private val billingAddress: JsonField<BillingAddress>,
     private val billingContact: JsonField<BillingContact>,
+    private val brandedCallingEnabled: JsonField<Boolean>,
     private val corporateRegistrationNumber: JsonField<String>,
     private val countryCode: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -32,15 +32,17 @@ private constructor(
     private val dunBradstreetNumber: JsonField<String>,
     private val fein: JsonField<String>,
     private val industry: JsonField<String>,
+    private val jurisdictionOfIncorporation: JsonField<String>,
     private val legalName: JsonField<String>,
-    private val numberOfEmployees: JsonField<NumberOfEmployees>,
+    private val numberOfEmployees: JsonField<String>,
+    private val numberReputationEnabled: JsonField<Boolean>,
     private val organizationContact: JsonField<OrganizationContact>,
-    private val organizationLegalType: JsonField<OrganizationLegalType>,
+    private val organizationLegalType: JsonField<String>,
     private val organizationPhysicalAddress: JsonField<PhysicalAddress>,
-    private val organizationType: JsonField<OrganizationType>,
+    private val organizationType: JsonField<String>,
     private val primaryBusinessDomainSicCode: JsonField<String>,
     private val professionalLicenseNumber: JsonField<String>,
-    private val roleType: JsonField<RoleType>,
+    private val roleType: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val website: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -55,6 +57,9 @@ private constructor(
         @JsonProperty("billing_contact")
         @ExcludeMissing
         billingContact: JsonField<BillingContact> = JsonMissing.of(),
+        @JsonProperty("branded_calling_enabled")
+        @ExcludeMissing
+        brandedCallingEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("corporate_registration_number")
         @ExcludeMissing
         corporateRegistrationNumber: JsonField<String> = JsonMissing.of(),
@@ -75,29 +80,35 @@ private constructor(
         dunBradstreetNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("fein") @ExcludeMissing fein: JsonField<String> = JsonMissing.of(),
         @JsonProperty("industry") @ExcludeMissing industry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("jurisdiction_of_incorporation")
+        @ExcludeMissing
+        jurisdictionOfIncorporation: JsonField<String> = JsonMissing.of(),
         @JsonProperty("legal_name") @ExcludeMissing legalName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("number_of_employees")
         @ExcludeMissing
-        numberOfEmployees: JsonField<NumberOfEmployees> = JsonMissing.of(),
+        numberOfEmployees: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("number_reputation_enabled")
+        @ExcludeMissing
+        numberReputationEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("organization_contact")
         @ExcludeMissing
         organizationContact: JsonField<OrganizationContact> = JsonMissing.of(),
         @JsonProperty("organization_legal_type")
         @ExcludeMissing
-        organizationLegalType: JsonField<OrganizationLegalType> = JsonMissing.of(),
+        organizationLegalType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("organization_physical_address")
         @ExcludeMissing
         organizationPhysicalAddress: JsonField<PhysicalAddress> = JsonMissing.of(),
         @JsonProperty("organization_type")
         @ExcludeMissing
-        organizationType: JsonField<OrganizationType> = JsonMissing.of(),
+        organizationType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("primary_business_domain_sic_code")
         @ExcludeMissing
         primaryBusinessDomainSicCode: JsonField<String> = JsonMissing.of(),
         @JsonProperty("professional_license_number")
         @ExcludeMissing
         professionalLicenseNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("role_type") @ExcludeMissing roleType: JsonField<RoleType> = JsonMissing.of(),
+        @JsonProperty("role_type") @ExcludeMissing roleType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -106,6 +117,7 @@ private constructor(
         id,
         billingAddress,
         billingContact,
+        brandedCallingEnabled,
         corporateRegistrationNumber,
         countryCode,
         createdAt,
@@ -114,8 +126,10 @@ private constructor(
         dunBradstreetNumber,
         fein,
         industry,
+        jurisdictionOfIncorporation,
         legalName,
         numberOfEmployees,
+        numberReputationEnabled,
         organizationContact,
         organizationLegalType,
         organizationPhysicalAddress,
@@ -129,8 +143,6 @@ private constructor(
     )
 
     /**
-     * Unique identifier of the enterprise
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -149,7 +161,17 @@ private constructor(
     fun billingContact(): Optional<BillingContact> = billingContact.getOptional("billing_contact")
 
     /**
-     * Corporate registration number
+     * True once Branded Calling has been activated on this enterprise (see `POST
+     * /enterprises/{id}/branded_calling`).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun brandedCallingEnabled(): Optional<Boolean> =
+        brandedCallingEnabled.getOptional("branded_calling_enabled")
+
+    /**
+     * Optional corporate-registration / company-number identifier.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -158,39 +180,31 @@ private constructor(
         corporateRegistrationNumber.getOptional("corporate_registration_number")
 
     /**
-     * ISO 3166-1 alpha-2 country code
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun countryCode(): Optional<String> = countryCode.getOptional("country_code")
 
     /**
-     * When the enterprise was created
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
 
     /**
-     * Customer reference identifier
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun customerReference(): Optional<String> = customerReference.getOptional("customer_reference")
 
     /**
-     * DBA name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun doingBusinessAs(): Optional<String> = doingBusinessAs.getOptional("doing_business_as")
 
     /**
-     * D-U-N-S Number
+     * Optional D-U-N-S Number issued by Dun & Bradstreet.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -199,42 +213,47 @@ private constructor(
         dunBradstreetNumber.getOptional("dun_bradstreet_number")
 
     /**
-     * Federal Employer Identification Number
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fein(): Optional<String> = fein.getOptional("fein")
 
     /**
-     * Industry classification
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun industry(): Optional<String> = industry.getOptional("industry")
 
     /**
-     * Legal name of the enterprise
-     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun jurisdictionOfIncorporation(): Optional<String> =
+        jurisdictionOfIncorporation.getOptional("jurisdiction_of_incorporation")
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun legalName(): Optional<String> = legalName.getOptional("legal_name")
 
     /**
-     * Employee count range
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun numberOfEmployees(): Optional<String> = numberOfEmployees.getOptional("number_of_employees")
+
+    /**
+     * True once Phone Number Reputation has been enabled on this enterprise (see `POST
+     * /enterprises/{id}/reputation`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numberOfEmployees(): Optional<NumberOfEmployees> =
-        numberOfEmployees.getOptional("number_of_employees")
+    fun numberReputationEnabled(): Optional<Boolean> =
+        numberReputationEnabled.getOptional("number_reputation_enabled")
 
     /**
-     * Organization contact information. Note: the response returns this object with the phone field
-     * as 'phone' (not 'phone_number').
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -242,12 +261,10 @@ private constructor(
         organizationContact.getOptional("organization_contact")
 
     /**
-     * Legal structure type
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun organizationLegalType(): Optional<OrganizationLegalType> =
+    fun organizationLegalType(): Optional<String> =
         organizationLegalType.getOptional("organization_legal_type")
 
     /**
@@ -258,16 +275,13 @@ private constructor(
         organizationPhysicalAddress.getOptional("organization_physical_address")
 
     /**
-     * Type of organization
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun organizationType(): Optional<OrganizationType> =
-        organizationType.getOptional("organization_type")
+    fun organizationType(): Optional<String> = organizationType.getOptional("organization_type")
 
     /**
-     * SIC Code
+     * Optional SIC code for the primary line of business.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -276,7 +290,7 @@ private constructor(
         primaryBusinessDomainSicCode.getOptional("primary_business_domain_sic_code")
 
     /**
-     * Professional license number
+     * Optional professional-license number for regulated industries.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -285,24 +299,18 @@ private constructor(
         professionalLicenseNumber.getOptional("professional_license_number")
 
     /**
-     * Role type in Branded Calling / Number Reputation services
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun roleType(): Optional<RoleType> = roleType.getOptional("role_type")
+    fun roleType(): Optional<String> = roleType.getOptional("role_type")
 
     /**
-     * When the enterprise was last updated
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
 
     /**
-     * Company website URL
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -332,6 +340,16 @@ private constructor(
     @JsonProperty("billing_contact")
     @ExcludeMissing
     fun _billingContact(): JsonField<BillingContact> = billingContact
+
+    /**
+     * Returns the raw JSON value of [brandedCallingEnabled].
+     *
+     * Unlike [brandedCallingEnabled], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("branded_calling_enabled")
+    @ExcludeMissing
+    fun _brandedCallingEnabled(): JsonField<Boolean> = brandedCallingEnabled
 
     /**
      * Returns the raw JSON value of [corporateRegistrationNumber].
@@ -405,6 +423,16 @@ private constructor(
     @JsonProperty("industry") @ExcludeMissing fun _industry(): JsonField<String> = industry
 
     /**
+     * Returns the raw JSON value of [jurisdictionOfIncorporation].
+     *
+     * Unlike [jurisdictionOfIncorporation], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("jurisdiction_of_incorporation")
+    @ExcludeMissing
+    fun _jurisdictionOfIncorporation(): JsonField<String> = jurisdictionOfIncorporation
+
+    /**
      * Returns the raw JSON value of [legalName].
      *
      * Unlike [legalName], this method doesn't throw if the JSON field has an unexpected type.
@@ -419,7 +447,17 @@ private constructor(
      */
     @JsonProperty("number_of_employees")
     @ExcludeMissing
-    fun _numberOfEmployees(): JsonField<NumberOfEmployees> = numberOfEmployees
+    fun _numberOfEmployees(): JsonField<String> = numberOfEmployees
+
+    /**
+     * Returns the raw JSON value of [numberReputationEnabled].
+     *
+     * Unlike [numberReputationEnabled], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("number_reputation_enabled")
+    @ExcludeMissing
+    fun _numberReputationEnabled(): JsonField<Boolean> = numberReputationEnabled
 
     /**
      * Returns the raw JSON value of [organizationContact].
@@ -439,7 +477,7 @@ private constructor(
      */
     @JsonProperty("organization_legal_type")
     @ExcludeMissing
-    fun _organizationLegalType(): JsonField<OrganizationLegalType> = organizationLegalType
+    fun _organizationLegalType(): JsonField<String> = organizationLegalType
 
     /**
      * Returns the raw JSON value of [organizationPhysicalAddress].
@@ -459,7 +497,7 @@ private constructor(
      */
     @JsonProperty("organization_type")
     @ExcludeMissing
-    fun _organizationType(): JsonField<OrganizationType> = organizationType
+    fun _organizationType(): JsonField<String> = organizationType
 
     /**
      * Returns the raw JSON value of [primaryBusinessDomainSicCode].
@@ -486,7 +524,7 @@ private constructor(
      *
      * Unlike [roleType], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("role_type") @ExcludeMissing fun _roleType(): JsonField<RoleType> = roleType
+    @JsonProperty("role_type") @ExcludeMissing fun _roleType(): JsonField<String> = roleType
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -528,6 +566,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
         private var billingContact: JsonField<BillingContact> = JsonMissing.of()
+        private var brandedCallingEnabled: JsonField<Boolean> = JsonMissing.of()
         private var corporateRegistrationNumber: JsonField<String> = JsonMissing.of()
         private var countryCode: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -536,15 +575,17 @@ private constructor(
         private var dunBradstreetNumber: JsonField<String> = JsonMissing.of()
         private var fein: JsonField<String> = JsonMissing.of()
         private var industry: JsonField<String> = JsonMissing.of()
+        private var jurisdictionOfIncorporation: JsonField<String> = JsonMissing.of()
         private var legalName: JsonField<String> = JsonMissing.of()
-        private var numberOfEmployees: JsonField<NumberOfEmployees> = JsonMissing.of()
+        private var numberOfEmployees: JsonField<String> = JsonMissing.of()
+        private var numberReputationEnabled: JsonField<Boolean> = JsonMissing.of()
         private var organizationContact: JsonField<OrganizationContact> = JsonMissing.of()
-        private var organizationLegalType: JsonField<OrganizationLegalType> = JsonMissing.of()
+        private var organizationLegalType: JsonField<String> = JsonMissing.of()
         private var organizationPhysicalAddress: JsonField<PhysicalAddress> = JsonMissing.of()
-        private var organizationType: JsonField<OrganizationType> = JsonMissing.of()
+        private var organizationType: JsonField<String> = JsonMissing.of()
         private var primaryBusinessDomainSicCode: JsonField<String> = JsonMissing.of()
         private var professionalLicenseNumber: JsonField<String> = JsonMissing.of()
-        private var roleType: JsonField<RoleType> = JsonMissing.of()
+        private var roleType: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var website: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -554,6 +595,7 @@ private constructor(
             id = enterprisePublic.id
             billingAddress = enterprisePublic.billingAddress
             billingContact = enterprisePublic.billingContact
+            brandedCallingEnabled = enterprisePublic.brandedCallingEnabled
             corporateRegistrationNumber = enterprisePublic.corporateRegistrationNumber
             countryCode = enterprisePublic.countryCode
             createdAt = enterprisePublic.createdAt
@@ -562,8 +604,10 @@ private constructor(
             dunBradstreetNumber = enterprisePublic.dunBradstreetNumber
             fein = enterprisePublic.fein
             industry = enterprisePublic.industry
+            jurisdictionOfIncorporation = enterprisePublic.jurisdictionOfIncorporation
             legalName = enterprisePublic.legalName
             numberOfEmployees = enterprisePublic.numberOfEmployees
+            numberReputationEnabled = enterprisePublic.numberReputationEnabled
             organizationContact = enterprisePublic.organizationContact
             organizationLegalType = enterprisePublic.organizationLegalType
             organizationPhysicalAddress = enterprisePublic.organizationPhysicalAddress
@@ -576,7 +620,6 @@ private constructor(
             additionalProperties = enterprisePublic.additionalProperties.toMutableMap()
         }
 
-        /** Unique identifier of the enterprise */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -615,7 +658,25 @@ private constructor(
             this.billingContact = billingContact
         }
 
-        /** Corporate registration number */
+        /**
+         * True once Branded Calling has been activated on this enterprise (see `POST
+         * /enterprises/{id}/branded_calling`).
+         */
+        fun brandedCallingEnabled(brandedCallingEnabled: Boolean) =
+            brandedCallingEnabled(JsonField.of(brandedCallingEnabled))
+
+        /**
+         * Sets [Builder.brandedCallingEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.brandedCallingEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun brandedCallingEnabled(brandedCallingEnabled: JsonField<Boolean>) = apply {
+            this.brandedCallingEnabled = brandedCallingEnabled
+        }
+
+        /** Optional corporate-registration / company-number identifier. */
         fun corporateRegistrationNumber(corporateRegistrationNumber: String?) =
             corporateRegistrationNumber(JsonField.ofNullable(corporateRegistrationNumber))
 
@@ -637,7 +698,6 @@ private constructor(
             this.corporateRegistrationNumber = corporateRegistrationNumber
         }
 
-        /** ISO 3166-1 alpha-2 country code */
         fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
 
         /**
@@ -649,7 +709,6 @@ private constructor(
          */
         fun countryCode(countryCode: JsonField<String>) = apply { this.countryCode = countryCode }
 
-        /** When the enterprise was created */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -661,13 +720,8 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** Customer reference identifier */
-        fun customerReference(customerReference: String?) =
-            customerReference(JsonField.ofNullable(customerReference))
-
-        /** Alias for calling [Builder.customerReference] with `customerReference.orElse(null)`. */
-        fun customerReference(customerReference: Optional<String>) =
-            customerReference(customerReference.getOrNull())
+        fun customerReference(customerReference: String) =
+            customerReference(JsonField.of(customerReference))
 
         /**
          * Sets [Builder.customerReference] to an arbitrary JSON value.
@@ -680,7 +734,6 @@ private constructor(
             this.customerReference = customerReference
         }
 
-        /** DBA name */
         fun doingBusinessAs(doingBusinessAs: String) =
             doingBusinessAs(JsonField.of(doingBusinessAs))
 
@@ -695,7 +748,7 @@ private constructor(
             this.doingBusinessAs = doingBusinessAs
         }
 
-        /** D-U-N-S Number */
+        /** Optional D-U-N-S Number issued by Dun & Bradstreet. */
         fun dunBradstreetNumber(dunBradstreetNumber: String?) =
             dunBradstreetNumber(JsonField.ofNullable(dunBradstreetNumber))
 
@@ -716,11 +769,7 @@ private constructor(
             this.dunBradstreetNumber = dunBradstreetNumber
         }
 
-        /** Federal Employer Identification Number */
-        fun fein(fein: String?) = fein(JsonField.ofNullable(fein))
-
-        /** Alias for calling [Builder.fein] with `fein.orElse(null)`. */
-        fun fein(fein: Optional<String>) = fein(fein.getOrNull())
+        fun fein(fein: String) = fein(JsonField.of(fein))
 
         /**
          * Sets [Builder.fein] to an arbitrary JSON value.
@@ -730,11 +779,7 @@ private constructor(
          */
         fun fein(fein: JsonField<String>) = apply { this.fein = fein }
 
-        /** Industry classification */
-        fun industry(industry: String?) = industry(JsonField.ofNullable(industry))
-
-        /** Alias for calling [Builder.industry] with `industry.orElse(null)`. */
-        fun industry(industry: Optional<String>) = industry(industry.getOrNull())
+        fun industry(industry: String) = industry(JsonField.of(industry))
 
         /**
          * Sets [Builder.industry] to an arbitrary JSON value.
@@ -744,7 +789,20 @@ private constructor(
          */
         fun industry(industry: JsonField<String>) = apply { this.industry = industry }
 
-        /** Legal name of the enterprise */
+        fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: String) =
+            jurisdictionOfIncorporation(JsonField.of(jurisdictionOfIncorporation))
+
+        /**
+         * Sets [Builder.jurisdictionOfIncorporation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.jurisdictionOfIncorporation] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: JsonField<String>) = apply {
+            this.jurisdictionOfIncorporation = jurisdictionOfIncorporation
+        }
+
         fun legalName(legalName: String) = legalName(JsonField.of(legalName))
 
         /**
@@ -756,29 +814,38 @@ private constructor(
          */
         fun legalName(legalName: JsonField<String>) = apply { this.legalName = legalName }
 
-        /** Employee count range */
-        fun numberOfEmployees(numberOfEmployees: NumberOfEmployees?) =
-            numberOfEmployees(JsonField.ofNullable(numberOfEmployees))
-
-        /** Alias for calling [Builder.numberOfEmployees] with `numberOfEmployees.orElse(null)`. */
-        fun numberOfEmployees(numberOfEmployees: Optional<NumberOfEmployees>) =
-            numberOfEmployees(numberOfEmployees.getOrNull())
+        fun numberOfEmployees(numberOfEmployees: String) =
+            numberOfEmployees(JsonField.of(numberOfEmployees))
 
         /**
          * Sets [Builder.numberOfEmployees] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numberOfEmployees] with a well-typed [NumberOfEmployees]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.numberOfEmployees] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun numberOfEmployees(numberOfEmployees: JsonField<NumberOfEmployees>) = apply {
+        fun numberOfEmployees(numberOfEmployees: JsonField<String>) = apply {
             this.numberOfEmployees = numberOfEmployees
         }
 
         /**
-         * Organization contact information. Note: the response returns this object with the phone
-         * field as 'phone' (not 'phone_number').
+         * True once Phone Number Reputation has been enabled on this enterprise (see `POST
+         * /enterprises/{id}/reputation`).
          */
+        fun numberReputationEnabled(numberReputationEnabled: Boolean) =
+            numberReputationEnabled(JsonField.of(numberReputationEnabled))
+
+        /**
+         * Sets [Builder.numberReputationEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.numberReputationEnabled] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun numberReputationEnabled(numberReputationEnabled: JsonField<Boolean>) = apply {
+            this.numberReputationEnabled = numberReputationEnabled
+        }
+
         fun organizationContact(organizationContact: OrganizationContact) =
             organizationContact(JsonField.of(organizationContact))
 
@@ -793,25 +860,17 @@ private constructor(
             this.organizationContact = organizationContact
         }
 
-        /** Legal structure type */
-        fun organizationLegalType(organizationLegalType: OrganizationLegalType?) =
-            organizationLegalType(JsonField.ofNullable(organizationLegalType))
-
-        /**
-         * Alias for calling [Builder.organizationLegalType] with
-         * `organizationLegalType.orElse(null)`.
-         */
-        fun organizationLegalType(organizationLegalType: Optional<OrganizationLegalType>) =
-            organizationLegalType(organizationLegalType.getOrNull())
+        fun organizationLegalType(organizationLegalType: String) =
+            organizationLegalType(JsonField.of(organizationLegalType))
 
         /**
          * Sets [Builder.organizationLegalType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.organizationLegalType] with a well-typed
-         * [OrganizationLegalType] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
+         * You should usually call [Builder.organizationLegalType] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun organizationLegalType(organizationLegalType: JsonField<OrganizationLegalType>) = apply {
+        fun organizationLegalType(organizationLegalType: JsonField<String>) = apply {
             this.organizationLegalType = organizationLegalType
         }
 
@@ -830,22 +889,21 @@ private constructor(
                 this.organizationPhysicalAddress = organizationPhysicalAddress
             }
 
-        /** Type of organization */
-        fun organizationType(organizationType: OrganizationType) =
+        fun organizationType(organizationType: String) =
             organizationType(JsonField.of(organizationType))
 
         /**
          * Sets [Builder.organizationType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.organizationType] with a well-typed [OrganizationType]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.organizationType] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun organizationType(organizationType: JsonField<OrganizationType>) = apply {
+        fun organizationType(organizationType: JsonField<String>) = apply {
             this.organizationType = organizationType
         }
 
-        /** SIC Code */
+        /** Optional SIC code for the primary line of business. */
         fun primaryBusinessDomainSicCode(primaryBusinessDomainSicCode: String?) =
             primaryBusinessDomainSicCode(JsonField.ofNullable(primaryBusinessDomainSicCode))
 
@@ -867,7 +925,7 @@ private constructor(
             this.primaryBusinessDomainSicCode = primaryBusinessDomainSicCode
         }
 
-        /** Professional license number */
+        /** Optional professional-license number for regulated industries. */
         fun professionalLicenseNumber(professionalLicenseNumber: String?) =
             professionalLicenseNumber(JsonField.ofNullable(professionalLicenseNumber))
 
@@ -889,19 +947,16 @@ private constructor(
             this.professionalLicenseNumber = professionalLicenseNumber
         }
 
-        /** Role type in Branded Calling / Number Reputation services */
-        fun roleType(roleType: RoleType) = roleType(JsonField.of(roleType))
+        fun roleType(roleType: String) = roleType(JsonField.of(roleType))
 
         /**
          * Sets [Builder.roleType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.roleType] with a well-typed [RoleType] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.roleType] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun roleType(roleType: JsonField<RoleType>) = apply { this.roleType = roleType }
+        fun roleType(roleType: JsonField<String>) = apply { this.roleType = roleType }
 
-        /** When the enterprise was last updated */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -913,11 +968,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /** Company website URL */
-        fun website(website: String?) = website(JsonField.ofNullable(website))
-
-        /** Alias for calling [Builder.website] with `website.orElse(null)`. */
-        fun website(website: Optional<String>) = website(website.getOrNull())
+        fun website(website: String) = website(JsonField.of(website))
 
         /**
          * Sets [Builder.website] to an arbitrary JSON value.
@@ -956,6 +1007,7 @@ private constructor(
                 id,
                 billingAddress,
                 billingContact,
+                brandedCallingEnabled,
                 corporateRegistrationNumber,
                 countryCode,
                 createdAt,
@@ -964,8 +1016,10 @@ private constructor(
                 dunBradstreetNumber,
                 fein,
                 industry,
+                jurisdictionOfIncorporation,
                 legalName,
                 numberOfEmployees,
+                numberReputationEnabled,
                 organizationContact,
                 organizationLegalType,
                 organizationPhysicalAddress,
@@ -997,6 +1051,7 @@ private constructor(
         id()
         billingAddress().ifPresent { it.validate() }
         billingContact().ifPresent { it.validate() }
+        brandedCallingEnabled()
         corporateRegistrationNumber()
         countryCode()
         createdAt()
@@ -1005,15 +1060,17 @@ private constructor(
         dunBradstreetNumber()
         fein()
         industry()
+        jurisdictionOfIncorporation()
         legalName()
-        numberOfEmployees().ifPresent { it.validate() }
+        numberOfEmployees()
+        numberReputationEnabled()
         organizationContact().ifPresent { it.validate() }
-        organizationLegalType().ifPresent { it.validate() }
+        organizationLegalType()
         organizationPhysicalAddress().ifPresent { it.validate() }
-        organizationType().ifPresent { it.validate() }
+        organizationType()
         primaryBusinessDomainSicCode()
         professionalLicenseNumber()
-        roleType().ifPresent { it.validate() }
+        roleType()
         updatedAt()
         website()
         validated = true
@@ -1037,6 +1094,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (billingAddress.asKnown().getOrNull()?.validity() ?: 0) +
             (billingContact.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (brandedCallingEnabled.asKnown().isPresent) 1 else 0) +
             (if (corporateRegistrationNumber.asKnown().isPresent) 1 else 0) +
             (if (countryCode.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -1045,625 +1103,19 @@ private constructor(
             (if (dunBradstreetNumber.asKnown().isPresent) 1 else 0) +
             (if (fein.asKnown().isPresent) 1 else 0) +
             (if (industry.asKnown().isPresent) 1 else 0) +
+            (if (jurisdictionOfIncorporation.asKnown().isPresent) 1 else 0) +
             (if (legalName.asKnown().isPresent) 1 else 0) +
-            (numberOfEmployees.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (numberOfEmployees.asKnown().isPresent) 1 else 0) +
+            (if (numberReputationEnabled.asKnown().isPresent) 1 else 0) +
             (organizationContact.asKnown().getOrNull()?.validity() ?: 0) +
-            (organizationLegalType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (organizationLegalType.asKnown().isPresent) 1 else 0) +
             (organizationPhysicalAddress.asKnown().getOrNull()?.validity() ?: 0) +
-            (organizationType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (organizationType.asKnown().isPresent) 1 else 0) +
             (if (primaryBusinessDomainSicCode.asKnown().isPresent) 1 else 0) +
             (if (professionalLicenseNumber.asKnown().isPresent) 1 else 0) +
-            (roleType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (roleType.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (website.asKnown().isPresent) 1 else 0)
-
-    /** Employee count range */
-    class NumberOfEmployees @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val NUMBER_OF_EMPLOYEES_1_10 = of("1-10")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_11_50 = of("11-50")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_51_200 = of("51-200")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_201_500 = of("201-500")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_501_2000 = of("501-2000")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_2001_10000 = of("2001-10000")
-
-            @JvmField val NUMBER_OF_EMPLOYEES_10001_PLUS = of("10001+")
-
-            @JvmStatic fun of(value: String) = NumberOfEmployees(JsonField.of(value))
-        }
-
-        /** An enum containing [NumberOfEmployees]'s known values. */
-        enum class Known {
-            NUMBER_OF_EMPLOYEES_1_10,
-            NUMBER_OF_EMPLOYEES_11_50,
-            NUMBER_OF_EMPLOYEES_51_200,
-            NUMBER_OF_EMPLOYEES_201_500,
-            NUMBER_OF_EMPLOYEES_501_2000,
-            NUMBER_OF_EMPLOYEES_2001_10000,
-            NUMBER_OF_EMPLOYEES_10001_PLUS,
-        }
-
-        /**
-         * An enum containing [NumberOfEmployees]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [NumberOfEmployees] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            NUMBER_OF_EMPLOYEES_1_10,
-            NUMBER_OF_EMPLOYEES_11_50,
-            NUMBER_OF_EMPLOYEES_51_200,
-            NUMBER_OF_EMPLOYEES_201_500,
-            NUMBER_OF_EMPLOYEES_501_2000,
-            NUMBER_OF_EMPLOYEES_2001_10000,
-            NUMBER_OF_EMPLOYEES_10001_PLUS,
-            /**
-             * An enum member indicating that [NumberOfEmployees] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                NUMBER_OF_EMPLOYEES_1_10 -> Value.NUMBER_OF_EMPLOYEES_1_10
-                NUMBER_OF_EMPLOYEES_11_50 -> Value.NUMBER_OF_EMPLOYEES_11_50
-                NUMBER_OF_EMPLOYEES_51_200 -> Value.NUMBER_OF_EMPLOYEES_51_200
-                NUMBER_OF_EMPLOYEES_201_500 -> Value.NUMBER_OF_EMPLOYEES_201_500
-                NUMBER_OF_EMPLOYEES_501_2000 -> Value.NUMBER_OF_EMPLOYEES_501_2000
-                NUMBER_OF_EMPLOYEES_2001_10000 -> Value.NUMBER_OF_EMPLOYEES_2001_10000
-                NUMBER_OF_EMPLOYEES_10001_PLUS -> Value.NUMBER_OF_EMPLOYEES_10001_PLUS
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                NUMBER_OF_EMPLOYEES_1_10 -> Known.NUMBER_OF_EMPLOYEES_1_10
-                NUMBER_OF_EMPLOYEES_11_50 -> Known.NUMBER_OF_EMPLOYEES_11_50
-                NUMBER_OF_EMPLOYEES_51_200 -> Known.NUMBER_OF_EMPLOYEES_51_200
-                NUMBER_OF_EMPLOYEES_201_500 -> Known.NUMBER_OF_EMPLOYEES_201_500
-                NUMBER_OF_EMPLOYEES_501_2000 -> Known.NUMBER_OF_EMPLOYEES_501_2000
-                NUMBER_OF_EMPLOYEES_2001_10000 -> Known.NUMBER_OF_EMPLOYEES_2001_10000
-                NUMBER_OF_EMPLOYEES_10001_PLUS -> Known.NUMBER_OF_EMPLOYEES_10001_PLUS
-                else -> throw TelnyxInvalidDataException("Unknown NumberOfEmployees: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): NumberOfEmployees = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NumberOfEmployees && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** Legal structure type */
-    class OrganizationLegalType
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val CORPORATION = of("corporation")
-
-            @JvmField val LLC = of("llc")
-
-            @JvmField val PARTNERSHIP = of("partnership")
-
-            @JvmField val NONPROFIT = of("nonprofit")
-
-            @JvmField val OTHER = of("other")
-
-            @JvmStatic fun of(value: String) = OrganizationLegalType(JsonField.of(value))
-        }
-
-        /** An enum containing [OrganizationLegalType]'s known values. */
-        enum class Known {
-            CORPORATION,
-            LLC,
-            PARTNERSHIP,
-            NONPROFIT,
-            OTHER,
-        }
-
-        /**
-         * An enum containing [OrganizationLegalType]'s known values, as well as an [_UNKNOWN]
-         * member.
-         *
-         * An instance of [OrganizationLegalType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            CORPORATION,
-            LLC,
-            PARTNERSHIP,
-            NONPROFIT,
-            OTHER,
-            /**
-             * An enum member indicating that [OrganizationLegalType] was instantiated with an
-             * unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                CORPORATION -> Value.CORPORATION
-                LLC -> Value.LLC
-                PARTNERSHIP -> Value.PARTNERSHIP
-                NONPROFIT -> Value.NONPROFIT
-                OTHER -> Value.OTHER
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                CORPORATION -> Known.CORPORATION
-                LLC -> Known.LLC
-                PARTNERSHIP -> Known.PARTNERSHIP
-                NONPROFIT -> Known.NONPROFIT
-                OTHER -> Known.OTHER
-                else -> throw TelnyxInvalidDataException("Unknown OrganizationLegalType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): OrganizationLegalType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is OrganizationLegalType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** Type of organization */
-    class OrganizationType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val COMMERCIAL = of("commercial")
-
-            @JvmField val GOVERNMENT = of("government")
-
-            @JvmField val NON_PROFIT = of("non_profit")
-
-            @JvmStatic fun of(value: String) = OrganizationType(JsonField.of(value))
-        }
-
-        /** An enum containing [OrganizationType]'s known values. */
-        enum class Known {
-            COMMERCIAL,
-            GOVERNMENT,
-            NON_PROFIT,
-        }
-
-        /**
-         * An enum containing [OrganizationType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [OrganizationType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            COMMERCIAL,
-            GOVERNMENT,
-            NON_PROFIT,
-            /**
-             * An enum member indicating that [OrganizationType] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                COMMERCIAL -> Value.COMMERCIAL
-                GOVERNMENT -> Value.GOVERNMENT
-                NON_PROFIT -> Value.NON_PROFIT
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                COMMERCIAL -> Known.COMMERCIAL
-                GOVERNMENT -> Known.GOVERNMENT
-                NON_PROFIT -> Known.NON_PROFIT
-                else -> throw TelnyxInvalidDataException("Unknown OrganizationType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): OrganizationType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is OrganizationType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** Role type in Branded Calling / Number Reputation services */
-    class RoleType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val ENTERPRISE = of("enterprise")
-
-            @JvmField val BPO = of("bpo")
-
-            @JvmStatic fun of(value: String) = RoleType(JsonField.of(value))
-        }
-
-        /** An enum containing [RoleType]'s known values. */
-        enum class Known {
-            ENTERPRISE,
-            BPO,
-        }
-
-        /**
-         * An enum containing [RoleType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [RoleType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            ENTERPRISE,
-            BPO,
-            /** An enum member indicating that [RoleType] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                ENTERPRISE -> Value.ENTERPRISE
-                BPO -> Value.BPO
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                ENTERPRISE -> Known.ENTERPRISE
-                BPO -> Known.BPO
-                else -> throw TelnyxInvalidDataException("Unknown RoleType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): RoleType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RoleType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -1674,6 +1126,7 @@ private constructor(
             id == other.id &&
             billingAddress == other.billingAddress &&
             billingContact == other.billingContact &&
+            brandedCallingEnabled == other.brandedCallingEnabled &&
             corporateRegistrationNumber == other.corporateRegistrationNumber &&
             countryCode == other.countryCode &&
             createdAt == other.createdAt &&
@@ -1682,8 +1135,10 @@ private constructor(
             dunBradstreetNumber == other.dunBradstreetNumber &&
             fein == other.fein &&
             industry == other.industry &&
+            jurisdictionOfIncorporation == other.jurisdictionOfIncorporation &&
             legalName == other.legalName &&
             numberOfEmployees == other.numberOfEmployees &&
+            numberReputationEnabled == other.numberReputationEnabled &&
             organizationContact == other.organizationContact &&
             organizationLegalType == other.organizationLegalType &&
             organizationPhysicalAddress == other.organizationPhysicalAddress &&
@@ -1701,6 +1156,7 @@ private constructor(
             id,
             billingAddress,
             billingContact,
+            brandedCallingEnabled,
             corporateRegistrationNumber,
             countryCode,
             createdAt,
@@ -1709,8 +1165,10 @@ private constructor(
             dunBradstreetNumber,
             fein,
             industry,
+            jurisdictionOfIncorporation,
             legalName,
             numberOfEmployees,
+            numberReputationEnabled,
             organizationContact,
             organizationLegalType,
             organizationPhysicalAddress,
@@ -1727,5 +1185,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EnterprisePublic{id=$id, billingAddress=$billingAddress, billingContact=$billingContact, corporateRegistrationNumber=$corporateRegistrationNumber, countryCode=$countryCode, createdAt=$createdAt, customerReference=$customerReference, doingBusinessAs=$doingBusinessAs, dunBradstreetNumber=$dunBradstreetNumber, fein=$fein, industry=$industry, legalName=$legalName, numberOfEmployees=$numberOfEmployees, organizationContact=$organizationContact, organizationLegalType=$organizationLegalType, organizationPhysicalAddress=$organizationPhysicalAddress, organizationType=$organizationType, primaryBusinessDomainSicCode=$primaryBusinessDomainSicCode, professionalLicenseNumber=$professionalLicenseNumber, roleType=$roleType, updatedAt=$updatedAt, website=$website, additionalProperties=$additionalProperties}"
+        "EnterprisePublic{id=$id, billingAddress=$billingAddress, billingContact=$billingContact, brandedCallingEnabled=$brandedCallingEnabled, corporateRegistrationNumber=$corporateRegistrationNumber, countryCode=$countryCode, createdAt=$createdAt, customerReference=$customerReference, doingBusinessAs=$doingBusinessAs, dunBradstreetNumber=$dunBradstreetNumber, fein=$fein, industry=$industry, jurisdictionOfIncorporation=$jurisdictionOfIncorporation, legalName=$legalName, numberOfEmployees=$numberOfEmployees, numberReputationEnabled=$numberReputationEnabled, organizationContact=$organizationContact, organizationLegalType=$organizationLegalType, organizationPhysicalAddress=$organizationPhysicalAddress, organizationType=$organizationType, primaryBusinessDomainSicCode=$primaryBusinessDomainSicCode, professionalLicenseNumber=$professionalLicenseNumber, roleType=$roleType, updatedAt=$updatedAt, website=$website, additionalProperties=$additionalProperties}"
 }

@@ -11,9 +11,9 @@ internal class NumberListParamsTest {
     @Test
     fun create() {
         NumberListParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .pageNumber(1L)
-            .pageSize(1L)
+            .pageSize(10L)
             .phoneNumber("+16035551234")
             .build()
     }
@@ -21,9 +21,9 @@ internal class NumberListParamsTest {
     @Test
     fun pathParams() {
         val params =
-            NumberListParams.builder().enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58").build()
+            NumberListParams.builder().enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -32,9 +32,9 @@ internal class NumberListParamsTest {
     fun queryParams() {
         val params =
             NumberListParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .pageNumber(1L)
-                .pageSize(1L)
+                .pageSize(10L)
                 .phoneNumber("+16035551234")
                 .build()
 
@@ -44,7 +44,7 @@ internal class NumberListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[size]", "10")
                     .put("phone_number", "+16035551234")
                     .build()
             )
@@ -53,7 +53,7 @@ internal class NumberListParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            NumberListParams.builder().enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58").build()
+            NumberListParams.builder().enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6").build()
 
         val queryParams = params._queryParams()
 

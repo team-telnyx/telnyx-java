@@ -11,20 +11,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Get detailed reputation data for a specific phone number associated with an enterprise.
- *
- * **Query Parameters:**
- * - `fresh` (default: `false`): When `true`, fetches fresh reputation data (incurs API cost). When
- *   `false`, returns cached data. If no cached data exists, fresh data is automatically fetched.
- *
- * **Returns:**
- * - `spam_risk`: Overall spam risk level (`low`, `medium`, `high`)
- * - `spam_category`: Spam category classification
- * - `maturity_score`: Maturity metric (0–100)
- * - `connection_score`: Connection quality metric (0–100)
- * - `engagement_score`: Engagement metric (0–100)
- * - `sentiment_score`: Sentiment metric (0–100)
- * - `last_refreshed_at`: Timestamp of last data refresh
+ * Retrieve one registered number with its latest reputation snapshot. The `phone_number` path
+ * parameter is in E.164 format and must be URL-encoded (e.g. `%2B19493253498`).
  */
 class NumberRetrieveParams
 private constructor(
@@ -40,7 +28,8 @@ private constructor(
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
     /**
-     * When true, fetches fresh reputation data (incurs API cost). When false, returns cached data.
+     * When true, fetches fresh reputation data (incurs API cost). When false (default), returns
+     * cached data.
      */
     fun fresh(): Optional<Boolean> = Optional.ofNullable(fresh)
 
@@ -91,8 +80,8 @@ private constructor(
         fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
         /**
-         * When true, fetches fresh reputation data (incurs API cost). When false, returns cached
-         * data.
+         * When true, fetches fresh reputation data (incurs API cost). When false (default), returns
+         * cached data.
          */
         fun fresh(fresh: Boolean?) = apply { this.fresh = fresh }
 
