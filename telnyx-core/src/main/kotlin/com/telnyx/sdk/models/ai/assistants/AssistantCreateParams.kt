@@ -3192,6 +3192,9 @@ private constructor(
             /** Alias for calling [addNode] with `Node.ofTool(tool)`. */
             fun addNode(tool: Node.Tool) = addNode(Node.ofTool(tool))
 
+            /** Alias for calling [addNode] with `Node.ofSpeak(speak)`. */
+            fun addNode(speak: Node.Speak) = addNode(Node.ofSpeak(speak))
+
             /** ID of the node where the conversation begins. */
             fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
 
@@ -3327,6 +3330,7 @@ private constructor(
         private constructor(
             private val prompt: Prompt? = null,
             private val tool: Tool? = null,
+            private val speak: Speak? = null,
             private val _json: JsonValue? = null,
         ) {
 
@@ -3348,9 +3352,20 @@ private constructor(
              */
             fun tool(): Optional<Tool> = Optional.ofNullable(tool)
 
+            /**
+             * A standalone scripted-message step in a flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
+             * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
+             * interpolation), then routes via outgoing `llm` / `expression` edges.
+             */
+            fun speak(): Optional<Speak> = Optional.ofNullable(speak)
+
             fun isPrompt(): Boolean = prompt != null
 
             fun isTool(): Boolean = tool != null
+
+            fun isSpeak(): Boolean = speak != null
 
             /**
              * One step in a conversation flow, as supplied by API clients.
@@ -3369,6 +3384,15 @@ private constructor(
              * `tool_result` edges.
              */
             fun asTool(): Tool = tool.getOrThrow("tool")
+
+            /**
+             * A standalone scripted-message step in a flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
+             * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
+             * interpolation), then routes via outgoing `llm` / `expression` edges.
+             */
+            fun asSpeak(): Speak = speak.getOrThrow("speak")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -3406,6 +3430,7 @@ private constructor(
                 when {
                     prompt != null -> visitor.visitPrompt(prompt)
                     tool != null -> visitor.visitTool(tool)
+                    speak != null -> visitor.visitSpeak(speak)
                     else -> visitor.unknown(_json)
                 }
 
@@ -3435,6 +3460,10 @@ private constructor(
                         override fun visitTool(tool: Tool) {
                             tool.validate()
                         }
+
+                        override fun visitSpeak(speak: Speak) {
+                            speak.validate()
+                        }
                     }
                 )
                 validated = true
@@ -3462,6 +3491,8 @@ private constructor(
 
                         override fun visitTool(tool: Tool) = tool.validity()
 
+                        override fun visitSpeak(speak: Speak) = speak.validity()
+
                         override fun unknown(json: JsonValue?) = 0
                     }
                 )
@@ -3471,15 +3502,19 @@ private constructor(
                     return true
                 }
 
-                return other is Node && prompt == other.prompt && tool == other.tool
+                return other is Node &&
+                    prompt == other.prompt &&
+                    tool == other.tool &&
+                    speak == other.speak
             }
 
-            override fun hashCode(): Int = Objects.hash(prompt, tool)
+            override fun hashCode(): Int = Objects.hash(prompt, tool, speak)
 
             override fun toString(): String =
                 when {
                     prompt != null -> "Node{prompt=$prompt}"
                     tool != null -> "Node{tool=$tool}"
+                    speak != null -> "Node{speak=$speak}"
                     _json != null -> "Node{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid Node")
                 }
@@ -3503,6 +3538,15 @@ private constructor(
                  * `tool_result` edges.
                  */
                 @JvmStatic fun ofTool(tool: Tool) = Node(tool = tool)
+
+                /**
+                 * A standalone scripted-message step in a flow, as supplied by clients.
+                 *
+                 * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
+                 * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
+                 * interpolation), then routes via outgoing `llm` / `expression` edges.
+                 */
+                @JvmStatic fun ofSpeak(speak: Speak) = Node(speak = speak)
             }
 
             /**
@@ -3527,6 +3571,15 @@ private constructor(
                  * `tool_result` edges.
                  */
                 fun visitTool(tool: Tool): T
+
+                /**
+                 * A standalone scripted-message step in a flow, as supplied by clients.
+                 *
+                 * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
+                 * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
+                 * interpolation), then routes via outgoing `llm` / `expression` edges.
+                 */
+                fun visitSpeak(speak: Speak): T
 
                 /**
                  * Maps an unknown variant of [Node] to a value of type [T].
@@ -3560,6 +3613,11 @@ private constructor(
                                 Node(tool = it, _json = json)
                             } ?: Node(_json = json)
                         }
+                        "speak" -> {
+                            return tryDeserialize(node, jacksonTypeRef<Speak>())?.let {
+                                Node(speak = it, _json = json)
+                            } ?: Node(_json = json)
+                        }
                     }
 
                     return Node(_json = json)
@@ -3576,6 +3634,7 @@ private constructor(
                     when {
                         value.prompt != null -> generator.writeObject(value.prompt)
                         value.tool != null -> generator.writeObject(value.tool)
+                        value.speak != null -> generator.writeObject(value.speak)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid Node")
                     }
@@ -5750,6 +5809,720 @@ private constructor(
                 override fun toString() =
                     "Tool{id=$id, sharedToolId=$sharedToolId, name=$name, position=$position, type=$type, additionalProperties=$additionalProperties}"
             }
+
+            /**
+             * A standalone scripted-message step in a flow, as supplied by clients.
+             *
+             * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
+             * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
+             * interpolation), then routes via outgoing `llm` / `expression` edges.
+             */
+            class Speak
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val id: JsonField<String>,
+                private val message: JsonField<String>,
+                private val name: JsonField<String>,
+                private val position: JsonField<Position>,
+                private val type: JsonField<Type>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("message")
+                    @ExcludeMissing
+                    message: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("name")
+                    @ExcludeMissing
+                    name: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("position")
+                    @ExcludeMissing
+                    position: JsonField<Position> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                ) : this(id, message, name, position, type, mutableMapOf())
+
+                /**
+                 * Caller-supplied unique identifier for this node within the flow.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun id(): String = id.getRequired("id")
+
+                /**
+                 * Message delivered to the user verbatim when the flow reaches this node. No LLM
+                 * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+                 * are interpolated from the conversation's dynamic variables; an unresolved
+                 * placeholder renders as an empty string. After delivering, the flow routes via the
+                 * node's outgoing `llm` / `expression` edges (commonly a single unconditional
+                 * edge).
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun message(): String = message.getRequired("message")
+
+                /**
+                 * Optional human-readable label, displayed in authoring UIs.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun name(): Optional<String> = name.getOptional("name")
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun position(): Optional<Position> = position.getOptional("position")
+
+                /**
+                 * Node kind discriminator. Always `speak` for a speak node.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun type(): Optional<Type> = type.getOptional("type")
+
+                /**
+                 * Returns the raw JSON value of [id].
+                 *
+                 * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+                /**
+                 * Returns the raw JSON value of [message].
+                 *
+                 * Unlike [message], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                /**
+                 * Returns the raw JSON value of [position].
+                 *
+                 * Unlike [position], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("position")
+                @ExcludeMissing
+                fun _position(): JsonField<Position> = position
+
+                /**
+                 * Returns the raw JSON value of [type].
+                 *
+                 * Unlike [type], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Speak].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .message()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Speak]. */
+                class Builder internal constructor() {
+
+                    private var id: JsonField<String>? = null
+                    private var message: JsonField<String>? = null
+                    private var name: JsonField<String> = JsonMissing.of()
+                    private var position: JsonField<Position> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(speak: Speak) = apply {
+                        id = speak.id
+                        message = speak.message
+                        name = speak.name
+                        position = speak.position
+                        type = speak.type
+                        additionalProperties = speak.additionalProperties.toMutableMap()
+                    }
+
+                    /** Caller-supplied unique identifier for this node within the flow. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /**
+                     * Sets [Builder.id] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.id] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun id(id: JsonField<String>) = apply { this.id = id }
+
+                    /**
+                     * Message delivered to the user verbatim when the flow reaches this node. No
+                     * LLM turn — the text is spoken/sent exactly as written. `{{variable}}`
+                     * placeholders are interpolated from the conversation's dynamic variables; an
+                     * unresolved placeholder renders as an empty string. After delivering, the flow
+                     * routes via the node's outgoing `llm` / `expression` edges (commonly a single
+                     * unconditional edge).
+                     */
+                    fun message(message: String) = message(JsonField.of(message))
+
+                    /**
+                     * Sets [Builder.message] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.message] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun message(message: JsonField<String>) = apply { this.message = message }
+
+                    /** Optional human-readable label, displayed in authoring UIs. */
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    /**
+                     * Optional canvas coordinates used by authoring UIs to lay out the graph.
+                     * Ignored by the runtime; round-trips so frontends can persist graph layout
+                     * across reloads.
+                     */
+                    fun position(position: Position) = position(JsonField.of(position))
+
+                    /**
+                     * Sets [Builder.position] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.position] with a well-typed [Position] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun position(position: JsonField<Position>) = apply { this.position = position }
+
+                    /** Node kind discriminator. Always `speak` for a speak node. */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * Sets [Builder.type] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.type] with a well-typed [Type] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Speak].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .message()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Speak =
+                        Speak(
+                            checkRequired("id", id),
+                            checkRequired("message", message),
+                            name,
+                            position,
+                            type,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Speak = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    id()
+                    message()
+                    name()
+                    position().ifPresent { it.validate() }
+                    type().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (id.asKnown().isPresent) 1 else 0) +
+                        (if (message.asKnown().isPresent) 1 else 0) +
+                        (if (name.asKnown().isPresent) 1 else 0) +
+                        (position.asKnown().getOrNull()?.validity() ?: 0) +
+                        (type.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+                 * by the runtime; round-trips so frontends can persist graph layout across reloads.
+                 */
+                class Position
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val x: JsonField<Double>,
+                    private val y: JsonField<Double>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("x") @ExcludeMissing x: JsonField<Double> = JsonMissing.of(),
+                        @JsonProperty("y") @ExcludeMissing y: JsonField<Double> = JsonMissing.of(),
+                    ) : this(x, y, mutableMapOf())
+
+                    /**
+                     * Horizontal coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun x(): Double = x.getRequired("x")
+
+                    /**
+                     * Vertical coordinate in the authoring canvas.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun y(): Double = y.getRequired("y")
+
+                    /**
+                     * Returns the raw JSON value of [x].
+                     *
+                     * Unlike [x], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("x") @ExcludeMissing fun _x(): JsonField<Double> = x
+
+                    /**
+                     * Returns the raw JSON value of [y].
+                     *
+                     * Unlike [y], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("y") @ExcludeMissing fun _y(): JsonField<Double> = y
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Position].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Position]. */
+                    class Builder internal constructor() {
+
+                        private var x: JsonField<Double>? = null
+                        private var y: JsonField<Double>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(position: Position) = apply {
+                            x = position.x
+                            y = position.y
+                            additionalProperties = position.additionalProperties.toMutableMap()
+                        }
+
+                        /** Horizontal coordinate in the authoring canvas. */
+                        fun x(x: Double) = x(JsonField.of(x))
+
+                        /**
+                         * Sets [Builder.x] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.x] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun x(x: JsonField<Double>) = apply { this.x = x }
+
+                        /** Vertical coordinate in the authoring canvas. */
+                        fun y(y: Double) = y(JsonField.of(y))
+
+                        /**
+                         * Sets [Builder.y] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.y] with a well-typed [Double] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun y(y: JsonField<Double>) = apply { this.y = y }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Position].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .x()
+                         * .y()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Position =
+                            Position(
+                                checkRequired("x", x),
+                                checkRequired("y", y),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Position = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        x()
+                        y()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (x.asKnown().isPresent) 1 else 0) +
+                            (if (y.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Position &&
+                            x == other.x &&
+                            y == other.y &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(x, y, additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Position{x=$x, y=$y, additionalProperties=$additionalProperties}"
+                }
+
+                /** Node kind discriminator. Always `speak` for a speak node. */
+                class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val SPEAK = of("speak")
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Type]'s known values. */
+                    enum class Known {
+                        SPEAK
+                    }
+
+                    /**
+                     * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Type] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        SPEAK,
+                        /**
+                         * An enum member indicating that [Type] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            SPEAK -> Value.SPEAK
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            SPEAK -> Known.SPEAK
+                            else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Type = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Speak &&
+                        id == other.id &&
+                        message == other.message &&
+                        name == other.name &&
+                        position == other.position &&
+                        type == other.type &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(id, message, name, position, type, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Speak{id=$id, message=$message, name=$name, position=$position, type=$type, additionalProperties=$additionalProperties}"
+            }
         }
 
         /**
@@ -6007,6 +6780,9 @@ private constructor(
                         Condition.Expression.InnerExpression.ofBooleanLiteral(booleanLiteral)
                     )
 
+                /** Alias for calling [condition] with `Condition.ofDefault()`. */
+                fun conditionDefault() = condition(Condition.ofDefault())
+
                 /** ID of the node this edge transitions away from. */
                 fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
 
@@ -6165,6 +6941,7 @@ private constructor(
             private constructor(
                 private val llm: Llm? = null,
                 private val expression: Expression? = null,
+                private val default_: JsonValue? = null,
                 private val _json: JsonValue? = null,
             ) {
 
@@ -6186,9 +6963,24 @@ private constructor(
                  */
                 fun expression(): Optional<Expression> = Optional.ofNullable(expression)
 
+                /**
+                 * Fallback edge condition: fires only when no other edge's condition is true.
+                 *
+                 * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+                 * declaration order, so it routes the flow whenever none of the node's other
+                 * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+                 * where the deterministic step auto-advances and must always have somewhere to go.
+                 * A tool/speak node with any outgoing edge is required to carry exactly one
+                 * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges is
+                 * a valid terminal step. Carries no parameters.
+                 */
+                fun default_(): Optional<JsonValue> = Optional.ofNullable(default_)
+
                 fun isLlm(): Boolean = llm != null
 
                 fun isExpression(): Boolean = expression != null
+
+                fun isDefault(): Boolean = default_ != null
 
                 /**
                  * Edge condition evaluated by the LLM from a natural-language prompt.
@@ -6207,6 +6999,19 @@ private constructor(
                  * known variables — it's cheaper and predictable.
                  */
                 fun asExpression(): Expression = expression.getOrThrow("expression")
+
+                /**
+                 * Fallback edge condition: fires only when no other edge's condition is true.
+                 *
+                 * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+                 * declaration order, so it routes the flow whenever none of the node's other
+                 * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+                 * where the deterministic step auto-advances and must always have somewhere to go.
+                 * A tool/speak node with any outgoing edge is required to carry exactly one
+                 * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges is
+                 * a valid terminal step. Carries no parameters.
+                 */
+                fun asDefault(): JsonValue = default_.getOrThrow("default_")
 
                 fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -6244,6 +7049,7 @@ private constructor(
                     when {
                         llm != null -> visitor.visitLlm(llm)
                         expression != null -> visitor.visitExpression(expression)
+                        default_ != null -> visitor.visitDefault(default_)
                         else -> visitor.unknown(_json)
                     }
 
@@ -6273,6 +7079,16 @@ private constructor(
                             override fun visitExpression(expression: Expression) {
                                 expression.validate()
                             }
+
+                            override fun visitDefault(default_: JsonValue) {
+                                default_.let {
+                                    if (it != JsonValue.from(mapOf("type" to "default"))) {
+                                        throw TelnyxInvalidDataException(
+                                            "'default_' is invalid, received $it"
+                                        )
+                                    }
+                                }
+                            }
                         }
                     )
                     validated = true
@@ -6301,6 +7117,11 @@ private constructor(
                             override fun visitExpression(expression: Expression) =
                                 expression.validity()
 
+                            override fun visitDefault(default_: JsonValue) =
+                                default_.let {
+                                    if (it == JsonValue.from(mapOf("type" to "default"))) 1 else 0
+                                }
+
                             override fun unknown(json: JsonValue?) = 0
                         }
                     )
@@ -6310,15 +7131,19 @@ private constructor(
                         return true
                     }
 
-                    return other is Condition && llm == other.llm && expression == other.expression
+                    return other is Condition &&
+                        llm == other.llm &&
+                        expression == other.expression &&
+                        default_ == other.default_
                 }
 
-                override fun hashCode(): Int = Objects.hash(llm, expression)
+                override fun hashCode(): Int = Objects.hash(llm, expression, default_)
 
                 override fun toString(): String =
                     when {
                         llm != null -> "Condition{llm=$llm}"
                         expression != null -> "Condition{expression=$expression}"
+                        default_ != null -> "Condition{default_=$default_}"
                         _json != null -> "Condition{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid Condition")
                     }
@@ -6343,6 +7168,21 @@ private constructor(
                      */
                     @JvmStatic
                     fun ofExpression(expression: Expression) = Condition(expression = expression)
+
+                    /**
+                     * Fallback edge condition: fires only when no other edge's condition is true.
+                     *
+                     * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+                     * declaration order, so it routes the flow whenever none of the node's other
+                     * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak`
+                     * node, where the deterministic step auto-advances and must always have
+                     * somewhere to go. A tool/speak node with any outgoing edge is required to
+                     * carry exactly one `default` edge so it never dead-ends; a tool/speak node
+                     * with no outgoing edges is a valid terminal step. Carries no parameters.
+                     */
+                    @JvmStatic
+                    fun ofDefault() =
+                        Condition(default_ = JsonValue.from(mapOf("type" to "default")))
                 }
 
                 /**
@@ -6368,6 +7208,19 @@ private constructor(
                      * clean function of known variables — it's cheaper and predictable.
                      */
                     fun visitExpression(expression: Expression): T
+
+                    /**
+                     * Fallback edge condition: fires only when no other edge's condition is true.
+                     *
+                     * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+                     * declaration order, so it routes the flow whenever none of the node's other
+                     * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak`
+                     * node, where the deterministic step auto-advances and must always have
+                     * somewhere to go. A tool/speak node with any outgoing edge is required to
+                     * carry exactly one `default` edge so it never dead-ends; a tool/speak node
+                     * with no outgoing edges is a valid terminal step. Carries no parameters.
+                     */
+                    fun visitDefault(default_: JsonValue): T
 
                     /**
                      * Maps an unknown variant of [Condition] to a value of type [T].
@@ -6401,6 +7254,11 @@ private constructor(
                                     Condition(expression = it, _json = json)
                                 } ?: Condition(_json = json)
                             }
+                            "default" -> {
+                                return tryDeserialize(node, jacksonTypeRef<JsonValue>())
+                                    ?.let { Condition(default_ = it, _json = json) }
+                                    ?.takeIf { it.isValid() } ?: Condition(_json = json)
+                            }
                         }
 
                         return Condition(_json = json)
@@ -6417,6 +7275,7 @@ private constructor(
                         when {
                             value.llm != null -> generator.writeObject(value.llm)
                             value.expression != null -> generator.writeObject(value.expression)
+                            value.default_ != null -> generator.writeObject(value.default_)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid Condition")
                         }
