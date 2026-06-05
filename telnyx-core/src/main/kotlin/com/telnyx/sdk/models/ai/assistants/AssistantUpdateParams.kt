@@ -95,13 +95,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun externalLlm(): Optional<ExternalLlmReq> = body.externalLlm()
+    fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> = body.externalLlm()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun fallbackConfig(): Optional<FallbackConfigReq> = body.fallbackConfig()
+    fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> = body.fallbackConfig()
 
     /**
      * Text that the assistant will use to start the conversation. This may be templated with
@@ -138,7 +138,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun integrations(): Optional<List<AssistantIntegration>> = body.integrations()
+    fun integrations(): Optional<List<UpdateAssistant.Integration>> = body.integrations()
 
     /**
      * Settings for interruptions and how the assistant decides the user has finished speaking.
@@ -150,7 +150,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun interruptionSettings(): Optional<InferenceEmbeddingInterruptionSettings> =
+    fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
         body.interruptionSettings()
 
     /**
@@ -173,7 +173,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun mcpServers(): Optional<List<AssistantMcpServer>> = body.mcpServers()
+    fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> = body.mcpServers()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -215,7 +215,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+    fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
         body.postConversationSettings()
 
     /**
@@ -345,14 +345,14 @@ private constructor(
      *
      * Unlike [externalLlm], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _externalLlm(): JsonField<ExternalLlmReq> = body._externalLlm()
+    fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = body._externalLlm()
 
     /**
      * Returns the raw JSON value of [fallbackConfig].
      *
      * Unlike [fallbackConfig], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _fallbackConfig(): JsonField<FallbackConfigReq> = body._fallbackConfig()
+    fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = body._fallbackConfig()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -380,7 +380,7 @@ private constructor(
      *
      * Unlike [integrations], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _integrations(): JsonField<List<AssistantIntegration>> = body._integrations()
+    fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = body._integrations()
 
     /**
      * Returns the raw JSON value of [interruptionSettings].
@@ -388,7 +388,7 @@ private constructor(
      * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _interruptionSettings(): JsonField<InferenceEmbeddingInterruptionSettings> =
+    fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
         body._interruptionSettings()
 
     /**
@@ -403,7 +403,7 @@ private constructor(
      *
      * Unlike [mcpServers], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _mcpServers(): JsonField<List<AssistantMcpServer>> = body._mcpServers()
+    fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = body._mcpServers()
 
     /**
      * Returns the raw JSON value of [messagingSettings].
@@ -441,7 +441,7 @@ private constructor(
      * Unlike [postConversationSettings], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+    fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
         body._postConversationSettings()
 
     /**
@@ -689,31 +689,33 @@ private constructor(
             body.addEnabledFeature(enabledFeature)
         }
 
-        fun externalLlm(externalLlm: ExternalLlmReq) = apply { body.externalLlm(externalLlm) }
+        fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) = apply {
+            body.externalLlm(externalLlm)
+        }
 
         /**
          * Sets [Builder.externalLlm] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.externalLlm] with a well-typed
+         * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+        fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
             body.externalLlm(externalLlm)
         }
 
-        fun fallbackConfig(fallbackConfig: FallbackConfigReq) = apply {
+        fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
         /**
          * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fallbackConfig] with a well-typed [FallbackConfigReq]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.fallbackConfig] with a well-typed
+         * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+        fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
             body.fallbackConfig(fallbackConfig)
         }
 
@@ -772,7 +774,7 @@ private constructor(
          * `/ai/integrations/connections`. Each item references a catalog integration by
          * `integration_id`.
          */
-        fun integrations(integrations: List<AssistantIntegration>) = apply {
+        fun integrations(integrations: List<UpdateAssistant.Integration>) = apply {
             body.integrations(integrations)
         }
 
@@ -780,19 +782,19 @@ private constructor(
          * Sets [Builder.integrations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.integrations] with a well-typed
-         * `List<AssistantIntegration>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * `List<UpdateAssistant.Integration>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun integrations(integrations: JsonField<List<AssistantIntegration>>) = apply {
+        fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
             body.integrations(integrations)
         }
 
         /**
-         * Adds a single [AssistantIntegration] to [integrations].
+         * Adds a single [UpdateAssistant.Integration] to [integrations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addIntegration(integration: AssistantIntegration) = apply {
+        fun addIntegration(integration: UpdateAssistant.Integration) = apply {
             body.addIntegration(integration)
         }
 
@@ -803,7 +805,7 @@ private constructor(
          * transcription end-of-turn settings under `transcription.settings` (`eot_threshold`,
          * `eot_timeout_ms`, `eager_eot_threshold`).
          */
-        fun interruptionSettings(interruptionSettings: InferenceEmbeddingInterruptionSettings) =
+        fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
             apply {
                 body.interruptionSettings(interruptionSettings)
             }
@@ -812,11 +814,11 @@ private constructor(
          * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.interruptionSettings] with a well-typed
-         * [InferenceEmbeddingInterruptionSettings] value instead. This method is primarily for
+         * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
          * setting the field to an undocumented or not yet supported value.
          */
         fun interruptionSettings(
-            interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>
+            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
         ) = apply { body.interruptionSettings(interruptionSettings) }
 
         /**
@@ -844,25 +846,29 @@ private constructor(
          * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`, then
          * reference them by `id` here.
          */
-        fun mcpServers(mcpServers: List<AssistantMcpServer>) = apply { body.mcpServers(mcpServers) }
-
-        /**
-         * Sets [Builder.mcpServers] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.mcpServers] with a well-typed `List<AssistantMcpServer>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun mcpServers(mcpServers: JsonField<List<AssistantMcpServer>>) = apply {
+        fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) = apply {
             body.mcpServers(mcpServers)
         }
 
         /**
-         * Adds a single [AssistantMcpServer] to [mcpServers].
+         * Sets [Builder.mcpServers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mcpServers] with a well-typed
+         * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
+            body.mcpServers(mcpServers)
+        }
+
+        /**
+         * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addMcpServer(mcpServer: AssistantMcpServer) = apply { body.addMcpServer(mcpServer) }
+        fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
+            body.addMcpServer(mcpServer)
+        }
 
         fun messagingSettings(messagingSettings: MessagingSettings) = apply {
             body.messagingSettings(messagingSettings)
@@ -928,20 +934,19 @@ private constructor(
          * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
          * unavailable post-conversation. Beta feature.
          */
-        fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
-            apply {
-                body.postConversationSettings(postConversationSettings)
-            }
+        fun postConversationSettings(
+            postConversationSettings: UpdateAssistant.PostConversationSettings
+        ) = apply { body.postConversationSettings(postConversationSettings) }
 
         /**
          * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.postConversationSettings] with a well-typed
-         * [PostConversationSettingsReq] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
         fun postConversationSettings(
-            postConversationSettings: JsonField<PostConversationSettingsReq>
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
         ) = apply { body.postConversationSettings(postConversationSettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
@@ -1125,7 +1130,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addInviteTool(invite: AssistantTool.Invite.InviteToolInviteConfig) = apply {
+        fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) = apply {
             body.addInviteTool(invite)
         }
 
@@ -1415,20 +1420,20 @@ private constructor(
         private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
         private val dynamicVariablesWebhookUrl: JsonField<String>,
         private val enabledFeatures: JsonField<List<EnabledFeatures>>,
-        private val externalLlm: JsonField<ExternalLlmReq>,
-        private val fallbackConfig: JsonField<FallbackConfigReq>,
+        private val externalLlm: JsonField<UpdateAssistant.ExternalLlm>,
+        private val fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>,
         private val greeting: JsonField<String>,
         private val insightSettings: JsonField<InsightSettings>,
         private val instructions: JsonField<String>,
-        private val integrations: JsonField<List<AssistantIntegration>>,
-        private val interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>,
+        private val integrations: JsonField<List<UpdateAssistant.Integration>>,
+        private val interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>,
         private val llmApiKeyRef: JsonField<String>,
-        private val mcpServers: JsonField<List<AssistantMcpServer>>,
+        private val mcpServers: JsonField<List<UpdateAssistant.McpServer>>,
         private val messagingSettings: JsonField<MessagingSettings>,
         private val model: JsonField<String>,
         private val name: JsonField<String>,
         private val observabilitySettings: JsonField<ObservabilityReq>,
-        private val postConversationSettings: JsonField<PostConversationSettingsReq>,
+        private val postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val tags: JsonField<List<String>>,
         private val telephonySettings: JsonField<TelephonySettings>,
@@ -1464,10 +1469,10 @@ private constructor(
             enabledFeatures: JsonField<List<EnabledFeatures>> = JsonMissing.of(),
             @JsonProperty("external_llm")
             @ExcludeMissing
-            externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of(),
+            externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of(),
             @JsonProperty("fallback_config")
             @ExcludeMissing
-            fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of(),
+            fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -1479,17 +1484,17 @@ private constructor(
             instructions: JsonField<String> = JsonMissing.of(),
             @JsonProperty("integrations")
             @ExcludeMissing
-            integrations: JsonField<List<AssistantIntegration>> = JsonMissing.of(),
+            integrations: JsonField<List<UpdateAssistant.Integration>> = JsonMissing.of(),
             @JsonProperty("interruption_settings")
             @ExcludeMissing
-            interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings> =
+            interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
                 JsonMissing.of(),
             @JsonProperty("llm_api_key_ref")
             @ExcludeMissing
             llmApiKeyRef: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mcp_servers")
             @ExcludeMissing
-            mcpServers: JsonField<List<AssistantMcpServer>> = JsonMissing.of(),
+            mcpServers: JsonField<List<UpdateAssistant.McpServer>> = JsonMissing.of(),
             @JsonProperty("messaging_settings")
             @ExcludeMissing
             messagingSettings: JsonField<MessagingSettings> = JsonMissing.of(),
@@ -1500,7 +1505,8 @@ private constructor(
             observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
             @JsonProperty("post_conversation_settings")
             @ExcludeMissing
-            postConversationSettings: JsonField<PostConversationSettingsReq> = JsonMissing.of(),
+            postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings> =
+                JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1662,13 +1668,14 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun externalLlm(): Optional<ExternalLlmReq> = externalLlm.getOptional("external_llm")
+        fun externalLlm(): Optional<UpdateAssistant.ExternalLlm> =
+            externalLlm.getOptional("external_llm")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun fallbackConfig(): Optional<FallbackConfigReq> =
+        fun fallbackConfig(): Optional<UpdateAssistant.FallbackConfig> =
             fallbackConfig.getOptional("fallback_config")
 
         /**
@@ -1708,7 +1715,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun integrations(): Optional<List<AssistantIntegration>> =
+        fun integrations(): Optional<List<UpdateAssistant.Integration>> =
             integrations.getOptional("integrations")
 
         /**
@@ -1721,7 +1728,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun interruptionSettings(): Optional<InferenceEmbeddingInterruptionSettings> =
+        fun interruptionSettings(): Optional<UpdateAssistant.InterruptionSettings> =
             interruptionSettings.getOptional("interruption_settings")
 
         /**
@@ -1744,7 +1751,8 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun mcpServers(): Optional<List<AssistantMcpServer>> = mcpServers.getOptional("mcp_servers")
+        fun mcpServers(): Optional<List<UpdateAssistant.McpServer>> =
+            mcpServers.getOptional("mcp_servers")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1788,7 +1796,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun postConversationSettings(): Optional<PostConversationSettingsReq> =
+        fun postConversationSettings(): Optional<UpdateAssistant.PostConversationSettings> =
             postConversationSettings.getOptional("post_conversation_settings")
 
         /**
@@ -1936,7 +1944,7 @@ private constructor(
          */
         @JsonProperty("external_llm")
         @ExcludeMissing
-        fun _externalLlm(): JsonField<ExternalLlmReq> = externalLlm
+        fun _externalLlm(): JsonField<UpdateAssistant.ExternalLlm> = externalLlm
 
         /**
          * Returns the raw JSON value of [fallbackConfig].
@@ -1946,7 +1954,7 @@ private constructor(
          */
         @JsonProperty("fallback_config")
         @ExcludeMissing
-        fun _fallbackConfig(): JsonField<FallbackConfigReq> = fallbackConfig
+        fun _fallbackConfig(): JsonField<UpdateAssistant.FallbackConfig> = fallbackConfig
 
         /**
          * Returns the raw JSON value of [greeting].
@@ -1983,7 +1991,7 @@ private constructor(
          */
         @JsonProperty("integrations")
         @ExcludeMissing
-        fun _integrations(): JsonField<List<AssistantIntegration>> = integrations
+        fun _integrations(): JsonField<List<UpdateAssistant.Integration>> = integrations
 
         /**
          * Returns the raw JSON value of [interruptionSettings].
@@ -1993,7 +2001,7 @@ private constructor(
          */
         @JsonProperty("interruption_settings")
         @ExcludeMissing
-        fun _interruptionSettings(): JsonField<InferenceEmbeddingInterruptionSettings> =
+        fun _interruptionSettings(): JsonField<UpdateAssistant.InterruptionSettings> =
             interruptionSettings
 
         /**
@@ -2013,7 +2021,7 @@ private constructor(
          */
         @JsonProperty("mcp_servers")
         @ExcludeMissing
-        fun _mcpServers(): JsonField<List<AssistantMcpServer>> = mcpServers
+        fun _mcpServers(): JsonField<List<UpdateAssistant.McpServer>> = mcpServers
 
         /**
          * Returns the raw JSON value of [messagingSettings].
@@ -2057,7 +2065,7 @@ private constructor(
          */
         @JsonProperty("post_conversation_settings")
         @ExcludeMissing
-        fun _postConversationSettings(): JsonField<PostConversationSettingsReq> =
+        fun _postConversationSettings(): JsonField<UpdateAssistant.PostConversationSettings> =
             postConversationSettings
 
         /**
@@ -2179,21 +2187,22 @@ private constructor(
             private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var dynamicVariablesWebhookUrl: JsonField<String> = JsonMissing.of()
             private var enabledFeatures: JsonField<MutableList<EnabledFeatures>>? = null
-            private var externalLlm: JsonField<ExternalLlmReq> = JsonMissing.of()
-            private var fallbackConfig: JsonField<FallbackConfigReq> = JsonMissing.of()
+            private var externalLlm: JsonField<UpdateAssistant.ExternalLlm> = JsonMissing.of()
+            private var fallbackConfig: JsonField<UpdateAssistant.FallbackConfig> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var insightSettings: JsonField<InsightSettings> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
-            private var integrations: JsonField<MutableList<AssistantIntegration>>? = null
-            private var interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings> =
+            private var integrations: JsonField<MutableList<UpdateAssistant.Integration>>? = null
+            private var interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings> =
                 JsonMissing.of()
             private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
-            private var mcpServers: JsonField<MutableList<AssistantMcpServer>>? = null
+            private var mcpServers: JsonField<MutableList<UpdateAssistant.McpServer>>? = null
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
-            private var postConversationSettings: JsonField<PostConversationSettingsReq> =
+            private var postConversationSettings:
+                JsonField<UpdateAssistant.PostConversationSettings> =
                 JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var tags: JsonField<MutableList<String>>? = null
@@ -2362,30 +2371,31 @@ private constructor(
                     }
             }
 
-            fun externalLlm(externalLlm: ExternalLlmReq) = externalLlm(JsonField.of(externalLlm))
+            fun externalLlm(externalLlm: UpdateAssistant.ExternalLlm) =
+                externalLlm(JsonField.of(externalLlm))
 
             /**
              * Sets [Builder.externalLlm] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalLlm] with a well-typed [ExternalLlmReq]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.externalLlm] with a well-typed
+             * [UpdateAssistant.ExternalLlm] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun externalLlm(externalLlm: JsonField<ExternalLlmReq>) = apply {
+            fun externalLlm(externalLlm: JsonField<UpdateAssistant.ExternalLlm>) = apply {
                 this.externalLlm = externalLlm
             }
 
-            fun fallbackConfig(fallbackConfig: FallbackConfigReq) =
+            fun fallbackConfig(fallbackConfig: UpdateAssistant.FallbackConfig) =
                 fallbackConfig(JsonField.of(fallbackConfig))
 
             /**
              * Sets [Builder.fallbackConfig] to an arbitrary JSON value.
              *
              * You should usually call [Builder.fallbackConfig] with a well-typed
-             * [FallbackConfigReq] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
+             * [UpdateAssistant.FallbackConfig] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun fallbackConfig(fallbackConfig: JsonField<FallbackConfigReq>) = apply {
+            fun fallbackConfig(fallbackConfig: JsonField<UpdateAssistant.FallbackConfig>) = apply {
                 this.fallbackConfig = fallbackConfig
             }
 
@@ -2445,26 +2455,26 @@ private constructor(
              * `/ai/integrations/connections`. Each item references a catalog integration by
              * `integration_id`.
              */
-            fun integrations(integrations: List<AssistantIntegration>) =
+            fun integrations(integrations: List<UpdateAssistant.Integration>) =
                 integrations(JsonField.of(integrations))
 
             /**
              * Sets [Builder.integrations] to an arbitrary JSON value.
              *
              * You should usually call [Builder.integrations] with a well-typed
-             * `List<AssistantIntegration>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * `List<UpdateAssistant.Integration>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
              */
-            fun integrations(integrations: JsonField<List<AssistantIntegration>>) = apply {
+            fun integrations(integrations: JsonField<List<UpdateAssistant.Integration>>) = apply {
                 this.integrations = integrations.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [AssistantIntegration] to [integrations].
+             * Adds a single [UpdateAssistant.Integration] to [integrations].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addIntegration(integration: AssistantIntegration) = apply {
+            fun addIntegration(integration: UpdateAssistant.Integration) = apply {
                 integrations =
                     (integrations ?: JsonField.of(mutableListOf())).also {
                         checkKnown("integrations", it).add(integration)
@@ -2478,18 +2488,18 @@ private constructor(
              * controlled by the transcription end-of-turn settings under `transcription.settings`
              * (`eot_threshold`, `eot_timeout_ms`, `eager_eot_threshold`).
              */
-            fun interruptionSettings(interruptionSettings: InferenceEmbeddingInterruptionSettings) =
+            fun interruptionSettings(interruptionSettings: UpdateAssistant.InterruptionSettings) =
                 interruptionSettings(JsonField.of(interruptionSettings))
 
             /**
              * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.interruptionSettings] with a well-typed
-             * [InferenceEmbeddingInterruptionSettings] value instead. This method is primarily for
+             * [UpdateAssistant.InterruptionSettings] value instead. This method is primarily for
              * setting the field to an undocumented or not yet supported value.
              */
             fun interruptionSettings(
-                interruptionSettings: JsonField<InferenceEmbeddingInterruptionSettings>
+                interruptionSettings: JsonField<UpdateAssistant.InterruptionSettings>
             ) = apply { this.interruptionSettings = interruptionSettings }
 
             /**
@@ -2517,26 +2527,26 @@ private constructor(
              * MCP servers attached to the assistant. Create MCP servers with `/ai/mcp_servers`,
              * then reference them by `id` here.
              */
-            fun mcpServers(mcpServers: List<AssistantMcpServer>) =
+            fun mcpServers(mcpServers: List<UpdateAssistant.McpServer>) =
                 mcpServers(JsonField.of(mcpServers))
 
             /**
              * Sets [Builder.mcpServers] to an arbitrary JSON value.
              *
              * You should usually call [Builder.mcpServers] with a well-typed
-             * `List<AssistantMcpServer>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * `List<UpdateAssistant.McpServer>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun mcpServers(mcpServers: JsonField<List<AssistantMcpServer>>) = apply {
+            fun mcpServers(mcpServers: JsonField<List<UpdateAssistant.McpServer>>) = apply {
                 this.mcpServers = mcpServers.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [AssistantMcpServer] to [mcpServers].
+             * Adds a single [UpdateAssistant.McpServer] to [mcpServers].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addMcpServer(mcpServer: AssistantMcpServer) = apply {
+            fun addMcpServer(mcpServer: UpdateAssistant.McpServer) = apply {
                 mcpServers =
                     (mcpServers ?: JsonField.of(mutableListOf())).also {
                         checkKnown("mcpServers", it).add(mcpServer)
@@ -2607,18 +2617,19 @@ private constructor(
              * multiple parallel or sequential tools during this phase. Telephony-control tools
              * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
              */
-            fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
-                postConversationSettings(JsonField.of(postConversationSettings))
+            fun postConversationSettings(
+                postConversationSettings: UpdateAssistant.PostConversationSettings
+            ) = postConversationSettings(JsonField.of(postConversationSettings))
 
             /**
              * Sets [Builder.postConversationSettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.postConversationSettings] with a well-typed
-             * [PostConversationSettingsReq] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * [UpdateAssistant.PostConversationSettings] value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
              */
             fun postConversationSettings(
-                postConversationSettings: JsonField<PostConversationSettingsReq>
+                postConversationSettings: JsonField<UpdateAssistant.PostConversationSettings>
             ) = apply { this.postConversationSettings = postConversationSettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
@@ -2831,7 +2842,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addInviteTool(invite: AssistantTool.Invite.InviteToolInviteConfig) =
+            fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) =
                 addTool(AssistantTool.Invite.builder().invite(invite).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */

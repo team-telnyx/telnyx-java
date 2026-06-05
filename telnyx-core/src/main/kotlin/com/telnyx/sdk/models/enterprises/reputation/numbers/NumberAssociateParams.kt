@@ -23,17 +23,14 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
+ * Add up to 100 phone numbers to reputation monitoring on this enterprise. Each must be in E.164
+ * format (`+1NPANXXXXXX` for US/CA) and belong to your Telnyx phone-number inventory.
  *
- * **Validations:**
- * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
- * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
- * - Phone numbers must be US local numbers
- * - Phone numbers cannot already be associated with any enterprise
+ * **Prerequisite**: reputation must already be enabled on this enterprise (see `POST
+ * .../reputation`).
  *
- * **Note:** This operation is atomic — if any number fails validation, the entire request fails.
- *
- * **Maximum:** 100 phone numbers per request.
+ * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
+ * pricing.
  */
 class NumberAssociateParams
 private constructor(
@@ -46,7 +43,7 @@ private constructor(
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
 
     /**
-     * List of phone numbers to associate for reputation monitoring (max 100)
+     * 1–100 phone numbers in E.164 format with a leading `+`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -113,7 +110,7 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** List of phone numbers to associate for reputation monitoring (max 100) */
+        /** 1–100 phone numbers in E.164 format with a leading `+`. */
         fun phoneNumbers(phoneNumbers: List<String>) = apply { body.phoneNumbers(phoneNumbers) }
 
         /**
@@ -299,7 +296,7 @@ private constructor(
         ) : this(phoneNumbers, mutableMapOf())
 
         /**
-         * List of phone numbers to associate for reputation monitoring (max 100)
+         * 1–100 phone numbers in E.164 format with a leading `+`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -353,7 +350,7 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** List of phone numbers to associate for reputation monitoring (max 100) */
+            /** 1–100 phone numbers in E.164 format with a leading `+`. */
             fun phoneNumbers(phoneNumbers: List<String>) = phoneNumbers(JsonField.of(phoneNumbers))
 
             /**

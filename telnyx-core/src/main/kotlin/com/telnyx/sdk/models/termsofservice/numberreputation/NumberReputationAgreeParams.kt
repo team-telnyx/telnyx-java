@@ -11,10 +11,10 @@ import java.util.Objects
 import java.util.Optional
 
 /**
- * Accept the Terms of Service for the Number Reputation product. Must be called before using Number
- * Reputation endpoints.
+ * Records the authenticated user's agreement to the current Phone Number Reputation ToS. No body
+ * required. Idempotent.
  *
- * Returns `400` with error code `10015` if the user has already agreed to the current ToS version.
+ * Prerequisite for using any of the `/v2/.../reputation&#47;*` endpoints.
  */
 class NumberReputationAgreeParams
 private constructor(

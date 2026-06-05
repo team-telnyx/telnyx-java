@@ -11,9 +11,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.MetaInfo
+import com.telnyx.sdk.models.ReputationData
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -24,27 +25,31 @@ class NumberAssociateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Data>>,
-    private val meta: JsonField<MetaInfo>,
+    private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<Data>> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<MetaInfo> = JsonMissing.of(),
+        @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): Optional<List<Data>> = data.getOptional("data")
+    fun data(): List<Data> = data.getRequired("data")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * JSON:API pagination metadata returned with every paginated list response. Page numbering is
+     * 1-based. `page_size` reports the number of items actually returned in `data` for this page;
+     * the requested size is taken from the `page[size]` query parameter.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meta(): Optional<MetaInfo> = meta.getOptional("meta")
+    fun meta(): Meta = meta.getRequired("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -58,7 +63,7 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<MetaInfo> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Meta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -74,7 +79,15 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [NumberAssociateResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [NumberAssociateResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * .meta()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -82,7 +95,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Data>>? = null
-        private var meta: JsonField<MetaInfo> = JsonMissing.of()
+        private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -116,15 +129,20 @@ private constructor(
                 }
         }
 
-        fun meta(meta: MetaInfo) = meta(JsonField.of(meta))
+        /**
+         * JSON:API pagination metadata returned with every paginated list response. Page numbering
+         * is 1-based. `page_size` reports the number of items actually returned in `data` for this
+         * page; the requested size is taken from the `page[size]` query parameter.
+         */
+        fun meta(meta: Meta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [MetaInfo] value instead. This
+         * You should usually call [Builder.meta] with a well-typed [Meta] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun meta(meta: JsonField<MetaInfo>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<Meta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -149,11 +167,19 @@ private constructor(
          * Returns an immutable instance of [NumberAssociateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * .meta()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): NumberAssociateResponse =
             NumberAssociateResponse(
-                (data ?: JsonMissing.of()).map { it.toImmutable() },
-                meta,
+                checkRequired("data", data).map { it.toImmutable() },
+                checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -173,8 +199,8 @@ private constructor(
             return@apply
         }
 
-        data().ifPresent { it.forEach { it.validate() } }
-        meta().ifPresent { it.validate() }
+        data().forEach { it.validate() }
+        meta().validate()
         validated = true
     }
 
@@ -203,6 +229,7 @@ private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
         private val enterpriseId: JsonField<String>,
         private val phoneNumber: JsonField<String>,
+        private val reputationData: JsonField<ReputationData>,
         private val updatedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -219,37 +246,42 @@ private constructor(
             @JsonProperty("phone_number")
             @ExcludeMissing
             phoneNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reputation_data")
+            @ExcludeMissing
+            reputationData: JsonField<ReputationData> = JsonMissing.of(),
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(id, createdAt, enterpriseId, phoneNumber, updatedAt, mutableMapOf())
+        ) : this(
+            id,
+            createdAt,
+            enterpriseId,
+            phoneNumber,
+            reputationData,
+            updatedAt,
+            mutableMapOf(),
+        )
 
         /**
-         * Unique identifier
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun id(): Optional<String> = id.getOptional("id")
 
         /**
-         * When the number was associated
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
 
         /**
-         * ID of the associated enterprise
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun enterpriseId(): Optional<String> = enterpriseId.getOptional("enterprise_id")
 
         /**
-         * Phone number in E.164 format
+         * E.164 with leading `+`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -257,8 +289,15 @@ private constructor(
         fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
 
         /**
-         * When the record was last updated
+         * `null` until the first refresh has been collected for this number.
          *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun reputationData(): Optional<ReputationData> =
+            reputationData.getOptional("reputation_data")
+
+        /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -300,6 +339,16 @@ private constructor(
         fun _phoneNumber(): JsonField<String> = phoneNumber
 
         /**
+         * Returns the raw JSON value of [reputationData].
+         *
+         * Unlike [reputationData], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("reputation_data")
+        @ExcludeMissing
+        fun _reputationData(): JsonField<ReputationData> = reputationData
+
+        /**
          * Returns the raw JSON value of [updatedAt].
          *
          * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -333,6 +382,7 @@ private constructor(
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var enterpriseId: JsonField<String> = JsonMissing.of()
             private var phoneNumber: JsonField<String> = JsonMissing.of()
+            private var reputationData: JsonField<ReputationData> = JsonMissing.of()
             private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -342,11 +392,11 @@ private constructor(
                 createdAt = data.createdAt
                 enterpriseId = data.enterpriseId
                 phoneNumber = data.phoneNumber
+                reputationData = data.reputationData
                 updatedAt = data.updatedAt
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /** Unique identifier */
             fun id(id: String) = id(JsonField.of(id))
 
             /**
@@ -358,7 +408,6 @@ private constructor(
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            /** When the number was associated */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
@@ -372,7 +421,6 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            /** ID of the associated enterprise */
             fun enterpriseId(enterpriseId: String) = enterpriseId(JsonField.of(enterpriseId))
 
             /**
@@ -386,7 +434,7 @@ private constructor(
                 this.enterpriseId = enterpriseId
             }
 
-            /** Phone number in E.164 format */
+            /** E.164 with leading `+`. */
             fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
             /**
@@ -400,7 +448,25 @@ private constructor(
                 this.phoneNumber = phoneNumber
             }
 
-            /** When the record was last updated */
+            /** `null` until the first refresh has been collected for this number. */
+            fun reputationData(reputationData: ReputationData?) =
+                reputationData(JsonField.ofNullable(reputationData))
+
+            /** Alias for calling [Builder.reputationData] with `reputationData.orElse(null)`. */
+            fun reputationData(reputationData: Optional<ReputationData>) =
+                reputationData(reputationData.getOrNull())
+
+            /**
+             * Sets [Builder.reputationData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reputationData] with a well-typed [ReputationData]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun reputationData(reputationData: JsonField<ReputationData>) = apply {
+                this.reputationData = reputationData
+            }
+
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
             /**
@@ -444,6 +510,7 @@ private constructor(
                     createdAt,
                     enterpriseId,
                     phoneNumber,
+                    reputationData,
                     updatedAt,
                     additionalProperties.toMutableMap(),
                 )
@@ -469,6 +536,7 @@ private constructor(
             createdAt()
             enterpriseId()
             phoneNumber()
+            reputationData().ifPresent { it.validate() }
             updatedAt()
             validated = true
         }
@@ -493,6 +561,7 @@ private constructor(
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (enterpriseId.asKnown().isPresent) 1 else 0) +
                 (if (phoneNumber.asKnown().isPresent) 1 else 0) +
+                (reputationData.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -505,18 +574,328 @@ private constructor(
                 createdAt == other.createdAt &&
                 enterpriseId == other.enterpriseId &&
                 phoneNumber == other.phoneNumber &&
+                reputationData == other.reputationData &&
                 updatedAt == other.updatedAt &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, createdAt, enterpriseId, phoneNumber, updatedAt, additionalProperties)
+            Objects.hash(
+                id,
+                createdAt,
+                enterpriseId,
+                phoneNumber,
+                reputationData,
+                updatedAt,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, createdAt=$createdAt, enterpriseId=$enterpriseId, phoneNumber=$phoneNumber, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "Data{id=$id, createdAt=$createdAt, enterpriseId=$enterpriseId, phoneNumber=$phoneNumber, reputationData=$reputationData, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * JSON:API pagination metadata returned with every paginated list response. Page numbering is
+     * 1-based. `page_size` reports the number of items actually returned in `data` for this page;
+     * the requested size is taken from the `page[size]` query parameter.
+     */
+    class Meta
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val pageNumber: JsonField<Long>,
+        private val pageSize: JsonField<Long>,
+        private val totalPages: JsonField<Long>,
+        private val totalResults: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("page_number")
+            @ExcludeMissing
+            pageNumber: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_pages")
+            @ExcludeMissing
+            totalPages: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_results")
+            @ExcludeMissing
+            totalResults: JsonField<Long> = JsonMissing.of(),
+        ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
+
+        /**
+         * 1-based index of this page. Echoes the `page[number]` query parameter (default `1`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pageNumber(): Long = pageNumber.getRequired("page_number")
+
+        /**
+         * Number of items returned in this page's `data` array. Capped at 250.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pageSize(): Long = pageSize.getRequired("page_size")
+
+        /**
+         * Total number of pages available given the current `page_size`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun totalPages(): Long = totalPages.getRequired("total_pages")
+
+        /**
+         * Total number of items across all pages (excludes soft-deleted rows).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun totalResults(): Long = totalResults.getRequired("total_results")
+
+        /**
+         * Returns the raw JSON value of [pageNumber].
+         *
+         * Unlike [pageNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("page_number") @ExcludeMissing fun _pageNumber(): JsonField<Long> = pageNumber
+
+        /**
+         * Returns the raw JSON value of [pageSize].
+         *
+         * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
+
+        /**
+         * Returns the raw JSON value of [totalPages].
+         *
+         * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Long> = totalPages
+
+        /**
+         * Returns the raw JSON value of [totalResults].
+         *
+         * Unlike [totalResults], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("total_results")
+        @ExcludeMissing
+        fun _totalResults(): JsonField<Long> = totalResults
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Meta].
+             *
+             * The following fields are required:
+             * ```java
+             * .pageNumber()
+             * .pageSize()
+             * .totalPages()
+             * .totalResults()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Meta]. */
+        class Builder internal constructor() {
+
+            private var pageNumber: JsonField<Long>? = null
+            private var pageSize: JsonField<Long>? = null
+            private var totalPages: JsonField<Long>? = null
+            private var totalResults: JsonField<Long>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(meta: Meta) = apply {
+                pageNumber = meta.pageNumber
+                pageSize = meta.pageSize
+                totalPages = meta.totalPages
+                totalResults = meta.totalResults
+                additionalProperties = meta.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * 1-based index of this page. Echoes the `page[number]` query parameter (default `1`).
+             */
+            fun pageNumber(pageNumber: Long) = pageNumber(JsonField.of(pageNumber))
+
+            /**
+             * Sets [Builder.pageNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pageNumber] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
+
+            /** Number of items returned in this page's `data` array. Capped at 250. */
+            fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
+
+            /**
+             * Sets [Builder.pageSize] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pageSize] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
+
+            /** Total number of pages available given the current `page_size`. */
+            fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
+
+            /**
+             * Sets [Builder.totalPages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalPages] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
+
+            /** Total number of items across all pages (excludes soft-deleted rows). */
+            fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
+
+            /**
+             * Sets [Builder.totalResults] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalResults] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalResults(totalResults: JsonField<Long>) = apply {
+                this.totalResults = totalResults
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Meta].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .pageNumber()
+             * .pageSize()
+             * .totalPages()
+             * .totalResults()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Meta =
+                Meta(
+                    checkRequired("pageNumber", pageNumber),
+                    checkRequired("pageSize", pageSize),
+                    checkRequired("totalPages", totalPages),
+                    checkRequired("totalResults", totalResults),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Meta = apply {
+            if (validated) {
+                return@apply
+            }
+
+            pageNumber()
+            pageSize()
+            totalPages()
+            totalResults()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (pageNumber.asKnown().isPresent) 1 else 0) +
+                (if (pageSize.asKnown().isPresent) 1 else 0) +
+                (if (totalPages.asKnown().isPresent) 1 else 0) +
+                (if (totalResults.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Meta &&
+                pageNumber == other.pageNumber &&
+                pageSize == other.pageSize &&
+                totalPages == other.totalPages &&
+                totalResults == other.totalResults &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(pageNumber, pageSize, totalPages, totalResults, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Meta{pageNumber=$pageNumber, pageSize=$pageSize, totalPages=$totalPages, totalResults=$totalResults, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

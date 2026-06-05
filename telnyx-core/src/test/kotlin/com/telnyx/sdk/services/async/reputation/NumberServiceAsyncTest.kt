@@ -17,7 +17,7 @@ internal class NumberServiceAsyncTest {
 
         val numberFuture =
             numberServiceAsync.retrieve(
-                NumberRetrieveParams.builder().phoneNumber("+16035551234").fresh(true).build()
+                NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
             )
 
         val number = numberFuture.get()
@@ -42,7 +42,7 @@ internal class NumberServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val numberServiceAsync = client.reputation().numbers()
 
-        val future = numberServiceAsync.delete("+16035551234")
+        val future = numberServiceAsync.delete("+19493253498")
 
         val response = future.get()
     }

@@ -6,10 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeploy
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployCreateParams
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParams
-import com.telnyx.sdk.models.ai.assistants.canarydeploys.Clause
-import com.telnyx.sdk.models.ai.assistants.canarydeploys.RolloutSlot
-import com.telnyx.sdk.models.ai.assistants.canarydeploys.RuleInput
-import com.telnyx.sdk.models.ai.assistants.canarydeploys.Serve
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -28,11 +24,11 @@ internal class CanaryDeployServiceTest {
                     .canaryDeploy(
                         CanaryDeploy.builder()
                             .addRule(
-                                RuleInput.builder()
+                                CanaryDeploy.Rule.builder()
                                     .serve(
-                                        Serve.builder()
+                                        CanaryDeploy.Rule.Serve.builder()
                                             .addRollout(
-                                                RolloutSlot.builder()
+                                                CanaryDeploy.Rule.Serve.Rollout.builder()
                                                     .versionId("version_id")
                                                     .weight(0.0)
                                                     .build()
@@ -41,9 +37,9 @@ internal class CanaryDeployServiceTest {
                                             .build()
                                     )
                                     .addMatch(
-                                        Clause.builder()
+                                        CanaryDeploy.Rule.Match.builder()
                                             .attribute("attribute")
-                                            .operator(Clause.Operator.IN)
+                                            .operator(CanaryDeploy.Rule.Match.Operator.IN)
                                             .addValue("string")
                                             .build()
                                     )
@@ -81,11 +77,11 @@ internal class CanaryDeployServiceTest {
                     .canaryDeploy(
                         CanaryDeploy.builder()
                             .addRule(
-                                RuleInput.builder()
+                                CanaryDeploy.Rule.builder()
                                     .serve(
-                                        Serve.builder()
+                                        CanaryDeploy.Rule.Serve.builder()
                                             .addRollout(
-                                                RolloutSlot.builder()
+                                                CanaryDeploy.Rule.Serve.Rollout.builder()
                                                     .versionId("version_id")
                                                     .weight(0.0)
                                                     .build()
@@ -94,9 +90,9 @@ internal class CanaryDeployServiceTest {
                                             .build()
                                     )
                                     .addMatch(
-                                        Clause.builder()
+                                        CanaryDeploy.Rule.Match.builder()
                                             .attribute("attribute")
-                                            .operator(Clause.Operator.IN)
+                                            .operator(CanaryDeploy.Rule.Match.Operator.IN)
                                             .addValue("string")
                                             .build()
                                     )

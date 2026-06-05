@@ -36,31 +36,25 @@ private constructor(
     ) : this(email, firstName, lastName, phoneNumber, mutableMapOf())
 
     /**
-     * Contact's email address
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun email(): String = email.getRequired("email")
 
     /**
-     * Contact's first name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun firstName(): String = firstName.getRequired("first_name")
 
     /**
-     * Contact's last name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun lastName(): String = lastName.getRequired("last_name")
 
     /**
-     * Contact's phone number (10-15 digits)
+     * E.164 format with leading `+`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -143,7 +137,6 @@ private constructor(
             additionalProperties = billingContact.additionalProperties.toMutableMap()
         }
 
-        /** Contact's email address */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -154,7 +147,6 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
-        /** Contact's first name */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -166,7 +158,6 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
-        /** Contact's last name */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -177,7 +168,7 @@ private constructor(
          */
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
-        /** Contact's phone number (10-15 digits) */
+        /** E.164 format with leading `+`. */
         fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
         /**

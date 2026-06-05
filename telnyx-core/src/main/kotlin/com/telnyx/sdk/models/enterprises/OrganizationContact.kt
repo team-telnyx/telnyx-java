@@ -15,10 +15,6 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/**
- * Organization contact information. Note: the response returns this object with the phone field as
- * 'phone' (not 'phone_number').
- */
 class OrganizationContact
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -26,7 +22,7 @@ private constructor(
     private val firstName: JsonField<String>,
     private val jobTitle: JsonField<String>,
     private val lastName: JsonField<String>,
-    private val phone: JsonField<String>,
+    private val phoneNumber: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -36,48 +32,42 @@ private constructor(
         @JsonProperty("first_name") @ExcludeMissing firstName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("job_title") @ExcludeMissing jobTitle: JsonField<String> = JsonMissing.of(),
         @JsonProperty("last_name") @ExcludeMissing lastName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
-    ) : this(email, firstName, jobTitle, lastName, phone, mutableMapOf())
+        @JsonProperty("phone_number")
+        @ExcludeMissing
+        phoneNumber: JsonField<String> = JsonMissing.of(),
+    ) : this(email, firstName, jobTitle, lastName, phoneNumber, mutableMapOf())
 
     /**
-     * Contact's email address
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun email(): String = email.getRequired("email")
 
     /**
-     * Contact's first name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun firstName(): String = firstName.getRequired("first_name")
 
     /**
-     * Contact's job title (required)
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun jobTitle(): String = jobTitle.getRequired("job_title")
 
     /**
-     * Contact's last name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun lastName(): String = lastName.getRequired("last_name")
 
     /**
-     * Contact's phone number in E.164 format
+     * E.164 format with leading `+`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun phone(): String = phone.getRequired("phone")
+    fun phoneNumber(): String = phoneNumber.getRequired("phone_number")
 
     /**
      * Returns the raw JSON value of [email].
@@ -108,11 +98,13 @@ private constructor(
     @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
     /**
-     * Returns the raw JSON value of [phone].
+     * Returns the raw JSON value of [phoneNumber].
      *
-     * Unlike [phone], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
+    @JsonProperty("phone_number")
+    @ExcludeMissing
+    fun _phoneNumber(): JsonField<String> = phoneNumber
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -137,7 +129,7 @@ private constructor(
          * .firstName()
          * .jobTitle()
          * .lastName()
-         * .phone()
+         * .phoneNumber()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -150,7 +142,7 @@ private constructor(
         private var firstName: JsonField<String>? = null
         private var jobTitle: JsonField<String>? = null
         private var lastName: JsonField<String>? = null
-        private var phone: JsonField<String>? = null
+        private var phoneNumber: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -159,11 +151,10 @@ private constructor(
             firstName = organizationContact.firstName
             jobTitle = organizationContact.jobTitle
             lastName = organizationContact.lastName
-            phone = organizationContact.phone
+            phoneNumber = organizationContact.phoneNumber
             additionalProperties = organizationContact.additionalProperties.toMutableMap()
         }
 
-        /** Contact's email address */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -174,7 +165,6 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
-        /** Contact's first name */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -186,7 +176,6 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
-        /** Contact's job title (required) */
         fun jobTitle(jobTitle: String) = jobTitle(JsonField.of(jobTitle))
 
         /**
@@ -197,7 +186,6 @@ private constructor(
          */
         fun jobTitle(jobTitle: JsonField<String>) = apply { this.jobTitle = jobTitle }
 
-        /** Contact's last name */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -208,16 +196,17 @@ private constructor(
          */
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
-        /** Contact's phone number in E.164 format */
-        fun phone(phone: String) = phone(JsonField.of(phone))
+        /** E.164 format with leading `+`. */
+        fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
         /**
-         * Sets [Builder.phone] to an arbitrary JSON value.
+         * Sets [Builder.phoneNumber] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.phone] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.phoneNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun phone(phone: JsonField<String>) = apply { this.phone = phone }
+        fun phoneNumber(phoneNumber: JsonField<String>) = apply { this.phoneNumber = phoneNumber }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -249,7 +238,7 @@ private constructor(
          * .firstName()
          * .jobTitle()
          * .lastName()
-         * .phone()
+         * .phoneNumber()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -260,7 +249,7 @@ private constructor(
                 checkRequired("firstName", firstName),
                 checkRequired("jobTitle", jobTitle),
                 checkRequired("lastName", lastName),
-                checkRequired("phone", phone),
+                checkRequired("phoneNumber", phoneNumber),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -284,7 +273,7 @@ private constructor(
         firstName()
         jobTitle()
         lastName()
-        phone()
+        phoneNumber()
         validated = true
     }
 
@@ -307,7 +296,7 @@ private constructor(
             (if (firstName.asKnown().isPresent) 1 else 0) +
             (if (jobTitle.asKnown().isPresent) 1 else 0) +
             (if (lastName.asKnown().isPresent) 1 else 0) +
-            (if (phone.asKnown().isPresent) 1 else 0)
+            (if (phoneNumber.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -319,16 +308,16 @@ private constructor(
             firstName == other.firstName &&
             jobTitle == other.jobTitle &&
             lastName == other.lastName &&
-            phone == other.phone &&
+            phoneNumber == other.phoneNumber &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(email, firstName, jobTitle, lastName, phone, additionalProperties)
+        Objects.hash(email, firstName, jobTitle, lastName, phoneNumber, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OrganizationContact{email=$email, firstName=$firstName, jobTitle=$jobTitle, lastName=$lastName, phone=$phone, additionalProperties=$additionalProperties}"
+        "OrganizationContact{email=$email, firstName=$firstName, jobTitle=$jobTitle, lastName=$lastName, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
 }

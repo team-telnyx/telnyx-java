@@ -17,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
@@ -27,13 +29,17 @@ import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
+import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
+import com.telnyx.sdk.services.async.enterprises.DirServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsyncImpl
+import com.telnyx.sdk.services.async.enterprises.UsageServiceAsync
+import com.telnyx.sdk.services.async.enterprises.UsageServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/** Enterprise management for Branded Calling and Number Reputation services */
+/** Manage the legal-entity record that owns your DIRs and phone numbers. */
 class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     EnterpriseServiceAsync {
 
@@ -45,13 +51,25 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
         ReputationServiceAsyncImpl(clientOptions)
     }
 
+    private val dir: DirServiceAsync by lazy { DirServiceAsyncImpl(clientOptions) }
+
+    private val usage: UsageServiceAsync by lazy { UsageServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): EnterpriseServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseServiceAsync =
         EnterpriseServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun reputation(): ReputationServiceAsync = reputation
+
+    /**
+     * A Display Identity Record (DIR) is the verified calling identity (display name, logo, call
+     * reasons) shown to recipients on outbound calls.
+     */
+    override fun dir(): DirServiceAsync = dir
+
+    override fun usage(): UsageServiceAsync = usage
 
     override fun create(
         params: EnterpriseCreateParams,
@@ -88,6 +106,13 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
         // delete /enterprises/{enterprise_id}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
+    override fun activateBrandedCalling(
+        params: EnterpriseActivateBrandedCallingParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+        // post /enterprises/{enterprise_id}/branded_calling
+        withRawResponse().activateBrandedCalling(params, requestOptions).thenApply { it.parse() }
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EnterpriseServiceAsync.WithRawResponse {
 
@@ -98,6 +123,14 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
             ReputationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val dir: DirServiceAsync.WithRawResponse by lazy {
+            DirServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val usage: UsageServiceAsync.WithRawResponse by lazy {
+            UsageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseServiceAsync.WithRawResponse =
@@ -105,8 +138,16 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun reputation(): ReputationServiceAsync.WithRawResponse = reputation
+
+        /**
+         * A Display Identity Record (DIR) is the verified calling identity (display name, logo,
+         * call reasons) shown to recipients on outbound calls.
+         */
+        override fun dir(): DirServiceAsync.WithRawResponse = dir
+
+        override fun usage(): UsageServiceAsync.WithRawResponse = usage
 
         private val createHandler: Handler<EnterpriseCreateResponse> =
             jsonHandler<EnterpriseCreateResponse>(clientOptions.jsonMapper)
@@ -267,6 +308,41 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val activateBrandedCallingHandler:
+            Handler<EnterpriseActivateBrandedCallingResponse> =
+            jsonHandler<EnterpriseActivateBrandedCallingResponse>(clientOptions.jsonMapper)
+
+        override fun activateBrandedCalling(
+            params: EnterpriseActivateBrandedCallingParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "branded_calling")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { activateBrandedCallingHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

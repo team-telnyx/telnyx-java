@@ -10,9 +10,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Get reputation data for a specific phone number without requiring an `enterprise_id`.
- *
- * Same response as the enterprise-scoped endpoint. Uses cached data by default.
+ * Convenience alias for `GET /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
  */
 class NumberRetrieveParams
 private constructor(
@@ -25,7 +23,8 @@ private constructor(
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
     /**
-     * When true, fetches fresh reputation data (incurs API cost). When false, returns cached data.
+     * When true, fetches fresh reputation data (incurs API cost). When false (default), returns
+     * cached data.
      */
     fun fresh(): Optional<Boolean> = Optional.ofNullable(fresh)
 
@@ -67,8 +66,8 @@ private constructor(
         fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
         /**
-         * When true, fetches fresh reputation data (incurs API cost). When false, returns cached
-         * data.
+         * When true, fetches fresh reputation data (incurs API cost). When false (default), returns
+         * cached data.
          */
         fun fresh(fresh: Boolean?) = apply { this.fresh = fresh }
 

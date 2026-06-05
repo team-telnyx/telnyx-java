@@ -10,10 +10,10 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class ReputationUpdateFrequencyResponse
@@ -31,10 +31,10 @@ private constructor(
     ) : this(data, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): Optional<EnterpriseReputationPublic> = data.getOptional("data")
+    fun data(): EnterpriseReputationPublic = data.getRequired("data")
 
     /**
      * Returns the raw JSON value of [data].
@@ -60,6 +60,11 @@ private constructor(
         /**
          * Returns a mutable builder for constructing an instance of
          * [ReputationUpdateFrequencyResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -67,7 +72,7 @@ private constructor(
     /** A builder for [ReputationUpdateFrequencyResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<EnterpriseReputationPublic> = JsonMissing.of()
+        private var data: JsonField<EnterpriseReputationPublic>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -112,9 +117,19 @@ private constructor(
          * Returns an immutable instance of [ReputationUpdateFrequencyResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ReputationUpdateFrequencyResponse =
-            ReputationUpdateFrequencyResponse(data, additionalProperties.toMutableMap())
+            ReputationUpdateFrequencyResponse(
+                checkRequired("data", data),
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -132,7 +147,7 @@ private constructor(
             return@apply
         }
 
-        data().ifPresent { it.validate() }
+        data().validate()
         validated = true
     }
 

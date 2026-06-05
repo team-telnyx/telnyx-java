@@ -20,10 +20,7 @@ interface ReputationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationService
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun numbers(): NumberService
 
     /** A view of [ReputationService] that provides access to raw HTTP responses for each method. */
@@ -38,10 +35,7 @@ interface ReputationService {
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationService.WithRawResponse
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun numbers(): NumberService.WithRawResponse
     }
 }

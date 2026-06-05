@@ -17,7 +17,7 @@ internal class NumberServiceTest {
 
         val number =
             numberService.retrieve(
-                NumberRetrieveParams.builder().phoneNumber("+16035551234").fresh(true).build()
+                NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
             )
 
         number.validate()
@@ -40,6 +40,6 @@ internal class NumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.reputation().numbers()
 
-        numberService.delete("+16035551234")
+        numberService.delete("+19493253498")
     }
 }

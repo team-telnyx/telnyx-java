@@ -10,7 +10,7 @@ internal class NumberListParamsTest {
 
     @Test
     fun create() {
-        NumberListParams.builder().pageNumber(1L).pageSize(1L).phoneNumber("+16035551234").build()
+        NumberListParams.builder().pageNumber(1L).pageSize(20L).phoneNumber("+16035551234").build()
     }
 
     @Test
@@ -18,7 +18,7 @@ internal class NumberListParamsTest {
         val params =
             NumberListParams.builder()
                 .pageNumber(1L)
-                .pageSize(1L)
+                .pageSize(20L)
                 .phoneNumber("+16035551234")
                 .build()
 
@@ -28,7 +28,7 @@ internal class NumberListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[size]", "20")
                     .put("phone_number", "+16035551234")
                     .build()
             )

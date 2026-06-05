@@ -24,13 +24,15 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
+import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
+import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 class ReputationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ReputationServiceAsync {
 
@@ -40,16 +42,18 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val numbers: NumberServiceAsync by lazy { NumberServiceAsyncImpl(clientOptions) }
 
+    private val loa: LoaServiceAsync by lazy { LoaServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): ReputationServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationServiceAsync =
         ReputationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun numbers(): NumberServiceAsync = numbers
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun loa(): LoaServiceAsync = loa
 
     override fun retrieve(
         params: ReputationRetrieveParams,
@@ -89,6 +93,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
             NumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val loa: LoaServiceAsync.WithRawResponse by lazy {
+            LoaServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationServiceAsync.WithRawResponse =
@@ -96,11 +104,11 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun numbers(): NumberServiceAsync.WithRawResponse = numbers
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun loa(): LoaServiceAsync.WithRawResponse = loa
 
         private val retrieveHandler: Handler<ReputationRetrieveResponse> =
             jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)

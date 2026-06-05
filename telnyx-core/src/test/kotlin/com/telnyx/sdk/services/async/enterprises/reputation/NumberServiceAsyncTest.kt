@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.enterprises.reputation
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -20,8 +21,8 @@ internal class NumberServiceAsyncTest {
         val numberFuture =
             numberServiceAsync.retrieve(
                 NumberRetrieveParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .phoneNumber("+16035551234")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .phoneNumber("+19493253498")
                     .fresh(true)
                     .build()
             )
@@ -36,7 +37,7 @@ internal class NumberServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val numberServiceAsync = client.enterprises().reputation().numbers()
 
-        val pageFuture = numberServiceAsync.list("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val pageFuture = numberServiceAsync.list("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
         val page = pageFuture.get()
         page.response().validate()
@@ -51,8 +52,9 @@ internal class NumberServiceAsyncTest {
         val responseFuture =
             numberServiceAsync.associate(
                 NumberAssociateParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .addPhoneNumber("+16035551234")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .addPhoneNumber("+19493253498")
+                    .addPhoneNumber("+12134445566")
                     .build()
             )
 
@@ -69,11 +71,29 @@ internal class NumberServiceAsyncTest {
         val future =
             numberServiceAsync.disassociate(
                 NumberDisassociateParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .phoneNumber("+16035551234")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .phoneNumber("+19493253498")
                     .build()
             )
 
         val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun refresh() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val numberServiceAsync = client.enterprises().reputation().numbers()
+
+        val responseFuture =
+            numberServiceAsync.refresh(
+                NumberRefreshParams.builder()
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .addPhoneNumber("+19493253498")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
     }
 }

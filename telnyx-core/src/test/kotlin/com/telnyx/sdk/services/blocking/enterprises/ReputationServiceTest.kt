@@ -16,7 +16,7 @@ internal class ReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val reputationService = client.enterprises().reputation()
 
-        val reputation = reputationService.retrieve("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val reputation = reputationService.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
         reputation.validate()
     }
@@ -27,7 +27,7 @@ internal class ReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val reputationService = client.enterprises().reputation()
 
-        reputationService.disable("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        reputationService.disable("4a6192a4-573d-446d-b3ce-aff9117272a6")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -39,8 +39,8 @@ internal class ReputationServiceTest {
         val response =
             reputationService.enable(
                 ReputationEnableParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .loaDocumentId("doc_01HXYZ1234ABCDEF")
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                     .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
                     .build()
             )
@@ -57,8 +57,8 @@ internal class ReputationServiceTest {
         val response =
             reputationService.updateFrequency(
                 ReputationUpdateFrequencyParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.BUSINESS_DAILY)
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
                     .build()
             )
 

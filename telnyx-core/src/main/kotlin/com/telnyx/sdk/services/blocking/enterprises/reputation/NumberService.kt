@@ -12,14 +12,13 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateRespo
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
 import java.util.function.Consumer
 
-/**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
- * scores
- */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 interface NumberService {
 
     /**
@@ -35,21 +34,8 @@ interface NumberService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberService
 
     /**
-     * Get detailed reputation data for a specific phone number associated with an enterprise.
-     *
-     * **Query Parameters:**
-     * - `fresh` (default: `false`): When `true`, fetches fresh reputation data (incurs API cost).
-     *   When `false`, returns cached data. If no cached data exists, fresh data is automatically
-     *   fetched.
-     *
-     * **Returns:**
-     * - `spam_risk`: Overall spam risk level (`low`, `medium`, `high`)
-     * - `spam_category`: Spam category classification
-     * - `maturity_score`: Maturity metric (0–100)
-     * - `connection_score`: Connection quality metric (0–100)
-     * - `engagement_score`: Engagement metric (0–100)
-     * - `sentiment_score`: Sentiment metric (0–100)
-     * - `last_refreshed_at`: Timestamp of last data refresh
+     * Retrieve one registered number with its latest reputation snapshot. The `phone_number` path
+     * parameter is in E.164 format and must be URL-encoded (e.g. `%2B19493253498`).
      */
     fun retrieve(phoneNumber: String, params: NumberRetrieveParams): NumberRetrieveResponse =
         retrieve(phoneNumber, params, RequestOptions.none())
@@ -73,10 +59,8 @@ interface NumberService {
     ): NumberRetrieveResponse
 
     /**
-     * List all phone numbers associated with an enterprise for Number Reputation monitoring.
-     *
-     * Returns phone numbers with their cached reputation data (if available). Supports pagination
-     * and filtering by phone number.
+     * Paginated list of phone numbers registered for reputation monitoring under this enterprise.
+     * The response includes the latest reputation snapshot per number where one has been collected.
      */
     fun list(enterpriseId: String): NumberListPage = list(enterpriseId, NumberListParams.none())
 
@@ -107,18 +91,14 @@ interface NumberService {
         list(enterpriseId, NumberListParams.none(), requestOptions)
 
     /**
-     * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
+     * Add up to 100 phone numbers to reputation monitoring on this enterprise. Each must be in
+     * E.164 format (`+1NPANXXXXXX` for US/CA) and belong to your Telnyx phone-number inventory.
      *
-     * **Validations:**
-     * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
-     * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
-     * - Phone numbers must be US local numbers
-     * - Phone numbers cannot already be associated with any enterprise
+     * **Prerequisite**: reputation must already be enabled on this enterprise (see `POST
+     * .../reputation`).
      *
-     * **Note:** This operation is atomic — if any number fails validation, the entire request
-     * fails.
-     *
-     * **Maximum:** 100 phone numbers per request.
+     * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
+     * pricing.
      */
     fun associate(enterpriseId: String, params: NumberAssociateParams): NumberAssociateResponse =
         associate(enterpriseId, params, RequestOptions.none())
@@ -142,9 +122,8 @@ interface NumberService {
     ): NumberAssociateResponse
 
     /**
-     * Remove a phone number from Number Reputation monitoring for an enterprise.
-     *
-     * The number will no longer be tracked and reputation data will no longer be refreshed.
+     * Stop tracking the reputation of this phone number. The number itself remains in your
+     * inventory; only the reputation registration is removed.
      */
     fun disassociate(phoneNumber: String, params: NumberDisassociateParams) =
         disassociate(phoneNumber, params, RequestOptions.none())
@@ -164,6 +143,35 @@ interface NumberService {
         params: NumberDisassociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /**
+     * Immediately refresh the stored reputation data for the listed numbers. This is in addition to
+     * the periodic refresh determined by `check_frequency`. Up to 100 numbers per call. The
+     * response carries the kicked-off jobs; the actual refresh runs asynchronously.
+     *
+     * **Pricing:** Forcing a refresh performs live reputation lookups, which are billable. See
+     * https://telnyx.com/pricing/numbers for current pricing.
+     */
+    fun refresh(enterpriseId: String, params: NumberRefreshParams): NumberRefreshResponse =
+        refresh(enterpriseId, params, RequestOptions.none())
+
+    /** @see refresh */
+    fun refresh(
+        enterpriseId: String,
+        params: NumberRefreshParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberRefreshResponse =
+        refresh(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see refresh */
+    fun refresh(params: NumberRefreshParams): NumberRefreshResponse =
+        refresh(params, RequestOptions.none())
+
+    /** @see refresh */
+    fun refresh(
+        params: NumberRefreshParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberRefreshResponse
 
     /** A view of [NumberService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -313,5 +321,38 @@ interface NumberService {
             params: NumberDisassociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /enterprises/{enterprise_id}/reputation/numbers/refresh`, but is otherwise the same as
+         * [NumberService.refresh].
+         */
+        @MustBeClosed
+        fun refresh(
+            enterpriseId: String,
+            params: NumberRefreshParams,
+        ): HttpResponseFor<NumberRefreshResponse> =
+            refresh(enterpriseId, params, RequestOptions.none())
+
+        /** @see refresh */
+        @MustBeClosed
+        fun refresh(
+            enterpriseId: String,
+            params: NumberRefreshParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberRefreshResponse> =
+            refresh(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see refresh */
+        @MustBeClosed
+        fun refresh(params: NumberRefreshParams): HttpResponseFor<NumberRefreshResponse> =
+            refresh(params, RequestOptions.none())
+
+        /** @see refresh */
+        @MustBeClosed
+        fun refresh(
+            params: NumberRefreshParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberRefreshResponse>
     }
 }

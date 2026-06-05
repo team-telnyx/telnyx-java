@@ -10,12 +10,12 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the current Number Reputation settings for an enterprise.
+ * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam risk, engagement,
+ * etc.) across the call-screening ecosystem. This endpoint reads the enterprise-level settings:
+ * whether the product is enabled, the refresh cadence, and the stored Letter of Authorization
+ * document id.
  *
- * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`), check frequency,
- * and any rejection reasons.
- *
- * Returns `404` if reputation has not been enabled for this enterprise.
+ * Returns `404` if reputation has never been enabled for this enterprise.
  */
 class ReputationRetrieveParams
 private constructor(

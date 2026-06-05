@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: WireguardInterfaceListParams,
     private val response: WireguardInterfaceListPageResponse,
-) : PageAsync<WireguardInterfaceRead> {
+) : PageAsync<WireguardInterfaceListResponse> {
 
     /**
      * Delegates to [WireguardInterfaceListPageResponse], but gracefully handles missing data.
      *
      * @see WireguardInterfaceListPageResponse.data
      */
-    fun data(): List<WireguardInterfaceRead> =
+    fun data(): List<WireguardInterfaceListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<WireguardInterfaceRead> = data()
+    override fun items(): List<WireguardInterfaceListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<WireguardInterfaceListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<WireguardInterfaceRead> =
+    fun autoPager(): AutoPagerAsync<WireguardInterfaceListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

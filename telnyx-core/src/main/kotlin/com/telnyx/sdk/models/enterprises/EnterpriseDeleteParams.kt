@@ -11,7 +11,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an enterprise and all associated resources. This action is irreversible. */
+/**
+ * Delete an enterprise. Fails with `400` if the enterprise still has dependent resources (e.g.
+ * active reputation settings or registered numbers); remove those first. Returns `404` if the
+ * enterprise does not exist or does not belong to your account.
+ */
 class EnterpriseDeleteParams
 private constructor(
     private val enterpriseId: String?,

@@ -23,16 +23,15 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociatePa
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
- * scores
- */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 class NumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberServiceAsync {
 
@@ -72,6 +71,13 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<Void?> =
         // delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
         withRawResponse().disassociate(params, requestOptions).thenAccept {}
+
+    override fun refresh(
+        params: NumberRefreshParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<NumberRefreshResponse> =
+        // post /enterprises/{enterprise_id}/reputation/numbers/refresh
+        withRawResponse().refresh(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberServiceAsync.WithRawResponse {
@@ -229,6 +235,46 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { disassociateHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val refreshHandler: Handler<NumberRefreshResponse> =
+            jsonHandler<NumberRefreshResponse>(clientOptions.jsonMapper)
+
+        override fun refresh(
+            params: NumberRefreshParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<NumberRefreshResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        "refresh",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { refreshHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

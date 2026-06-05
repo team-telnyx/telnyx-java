@@ -56,7 +56,7 @@ private constructor(
     )
 
     /**
-     * State or province
+     * State or province code (e.g. `IL`, `ON`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,15 +64,13 @@ private constructor(
     fun administrativeArea(): String = administrativeArea.getRequired("administrative_area")
 
     /**
-     * City name
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun city(): String = city.getRequired("city")
 
     /**
-     * Country name (e.g., United States)
+     * ISO 3166-1 alpha-2 code (currently `US` or `CA`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -80,24 +78,18 @@ private constructor(
     fun country(): String = country.getRequired("country")
 
     /**
-     * ZIP or postal code
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postalCode(): String = postalCode.getRequired("postal_code")
 
     /**
-     * Street address
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun streetAddress(): String = streetAddress.getRequired("street_address")
 
     /**
-     * Additional address line (suite, apt, etc.)
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -203,7 +195,7 @@ private constructor(
             additionalProperties = physicalAddress.additionalProperties.toMutableMap()
         }
 
-        /** State or province */
+        /** State or province code (e.g. `IL`, `ON`). */
         fun administrativeArea(administrativeArea: String) =
             administrativeArea(JsonField.of(administrativeArea))
 
@@ -218,7 +210,6 @@ private constructor(
             this.administrativeArea = administrativeArea
         }
 
-        /** City name */
         fun city(city: String) = city(JsonField.of(city))
 
         /**
@@ -229,7 +220,7 @@ private constructor(
          */
         fun city(city: JsonField<String>) = apply { this.city = city }
 
-        /** Country name (e.g., United States) */
+        /** ISO 3166-1 alpha-2 code (currently `US` or `CA`). */
         fun country(country: String) = country(JsonField.of(country))
 
         /**
@@ -240,7 +231,6 @@ private constructor(
          */
         fun country(country: JsonField<String>) = apply { this.country = country }
 
-        /** ZIP or postal code */
         fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
         /**
@@ -252,7 +242,6 @@ private constructor(
          */
         fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-        /** Street address */
         fun streetAddress(streetAddress: String) = streetAddress(JsonField.of(streetAddress))
 
         /**
@@ -266,7 +255,6 @@ private constructor(
             this.streetAddress = streetAddress
         }
 
-        /** Additional address line (suite, apt, etc.) */
         fun extendedAddress(extendedAddress: String?) =
             extendedAddress(JsonField.ofNullable(extendedAddress))
 
