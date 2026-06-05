@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.62.0 (2026-06-04)
+
+Full Changelog: [v6.61.0...v6.62.0](https://github.com/team-telnyx/telnyx-java/compare/v6.61.0...v6.62.0)
+
+### Features
+
+* add assistant_id to MessagingProfile and request schemas ([1dbe663](https://github.com/team-telnyx/telnyx-java/commit/1dbe6634c7bf7c314e321689bbebe2711d924983))
+* **inference:** expose description on transfer tool params ([a79501d](https://github.com/team-telnyx/telnyx-java/commit/a79501d06a87258f4c5c4664f946e89d9659aa10))
+
+
+### Bug Fixes
+
+* **inference:** extract recursive expression AST into named Expression schema ([0bb63eb](https://github.com/team-telnyx/telnyx-java/commit/0bb63ebc6c7ec733d5e99f2b2e1cf0754029353a))
+
 ## 6.61.0 (2026-06-03)
 
 Full Changelog: [v6.60.2...v6.61.0](https://github.com/team-telnyx/telnyx-java/compare/v6.60.2...v6.61.0)

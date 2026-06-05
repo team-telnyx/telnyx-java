@@ -87,6 +87,7 @@ internal class MessagingProfileServiceAsyncTest {
                 MessagingProfileUpdateParams.builder()
                     .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                     .alphaSender("sqF")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .dailySpendLimit("269125115713")
