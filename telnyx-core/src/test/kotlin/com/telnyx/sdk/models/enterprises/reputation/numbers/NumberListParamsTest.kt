@@ -12,6 +12,8 @@ internal class NumberListParamsTest {
     fun create() {
         NumberListParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .filterPhoneNumberContains("+16035551234")
+            .filterPhoneNumberEq("+16035551234")
             .pageNumber(1L)
             .pageSize(10L)
             .phoneNumber("+16035551234")
@@ -33,6 +35,8 @@ internal class NumberListParamsTest {
         val params =
             NumberListParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .filterPhoneNumberContains("+16035551234")
+                .filterPhoneNumberEq("+16035551234")
                 .pageNumber(1L)
                 .pageSize(10L)
                 .phoneNumber("+16035551234")
@@ -43,6 +47,8 @@ internal class NumberListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[phone_number][contains]", "+16035551234")
+                    .put("filter[phone_number][eq]", "+16035551234")
                     .put("page[number]", "1")
                     .put("page[size]", "10")
                     .put("phone_number", "+16035551234")

@@ -121,9 +121,12 @@ interface DirService {
         update(dirId, DirUpdateParams.none(), requestOptions)
 
     /**
-     * Convenience endpoint that returns every DIR you own without scoping to a specific enterprise.
-     * Equivalent to calling `GET /v2/enterprises/{enterprise_id}/dir` for each enterprise and
-     * concatenating the results, but server-side and paginated as a single list.
+     * Returns every DIR (Display Identity Record) you own, across all of your enterprises, as a
+     * single list. Pagination is JSON:API style (`page[number]`, `page[size]`, max 250). Supports
+     * `filter[]` query params: `filter[enterprise_id]`, `filter[status]`,
+     * `filter[display_name][contains]`, `filter[call_reason][contains]`, plus the renewal-window
+     * filters `filter[expiring_at][gte]` / `filter[expiring_at][lte]`. Sortable by `created_at`,
+     * `updated_at`, `display_name`, `status` (prefix `-` for descending; default `-created_at`).
      */
     fun list(): DirListPage = list(DirListParams.none())
 
