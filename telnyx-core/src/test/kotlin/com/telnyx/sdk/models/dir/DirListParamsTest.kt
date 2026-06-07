@@ -12,7 +12,6 @@ internal class DirListParamsTest {
     @Test
     fun create() {
         DirListParams.builder()
-            .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .filterCallReasonContains("filter[call_reason][contains]")
             .filterDisplayNameContains("filter[display_name][contains]")
             .filterEnterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -21,9 +20,7 @@ internal class DirListParamsTest {
             .filterStatus(DirListParams.FilterStatus.DRAFT)
             .pageNumber(1L)
             .pageSize(20L)
-            .search("search")
             .sort(DirListParams.Sort.CREATED_AT)
-            .status(DirListParams.Status.DRAFT)
             .build()
     }
 
@@ -31,7 +28,6 @@ internal class DirListParamsTest {
     fun queryParams() {
         val params =
             DirListParams.builder()
-                .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .filterCallReasonContains("filter[call_reason][contains]")
                 .filterDisplayNameContains("filter[display_name][contains]")
                 .filterEnterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -40,9 +36,7 @@ internal class DirListParamsTest {
                 .filterStatus(DirListParams.FilterStatus.DRAFT)
                 .pageNumber(1L)
                 .pageSize(20L)
-                .search("search")
                 .sort(DirListParams.Sort.CREATED_AT)
-                .status(DirListParams.Status.DRAFT)
                 .build()
 
         val queryParams = params._queryParams()
@@ -50,7 +44,6 @@ internal class DirListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("enterprise_id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .put("filter[call_reason][contains]", "filter[call_reason][contains]")
                     .put("filter[display_name][contains]", "filter[display_name][contains]")
                     .put("filter[enterprise_id]", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -59,9 +52,7 @@ internal class DirListParamsTest {
                     .put("filter[status]", "draft")
                     .put("page[number]", "1")
                     .put("page[size]", "20")
-                    .put("search", "search")
                     .put("sort", "created_at")
-                    .put("status", "draft")
                     .build()
             )
     }

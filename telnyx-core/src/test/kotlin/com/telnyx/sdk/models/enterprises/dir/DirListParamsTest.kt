@@ -21,9 +21,7 @@ internal class DirListParamsTest {
             .filterStatus(DirListParams.FilterStatus.DRAFT)
             .pageNumber(1L)
             .pageSize(20L)
-            .search("search")
             .sort(DirListParams.Sort.CREATED_AT)
-            .status(DirListParams.Status.DRAFT)
             .build()
     }
 
@@ -50,9 +48,7 @@ internal class DirListParamsTest {
                 .filterStatus(DirListParams.FilterStatus.DRAFT)
                 .pageNumber(1L)
                 .pageSize(20L)
-                .search("search")
                 .sort(DirListParams.Sort.CREATED_AT)
-                .status(DirListParams.Status.DRAFT)
                 .build()
 
         val queryParams = params._queryParams()
@@ -68,9 +64,7 @@ internal class DirListParamsTest {
                     .put("filter[status]", "draft")
                     .put("page[number]", "1")
                     .put("page[size]", "20")
-                    .put("search", "search")
                     .put("sort", "created_at")
-                    .put("status", "draft")
                     .build()
             )
     }
