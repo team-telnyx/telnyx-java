@@ -16,6 +16,8 @@ import kotlin.jvm.optionals.getOrNull
 class NumberListParams
 private constructor(
     private val enterpriseId: String?,
+    private val filterPhoneNumberContains: String?,
+    private val filterPhoneNumberEq: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val phoneNumber: String?,
@@ -24,6 +26,13 @@ private constructor(
 ) : Params {
 
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
+
+    /** Partial match on phone number. Must contain at least 5 digits. */
+    fun filterPhoneNumberContains(): Optional<String> =
+        Optional.ofNullable(filterPhoneNumberContains)
+
+    /** Exact phone-number match (E.164). */
+    fun filterPhoneNumberEq(): Optional<String> = Optional.ofNullable(filterPhoneNumberEq)
 
     /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -54,6 +63,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
+        private var filterPhoneNumberContains: String? = null
+        private var filterPhoneNumberEq: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var phoneNumber: String? = null
@@ -63,6 +74,8 @@ private constructor(
         @JvmSynthetic
         internal fun from(numberListParams: NumberListParams) = apply {
             enterpriseId = numberListParams.enterpriseId
+            filterPhoneNumberContains = numberListParams.filterPhoneNumberContains
+            filterPhoneNumberEq = numberListParams.filterPhoneNumberEq
             pageNumber = numberListParams.pageNumber
             pageSize = numberListParams.pageSize
             phoneNumber = numberListParams.phoneNumber
@@ -74,6 +87,29 @@ private constructor(
 
         /** Alias for calling [Builder.enterpriseId] with `enterpriseId.orElse(null)`. */
         fun enterpriseId(enterpriseId: Optional<String>) = enterpriseId(enterpriseId.getOrNull())
+
+        /** Partial match on phone number. Must contain at least 5 digits. */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: String?) = apply {
+            this.filterPhoneNumberContains = filterPhoneNumberContains
+        }
+
+        /**
+         * Alias for calling [Builder.filterPhoneNumberContains] with
+         * `filterPhoneNumberContains.orElse(null)`.
+         */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: Optional<String>) =
+            filterPhoneNumberContains(filterPhoneNumberContains.getOrNull())
+
+        /** Exact phone-number match (E.164). */
+        fun filterPhoneNumberEq(filterPhoneNumberEq: String?) = apply {
+            this.filterPhoneNumberEq = filterPhoneNumberEq
+        }
+
+        /**
+         * Alias for calling [Builder.filterPhoneNumberEq] with `filterPhoneNumberEq.orElse(null)`.
+         */
+        fun filterPhoneNumberEq(filterPhoneNumberEq: Optional<String>) =
+            filterPhoneNumberEq(filterPhoneNumberEq.getOrNull())
 
         /** 1-based page number. Out-of-range values return an empty page with correct meta. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
@@ -213,6 +249,8 @@ private constructor(
         fun build(): NumberListParams =
             NumberListParams(
                 enterpriseId,
+                filterPhoneNumberContains,
+                filterPhoneNumberEq,
                 pageNumber,
                 pageSize,
                 phoneNumber,
@@ -232,6 +270,8 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterPhoneNumberContains?.let { put("filter[phone_number][contains]", it) }
+                filterPhoneNumberEq?.let { put("filter[phone_number][eq]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 phoneNumber?.let { put("phone_number", it) }
@@ -246,6 +286,8 @@ private constructor(
 
         return other is NumberListParams &&
             enterpriseId == other.enterpriseId &&
+            filterPhoneNumberContains == other.filterPhoneNumberContains &&
+            filterPhoneNumberEq == other.filterPhoneNumberEq &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             phoneNumber == other.phoneNumber &&
@@ -256,6 +298,8 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             enterpriseId,
+            filterPhoneNumberContains,
+            filterPhoneNumberEq,
             pageNumber,
             pageSize,
             phoneNumber,
@@ -264,5 +308,5 @@ private constructor(
         )
 
     override fun toString() =
-        "NumberListParams{enterpriseId=$enterpriseId, pageNumber=$pageNumber, pageSize=$pageSize, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberListParams{enterpriseId=$enterpriseId, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, pageNumber=$pageNumber, pageSize=$pageSize, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

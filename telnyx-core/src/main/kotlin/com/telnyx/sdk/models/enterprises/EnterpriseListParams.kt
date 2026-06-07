@@ -12,12 +12,16 @@ import kotlin.jvm.optionals.getOrNull
 /** Return the enterprises you own, paginated. The default page size is 20; the maximum is 250. */
 class EnterpriseListParams
 private constructor(
+    private val filterLegalNameContains: String?,
     private val legalName: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** Case-insensitive partial match on legal name. */
+    fun filterLegalNameContains(): Optional<String> = Optional.ofNullable(filterLegalNameContains)
 
     /** Filter by legal name (partial match). */
     fun legalName(): Optional<String> = Optional.ofNullable(legalName)
@@ -47,6 +51,7 @@ private constructor(
     /** A builder for [EnterpriseListParams]. */
     class Builder internal constructor() {
 
+        private var filterLegalNameContains: String? = null
         private var legalName: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
@@ -55,12 +60,25 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(enterpriseListParams: EnterpriseListParams) = apply {
+            filterLegalNameContains = enterpriseListParams.filterLegalNameContains
             legalName = enterpriseListParams.legalName
             pageNumber = enterpriseListParams.pageNumber
             pageSize = enterpriseListParams.pageSize
             additionalHeaders = enterpriseListParams.additionalHeaders.toBuilder()
             additionalQueryParams = enterpriseListParams.additionalQueryParams.toBuilder()
         }
+
+        /** Case-insensitive partial match on legal name. */
+        fun filterLegalNameContains(filterLegalNameContains: String?) = apply {
+            this.filterLegalNameContains = filterLegalNameContains
+        }
+
+        /**
+         * Alias for calling [Builder.filterLegalNameContains] with
+         * `filterLegalNameContains.orElse(null)`.
+         */
+        fun filterLegalNameContains(filterLegalNameContains: Optional<String>) =
+            filterLegalNameContains(filterLegalNameContains.getOrNull())
 
         /** Filter by legal name (partial match). */
         fun legalName(legalName: String?) = apply { this.legalName = legalName }
@@ -199,6 +217,7 @@ private constructor(
          */
         fun build(): EnterpriseListParams =
             EnterpriseListParams(
+                filterLegalNameContains,
                 legalName,
                 pageNumber,
                 pageSize,
@@ -212,6 +231,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterLegalNameContains?.let { put("filter[legal_name][contains]", it) }
                 legalName?.let { put("legal_name", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
@@ -225,6 +245,7 @@ private constructor(
         }
 
         return other is EnterpriseListParams &&
+            filterLegalNameContains == other.filterLegalNameContains &&
             legalName == other.legalName &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
@@ -233,8 +254,15 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(legalName, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filterLegalNameContains,
+            legalName,
+            pageNumber,
+            pageSize,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "EnterpriseListParams{legalName=$legalName, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EnterpriseListParams{filterLegalNameContains=$filterLegalNameContains, legalName=$legalName, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

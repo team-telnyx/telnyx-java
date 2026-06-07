@@ -84,12 +84,12 @@ interface DirService {
 
     /**
      * Return the DIRs (Display Identity Records) belonging to a single enterprise. Pagination is
-     * JSON:API style (`page[number]`, `page[size]`, max 250). Filterable by `status`. Searchable by
-     * case-insensitive partial match on `display_name` (`search=`). Sortable by any of
-     * `created_at`, `updated_at`, `display_name`, `status`, `submitted_at`, `verified_at`,
-     * `expiring_at` (prefix `-` for descending; default `-created_at`). Supports the renewal-window
-     * filters `filter[expiring_at][gte]` / `filter[expiring_at][lte]` and the convenience
-     * `filter[expiring_within_days]` (mutually exclusive with the explicit gte/lte form).
+     * JSON:API style (`page[number]`, `page[size]`, max 250). Supports `filter[]` query params:
+     * `filter[status]`, `filter[display_name][contains]`, `filter[call_reason][contains]`, plus the
+     * renewal-window filters `filter[expiring_at][gte]` / `filter[expiring_at][lte]` and the
+     * convenience `filter[expiring_within_days]` (mutually exclusive with the explicit gte/lte
+     * form). Sortable by `created_at`, `updated_at`, `display_name`, `status`, `submitted_at`,
+     * `verified_at`, `expiring_at` (prefix `-` for descending; default `-created_at`).
      */
     fun list(enterpriseId: String): DirListPage = list(enterpriseId, DirListParams.none())
 
