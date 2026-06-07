@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
 import com.telnyx.sdk.services.async.termsofservice.AgreementServiceAsync
@@ -36,6 +38,31 @@ interface TermsOfServiceServiceAsync {
 
     /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     fun brandedCalling(): BrandedCallingServiceAsync
+
+    /**
+     * Returns the available Terms of Service agreements (product, current version, terms URL,
+     * effective date). Omit `product_type` to return all products; pass it to scope to one.
+     */
+    fun retrieveInfo(): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse>
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(params, RequestOptions.none())
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        requestOptions: RequestOptions
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
     /**
      * Returns whether the authenticated user has agreed to the current Number Reputation Terms of
@@ -87,6 +114,31 @@ interface TermsOfServiceServiceAsync {
 
         /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         fun brandedCalling(): BrandedCallingServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /terms_of_service/info`, but is otherwise the same
+         * as [TermsOfServiceServiceAsync.retrieveInfo].
+         */
+        fun retrieveInfo(): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+
+        /** @see retrieveInfo */
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>>
+
+        /** @see retrieveInfo */
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(params, RequestOptions.none())
+
+        /** @see retrieveInfo */
+        fun retrieveInfo(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/status`, but is otherwise the same

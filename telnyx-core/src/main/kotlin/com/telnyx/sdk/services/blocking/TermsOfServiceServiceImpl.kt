@@ -14,6 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
@@ -56,6 +58,13 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
     /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     override fun brandedCalling(): BrandedCallingService = brandedCalling
 
+    override fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams,
+        requestOptions: RequestOptions,
+    ): TermsOfServiceRetrieveInfoResponse =
+        // get /terms_of_service/info
+        withRawResponse().retrieveInfo(params, requestOptions).parse()
+
     override fun status(
         params: TermsOfServiceStatusParams,
         requestOptions: RequestOptions,
@@ -96,6 +105,33 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
 
         /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         override fun brandedCalling(): BrandedCallingService.WithRawResponse = brandedCalling
+
+        private val retrieveInfoHandler: Handler<TermsOfServiceRetrieveInfoResponse> =
+            jsonHandler<TermsOfServiceRetrieveInfoResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("terms_of_service", "info")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveInfoHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val statusHandler: Handler<TermsOfServiceStatusResponse> =
             jsonHandler<TermsOfServiceStatusResponse>(clientOptions.jsonMapper)
