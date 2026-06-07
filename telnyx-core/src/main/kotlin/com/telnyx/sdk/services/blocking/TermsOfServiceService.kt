@@ -6,6 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
@@ -36,6 +38,28 @@ interface TermsOfServiceService {
 
     /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     fun brandedCalling(): BrandedCallingService
+
+    /**
+     * Returns the available Terms of Service agreements (product, current version, terms URL,
+     * effective date). Omit `product_type` to return all products; pass it to scope to one.
+     */
+    fun retrieveInfo(): TermsOfServiceRetrieveInfoResponse =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TermsOfServiceRetrieveInfoResponse
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+    ): TermsOfServiceRetrieveInfoResponse = retrieveInfo(params, RequestOptions.none())
+
+    /** @see retrieveInfo */
+    fun retrieveInfo(requestOptions: RequestOptions): TermsOfServiceRetrieveInfoResponse =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
     /**
      * Returns whether the authenticated user has agreed to the current Number Reputation Terms of
@@ -85,6 +109,35 @@ interface TermsOfServiceService {
 
         /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         fun brandedCalling(): BrandedCallingService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /terms_of_service/info`, but is otherwise the same
+         * as [TermsOfServiceService.retrieveInfo].
+         */
+        @MustBeClosed
+        fun retrieveInfo(): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+
+        /** @see retrieveInfo */
+        @MustBeClosed
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse>
+
+        /** @see retrieveInfo */
+        @MustBeClosed
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(params, RequestOptions.none())
+
+        /** @see retrieveInfo */
+        @MustBeClosed
+        fun retrieveInfo(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/status`, but is otherwise the same
