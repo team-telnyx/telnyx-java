@@ -16,7 +16,6 @@ internal class NumberListParamsTest {
             .filterPhoneNumberEq("+16035551234")
             .pageNumber(1L)
             .pageSize(10L)
-            .phoneNumber("+16035551234")
             .build()
     }
 
@@ -39,7 +38,6 @@ internal class NumberListParamsTest {
                 .filterPhoneNumberEq("+16035551234")
                 .pageNumber(1L)
                 .pageSize(10L)
-                .phoneNumber("+16035551234")
                 .build()
 
         val queryParams = params._queryParams()
@@ -51,7 +49,6 @@ internal class NumberListParamsTest {
                     .put("filter[phone_number][eq]", "+16035551234")
                     .put("page[number]", "1")
                     .put("page[size]", "10")
-                    .put("phone_number", "+16035551234")
                     .build()
             )
     }

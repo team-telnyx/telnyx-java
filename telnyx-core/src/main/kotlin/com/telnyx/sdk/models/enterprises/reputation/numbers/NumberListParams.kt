@@ -20,7 +20,6 @@ private constructor(
     private val filterPhoneNumberEq: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
-    private val phoneNumber: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -39,9 +38,6 @@ private constructor(
 
     /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
-
-    /** Filter by specific phone number (E.164 format). */
-    fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -67,7 +63,6 @@ private constructor(
         private var filterPhoneNumberEq: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
-        private var phoneNumber: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -78,7 +73,6 @@ private constructor(
             filterPhoneNumberEq = numberListParams.filterPhoneNumberEq
             pageNumber = numberListParams.pageNumber
             pageSize = numberListParams.pageSize
-            phoneNumber = numberListParams.phoneNumber
             additionalHeaders = numberListParams.additionalHeaders.toBuilder()
             additionalQueryParams = numberListParams.additionalQueryParams.toBuilder()
         }
@@ -136,12 +130,6 @@ private constructor(
 
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
-
-        /** Filter by specific phone number (E.164 format). */
-        fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
-
-        /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
-        fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -253,7 +241,6 @@ private constructor(
                 filterPhoneNumberEq,
                 pageNumber,
                 pageSize,
-                phoneNumber,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -274,7 +261,6 @@ private constructor(
                 filterPhoneNumberEq?.let { put("filter[phone_number][eq]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
-                phoneNumber?.let { put("phone_number", it) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -290,7 +276,6 @@ private constructor(
             filterPhoneNumberEq == other.filterPhoneNumberEq &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
-            phoneNumber == other.phoneNumber &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -302,11 +287,10 @@ private constructor(
             filterPhoneNumberEq,
             pageNumber,
             pageSize,
-            phoneNumber,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "NumberListParams{enterpriseId=$enterpriseId, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, pageNumber=$pageNumber, pageSize=$pageSize, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberListParams{enterpriseId=$enterpriseId, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
