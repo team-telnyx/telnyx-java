@@ -16,6 +16,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Filter results by usecase. */
     fun usecase(): String = usecase
 
     /** Additional headers to send with the request. */
@@ -53,6 +54,7 @@ private constructor(
             additionalQueryParams = usecaseGetCostParams.additionalQueryParams.toBuilder()
         }
 
+        /** Filter results by usecase. */
         fun usecase(usecase: String) = apply { this.usecase = usecase }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {

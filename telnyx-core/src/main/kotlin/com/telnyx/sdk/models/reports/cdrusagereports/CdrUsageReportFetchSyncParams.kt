@@ -33,14 +33,19 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Type of aggregation to apply to the results. */
     fun aggregationType(): AggregationType = aggregationType
 
+    /** Filter results by product breakdown. */
     fun productBreakdown(): ProductBreakdown = productBreakdown
 
+    /** Filter results by connection. */
     fun connections(): Optional<List<Double>> = Optional.ofNullable(connections)
 
+    /** End of the date range filter (inclusive, ISO 8601). */
     fun endDate(): Optional<OffsetDateTime> = Optional.ofNullable(endDate)
 
+    /** Start of the date range filter (inclusive, ISO 8601). */
     fun startDate(): Optional<OffsetDateTime> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -88,14 +93,17 @@ private constructor(
             additionalQueryParams = cdrUsageReportFetchSyncParams.additionalQueryParams.toBuilder()
         }
 
+        /** Type of aggregation to apply to the results. */
         fun aggregationType(aggregationType: AggregationType) = apply {
             this.aggregationType = aggregationType
         }
 
+        /** Filter results by product breakdown. */
         fun productBreakdown(productBreakdown: ProductBreakdown) = apply {
             this.productBreakdown = productBreakdown
         }
 
+        /** Filter results by connection. */
         fun connections(connections: List<Double>?) = apply {
             this.connections = connections?.toMutableList()
         }
@@ -112,11 +120,13 @@ private constructor(
             connections = (connections ?: mutableListOf()).apply { add(connection) }
         }
 
+        /** End of the date range filter (inclusive, ISO 8601). */
         fun endDate(endDate: OffsetDateTime?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<OffsetDateTime>) = endDate(endDate.getOrNull())
 
+        /** Start of the date range filter (inclusive, ISO 8601). */
         fun startDate(startDate: OffsetDateTime?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */
@@ -261,6 +271,7 @@ private constructor(
             }
             .build()
 
+    /** Type of aggregation to apply to the results. */
     class AggregationType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -411,6 +422,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Filter results by product breakdown. */
     class ProductBreakdown @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

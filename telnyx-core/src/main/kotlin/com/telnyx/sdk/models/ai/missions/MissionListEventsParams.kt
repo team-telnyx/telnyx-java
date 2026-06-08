@@ -25,6 +25,7 @@ private constructor(
     /** Number of items per page */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
+    /** Filter results by type. */
     fun type(): Optional<String> = Optional.ofNullable(type)
 
     /** Additional headers to send with the request. */
@@ -87,6 +88,7 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
+        /** Filter results by type. */
         fun type(type: String?) = apply { this.type = type }
 
         /** Alias for calling [Builder.type] with `type.orElse(null)`. */

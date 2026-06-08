@@ -28,6 +28,7 @@ private constructor(
 
     fun runId(): Optional<String> = Optional.ofNullable(runId)
 
+    /** Filter results by agent id. */
     fun agentId(): Optional<String> = Optional.ofNullable(agentId)
 
     /** Page number (1-based) */
@@ -36,8 +37,10 @@ private constructor(
     /** Number of items per page */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
+    /** Filter results by step id. */
     fun stepId(): Optional<String> = Optional.ofNullable(stepId)
 
+    /** Filter results by type. */
     fun type(): Optional<String> = Optional.ofNullable(type)
 
     /** Additional headers to send with the request. */
@@ -94,6 +97,7 @@ private constructor(
         /** Alias for calling [Builder.runId] with `runId.orElse(null)`. */
         fun runId(runId: Optional<String>) = runId(runId.getOrNull())
 
+        /** Filter results by agent id. */
         fun agentId(agentId: String?) = apply { this.agentId = agentId }
 
         /** Alias for calling [Builder.agentId] with `agentId.orElse(null)`. */
@@ -125,11 +129,13 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
+        /** Filter results by step id. */
         fun stepId(stepId: String?) = apply { this.stepId = stepId }
 
         /** Alias for calling [Builder.stepId] with `stepId.orElse(null)`. */
         fun stepId(stepId: Optional<String>) = stepId(stepId.getOrNull())
 
+        /** Filter results by type. */
         fun type(type: String?) = apply { this.type = type }
 
         /** Alias for calling [Builder.type] with `type.orElse(null)`. */

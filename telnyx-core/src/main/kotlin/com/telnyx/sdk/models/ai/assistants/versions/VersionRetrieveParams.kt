@@ -24,6 +24,7 @@ private constructor(
 
     fun versionId(): Optional<String> = Optional.ofNullable(versionId)
 
+    /** Whether to include MCP servers in the response. */
     fun includeMcpServers(): Optional<Boolean> = Optional.ofNullable(includeMcpServers)
 
     /** Additional headers to send with the request. */
@@ -72,6 +73,7 @@ private constructor(
         /** Alias for calling [Builder.versionId] with `versionId.orElse(null)`. */
         fun versionId(versionId: Optional<String>) = versionId(versionId.getOrNull())
 
+        /** Whether to include MCP servers in the response. */
         fun includeMcpServers(includeMcpServers: Boolean?) = apply {
             this.includeMcpServers = includeMcpServers
         }

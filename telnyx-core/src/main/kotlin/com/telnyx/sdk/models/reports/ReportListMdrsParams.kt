@@ -29,31 +29,31 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Message uuid */
+    /** Filter results by identifier. */
     fun id(): Optional<String> = Optional.ofNullable(id)
 
-    /** Destination number */
+    /** Filter results by cld. */
     fun cld(): Optional<String> = Optional.ofNullable(cld)
 
-    /** Origination number */
+    /** Filter results by cli. */
     fun cli(): Optional<String> = Optional.ofNullable(cli)
 
-    /** Direction (inbound or outbound) */
+    /** Filter results by direction. */
     fun direction(): Optional<Direction> = Optional.ofNullable(direction)
 
     /** Pagination end date */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
-    /** Type of message */
+    /** Filter results by message type. */
     fun messageType(): Optional<MessageType> = Optional.ofNullable(messageType)
 
-    /** Name of the profile */
+    /** Filter results by profile. */
     fun profile(): Optional<String> = Optional.ofNullable(profile)
 
     /** Pagination start date */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
-    /** Message status */
+    /** Filter results by status. */
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     /** Additional headers to send with the request. */
@@ -102,25 +102,25 @@ private constructor(
             additionalQueryParams = reportListMdrsParams.additionalQueryParams.toBuilder()
         }
 
-        /** Message uuid */
+        /** Filter results by identifier. */
         fun id(id: String?) = apply { this.id = id }
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
 
-        /** Destination number */
+        /** Filter results by cld. */
         fun cld(cld: String?) = apply { this.cld = cld }
 
         /** Alias for calling [Builder.cld] with `cld.orElse(null)`. */
         fun cld(cld: Optional<String>) = cld(cld.getOrNull())
 
-        /** Origination number */
+        /** Filter results by cli. */
         fun cli(cli: String?) = apply { this.cli = cli }
 
         /** Alias for calling [Builder.cli] with `cli.orElse(null)`. */
         fun cli(cli: Optional<String>) = cli(cli.getOrNull())
 
-        /** Direction (inbound or outbound) */
+        /** Filter results by direction. */
         fun direction(direction: Direction?) = apply { this.direction = direction }
 
         /** Alias for calling [Builder.direction] with `direction.orElse(null)`. */
@@ -132,13 +132,13 @@ private constructor(
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
-        /** Type of message */
+        /** Filter results by message type. */
         fun messageType(messageType: MessageType?) = apply { this.messageType = messageType }
 
         /** Alias for calling [Builder.messageType] with `messageType.orElse(null)`. */
         fun messageType(messageType: Optional<MessageType>) = messageType(messageType.getOrNull())
 
-        /** Name of the profile */
+        /** Filter results by profile. */
         fun profile(profile: String?) = apply { this.profile = profile }
 
         /** Alias for calling [Builder.profile] with `profile.orElse(null)`. */
@@ -150,7 +150,7 @@ private constructor(
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */
         fun startDate(startDate: Optional<String>) = startDate(startDate.getOrNull())
 
-        /** Message status */
+        /** Filter results by status. */
         fun status(status: Status?) = apply { this.status = status }
 
         /** Alias for calling [Builder.status] with `status.orElse(null)`. */
@@ -293,7 +293,7 @@ private constructor(
             }
             .build()
 
-    /** Direction (inbound or outbound) */
+    /** Filter results by direction. */
     class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -430,7 +430,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Type of message */
+    /** Filter results by message type. */
     class MessageType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -568,7 +568,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Message status */
+    /** Filter results by status. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

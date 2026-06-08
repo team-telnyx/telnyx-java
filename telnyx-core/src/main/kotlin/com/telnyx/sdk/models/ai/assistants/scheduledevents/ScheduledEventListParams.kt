@@ -26,15 +26,18 @@ private constructor(
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
 
+    /** Filter results by conversation channel. */
     fun conversationChannel(): Optional<ConversationChannelType> =
         Optional.ofNullable(conversationChannel)
 
+    /** Start of the date range filter (inclusive, ISO 8601). */
     fun fromDate(): Optional<OffsetDateTime> = Optional.ofNullable(fromDate)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
+    /** End of the date range filter (inclusive, ISO 8601). */
     fun toDate(): Optional<OffsetDateTime> = Optional.ofNullable(toDate)
 
     /** Additional headers to send with the request. */
@@ -82,6 +85,7 @@ private constructor(
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
 
+        /** Filter results by conversation channel. */
         fun conversationChannel(conversationChannel: ConversationChannelType?) = apply {
             this.conversationChannel = conversationChannel
         }
@@ -92,6 +96,7 @@ private constructor(
         fun conversationChannel(conversationChannel: Optional<ConversationChannelType>) =
             conversationChannel(conversationChannel.getOrNull())
 
+        /** Start of the date range filter (inclusive, ISO 8601). */
         fun fromDate(fromDate: OffsetDateTime?) = apply { this.fromDate = fromDate }
 
         /** Alias for calling [Builder.fromDate] with `fromDate.orElse(null)`. */
@@ -121,6 +126,7 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
+        /** End of the date range filter (inclusive, ISO 8601). */
         fun toDate(toDate: OffsetDateTime?) = apply { this.toDate = toDate }
 
         /** Alias for calling [Builder.toDate] with `toDate.orElse(null)`. */

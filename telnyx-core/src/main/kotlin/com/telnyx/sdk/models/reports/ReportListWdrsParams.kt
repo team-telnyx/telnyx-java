@@ -30,38 +30,38 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** WDR uuid */
+    /** Filter results by identifier. */
     fun id(): Optional<String> = Optional.ofNullable(id)
 
     /** End date */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
-    /** International mobile subscriber identity */
+    /** Filter results by imsi. */
     fun imsi(): Optional<String> = Optional.ofNullable(imsi)
 
-    /** Mobile country code */
+    /** Filter results by mcc. */
     fun mcc(): Optional<String> = Optional.ofNullable(mcc)
 
-    /** Mobile network code */
+    /** Filter results by mnc. */
     fun mnc(): Optional<String> = Optional.ofNullable(mnc)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
-    /** Phone number */
+    /** Filter results by phone number. */
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
-    /** Sim card unique identifier */
+    /** Filter results by sim card id. */
     fun simCardId(): Optional<String> = Optional.ofNullable(simCardId)
 
-    /** Sim group unique identifier */
+    /** Filter results by sim group id. */
     fun simGroupId(): Optional<String> = Optional.ofNullable(simGroupId)
 
-    /** Sim group name */
+    /** Filter results by sim group name. */
     fun simGroupName(): Optional<String> = Optional.ofNullable(simGroupName)
 
-    /** Field used to order the data. If no field is specified, default value is 'created_at' */
+    /** Field and direction to sort the results by. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Start date */
@@ -121,7 +121,7 @@ private constructor(
             additionalQueryParams = reportListWdrsParams.additionalQueryParams.toBuilder()
         }
 
-        /** WDR uuid */
+        /** Filter results by identifier. */
         fun id(id: String?) = apply { this.id = id }
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
@@ -133,19 +133,19 @@ private constructor(
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
-        /** International mobile subscriber identity */
+        /** Filter results by imsi. */
         fun imsi(imsi: String?) = apply { this.imsi = imsi }
 
         /** Alias for calling [Builder.imsi] with `imsi.orElse(null)`. */
         fun imsi(imsi: Optional<String>) = imsi(imsi.getOrNull())
 
-        /** Mobile country code */
+        /** Filter results by mcc. */
         fun mcc(mcc: String?) = apply { this.mcc = mcc }
 
         /** Alias for calling [Builder.mcc] with `mcc.orElse(null)`. */
         fun mcc(mcc: Optional<String>) = mcc(mcc.getOrNull())
 
-        /** Mobile network code */
+        /** Filter results by mnc. */
         fun mnc(mnc: String?) = apply { this.mnc = mnc }
 
         /** Alias for calling [Builder.mnc] with `mnc.orElse(null)`. */
@@ -175,31 +175,31 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
-        /** Phone number */
+        /** Filter results by phone number. */
         fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
         /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
         fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
-        /** Sim card unique identifier */
+        /** Filter results by sim card id. */
         fun simCardId(simCardId: String?) = apply { this.simCardId = simCardId }
 
         /** Alias for calling [Builder.simCardId] with `simCardId.orElse(null)`. */
         fun simCardId(simCardId: Optional<String>) = simCardId(simCardId.getOrNull())
 
-        /** Sim group unique identifier */
+        /** Filter results by sim group id. */
         fun simGroupId(simGroupId: String?) = apply { this.simGroupId = simGroupId }
 
         /** Alias for calling [Builder.simGroupId] with `simGroupId.orElse(null)`. */
         fun simGroupId(simGroupId: Optional<String>) = simGroupId(simGroupId.getOrNull())
 
-        /** Sim group name */
+        /** Filter results by sim group name. */
         fun simGroupName(simGroupName: String?) = apply { this.simGroupName = simGroupName }
 
         /** Alias for calling [Builder.simGroupName] with `simGroupName.orElse(null)`. */
         fun simGroupName(simGroupName: Optional<String>) = simGroupName(simGroupName.getOrNull())
 
-        /** Field used to order the data. If no field is specified, default value is 'created_at' */
+        /** Field and direction to sort the results by. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */

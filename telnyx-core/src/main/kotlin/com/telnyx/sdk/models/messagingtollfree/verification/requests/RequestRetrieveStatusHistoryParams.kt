@@ -27,12 +27,10 @@ private constructor(
 
     fun id(): Optional<String> = Optional.ofNullable(id)
 
+    /** Page number to retrieve (1-based). */
     fun pageNumber(): Long = pageNumber
 
-    /**
-     * Request this many records per page. This value is automatically clamped if the provided value
-     * is too large.
-     */
+    /** Number of items to return per page. */
     fun pageSize(): Long = pageSize
 
     /** Additional headers to send with the request. */
@@ -83,12 +81,10 @@ private constructor(
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun pageNumber(pageNumber: Long) = apply { this.pageNumber = pageNumber }
 
-        /**
-         * Request this many records per page. This value is automatically clamped if the provided
-         * value is too large.
-         */
+        /** Number of items to return per page. */
         fun pageSize(pageSize: Long) = apply { this.pageSize = pageSize }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
