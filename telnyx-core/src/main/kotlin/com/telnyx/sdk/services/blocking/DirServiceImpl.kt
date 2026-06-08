@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.dir.DirCreateLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
@@ -99,6 +100,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
         // delete /dir/{dir_id}
         withRawResponse().delete(params, requestOptions)
     }
+
+    override fun createLoa(
+        params: DirCreateLoaParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // post /dir/{dir_id}/loa
+        withRawResponse().createLoa(params, requestOptions)
 
     override fun listDocumentTypes(
         params: DirListDocumentTypesParams,
@@ -283,6 +291,27 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
             }
+        }
+
+        override fun createLoa(
+            params: DirCreateLoaParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("dirId", params.dirId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("dir", params._pathParam(0), "loa")
+                    .putHeader("Accept", "application/pdf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
         }
 
         private val listDocumentTypesHandler: Handler<DirListDocumentTypesResponse> =

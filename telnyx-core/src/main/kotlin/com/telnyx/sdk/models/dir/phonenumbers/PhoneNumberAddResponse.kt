@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Bulk-add success response (HTTP 201). All numbers in the request were accepted into a single new
- * batch. Every entry in `data` shares the same `batch_id` — read it from any element to obtain the
+ * batch. Every entry in `data` shares the same `batch_id` - read it from any element to obtain the
  * batch id for subsequent `GET .../phone_number_batches/{batch_id}` calls. If any number in the
  * request fails (schema-invalid, not in inventory, already attached to another DIR, etc.) the
  * entire request is rejected with HTTP 400 and the canonical Telnyx error envelope; the success
@@ -314,13 +314,13 @@ private constructor(
 
         /**
          * Phone-number lifecycle status.
-         * - `submitted` / `in_review` — Telnyx is reviewing the batch this number belongs to.
-         * - `verified` — approved; the DIR's display identity will be shown on outbound calls from
+         * - `submitted` / `in_review` - Telnyx is reviewing the batch this number belongs to.
+         * - `verified` - approved; the DIR's display identity will be shown on outbound calls from
          *   this number.
-         * - `unsuccessful` — Telnyx rejected this submission; the customer may re-add to retry.
-         * - `suspended` — temporarily disabled (e.g. by an active infringement claim on the DIR).
-         * - `expired` — verification expired; re-add to renew.
-         * - `permanently_rejected` — terminal; cannot be re-added on this or any other DIR you own.
+         * - `unsuccessful` - Telnyx rejected this submission; the customer may re-add to retry.
+         * - `suspended` - temporarily disabled (e.g. by an active infringement claim on the DIR).
+         * - `expired` - verification expired; re-add to renew.
+         * - `permanently_rejected` - terminal; cannot be re-added on this or any other DIR you own.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -600,14 +600,14 @@ private constructor(
 
             /**
              * Phone-number lifecycle status.
-             * - `submitted` / `in_review` — Telnyx is reviewing the batch this number belongs to.
-             * - `verified` — approved; the DIR's display identity will be shown on outbound calls
+             * - `submitted` / `in_review` - Telnyx is reviewing the batch this number belongs to.
+             * - `verified` - approved; the DIR's display identity will be shown on outbound calls
              *   from this number.
-             * - `unsuccessful` — Telnyx rejected this submission; the customer may re-add to retry.
-             * - `suspended` — temporarily disabled (e.g. by an active infringement claim on the
+             * - `unsuccessful` - Telnyx rejected this submission; the customer may re-add to retry.
+             * - `suspended` - temporarily disabled (e.g. by an active infringement claim on the
              *   DIR).
-             * - `expired` — verification expired; re-add to renew.
-             * - `permanently_rejected` — terminal; cannot be re-added on this or any other DIR you
+             * - `expired` - verification expired; re-add to renew.
+             * - `permanently_rejected` - terminal; cannot be re-added on this or any other DIR you
              *   own.
              */
             fun status(status: Status) = status(JsonField.of(status))
@@ -1023,13 +1023,13 @@ private constructor(
 
         /**
          * Phone-number lifecycle status.
-         * - `submitted` / `in_review` — Telnyx is reviewing the batch this number belongs to.
-         * - `verified` — approved; the DIR's display identity will be shown on outbound calls from
+         * - `submitted` / `in_review` - Telnyx is reviewing the batch this number belongs to.
+         * - `verified` - approved; the DIR's display identity will be shown on outbound calls from
          *   this number.
-         * - `unsuccessful` — Telnyx rejected this submission; the customer may re-add to retry.
-         * - `suspended` — temporarily disabled (e.g. by an active infringement claim on the DIR).
-         * - `expired` — verification expired; re-add to renew.
-         * - `permanently_rejected` — terminal; cannot be re-added on this or any other DIR you own.
+         * - `unsuccessful` - Telnyx rejected this submission; the customer may re-add to retry.
+         * - `suspended` - temporarily disabled (e.g. by an active infringement claim on the DIR).
+         * - `expired` - verification expired; re-add to renew.
+         * - `permanently_rejected` - terminal; cannot be re-added on this or any other DIR you own.
          */
         class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

@@ -41,10 +41,10 @@ import kotlin.jvm.optionals.getOrNull
  *   `true`.
  *
  * **Failure modes**
- * - `422` — validation error; `errors[].source.pointer` names the offending field.
- * - `403` — Branded Calling not activated on this enterprise (see `POST
+ * - `422` - validation error; `errors[].source.pointer` names the offending field.
+ * - `403` - Branded Calling not activated on this enterprise (see `POST
  *   /enterprises/{id}/branded_calling`).
- * - `404` — enterprise does not exist or does not belong to your account.
+ * - `404` - enterprise does not exist or does not belong to your account.
  */
 class DirCreateParams
 private constructor(

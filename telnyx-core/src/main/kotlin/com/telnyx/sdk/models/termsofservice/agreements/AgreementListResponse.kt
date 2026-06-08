@@ -20,7 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * A recorded user agreement to a product's Terms of Service. The `user_id` is intentionally NOT
- * echoed back on this public surface — the caller already knows their own identity.
+ * echoed back on this public surface - the caller already knows their own identity.
  */
 class AgreementListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)

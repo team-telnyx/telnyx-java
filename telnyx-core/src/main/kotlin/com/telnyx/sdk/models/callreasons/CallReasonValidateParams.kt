@@ -22,7 +22,7 @@ private constructor(
 ) : Params {
 
     /**
-     * **Bare JSON array** of candidate call-reason strings (NOT an object — there is no top-level
+     * **Bare JSON array** of candidate call-reason strings (NOT an object - there is no top-level
      * `call_reasons` key on this endpoint). 1–10 strings, each ≤64 characters.
      */
     fun body(): List<String> = body
@@ -63,7 +63,7 @@ private constructor(
         }
 
         /**
-         * **Bare JSON array** of candidate call-reason strings (NOT an object — there is no
+         * **Bare JSON array** of candidate call-reason strings (NOT an object - there is no
          * top-level `call_reasons` key on this endpoint). 1–10 strings, each ≤64 characters.
          */
         fun body(body: List<String>) = apply { this.body = body.toMutableList() }

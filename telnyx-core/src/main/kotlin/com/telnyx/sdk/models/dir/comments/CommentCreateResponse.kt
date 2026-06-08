@@ -261,7 +261,7 @@ private constructor(
         fun entityType(): Optional<EntityType> = entityType.getOptional("entity_type")
 
         /**
-         * Always `customer` on this endpoint — internal-only comments are filtered out.
+         * Always `customer` on this endpoint - internal-only comments are filtered out.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -476,7 +476,7 @@ private constructor(
                 this.entityType = entityType
             }
 
-            /** Always `customer` on this endpoint — internal-only comments are filtered out. */
+            /** Always `customer` on this endpoint - internal-only comments are filtered out. */
             fun visibility(visibility: Visibility) = visibility(JsonField.of(visibility))
 
             /**
@@ -1034,7 +1034,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        /** Always `customer` on this endpoint — internal-only comments are filtered out. */
+        /** Always `customer` on this endpoint - internal-only comments are filtered out. */
         class Visibility @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 

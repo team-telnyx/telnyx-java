@@ -20,7 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Reputation snapshot for a phone number. Each metric is a 0–100 score; `spam_risk` is a coarse
- * bucket. Field set may grow over time — read by key.
+ * bucket. Field set may grow over time - read by key.
  */
 class ReputationData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)

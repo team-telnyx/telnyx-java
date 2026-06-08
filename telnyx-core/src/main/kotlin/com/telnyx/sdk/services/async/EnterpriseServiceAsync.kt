@@ -56,9 +56,9 @@ interface EnterpriseServiceAsync {
      * is created once and reused; the API collects all required fields up front.
      *
      * Common failure modes:
-     * - `422` — a required field is missing or malformed (the response `errors[].source.pointer`
+     * - `422` - a required field is missing or malformed (the response `errors[].source.pointer`
      *   names the field).
-     * - `409` — an enterprise with the same identifying details already exists under your account.
+     * - `409` - an enterprise with the same identifying details already exists under your account.
      */
     fun create(params: EnterpriseCreateParams): CompletableFuture<EnterpriseCreateResponse> =
         create(params, RequestOptions.none())
@@ -173,11 +173,11 @@ interface EnterpriseServiceAsync {
      * Soft-delete an enterprise.
      *
      * Failure modes:
-     * - `400` — the enterprise still has dependent resources in a non-deletable state. Remove those
+     * - `400` - the enterprise still has dependent resources in a non-deletable state. Remove those
      *   first; the response `detail` identifies what is blocking the delete.
-     * - `409` — the enterprise has a dependent resource with an unresolved claim. Resolve it before
+     * - `409` - the enterprise has a dependent resource with an unresolved claim. Resolve it before
      *   deleting.
-     * - `404` — the enterprise does not exist or does not belong to your account.
+     * - `404` - the enterprise does not exist or does not belong to your account.
      */
     fun delete(enterpriseId: String): CompletableFuture<Void?> =
         delete(enterpriseId, EnterpriseDeleteParams.none())
@@ -223,8 +223,8 @@ interface EnterpriseServiceAsync {
      * terms_of_service_not_accepted`.
      *
      * Failure modes:
-     * - `403` — Branded Calling Terms of Service not accepted.
-     * - `404` — enterprise does not exist or does not belong to your account.
+     * - `403` - Branded Calling Terms of Service not accepted.
+     * - `404` - enterprise does not exist or does not belong to your account.
      *
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.

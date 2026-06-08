@@ -28,9 +28,9 @@ import kotlin.jvm.optionals.getOrNull
  * created once and reused; the API collects all required fields up front.
  *
  * Common failure modes:
- * - `422` — a required field is missing or malformed (the response `errors[].source.pointer` names
+ * - `422` - a required field is missing or malformed (the response `errors[].source.pointer` names
  *   the field).
- * - `409` — an enterprise with the same identifying details already exists under your account.
+ * - `409` - an enterprise with the same identifying details already exists under your account.
  */
 class EnterpriseCreateParams
 private constructor(
@@ -112,11 +112,11 @@ private constructor(
 
     /**
      * Legal-entity form. Pick the form that matches your incorporation documents:
-     * - `corporation` — C-corp or S-corp.
-     * - `llc` — limited liability company.
-     * - `partnership` — general/limited partnership.
-     * - `nonprofit` — non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
-     * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.). You may be
+     * - `corporation` - C-corp or S-corp.
+     * - `llc` - limited liability company.
+     * - `partnership` - general/limited partnership.
+     * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+     * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may be
      *   asked for additional documents during vetting.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -132,10 +132,10 @@ private constructor(
 
     /**
      * Organization category for vetting purposes:
-     * - `commercial` — for-profit business entities (LLC, corp, partnership, sole proprietorship).
+     * - `commercial` - for-profit business entities (LLC, corp, partnership, sole proprietorship).
      *   Most callers fall here.
-     * - `government` — federal/state/local government bodies.
-     * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational institutions, charities,
+     * - `government` - federal/state/local government bodies.
+     * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational institutions, charities,
      *   religious organisations).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -558,11 +558,11 @@ private constructor(
 
         /**
          * Legal-entity form. Pick the form that matches your incorporation documents:
-         * - `corporation` — C-corp or S-corp.
-         * - `llc` — limited liability company.
-         * - `partnership` — general/limited partnership.
-         * - `nonprofit` — non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
-         * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.). You may
+         * - `corporation` - C-corp or S-corp.
+         * - `llc` - limited liability company.
+         * - `partnership` - general/limited partnership.
+         * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+         * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may
          *   be asked for additional documents during vetting.
          */
         fun organizationLegalType(organizationLegalType: OrganizationLegalType) = apply {
@@ -598,10 +598,10 @@ private constructor(
 
         /**
          * Organization category for vetting purposes:
-         * - `commercial` — for-profit business entities (LLC, corp, partnership, sole
+         * - `commercial` - for-profit business entities (LLC, corp, partnership, sole
          *   proprietorship). Most callers fall here.
-         * - `government` — federal/state/local government bodies.
-         * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational institutions,
+         * - `government` - federal/state/local government bodies.
+         * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational institutions,
          *   charities, religious organisations).
          */
         fun organizationType(organizationType: OrganizationType) = apply {
@@ -1094,11 +1094,11 @@ private constructor(
 
         /**
          * Legal-entity form. Pick the form that matches your incorporation documents:
-         * - `corporation` — C-corp or S-corp.
-         * - `llc` — limited liability company.
-         * - `partnership` — general/limited partnership.
-         * - `nonprofit` — non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
-         * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.). You may
+         * - `corporation` - C-corp or S-corp.
+         * - `llc` - limited liability company.
+         * - `partnership` - general/limited partnership.
+         * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+         * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may
          *   be asked for additional documents during vetting.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -1116,10 +1116,10 @@ private constructor(
 
         /**
          * Organization category for vetting purposes:
-         * - `commercial` — for-profit business entities (LLC, corp, partnership, sole
+         * - `commercial` - for-profit business entities (LLC, corp, partnership, sole
          *   proprietorship). Most callers fall here.
-         * - `government` — federal/state/local government bodies.
-         * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational institutions,
+         * - `government` - federal/state/local government bodies.
+         * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational institutions,
          *   charities, religious organisations).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -1601,11 +1601,11 @@ private constructor(
 
             /**
              * Legal-entity form. Pick the form that matches your incorporation documents:
-             * - `corporation` — C-corp or S-corp.
-             * - `llc` — limited liability company.
-             * - `partnership` — general/limited partnership.
-             * - `nonprofit` — non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
-             * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.). You
+             * - `corporation` - C-corp or S-corp.
+             * - `llc` - limited liability company.
+             * - `partnership` - general/limited partnership.
+             * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+             * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You
              *   may be asked for additional documents during vetting.
              */
             fun organizationLegalType(organizationLegalType: OrganizationLegalType) =
@@ -1639,10 +1639,10 @@ private constructor(
 
             /**
              * Organization category for vetting purposes:
-             * - `commercial` — for-profit business entities (LLC, corp, partnership, sole
+             * - `commercial` - for-profit business entities (LLC, corp, partnership, sole
              *   proprietorship). Most callers fall here.
-             * - `government` — federal/state/local government bodies.
-             * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational institutions,
+             * - `government` - federal/state/local government bodies.
+             * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational institutions,
              *   charities, religious organisations).
              */
             fun organizationType(organizationType: OrganizationType) =
@@ -2555,11 +2555,11 @@ private constructor(
 
     /**
      * Legal-entity form. Pick the form that matches your incorporation documents:
-     * - `corporation` — C-corp or S-corp.
-     * - `llc` — limited liability company.
-     * - `partnership` — general/limited partnership.
-     * - `nonprofit` — non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
-     * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.). You may be
+     * - `corporation` - C-corp or S-corp.
+     * - `llc` - limited liability company.
+     * - `partnership` - general/limited partnership.
+     * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+     * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may be
      *   asked for additional documents during vetting.
      */
     class OrganizationLegalType
@@ -2722,10 +2722,10 @@ private constructor(
 
     /**
      * Organization category for vetting purposes:
-     * - `commercial` — for-profit business entities (LLC, corp, partnership, sole proprietorship).
+     * - `commercial` - for-profit business entities (LLC, corp, partnership, sole proprietorship).
      *   Most callers fall here.
-     * - `government` — federal/state/local government bodies.
-     * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational institutions, charities,
+     * - `government` - federal/state/local government bodies.
+     * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational institutions, charities,
      *   religious organisations).
      */
     class OrganizationType @JsonCreator private constructor(private val value: JsonField<String>) :

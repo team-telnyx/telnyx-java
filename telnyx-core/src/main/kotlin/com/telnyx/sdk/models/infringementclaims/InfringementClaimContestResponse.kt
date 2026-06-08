@@ -365,8 +365,8 @@ private constructor(
         fun resolutionNotes(): Optional<String> = resolutionNotes.getOptional("resolution_notes")
 
         /**
-         * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended. `contested` — you
-         * have submitted contest evidence; awaiting Telnyx review. `resolved` — final.
+         * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended. `contested` - you
+         * have submitted contest evidence; awaiting Telnyx review. `resolved` - final.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -833,8 +833,8 @@ private constructor(
             }
 
             /**
-             * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended. `contested` —
-             * you have submitted contest evidence; awaiting Telnyx review. `resolved` — final.
+             * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended. `contested` -
+             * you have submitted contest evidence; awaiting Telnyx review. `resolved` - final.
              */
             fun status(status: Status) = status(JsonField.of(status))
 
@@ -1898,17 +1898,17 @@ private constructor(
 
             /**
              * DIR lifecycle status.
-             * - `draft` — newly created; editable; not yet submitted.
-             * - `submitted` / `in_review` — Telnyx is reviewing.
-             * - `verified` — approved; phone numbers may be attached.
-             * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is populated;
+             * - `draft` - newly created; editable; not yet submitted.
+             * - `submitted` / `in_review` - Telnyx is reviewing.
+             * - `verified` - approved; phone numbers may be attached.
+             * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is populated;
              *   customer can edit and resubmit.
-             * - `unsuccessful` — system-side error during processing; customer can edit and
+             * - `unsuccessful` - system-side error during processing; customer can edit and
              *   resubmit.
-             * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-             * - `expired` — verification expired; customer must resubmit.
-             * - `infringement_claimed` — a trademark/impersonation claim is open against this DIR.
-             * - `permanently_rejected` — terminal; cannot be resubmitted.
+             * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+             * - `expired` - verification expired; customer must resubmit.
+             * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
+             * - `permanently_rejected` - terminal; cannot be resubmitted.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -2024,18 +2024,18 @@ private constructor(
 
                 /**
                  * DIR lifecycle status.
-                 * - `draft` — newly created; editable; not yet submitted.
-                 * - `submitted` / `in_review` — Telnyx is reviewing.
-                 * - `verified` — approved; phone numbers may be attached.
-                 * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is populated;
+                 * - `draft` - newly created; editable; not yet submitted.
+                 * - `submitted` / `in_review` - Telnyx is reviewing.
+                 * - `verified` - approved; phone numbers may be attached.
+                 * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is populated;
                  *   customer can edit and resubmit.
-                 * - `unsuccessful` — system-side error during processing; customer can edit and
+                 * - `unsuccessful` - system-side error during processing; customer can edit and
                  *   resubmit.
-                 * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-                 * - `expired` — verification expired; customer must resubmit.
-                 * - `infringement_claimed` — a trademark/impersonation claim is open against this
+                 * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+                 * - `expired` - verification expired; customer must resubmit.
+                 * - `infringement_claimed` - a trademark/impersonation claim is open against this
                  *   DIR.
-                 * - `permanently_rejected` — terminal; cannot be resubmitted.
+                 * - `permanently_rejected` - terminal; cannot be resubmitted.
                  */
                 fun status(status: Status) = status(JsonField.of(status))
 
@@ -2126,17 +2126,17 @@ private constructor(
 
             /**
              * DIR lifecycle status.
-             * - `draft` — newly created; editable; not yet submitted.
-             * - `submitted` / `in_review` — Telnyx is reviewing.
-             * - `verified` — approved; phone numbers may be attached.
-             * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is populated;
+             * - `draft` - newly created; editable; not yet submitted.
+             * - `submitted` / `in_review` - Telnyx is reviewing.
+             * - `verified` - approved; phone numbers may be attached.
+             * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is populated;
              *   customer can edit and resubmit.
-             * - `unsuccessful` — system-side error during processing; customer can edit and
+             * - `unsuccessful` - system-side error during processing; customer can edit and
              *   resubmit.
-             * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-             * - `expired` — verification expired; customer must resubmit.
-             * - `infringement_claimed` — a trademark/impersonation claim is open against this DIR.
-             * - `permanently_rejected` — terminal; cannot be resubmitted.
+             * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+             * - `expired` - verification expired; customer must resubmit.
+             * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
+             * - `permanently_rejected` - terminal; cannot be resubmitted.
              */
             class Status @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
@@ -2499,8 +2499,8 @@ private constructor(
         }
 
         /**
-         * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended. `contested` — you
-         * have submitted contest evidence; awaiting Telnyx review. `resolved` — final.
+         * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended. `contested` - you
+         * have submitted contest evidence; awaiting Telnyx review. `resolved` - final.
          */
         class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
