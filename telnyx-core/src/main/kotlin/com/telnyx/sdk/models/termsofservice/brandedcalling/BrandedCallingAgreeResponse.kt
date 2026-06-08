@@ -33,7 +33,7 @@ private constructor(
 
     /**
      * A recorded user agreement to a product's Terms of Service. The `user_id` is intentionally NOT
-     * echoed back on this public surface — the caller already knows their own identity.
+     * echoed back on this public surface - the caller already knows their own identity.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,7 +86,7 @@ private constructor(
 
         /**
          * A recorded user agreement to a product's Terms of Service. The `user_id` is intentionally
-         * NOT echoed back on this public surface — the caller already knows their own identity.
+         * NOT echoed back on this public surface - the caller already knows their own identity.
          */
         fun data(data: Data) = data(JsonField.of(data))
 
@@ -172,7 +172,7 @@ private constructor(
 
     /**
      * A recorded user agreement to a product's Terms of Service. The `user_id` is intentionally NOT
-     * echoed back on this public surface — the caller already knows their own identity.
+     * echoed back on this public surface - the caller already knows their own identity.
      */
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)

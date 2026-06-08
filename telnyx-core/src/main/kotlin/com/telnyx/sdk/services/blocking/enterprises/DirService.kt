@@ -57,10 +57,10 @@ interface DirService {
      *   `true`.
      *
      * **Failure modes**
-     * - `422` — validation error; `errors[].source.pointer` names the offending field.
-     * - `403` — Branded Calling not activated on this enterprise (see `POST
+     * - `422` - validation error; `errors[].source.pointer` names the offending field.
+     * - `403` - Branded Calling not activated on this enterprise (see `POST
      *   /enterprises/{id}/branded_calling`).
-     * - `404` — enterprise does not exist or does not belong to your account.
+     * - `404` - enterprise does not exist or does not belong to your account.
      */
     fun create(enterpriseId: String, params: DirCreateParams): DirCreateResponse =
         create(enterpriseId, params, RequestOptions.none())

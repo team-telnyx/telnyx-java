@@ -393,7 +393,7 @@ private constructor(
             (errors.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         /**
-         * Per-number error returned by the bulk-delete endpoint. Bulk-add does not use this shape —
+         * Per-number error returned by the bulk-delete endpoint. Bulk-add does not use this shape -
          * it returns a 400 with the canonical envelope grouping numbers by failure category.
          */
         class Error

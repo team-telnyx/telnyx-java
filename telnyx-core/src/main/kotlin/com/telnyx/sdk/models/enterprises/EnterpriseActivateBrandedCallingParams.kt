@@ -24,8 +24,8 @@ import kotlin.jvm.optionals.getOrNull
  * terms_of_service_not_accepted`.
  *
  * Failure modes:
- * - `403` — Branded Calling Terms of Service not accepted.
- * - `404` — enterprise does not exist or does not belong to your account.
+ * - `403` - Branded Calling Terms of Service not accepted.
+ * - `404` - enterprise does not exist or does not belong to your account.
  *
  * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
  * pricing.

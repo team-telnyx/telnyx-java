@@ -195,7 +195,7 @@ private constructor(
 
         /**
          * Subset of the input that does NOT match the pre-vetted library. The DIR can still be
-         * submitted with these — they will go through manual review.
+         * submitted with these - they will go through manual review.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -306,7 +306,7 @@ private constructor(
 
             /**
              * Subset of the input that does NOT match the pre-vetted library. The DIR can still be
-             * submitted with these — they will go through manual review.
+             * submitted with these - they will go through manual review.
              */
             fun nonApprovedReasons(nonApprovedReasons: List<String>) =
                 nonApprovedReasons(JsonField.of(nonApprovedReasons))

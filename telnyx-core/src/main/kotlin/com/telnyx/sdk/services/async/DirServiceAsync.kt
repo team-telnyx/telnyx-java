@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.dir.DirCreateLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
@@ -96,7 +97,7 @@ interface DirServiceAsync {
 
     /**
      * Edit a DIR. Only DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` are editable.
-     * PATCH is a pure edit — `status` is never changed by this endpoint. To re-vet after editing,
+     * PATCH is a pure edit - `status` is never changed by this endpoint. To re-vet after editing,
      * call `POST /v2/dir/{dir_id}/submit` explicitly.
      */
     fun update(dirId: String): CompletableFuture<DirUpdateResponse> =
@@ -188,6 +189,39 @@ interface DirServiceAsync {
     /** @see delete */
     fun delete(dirId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(dirId, DirDeleteParams.none(), requestOptions)
+
+    /**
+     * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise identity (legal
+     * name, DBA, address, contact, website, tax id) and the DIR display name are read server-side;
+     * the caller supplies the telephone numbers to authorize, an optional Authorized Agent block,
+     * and an optional drawn signature.
+     *
+     * When `signature` is omitted the PDF is returned unsigned so the customer can sign it
+     * externally and upload it via the Documents API. When `signature` is present the PDF embeds
+     * the supplied image, printed name, and signed-at date.
+     *
+     * Returns `application/pdf`.
+     */
+    fun createLoa(dirId: String, params: DirCreateLoaParams): CompletableFuture<HttpResponse> =
+        createLoa(dirId, params, RequestOptions.none())
+
+    /** @see createLoa */
+    fun createLoa(
+        dirId: String,
+        params: DirCreateLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse> =
+        createLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+    /** @see createLoa */
+    fun createLoa(params: DirCreateLoaParams): CompletableFuture<HttpResponse> =
+        createLoa(params, RequestOptions.none())
+
+    /** @see createLoa */
+    fun createLoa(
+        params: DirCreateLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
 
     /**
      * Reference list of `document_type` values accepted by
@@ -502,6 +536,31 @@ interface DirServiceAsync {
         /** @see delete */
         fun delete(dirId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
             delete(dirId, DirDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /dir/{dir_id}/loa`, but is otherwise the same as
+         * [DirServiceAsync.createLoa].
+         */
+        fun createLoa(dirId: String, params: DirCreateLoaParams): CompletableFuture<HttpResponse> =
+            createLoa(dirId, params, RequestOptions.none())
+
+        /** @see createLoa */
+        fun createLoa(
+            dirId: String,
+            params: DirCreateLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            createLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+        /** @see createLoa */
+        fun createLoa(params: DirCreateLoaParams): CompletableFuture<HttpResponse> =
+            createLoa(params, RequestOptions.none())
+
+        /** @see createLoa */
+        fun createLoa(
+            params: DirCreateLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `get /dir/document_types`, but is otherwise the same as

@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Edit a DIR. Only DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` are editable. PATCH
- * is a pure edit — `status` is never changed by this endpoint. To re-vet after editing, call `POST
+ * is a pure edit - `status` is never changed by this endpoint. To re-vet after editing, call `POST
  * /v2/dir/{dir_id}/submit` explicitly.
  */
 class DirUpdateParams

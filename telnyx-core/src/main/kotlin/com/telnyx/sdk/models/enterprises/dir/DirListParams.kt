@@ -58,7 +58,7 @@ private constructor(
     /**
      * Convenience: returns DIRs whose `expiring_at` falls within the next N days (1–365).
      * Equivalent to setting `filter[expiring_at][gte]=<now>` + `filter[expiring_at][lte]=<now+N>`.
-     * Mutually exclusive with the explicit `[gte]`/`[lte]` filters — combining returns 400.
+     * Mutually exclusive with the explicit `[gte]`/`[lte]` filters - combining returns 400.
      */
     fun filterExpiringWithinDays(): Optional<Long> = Optional.ofNullable(filterExpiringWithinDays)
 
@@ -180,7 +180,7 @@ private constructor(
          * Convenience: returns DIRs whose `expiring_at` falls within the next N days (1–365).
          * Equivalent to setting `filter[expiring_at][gte]=<now>` +
          * `filter[expiring_at][lte]=<now+N>`. Mutually exclusive with the explicit `[gte]`/`[lte]`
-         * filters — combining returns 400.
+         * filters - combining returns 400.
          */
         fun filterExpiringWithinDays(filterExpiringWithinDays: Long?) = apply {
             this.filterExpiringWithinDays = filterExpiringWithinDays

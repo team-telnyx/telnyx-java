@@ -2,12 +2,23 @@
 
 package com.telnyx.sdk.services.blocking
 
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.dir.DirCreateLoaParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
 import com.telnyx.sdk.models.dir.DirUpdateParams
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.ResourceLock
 
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class DirServiceTest {
 
     @Disabled("Mock server tests are disabled")
@@ -63,6 +74,49 @@ internal class DirServiceTest {
         val dirService = client.dir()
 
         dirService.delete("16635d38-75a6-4481-82e8-69af60e05011")
+    }
+
+    @Test
+    fun createLoa(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .apiKey("My API Key")
+                .build()
+        val dirService = client.dir()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            dirService.createLoa(
+                DirCreateLoaParams.builder()
+                    .dirId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addPhoneNumber("+13125550000")
+                    .agent(
+                        DirCreateLoaParams.Agent.builder()
+                            .administrativeArea("administrative_area")
+                            .city("city")
+                            .contactEmail("dev@stainless.com")
+                            .contactName("contact_name")
+                            .contactPhone("+13125550000")
+                            .contactTitle("contact_title")
+                            .country("US")
+                            .legalName("legal_name")
+                            .postalCode("postal_code")
+                            .streetAddress("street_address")
+                            .dba("dba")
+                            .extendedAddress("extended_address")
+                            .build()
+                    )
+                    .signature(
+                        DirCreateLoaParams.Signature.builder()
+                            .imageBase64("x")
+                            .signerName("signer_name")
+                            .build()
+                    )
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
