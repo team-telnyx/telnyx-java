@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.faxes
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.Metadata
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import com.telnyx.sdk.services.async.FaxServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -35,7 +35,7 @@ private constructor(
      *
      * @see FaxListPageResponse.meta
      */
-    fun meta(): Optional<Metadata> = response._meta().getOptional("meta")
+    fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<Fax> = data()
 

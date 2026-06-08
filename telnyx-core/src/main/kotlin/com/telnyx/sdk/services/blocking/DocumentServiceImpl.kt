@@ -255,7 +255,7 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents", params._pathParam(0), "download")
-                    .putHeader("Accept", "application/octet-stream")
+                    .putHeader("Accept", "*")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
