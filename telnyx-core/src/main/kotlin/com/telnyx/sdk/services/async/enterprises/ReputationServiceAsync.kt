@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyPar
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
+import com.telnyx.sdk.services.async.enterprises.reputation.RemediationServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -38,6 +39,9 @@ interface ReputationServiceAsync {
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun loa(): LoaServiceAsync
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    fun remediation(): RemediationServiceAsync
 
     /**
      * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam risk,
@@ -213,6 +217,9 @@ interface ReputationServiceAsync {
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun loa(): LoaServiceAsync.WithRawResponse
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        fun remediation(): RemediationServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
