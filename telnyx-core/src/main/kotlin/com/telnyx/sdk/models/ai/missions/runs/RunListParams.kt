@@ -28,6 +28,7 @@ private constructor(
     /** Number of items per page */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
+    /** Filter results by status. */
     fun status(): Optional<String> = Optional.ofNullable(status)
 
     /** Additional headers to send with the request. */
@@ -97,6 +98,7 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
+        /** Filter results by status. */
         fun status(status: String?) = apply { this.status = status }
 
         /** Alias for calling [Builder.status] with `status.orElse(null)`. */

@@ -32,12 +32,16 @@ private constructor(
     /** Filter results by the Telnyx Brand id */
     fun brandId(): Optional<String> = Optional.ofNullable(brandId)
 
+    /** Filter results by country. */
     fun country(): Optional<String> = Optional.ofNullable(country)
 
+    /** Filter results by display name. */
     fun displayName(): Optional<String> = Optional.ofNullable(displayName)
 
+    /** Filter results by entity type. */
     fun entityType(): Optional<String> = Optional.ofNullable(entityType)
 
+    /** Page number to retrieve (1-based). */
     fun page(): Optional<Long> = Optional.ofNullable(page)
 
     /** number of records per page. maximum of 500 */
@@ -49,6 +53,7 @@ private constructor(
      */
     fun sort(): Optional<Sort> = Optional.ofNullable(sort)
 
+    /** Filter results by state. */
     fun state(): Optional<String> = Optional.ofNullable(state)
 
     /** Filter results by the TCR Brand id */
@@ -106,21 +111,25 @@ private constructor(
         /** Alias for calling [Builder.brandId] with `brandId.orElse(null)`. */
         fun brandId(brandId: Optional<String>) = brandId(brandId.getOrNull())
 
+        /** Filter results by country. */
         fun country(country: String?) = apply { this.country = country }
 
         /** Alias for calling [Builder.country] with `country.orElse(null)`. */
         fun country(country: Optional<String>) = country(country.getOrNull())
 
+        /** Filter results by display name. */
         fun displayName(displayName: String?) = apply { this.displayName = displayName }
 
         /** Alias for calling [Builder.displayName] with `displayName.orElse(null)`. */
         fun displayName(displayName: Optional<String>) = displayName(displayName.getOrNull())
 
+        /** Filter results by entity type. */
         fun entityType(entityType: String?) = apply { this.entityType = entityType }
 
         /** Alias for calling [Builder.entityType] with `entityType.orElse(null)`. */
         fun entityType(entityType: Optional<String>) = entityType(entityType.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun page(page: Long?) = apply { this.page = page }
 
         /**
@@ -156,6 +165,7 @@ private constructor(
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
         fun sort(sort: Optional<Sort>) = sort(sort.getOrNull())
 
+        /** Filter results by state. */
         fun state(state: String?) = apply { this.state = state }
 
         /** Alias for calling [Builder.state] with `state.orElse(null)`. */

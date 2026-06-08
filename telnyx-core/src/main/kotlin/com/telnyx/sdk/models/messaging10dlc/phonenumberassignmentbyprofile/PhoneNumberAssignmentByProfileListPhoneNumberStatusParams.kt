@@ -24,8 +24,10 @@ private constructor(
 
     fun taskId(): Optional<String> = Optional.ofNullable(taskId)
 
+    /** Page number to retrieve (1-based). */
     fun page(): Optional<Long> = Optional.ofNullable(page)
 
+    /** Number of records to return per page. */
     fun recordsPerPage(): Optional<Long> = Optional.ofNullable(recordsPerPage)
 
     /** Additional headers to send with the request. */
@@ -79,6 +81,7 @@ private constructor(
         /** Alias for calling [Builder.taskId] with `taskId.orElse(null)`. */
         fun taskId(taskId: Optional<String>) = taskId(taskId.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun page(page: Long?) = apply { this.page = page }
 
         /**
@@ -91,6 +94,7 @@ private constructor(
         /** Alias for calling [Builder.page] with `page.orElse(null)`. */
         fun page(page: Optional<Long>) = page(page.getOrNull())
 
+        /** Number of records to return per page. */
         fun recordsPerPage(recordsPerPage: Long?) = apply { this.recordsPerPage = recordsPerPage }
 
         /**

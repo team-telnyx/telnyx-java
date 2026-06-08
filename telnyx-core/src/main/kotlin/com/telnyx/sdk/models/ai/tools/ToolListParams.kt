@@ -20,12 +20,16 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Filter results by filter name. */
     fun filterName(): Optional<String> = Optional.ofNullable(filterName)
 
+    /** Filter results by filter type. */
     fun filterType(): Optional<String> = Optional.ofNullable(filterType)
 
+    /** Page number to retrieve (1-based). */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
+    /** Number of items to return per page. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
@@ -64,16 +68,19 @@ private constructor(
             additionalQueryParams = toolListParams.additionalQueryParams.toBuilder()
         }
 
+        /** Filter results by filter name. */
         fun filterName(filterName: String?) = apply { this.filterName = filterName }
 
         /** Alias for calling [Builder.filterName] with `filterName.orElse(null)`. */
         fun filterName(filterName: Optional<String>) = filterName(filterName.getOrNull())
 
+        /** Filter results by filter type. */
         fun filterType(filterType: String?) = apply { this.filterType = filterType }
 
         /** Alias for calling [Builder.filterType] with `filterType.orElse(null)`. */
         fun filterType(filterType: Optional<String>) = filterType(filterType.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -86,6 +93,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
+        /** Number of items to return per page. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**

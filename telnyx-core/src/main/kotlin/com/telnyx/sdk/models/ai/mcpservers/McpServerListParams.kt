@@ -20,12 +20,16 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Page number to retrieve (1-based). */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
+    /** Number of items to return per page. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
+    /** Filter results by type. */
     fun type(): Optional<String> = Optional.ofNullable(type)
 
+    /** Filter results by url. */
     fun url(): Optional<String> = Optional.ofNullable(url)
 
     /** Additional headers to send with the request. */
@@ -64,6 +68,7 @@ private constructor(
             additionalQueryParams = mcpServerListParams.additionalQueryParams.toBuilder()
         }
 
+        /** Page number to retrieve (1-based). */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -76,6 +81,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
+        /** Number of items to return per page. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**
@@ -88,11 +94,13 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
+        /** Filter results by type. */
         fun type(type: String?) = apply { this.type = type }
 
         /** Alias for calling [Builder.type] with `type.orElse(null)`. */
         fun type(type: Optional<String>) = type(type.getOrNull())
 
+        /** Filter results by url. */
         fun url(url: String?) = apply { this.url = url }
 
         /** Alias for calling [Builder.url] with `url.orElse(null)`. */

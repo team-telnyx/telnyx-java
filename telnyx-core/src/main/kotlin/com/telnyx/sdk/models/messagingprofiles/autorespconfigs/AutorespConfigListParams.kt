@@ -22,6 +22,7 @@ private constructor(
 
     fun profileId(): Optional<String> = Optional.ofNullable(profileId)
 
+    /** Filter results by country code. */
     fun countryCode(): Optional<String> = Optional.ofNullable(countryCode)
 
     /**
@@ -77,6 +78,7 @@ private constructor(
         /** Alias for calling [Builder.profileId] with `profileId.orElse(null)`. */
         fun profileId(profileId: Optional<String>) = profileId(profileId.getOrNull())
 
+        /** Filter results by country code. */
         fun countryCode(countryCode: String?) = apply { this.countryCode = countryCode }
 
         /** Alias for calling [Builder.countryCode] with `countryCode.orElse(null)`. */

@@ -26,6 +26,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Page number to retrieve (1-based). */
     fun page(): Long = page
 
     /**
@@ -37,13 +38,16 @@ private constructor(
     /** Filter verification requests by business name */
     fun businessName(): Optional<String> = Optional.ofNullable(businessName)
 
+    /** End of the date range filter (inclusive, ISO 8601). */
     fun dateEnd(): Optional<OffsetDateTime> = Optional.ofNullable(dateEnd)
 
+    /** Start of the date range filter (inclusive, ISO 8601). */
     fun dateStart(): Optional<OffsetDateTime> = Optional.ofNullable(dateStart)
 
+    /** Filter results by phone number. */
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
-    /** Tollfree verification status */
+    /** Filter results by status. */
     fun status(): Optional<TfVerificationStatus> = Optional.ofNullable(status)
 
     /** Additional headers to send with the request. */
@@ -94,6 +98,7 @@ private constructor(
             additionalQueryParams = requestListParams.additionalQueryParams.toBuilder()
         }
 
+        /** Page number to retrieve (1-based). */
         fun page(page: Long) = apply { this.page = page }
 
         /**
@@ -108,22 +113,25 @@ private constructor(
         /** Alias for calling [Builder.businessName] with `businessName.orElse(null)`. */
         fun businessName(businessName: Optional<String>) = businessName(businessName.getOrNull())
 
+        /** End of the date range filter (inclusive, ISO 8601). */
         fun dateEnd(dateEnd: OffsetDateTime?) = apply { this.dateEnd = dateEnd }
 
         /** Alias for calling [Builder.dateEnd] with `dateEnd.orElse(null)`. */
         fun dateEnd(dateEnd: Optional<OffsetDateTime>) = dateEnd(dateEnd.getOrNull())
 
+        /** Start of the date range filter (inclusive, ISO 8601). */
         fun dateStart(dateStart: OffsetDateTime?) = apply { this.dateStart = dateStart }
 
         /** Alias for calling [Builder.dateStart] with `dateStart.orElse(null)`. */
         fun dateStart(dateStart: Optional<OffsetDateTime>) = dateStart(dateStart.getOrNull())
 
+        /** Filter results by phone number. */
         fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
         /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
         fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
-        /** Tollfree verification status */
+        /** Filter results by status. */
         fun status(status: TfVerificationStatus?) = apply { this.status = status }
 
         /** Alias for calling [Builder.status] with `status.orElse(null)`. */
