@@ -269,7 +269,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents", params._pathParam(0), "download")
-                    .putHeader("Accept", "application/octet-stream")
+                    .putHeader("Accept", "*")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

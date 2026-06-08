@@ -13,7 +13,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.Metadata
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -23,14 +23,14 @@ class FaxListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Fax>>,
-    private val meta: JsonField<Metadata>,
+    private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<Fax>> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -43,7 +43,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun meta(): Optional<Metadata> = meta.getOptional("meta")
+    fun meta(): Optional<PaginationMeta> = meta.getOptional("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -57,7 +57,7 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Metadata> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<PaginationMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -81,7 +81,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Fax>>? = null
-        private var meta: JsonField<Metadata> = JsonMissing.of()
+        private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -113,15 +113,16 @@ private constructor(
                 }
         }
 
-        fun meta(meta: Metadata) = meta(JsonField.of(meta))
+        fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [Metadata] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.meta] with a well-typed [PaginationMeta] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun meta(meta: JsonField<Metadata>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<PaginationMeta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
