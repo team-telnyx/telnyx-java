@@ -28,6 +28,8 @@ import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsyncImpl
+import com.telnyx.sdk.services.async.enterprises.reputation.RemediationServiceAsync
+import com.telnyx.sdk.services.async.enterprises.reputation.RemediationServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -44,6 +46,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val loa: LoaServiceAsync by lazy { LoaServiceAsyncImpl(clientOptions) }
 
+    private val remediation: RemediationServiceAsync by lazy {
+        RemediationServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): ReputationServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationServiceAsync =
@@ -54,6 +60,9 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun loa(): LoaServiceAsync = loa
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun remediation(): RemediationServiceAsync = remediation
 
     override fun retrieve(
         params: ReputationRetrieveParams,
@@ -97,6 +106,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
             LoaServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val remediation: RemediationServiceAsync.WithRawResponse by lazy {
+            RemediationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationServiceAsync.WithRawResponse =
@@ -109,6 +122,9 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun loa(): LoaServiceAsync.WithRawResponse = loa
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun remediation(): RemediationServiceAsync.WithRawResponse = remediation
 
         private val retrieveHandler: Handler<ReputationRetrieveResponse> =
             jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)
