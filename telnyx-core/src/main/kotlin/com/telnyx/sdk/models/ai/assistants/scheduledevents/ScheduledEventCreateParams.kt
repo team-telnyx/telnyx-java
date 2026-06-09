@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -62,6 +63,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun telnyxEndUserTarget(): String = body.telnyxEndUserTarget()
+
+    /**
+     * Per-call telephony overrides applied when a scheduled phone-call event dispatches. Phone-call
+     * events only. New per-call dispatch options should be added here rather than as top-level
+     * event fields.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callSettings(): Optional<CallSettings> = body.callSettings()
 
     /**
      * Metadata associated with the conversation. Telnyx provides several pieces of metadata, but
@@ -136,6 +147,13 @@ private constructor(
      * type.
      */
     fun _telnyxEndUserTarget(): JsonField<String> = body._telnyxEndUserTarget()
+
+    /**
+     * Returns the raw JSON value of [callSettings].
+     *
+     * Unlike [callSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _callSettings(): JsonField<CallSettings> = body._callSettings()
 
     /**
      * Returns the raw JSON value of [conversationMetadata].
@@ -232,7 +250,7 @@ private constructor(
          * - [telnyxAgentTarget]
          * - [telnyxConversationChannel]
          * - [telnyxEndUserTarget]
-         * - [conversationMetadata]
+         * - [callSettings]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -298,6 +316,24 @@ private constructor(
          */
         fun telnyxEndUserTarget(telnyxEndUserTarget: JsonField<String>) = apply {
             body.telnyxEndUserTarget(telnyxEndUserTarget)
+        }
+
+        /**
+         * Per-call telephony overrides applied when a scheduled phone-call event dispatches.
+         * Phone-call events only. New per-call dispatch options should be added here rather than as
+         * top-level event fields.
+         */
+        fun callSettings(callSettings: CallSettings) = apply { body.callSettings(callSettings) }
+
+        /**
+         * Sets [Builder.callSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callSettings] with a well-typed [CallSettings] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callSettings(callSettings: JsonField<CallSettings>) = apply {
+            body.callSettings(callSettings)
         }
 
         /**
@@ -543,6 +579,7 @@ private constructor(
         private val telnyxAgentTarget: JsonField<String>,
         private val telnyxConversationChannel: JsonField<ConversationChannelType>,
         private val telnyxEndUserTarget: JsonField<String>,
+        private val callSettings: JsonField<CallSettings>,
         private val conversationMetadata: JsonField<ConversationMetadata>,
         private val dynamicVariables: JsonField<DynamicVariables>,
         private val maxRetriesClientErrors: JsonField<Long>,
@@ -565,6 +602,9 @@ private constructor(
             @JsonProperty("telnyx_end_user_target")
             @ExcludeMissing
             telnyxEndUserTarget: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("call_settings")
+            @ExcludeMissing
+            callSettings: JsonField<CallSettings> = JsonMissing.of(),
             @JsonProperty("conversation_metadata")
             @ExcludeMissing
             conversationMetadata: JsonField<ConversationMetadata> = JsonMissing.of(),
@@ -583,6 +623,7 @@ private constructor(
             telnyxAgentTarget,
             telnyxConversationChannel,
             telnyxEndUserTarget,
+            callSettings,
             conversationMetadata,
             dynamicVariables,
             maxRetriesClientErrors,
@@ -623,6 +664,16 @@ private constructor(
          */
         fun telnyxEndUserTarget(): String =
             telnyxEndUserTarget.getRequired("telnyx_end_user_target")
+
+        /**
+         * Per-call telephony overrides applied when a scheduled phone-call event dispatches.
+         * Phone-call events only. New per-call dispatch options should be added here rather than as
+         * top-level event fields.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callSettings(): Optional<CallSettings> = callSettings.getOptional("call_settings")
 
         /**
          * Metadata associated with the conversation. Telnyx provides several pieces of metadata,
@@ -711,6 +762,16 @@ private constructor(
         fun _telnyxEndUserTarget(): JsonField<String> = telnyxEndUserTarget
 
         /**
+         * Returns the raw JSON value of [callSettings].
+         *
+         * Unlike [callSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("call_settings")
+        @ExcludeMissing
+        fun _callSettings(): JsonField<CallSettings> = callSettings
+
+        /**
          * Returns the raw JSON value of [conversationMetadata].
          *
          * Unlike [conversationMetadata], this method doesn't throw if the JSON field has an
@@ -792,6 +853,7 @@ private constructor(
             private var telnyxAgentTarget: JsonField<String>? = null
             private var telnyxConversationChannel: JsonField<ConversationChannelType>? = null
             private var telnyxEndUserTarget: JsonField<String>? = null
+            private var callSettings: JsonField<CallSettings> = JsonMissing.of()
             private var conversationMetadata: JsonField<ConversationMetadata> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
             private var maxRetriesClientErrors: JsonField<Long> = JsonMissing.of()
@@ -805,6 +867,7 @@ private constructor(
                 telnyxAgentTarget = body.telnyxAgentTarget
                 telnyxConversationChannel = body.telnyxConversationChannel
                 telnyxEndUserTarget = body.telnyxEndUserTarget
+                callSettings = body.callSettings
                 conversationMetadata = body.conversationMetadata
                 dynamicVariables = body.dynamicVariables
                 maxRetriesClientErrors = body.maxRetriesClientErrors
@@ -871,6 +934,24 @@ private constructor(
              */
             fun telnyxEndUserTarget(telnyxEndUserTarget: JsonField<String>) = apply {
                 this.telnyxEndUserTarget = telnyxEndUserTarget
+            }
+
+            /**
+             * Per-call telephony overrides applied when a scheduled phone-call event dispatches.
+             * Phone-call events only. New per-call dispatch options should be added here rather
+             * than as top-level event fields.
+             */
+            fun callSettings(callSettings: CallSettings) = callSettings(JsonField.of(callSettings))
+
+            /**
+             * Sets [Builder.callSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callSettings] with a well-typed [CallSettings] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun callSettings(callSettings: JsonField<CallSettings>) = apply {
+                this.callSettings = callSettings
             }
 
             /**
@@ -994,6 +1075,7 @@ private constructor(
                     checkRequired("telnyxAgentTarget", telnyxAgentTarget),
                     checkRequired("telnyxConversationChannel", telnyxConversationChannel),
                     checkRequired("telnyxEndUserTarget", telnyxEndUserTarget),
+                    callSettings,
                     conversationMetadata,
                     dynamicVariables,
                     maxRetriesClientErrors,
@@ -1023,6 +1105,7 @@ private constructor(
             telnyxAgentTarget()
             telnyxConversationChannel().validate()
             telnyxEndUserTarget()
+            callSettings().ifPresent { it.validate() }
             conversationMetadata().ifPresent { it.validate() }
             dynamicVariables().ifPresent { it.validate() }
             maxRetriesClientErrors()
@@ -1051,6 +1134,7 @@ private constructor(
                 (if (telnyxAgentTarget.asKnown().isPresent) 1 else 0) +
                 (telnyxConversationChannel.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (telnyxEndUserTarget.asKnown().isPresent) 1 else 0) +
+                (callSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (conversationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (maxRetriesClientErrors.asKnown().isPresent) 1 else 0) +
@@ -1067,6 +1151,7 @@ private constructor(
                 telnyxAgentTarget == other.telnyxAgentTarget &&
                 telnyxConversationChannel == other.telnyxConversationChannel &&
                 telnyxEndUserTarget == other.telnyxEndUserTarget &&
+                callSettings == other.callSettings &&
                 conversationMetadata == other.conversationMetadata &&
                 dynamicVariables == other.dynamicVariables &&
                 maxRetriesClientErrors == other.maxRetriesClientErrors &&
@@ -1081,6 +1166,7 @@ private constructor(
                 telnyxAgentTarget,
                 telnyxConversationChannel,
                 telnyxEndUserTarget,
+                callSettings,
                 conversationMetadata,
                 dynamicVariables,
                 maxRetriesClientErrors,
@@ -1093,7 +1179,334 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, conversationMetadata=$conversationMetadata, dynamicVariables=$dynamicVariables, maxRetriesClientErrors=$maxRetriesClientErrors, retryIntervalSecs=$retryIntervalSecs, text=$text, additionalProperties=$additionalProperties}"
+            "Body{scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, callSettings=$callSettings, conversationMetadata=$conversationMetadata, dynamicVariables=$dynamicVariables, maxRetriesClientErrors=$maxRetriesClientErrors, retryIntervalSecs=$retryIntervalSecs, text=$text, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Per-call telephony overrides applied when a scheduled phone-call event dispatches. Phone-call
+     * events only. New per-call dispatch options should be added here rather than as top-level
+     * event fields.
+     */
+    class CallSettings
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val sipRegion: JsonField<SipRegion>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("sip_region")
+            @ExcludeMissing
+            sipRegion: JsonField<SipRegion> = JsonMissing.of()
+        ) : this(sipRegion, mutableMapOf())
+
+        /**
+         * SIP region passed to Telnyx when initiating an outbound call. Values match the Telnyx
+         * TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when omitted.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipRegion(): Optional<SipRegion> = sipRegion.getOptional("sip_region")
+
+        /**
+         * Returns the raw JSON value of [sipRegion].
+         *
+         * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sip_region")
+        @ExcludeMissing
+        fun _sipRegion(): JsonField<SipRegion> = sipRegion
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [CallSettings]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CallSettings]. */
+        class Builder internal constructor() {
+
+            private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(callSettings: CallSettings) = apply {
+                sipRegion = callSettings.sipRegion
+                additionalProperties = callSettings.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * SIP region passed to Telnyx when initiating an outbound call. Values match the Telnyx
+             * TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when omitted.
+             */
+            fun sipRegion(sipRegion: SipRegion) = sipRegion(JsonField.of(sipRegion))
+
+            /**
+             * Sets [Builder.sipRegion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { this.sipRegion = sipRegion }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CallSettings].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): CallSettings = CallSettings(sipRegion, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): CallSettings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            sipRegion().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (sipRegion.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * SIP region passed to Telnyx when initiating an outbound call. Values match the Telnyx
+         * TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when omitted.
+         */
+        class SipRegion @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val US = of("US")
+
+                @JvmField val EUROPE = of("Europe")
+
+                @JvmField val CANADA = of("Canada")
+
+                @JvmField val AUSTRALIA = of("Australia")
+
+                @JvmField val MIDDLE_EAST = of("Middle East")
+
+                @JvmStatic fun of(value: String) = SipRegion(JsonField.of(value))
+            }
+
+            /** An enum containing [SipRegion]'s known values. */
+            enum class Known {
+                US,
+                EUROPE,
+                CANADA,
+                AUSTRALIA,
+                MIDDLE_EAST,
+            }
+
+            /**
+             * An enum containing [SipRegion]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [SipRegion] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                US,
+                EUROPE,
+                CANADA,
+                AUSTRALIA,
+                MIDDLE_EAST,
+                /**
+                 * An enum member indicating that [SipRegion] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    US -> Value.US
+                    EUROPE -> Value.EUROPE
+                    CANADA -> Value.CANADA
+                    AUSTRALIA -> Value.AUSTRALIA
+                    MIDDLE_EAST -> Value.MIDDLE_EAST
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    US -> Known.US
+                    EUROPE -> Known.EUROPE
+                    CANADA -> Known.CANADA
+                    AUSTRALIA -> Known.AUSTRALIA
+                    MIDDLE_EAST -> Known.MIDDLE_EAST
+                    else -> throw TelnyxInvalidDataException("Unknown SipRegion: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): SipRegion = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SipRegion && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CallSettings &&
+                sipRegion == other.sipRegion &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(sipRegion, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CallSettings{sipRegion=$sipRegion, additionalProperties=$additionalProperties}"
     }
 
     /**
