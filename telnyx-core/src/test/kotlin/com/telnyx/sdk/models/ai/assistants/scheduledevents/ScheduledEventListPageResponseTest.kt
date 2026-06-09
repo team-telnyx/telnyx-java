@@ -33,6 +33,13 @@ internal class ScheduledEventListPageResponseTest {
                                 .build()
                         )
                         .callDuration(0L)
+                        .callSettings(
+                            ScheduledPhoneCallEventResponse.CallSettings.builder()
+                                .sipRegion(
+                                    ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US
+                                )
+                                .build()
+                        )
                         .callStatus("call_status")
                         .conversationId("conversation_id")
                         .conversationMetadata(
@@ -85,6 +92,13 @@ internal class ScheduledEventListPageResponseTest {
                                 .build()
                         )
                         .callDuration(0L)
+                        .callSettings(
+                            ScheduledPhoneCallEventResponse.CallSettings.builder()
+                                .sipRegion(
+                                    ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US
+                                )
+                                .build()
+                        )
                         .callStatus("call_status")
                         .conversationId("conversation_id")
                         .conversationMetadata(
@@ -137,6 +151,13 @@ internal class ScheduledEventListPageResponseTest {
                                 .build()
                         )
                         .callDuration(0L)
+                        .callSettings(
+                            ScheduledPhoneCallEventResponse.CallSettings.builder()
+                                .sipRegion(
+                                    ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US
+                                )
+                                .build()
+                        )
                         .callStatus("call_status")
                         .conversationId("conversation_id")
                         .conversationMetadata(
