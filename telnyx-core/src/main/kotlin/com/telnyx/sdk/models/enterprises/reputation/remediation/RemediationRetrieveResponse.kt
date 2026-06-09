@@ -174,13 +174,13 @@ private constructor(
     private constructor(
         private val id: JsonField<String>,
         private val callPurpose: JsonField<String>,
-        private val contactEmail: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val phoneNumbersCount: JsonField<Long>,
         private val phoneNumbersIneligible: JsonField<Long>,
         private val phoneNumbersSubmitted: JsonField<Long>,
         private val status: JsonField<Status>,
         private val updatedAt: JsonField<OffsetDateTime>,
+        private val contactEmail: JsonField<String>,
         private val results: JsonField<Results>,
         private val tier1CompletedAt: JsonField<OffsetDateTime>,
         private val tier2CompletedAt: JsonField<OffsetDateTime>,
@@ -194,9 +194,6 @@ private constructor(
             @JsonProperty("call_purpose")
             @ExcludeMissing
             callPurpose: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("contact_email")
-            @ExcludeMissing
-            contactEmail: JsonField<String> = JsonMissing.of(),
             @JsonProperty("created_at")
             @ExcludeMissing
             createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -213,6 +210,9 @@ private constructor(
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("contact_email")
+            @ExcludeMissing
+            contactEmail: JsonField<String> = JsonMissing.of(),
             @JsonProperty("results") @ExcludeMissing results: JsonField<Results> = JsonMissing.of(),
             @JsonProperty("tier1_completed_at")
             @ExcludeMissing
@@ -226,13 +226,13 @@ private constructor(
         ) : this(
             id,
             callPurpose,
-            contactEmail,
             createdAt,
             phoneNumbersCount,
             phoneNumbersIneligible,
             phoneNumbersSubmitted,
             status,
             updatedAt,
+            contactEmail,
             results,
             tier1CompletedAt,
             tier2CompletedAt,
@@ -251,12 +251,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun callPurpose(): String = callPurpose.getRequired("call_purpose")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun contactEmail(): String = contactEmail.getRequired("contact_email")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -307,6 +301,12 @@ private constructor(
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
         /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun contactEmail(): Optional<String> = contactEmail.getOptional("contact_email")
+
+        /**
          * Per-category buckets. Populated once results are available. Null while the request is
          * still pending.
          *
@@ -350,16 +350,6 @@ private constructor(
         @JsonProperty("call_purpose")
         @ExcludeMissing
         fun _callPurpose(): JsonField<String> = callPurpose
-
-        /**
-         * Returns the raw JSON value of [contactEmail].
-         *
-         * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("contact_email")
-        @ExcludeMissing
-        fun _contactEmail(): JsonField<String> = contactEmail
 
         /**
          * Returns the raw JSON value of [createdAt].
@@ -415,6 +405,16 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+        /**
+         * Returns the raw JSON value of [contactEmail].
+         *
+         * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("contact_email")
+        @ExcludeMissing
+        fun _contactEmail(): JsonField<String> = contactEmail
 
         /**
          * Returns the raw JSON value of [results].
@@ -473,7 +473,6 @@ private constructor(
              * ```java
              * .id()
              * .callPurpose()
-             * .contactEmail()
              * .createdAt()
              * .phoneNumbersCount()
              * .phoneNumbersIneligible()
@@ -490,13 +489,13 @@ private constructor(
 
             private var id: JsonField<String>? = null
             private var callPurpose: JsonField<String>? = null
-            private var contactEmail: JsonField<String>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null
             private var phoneNumbersCount: JsonField<Long>? = null
             private var phoneNumbersIneligible: JsonField<Long>? = null
             private var phoneNumbersSubmitted: JsonField<Long>? = null
             private var status: JsonField<Status>? = null
             private var updatedAt: JsonField<OffsetDateTime>? = null
+            private var contactEmail: JsonField<String> = JsonMissing.of()
             private var results: JsonField<Results> = JsonMissing.of()
             private var tier1CompletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var tier2CompletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -507,13 +506,13 @@ private constructor(
             internal fun from(data: Data) = apply {
                 id = data.id
                 callPurpose = data.callPurpose
-                contactEmail = data.contactEmail
                 createdAt = data.createdAt
                 phoneNumbersCount = data.phoneNumbersCount
                 phoneNumbersIneligible = data.phoneNumbersIneligible
                 phoneNumbersSubmitted = data.phoneNumbersSubmitted
                 status = data.status
                 updatedAt = data.updatedAt
+                contactEmail = data.contactEmail
                 results = data.results
                 tier1CompletedAt = data.tier1CompletedAt
                 tier2CompletedAt = data.tier2CompletedAt
@@ -543,19 +542,6 @@ private constructor(
              */
             fun callPurpose(callPurpose: JsonField<String>) = apply {
                 this.callPurpose = callPurpose
-            }
-
-            fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
-
-            /**
-             * Sets [Builder.contactEmail] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.contactEmail] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun contactEmail(contactEmail: JsonField<String>) = apply {
-                this.contactEmail = contactEmail
             }
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -645,6 +631,24 @@ private constructor(
              */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
+            }
+
+            fun contactEmail(contactEmail: String?) =
+                contactEmail(JsonField.ofNullable(contactEmail))
+
+            /** Alias for calling [Builder.contactEmail] with `contactEmail.orElse(null)`. */
+            fun contactEmail(contactEmail: Optional<String>) =
+                contactEmail(contactEmail.getOrNull())
+
+            /**
+             * Sets [Builder.contactEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactEmail] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun contactEmail(contactEmail: JsonField<String>) = apply {
+                this.contactEmail = contactEmail
             }
 
             /**
@@ -747,7 +751,6 @@ private constructor(
              * ```java
              * .id()
              * .callPurpose()
-             * .contactEmail()
              * .createdAt()
              * .phoneNumbersCount()
              * .phoneNumbersIneligible()
@@ -762,13 +765,13 @@ private constructor(
                 Data(
                     checkRequired("id", id),
                     checkRequired("callPurpose", callPurpose),
-                    checkRequired("contactEmail", contactEmail),
                     checkRequired("createdAt", createdAt),
                     checkRequired("phoneNumbersCount", phoneNumbersCount),
                     checkRequired("phoneNumbersIneligible", phoneNumbersIneligible),
                     checkRequired("phoneNumbersSubmitted", phoneNumbersSubmitted),
                     checkRequired("status", status),
                     checkRequired("updatedAt", updatedAt),
+                    contactEmail,
                     results,
                     tier1CompletedAt,
                     tier2CompletedAt,
@@ -795,13 +798,13 @@ private constructor(
 
             id()
             callPurpose()
-            contactEmail()
             createdAt()
             phoneNumbersCount()
             phoneNumbersIneligible()
             phoneNumbersSubmitted()
             status().validate()
             updatedAt()
+            contactEmail()
             results().ifPresent { it.validate() }
             tier1CompletedAt()
             tier2CompletedAt()
@@ -827,13 +830,13 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
                 (if (callPurpose.asKnown().isPresent) 1 else 0) +
-                (if (contactEmail.asKnown().isPresent) 1 else 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (phoneNumbersCount.asKnown().isPresent) 1 else 0) +
                 (if (phoneNumbersIneligible.asKnown().isPresent) 1 else 0) +
                 (if (phoneNumbersSubmitted.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
+                (if (contactEmail.asKnown().isPresent) 1 else 0) +
                 (results.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (tier1CompletedAt.asKnown().isPresent) 1 else 0) +
                 (if (tier2CompletedAt.asKnown().isPresent) 1 else 0) +
@@ -1399,13 +1402,13 @@ private constructor(
             return other is Data &&
                 id == other.id &&
                 callPurpose == other.callPurpose &&
-                contactEmail == other.contactEmail &&
                 createdAt == other.createdAt &&
                 phoneNumbersCount == other.phoneNumbersCount &&
                 phoneNumbersIneligible == other.phoneNumbersIneligible &&
                 phoneNumbersSubmitted == other.phoneNumbersSubmitted &&
                 status == other.status &&
                 updatedAt == other.updatedAt &&
+                contactEmail == other.contactEmail &&
                 results == other.results &&
                 tier1CompletedAt == other.tier1CompletedAt &&
                 tier2CompletedAt == other.tier2CompletedAt &&
@@ -1417,13 +1420,13 @@ private constructor(
             Objects.hash(
                 id,
                 callPurpose,
-                contactEmail,
                 createdAt,
                 phoneNumbersCount,
                 phoneNumbersIneligible,
                 phoneNumbersSubmitted,
                 status,
                 updatedAt,
+                contactEmail,
                 results,
                 tier1CompletedAt,
                 tier2CompletedAt,
@@ -1435,7 +1438,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, callPurpose=$callPurpose, contactEmail=$contactEmail, createdAt=$createdAt, phoneNumbersCount=$phoneNumbersCount, phoneNumbersIneligible=$phoneNumbersIneligible, phoneNumbersSubmitted=$phoneNumbersSubmitted, status=$status, updatedAt=$updatedAt, results=$results, tier1CompletedAt=$tier1CompletedAt, tier2CompletedAt=$tier2CompletedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Data{id=$id, callPurpose=$callPurpose, createdAt=$createdAt, phoneNumbersCount=$phoneNumbersCount, phoneNumbersIneligible=$phoneNumbersIneligible, phoneNumbersSubmitted=$phoneNumbersSubmitted, status=$status, updatedAt=$updatedAt, contactEmail=$contactEmail, results=$results, tier1CompletedAt=$tier1CompletedAt, tier2CompletedAt=$tier2CompletedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -50,14 +50,6 @@ private constructor(
     fun callPurpose(): String = body.callPurpose()
 
     /**
-     * Contact email for tracking this request.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun contactEmail(): String = body.contactEmail()
-
-    /**
      * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum 2,000 per
      * request.
      *
@@ -65,6 +57,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun phoneNumbers(): List<String> = body.phoneNumbers()
+
+    /**
+     * Optional contact email for this remediation request.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun contactEmail(): Optional<String> = body.contactEmail()
 
     /**
      * Optional https:// URL for status notifications.
@@ -82,18 +82,18 @@ private constructor(
     fun _callPurpose(): JsonField<String> = body._callPurpose()
 
     /**
-     * Returns the raw JSON value of [contactEmail].
-     *
-     * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _contactEmail(): JsonField<String> = body._contactEmail()
-
-    /**
      * Returns the raw JSON value of [phoneNumbers].
      *
      * Unlike [phoneNumbers], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _phoneNumbers(): JsonField<List<String>> = body._phoneNumbers()
+
+    /**
+     * Returns the raw JSON value of [contactEmail].
+     *
+     * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _contactEmail(): JsonField<String> = body._contactEmail()
 
     /**
      * Returns the raw JSON value of [webhookUrl].
@@ -120,7 +120,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .callPurpose()
-         * .contactEmail()
          * .phoneNumbers()
          * ```
          */
@@ -154,8 +153,8 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [callPurpose]
-         * - [contactEmail]
          * - [phoneNumbers]
+         * - [contactEmail]
          * - [webhookUrl]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -171,20 +170,6 @@ private constructor(
          * value.
          */
         fun callPurpose(callPurpose: JsonField<String>) = apply { body.callPurpose(callPurpose) }
-
-        /** Contact email for tracking this request. */
-        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
-
-        /**
-         * Sets [Builder.contactEmail] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.contactEmail] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun contactEmail(contactEmail: JsonField<String>) = apply {
-            body.contactEmail(contactEmail)
-        }
 
         /**
          * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum 2,000 per
@@ -209,6 +194,20 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addPhoneNumber(phoneNumber: String) = apply { body.addPhoneNumber(phoneNumber) }
+
+        /** Optional contact email for this remediation request. */
+        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
+
+        /**
+         * Sets [Builder.contactEmail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactEmail] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun contactEmail(contactEmail: JsonField<String>) = apply {
+            body.contactEmail(contactEmail)
+        }
 
         /** Optional https:// URL for status notifications. */
         fun webhookUrl(webhookUrl: String) = apply { body.webhookUrl(webhookUrl) }
@@ -347,7 +346,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .callPurpose()
-         * .contactEmail()
          * .phoneNumbers()
          * ```
          *
@@ -378,8 +376,8 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val callPurpose: JsonField<String>,
-        private val contactEmail: JsonField<String>,
         private val phoneNumbers: JsonField<List<String>>,
+        private val contactEmail: JsonField<String>,
         private val webhookUrl: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -389,16 +387,16 @@ private constructor(
             @JsonProperty("call_purpose")
             @ExcludeMissing
             callPurpose: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("contact_email")
-            @ExcludeMissing
-            contactEmail: JsonField<String> = JsonMissing.of(),
             @JsonProperty("phone_numbers")
             @ExcludeMissing
             phoneNumbers: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("contact_email")
+            @ExcludeMissing
+            contactEmail: JsonField<String> = JsonMissing.of(),
             @JsonProperty("webhook_url")
             @ExcludeMissing
             webhookUrl: JsonField<String> = JsonMissing.of(),
-        ) : this(callPurpose, contactEmail, phoneNumbers, webhookUrl, mutableMapOf())
+        ) : this(callPurpose, phoneNumbers, contactEmail, webhookUrl, mutableMapOf())
 
         /**
          * How the numbers are used (free text).
@@ -409,14 +407,6 @@ private constructor(
         fun callPurpose(): String = callPurpose.getRequired("call_purpose")
 
         /**
-         * Contact email for tracking this request.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun contactEmail(): String = contactEmail.getRequired("contact_email")
-
-        /**
          * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum 2,000 per
          * request.
          *
@@ -424,6 +414,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun phoneNumbers(): List<String> = phoneNumbers.getRequired("phone_numbers")
+
+        /**
+         * Optional contact email for this remediation request.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun contactEmail(): Optional<String> = contactEmail.getOptional("contact_email")
 
         /**
          * Optional https:// URL for status notifications.
@@ -443,16 +441,6 @@ private constructor(
         fun _callPurpose(): JsonField<String> = callPurpose
 
         /**
-         * Returns the raw JSON value of [contactEmail].
-         *
-         * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("contact_email")
-        @ExcludeMissing
-        fun _contactEmail(): JsonField<String> = contactEmail
-
-        /**
          * Returns the raw JSON value of [phoneNumbers].
          *
          * Unlike [phoneNumbers], this method doesn't throw if the JSON field has an unexpected
@@ -461,6 +449,16 @@ private constructor(
         @JsonProperty("phone_numbers")
         @ExcludeMissing
         fun _phoneNumbers(): JsonField<List<String>> = phoneNumbers
+
+        /**
+         * Returns the raw JSON value of [contactEmail].
+         *
+         * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("contact_email")
+        @ExcludeMissing
+        fun _contactEmail(): JsonField<String> = contactEmail
 
         /**
          * Returns the raw JSON value of [webhookUrl].
@@ -491,7 +489,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .callPurpose()
-             * .contactEmail()
              * .phoneNumbers()
              * ```
              */
@@ -502,16 +499,16 @@ private constructor(
         class Builder internal constructor() {
 
             private var callPurpose: JsonField<String>? = null
-            private var contactEmail: JsonField<String>? = null
             private var phoneNumbers: JsonField<MutableList<String>>? = null
+            private var contactEmail: JsonField<String> = JsonMissing.of()
             private var webhookUrl: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 callPurpose = body.callPurpose
-                contactEmail = body.contactEmail
                 phoneNumbers = body.phoneNumbers.map { it.toMutableList() }
+                contactEmail = body.contactEmail
                 webhookUrl = body.webhookUrl
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -528,20 +525,6 @@ private constructor(
              */
             fun callPurpose(callPurpose: JsonField<String>) = apply {
                 this.callPurpose = callPurpose
-            }
-
-            /** Contact email for tracking this request. */
-            fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
-
-            /**
-             * Sets [Builder.contactEmail] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.contactEmail] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun contactEmail(contactEmail: JsonField<String>) = apply {
-                this.contactEmail = contactEmail
             }
 
             /**
@@ -571,6 +554,20 @@ private constructor(
                     (phoneNumbers ?: JsonField.of(mutableListOf())).also {
                         checkKnown("phoneNumbers", it).add(phoneNumber)
                     }
+            }
+
+            /** Optional contact email for this remediation request. */
+            fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
+
+            /**
+             * Sets [Builder.contactEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactEmail] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun contactEmail(contactEmail: JsonField<String>) = apply {
+                this.contactEmail = contactEmail
             }
 
             /** Optional https:// URL for status notifications. */
@@ -612,7 +609,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .callPurpose()
-             * .contactEmail()
              * .phoneNumbers()
              * ```
              *
@@ -621,8 +617,8 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("callPurpose", callPurpose),
-                    checkRequired("contactEmail", contactEmail),
                     checkRequired("phoneNumbers", phoneNumbers).map { it.toImmutable() },
+                    contactEmail,
                     webhookUrl,
                     additionalProperties.toMutableMap(),
                 )
@@ -645,8 +641,8 @@ private constructor(
             }
 
             callPurpose()
-            contactEmail()
             phoneNumbers()
+            contactEmail()
             webhookUrl()
             validated = true
         }
@@ -668,8 +664,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (callPurpose.asKnown().isPresent) 1 else 0) +
-                (if (contactEmail.asKnown().isPresent) 1 else 0) +
                 (phoneNumbers.asKnown().getOrNull()?.size ?: 0) +
+                (if (contactEmail.asKnown().isPresent) 1 else 0) +
                 (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -679,20 +675,20 @@ private constructor(
 
             return other is Body &&
                 callPurpose == other.callPurpose &&
-                contactEmail == other.contactEmail &&
                 phoneNumbers == other.phoneNumbers &&
+                contactEmail == other.contactEmail &&
                 webhookUrl == other.webhookUrl &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(callPurpose, contactEmail, phoneNumbers, webhookUrl, additionalProperties)
+            Objects.hash(callPurpose, phoneNumbers, contactEmail, webhookUrl, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{callPurpose=$callPurpose, contactEmail=$contactEmail, phoneNumbers=$phoneNumbers, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{callPurpose=$callPurpose, phoneNumbers=$phoneNumbers, contactEmail=$contactEmail, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -12,9 +12,9 @@ internal class RemediationCreateParamsTest {
         RemediationCreateParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .callPurpose("Appointment reminders for our dental clinic.")
-            .contactEmail("ops@example.com")
             .addPhoneNumber("+19493253498")
             .addPhoneNumber("+12134445566")
+            .contactEmail("ops@example.com")
             .webhookUrl("https://example.com/webhooks/remediation")
             .build()
     }
@@ -25,7 +25,6 @@ internal class RemediationCreateParamsTest {
             RemediationCreateParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
-                .contactEmail("ops@example.com")
                 .addPhoneNumber("+19493253498")
                 .addPhoneNumber("+12134445566")
                 .build()
@@ -41,17 +40,17 @@ internal class RemediationCreateParamsTest {
             RemediationCreateParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
-                .contactEmail("ops@example.com")
                 .addPhoneNumber("+19493253498")
                 .addPhoneNumber("+12134445566")
+                .contactEmail("ops@example.com")
                 .webhookUrl("https://example.com/webhooks/remediation")
                 .build()
 
         val body = params._body()
 
         assertThat(body.callPurpose()).isEqualTo("Appointment reminders for our dental clinic.")
-        assertThat(body.contactEmail()).isEqualTo("ops@example.com")
         assertThat(body.phoneNumbers()).containsExactly("+19493253498", "+12134445566")
+        assertThat(body.contactEmail()).contains("ops@example.com")
         assertThat(body.webhookUrl()).contains("https://example.com/webhooks/remediation")
     }
 
@@ -61,7 +60,6 @@ internal class RemediationCreateParamsTest {
             RemediationCreateParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
-                .contactEmail("ops@example.com")
                 .addPhoneNumber("+19493253498")
                 .addPhoneNumber("+12134445566")
                 .build()
@@ -69,7 +67,6 @@ internal class RemediationCreateParamsTest {
         val body = params._body()
 
         assertThat(body.callPurpose()).isEqualTo("Appointment reminders for our dental clinic.")
-        assertThat(body.contactEmail()).isEqualTo("ops@example.com")
         assertThat(body.phoneNumbers()).containsExactly("+19493253498", "+12134445566")
     }
 }
