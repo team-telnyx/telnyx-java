@@ -1,5 +1,29 @@
 # Changelog
 
+## 6.63.0 (2026-06-10)
+
+Full Changelog: [v6.62.0...v6.63.0](https://github.com/team-telnyx/telnyx-java/compare/v6.62.0...v6.63.0)
+
+### Features
+
+* Add sip region to scheduled events ([41004ae](https://github.com/team-telnyx/telnyx-java/commit/41004aedaea142af394ba4a64f857ecf65b49bc2))
+* branded-calling: drop 'simplified'/'no enterprise_id' framing from DIR endpoints ([77e5190](https://github.com/team-telnyx/telnyx-java/commit/77e5190e3f8dc05a8bbf8a07262d7a8c68d9f2c0))
+* branded-calling: sync PATCH /dir/{dir_id} spec with deployed service behavior ([e281468](https://github.com/team-telnyx/telnyx-java/commit/e281468e34d688b0c547d8f7fcf3a477a141d24e))
+* **branded-calling:** document LOA (DIR) + reputation remediation endpoints ([6504ce0](https://github.com/team-telnyx/telnyx-java/commit/6504ce068b5ed638e885736a51c8bf06ce04e349))
+* Conversation flow update ([d7b5bd5](https://github.com/team-telnyx/telnyx-java/commit/d7b5bd5d66948d87a4ca154263a093d3d392ae81))
+* Fix cross-product leakage: de-dup shared enterprise/ToS endpoints + neutralize descriptions ([841e9c2](https://github.com/team-telnyx/telnyx-java/commit/841e9c2cf9a6f5ededfca0d65148e42a9fabf56f))
+* NUM-6470: Add branded-calling-v2 OpenAPI specs (external + internal) ([050a768](https://github.com/team-telnyx/telnyx-java/commit/050a7681ca263bf921e95a00f2622659202c7248))
+* **spec:** backfill parameter descriptions to 100% coverage ([7276f26](https://github.com/team-telnyx/telnyx-java/commit/7276f26384e610527d2bf65907d0111de0034d25))
+* **spec:** inline 2xx response schemas — REST response coverage 41% → 91% (sync of openapi[#199](https://github.com/team-telnyx/telnyx-java/issues/199)) ([d38e069](https://github.com/team-telnyx/telnyx-java/commit/d38e069ee4cf33171ec44afb4bfd99e5c18b67b4))
+* specs: add GET /terms_of_service/info (branded-calling + number-reputation) ([c3da126](https://github.com/team-telnyx/telnyx-java/commit/c3da126d34be73856bbd76ffc26c7a787aedd918))
+* specs: drop legacy plain filter params (keep filter[] canonical) on list endpoints ([6aae6b0](https://github.com/team-telnyx/telnyx-java/commit/6aae6b0b92e395b8b37eda9c895085d39913a1d8))
+* specs: remove em dashes from branded-calling + number-reputation descriptions ([5d21768](https://github.com/team-telnyx/telnyx-java/commit/5d21768474347a64fed9f203740d2580064f7ad2))
+
+
+### Bug Fixes
+
+* **number-reputation:** remediation contact_email is optional ([0afe9aa](https://github.com/team-telnyx/telnyx-java/commit/0afe9aaaac6511a948c714912c1ac6354ecac9b8))
+
 ## 6.62.0 (2026-06-04)
 
 Full Changelog: [v6.61.0...v6.62.0](https://github.com/team-telnyx/telnyx-java/compare/v6.61.0...v6.62.0)
