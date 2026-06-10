@@ -13,11 +13,13 @@ internal class NetworkListInterfacesResponseTest {
     fun create() {
         val networkListInterfacesResponse =
             NetworkListInterfacesResponse.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .createdAt("created_at")
-                .name("name")
-                .networkId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
                 .recordType("network_interface")
+                .updatedAt("2018-02-02T22:25:27.521Z")
+                .name("test interface")
+                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .status(InterfaceStatus.PROVISIONED)
                 .region(
                     NetworkListInterfacesResponse.Region.builder()
                         .code("ashburn-va")
@@ -25,19 +27,19 @@ internal class NetworkListInterfacesResponseTest {
                         .recordType("region")
                         .build()
                 )
-                .regionCode("region_code")
-                .status(InterfaceStatus.PROVISIONED)
+                .regionCode("ashburn-va")
                 .type("wireguard_interface")
-                .updatedAt("updated_at")
                 .build()
 
         assertThat(networkListInterfacesResponse.id())
-            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(networkListInterfacesResponse.createdAt()).contains("created_at")
-        assertThat(networkListInterfacesResponse.name()).contains("name")
-        assertThat(networkListInterfacesResponse.networkId())
-            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(networkListInterfacesResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(networkListInterfacesResponse.recordType()).contains("network_interface")
+        assertThat(networkListInterfacesResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(networkListInterfacesResponse.name()).contains("test interface")
+        assertThat(networkListInterfacesResponse.networkId())
+            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(networkListInterfacesResponse.status()).contains(InterfaceStatus.PROVISIONED)
         assertThat(networkListInterfacesResponse.region())
             .contains(
                 NetworkListInterfacesResponse.Region.builder()
@@ -46,10 +48,8 @@ internal class NetworkListInterfacesResponseTest {
                     .recordType("region")
                     .build()
             )
-        assertThat(networkListInterfacesResponse.regionCode()).contains("region_code")
-        assertThat(networkListInterfacesResponse.status()).contains(InterfaceStatus.PROVISIONED)
+        assertThat(networkListInterfacesResponse.regionCode()).contains("ashburn-va")
         assertThat(networkListInterfacesResponse.type()).contains("wireguard_interface")
-        assertThat(networkListInterfacesResponse.updatedAt()).contains("updated_at")
     }
 
     @Test
@@ -57,11 +57,13 @@ internal class NetworkListInterfacesResponseTest {
         val jsonMapper = jsonMapper()
         val networkListInterfacesResponse =
             NetworkListInterfacesResponse.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .createdAt("created_at")
-                .name("name")
-                .networkId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
                 .recordType("network_interface")
+                .updatedAt("2018-02-02T22:25:27.521Z")
+                .name("test interface")
+                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .status(InterfaceStatus.PROVISIONED)
                 .region(
                     NetworkListInterfacesResponse.Region.builder()
                         .code("ashburn-va")
@@ -69,10 +71,8 @@ internal class NetworkListInterfacesResponseTest {
                         .recordType("region")
                         .build()
                 )
-                .regionCode("region_code")
-                .status(InterfaceStatus.PROVISIONED)
+                .regionCode("ashburn-va")
                 .type("wireguard_interface")
-                .updatedAt("updated_at")
                 .build()
 
         val roundtrippedNetworkListInterfacesResponse =

@@ -23,13 +23,17 @@ private constructor(
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
 
+    /** Filter results by call control id. */
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
+    /** Whether to fetch dynamic variables from the configured webhook. */
     fun fetchDynamicVariablesFromWebhook(): Optional<Boolean> =
         Optional.ofNullable(fetchDynamicVariablesFromWebhook)
 
+    /** Start of the filter range. */
     fun from(): Optional<String> = Optional.ofNullable(from)
 
+    /** End of the filter range. */
     fun to(): Optional<String> = Optional.ofNullable(to)
 
     /** Additional headers to send with the request. */
@@ -76,12 +80,14 @@ private constructor(
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
 
+        /** Filter results by call control id. */
         fun callControlId(callControlId: String?) = apply { this.callControlId = callControlId }
 
         /** Alias for calling [Builder.callControlId] with `callControlId.orElse(null)`. */
         fun callControlId(callControlId: Optional<String>) =
             callControlId(callControlId.getOrNull())
 
+        /** Whether to fetch dynamic variables from the configured webhook. */
         fun fetchDynamicVariablesFromWebhook(fetchDynamicVariablesFromWebhook: Boolean?) = apply {
             this.fetchDynamicVariablesFromWebhook = fetchDynamicVariablesFromWebhook
         }
@@ -101,11 +107,13 @@ private constructor(
         fun fetchDynamicVariablesFromWebhook(fetchDynamicVariablesFromWebhook: Optional<Boolean>) =
             fetchDynamicVariablesFromWebhook(fetchDynamicVariablesFromWebhook.getOrNull())
 
+        /** Start of the filter range. */
         fun from(from: String?) = apply { this.from = from }
 
         /** Alias for calling [Builder.from] with `from.orElse(null)`. */
         fun from(from: Optional<String>) = from(from.getOrNull())
 
+        /** End of the filter range. */
         fun to(to: String?) = apply { this.to = to }
 
         /** Alias for calling [Builder.to] with `to.orElse(null)`. */

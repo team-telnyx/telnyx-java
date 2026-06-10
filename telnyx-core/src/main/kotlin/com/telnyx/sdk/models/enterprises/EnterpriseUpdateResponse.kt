@@ -10,10 +10,10 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class EnterpriseUpdateResponse
@@ -29,10 +29,10 @@ private constructor(
     ) : this(data, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): Optional<EnterprisePublic> = data.getOptional("data")
+    fun data(): EnterprisePublic = data.getRequired("data")
 
     /**
      * Returns the raw JSON value of [data].
@@ -55,14 +55,21 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [EnterpriseUpdateResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [EnterpriseUpdateResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [EnterpriseUpdateResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<EnterprisePublic> = JsonMissing.of()
+        private var data: JsonField<EnterprisePublic>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -105,9 +112,19 @@ private constructor(
          * Returns an immutable instance of [EnterpriseUpdateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EnterpriseUpdateResponse =
-            EnterpriseUpdateResponse(data, additionalProperties.toMutableMap())
+            EnterpriseUpdateResponse(
+                checkRequired("data", data),
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -125,7 +142,7 @@ private constructor(
             return@apply
         }
 
-        data().ifPresent { it.validate() }
+        data().validate()
         validated = true
     }
 

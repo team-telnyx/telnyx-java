@@ -17,6 +17,11 @@ internal class ScheduledEventCreateParamsTest {
             .telnyxAgentTarget("telnyx_agent_target")
             .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
             .telnyxEndUserTarget("telnyx_end_user_target")
+            .callSettings(
+                ScheduledEventCreateParams.CallSettings.builder()
+                    .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                    .build()
+            )
             .conversationMetadata(
                 ScheduledEventCreateParams.ConversationMetadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -58,6 +63,11 @@ internal class ScheduledEventCreateParamsTest {
                 .telnyxAgentTarget("telnyx_agent_target")
                 .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
                 .telnyxEndUserTarget("telnyx_end_user_target")
+                .callSettings(
+                    ScheduledEventCreateParams.CallSettings.builder()
+                        .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                        .build()
+                )
                 .conversationMetadata(
                     ScheduledEventCreateParams.ConversationMetadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -80,6 +90,12 @@ internal class ScheduledEventCreateParamsTest {
         assertThat(body.telnyxAgentTarget()).isEqualTo("telnyx_agent_target")
         assertThat(body.telnyxConversationChannel()).isEqualTo(ConversationChannelType.PHONE_CALL)
         assertThat(body.telnyxEndUserTarget()).isEqualTo("telnyx_end_user_target")
+        assertThat(body.callSettings())
+            .contains(
+                ScheduledEventCreateParams.CallSettings.builder()
+                    .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                    .build()
+            )
         assertThat(body.conversationMetadata())
             .contains(
                 ScheduledEventCreateParams.ConversationMetadata.builder()

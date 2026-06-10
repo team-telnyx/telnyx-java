@@ -10,22 +10,33 @@ internal class EnterpriseListParamsTest {
 
     @Test
     fun create() {
-        EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+        EnterpriseListParams.builder()
+            .filterLegalNameContains("Acme")
+            .legalName("Acme")
+            .pageNumber(1L)
+            .pageSize(10L)
+            .build()
     }
 
     @Test
     fun queryParams() {
         val params =
-            EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+            EnterpriseListParams.builder()
+                .filterLegalNameContains("Acme")
+                .legalName("Acme")
+                .pageNumber(1L)
+                .pageSize(10L)
+                .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[legal_name][contains]", "Acme")
                     .put("legal_name", "Acme")
                     .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[size]", "10")
                     .build()
             )
     }

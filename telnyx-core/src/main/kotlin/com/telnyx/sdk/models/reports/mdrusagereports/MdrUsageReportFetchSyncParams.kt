@@ -32,12 +32,16 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Type of aggregation to apply to the results. */
     fun aggregationType(): AggregationType = aggregationType
 
+    /** End of the date range filter (inclusive, ISO 8601). */
     fun endDate(): Optional<OffsetDateTime> = Optional.ofNullable(endDate)
 
+    /** Filter results by profile. */
     fun profiles(): Optional<List<String>> = Optional.ofNullable(profiles)
 
+    /** Start of the date range filter (inclusive, ISO 8601). */
     fun startDate(): Optional<OffsetDateTime> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -82,15 +86,18 @@ private constructor(
             additionalQueryParams = mdrUsageReportFetchSyncParams.additionalQueryParams.toBuilder()
         }
 
+        /** Type of aggregation to apply to the results. */
         fun aggregationType(aggregationType: AggregationType) = apply {
             this.aggregationType = aggregationType
         }
 
+        /** End of the date range filter (inclusive, ISO 8601). */
         fun endDate(endDate: OffsetDateTime?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<OffsetDateTime>) = endDate(endDate.getOrNull())
 
+        /** Filter results by profile. */
         fun profiles(profiles: List<String>?) = apply { this.profiles = profiles?.toMutableList() }
 
         /** Alias for calling [Builder.profiles] with `profiles.orElse(null)`. */
@@ -105,6 +112,7 @@ private constructor(
             profiles = (profiles ?: mutableListOf()).apply { add(profile) }
         }
 
+        /** Start of the date range filter (inclusive, ISO 8601). */
         fun startDate(startDate: OffsetDateTime?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */
@@ -246,6 +254,7 @@ private constructor(
             }
             .build()
 
+    /** Type of aggregation to apply to the results. */
     class AggregationType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

@@ -13,9 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Remove a phone number from Number Reputation monitoring for an enterprise.
- *
- * The number will no longer be tracked and reputation data will no longer be refreshed.
+ * Stop tracking the reputation of this phone number. The number itself remains in your inventory;
+ * only the reputation registration is removed.
  */
 class NumberDisassociateParams
 private constructor(

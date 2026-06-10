@@ -5,8 +5,6 @@ package com.telnyx.sdk.models.reputation.numbers
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MetaInfo
-import com.telnyx.sdk.models.ReputationPhoneNumberWithReputationData
 import com.telnyx.sdk.services.blocking.reputation.NumberService
 import java.util.Objects
 import java.util.Optional
@@ -19,14 +17,14 @@ private constructor(
     private val service: NumberService,
     private val params: NumberListParams,
     private val response: NumberListPageResponse,
-) : Page<ReputationPhoneNumberWithReputationData> {
+) : Page<NumberListResponse> {
 
     /**
      * Delegates to [NumberListPageResponse], but gracefully handles missing data.
      *
      * @see NumberListPageResponse.data
      */
-    fun data(): List<ReputationPhoneNumberWithReputationData> =
+    fun data(): List<NumberListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -34,9 +32,9 @@ private constructor(
      *
      * @see NumberListPageResponse.meta
      */
-    fun meta(): Optional<MetaInfo> = response._meta().getOptional("meta")
+    fun meta(): Optional<NumberListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ReputationPhoneNumberWithReputationData> = data()
+    override fun items(): List<NumberListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -56,7 +54,7 @@ private constructor(
 
     override fun nextPage(): NumberListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<ReputationPhoneNumberWithReputationData> = AutoPager.from(this)
+    fun autoPager(): AutoPager<NumberListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): NumberListParams = params

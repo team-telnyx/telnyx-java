@@ -13,20 +13,20 @@ internal class BillingAddressTest {
     fun create() {
         val billingAddress =
             BillingAddress.builder()
-                .administrativeArea("Illinois")
+                .administrativeArea("IL")
                 .city("Chicago")
-                .country("United States")
+                .country("US")
                 .postalCode("60601")
-                .streetAddress("123 Main St")
-                .extendedAddress("Suite 400")
+                .streetAddress("100 Main St")
+                .extendedAddress("Suite 504")
                 .build()
 
-        assertThat(billingAddress.administrativeArea()).isEqualTo("Illinois")
+        assertThat(billingAddress.administrativeArea()).isEqualTo("IL")
         assertThat(billingAddress.city()).isEqualTo("Chicago")
-        assertThat(billingAddress.country()).isEqualTo("United States")
+        assertThat(billingAddress.country()).isEqualTo("US")
         assertThat(billingAddress.postalCode()).isEqualTo("60601")
-        assertThat(billingAddress.streetAddress()).isEqualTo("123 Main St")
-        assertThat(billingAddress.extendedAddress()).contains("Suite 400")
+        assertThat(billingAddress.streetAddress()).isEqualTo("100 Main St")
+        assertThat(billingAddress.extendedAddress()).contains("Suite 504")
     }
 
     @Test
@@ -34,12 +34,12 @@ internal class BillingAddressTest {
         val jsonMapper = jsonMapper()
         val billingAddress =
             BillingAddress.builder()
-                .administrativeArea("Illinois")
+                .administrativeArea("IL")
                 .city("Chicago")
-                .country("United States")
+                .country("US")
                 .postalCode("60601")
-                .streetAddress("123 Main St")
-                .extendedAddress("Suite 400")
+                .streetAddress("100 Main St")
+                .extendedAddress("Suite 504")
                 .build()
 
         val roundtrippedBillingAddress =

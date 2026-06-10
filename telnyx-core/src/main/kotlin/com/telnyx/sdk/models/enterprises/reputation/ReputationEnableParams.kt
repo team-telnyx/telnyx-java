@@ -22,28 +22,22 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Enable Number Reputation service for an enterprise.
+ * Activate Phone Number Reputation for the given enterprise. Requires an uploaded Letter of
+ * Authorization document (the `loa_document_id` references the Telnyx Documents API) and a
+ * refresh-frequency selection. After activation, individual phone numbers can be registered via
+ * `POST .../reputation/numbers`.
  *
- * **Requirements:**
- * - Signed LOA (Letter of Authorization) document ID
- * - Reputation check frequency (defaults to `business_daily`)
- * - Number Reputation Terms of Service must be accepted
+ * **Prerequisite**: the calling user must have agreed to the Phone Number Reputation Terms of
+ * Service (`POST /terms_of_service/number_reputation/agree`).
  *
- * **Flow:**
- * 1. Registers the enterprise for reputation monitoring
- * 2. Creates reputation settings with `pending` status
- * 3. Awaits admin approval before monitoring begins
+ * Failure modes:
+ * - `403` - Phone Number Reputation Terms of Service not accepted.
+ * - `404` - enterprise does not exist or does not belong to your account.
+ * - `400` - reputation already enabled for this enterprise.
+ * - `422` - `loa_document_id` missing or `check_frequency` invalid.
  *
- * **Resubmission After Rejection:** If a previously rejected record exists, this endpoint will
- * delete it and create a new `pending` record.
- *
- * **Available Frequencies:**
- * - `business_daily` — Monday–Friday
- * - `daily` — Every day
- * - `weekly` — Once per week
- * - `biweekly` — Once every two weeks
- * - `monthly` — Once per month
- * - `never` — Manual refresh only
+ * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
+ * pricing.
  */
 class ReputationEnableParams
 private constructor(
@@ -56,7 +50,8 @@ private constructor(
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
 
     /**
-     * ID of the signed Letter of Authorization (LOA) document uploaded to the document service
+     * Id of the signed Letter of Authorization document, returned by the Telnyx Documents API after
+     * upload (upload via `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,7 +59,8 @@ private constructor(
     fun loaDocumentId(): String = body.loaDocumentId()
 
     /**
-     * Frequency for automatically refreshing reputation data
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -140,7 +136,9 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /**
-         * ID of the signed Letter of Authorization (LOA) document uploaded to the document service
+         * Id of the signed Letter of Authorization document, returned by the Telnyx Documents API
+         * after upload (upload via `POST /v2/documents`; see
+         * https://developers.telnyx.com/api/documents).
          */
         fun loaDocumentId(loaDocumentId: String) = apply { body.loaDocumentId(loaDocumentId) }
 
@@ -155,7 +153,10 @@ private constructor(
             body.loaDocumentId(loaDocumentId)
         }
 
-        /** Frequency for automatically refreshing reputation data */
+        /**
+         * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+         * numbers.
+         */
         fun checkFrequency(checkFrequency: CheckFrequency) = apply {
             body.checkFrequency(checkFrequency)
         }
@@ -340,7 +341,9 @@ private constructor(
         ) : this(loaDocumentId, checkFrequency, mutableMapOf())
 
         /**
-         * ID of the signed Letter of Authorization (LOA) document uploaded to the document service
+         * Id of the signed Letter of Authorization document, returned by the Telnyx Documents API
+         * after upload (upload via `POST /v2/documents`; see
+         * https://developers.telnyx.com/api/documents).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -348,7 +351,8 @@ private constructor(
         fun loaDocumentId(): String = loaDocumentId.getRequired("loa_document_id")
 
         /**
-         * Frequency for automatically refreshing reputation data
+         * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+         * numbers.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -416,8 +420,9 @@ private constructor(
             }
 
             /**
-             * ID of the signed Letter of Authorization (LOA) document uploaded to the document
-             * service
+             * Id of the signed Letter of Authorization document, returned by the Telnyx Documents
+             * API after upload (upload via `POST /v2/documents`; see
+             * https://developers.telnyx.com/api/documents).
              */
             fun loaDocumentId(loaDocumentId: String) = loaDocumentId(JsonField.of(loaDocumentId))
 
@@ -432,7 +437,10 @@ private constructor(
                 this.loaDocumentId = loaDocumentId
             }
 
-            /** Frequency for automatically refreshing reputation data */
+            /**
+             * How often Telnyx refreshes the stored reputation data for this enterprise's
+             * registered numbers.
+             */
             fun checkFrequency(checkFrequency: CheckFrequency) =
                 checkFrequency(JsonField.of(checkFrequency))
 
@@ -547,7 +555,10 @@ private constructor(
             "Body{loaDocumentId=$loaDocumentId, checkFrequency=$checkFrequency, additionalProperties=$additionalProperties}"
     }
 
-    /** Frequency for automatically refreshing reputation data */
+    /**
+     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
+     * numbers.
+     */
     class CheckFrequency @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

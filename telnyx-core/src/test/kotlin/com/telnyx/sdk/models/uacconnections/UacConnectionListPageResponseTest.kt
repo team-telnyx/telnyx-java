@@ -23,12 +23,12 @@ internal class UacConnectionListPageResponseTest {
         val uacConnectionListPageResponse =
             UacConnectionListPageResponse.builder()
                 .addData(
-                    UacConnection.builder()
+                    UacConnectionListResponse.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
-                        .authentication(UacConnection.Authentication.UAC_AUTHENTICATION)
+                        .authentication(UacConnectionListResponse.Authentication.UAC_AUTHENTICATION)
                         .callCostInWebhooks(false)
                         .connectionName("string")
                         .createdAt("2018-02-02T22:25:27.521Z")
@@ -37,20 +37,23 @@ internal class UacConnectionListPageResponseTest {
                         .encodeContactHeaderEnabled(true)
                         .encryptedMedia(EncryptedMedia.SRTP)
                         .externalUacSettings(
-                            UacExternalSettings.builder()
+                            UacConnectionListResponse.ExternalUacSettings.builder()
                                 .authUsername("auth8492")
                                 .expirationSec(600L)
                                 .fromUser("8492")
                                 .outboundProxy("outbound.sip-pbx.acme.example:5061")
                                 .password("testtesttest")
                                 .proxy("sip-pbx.acme.example")
-                                .transport(UacExternalSettings.Transport.TLS)
+                                .transport(
+                                    UacConnectionListResponse.ExternalUacSettings.Transport.TLS
+                                )
                                 .username("ext8492")
                                 .build()
                         )
                         .fqdn("abc123def456.uac.telnyx.com")
                         .fqdnOutboundAuthentication(
-                            UacConnection.FqdnOutboundAuthentication.CREDENTIAL_AUTHENTICATION
+                            UacConnectionListResponse.FqdnOutboundAuthentication
+                                .CREDENTIAL_AUTHENTICATION
                         )
                         .addFqdn(
                             Fqdn.builder()
@@ -65,28 +68,38 @@ internal class UacConnectionListPageResponseTest {
                                 .build()
                         )
                         .inbound(
-                            UacInbound.builder()
-                                .aniNumberFormat(UacInbound.AniNumberFormat.PLUS_E_164)
+                            UacConnectionListResponse.Inbound.builder()
+                                .aniNumberFormat(
+                                    UacConnectionListResponse.Inbound.AniNumberFormat.PLUS_E_164
+                                )
                                 .channelLimit(10L)
                                 .addCodec("G722")
-                                .defaultRoutingMethod(UacInbound.DefaultRoutingMethod.SEQUENTIAL)
-                                .dnisNumberFormat(UacInbound.DnisNumberFormat.PLUS_E164)
+                                .defaultRoutingMethod(
+                                    UacConnectionListResponse.Inbound.DefaultRoutingMethod
+                                        .SEQUENTIAL
+                                )
+                                .dnisNumberFormat(
+                                    UacConnectionListResponse.Inbound.DnisNumberFormat.PLUS_E164
+                                )
                                 .generateRingbackTone(true)
                                 .isupHeadersEnabled(true)
                                 .prackEnabled(true)
                                 .shakenStirEnabled(true)
-                                .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
+                                .simultaneousRinging(
+                                    UacConnectionListResponse.Inbound.SimultaneousRinging.ENABLED
+                                )
                                 .sipCompactHeadersEnabled(true)
                                 .sipSubdomain("abc123def456")
                                 .sipSubdomainReceiveSettings(
-                                    UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
+                                    UacConnectionListResponse.Inbound.SipSubdomainReceiveSettings
+                                        .ONLY_MY_CONNECTIONS
                                 )
                                 .timeout1xxSecs(10L)
                                 .timeout2xxSecs(15L)
                                 .build()
                         )
                         .internalUacSettings(
-                            UacInternalSettings.builder()
+                            UacConnectionListResponse.InternalUacSettings.builder()
                                 .destinationUri("14155550123@acme.sip.telnyx.com")
                                 .build()
                         )
@@ -98,7 +111,7 @@ internal class UacConnectionListPageResponseTest {
                                 .jitterbufferMsecMin(60L)
                                 .build()
                         )
-                        .noiseSuppression(UacConnection.NoiseSuppression.BOTH)
+                        .noiseSuppression(UacConnectionListResponse.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
                             ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
@@ -107,16 +120,20 @@ internal class UacConnectionListPageResponseTest {
                         )
                         .onnetT38PassthroughEnabled(true)
                         .outbound(
-                            UacOutbound.builder()
+                            UacConnectionListResponse.Outbound.builder()
                                 .aniOverride("string")
-                                .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
+                                .aniOverrideType(
+                                    UacConnectionListResponse.Outbound.AniOverrideType.ALWAYS
+                                )
                                 .callParkingEnabled(true)
                                 .channelLimit(10L)
                                 .generateRingbackTone(true)
                                 .instantRingbackEnabled(true)
                                 .localization("string")
                                 .outboundVoiceProfileId("1293384261075731499")
-                                .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
+                                .t38ReinviteSource(
+                                    UacConnectionListResponse.Outbound.T38ReinviteSource.CUSTOMER
+                                )
                                 .build()
                         )
                         .password("my123secure456password789")
@@ -130,12 +147,14 @@ internal class UacConnectionListPageResponseTest {
                                 .reportFrequencySecs(10L)
                                 .build()
                         )
-                        .sipUriCallingPreference(UacConnection.SipUriCallingPreference.DISABLED)
+                        .sipUriCallingPreference(
+                            UacConnectionListResponse.SipUriCallingPreference.DISABLED
+                        )
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .userName("myusername123")
-                        .webhookApiVersion(UacConnection.WebhookApiVersion.V1)
+                        .webhookApiVersion(UacConnectionListResponse.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .webhookTimeoutSecs(25L)
@@ -153,12 +172,12 @@ internal class UacConnectionListPageResponseTest {
 
         assertThat(uacConnectionListPageResponse.data().getOrNull())
             .containsExactly(
-                UacConnection.builder()
+                UacConnectionListResponse.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
-                    .authentication(UacConnection.Authentication.UAC_AUTHENTICATION)
+                    .authentication(UacConnectionListResponse.Authentication.UAC_AUTHENTICATION)
                     .callCostInWebhooks(false)
                     .connectionName("string")
                     .createdAt("2018-02-02T22:25:27.521Z")
@@ -167,20 +186,21 @@ internal class UacConnectionListPageResponseTest {
                     .encodeContactHeaderEnabled(true)
                     .encryptedMedia(EncryptedMedia.SRTP)
                     .externalUacSettings(
-                        UacExternalSettings.builder()
+                        UacConnectionListResponse.ExternalUacSettings.builder()
                             .authUsername("auth8492")
                             .expirationSec(600L)
                             .fromUser("8492")
                             .outboundProxy("outbound.sip-pbx.acme.example:5061")
                             .password("testtesttest")
                             .proxy("sip-pbx.acme.example")
-                            .transport(UacExternalSettings.Transport.TLS)
+                            .transport(UacConnectionListResponse.ExternalUacSettings.Transport.TLS)
                             .username("ext8492")
                             .build()
                     )
                     .fqdn("abc123def456.uac.telnyx.com")
                     .fqdnOutboundAuthentication(
-                        UacConnection.FqdnOutboundAuthentication.CREDENTIAL_AUTHENTICATION
+                        UacConnectionListResponse.FqdnOutboundAuthentication
+                            .CREDENTIAL_AUTHENTICATION
                     )
                     .addFqdn(
                         Fqdn.builder()
@@ -195,28 +215,37 @@ internal class UacConnectionListPageResponseTest {
                             .build()
                     )
                     .inbound(
-                        UacInbound.builder()
-                            .aniNumberFormat(UacInbound.AniNumberFormat.PLUS_E_164)
+                        UacConnectionListResponse.Inbound.builder()
+                            .aniNumberFormat(
+                                UacConnectionListResponse.Inbound.AniNumberFormat.PLUS_E_164
+                            )
                             .channelLimit(10L)
                             .addCodec("G722")
-                            .defaultRoutingMethod(UacInbound.DefaultRoutingMethod.SEQUENTIAL)
-                            .dnisNumberFormat(UacInbound.DnisNumberFormat.PLUS_E164)
+                            .defaultRoutingMethod(
+                                UacConnectionListResponse.Inbound.DefaultRoutingMethod.SEQUENTIAL
+                            )
+                            .dnisNumberFormat(
+                                UacConnectionListResponse.Inbound.DnisNumberFormat.PLUS_E164
+                            )
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
                             .prackEnabled(true)
                             .shakenStirEnabled(true)
-                            .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
+                            .simultaneousRinging(
+                                UacConnectionListResponse.Inbound.SimultaneousRinging.ENABLED
+                            )
                             .sipCompactHeadersEnabled(true)
                             .sipSubdomain("abc123def456")
                             .sipSubdomainReceiveSettings(
-                                UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
+                                UacConnectionListResponse.Inbound.SipSubdomainReceiveSettings
+                                    .ONLY_MY_CONNECTIONS
                             )
                             .timeout1xxSecs(10L)
                             .timeout2xxSecs(15L)
                             .build()
                     )
                     .internalUacSettings(
-                        UacInternalSettings.builder()
+                        UacConnectionListResponse.InternalUacSettings.builder()
                             .destinationUri("14155550123@acme.sip.telnyx.com")
                             .build()
                     )
@@ -228,7 +257,7 @@ internal class UacConnectionListPageResponseTest {
                             .jitterbufferMsecMin(60L)
                             .build()
                     )
-                    .noiseSuppression(UacConnection.NoiseSuppression.BOTH)
+                    .noiseSuppression(UacConnectionListResponse.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
@@ -237,16 +266,20 @@ internal class UacConnectionListPageResponseTest {
                     )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
-                        UacOutbound.builder()
+                        UacConnectionListResponse.Outbound.builder()
                             .aniOverride("string")
-                            .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
+                            .aniOverrideType(
+                                UacConnectionListResponse.Outbound.AniOverrideType.ALWAYS
+                            )
                             .callParkingEnabled(true)
                             .channelLimit(10L)
                             .generateRingbackTone(true)
                             .instantRingbackEnabled(true)
                             .localization("string")
                             .outboundVoiceProfileId("1293384261075731499")
-                            .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
+                            .t38ReinviteSource(
+                                UacConnectionListResponse.Outbound.T38ReinviteSource.CUSTOMER
+                            )
                             .build()
                     )
                     .password("my123secure456password789")
@@ -260,12 +293,14 @@ internal class UacConnectionListPageResponseTest {
                             .reportFrequencySecs(10L)
                             .build()
                     )
-                    .sipUriCallingPreference(UacConnection.SipUriCallingPreference.DISABLED)
+                    .sipUriCallingPreference(
+                        UacConnectionListResponse.SipUriCallingPreference.DISABLED
+                    )
                     .addTag("tag1")
                     .addTag("tag2")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .userName("myusername123")
-                    .webhookApiVersion(UacConnection.WebhookApiVersion.V1)
+                    .webhookApiVersion(UacConnectionListResponse.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -288,12 +323,12 @@ internal class UacConnectionListPageResponseTest {
         val uacConnectionListPageResponse =
             UacConnectionListPageResponse.builder()
                 .addData(
-                    UacConnection.builder()
+                    UacConnectionListResponse.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
-                        .authentication(UacConnection.Authentication.UAC_AUTHENTICATION)
+                        .authentication(UacConnectionListResponse.Authentication.UAC_AUTHENTICATION)
                         .callCostInWebhooks(false)
                         .connectionName("string")
                         .createdAt("2018-02-02T22:25:27.521Z")
@@ -302,20 +337,23 @@ internal class UacConnectionListPageResponseTest {
                         .encodeContactHeaderEnabled(true)
                         .encryptedMedia(EncryptedMedia.SRTP)
                         .externalUacSettings(
-                            UacExternalSettings.builder()
+                            UacConnectionListResponse.ExternalUacSettings.builder()
                                 .authUsername("auth8492")
                                 .expirationSec(600L)
                                 .fromUser("8492")
                                 .outboundProxy("outbound.sip-pbx.acme.example:5061")
                                 .password("testtesttest")
                                 .proxy("sip-pbx.acme.example")
-                                .transport(UacExternalSettings.Transport.TLS)
+                                .transport(
+                                    UacConnectionListResponse.ExternalUacSettings.Transport.TLS
+                                )
                                 .username("ext8492")
                                 .build()
                         )
                         .fqdn("abc123def456.uac.telnyx.com")
                         .fqdnOutboundAuthentication(
-                            UacConnection.FqdnOutboundAuthentication.CREDENTIAL_AUTHENTICATION
+                            UacConnectionListResponse.FqdnOutboundAuthentication
+                                .CREDENTIAL_AUTHENTICATION
                         )
                         .addFqdn(
                             Fqdn.builder()
@@ -330,28 +368,38 @@ internal class UacConnectionListPageResponseTest {
                                 .build()
                         )
                         .inbound(
-                            UacInbound.builder()
-                                .aniNumberFormat(UacInbound.AniNumberFormat.PLUS_E_164)
+                            UacConnectionListResponse.Inbound.builder()
+                                .aniNumberFormat(
+                                    UacConnectionListResponse.Inbound.AniNumberFormat.PLUS_E_164
+                                )
                                 .channelLimit(10L)
                                 .addCodec("G722")
-                                .defaultRoutingMethod(UacInbound.DefaultRoutingMethod.SEQUENTIAL)
-                                .dnisNumberFormat(UacInbound.DnisNumberFormat.PLUS_E164)
+                                .defaultRoutingMethod(
+                                    UacConnectionListResponse.Inbound.DefaultRoutingMethod
+                                        .SEQUENTIAL
+                                )
+                                .dnisNumberFormat(
+                                    UacConnectionListResponse.Inbound.DnisNumberFormat.PLUS_E164
+                                )
                                 .generateRingbackTone(true)
                                 .isupHeadersEnabled(true)
                                 .prackEnabled(true)
                                 .shakenStirEnabled(true)
-                                .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
+                                .simultaneousRinging(
+                                    UacConnectionListResponse.Inbound.SimultaneousRinging.ENABLED
+                                )
                                 .sipCompactHeadersEnabled(true)
                                 .sipSubdomain("abc123def456")
                                 .sipSubdomainReceiveSettings(
-                                    UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
+                                    UacConnectionListResponse.Inbound.SipSubdomainReceiveSettings
+                                        .ONLY_MY_CONNECTIONS
                                 )
                                 .timeout1xxSecs(10L)
                                 .timeout2xxSecs(15L)
                                 .build()
                         )
                         .internalUacSettings(
-                            UacInternalSettings.builder()
+                            UacConnectionListResponse.InternalUacSettings.builder()
                                 .destinationUri("14155550123@acme.sip.telnyx.com")
                                 .build()
                         )
@@ -363,7 +411,7 @@ internal class UacConnectionListPageResponseTest {
                                 .jitterbufferMsecMin(60L)
                                 .build()
                         )
-                        .noiseSuppression(UacConnection.NoiseSuppression.BOTH)
+                        .noiseSuppression(UacConnectionListResponse.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
                             ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
@@ -372,16 +420,20 @@ internal class UacConnectionListPageResponseTest {
                         )
                         .onnetT38PassthroughEnabled(true)
                         .outbound(
-                            UacOutbound.builder()
+                            UacConnectionListResponse.Outbound.builder()
                                 .aniOverride("string")
-                                .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
+                                .aniOverrideType(
+                                    UacConnectionListResponse.Outbound.AniOverrideType.ALWAYS
+                                )
                                 .callParkingEnabled(true)
                                 .channelLimit(10L)
                                 .generateRingbackTone(true)
                                 .instantRingbackEnabled(true)
                                 .localization("string")
                                 .outboundVoiceProfileId("1293384261075731499")
-                                .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
+                                .t38ReinviteSource(
+                                    UacConnectionListResponse.Outbound.T38ReinviteSource.CUSTOMER
+                                )
                                 .build()
                         )
                         .password("my123secure456password789")
@@ -395,12 +447,14 @@ internal class UacConnectionListPageResponseTest {
                                 .reportFrequencySecs(10L)
                                 .build()
                         )
-                        .sipUriCallingPreference(UacConnection.SipUriCallingPreference.DISABLED)
+                        .sipUriCallingPreference(
+                            UacConnectionListResponse.SipUriCallingPreference.DISABLED
+                        )
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .userName("myusername123")
-                        .webhookApiVersion(UacConnection.WebhookApiVersion.V1)
+                        .webhookApiVersion(UacConnectionListResponse.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .webhookTimeoutSecs(25L)

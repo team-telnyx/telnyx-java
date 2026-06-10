@@ -38,6 +38,8 @@ import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallControlApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.CallEventService
 import com.telnyx.sdk.services.blocking.CallEventServiceImpl
+import com.telnyx.sdk.services.blocking.CallReasonService
+import com.telnyx.sdk.services.blocking.CallReasonServiceImpl
 import com.telnyx.sdk.services.blocking.CallService
 import com.telnyx.sdk.services.blocking.CallServiceImpl
 import com.telnyx.sdk.services.blocking.ChannelZoneService
@@ -64,6 +66,8 @@ import com.telnyx.sdk.services.blocking.DetailRecordService
 import com.telnyx.sdk.services.blocking.DetailRecordServiceImpl
 import com.telnyx.sdk.services.blocking.DialogflowConnectionService
 import com.telnyx.sdk.services.blocking.DialogflowConnectionServiceImpl
+import com.telnyx.sdk.services.blocking.DirService
+import com.telnyx.sdk.services.blocking.DirServiceImpl
 import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentLinkServiceImpl
 import com.telnyx.sdk.services.blocking.DocumentService
@@ -108,6 +112,8 @@ import com.telnyx.sdk.services.blocking.InboundChannelService
 import com.telnyx.sdk.services.blocking.InboundChannelServiceImpl
 import com.telnyx.sdk.services.blocking.InexplicitNumberOrderService
 import com.telnyx.sdk.services.blocking.InexplicitNumberOrderServiceImpl
+import com.telnyx.sdk.services.blocking.InfringementClaimService
+import com.telnyx.sdk.services.blocking.InfringementClaimServiceImpl
 import com.telnyx.sdk.services.blocking.IntegrationSecretService
 import com.telnyx.sdk.services.blocking.IntegrationSecretServiceImpl
 import com.telnyx.sdk.services.blocking.InventoryCoverageService
@@ -950,6 +956,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         PronunciationDictServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val callReasons: CallReasonService by lazy {
+        CallReasonServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val dir: DirService by lazy { DirServiceImpl(clientOptionsWithUserAgent) }
+
+    private val infringementClaims: InfringementClaimService by lazy {
+        InfringementClaimServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val uacConnections: UacConnectionService by lazy {
         UacConnectionServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1445,11 +1461,12 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Traffic Policy Profiles operations */
     override fun trafficPolicyProfiles(): TrafficPolicyProfileService = trafficPolicyProfiles
 
-    /** Enterprise management for Branded Calling and Number Reputation services */
+    /** Manage the legal-entity record that owns your DIRs and phone numbers. */
     override fun enterprises(): EnterpriseService = enterprises
 
     override fun reputation(): ReputationService = reputation
 
+    /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     override fun termsOfService(): TermsOfServiceService = termsOfService
 
     /**
@@ -1458,6 +1475,17 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      * specific words are spoken.
      */
     override fun pronunciationDicts(): PronunciationDictService = pronunciationDicts
+
+    /** Static reference values the API accepts: call reasons, document types, rejection types. */
+    override fun callReasons(): CallReasonService = callReasons
+
+    override fun dir(): DirService = dir
+
+    /**
+     * Trademark or impersonation claims filed against your DIR. Customers may contest a claim with
+     * supporting evidence.
+     */
+    override fun infringementClaims(): InfringementClaimService = infringementClaims
 
     /** UAC connection operations */
     override fun uacConnections(): UacConnectionService = uacConnections
@@ -2143,6 +2171,18 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             PronunciationDictServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val callReasons: CallReasonService.WithRawResponse by lazy {
+            CallReasonServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val dir: DirService.WithRawResponse by lazy {
+            DirServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val infringementClaims: InfringementClaimService.WithRawResponse by lazy {
+            InfringementClaimServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val uacConnections: UacConnectionService.WithRawResponse by lazy {
             UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2689,11 +2729,12 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse =
             trafficPolicyProfiles
 
-        /** Enterprise management for Branded Calling and Number Reputation services */
+        /** Manage the legal-entity record that owns your DIRs and phone numbers. */
         override fun enterprises(): EnterpriseService.WithRawResponse = enterprises
 
         override fun reputation(): ReputationService.WithRawResponse = reputation
 
+        /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         override fun termsOfService(): TermsOfServiceService.WithRawResponse = termsOfService
 
         /**
@@ -2703,6 +2744,20 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          */
         override fun pronunciationDicts(): PronunciationDictService.WithRawResponse =
             pronunciationDicts
+
+        /**
+         * Static reference values the API accepts: call reasons, document types, rejection types.
+         */
+        override fun callReasons(): CallReasonService.WithRawResponse = callReasons
+
+        override fun dir(): DirService.WithRawResponse = dir
+
+        /**
+         * Trademark or impersonation claims filed against your DIR. Customers may contest a claim
+         * with supporting evidence.
+         */
+        override fun infringementClaims(): InfringementClaimService.WithRawResponse =
+            infringementClaims
 
         /** UAC connection operations */
         override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections

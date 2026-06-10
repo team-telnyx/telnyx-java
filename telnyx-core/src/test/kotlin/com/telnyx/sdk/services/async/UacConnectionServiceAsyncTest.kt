@@ -11,9 +11,6 @@ import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
 import com.telnyx.sdk.models.uacconnections.UacConnectionCreateParams
 import com.telnyx.sdk.models.uacconnections.UacConnectionUpdateParams
-import com.telnyx.sdk.models.uacconnections.UacExternalSettings
-import com.telnyx.sdk.models.uacconnections.UacInternalSettings
-import com.telnyx.sdk.models.uacconnections.UacOutbound
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -38,14 +35,14 @@ internal class UacConnectionServiceAsyncTest {
                     .encodeContactHeaderEnabled(true)
                     .encryptedMedia(EncryptedMedia.SRTP)
                     .externalUacSettings(
-                        UacExternalSettings.builder()
+                        UacConnectionCreateParams.ExternalUacSettings.builder()
                             .authUsername("auth8492")
                             .expirationSec(600L)
                             .fromUser("8492")
                             .outboundProxy("outbound.sip-pbx.acme.example:5061")
                             .password("testtesttest")
                             .proxy("sip-pbx.acme.example")
-                            .transport(UacExternalSettings.Transport.TLS)
+                            .transport(UacConnectionCreateParams.ExternalUacSettings.Transport.TLS)
                             .username("ext8492")
                             .build()
                     )
@@ -75,7 +72,7 @@ internal class UacConnectionServiceAsyncTest {
                             .build()
                     )
                     .internalUacSettings(
-                        UacInternalSettings.builder()
+                        UacConnectionCreateParams.InternalUacSettings.builder()
                             .destinationUri("14155550123@acme.sip.telnyx.com")
                             .build()
                     )
@@ -96,16 +93,20 @@ internal class UacConnectionServiceAsyncTest {
                     )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
-                        UacOutbound.builder()
+                        UacConnectionCreateParams.Outbound.builder()
                             .aniOverride("always")
-                            .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
+                            .aniOverrideType(
+                                UacConnectionCreateParams.Outbound.AniOverrideType.ALWAYS
+                            )
                             .callParkingEnabled(true)
                             .channelLimit(10L)
                             .generateRingbackTone(true)
                             .instantRingbackEnabled(true)
                             .localization("US")
                             .outboundVoiceProfileId("1293384261075731499")
-                            .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
+                            .t38ReinviteSource(
+                                UacConnectionCreateParams.Outbound.T38ReinviteSource.CUSTOMER
+                            )
                             .build()
                     )
                     .password("my123secure456password789")
@@ -165,14 +166,14 @@ internal class UacConnectionServiceAsyncTest {
                     .encodeContactHeaderEnabled(true)
                     .encryptedMedia(EncryptedMedia.SRTP)
                     .externalUacSettings(
-                        UacExternalSettings.builder()
+                        UacConnectionUpdateParams.ExternalUacSettings.builder()
                             .authUsername("auth8492")
                             .expirationSec(600L)
                             .fromUser("8492")
                             .outboundProxy("outbound.sip-pbx.acme.example:5061")
                             .password("testtesttest")
                             .proxy("sip-pbx.acme.example")
-                            .transport(UacExternalSettings.Transport.TLS)
+                            .transport(UacConnectionUpdateParams.ExternalUacSettings.Transport.TLS)
                             .username("ext8492")
                             .build()
                     )
@@ -202,7 +203,7 @@ internal class UacConnectionServiceAsyncTest {
                             .build()
                     )
                     .internalUacSettings(
-                        UacInternalSettings.builder()
+                        UacConnectionUpdateParams.InternalUacSettings.builder()
                             .destinationUri("14155550123@acme.sip.telnyx.com")
                             .build()
                     )
@@ -223,16 +224,20 @@ internal class UacConnectionServiceAsyncTest {
                     )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
-                        UacOutbound.builder()
+                        UacConnectionUpdateParams.Outbound.builder()
                             .aniOverride("always")
-                            .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
+                            .aniOverrideType(
+                                UacConnectionUpdateParams.Outbound.AniOverrideType.ALWAYS
+                            )
                             .callParkingEnabled(true)
                             .channelLimit(10L)
                             .generateRingbackTone(true)
                             .instantRingbackEnabled(true)
                             .localization("US")
                             .outboundVoiceProfileId("1293384261075731499")
-                            .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
+                            .t38ReinviteSource(
+                                UacConnectionUpdateParams.Outbound.T38ReinviteSource.CUSTOMER
+                            )
                             .build()
                     )
                     .password("my123secure456password789")

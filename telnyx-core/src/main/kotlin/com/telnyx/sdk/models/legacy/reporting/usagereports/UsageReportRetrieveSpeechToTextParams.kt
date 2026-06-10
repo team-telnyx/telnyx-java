@@ -23,8 +23,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** End of the date range filter (inclusive, ISO 8601). */
     fun endDate(): Optional<OffsetDateTime> = Optional.ofNullable(endDate)
 
+    /** Start of the date range filter (inclusive, ISO 8601). */
     fun startDate(): Optional<OffsetDateTime> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -65,11 +67,13 @@ private constructor(
                 usageReportRetrieveSpeechToTextParams.additionalQueryParams.toBuilder()
         }
 
+        /** End of the date range filter (inclusive, ISO 8601). */
         fun endDate(endDate: OffsetDateTime?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<OffsetDateTime>) = endDate(endDate.getOrNull())
 
+        /** Start of the date range filter (inclusive, ISO 8601). */
         fun startDate(startDate: OffsetDateTime?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

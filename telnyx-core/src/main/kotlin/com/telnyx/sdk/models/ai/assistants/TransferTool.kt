@@ -325,8 +325,13 @@ private constructor(
              */
             fun targets(targets: JsonField<Targets>) = apply { this.targets = targets }
 
-            /** Alias for calling [targets] with `Targets.ofList(list)`. */
-            fun targetsOfList(list: List<Targets.TargetObject>) = targets(Targets.ofList(list))
+            /**
+             * Alias for calling [targets] with
+             * `Targets.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)`.
+             */
+            fun targetsOfUnnamedSchemaWithArrayParent2s(
+                unnamedSchemaWithArrayParent2s: List<Targets.UnnamedSchemaWithArrayParent2>
+            ) = targets(Targets.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s))
 
             /** Alias for calling [targets] with `Targets.ofString(string)`. */
             fun targets(string: String) = targets(Targets.ofString(string))
@@ -421,12 +426,13 @@ private constructor(
         @JsonSerialize(using = Targets.Serializer::class)
         class Targets
         private constructor(
-            private val list: List<TargetObject>? = null,
+            private val unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>? = null,
             private val string: String? = null,
             private val _json: JsonValue? = null,
         ) {
 
-            fun list(): Optional<List<TargetObject>> = Optional.ofNullable(list)
+            fun unnamedSchemaWithArrayParent2s(): Optional<List<UnnamedSchemaWithArrayParent2>> =
+                Optional.ofNullable(unnamedSchemaWithArrayParent2s)
 
             /**
              * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -434,11 +440,12 @@ private constructor(
              */
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun isList(): Boolean = list != null
+            fun isUnnamedSchemaWithArrayParent2s(): Boolean = unnamedSchemaWithArrayParent2s != null
 
             fun isString(): Boolean = string != null
 
-            fun asList(): List<TargetObject> = list.getOrThrow("list")
+            fun asUnnamedSchemaWithArrayParent2s(): List<UnnamedSchemaWithArrayParent2> =
+                unnamedSchemaWithArrayParent2s.getOrThrow("unnamedSchemaWithArrayParent2s")
 
             /**
              * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -461,8 +468,8 @@ private constructor(
              *
              * Optional<String> result = targets.accept(new Targets.Visitor<Optional<String>>() {
              *     @Override
-             *     public Optional<String> visitList(List<TargetObject> list) {
-             *         return Optional.of(list.toString());
+             *     public Optional<String> visitUnnamedSchemaWithArrayParent2s(List<UnnamedSchemaWithArrayParent2> unnamedSchemaWithArrayParent2s) {
+             *         return Optional.of(unnamedSchemaWithArrayParent2s.toString());
              *     }
              *
              *     // ...
@@ -480,7 +487,8 @@ private constructor(
              */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    list != null -> visitor.visitList(list)
+                    unnamedSchemaWithArrayParent2s != null ->
+                        visitor.visitUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)
                     string != null -> visitor.visitString(string)
                     else -> visitor.unknown(_json)
                 }
@@ -504,8 +512,10 @@ private constructor(
 
                 accept(
                     object : Visitor<Unit> {
-                        override fun visitList(list: List<TargetObject>) {
-                            list.forEach { it.validate() }
+                        override fun visitUnnamedSchemaWithArrayParent2s(
+                            unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                        ) {
+                            unnamedSchemaWithArrayParent2s.forEach { it.validate() }
                         }
 
                         override fun visitString(string: String) {}
@@ -532,8 +542,9 @@ private constructor(
             internal fun validity(): Int =
                 accept(
                     object : Visitor<Int> {
-                        override fun visitList(list: List<TargetObject>) =
-                            list.sumOf { it.validity().toInt() }
+                        override fun visitUnnamedSchemaWithArrayParent2s(
+                            unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                        ) = unnamedSchemaWithArrayParent2s.sumOf { it.validity().toInt() }
 
                         override fun visitString(string: String) = 1
 
@@ -546,14 +557,17 @@ private constructor(
                     return true
                 }
 
-                return other is Targets && list == other.list && string == other.string
+                return other is Targets &&
+                    unnamedSchemaWithArrayParent2s == other.unnamedSchemaWithArrayParent2s &&
+                    string == other.string
             }
 
-            override fun hashCode(): Int = Objects.hash(list, string)
+            override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent2s, string)
 
             override fun toString(): String =
                 when {
-                    list != null -> "Targets{list=$list}"
+                    unnamedSchemaWithArrayParent2s != null ->
+                        "Targets{unnamedSchemaWithArrayParent2s=$unnamedSchemaWithArrayParent2s}"
                     string != null -> "Targets{string=$string}"
                     _json != null -> "Targets{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid Targets")
@@ -561,7 +575,14 @@ private constructor(
 
             companion object {
 
-                @JvmStatic fun ofList(list: List<TargetObject>) = Targets(list = list.toImmutable())
+                @JvmStatic
+                fun ofUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                ) =
+                    Targets(
+                        unnamedSchemaWithArrayParent2s =
+                            unnamedSchemaWithArrayParent2s.toImmutable()
+                    )
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -576,7 +597,9 @@ private constructor(
              */
             interface Visitor<out T> {
 
-                fun visitList(list: List<TargetObject>): T
+                fun visitUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                ): T
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -609,9 +632,13 @@ private constructor(
                                 tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                     Targets(string = it, _json = json)
                                 },
-                                tryDeserialize(node, jacksonTypeRef<List<TargetObject>>())?.let {
-                                    Targets(list = it, _json = json)
-                                },
+                                tryDeserialize(
+                                        node,
+                                        jacksonTypeRef<List<UnnamedSchemaWithArrayParent2>>(),
+                                    )
+                                    ?.let {
+                                        Targets(unnamedSchemaWithArrayParent2s = it, _json = json)
+                                    },
                             )
                             .filterNotNull()
                             .allMaxBy { it.validity() }
@@ -637,7 +664,8 @@ private constructor(
                     provider: SerializerProvider,
                 ) {
                     when {
-                        value.list != null -> generator.writeObject(value.list)
+                        value.unnamedSchemaWithArrayParent2s != null ->
+                            generator.writeObject(value.unnamedSchemaWithArrayParent2s)
                         value.string != null -> generator.writeObject(value.string)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid Targets")
@@ -645,7 +673,7 @@ private constructor(
                 }
             }
 
-            class TargetObject
+            class UnnamedSchemaWithArrayParent2
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val to: JsonField<String>,
@@ -706,7 +734,8 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of [TargetObject].
+                     * Returns a mutable builder for constructing an instance of
+                     * [UnnamedSchemaWithArrayParent2].
                      *
                      * The following fields are required:
                      * ```java
@@ -716,7 +745,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [TargetObject]. */
+                /** A builder for [UnnamedSchemaWithArrayParent2]. */
                 class Builder internal constructor() {
 
                     private var to: JsonField<String>? = null
@@ -724,10 +753,13 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(targetObject: TargetObject) = apply {
-                        to = targetObject.to
-                        name = targetObject.name
-                        additionalProperties = targetObject.additionalProperties.toMutableMap()
+                    internal fun from(
+                        unnamedSchemaWithArrayParent2: UnnamedSchemaWithArrayParent2
+                    ) = apply {
+                        to = unnamedSchemaWithArrayParent2.to
+                        name = unnamedSchemaWithArrayParent2.name
+                        additionalProperties =
+                            unnamedSchemaWithArrayParent2.additionalProperties.toMutableMap()
                     }
 
                     /** The destination number or SIP URI of the call. */
@@ -777,7 +809,7 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [TargetObject].
+                     * Returns an immutable instance of [UnnamedSchemaWithArrayParent2].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
@@ -788,8 +820,8 @@ private constructor(
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): TargetObject =
-                        TargetObject(
+                    fun build(): UnnamedSchemaWithArrayParent2 =
+                        UnnamedSchemaWithArrayParent2(
                             checkRequired("to", to),
                             name,
                             additionalProperties.toMutableMap(),
@@ -808,7 +840,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if any value type in this object doesn't match
                  *   its expected type.
                  */
-                fun validate(): TargetObject = apply {
+                fun validate(): UnnamedSchemaWithArrayParent2 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -842,7 +874,7 @@ private constructor(
                         return true
                     }
 
-                    return other is TargetObject &&
+                    return other is UnnamedSchemaWithArrayParent2 &&
                         to == other.to &&
                         name == other.name &&
                         additionalProperties == other.additionalProperties
@@ -853,7 +885,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "TargetObject{to=$to, name=$name, additionalProperties=$additionalProperties}"
+                    "UnnamedSchemaWithArrayParent2{to=$to, name=$name, additionalProperties=$additionalProperties}"
             }
         }
 

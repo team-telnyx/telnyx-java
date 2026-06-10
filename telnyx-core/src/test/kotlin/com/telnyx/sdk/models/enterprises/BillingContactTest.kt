@@ -13,16 +13,16 @@ internal class BillingContactTest {
     fun create() {
         val billingContact =
             BillingContact.builder()
-                .email("billing@acme.com")
-                .firstName("John")
-                .lastName("Doe")
-                .phoneNumber("15551234568")
+                .email("billing@acmeplumbing.example.com")
+                .firstName("Alex")
+                .lastName("Bill")
+                .phoneNumber("+13125550001")
                 .build()
 
-        assertThat(billingContact.email()).isEqualTo("billing@acme.com")
-        assertThat(billingContact.firstName()).isEqualTo("John")
-        assertThat(billingContact.lastName()).isEqualTo("Doe")
-        assertThat(billingContact.phoneNumber()).isEqualTo("15551234568")
+        assertThat(billingContact.email()).isEqualTo("billing@acmeplumbing.example.com")
+        assertThat(billingContact.firstName()).isEqualTo("Alex")
+        assertThat(billingContact.lastName()).isEqualTo("Bill")
+        assertThat(billingContact.phoneNumber()).isEqualTo("+13125550001")
     }
 
     @Test
@@ -30,10 +30,10 @@ internal class BillingContactTest {
         val jsonMapper = jsonMapper()
         val billingContact =
             BillingContact.builder()
-                .email("billing@acme.com")
-                .firstName("John")
-                .lastName("Doe")
-                .phoneNumber("15551234568")
+                .email("billing@acmeplumbing.example.com")
+                .firstName("Alex")
+                .lastName("Bill")
+                .phoneNumber("+13125550001")
                 .build()
 
         val roundtrippedBillingContact =

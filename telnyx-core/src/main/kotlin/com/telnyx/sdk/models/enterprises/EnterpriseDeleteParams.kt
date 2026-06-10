@@ -11,7 +11,16 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an enterprise and all associated resources. This action is irreversible. */
+/**
+ * Soft-delete an enterprise.
+ *
+ * Failure modes:
+ * - `400` - the enterprise still has dependent resources in a non-deletable state. Remove those
+ *   first; the response `detail` identifies what is blocking the delete.
+ * - `409` - the enterprise has a dependent resource with an unresolved claim. Resolve it before
+ *   deleting.
+ * - `404` - the enterprise does not exist or does not belong to your account.
+ */
 class EnterpriseDeleteParams
 private constructor(
     private val enterpriseId: String?,

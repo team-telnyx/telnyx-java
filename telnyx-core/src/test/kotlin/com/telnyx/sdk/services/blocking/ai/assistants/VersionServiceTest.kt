@@ -4,22 +4,14 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
-import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
-import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
-import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
-import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
-import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
-import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
-import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
@@ -74,11 +66,16 @@ internal class VersionServiceTest {
                                                 "Greet the caller and ask what they're calling about."
                                             )
                                             .externalLlm(
-                                                ExternalLlmReq.builder()
+                                                UpdateAssistant.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .builder()
                                                     .baseUrl("base_url")
                                                     .model("model")
                                                     .authenticationMethod(
-                                                        ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                        UpdateAssistant.ConversationFlow.Node.Prompt
+                                                            .ExternalLlm
+                                                            .AuthenticationMethod
+                                                            .TOKEN
                                                     )
                                                     .certificateRef("certificate_ref")
                                                     .forwardMetadata(true)
@@ -174,11 +171,16 @@ internal class VersionServiceTest {
                                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                             )
                                             .externalLlm(
-                                                ExternalLlmReq.builder()
+                                                UpdateAssistant.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .builder()
                                                     .baseUrl("base_url")
                                                     .model("model")
                                                     .authenticationMethod(
-                                                        ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                        UpdateAssistant.ConversationFlow.Node.Prompt
+                                                            .ExternalLlm
+                                                            .AuthenticationMethod
+                                                            .TOKEN
                                                     )
                                                     .certificateRef("certificate_ref")
                                                     .forwardMetadata(true)
@@ -321,10 +323,12 @@ internal class VersionServiceTest {
                             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                             .addEnabledFeature(EnabledFeatures.TELEPHONY)
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                UpdateAssistant.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -332,13 +336,15 @@ internal class VersionServiceTest {
                                     .build()
                             )
                             .fallbackConfig(
-                                FallbackConfigReq.builder()
+                                UpdateAssistant.FallbackConfig.builder()
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                UpdateAssistant.FallbackConfig.ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -356,19 +362,23 @@ internal class VersionServiceTest {
                             )
                             .instructions("instructions")
                             .addIntegration(
-                                AssistantIntegration.builder()
+                                UpdateAssistant.Integration.builder()
                                     .integrationId("integration_id")
                                     .addAllowedList("string")
                                     .build()
                             )
                             .interruptionSettings(
-                                InferenceEmbeddingInterruptionSettings.builder()
+                                UpdateAssistant.InterruptionSettings.builder()
                                     .disableGreetingInterruption(true)
                                     .enable(true)
                                     .startSpeakingPlan(
-                                        StartSpeakingPlan.builder()
+                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                            .builder()
                                             .transcriptionEndpointingPlan(
-                                                TranscriptionEndpointingPlan.builder()
+                                                UpdateAssistant.InterruptionSettings
+                                                    .StartSpeakingPlan
+                                                    .TranscriptionEndpointingPlan
+                                                    .builder()
                                                     .onNoPunctuationSeconds(0.0f)
                                                     .onNumberSeconds(0.0f)
                                                     .onPunctuationSeconds(0.0f)
@@ -381,7 +391,7 @@ internal class VersionServiceTest {
                             )
                             .llmApiKeyRef("llm_api_key_ref")
                             .addMcpServer(
-                                AssistantMcpServer.builder()
+                                UpdateAssistant.McpServer.builder()
                                     .id("id")
                                     .addAllowedTool("string")
                                     .build()
@@ -408,7 +418,9 @@ internal class VersionServiceTest {
                                     .build()
                             )
                             .postConversationSettings(
-                                PostConversationSettingsReq.builder().enabled(true).build()
+                                UpdateAssistant.PostConversationSettings.builder()
+                                    .enabled(true)
+                                    .build()
                             )
                             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                             .addTag("string")

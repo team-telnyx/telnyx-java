@@ -21,8 +21,10 @@ private constructor(
 
     fun id(): Optional<String> = Optional.ofNullable(id)
 
+    /** Page number to retrieve (1-based). */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
+    /** Number of items to return per page. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
@@ -72,6 +74,7 @@ private constructor(
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -84,6 +87,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
+        /** Number of items to return per page. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**

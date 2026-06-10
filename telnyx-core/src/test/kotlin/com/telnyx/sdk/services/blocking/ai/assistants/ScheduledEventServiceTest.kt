@@ -28,6 +28,11 @@ internal class ScheduledEventServiceTest {
                     .telnyxAgentTarget("telnyx_agent_target")
                     .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
                     .telnyxEndUserTarget("telnyx_end_user_target")
+                    .callSettings(
+                        ScheduledEventCreateParams.CallSettings.builder()
+                            .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                            .build()
+                    )
                     .conversationMetadata(
                         ScheduledEventCreateParams.ConversationMetadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))

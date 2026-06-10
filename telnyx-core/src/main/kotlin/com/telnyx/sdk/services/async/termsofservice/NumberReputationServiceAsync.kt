@@ -4,12 +4,13 @@ package com.telnyx.sdk.services.async.termsofservice
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeParams
+import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Terms of Service agreement endpoints */
+/** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
 interface NumberReputationServiceAsync {
 
     /**
@@ -25,27 +26,27 @@ interface NumberReputationServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberReputationServiceAsync
 
     /**
-     * Accept the Terms of Service for the Number Reputation product. Must be called before using
-     * Number Reputation endpoints.
+     * Records the authenticated user's agreement to the current Phone Number Reputation ToS. No
+     * body required. Idempotent.
      *
-     * Returns `400` with error code `10015` if the user has already agreed to the current ToS
-     * version.
+     * Prerequisite for using any of the `/v2/.../reputation&#47;*` endpoints.
      */
-    fun agree(): CompletableFuture<Void?> = agree(NumberReputationAgreeParams.none())
+    fun agree(): CompletableFuture<NumberReputationAgreeResponse> =
+        agree(NumberReputationAgreeParams.none())
 
     /** @see agree */
     fun agree(
         params: NumberReputationAgreeParams = NumberReputationAgreeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<NumberReputationAgreeResponse>
 
     /** @see agree */
     fun agree(
         params: NumberReputationAgreeParams = NumberReputationAgreeParams.none()
-    ): CompletableFuture<Void?> = agree(params, RequestOptions.none())
+    ): CompletableFuture<NumberReputationAgreeResponse> = agree(params, RequestOptions.none())
 
     /** @see agree */
-    fun agree(requestOptions: RequestOptions): CompletableFuture<Void?> =
+    fun agree(requestOptions: RequestOptions): CompletableFuture<NumberReputationAgreeResponse> =
         agree(NumberReputationAgreeParams.none(), requestOptions)
 
     /**
@@ -67,21 +68,25 @@ interface NumberReputationServiceAsync {
          * Returns a raw HTTP response for `post /terms_of_service/number_reputation/agree`, but is
          * otherwise the same as [NumberReputationServiceAsync.agree].
          */
-        fun agree(): CompletableFuture<HttpResponse> = agree(NumberReputationAgreeParams.none())
+        fun agree(): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>> =
+            agree(NumberReputationAgreeParams.none())
 
         /** @see agree */
         fun agree(
             params: NumberReputationAgreeParams = NumberReputationAgreeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>>
 
         /** @see agree */
         fun agree(
             params: NumberReputationAgreeParams = NumberReputationAgreeParams.none()
-        ): CompletableFuture<HttpResponse> = agree(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>> =
+            agree(params, RequestOptions.none())
 
         /** @see agree */
-        fun agree(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun agree(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>> =
             agree(NumberReputationAgreeParams.none(), requestOptions)
     }
 }

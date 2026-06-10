@@ -4,21 +4,23 @@ package com.telnyx.sdk.services.async.termsofservice
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeParams
+import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Terms of Service agreement endpoints */
+/** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
 class NumberReputationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : NumberReputationServiceAsync {
 
@@ -36,9 +38,9 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
     override fun agree(
         params: NumberReputationAgreeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<NumberReputationAgreeResponse> =
         // post /terms_of_service/number_reputation/agree
-        withRawResponse().agree(params, requestOptions).thenAccept {}
+        withRawResponse().agree(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberReputationServiceAsync.WithRawResponse {
@@ -53,12 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val agreeHandler: Handler<Void?> = emptyHandler()
+        private val agreeHandler: Handler<NumberReputationAgreeResponse> =
+            jsonHandler<NumberReputationAgreeResponse>(clientOptions.jsonMapper)
 
         override fun agree(
             params: NumberReputationAgreeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -72,7 +75,13 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { agreeHandler.handle(it) }
+                        response
+                            .use { agreeHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

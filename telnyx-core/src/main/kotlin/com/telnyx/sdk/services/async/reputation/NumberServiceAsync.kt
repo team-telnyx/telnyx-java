@@ -14,10 +14,7 @@ import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
- * scores
- */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 interface NumberServiceAsync {
 
     /**
@@ -33,9 +30,8 @@ interface NumberServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberServiceAsync
 
     /**
-     * Get reputation data for a specific phone number without requiring an `enterprise_id`.
-     *
-     * Same response as the enterprise-scoped endpoint. Uses cached data by default.
+     * Convenience alias for `GET
+     * /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
      */
     fun retrieve(phoneNumber: String): CompletableFuture<NumberRetrieveResponse> =
         retrieve(phoneNumber, NumberRetrieveParams.none())
@@ -73,11 +69,9 @@ interface NumberServiceAsync {
         retrieve(phoneNumber, NumberRetrieveParams.none(), requestOptions)
 
     /**
-     * List all phone numbers enrolled in Number Reputation monitoring for your account. This is a
-     * simplified endpoint that does not require an `enterprise_id` — it returns numbers across all
-     * your enterprises.
-     *
-     * Supports pagination and filtering by phone number.
+     * Convenience alias for `GET /v2/enterprises/{enterprise_id}/reputation/numbers` that returns
+     * numbers across every enterprise you own. Useful when you don't want to look up the enterprise
+     * id first.
      */
     fun list(): CompletableFuture<NumberListPageAsync> = list(NumberListParams.none())
 
@@ -97,7 +91,8 @@ interface NumberServiceAsync {
         list(NumberListParams.none(), requestOptions)
 
     /**
-     * Remove a phone number from Number Reputation monitoring without requiring an `enterprise_id`.
+     * Convenience alias for `DELETE
+     * /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
      */
     fun delete(phoneNumber: String): CompletableFuture<Void?> =
         delete(phoneNumber, NumberDeleteParams.none())

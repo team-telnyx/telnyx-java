@@ -26,10 +26,7 @@ import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
- * scores
- */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 class NumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberService {
 

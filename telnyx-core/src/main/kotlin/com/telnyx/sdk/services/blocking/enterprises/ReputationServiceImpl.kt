@@ -24,12 +24,16 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
+import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaService
+import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberServiceImpl
+import com.telnyx.sdk.services.blocking.enterprises.reputation.RemediationService
+import com.telnyx.sdk.services.blocking.enterprises.reputation.RemediationServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 class ReputationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ReputationService {
 
@@ -39,16 +43,23 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val numbers: NumberService by lazy { NumberServiceImpl(clientOptions) }
 
+    private val loa: LoaService by lazy { LoaServiceImpl(clientOptions) }
+
+    private val remediation: RemediationService by lazy { RemediationServiceImpl(clientOptions) }
+
     override fun withRawResponse(): ReputationService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationService =
         ReputationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun numbers(): NumberService = numbers
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun loa(): LoaService = loa
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun remediation(): RemediationService = remediation
 
     override fun retrieve(
         params: ReputationRetrieveParams,
@@ -86,6 +97,14 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             NumberServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val loa: LoaService.WithRawResponse by lazy {
+            LoaServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val remediation: RemediationService.WithRawResponse by lazy {
+            RemediationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationService.WithRawResponse =
@@ -93,11 +112,14 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun numbers(): NumberService.WithRawResponse = numbers
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun loa(): LoaService.WithRawResponse = loa
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun remediation(): RemediationService.WithRawResponse = remediation
 
         private val retrieveHandler: Handler<ReputationRetrieveResponse> =
             jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)

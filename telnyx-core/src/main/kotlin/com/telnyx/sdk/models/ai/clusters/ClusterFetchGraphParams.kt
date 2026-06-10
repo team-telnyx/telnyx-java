@@ -20,6 +20,7 @@ private constructor(
 
     fun taskId(): Optional<String> = Optional.ofNullable(taskId)
 
+    /** Filter results by cluster id. */
     fun clusterId(): Optional<Long> = Optional.ofNullable(clusterId)
 
     /** Additional headers to send with the request. */
@@ -59,6 +60,7 @@ private constructor(
         /** Alias for calling [Builder.taskId] with `taskId.orElse(null)`. */
         fun taskId(taskId: Optional<String>) = taskId(taskId.getOrNull())
 
+        /** Filter results by cluster id. */
         fun clusterId(clusterId: Long?) = apply { this.clusterId = clusterId }
 
         /**

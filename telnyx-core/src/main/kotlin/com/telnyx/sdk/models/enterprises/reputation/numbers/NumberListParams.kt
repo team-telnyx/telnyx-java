@@ -10,31 +10,34 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * List all phone numbers associated with an enterprise for Number Reputation monitoring.
- *
- * Returns phone numbers with their cached reputation data (if available). Supports pagination and
- * filtering by phone number.
+ * Paginated list of phone numbers registered for reputation monitoring under this enterprise. The
+ * response includes the latest reputation snapshot per number where one has been collected.
  */
 class NumberListParams
 private constructor(
     private val enterpriseId: String?,
+    private val filterPhoneNumberContains: String?,
+    private val filterPhoneNumberEq: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
-    private val phoneNumber: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
 
-    /** Page number (1-indexed) */
+    /** Partial match on phone number. Must contain at least 5 digits. */
+    fun filterPhoneNumberContains(): Optional<String> =
+        Optional.ofNullable(filterPhoneNumberContains)
+
+    /** Exact phone-number match (E.164). */
+    fun filterPhoneNumberEq(): Optional<String> = Optional.ofNullable(filterPhoneNumberEq)
+
+    /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
-    /** Number of items per page */
+    /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
-
-    /** Filter by specific phone number (E.164 format) */
-    fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -56,18 +59,20 @@ private constructor(
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
+        private var filterPhoneNumberContains: String? = null
+        private var filterPhoneNumberEq: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
-        private var phoneNumber: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(numberListParams: NumberListParams) = apply {
             enterpriseId = numberListParams.enterpriseId
+            filterPhoneNumberContains = numberListParams.filterPhoneNumberContains
+            filterPhoneNumberEq = numberListParams.filterPhoneNumberEq
             pageNumber = numberListParams.pageNumber
             pageSize = numberListParams.pageSize
-            phoneNumber = numberListParams.phoneNumber
             additionalHeaders = numberListParams.additionalHeaders.toBuilder()
             additionalQueryParams = numberListParams.additionalQueryParams.toBuilder()
         }
@@ -77,7 +82,30 @@ private constructor(
         /** Alias for calling [Builder.enterpriseId] with `enterpriseId.orElse(null)`. */
         fun enterpriseId(enterpriseId: Optional<String>) = enterpriseId(enterpriseId.getOrNull())
 
-        /** Page number (1-indexed) */
+        /** Partial match on phone number. Must contain at least 5 digits. */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: String?) = apply {
+            this.filterPhoneNumberContains = filterPhoneNumberContains
+        }
+
+        /**
+         * Alias for calling [Builder.filterPhoneNumberContains] with
+         * `filterPhoneNumberContains.orElse(null)`.
+         */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: Optional<String>) =
+            filterPhoneNumberContains(filterPhoneNumberContains.getOrNull())
+
+        /** Exact phone-number match (E.164). */
+        fun filterPhoneNumberEq(filterPhoneNumberEq: String?) = apply {
+            this.filterPhoneNumberEq = filterPhoneNumberEq
+        }
+
+        /**
+         * Alias for calling [Builder.filterPhoneNumberEq] with `filterPhoneNumberEq.orElse(null)`.
+         */
+        fun filterPhoneNumberEq(filterPhoneNumberEq: Optional<String>) =
+            filterPhoneNumberEq(filterPhoneNumberEq.getOrNull())
+
+        /** 1-based page number. Out-of-range values return an empty page with correct meta. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
         /**
@@ -90,7 +118,7 @@ private constructor(
         /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
         fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
 
-        /** Number of items per page */
+        /** Items per page. Default 10. Maximum 250; values above are clamped to 250. */
         fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
 
         /**
@@ -102,12 +130,6 @@ private constructor(
 
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
-
-        /** Filter by specific phone number (E.164 format) */
-        fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
-
-        /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
-        fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -215,9 +237,10 @@ private constructor(
         fun build(): NumberListParams =
             NumberListParams(
                 enterpriseId,
+                filterPhoneNumberContains,
+                filterPhoneNumberEq,
                 pageNumber,
                 pageSize,
-                phoneNumber,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -234,9 +257,10 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterPhoneNumberContains?.let { put("filter[phone_number][contains]", it) }
+                filterPhoneNumberEq?.let { put("filter[phone_number][eq]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
-                phoneNumber?.let { put("phone_number", it) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -248,9 +272,10 @@ private constructor(
 
         return other is NumberListParams &&
             enterpriseId == other.enterpriseId &&
+            filterPhoneNumberContains == other.filterPhoneNumberContains &&
+            filterPhoneNumberEq == other.filterPhoneNumberEq &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
-            phoneNumber == other.phoneNumber &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -258,13 +283,14 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             enterpriseId,
+            filterPhoneNumberContains,
+            filterPhoneNumberEq,
             pageNumber,
             pageSize,
-            phoneNumber,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "NumberListParams{enterpriseId=$enterpriseId, pageNumber=$pageNumber, pageSize=$pageSize, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberListParams{enterpriseId=$enterpriseId, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

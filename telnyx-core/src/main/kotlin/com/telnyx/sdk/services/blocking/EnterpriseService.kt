@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
+import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
@@ -16,10 +18,12 @@ import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
+import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
+import com.telnyx.sdk.services.blocking.enterprises.UsageService
 import java.util.function.Consumer
 
-/** Enterprise management for Branded Calling and Number Reputation services */
+/** Manage the legal-entity record that owns your DIRs and phone numbers. */
 interface EnterpriseService {
 
     /**
@@ -34,18 +38,27 @@ interface EnterpriseService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseService
 
-    /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun reputation(): ReputationService
 
     /**
-     * Create a new enterprise for Branded Calling / Number Reputation services.
+     * A Display Identity Record (DIR) is the verified calling identity (display name, logo, call
+     * reasons) shown to recipients on outbound calls.
+     */
+    fun dir(): DirService
+
+    fun usage(): UsageService
+
+    /**
+     * Create the legal entity (enterprise) that represents your business on the Telnyx platform.
      *
-     * Registers the enterprise in the Branded Calling / Number Reputation services, enabling it to
-     * create Display Identity Records (DIRs) or enroll in Number Reputation monitoring.
+     * The response carries a server-assigned `id` you use for every subsequent call. An enterprise
+     * is created once and reused; the API collects all required fields up front.
      *
-     * **Required Fields:** `legal_name`, `doing_business_as`, `organization_type`, `country_code`,
-     * `website`, `fein`, `industry`, `number_of_employees`, `organization_legal_type`,
-     * `organization_contact`, `billing_contact`, `organization_physical_address`, `billing_address`
+     * Common failure modes:
+     * - `422` - a required field is missing or malformed (the response `errors[].source.pointer`
+     *   names the field).
+     * - `409` - an enterprise with the same identifying details already exists under your account.
      */
     fun create(params: EnterpriseCreateParams): EnterpriseCreateResponse =
         create(params, RequestOptions.none())
@@ -56,7 +69,10 @@ interface EnterpriseService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EnterpriseCreateResponse
 
-    /** Retrieve details of a specific enterprise by ID. */
+    /**
+     * Retrieve a single enterprise by id. Returns `404` if the id does not exist or does not belong
+     * to your account.
+     */
     fun retrieve(enterpriseId: String): EnterpriseRetrieveResponse =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
@@ -89,8 +105,10 @@ interface EnterpriseService {
         retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
     /**
-     * Update enterprise information. All fields are optional — only the provided fields will be
-     * updated.
+     * Replace the enterprise's mutable fields. Only mutable fields may be sent. Server-assigned and
+     * immutable fields (`id`, `record_type`, `created_at`, `updated_at`, status fields,
+     * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in
+     * the body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
      */
     fun update(enterpriseId: String): EnterpriseUpdateResponse =
         update(enterpriseId, EnterpriseUpdateParams.none())
@@ -123,7 +141,9 @@ interface EnterpriseService {
     fun update(enterpriseId: String, requestOptions: RequestOptions): EnterpriseUpdateResponse =
         update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
-    /** Retrieve a paginated list of enterprises associated with your account. */
+    /**
+     * Return the enterprises you own, paginated. The default page size is 20; the maximum is 250.
+     */
     fun list(): EnterpriseListPage = list(EnterpriseListParams.none())
 
     /** @see list */
@@ -140,7 +160,16 @@ interface EnterpriseService {
     fun list(requestOptions: RequestOptions): EnterpriseListPage =
         list(EnterpriseListParams.none(), requestOptions)
 
-    /** Delete an enterprise and all associated resources. This action is irreversible. */
+    /**
+     * Soft-delete an enterprise.
+     *
+     * Failure modes:
+     * - `400` - the enterprise still has dependent resources in a non-deletable state. Remove those
+     *   first; the response `detail` identifies what is blocking the delete.
+     * - `409` - the enterprise has a dependent resource with an unresolved claim. Resolve it before
+     *   deleting.
+     * - `404` - the enterprise does not exist or does not belong to your account.
+     */
     fun delete(enterpriseId: String) = delete(enterpriseId, EnterpriseDeleteParams.none())
 
     /** @see delete */
@@ -169,6 +198,71 @@ interface EnterpriseService {
     fun delete(enterpriseId: String, requestOptions: RequestOptions) =
         delete(enterpriseId, EnterpriseDeleteParams.none(), requestOptions)
 
+    /**
+     * Branded Calling is a paid product that must be activated on each enterprise. Activation is
+     * idempotent:
+     * - First call: marks the enterprise as activated and begins onboarding it with the Branded
+     *   Calling platform asynchronously. Returns `200` with `branded_calling_enabled: true`.
+     * - Re-call after success: no-op, returns the same enterprise body.
+     * - Re-call after a prior failure: re-queues onboarding, returns `200`.
+     *
+     * Prerequisite: the calling user must have agreed to the Branded Calling Terms of Service
+     * (`POST /terms_of_service/branded_calling/agree`). Without that, this endpoint returns `403
+     * terms_of_service_not_accepted`.
+     *
+     * Failure modes:
+     * - `403` - Branded Calling Terms of Service not accepted.
+     * - `404` - enterprise does not exist or does not belong to your account.
+     *
+     * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
+     * pricing.
+     */
+    fun activateBrandedCalling(enterpriseId: String): EnterpriseActivateBrandedCallingResponse =
+        activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        params: EnterpriseActivateBrandedCallingParams =
+            EnterpriseActivateBrandedCallingParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EnterpriseActivateBrandedCallingResponse =
+        activateBrandedCalling(
+            params.toBuilder().enterpriseId(enterpriseId).build(),
+            requestOptions,
+        )
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        params: EnterpriseActivateBrandedCallingParams =
+            EnterpriseActivateBrandedCallingParams.none(),
+    ): EnterpriseActivateBrandedCallingResponse =
+        activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        params: EnterpriseActivateBrandedCallingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EnterpriseActivateBrandedCallingResponse
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        params: EnterpriseActivateBrandedCallingParams
+    ): EnterpriseActivateBrandedCallingResponse =
+        activateBrandedCalling(params, RequestOptions.none())
+
+    /** @see activateBrandedCalling */
+    fun activateBrandedCalling(
+        enterpriseId: String,
+        requestOptions: RequestOptions,
+    ): EnterpriseActivateBrandedCallingResponse =
+        activateBrandedCalling(
+            enterpriseId,
+            EnterpriseActivateBrandedCallingParams.none(),
+            requestOptions,
+        )
+
     /** A view of [EnterpriseService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -181,8 +275,16 @@ interface EnterpriseService {
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseService.WithRawResponse
 
-        /** Manage Number Reputation enrollment and check frequency settings for an enterprise */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun reputation(): ReputationService.WithRawResponse
+
+        /**
+         * A Display Identity Record (DIR) is the verified calling identity (display name, logo,
+         * call reasons) shown to recipients on outbound calls.
+         */
+        fun dir(): DirService.WithRawResponse
+
+        fun usage(): UsageService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises`, but is otherwise the same as
@@ -355,5 +457,63 @@ interface EnterpriseService {
         @MustBeClosed
         fun delete(enterpriseId: String, requestOptions: RequestOptions): HttpResponse =
             delete(enterpriseId, EnterpriseDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/branded_calling`, but
+         * is otherwise the same as [EnterpriseService.activateBrandedCalling].
+         */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            enterpriseId: String
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
+            activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+
+        /** @see activateBrandedCalling */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            params: EnterpriseActivateBrandedCallingParams =
+                EnterpriseActivateBrandedCallingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
+            activateBrandedCalling(
+                params.toBuilder().enterpriseId(enterpriseId).build(),
+                requestOptions,
+            )
+
+        /** @see activateBrandedCalling */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            params: EnterpriseActivateBrandedCallingParams =
+                EnterpriseActivateBrandedCallingParams.none(),
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
+            activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+
+        /** @see activateBrandedCalling */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            params: EnterpriseActivateBrandedCallingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse>
+
+        /** @see activateBrandedCalling */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            params: EnterpriseActivateBrandedCallingParams
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
+            activateBrandedCalling(params, RequestOptions.none())
+
+        /** @see activateBrandedCalling */
+        @MustBeClosed
+        fun activateBrandedCalling(
+            enterpriseId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
+            activateBrandedCalling(
+                enterpriseId,
+                EnterpriseActivateBrandedCallingParams.none(),
+                requestOptions,
+            )
     }
 }

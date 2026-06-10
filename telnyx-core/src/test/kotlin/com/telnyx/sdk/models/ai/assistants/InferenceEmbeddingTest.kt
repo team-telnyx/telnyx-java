@@ -30,11 +30,15 @@ internal class InferenceEmbeddingTest {
                                     "Greet the caller and ask what they're calling about."
                                 )
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                        .builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.ConversationFlow.Node.Prompt
+                                                .ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -251,11 +255,15 @@ internal class InferenceEmbeddingTest {
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                 )
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                        .builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.ConversationFlow.Node.Prompt
+                                                .ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -513,10 +521,12 @@ internal class InferenceEmbeddingTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    ExternalLlm.builder()
+                    InferenceEmbedding.ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                        .authenticationMethod(
+                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -524,12 +534,16 @@ internal class InferenceEmbeddingTest {
                         .build()
                 )
                 .fallbackConfig(
-                    FallbackConfig.builder()
+                    InferenceEmbedding.FallbackConfig.builder()
                         .externalLlm(
-                            ExternalLlm.builder()
+                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -551,19 +565,21 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    InferenceEmbedding.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    InferenceEmbedding.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -576,7 +592,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -597,7 +613,9 @@ internal class InferenceEmbeddingTest {
                         .status(Observability.Status.ENABLED)
                         .build()
                 )
-                .postConversationSettings(PostConversationSettings.builder().enabled(true).build())
+                .postConversationSettings(
+                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addRelatedMissionId("string")
                 .addTag("string")
@@ -815,10 +833,15 @@ internal class InferenceEmbeddingTest {
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
-                                ExternalLlm.builder()
+                                InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                    .builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -1024,10 +1047,15 @@ internal class InferenceEmbeddingTest {
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                             )
                             .externalLlm(
-                                ExternalLlm.builder()
+                                InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                    .builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -1276,10 +1304,10 @@ internal class InferenceEmbeddingTest {
             .containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(inferenceEmbedding.externalLlm())
             .contains(
-                ExternalLlm.builder()
+                InferenceEmbedding.ExternalLlm.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -1288,12 +1316,15 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.fallbackConfig())
             .contains(
-                FallbackConfig.builder()
+                InferenceEmbedding.FallbackConfig.builder()
                     .externalLlm(
-                        ExternalLlm.builder()
+                        InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                InferenceEmbedding.FallbackConfig.ExternalLlm.AuthenticationMethod
+                                    .TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -1316,20 +1347,22 @@ internal class InferenceEmbeddingTest {
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
         assertThat(inferenceEmbedding.integrations().getOrNull())
             .containsExactly(
-                AssistantIntegration.builder()
+                InferenceEmbedding.Integration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(inferenceEmbedding.interruptionSettings())
             .contains(
-                InferenceEmbeddingInterruptionSettings.builder()
+                InferenceEmbedding.InterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        StartSpeakingPlan.builder()
+                        InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                TranscriptionEndpointingPlan.builder()
+                                InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                    .TranscriptionEndpointingPlan
+                                    .builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -1342,7 +1375,9 @@ internal class InferenceEmbeddingTest {
             )
         assertThat(inferenceEmbedding.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(inferenceEmbedding.mcpServers().getOrNull())
-            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
+            .containsExactly(
+                InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
+            )
         assertThat(inferenceEmbedding.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -1365,7 +1400,7 @@ internal class InferenceEmbeddingTest {
                     .build()
             )
         assertThat(inferenceEmbedding.postConversationSettings())
-            .contains(PostConversationSettings.builder().enabled(true).build())
+            .contains(InferenceEmbedding.PostConversationSettings.builder().enabled(true).build())
         assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(inferenceEmbedding.relatedMissionIds().getOrNull()).containsExactly("string")
@@ -1619,11 +1654,15 @@ internal class InferenceEmbeddingTest {
                                     "Greet the caller and ask what they're calling about."
                                 )
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                        .builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.ConversationFlow.Node.Prompt
+                                                .ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -1840,11 +1879,15 @@ internal class InferenceEmbeddingTest {
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                 )
                                 .externalLlm(
-                                    ExternalLlm.builder()
+                                    InferenceEmbedding.ConversationFlow.Node.Prompt.ExternalLlm
+                                        .builder()
                                         .baseUrl("base_url")
                                         .model("model")
                                         .authenticationMethod(
-                                            ExternalLlm.AuthenticationMethod.TOKEN
+                                            InferenceEmbedding.ConversationFlow.Node.Prompt
+                                                .ExternalLlm
+                                                .AuthenticationMethod
+                                                .TOKEN
                                         )
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
@@ -2102,10 +2145,12 @@ internal class InferenceEmbeddingTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    ExternalLlm.builder()
+                    InferenceEmbedding.ExternalLlm.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                        .authenticationMethod(
+                            InferenceEmbedding.ExternalLlm.AuthenticationMethod.TOKEN
+                        )
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -2113,12 +2158,16 @@ internal class InferenceEmbeddingTest {
                         .build()
                 )
                 .fallbackConfig(
-                    FallbackConfig.builder()
+                    InferenceEmbedding.FallbackConfig.builder()
                         .externalLlm(
-                            ExternalLlm.builder()
+                            InferenceEmbedding.FallbackConfig.ExternalLlm.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(ExternalLlm.AuthenticationMethod.TOKEN)
+                                .authenticationMethod(
+                                    InferenceEmbedding.FallbackConfig.ExternalLlm
+                                        .AuthenticationMethod
+                                        .TOKEN
+                                )
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -2140,19 +2189,21 @@ internal class InferenceEmbeddingTest {
                     InsightSettings.builder().insightGroupId("insight_group_id").build()
                 )
                 .addIntegration(
-                    AssistantIntegration.builder()
+                    InferenceEmbedding.Integration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    InferenceEmbeddingInterruptionSettings.builder()
+                    InferenceEmbedding.InterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            StartSpeakingPlan.builder()
+                            InferenceEmbedding.InterruptionSettings.StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    TranscriptionEndpointingPlan.builder()
+                                    InferenceEmbedding.InterruptionSettings.StartSpeakingPlan
+                                        .TranscriptionEndpointingPlan
+                                        .builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -2165,7 +2216,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                    InferenceEmbedding.McpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -2186,7 +2237,9 @@ internal class InferenceEmbeddingTest {
                         .status(Observability.Status.ENABLED)
                         .build()
                 )
-                .postConversationSettings(PostConversationSettings.builder().enabled(true).build())
+                .postConversationSettings(
+                    InferenceEmbedding.PostConversationSettings.builder().enabled(true).build()
+                )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addRelatedMissionId("string")
                 .addTag("string")

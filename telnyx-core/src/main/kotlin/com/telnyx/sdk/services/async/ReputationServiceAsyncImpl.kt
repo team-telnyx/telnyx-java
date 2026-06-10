@@ -21,10 +21,7 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationServiceAsync =
         ReputationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun numbers(): NumberServiceAsync = numbers
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -41,10 +38,7 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun numbers(): NumberServiceAsync.WithRawResponse = numbers
     }
 }

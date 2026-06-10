@@ -23,15 +23,14 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociatePa
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
- * scores
- */
+/** Phone-number reputation monitoring (spam-score lookup and tracking). */
 class NumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberService {
 
@@ -66,6 +65,13 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
         // delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
         withRawResponse().disassociate(params, requestOptions)
     }
+
+    override fun refresh(
+        params: NumberRefreshParams,
+        requestOptions: RequestOptions,
+    ): NumberRefreshResponse =
+        // post /enterprises/{enterprise_id}/reputation/numbers/refresh
+        withRawResponse().refresh(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberService.WithRawResponse {
@@ -211,6 +217,43 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { disassociateHandler.handle(it) }
+            }
+        }
+
+        private val refreshHandler: Handler<NumberRefreshResponse> =
+            jsonHandler<NumberRefreshResponse>(clientOptions.jsonMapper)
+
+        override fun refresh(
+            params: NumberRefreshParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<NumberRefreshResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        "refresh",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { refreshHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
     }

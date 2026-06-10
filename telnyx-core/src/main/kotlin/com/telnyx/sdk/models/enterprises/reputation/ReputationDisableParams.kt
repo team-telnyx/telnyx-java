@@ -12,14 +12,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Disable Number Reputation for an enterprise.
- *
- * This will:
- * - Delete the reputation settings record
- * - Log the deletion for audit purposes
- * - Stop all future automated reputation checks
- *
- * **Note:** Can only be performed on `approved` reputation settings.
+ * Disable Phone Number Reputation. All registered numbers are de-registered as a cascade. The
+ * enterprise itself is unaffected. Returns `204` on success, `404` if reputation is not enabled for
+ * this enterprise.
  */
 class ReputationDisableParams
 private constructor(

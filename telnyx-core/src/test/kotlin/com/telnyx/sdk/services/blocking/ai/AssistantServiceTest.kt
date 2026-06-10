@@ -7,25 +7,17 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
-import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
-import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
-import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
-import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
-import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
-import com.telnyx.sdk.models.ai.assistants.PostConversationSettingsReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
-import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
-import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
@@ -56,11 +48,16 @@ internal class AssistantServiceTest {
                                         "Greet the caller and ask what they're calling about."
                                     )
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        AssistantCreateParams.ConversationFlow.Node.Prompt
+                                            .ExternalLlm
+                                            .builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                AssistantCreateParams.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -151,11 +148,16 @@ internal class AssistantServiceTest {
                                         "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                     )
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        AssistantCreateParams.ConversationFlow.Node.Prompt
+                                            .ExternalLlm
+                                            .builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                AssistantCreateParams.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -288,10 +290,12 @@ internal class AssistantServiceTest {
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        AssistantCreateParams.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                AssistantCreateParams.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -299,12 +303,16 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .fallbackConfig(
-                        FallbackConfigReq.builder()
+                        AssistantCreateParams.FallbackConfig.builder()
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                AssistantCreateParams.FallbackConfig.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        AssistantCreateParams.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -320,19 +328,22 @@ internal class AssistantServiceTest {
                         InsightSettings.builder().insightGroupId("insight_group_id").build()
                     )
                     .addIntegration(
-                        AssistantIntegration.builder()
+                        AssistantCreateParams.Integration.builder()
                             .integrationId("integration_id")
                             .addAllowedList("string")
                             .build()
                     )
                     .interruptionSettings(
-                        InferenceEmbeddingInterruptionSettings.builder()
+                        AssistantCreateParams.InterruptionSettings.builder()
                             .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
-                                StartSpeakingPlan.builder()
+                                AssistantCreateParams.InterruptionSettings.StartSpeakingPlan
+                                    .builder()
                                     .transcriptionEndpointingPlan(
-                                        TranscriptionEndpointingPlan.builder()
+                                        AssistantCreateParams.InterruptionSettings.StartSpeakingPlan
+                                            .TranscriptionEndpointingPlan
+                                            .builder()
                                             .onNoPunctuationSeconds(0.0f)
                                             .onNumberSeconds(0.0f)
                                             .onPunctuationSeconds(0.0f)
@@ -345,7 +356,10 @@ internal class AssistantServiceTest {
                     )
                     .llmApiKeyRef("llm_api_key_ref")
                     .addMcpServer(
-                        AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                        AssistantCreateParams.McpServer.builder()
+                            .id("id")
+                            .addAllowedTool("string")
+                            .build()
                     )
                     .messagingSettings(
                         MessagingSettings.builder()
@@ -368,7 +382,9 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .postConversationSettings(
-                        PostConversationSettingsReq.builder().enabled(true).build()
+                        AssistantCreateParams.PostConversationSettings.builder()
+                            .enabled(true)
+                            .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .addTag("string")
@@ -622,11 +638,15 @@ internal class AssistantServiceTest {
                                         "Greet the caller and ask what they're calling about."
                                     )
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
+                                            .builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                UpdateAssistant.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -714,11 +734,15 @@ internal class AssistantServiceTest {
                                         "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                     )
                                     .externalLlm(
-                                        ExternalLlmReq.builder()
+                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
+                                            .builder()
                                             .baseUrl("base_url")
                                             .model("model")
                                             .authenticationMethod(
-                                                ExternalLlmReq.AuthenticationMethod.TOKEN
+                                                UpdateAssistant.ConversationFlow.Node.Prompt
+                                                    .ExternalLlm
+                                                    .AuthenticationMethod
+                                                    .TOKEN
                                             )
                                             .certificateRef("certificate_ref")
                                             .forwardMetadata(true)
@@ -848,10 +872,12 @@ internal class AssistantServiceTest {
                     .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                     .addEnabledFeature(EnabledFeatures.TELEPHONY)
                     .externalLlm(
-                        ExternalLlmReq.builder()
+                        UpdateAssistant.ExternalLlm.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                            .authenticationMethod(
+                                UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
+                            )
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -859,12 +885,16 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .fallbackConfig(
-                        FallbackConfigReq.builder()
+                        UpdateAssistant.FallbackConfig.builder()
                             .externalLlm(
-                                ExternalLlmReq.builder()
+                                UpdateAssistant.FallbackConfig.ExternalLlm.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(ExternalLlmReq.AuthenticationMethod.TOKEN)
+                                    .authenticationMethod(
+                                        UpdateAssistant.FallbackConfig.ExternalLlm
+                                            .AuthenticationMethod
+                                            .TOKEN
+                                    )
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -881,19 +911,21 @@ internal class AssistantServiceTest {
                     )
                     .instructions("instructions")
                     .addIntegration(
-                        AssistantIntegration.builder()
+                        UpdateAssistant.Integration.builder()
                             .integrationId("integration_id")
                             .addAllowedList("string")
                             .build()
                     )
                     .interruptionSettings(
-                        InferenceEmbeddingInterruptionSettings.builder()
+                        UpdateAssistant.InterruptionSettings.builder()
                             .disableGreetingInterruption(true)
                             .enable(true)
                             .startSpeakingPlan(
-                                StartSpeakingPlan.builder()
+                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
                                     .transcriptionEndpointingPlan(
-                                        TranscriptionEndpointingPlan.builder()
+                                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan
+                                            .TranscriptionEndpointingPlan
+                                            .builder()
                                             .onNoPunctuationSeconds(0.0f)
                                             .onNumberSeconds(0.0f)
                                             .onPunctuationSeconds(0.0f)
@@ -906,7 +938,10 @@ internal class AssistantServiceTest {
                     )
                     .llmApiKeyRef("llm_api_key_ref")
                     .addMcpServer(
-                        AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                        UpdateAssistant.McpServer.builder()
+                            .id("id")
+                            .addAllowedTool("string")
+                            .build()
                     )
                     .messagingSettings(
                         MessagingSettings.builder()
@@ -930,7 +965,7 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .postConversationSettings(
-                        PostConversationSettingsReq.builder().enabled(true).build()
+                        UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .addTag("string")

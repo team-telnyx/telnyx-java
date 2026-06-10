@@ -25,6 +25,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Filter results by brand id. */
     fun brandId(): String = brandId
 
     /** The 1-indexed page number to get. The default value is `1`. */
@@ -83,6 +84,7 @@ private constructor(
             additionalQueryParams = campaignListParams.additionalQueryParams.toBuilder()
         }
 
+        /** Filter results by brand id. */
         fun brandId(brandId: String) = apply { this.brandId = brandId }
 
         /** The 1-indexed page number to get. The default value is `1`. */

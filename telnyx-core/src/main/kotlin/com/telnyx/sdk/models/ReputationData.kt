@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Reputation metrics */
+/**
+ * Reputation snapshot for a phone number. Each metric is a 0–100 score; `spam_risk` is a coarse
+ * bucket. Field set may grow over time - read by key.
+ */
 class ReputationData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -65,24 +68,18 @@ private constructor(
     )
 
     /**
-     * Connection quality metric (0–100)
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun connectionScore(): Optional<Long> = connectionScore.getOptional("connection_score")
 
     /**
-     * Engagement metric (0–100). Higher = more positive engagement
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun engagementScore(): Optional<Long> = engagementScore.getOptional("engagement_score")
 
     /**
-     * Timestamp of the last reputation data refresh
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -90,23 +87,19 @@ private constructor(
         lastRefreshedAt.getOptional("last_refreshed_at")
 
     /**
-     * Maturity metric (0–100). Higher = more established number
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun maturityScore(): Optional<Long> = maturityScore.getOptional("maturity_score")
 
     /**
-     * Sentiment metric (0–100). Higher = more positive sentiment
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sentimentScore(): Optional<Long> = sentimentScore.getOptional("sentiment_score")
 
     /**
-     * Spam category classification (e.g., Telemarketing, Debt Collector)
+     * Category label from the reputation feed when the number is flagged.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -114,7 +107,7 @@ private constructor(
     fun spamCategory(): Optional<String> = spamCategory.getOptional("spam_category")
 
     /**
-     * Overall spam risk level
+     * Overall spam-risk classification.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -224,7 +217,6 @@ private constructor(
             additionalProperties = reputationData.additionalProperties.toMutableMap()
         }
 
-        /** Connection quality metric (0–100) */
         fun connectionScore(connectionScore: Long?) =
             connectionScore(JsonField.ofNullable(connectionScore))
 
@@ -250,7 +242,6 @@ private constructor(
             this.connectionScore = connectionScore
         }
 
-        /** Engagement metric (0–100). Higher = more positive engagement */
         fun engagementScore(engagementScore: Long?) =
             engagementScore(JsonField.ofNullable(engagementScore))
 
@@ -276,7 +267,6 @@ private constructor(
             this.engagementScore = engagementScore
         }
 
-        /** Timestamp of the last reputation data refresh */
         fun lastRefreshedAt(lastRefreshedAt: OffsetDateTime?) =
             lastRefreshedAt(JsonField.ofNullable(lastRefreshedAt))
 
@@ -295,7 +285,6 @@ private constructor(
             this.lastRefreshedAt = lastRefreshedAt
         }
 
-        /** Maturity metric (0–100). Higher = more established number */
         fun maturityScore(maturityScore: Long?) = maturityScore(JsonField.ofNullable(maturityScore))
 
         /**
@@ -319,7 +308,6 @@ private constructor(
             this.maturityScore = maturityScore
         }
 
-        /** Sentiment metric (0–100). Higher = more positive sentiment */
         fun sentimentScore(sentimentScore: Long?) =
             sentimentScore(JsonField.ofNullable(sentimentScore))
 
@@ -345,7 +333,7 @@ private constructor(
             this.sentimentScore = sentimentScore
         }
 
-        /** Spam category classification (e.g., Telemarketing, Debt Collector) */
+        /** Category label from the reputation feed when the number is flagged. */
         fun spamCategory(spamCategory: String?) = spamCategory(JsonField.ofNullable(spamCategory))
 
         /** Alias for calling [Builder.spamCategory] with `spamCategory.orElse(null)`. */
@@ -362,7 +350,7 @@ private constructor(
             this.spamCategory = spamCategory
         }
 
-        /** Overall spam risk level */
+        /** Overall spam-risk classification. */
         fun spamRisk(spamRisk: SpamRisk?) = spamRisk(JsonField.ofNullable(spamRisk))
 
         /** Alias for calling [Builder.spamRisk] with `spamRisk.orElse(null)`. */
@@ -462,7 +450,7 @@ private constructor(
             (if (spamCategory.asKnown().isPresent) 1 else 0) +
             (spamRisk.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** Overall spam risk level */
+    /** Overall spam-risk classification. */
     class SpamRisk @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

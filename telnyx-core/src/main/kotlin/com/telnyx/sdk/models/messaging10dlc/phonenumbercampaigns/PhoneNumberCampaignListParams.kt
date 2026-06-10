@@ -30,8 +30,10 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
+    /** Page number to retrieve (1-based). */
     fun page(): Optional<Long> = Optional.ofNullable(page)
 
+    /** Number of records to return per page. */
     fun recordsPerPage(): Optional<Long> = Optional.ofNullable(recordsPerPage)
 
     /**
@@ -88,6 +90,7 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
+        /** Page number to retrieve (1-based). */
         fun page(page: Long?) = apply { this.page = page }
 
         /**
@@ -100,6 +103,7 @@ private constructor(
         /** Alias for calling [Builder.page] with `page.orElse(null)`. */
         fun page(page: Optional<Long>) = page(page.getOrNull())
 
+        /** Number of records to return per page. */
         fun recordsPerPage(recordsPerPage: Long?) = apply { this.recordsPerPage = recordsPerPage }
 
         /**

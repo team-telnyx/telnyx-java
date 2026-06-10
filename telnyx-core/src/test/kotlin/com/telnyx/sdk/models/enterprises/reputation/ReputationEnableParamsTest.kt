@@ -10,8 +10,8 @@ internal class ReputationEnableParamsTest {
     @Test
     fun create() {
         ReputationEnableParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .loaDocumentId("doc_01HXYZ1234ABCDEF")
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
             .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
             .build()
     }
@@ -20,11 +20,11 @@ internal class ReputationEnableParamsTest {
     fun pathParams() {
         val params =
             ReputationEnableParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .loaDocumentId("doc_01HXYZ1234ABCDEF")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -33,14 +33,14 @@ internal class ReputationEnableParamsTest {
     fun body() {
         val params =
             ReputationEnableParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .loaDocumentId("doc_01HXYZ1234ABCDEF")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                 .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.loaDocumentId()).isEqualTo("doc_01HXYZ1234ABCDEF")
+        assertThat(body.loaDocumentId()).isEqualTo("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
         assertThat(body.checkFrequency())
             .contains(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
     }
@@ -49,12 +49,12 @@ internal class ReputationEnableParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ReputationEnableParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .loaDocumentId("doc_01HXYZ1234ABCDEF")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.loaDocumentId()).isEqualTo("doc_01HXYZ1234ABCDEF")
+        assertThat(body.loaDocumentId()).isEqualTo("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
     }
 }

@@ -21,10 +21,7 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationService =
         ReputationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /**
-     * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation
-     * scores
-     */
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun numbers(): NumberService = numbers
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -41,10 +38,7 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /**
-         * Associate phone numbers with an enterprise for reputation monitoring and retrieve
-         * reputation scores
-         */
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun numbers(): NumberService.WithRawResponse = numbers
     }
 }

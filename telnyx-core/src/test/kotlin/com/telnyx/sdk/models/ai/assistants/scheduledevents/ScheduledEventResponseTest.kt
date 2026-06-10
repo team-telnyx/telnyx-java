@@ -34,6 +34,11 @@ internal class ScheduledEventResponseTest {
                         .build()
                 )
                 .callDuration(0L)
+                .callSettings(
+                    ScheduledPhoneCallEventResponse.CallSettings.builder()
+                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                        .build()
+                )
                 .callStatus("call_status")
                 .conversationId("conversation_id")
                 .conversationMetadata(
@@ -84,6 +89,11 @@ internal class ScheduledEventResponseTest {
                             .build()
                     )
                     .callDuration(0L)
+                    .callSettings(
+                        ScheduledPhoneCallEventResponse.CallSettings.builder()
+                            .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                            .build()
+                    )
                     .callStatus("call_status")
                     .conversationId("conversation_id")
                     .conversationMetadata(

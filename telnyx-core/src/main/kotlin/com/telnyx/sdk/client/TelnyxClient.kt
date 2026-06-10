@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallEventService
+import com.telnyx.sdk.services.blocking.CallReasonService
 import com.telnyx.sdk.services.blocking.CallService
 import com.telnyx.sdk.services.blocking.ChannelZoneService
 import com.telnyx.sdk.services.blocking.ChargesBreakdownService
@@ -33,6 +34,7 @@ import com.telnyx.sdk.services.blocking.CustomStorageCredentialService
 import com.telnyx.sdk.services.blocking.CustomerServiceRecordService
 import com.telnyx.sdk.services.blocking.DetailRecordService
 import com.telnyx.sdk.services.blocking.DialogflowConnectionService
+import com.telnyx.sdk.services.blocking.DirService
 import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
@@ -55,6 +57,7 @@ import com.telnyx.sdk.services.blocking.GlobalIpService
 import com.telnyx.sdk.services.blocking.GlobalIpUsageService
 import com.telnyx.sdk.services.blocking.InboundChannelService
 import com.telnyx.sdk.services.blocking.InexplicitNumberOrderService
+import com.telnyx.sdk.services.blocking.InfringementClaimService
 import com.telnyx.sdk.services.blocking.IntegrationSecretService
 import com.telnyx.sdk.services.blocking.InventoryCoverageService
 import com.telnyx.sdk.services.blocking.InvoiceService
@@ -665,11 +668,12 @@ interface TelnyxClient {
     /** Traffic Policy Profiles operations */
     fun trafficPolicyProfiles(): TrafficPolicyProfileService
 
-    /** Enterprise management for Branded Calling and Number Reputation services */
+    /** Manage the legal-entity record that owns your DIRs and phone numbers. */
     fun enterprises(): EnterpriseService
 
     fun reputation(): ReputationService
 
+    /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     fun termsOfService(): TermsOfServiceService
 
     /**
@@ -678,6 +682,17 @@ interface TelnyxClient {
      * specific words are spoken.
      */
     fun pronunciationDicts(): PronunciationDictService
+
+    /** Static reference values the API accepts: call reasons, document types, rejection types. */
+    fun callReasons(): CallReasonService
+
+    fun dir(): DirService
+
+    /**
+     * Trademark or impersonation claims filed against your DIR. Customers may contest a claim with
+     * supporting evidence.
+     */
+    fun infringementClaims(): InfringementClaimService
 
     /** UAC connection operations */
     fun uacConnections(): UacConnectionService
@@ -1172,11 +1187,12 @@ interface TelnyxClient {
         /** Traffic Policy Profiles operations */
         fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
 
-        /** Enterprise management for Branded Calling and Number Reputation services */
+        /** Manage the legal-entity record that owns your DIRs and phone numbers. */
         fun enterprises(): EnterpriseService.WithRawResponse
 
         fun reputation(): ReputationService.WithRawResponse
 
+        /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         fun termsOfService(): TermsOfServiceService.WithRawResponse
 
         /**
@@ -1185,6 +1201,19 @@ interface TelnyxClient {
          * control how specific words are spoken.
          */
         fun pronunciationDicts(): PronunciationDictService.WithRawResponse
+
+        /**
+         * Static reference values the API accepts: call reasons, document types, rejection types.
+         */
+        fun callReasons(): CallReasonService.WithRawResponse
+
+        fun dir(): DirService.WithRawResponse
+
+        /**
+         * Trademark or impersonation claims filed against your DIR. Customers may contest a claim
+         * with supporting evidence.
+         */
+        fun infringementClaims(): InfringementClaimService.WithRawResponse
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionService.WithRawResponse

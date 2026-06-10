@@ -11,8 +11,8 @@ internal class NumberRetrieveParamsTest {
     @Test
     fun create() {
         NumberRetrieveParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .phoneNumber("+16035551234")
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .phoneNumber("+19493253498")
             .fresh(true)
             .build()
     }
@@ -21,12 +21,12 @@ internal class NumberRetrieveParamsTest {
     fun pathParams() {
         val params =
             NumberRetrieveParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .phoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .phoneNumber("+19493253498")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(params._pathParam(1)).isEqualTo("+16035551234")
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        assertThat(params._pathParam(1)).isEqualTo("+19493253498")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -35,8 +35,8 @@ internal class NumberRetrieveParamsTest {
     fun queryParams() {
         val params =
             NumberRetrieveParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .phoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .phoneNumber("+19493253498")
                 .fresh(true)
                 .build()
 
@@ -49,8 +49,8 @@ internal class NumberRetrieveParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             NumberRetrieveParams.builder()
-                .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .phoneNumber("+16035551234")
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .phoneNumber("+19493253498")
                 .build()
 
         val queryParams = params._queryParams()

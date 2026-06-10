@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve details of a specific enterprise by ID. */
+/**
+ * Retrieve a single enterprise by id. Returns `404` if the id does not exist or does not belong to
+ * your account.
+ */
 class EnterpriseRetrieveParams
 private constructor(
     private val enterpriseId: String?,

@@ -31,6 +31,11 @@ internal class ScheduledPhoneCallEventResponseTest {
                         .build()
                 )
                 .callDuration(0L)
+                .callSettings(
+                    ScheduledPhoneCallEventResponse.CallSettings.builder()
+                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                        .build()
+                )
                 .callStatus("call_status")
                 .conversationId("conversation_id")
                 .conversationMetadata(
@@ -74,6 +79,12 @@ internal class ScheduledPhoneCallEventResponseTest {
                     .build()
             )
         assertThat(scheduledPhoneCallEventResponse.callDuration()).contains(0L)
+        assertThat(scheduledPhoneCallEventResponse.callSettings())
+            .contains(
+                ScheduledPhoneCallEventResponse.CallSettings.builder()
+                    .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                    .build()
+            )
         assertThat(scheduledPhoneCallEventResponse.callStatus()).contains("call_status")
         assertThat(scheduledPhoneCallEventResponse.conversationId()).contains("conversation_id")
         assertThat(scheduledPhoneCallEventResponse.conversationMetadata())
@@ -122,6 +133,11 @@ internal class ScheduledPhoneCallEventResponseTest {
                         .build()
                 )
                 .callDuration(0L)
+                .callSettings(
+                    ScheduledPhoneCallEventResponse.CallSettings.builder()
+                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                        .build()
+                )
                 .callStatus("call_status")
                 .conversationId("conversation_id")
                 .conversationMetadata(

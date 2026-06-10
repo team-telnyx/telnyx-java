@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
 import com.telnyx.sdk.services.async.CallControlApplicationServiceAsync
 import com.telnyx.sdk.services.async.CallEventServiceAsync
+import com.telnyx.sdk.services.async.CallReasonServiceAsync
 import com.telnyx.sdk.services.async.CallServiceAsync
 import com.telnyx.sdk.services.async.ChannelZoneServiceAsync
 import com.telnyx.sdk.services.async.ChargesBreakdownServiceAsync
@@ -33,6 +34,7 @@ import com.telnyx.sdk.services.async.CustomStorageCredentialServiceAsync
 import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsync
 import com.telnyx.sdk.services.async.DetailRecordServiceAsync
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsync
+import com.telnyx.sdk.services.async.DirServiceAsync
 import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
 import com.telnyx.sdk.services.async.DocumentServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
@@ -55,6 +57,7 @@ import com.telnyx.sdk.services.async.GlobalIpServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpUsageServiceAsync
 import com.telnyx.sdk.services.async.InboundChannelServiceAsync
 import com.telnyx.sdk.services.async.InexplicitNumberOrderServiceAsync
+import com.telnyx.sdk.services.async.InfringementClaimServiceAsync
 import com.telnyx.sdk.services.async.IntegrationSecretServiceAsync
 import com.telnyx.sdk.services.async.InventoryCoverageServiceAsync
 import com.telnyx.sdk.services.async.InvoiceServiceAsync
@@ -665,11 +668,12 @@ interface TelnyxClientAsync {
     /** Traffic Policy Profiles operations */
     fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync
 
-    /** Enterprise management for Branded Calling and Number Reputation services */
+    /** Manage the legal-entity record that owns your DIRs and phone numbers. */
     fun enterprises(): EnterpriseServiceAsync
 
     fun reputation(): ReputationServiceAsync
 
+    /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     fun termsOfService(): TermsOfServiceServiceAsync
 
     /**
@@ -678,6 +682,17 @@ interface TelnyxClientAsync {
      * specific words are spoken.
      */
     fun pronunciationDicts(): PronunciationDictServiceAsync
+
+    /** Static reference values the API accepts: call reasons, document types, rejection types. */
+    fun callReasons(): CallReasonServiceAsync
+
+    fun dir(): DirServiceAsync
+
+    /**
+     * Trademark or impersonation claims filed against your DIR. Customers may contest a claim with
+     * supporting evidence.
+     */
+    fun infringementClaims(): InfringementClaimServiceAsync
 
     /** UAC connection operations */
     fun uacConnections(): UacConnectionServiceAsync
@@ -1175,11 +1190,12 @@ interface TelnyxClientAsync {
         /** Traffic Policy Profiles operations */
         fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse
 
-        /** Enterprise management for Branded Calling and Number Reputation services */
+        /** Manage the legal-entity record that owns your DIRs and phone numbers. */
         fun enterprises(): EnterpriseServiceAsync.WithRawResponse
 
         fun reputation(): ReputationServiceAsync.WithRawResponse
 
+        /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         fun termsOfService(): TermsOfServiceServiceAsync.WithRawResponse
 
         /**
@@ -1188,6 +1204,19 @@ interface TelnyxClientAsync {
          * control how specific words are spoken.
          */
         fun pronunciationDicts(): PronunciationDictServiceAsync.WithRawResponse
+
+        /**
+         * Static reference values the API accepts: call reasons, document types, rejection types.
+         */
+        fun callReasons(): CallReasonServiceAsync.WithRawResponse
+
+        fun dir(): DirServiceAsync.WithRawResponse
+
+        /**
+         * Trademark or impersonation claims filed against your DIR. Customers may contest a claim
+         * with supporting evidence.
+         */
+        fun infringementClaims(): InfringementClaimServiceAsync.WithRawResponse
 
         /** UAC connection operations */
         fun uacConnections(): UacConnectionServiceAsync.WithRawResponse

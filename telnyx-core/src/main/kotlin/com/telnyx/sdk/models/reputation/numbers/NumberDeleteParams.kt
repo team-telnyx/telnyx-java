@@ -11,7 +11,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Remove a phone number from Number Reputation monitoring without requiring an `enterprise_id`. */
+/**
+ * Convenience alias for `DELETE /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
+ */
 class NumberDeleteParams
 private constructor(
     private val phoneNumber: String?,

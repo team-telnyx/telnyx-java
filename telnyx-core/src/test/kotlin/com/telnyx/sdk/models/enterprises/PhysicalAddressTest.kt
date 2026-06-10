@@ -13,20 +13,20 @@ internal class PhysicalAddressTest {
     fun create() {
         val physicalAddress =
             PhysicalAddress.builder()
-                .administrativeArea("Illinois")
+                .administrativeArea("IL")
                 .city("Chicago")
-                .country("United States")
+                .country("US")
                 .postalCode("60601")
-                .streetAddress("123 Main St")
-                .extendedAddress("Suite 400")
+                .streetAddress("100 Main St")
+                .extendedAddress("Suite 504")
                 .build()
 
-        assertThat(physicalAddress.administrativeArea()).isEqualTo("Illinois")
+        assertThat(physicalAddress.administrativeArea()).isEqualTo("IL")
         assertThat(physicalAddress.city()).isEqualTo("Chicago")
-        assertThat(physicalAddress.country()).isEqualTo("United States")
+        assertThat(physicalAddress.country()).isEqualTo("US")
         assertThat(physicalAddress.postalCode()).isEqualTo("60601")
-        assertThat(physicalAddress.streetAddress()).isEqualTo("123 Main St")
-        assertThat(physicalAddress.extendedAddress()).contains("Suite 400")
+        assertThat(physicalAddress.streetAddress()).isEqualTo("100 Main St")
+        assertThat(physicalAddress.extendedAddress()).contains("Suite 504")
     }
 
     @Test
@@ -34,12 +34,12 @@ internal class PhysicalAddressTest {
         val jsonMapper = jsonMapper()
         val physicalAddress =
             PhysicalAddress.builder()
-                .administrativeArea("Illinois")
+                .administrativeArea("IL")
                 .city("Chicago")
-                .country("United States")
+                .country("US")
                 .postalCode("60601")
-                .streetAddress("123 Main St")
-                .extendedAddress("Suite 400")
+                .streetAddress("100 Main St")
+                .extendedAddress("Suite 504")
                 .build()
 
         val roundtrippedPhysicalAddress =
