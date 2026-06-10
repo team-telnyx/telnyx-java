@@ -47,7 +47,19 @@ internal class DirServiceTest {
                     .callReasons(
                         listOf("Appointment reminders", "Billing inquiries", "Lab results")
                     )
+                    .certifyBrandIsAccurate(true)
+                    .certifyIpOwnership(true)
+                    .certifyNoShaftContent(true)
                     .displayName("Acme Plumbing & Wellness")
+                    .addDocument(
+                        DirUpdateParams.Document.builder()
+                            .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                            .documentType(
+                                DirUpdateParams.Document.DocumentType.BUSINESS_REGISTRATION
+                            )
+                            .description("Certificate of incorporation.")
+                            .build()
+                    )
                     .logoUrl("https://acmeplumbing.example.com/logo-v2-256.bmp")
                     .reselling(true)
                     .build()
