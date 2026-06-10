@@ -91,9 +91,14 @@ interface DirService {
         retrieve(dirId, DirRetrieveParams.none(), requestOptions)
 
     /**
-     * Edit a DIR. Only DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` are editable.
-     * PATCH is a pure edit - `status` is never changed by this endpoint. To re-vet after editing,
-     * call `POST /v2/dir/{dir_id}/submit` explicitly.
+     * Edit a DIR. DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` can be edited freely:
+     * PATCH is a pure edit, `status` is never changed, and you re-vet by calling `POST
+     * /v2/dir/{dir_id}/submit` explicitly. A `verified` DIR can also be edited in place: a PATCH
+     * that changes any value returns the DIR to `draft` and branded delivery stops until you
+     * re-submit and the DIR is approved again, while a PATCH that changes nothing (an empty body or
+     * values identical to the current ones) leaves the DIR `verified`, so idempotent retries are
+     * safe. DIRs in any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
+     * `permanently_rejected`) cannot be edited.
      */
     fun update(dirId: String): DirUpdateResponse = update(dirId, DirUpdateParams.none())
 
