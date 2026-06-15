@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
+import com.telnyx.sdk.services.async.ai.assistants.InstructionServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.TagServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.TestServiceAsync
@@ -61,6 +62,9 @@ interface AssistantServiceAsync {
 
     /** Configure AI assistant specifications */
     fun tags(): TagServiceAsync
+
+    /** Configure AI assistant specifications */
+    fun instructions(): InstructionServiceAsync
 
     /** Create a new AI Assistant. */
     fun create(params: AssistantCreateParams): CompletableFuture<InferenceEmbedding> =
@@ -375,6 +379,9 @@ interface AssistantServiceAsync {
 
         /** Configure AI assistant specifications */
         fun tags(): TagServiceAsync.WithRawResponse
+
+        /** Configure AI assistant specifications */
+        fun instructions(): InstructionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants`, but is otherwise the same as
