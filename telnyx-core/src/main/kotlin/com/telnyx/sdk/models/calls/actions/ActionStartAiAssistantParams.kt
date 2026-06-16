@@ -155,7 +155,7 @@ private constructor(
      *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
      *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
      * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-     *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+     *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
      * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
      *   `sal`, `leo`.
      *
@@ -550,7 +550,7 @@ private constructor(
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+         *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          */
@@ -918,7 +918,7 @@ private constructor(
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+         *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          *
@@ -1339,7 +1339,8 @@ private constructor(
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
              *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
              * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-             *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+             *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`,
+             *   `TTS2`.
              * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`,
              *   `rex`, `sal`, `leo`.
              */
