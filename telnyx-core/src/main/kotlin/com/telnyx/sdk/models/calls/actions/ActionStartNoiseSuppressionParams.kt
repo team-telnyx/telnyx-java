@@ -936,6 +936,18 @@ private constructor(
 
             @JvmField val AI_COUSTICS = of("AiCoustics")
 
+            @JvmField val AIC_L_QUAIL = of("aic_l_quail")
+
+            @JvmField val AIC_L_ROOK = of("aic_l_rook")
+
+            @JvmField val AIC_S_QUAIL = of("aic_s_quail")
+
+            @JvmField val AIC_S_ROOK = of("aic_s_rook")
+
+            @JvmField val QUAIL_VOICE_FOCUS_S = of("quail_voice_focus_s")
+
+            @JvmField val QUAIL_VOICE_FOCUS_XS = of("quail_voice_focus_xs")
+
             @JvmStatic fun of(value: String) = NoiseSuppressionEngine(JsonField.of(value))
         }
 
@@ -945,6 +957,12 @@ private constructor(
             DEEP_FILTER_NET,
             KRISP,
             AI_COUSTICS,
+            AIC_L_QUAIL,
+            AIC_L_ROOK,
+            AIC_S_QUAIL,
+            AIC_S_ROOK,
+            QUAIL_VOICE_FOCUS_S,
+            QUAIL_VOICE_FOCUS_XS,
         }
 
         /**
@@ -963,6 +981,12 @@ private constructor(
             DEEP_FILTER_NET,
             KRISP,
             AI_COUSTICS,
+            AIC_L_QUAIL,
+            AIC_L_ROOK,
+            AIC_S_QUAIL,
+            AIC_S_ROOK,
+            QUAIL_VOICE_FOCUS_S,
+            QUAIL_VOICE_FOCUS_XS,
             /**
              * An enum member indicating that [NoiseSuppressionEngine] was instantiated with an
              * unknown value.
@@ -983,6 +1007,12 @@ private constructor(
                 DEEP_FILTER_NET -> Value.DEEP_FILTER_NET
                 KRISP -> Value.KRISP
                 AI_COUSTICS -> Value.AI_COUSTICS
+                AIC_L_QUAIL -> Value.AIC_L_QUAIL
+                AIC_L_ROOK -> Value.AIC_L_ROOK
+                AIC_S_QUAIL -> Value.AIC_S_QUAIL
+                AIC_S_ROOK -> Value.AIC_S_ROOK
+                QUAIL_VOICE_FOCUS_S -> Value.QUAIL_VOICE_FOCUS_S
+                QUAIL_VOICE_FOCUS_XS -> Value.QUAIL_VOICE_FOCUS_XS
                 else -> Value._UNKNOWN
             }
 
@@ -1001,6 +1031,12 @@ private constructor(
                 DEEP_FILTER_NET -> Known.DEEP_FILTER_NET
                 KRISP -> Known.KRISP
                 AI_COUSTICS -> Known.AI_COUSTICS
+                AIC_L_QUAIL -> Known.AIC_L_QUAIL
+                AIC_L_ROOK -> Known.AIC_L_ROOK
+                AIC_S_QUAIL -> Known.AIC_S_QUAIL
+                AIC_S_ROOK -> Known.AIC_S_ROOK
+                QUAIL_VOICE_FOCUS_S -> Known.QUAIL_VOICE_FOCUS_S
+                QUAIL_VOICE_FOCUS_XS -> Known.QUAIL_VOICE_FOCUS_XS
                 else -> throw TelnyxInvalidDataException("Unknown NoiseSuppressionEngine: $value")
             }
 

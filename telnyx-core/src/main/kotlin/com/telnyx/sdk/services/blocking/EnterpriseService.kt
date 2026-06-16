@@ -20,7 +20,6 @@ import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
-import com.telnyx.sdk.services.blocking.enterprises.UsageService
 import java.util.function.Consumer
 
 /** Manage the legal-entity record that owns your DIRs and phone numbers. */
@@ -46,8 +45,6 @@ interface EnterpriseService {
      * reasons) shown to recipients on outbound calls.
      */
     fun dir(): DirService
-
-    fun usage(): UsageService
 
     /**
      * Create the legal entity (enterprise) that represents your business on the Telnyx platform.
@@ -283,8 +280,6 @@ interface EnterpriseService {
          * call reasons) shown to recipients on outbound calls.
          */
         fun dir(): DirService.WithRawResponse
-
-        fun usage(): UsageService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises`, but is otherwise the same as

@@ -17,7 +17,7 @@ import kotlin.jvm.optionals.getOrNull
  * Returns the available Terms of Service agreements (product, current version, terms URL, effective
  * date). Omit `product_type` to return all products; pass it to scope to one.
  */
-class TermsOfServiceRetrieveInfoParams
+class TermsOfServiceInfoParams
 private constructor(
     private val productType: ProductType?,
     private val additionalHeaders: Headers,
@@ -37,16 +37,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): TermsOfServiceRetrieveInfoParams = builder().build()
+        @JvmStatic fun none(): TermsOfServiceInfoParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [TermsOfServiceRetrieveInfoParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [TermsOfServiceInfoParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TermsOfServiceRetrieveInfoParams]. */
+    /** A builder for [TermsOfServiceInfoParams]. */
     class Builder internal constructor() {
 
         private var productType: ProductType? = null
@@ -54,13 +51,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(termsOfServiceRetrieveInfoParams: TermsOfServiceRetrieveInfoParams) =
-            apply {
-                productType = termsOfServiceRetrieveInfoParams.productType
-                additionalHeaders = termsOfServiceRetrieveInfoParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    termsOfServiceRetrieveInfoParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(termsOfServiceInfoParams: TermsOfServiceInfoParams) = apply {
+            productType = termsOfServiceInfoParams.productType
+            additionalHeaders = termsOfServiceInfoParams.additionalHeaders.toBuilder()
+            additionalQueryParams = termsOfServiceInfoParams.additionalQueryParams.toBuilder()
+        }
 
         /** Optional product filter. Omit to return info for all products. */
         fun productType(productType: ProductType?) = apply { this.productType = productType }
@@ -167,12 +162,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TermsOfServiceRetrieveInfoParams].
+         * Returns an immutable instance of [TermsOfServiceInfoParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TermsOfServiceRetrieveInfoParams =
-            TermsOfServiceRetrieveInfoParams(
+        fun build(): TermsOfServiceInfoParams =
+            TermsOfServiceInfoParams(
                 productType,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -332,7 +327,7 @@ private constructor(
             return true
         }
 
-        return other is TermsOfServiceRetrieveInfoParams &&
+        return other is TermsOfServiceInfoParams &&
             productType == other.productType &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -342,5 +337,5 @@ private constructor(
         Objects.hash(productType, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TermsOfServiceRetrieveInfoParams{productType=$productType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TermsOfServiceInfoParams{productType=$productType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

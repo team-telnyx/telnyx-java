@@ -19,7 +19,6 @@ import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
-import com.telnyx.sdk.services.async.enterprises.UsageServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -46,8 +45,6 @@ interface EnterpriseServiceAsync {
      * reasons) shown to recipients on outbound calls.
      */
     fun dir(): DirServiceAsync
-
-    fun usage(): UsageServiceAsync
 
     /**
      * Create the legal entity (enterprise) that represents your business on the Telnyx platform.
@@ -300,8 +297,6 @@ interface EnterpriseServiceAsync {
          * call reasons) shown to recipients on outbound calls.
          */
         fun dir(): DirServiceAsync.WithRawResponse
-
-        fun usage(): UsageServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises`, but is otherwise the same as

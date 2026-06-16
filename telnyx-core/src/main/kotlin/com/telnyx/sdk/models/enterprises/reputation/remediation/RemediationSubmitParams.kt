@@ -31,7 +31,7 @@ import kotlin.jvm.optionals.getOrNull
  * Each phone number must be in E.164 format and belong to this enterprise. A number that already
  * has an in-flight remediation request is rejected.
  */
-class RemediationCreateParams
+class RemediationSubmitParams
 private constructor(
     private val enterpriseId: String?,
     private val body: Body,
@@ -115,7 +115,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [RemediationCreateParams].
+         * Returns a mutable builder for constructing an instance of [RemediationSubmitParams].
          *
          * The following fields are required:
          * ```java
@@ -126,7 +126,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RemediationCreateParams]. */
+    /** A builder for [RemediationSubmitParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -135,11 +135,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(remediationCreateParams: RemediationCreateParams) = apply {
-            enterpriseId = remediationCreateParams.enterpriseId
-            body = remediationCreateParams.body.toBuilder()
-            additionalHeaders = remediationCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = remediationCreateParams.additionalQueryParams.toBuilder()
+        internal fun from(remediationSubmitParams: RemediationSubmitParams) = apply {
+            enterpriseId = remediationSubmitParams.enterpriseId
+            body = remediationSubmitParams.body.toBuilder()
+            additionalHeaders = remediationSubmitParams.additionalHeaders.toBuilder()
+            additionalQueryParams = remediationSubmitParams.additionalQueryParams.toBuilder()
         }
 
         fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
@@ -339,7 +339,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RemediationCreateParams].
+         * Returns an immutable instance of [RemediationSubmitParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -351,8 +351,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): RemediationCreateParams =
-            RemediationCreateParams(
+        fun build(): RemediationSubmitParams =
+            RemediationSubmitParams(
                 enterpriseId,
                 body.build(),
                 additionalHeaders.build(),
@@ -696,7 +696,7 @@ private constructor(
             return true
         }
 
-        return other is RemediationCreateParams &&
+        return other is RemediationSubmitParams &&
             enterpriseId == other.enterpriseId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -707,5 +707,5 @@ private constructor(
         Objects.hash(enterpriseId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RemediationCreateParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RemediationSubmitParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
