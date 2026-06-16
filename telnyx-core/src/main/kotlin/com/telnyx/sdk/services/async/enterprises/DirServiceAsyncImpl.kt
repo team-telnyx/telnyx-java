@@ -21,12 +21,6 @@ import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPageAsync
 import com.telnyx.sdk.models.enterprises.dir.DirListPageResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
-import com.telnyx.sdk.services.async.enterprises.dir.CommentServiceAsync
-import com.telnyx.sdk.services.async.enterprises.dir.CommentServiceAsyncImpl
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberBatchServiceAsync
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberBatchServiceAsyncImpl
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberServiceAsync
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -42,26 +36,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
         WithRawResponseImpl(clientOptions)
     }
 
-    private val comments: CommentServiceAsync by lazy { CommentServiceAsyncImpl(clientOptions) }
-
-    private val phoneNumberBatches: PhoneNumberBatchServiceAsync by lazy {
-        PhoneNumberBatchServiceAsyncImpl(clientOptions)
-    }
-
-    private val phoneNumbers: PhoneNumberServiceAsync by lazy {
-        PhoneNumberServiceAsyncImpl(clientOptions)
-    }
-
     override fun withRawResponse(): DirServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirServiceAsync =
         DirServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
-
-    override fun comments(): CommentServiceAsync = comments
-
-    override fun phoneNumberBatches(): PhoneNumberBatchServiceAsync = phoneNumberBatches
-
-    override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
 
     override fun create(
         params: DirCreateParams,
@@ -83,31 +61,12 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val comments: CommentServiceAsync.WithRawResponse by lazy {
-            CommentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumberBatches: PhoneNumberBatchServiceAsync.WithRawResponse by lazy {
-            PhoneNumberBatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumbers: PhoneNumberServiceAsync.WithRawResponse by lazy {
-            PhoneNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): DirServiceAsync.WithRawResponse =
             DirServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun comments(): CommentServiceAsync.WithRawResponse = comments
-
-        override fun phoneNumberBatches(): PhoneNumberBatchServiceAsync.WithRawResponse =
-            phoneNumberBatches
-
-        override fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse = phoneNumbers
 
         private val createHandler: Handler<DirCreateResponse> =
             jsonHandler<DirCreateResponse>(clientOptions.jsonMapper)

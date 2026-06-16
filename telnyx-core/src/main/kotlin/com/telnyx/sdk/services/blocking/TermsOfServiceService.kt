@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoResponse
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
@@ -43,23 +43,22 @@ interface TermsOfServiceService {
      * Returns the available Terms of Service agreements (product, current version, terms URL,
      * effective date). Omit `product_type` to return all products; pass it to scope to one.
      */
-    fun retrieveInfo(): TermsOfServiceRetrieveInfoResponse =
-        retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+    fun info(): TermsOfServiceInfoResponse = info(TermsOfServiceInfoParams.none())
 
-    /** @see retrieveInfo */
-    fun retrieveInfo(
-        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+    /** @see info */
+    fun info(
+        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TermsOfServiceRetrieveInfoResponse
+    ): TermsOfServiceInfoResponse
 
-    /** @see retrieveInfo */
-    fun retrieveInfo(
-        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
-    ): TermsOfServiceRetrieveInfoResponse = retrieveInfo(params, RequestOptions.none())
+    /** @see info */
+    fun info(
+        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
+    ): TermsOfServiceInfoResponse = info(params, RequestOptions.none())
 
-    /** @see retrieveInfo */
-    fun retrieveInfo(requestOptions: RequestOptions): TermsOfServiceRetrieveInfoResponse =
-        retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
+    /** @see info */
+    fun info(requestOptions: RequestOptions): TermsOfServiceInfoResponse =
+        info(TermsOfServiceInfoParams.none(), requestOptions)
 
     /**
      * Returns whether the authenticated user has agreed to the current Terms of Service for the
@@ -111,32 +110,29 @@ interface TermsOfServiceService {
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/info`, but is otherwise the same
-         * as [TermsOfServiceService.retrieveInfo].
+         * as [TermsOfServiceService.info].
          */
         @MustBeClosed
-        fun retrieveInfo(): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
-            retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
+        fun info(): HttpResponseFor<TermsOfServiceInfoResponse> =
+            info(TermsOfServiceInfoParams.none())
 
-        /** @see retrieveInfo */
+        /** @see info */
         @MustBeClosed
-        fun retrieveInfo(
-            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
+        fun info(
+            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse>
+        ): HttpResponseFor<TermsOfServiceInfoResponse>
 
-        /** @see retrieveInfo */
+        /** @see info */
         @MustBeClosed
-        fun retrieveInfo(
-            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
-        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
-            retrieveInfo(params, RequestOptions.none())
+        fun info(
+            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
+        ): HttpResponseFor<TermsOfServiceInfoResponse> = info(params, RequestOptions.none())
 
-        /** @see retrieveInfo */
+        /** @see info */
         @MustBeClosed
-        fun retrieveInfo(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
-            retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
+        fun info(requestOptions: RequestOptions): HttpResponseFor<TermsOfServiceInfoResponse> =
+            info(TermsOfServiceInfoParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/status`, but is otherwise the same

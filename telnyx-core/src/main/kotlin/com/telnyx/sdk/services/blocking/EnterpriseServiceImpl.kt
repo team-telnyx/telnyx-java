@@ -33,8 +33,6 @@ import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.DirServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationServiceImpl
-import com.telnyx.sdk.services.blocking.enterprises.UsageService
-import com.telnyx.sdk.services.blocking.enterprises.UsageServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -50,8 +48,6 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
 
     private val dir: DirService by lazy { DirServiceImpl(clientOptions) }
 
-    private val usage: UsageService by lazy { UsageServiceImpl(clientOptions) }
-
     override fun withRawResponse(): EnterpriseService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseService =
@@ -65,8 +61,6 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
      * reasons) shown to recipients on outbound calls.
      */
     override fun dir(): DirService = dir
-
-    override fun usage(): UsageService = usage
 
     override fun create(
         params: EnterpriseCreateParams,
@@ -122,10 +116,6 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             DirServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val usage: UsageService.WithRawResponse by lazy {
-            UsageServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseService.WithRawResponse =
@@ -141,8 +131,6 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
          * call reasons) shown to recipients on outbound calls.
          */
         override fun dir(): DirService.WithRawResponse = dir
-
-        override fun usage(): UsageService.WithRawResponse = usage
 
         private val createHandler: Handler<EnterpriseCreateResponse> =
             jsonHandler<EnterpriseCreateResponse>(clientOptions.jsonMapper)

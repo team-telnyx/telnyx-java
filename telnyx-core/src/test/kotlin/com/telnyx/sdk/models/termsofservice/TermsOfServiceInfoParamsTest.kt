@@ -6,20 +6,20 @@ import com.telnyx.sdk.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class TermsOfServiceRetrieveInfoParamsTest {
+internal class TermsOfServiceInfoParamsTest {
 
     @Test
     fun create() {
-        TermsOfServiceRetrieveInfoParams.builder()
-            .productType(TermsOfServiceRetrieveInfoParams.ProductType.BRANDED_CALLING)
+        TermsOfServiceInfoParams.builder()
+            .productType(TermsOfServiceInfoParams.ProductType.BRANDED_CALLING)
             .build()
     }
 
     @Test
     fun queryParams() {
         val params =
-            TermsOfServiceRetrieveInfoParams.builder()
-                .productType(TermsOfServiceRetrieveInfoParams.ProductType.BRANDED_CALLING)
+            TermsOfServiceInfoParams.builder()
+                .productType(TermsOfServiceInfoParams.ProductType.BRANDED_CALLING)
                 .build()
 
         val queryParams = params._queryParams()
@@ -30,7 +30,7 @@ internal class TermsOfServiceRetrieveInfoParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = TermsOfServiceRetrieveInfoParams.builder().build()
+        val params = TermsOfServiceInfoParams.builder().build()
 
         val queryParams = params._queryParams()
 

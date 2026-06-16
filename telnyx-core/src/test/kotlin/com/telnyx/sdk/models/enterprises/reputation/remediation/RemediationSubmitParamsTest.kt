@@ -5,11 +5,11 @@ package com.telnyx.sdk.models.enterprises.reputation.remediation
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class RemediationCreateParamsTest {
+internal class RemediationSubmitParamsTest {
 
     @Test
     fun create() {
-        RemediationCreateParams.builder()
+        RemediationSubmitParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .callPurpose("Appointment reminders for our dental clinic.")
             .addPhoneNumber("+19493253498")
@@ -22,7 +22,7 @@ internal class RemediationCreateParamsTest {
     @Test
     fun pathParams() {
         val params =
-            RemediationCreateParams.builder()
+            RemediationSubmitParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
                 .addPhoneNumber("+19493253498")
@@ -37,7 +37,7 @@ internal class RemediationCreateParamsTest {
     @Test
     fun body() {
         val params =
-            RemediationCreateParams.builder()
+            RemediationSubmitParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
                 .addPhoneNumber("+19493253498")
@@ -57,7 +57,7 @@ internal class RemediationCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            RemediationCreateParams.builder()
+            RemediationSubmitParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .callPurpose("Appointment reminders for our dental clinic.")
                 .addPhoneNumber("+19493253498")

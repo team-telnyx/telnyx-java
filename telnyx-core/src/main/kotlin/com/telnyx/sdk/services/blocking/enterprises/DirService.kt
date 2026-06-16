@@ -10,9 +10,6 @@ import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
 import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPage
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
-import com.telnyx.sdk.services.blocking.enterprises.dir.CommentService
-import com.telnyx.sdk.services.blocking.enterprises.dir.PhoneNumberBatchService
-import com.telnyx.sdk.services.blocking.enterprises.dir.PhoneNumberService
 import java.util.function.Consumer
 
 /**
@@ -32,12 +29,6 @@ interface DirService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirService
-
-    fun comments(): CommentService
-
-    fun phoneNumberBatches(): PhoneNumberBatchService
-
-    fun phoneNumbers(): PhoneNumberService
 
     /**
      * Create a new DIR under the given enterprise. The DIR starts in `draft` status; it must be
@@ -126,12 +117,6 @@ interface DirService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirService.WithRawResponse
-
-        fun comments(): CommentService.WithRawResponse
-
-        fun phoneNumberBatches(): PhoneNumberBatchService.WithRawResponse
-
-        fun phoneNumbers(): PhoneNumberService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/dir`, but is otherwise

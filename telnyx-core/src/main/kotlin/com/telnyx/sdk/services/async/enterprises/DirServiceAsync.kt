@@ -9,9 +9,6 @@ import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
 import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPageAsync
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
-import com.telnyx.sdk.services.async.enterprises.dir.CommentServiceAsync
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberBatchServiceAsync
-import com.telnyx.sdk.services.async.enterprises.dir.PhoneNumberServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -32,12 +29,6 @@ interface DirServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirServiceAsync
-
-    fun comments(): CommentServiceAsync
-
-    fun phoneNumberBatches(): PhoneNumberBatchServiceAsync
-
-    fun phoneNumbers(): PhoneNumberServiceAsync
 
     /**
      * Create a new DIR under the given enterprise. The DIR starts in `draft` status; it must be
@@ -137,12 +128,6 @@ interface DirServiceAsync {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirServiceAsync.WithRawResponse
-
-        fun comments(): CommentServiceAsync.WithRawResponse
-
-        fun phoneNumberBatches(): PhoneNumberBatchServiceAsync.WithRawResponse
-
-        fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/dir`, but is otherwise

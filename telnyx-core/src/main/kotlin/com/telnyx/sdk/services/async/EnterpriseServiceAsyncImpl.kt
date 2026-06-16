@@ -33,8 +33,6 @@ import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsyncImpl
-import com.telnyx.sdk.services.async.enterprises.UsageServiceAsync
-import com.telnyx.sdk.services.async.enterprises.UsageServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -53,8 +51,6 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val dir: DirServiceAsync by lazy { DirServiceAsyncImpl(clientOptions) }
 
-    private val usage: UsageServiceAsync by lazy { UsageServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): EnterpriseServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseServiceAsync =
@@ -68,8 +64,6 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
      * reasons) shown to recipients on outbound calls.
      */
     override fun dir(): DirServiceAsync = dir
-
-    override fun usage(): UsageServiceAsync = usage
 
     override fun create(
         params: EnterpriseCreateParams,
@@ -127,10 +121,6 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
             DirServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val usage: UsageServiceAsync.WithRawResponse by lazy {
-            UsageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseServiceAsync.WithRawResponse =
@@ -146,8 +136,6 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
          * call reasons) shown to recipients on outbound calls.
          */
         override fun dir(): DirServiceAsync.WithRawResponse = dir
-
-        override fun usage(): UsageServiceAsync.WithRawResponse = usage
 
         private val createHandler: Handler<EnterpriseCreateResponse> =
             jsonHandler<EnterpriseCreateResponse>(clientOptions.jsonMapper)

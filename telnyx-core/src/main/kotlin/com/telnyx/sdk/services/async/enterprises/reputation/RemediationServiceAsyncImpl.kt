@@ -16,13 +16,13 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateResponse
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListPageResponse
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitParams
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -40,13 +40,6 @@ class RemediationServiceAsyncImpl internal constructor(private val clientOptions
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RemediationServiceAsync =
         RemediationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: RemediationCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<RemediationCreateResponse> =
-        // post /enterprises/{enterprise_id}/reputation/remediation
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
-
     override fun retrieve(
         params: RemediationRetrieveParams,
         requestOptions: RequestOptions,
@@ -61,6 +54,13 @@ class RemediationServiceAsyncImpl internal constructor(private val clientOptions
         // get /enterprises/{enterprise_id}/reputation/remediation
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
+    override fun submit(
+        params: RemediationSubmitParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RemediationSubmitResponse> =
+        // post /enterprises/{enterprise_id}/reputation/remediation
+        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RemediationServiceAsync.WithRawResponse {
 
@@ -73,45 +73,6 @@ class RemediationServiceAsyncImpl internal constructor(private val clientOptions
             RemediationServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val createHandler: Handler<RemediationCreateResponse> =
-            jsonHandler<RemediationCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: RemediationCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RemediationCreateResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "enterprises",
-                        params._pathParam(0),
-                        "reputation",
-                        "remediation",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
 
         private val retrieveHandler: Handler<RemediationRetrieveResponse> =
             jsonHandler<RemediationRetrieveResponse>(clientOptions.jsonMapper)
@@ -193,6 +154,45 @@ class RemediationServiceAsyncImpl internal constructor(private val clientOptions
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val submitHandler: Handler<RemediationSubmitResponse> =
+            jsonHandler<RemediationSubmitResponse>(clientOptions.jsonMapper)
+
+        override fun submit(
+            params: RemediationSubmitParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "remediation",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { submitHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }
