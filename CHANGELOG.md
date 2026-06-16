@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.64.0 (2026-06-16)
+
+Full Changelog: [v6.63.0...v6.64.0](https://github.com/team-telnyx/telnyx-java/compare/v6.63.0...v6.64.0)
+
+### Features
+
+* Document POST /ai/assistants/{assistant_id}/instructions/enhance ([43d9a9a](https://github.com/team-telnyx/telnyx-java/commit/43d9a9ac022aac82858af70ca327d4d5c0f0b7f3))
+* ENGDESK-51290: Add Aicoustic NS engines to portal backend ([622aa21](https://github.com/team-telnyx/telnyx-java/commit/622aa21c508e1017a91f5ce3c16ed9452a54e8a6))
+* TELAPPS-719: add Inworld inworld-tts-2 model + delivery_mode to call-control voice settings ([4676d92](https://github.com/team-telnyx/telnyx-java/commit/4676d9288703ae72a677c7d0814c4195e44b5712))
+
 ## 6.63.0 (2026-06-10)
 
 Full Changelog: [v6.62.0...v6.63.0](https://github.com/team-telnyx/telnyx-java/compare/v6.62.0...v6.63.0)
