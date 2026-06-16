@@ -8,25 +8,25 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class RemediationCreateResponseTest {
+internal class RemediationSubmitResponseTest {
 
     @Test
     fun create() {
-        val remediationCreateResponse =
-            RemediationCreateResponse.builder()
+        val remediationSubmitResponse =
+            RemediationSubmitResponse.builder()
                 .data(
-                    RemediationCreateResponse.Data.builder()
+                    RemediationSubmitResponse.Data.builder()
                         .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                         .phoneNumbersCount(2L)
                         .phoneNumbersIneligible(0L)
                         .phoneNumbersSubmitted(2L)
-                        .status(RemediationCreateResponse.Data.Status.IN_PROGRESS)
+                        .status(RemediationSubmitResponse.Data.Status.IN_PROGRESS)
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .contactEmail("ops@example.com")
                         .results(
-                            RemediationCreateResponse.Data.Results.builder()
+                            RemediationSubmitResponse.Data.Results.builder()
                                 .addIneligible("string")
                                 .addNotFlagged("string")
                                 .addRefused("string")
@@ -41,20 +41,20 @@ internal class RemediationCreateResponseTest {
                 )
                 .build()
 
-        assertThat(remediationCreateResponse.data())
+        assertThat(remediationSubmitResponse.data())
             .isEqualTo(
-                RemediationCreateResponse.Data.builder()
+                RemediationSubmitResponse.Data.builder()
                     .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                     .callPurpose("Appointment reminders for our dental clinic.")
                     .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                     .phoneNumbersCount(2L)
                     .phoneNumbersIneligible(0L)
                     .phoneNumbersSubmitted(2L)
-                    .status(RemediationCreateResponse.Data.Status.IN_PROGRESS)
+                    .status(RemediationSubmitResponse.Data.Status.IN_PROGRESS)
                     .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                     .contactEmail("ops@example.com")
                     .results(
-                        RemediationCreateResponse.Data.Results.builder()
+                        RemediationSubmitResponse.Data.Results.builder()
                             .addIneligible("string")
                             .addNotFlagged("string")
                             .addRefused("string")
@@ -72,21 +72,21 @@ internal class RemediationCreateResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val remediationCreateResponse =
-            RemediationCreateResponse.builder()
+        val remediationSubmitResponse =
+            RemediationSubmitResponse.builder()
                 .data(
-                    RemediationCreateResponse.Data.builder()
+                    RemediationSubmitResponse.Data.builder()
                         .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                         .phoneNumbersCount(2L)
                         .phoneNumbersIneligible(0L)
                         .phoneNumbersSubmitted(2L)
-                        .status(RemediationCreateResponse.Data.Status.IN_PROGRESS)
+                        .status(RemediationSubmitResponse.Data.Status.IN_PROGRESS)
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .contactEmail("ops@example.com")
                         .results(
-                            RemediationCreateResponse.Data.Results.builder()
+                            RemediationSubmitResponse.Data.Results.builder()
                                 .addIneligible("string")
                                 .addNotFlagged("string")
                                 .addRefused("string")
@@ -101,12 +101,12 @@ internal class RemediationCreateResponseTest {
                 )
                 .build()
 
-        val roundtrippedRemediationCreateResponse =
+        val roundtrippedRemediationSubmitResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(remediationCreateResponse),
-                jacksonTypeRef<RemediationCreateResponse>(),
+                jsonMapper.writeValueAsString(remediationSubmitResponse),
+                jacksonTypeRef<RemediationSubmitResponse>(),
             )
 
-        assertThat(roundtrippedRemediationCreateResponse).isEqualTo(remediationCreateResponse)
+        assertThat(roundtrippedRemediationSubmitResponse).isEqualTo(remediationSubmitResponse)
     }
 }

@@ -9,34 +9,32 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class TermsOfServiceRetrieveInfoResponseTest {
+internal class TermsOfServiceInfoResponseTest {
 
     @Test
     fun create() {
-        val termsOfServiceRetrieveInfoResponse =
-            TermsOfServiceRetrieveInfoResponse.builder()
+        val termsOfServiceInfoResponse =
+            TermsOfServiceInfoResponse.builder()
                 .addAgreement(
-                    TermsOfServiceRetrieveInfoResponse.Agreement.builder()
+                    TermsOfServiceInfoResponse.Agreement.builder()
                         .currentVersion("v1.0.0")
                         .description("Terms and Conditions for Telnyx Number Reputation service")
                         .effectiveDate(LocalDate.parse("2025-07-10"))
                         .productType(
-                            TermsOfServiceRetrieveInfoResponse.Agreement.ProductType.BRANDED_CALLING
+                            TermsOfServiceInfoResponse.Agreement.ProductType.BRANDED_CALLING
                         )
                         .termsUrl("https://telnyx.com/terms/reputation-services")
                         .build()
                 )
                 .build()
 
-        assertThat(termsOfServiceRetrieveInfoResponse.agreements().getOrNull())
+        assertThat(termsOfServiceInfoResponse.agreements().getOrNull())
             .containsExactly(
-                TermsOfServiceRetrieveInfoResponse.Agreement.builder()
+                TermsOfServiceInfoResponse.Agreement.builder()
                     .currentVersion("v1.0.0")
                     .description("Terms and Conditions for Telnyx Number Reputation service")
                     .effectiveDate(LocalDate.parse("2025-07-10"))
-                    .productType(
-                        TermsOfServiceRetrieveInfoResponse.Agreement.ProductType.BRANDED_CALLING
-                    )
+                    .productType(TermsOfServiceInfoResponse.Agreement.ProductType.BRANDED_CALLING)
                     .termsUrl("https://telnyx.com/terms/reputation-services")
                     .build()
             )
@@ -45,28 +43,27 @@ internal class TermsOfServiceRetrieveInfoResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val termsOfServiceRetrieveInfoResponse =
-            TermsOfServiceRetrieveInfoResponse.builder()
+        val termsOfServiceInfoResponse =
+            TermsOfServiceInfoResponse.builder()
                 .addAgreement(
-                    TermsOfServiceRetrieveInfoResponse.Agreement.builder()
+                    TermsOfServiceInfoResponse.Agreement.builder()
                         .currentVersion("v1.0.0")
                         .description("Terms and Conditions for Telnyx Number Reputation service")
                         .effectiveDate(LocalDate.parse("2025-07-10"))
                         .productType(
-                            TermsOfServiceRetrieveInfoResponse.Agreement.ProductType.BRANDED_CALLING
+                            TermsOfServiceInfoResponse.Agreement.ProductType.BRANDED_CALLING
                         )
                         .termsUrl("https://telnyx.com/terms/reputation-services")
                         .build()
                 )
                 .build()
 
-        val roundtrippedTermsOfServiceRetrieveInfoResponse =
+        val roundtrippedTermsOfServiceInfoResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(termsOfServiceRetrieveInfoResponse),
-                jacksonTypeRef<TermsOfServiceRetrieveInfoResponse>(),
+                jsonMapper.writeValueAsString(termsOfServiceInfoResponse),
+                jacksonTypeRef<TermsOfServiceInfoResponse>(),
             )
 
-        assertThat(roundtrippedTermsOfServiceRetrieveInfoResponse)
-            .isEqualTo(termsOfServiceRetrieveInfoResponse)
+        assertThat(roundtrippedTermsOfServiceInfoResponse).isEqualTo(termsOfServiceInfoResponse)
     }
 }

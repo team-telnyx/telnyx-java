@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class RemediationCreateResponse
+class RemediationSubmitResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -63,7 +63,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [RemediationCreateResponse].
+         * Returns a mutable builder for constructing an instance of [RemediationSubmitResponse].
          *
          * The following fields are required:
          * ```java
@@ -73,16 +73,16 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RemediationCreateResponse]. */
+    /** A builder for [RemediationSubmitResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(remediationCreateResponse: RemediationCreateResponse) = apply {
-            data = remediationCreateResponse.data
-            additionalProperties = remediationCreateResponse.additionalProperties.toMutableMap()
+        internal fun from(remediationSubmitResponse: RemediationSubmitResponse) = apply {
+            data = remediationSubmitResponse.data
+            additionalProperties = remediationSubmitResponse.additionalProperties.toMutableMap()
         }
 
         /** Full detail of a remediation request, returned on submit and GET by id. */
@@ -116,7 +116,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RemediationCreateResponse].
+         * Returns an immutable instance of [RemediationSubmitResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -127,8 +127,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): RemediationCreateResponse =
-            RemediationCreateResponse(
+        fun build(): RemediationSubmitResponse =
+            RemediationSubmitResponse(
                 checkRequired("data", data),
                 additionalProperties.toMutableMap(),
             )
@@ -144,7 +144,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): RemediationCreateResponse = apply {
+    fun validate(): RemediationSubmitResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1446,7 +1446,7 @@ private constructor(
             return true
         }
 
-        return other is RemediationCreateResponse &&
+        return other is RemediationSubmitResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -1456,5 +1456,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RemediationCreateResponse{data=$data, additionalProperties=$additionalProperties}"
+        "RemediationSubmitResponse{data=$data, additionalProperties=$additionalProperties}"
 }

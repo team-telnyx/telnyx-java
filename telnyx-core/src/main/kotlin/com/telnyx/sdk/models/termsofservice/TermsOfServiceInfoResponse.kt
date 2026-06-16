@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class TermsOfServiceRetrieveInfoResponse
+class TermsOfServiceInfoResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val agreements: JsonField<List<Agreement>>,
@@ -64,26 +64,22 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [TermsOfServiceRetrieveInfoResponse].
+         * Returns a mutable builder for constructing an instance of [TermsOfServiceInfoResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TermsOfServiceRetrieveInfoResponse]. */
+    /** A builder for [TermsOfServiceInfoResponse]. */
     class Builder internal constructor() {
 
         private var agreements: JsonField<MutableList<Agreement>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(termsOfServiceRetrieveInfoResponse: TermsOfServiceRetrieveInfoResponse) =
-            apply {
-                agreements =
-                    termsOfServiceRetrieveInfoResponse.agreements.map { it.toMutableList() }
-                additionalProperties =
-                    termsOfServiceRetrieveInfoResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(termsOfServiceInfoResponse: TermsOfServiceInfoResponse) = apply {
+            agreements = termsOfServiceInfoResponse.agreements.map { it.toMutableList() }
+            additionalProperties = termsOfServiceInfoResponse.additionalProperties.toMutableMap()
+        }
 
         fun agreements(agreements: List<Agreement>) = agreements(JsonField.of(agreements))
 
@@ -130,12 +126,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TermsOfServiceRetrieveInfoResponse].
+         * Returns an immutable instance of [TermsOfServiceInfoResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TermsOfServiceRetrieveInfoResponse =
-            TermsOfServiceRetrieveInfoResponse(
+        fun build(): TermsOfServiceInfoResponse =
+            TermsOfServiceInfoResponse(
                 (agreements ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
@@ -151,7 +147,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): TermsOfServiceRetrieveInfoResponse = apply {
+    fun validate(): TermsOfServiceInfoResponse = apply {
         if (validated) {
             return@apply
         }
@@ -646,7 +642,7 @@ private constructor(
             return true
         }
 
-        return other is TermsOfServiceRetrieveInfoResponse &&
+        return other is TermsOfServiceInfoResponse &&
             agreements == other.agreements &&
             additionalProperties == other.additionalProperties
     }
@@ -656,5 +652,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TermsOfServiceRetrieveInfoResponse{agreements=$agreements, additionalProperties=$additionalProperties}"
+        "TermsOfServiceInfoResponse{agreements=$agreements, additionalProperties=$additionalProperties}"
 }

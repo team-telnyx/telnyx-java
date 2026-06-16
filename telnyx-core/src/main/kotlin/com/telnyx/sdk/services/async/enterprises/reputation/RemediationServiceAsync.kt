@@ -5,12 +5,12 @@ package com.telnyx.sdk.services.async.enterprises.reputation
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateResponse
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitParams
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,39 +28,6 @@ interface RemediationServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RemediationServiceAsync
-
-    /**
-     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
-     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
-     * id, then the request transitions through processing states until completion. Use the GET
-     * endpoints to poll status and per-number results.
-     *
-     * Each phone number must be in E.164 format and belong to this enterprise. A number that
-     * already has an in-flight remediation request is rejected.
-     */
-    fun create(
-        enterpriseId: String,
-        params: RemediationCreateParams,
-    ): CompletableFuture<RemediationCreateResponse> =
-        create(enterpriseId, params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        enterpriseId: String,
-        params: RemediationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationCreateResponse> =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see create */
-    fun create(params: RemediationCreateParams): CompletableFuture<RemediationCreateResponse> =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: RemediationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationCreateResponse>
 
     /**
      * Retrieve the full detail of a remediation request, including current status, per-number
@@ -132,6 +99,39 @@ interface RemediationServiceAsync {
         list(enterpriseId, RemediationListParams.none(), requestOptions)
 
     /**
+     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
+     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
+     * id, then the request transitions through processing states until completion. Use the GET
+     * endpoints to poll status and per-number results.
+     *
+     * Each phone number must be in E.164 format and belong to this enterprise. A number that
+     * already has an in-flight remediation request is rejected.
+     */
+    fun submit(
+        enterpriseId: String,
+        params: RemediationSubmitParams,
+    ): CompletableFuture<RemediationSubmitResponse> =
+        submit(enterpriseId, params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        enterpriseId: String,
+        params: RemediationSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RemediationSubmitResponse> =
+        submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see submit */
+    fun submit(params: RemediationSubmitParams): CompletableFuture<RemediationSubmitResponse> =
+        submit(params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        params: RemediationSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RemediationSubmitResponse>
+
+    /**
      * A view of [RemediationServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -145,37 +145,6 @@ interface RemediationServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): RemediationServiceAsync.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
-         * [RemediationServiceAsync.create].
-         */
-        fun create(
-            enterpriseId: String,
-            params: RemediationCreateParams,
-        ): CompletableFuture<HttpResponseFor<RemediationCreateResponse>> =
-            create(enterpriseId, params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            enterpriseId: String,
-            params: RemediationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationCreateResponse>> =
-            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see create */
-        fun create(
-            params: RemediationCreateParams
-        ): CompletableFuture<HttpResponseFor<RemediationCreateResponse>> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            params: RemediationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationCreateResponse>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -251,5 +220,36 @@ interface RemediationServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<RemediationListPageAsync>> =
             list(enterpriseId, RemediationListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
+         * [RemediationServiceAsync.submit].
+         */
+        fun submit(
+            enterpriseId: String,
+            params: RemediationSubmitParams,
+        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
+            submit(enterpriseId, params, RequestOptions.none())
+
+        /** @see submit */
+        fun submit(
+            enterpriseId: String,
+            params: RemediationSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
+            submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see submit */
+        fun submit(
+            params: RemediationSubmitParams
+        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
+            submit(params, RequestOptions.none())
+
+        /** @see submit */
+        fun submit(
+            params: RemediationSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>>
     }
 }

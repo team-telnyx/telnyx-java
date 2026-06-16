@@ -6,12 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateResponse
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListPage
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitParams
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitResponse
 import java.util.function.Consumer
 
 /** Phone-number reputation monitoring (spam-score lookup and tracking). */
@@ -28,36 +28,6 @@ interface RemediationService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RemediationService
-
-    /**
-     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
-     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
-     * id, then the request transitions through processing states until completion. Use the GET
-     * endpoints to poll status and per-number results.
-     *
-     * Each phone number must be in E.164 format and belong to this enterprise. A number that
-     * already has an in-flight remediation request is rejected.
-     */
-    fun create(enterpriseId: String, params: RemediationCreateParams): RemediationCreateResponse =
-        create(enterpriseId, params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        enterpriseId: String,
-        params: RemediationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): RemediationCreateResponse =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see create */
-    fun create(params: RemediationCreateParams): RemediationCreateResponse =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: RemediationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): RemediationCreateResponse
 
     /**
      * Retrieve the full detail of a remediation request, including current status, per-number
@@ -123,6 +93,36 @@ interface RemediationService {
         list(enterpriseId, RemediationListParams.none(), requestOptions)
 
     /**
+     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
+     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
+     * id, then the request transitions through processing states until completion. Use the GET
+     * endpoints to poll status and per-number results.
+     *
+     * Each phone number must be in E.164 format and belong to this enterprise. A number that
+     * already has an in-flight remediation request is rejected.
+     */
+    fun submit(enterpriseId: String, params: RemediationSubmitParams): RemediationSubmitResponse =
+        submit(enterpriseId, params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        enterpriseId: String,
+        params: RemediationSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RemediationSubmitResponse =
+        submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see submit */
+    fun submit(params: RemediationSubmitParams): RemediationSubmitResponse =
+        submit(params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        params: RemediationSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RemediationSubmitResponse
+
+    /**
      * A view of [RemediationService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
@@ -135,39 +135,6 @@ interface RemediationService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): RemediationService.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
-         * [RemediationService.create].
-         */
-        @MustBeClosed
-        fun create(
-            enterpriseId: String,
-            params: RemediationCreateParams,
-        ): HttpResponseFor<RemediationCreateResponse> =
-            create(enterpriseId, params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            enterpriseId: String,
-            params: RemediationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RemediationCreateResponse> =
-            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(params: RemediationCreateParams): HttpResponseFor<RemediationCreateResponse> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: RemediationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RemediationCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get
@@ -247,5 +214,38 @@ interface RemediationService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<RemediationListPage> =
             list(enterpriseId, RemediationListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
+         * [RemediationService.submit].
+         */
+        @MustBeClosed
+        fun submit(
+            enterpriseId: String,
+            params: RemediationSubmitParams,
+        ): HttpResponseFor<RemediationSubmitResponse> =
+            submit(enterpriseId, params, RequestOptions.none())
+
+        /** @see submit */
+        @MustBeClosed
+        fun submit(
+            enterpriseId: String,
+            params: RemediationSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RemediationSubmitResponse> =
+            submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see submit */
+        @MustBeClosed
+        fun submit(params: RemediationSubmitParams): HttpResponseFor<RemediationSubmitResponse> =
+            submit(params, RequestOptions.none())
+
+        /** @see submit */
+        @MustBeClosed
+        fun submit(
+            params: RemediationSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RemediationSubmitResponse>
     }
 }

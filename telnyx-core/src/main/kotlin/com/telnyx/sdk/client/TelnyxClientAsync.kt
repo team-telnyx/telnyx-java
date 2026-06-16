@@ -695,13 +695,13 @@ interface TelnyxClientAsync {
     fun infringementClaims(): InfringementClaimServiceAsync
 
     /** UAC connection operations */
-    fun uacConnections(): UacConnectionServiceAsync
-
-    /** UAC connection operations */
     fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
 
     /** Discover available speech-to-text providers, models, and supported languages. */
     fun speechToText(): SpeechToTextServiceAsync
+
+    /** UAC connection operations */
+    fun uacConnections(): UacConnectionServiceAsync
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
@@ -1219,13 +1219,13 @@ interface TelnyxClientAsync {
         fun infringementClaims(): InfringementClaimServiceAsync.WithRawResponse
 
         /** UAC connection operations */
-        fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
-
-        /** UAC connection operations */
         fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
 
         /** Discover available speech-to-text providers, models, and supported languages. */
         fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
+        /** UAC connection operations */
+        fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse

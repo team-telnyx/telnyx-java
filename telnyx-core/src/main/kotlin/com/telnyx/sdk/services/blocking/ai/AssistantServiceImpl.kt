@@ -34,6 +34,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployServiceImpl
+import com.telnyx.sdk.services.blocking.ai.assistants.InstructionService
+import com.telnyx.sdk.services.blocking.ai.assistants.InstructionServiceImpl
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventService
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventServiceImpl
 import com.telnyx.sdk.services.blocking.ai.assistants.TagService
@@ -71,6 +73,8 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
     private val tags: TagService by lazy { TagServiceImpl(clientOptions) }
 
+    private val instructions: InstructionService by lazy { InstructionServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AssistantService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService =
@@ -93,6 +97,9 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
     /** Configure AI assistant specifications */
     override fun tags(): TagService = tags
+
+    /** Configure AI assistant specifications */
+    override fun instructions(): InstructionService = instructions
 
     override fun create(
         params: AssistantCreateParams,
@@ -188,6 +195,10 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             TagServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val instructions: InstructionService.WithRawResponse by lazy {
+            InstructionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AssistantService.WithRawResponse =
@@ -212,6 +223,9 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
         /** Configure AI assistant specifications */
         override fun tags(): TagService.WithRawResponse = tags
+
+        /** Configure AI assistant specifications */
+        override fun instructions(): InstructionService.WithRawResponse = instructions
 
         private val createHandler: Handler<InferenceEmbedding> =
             jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)

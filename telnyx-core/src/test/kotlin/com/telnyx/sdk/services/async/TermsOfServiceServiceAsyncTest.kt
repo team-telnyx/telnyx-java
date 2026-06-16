@@ -3,7 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
 import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,14 +12,14 @@ internal class TermsOfServiceServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun retrieveInfo() {
+    fun info() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val termsOfServiceServiceAsync = client.termsOfService()
 
         val responseFuture =
-            termsOfServiceServiceAsync.retrieveInfo(
-                TermsOfServiceRetrieveInfoParams.builder()
-                    .productType(TermsOfServiceRetrieveInfoParams.ProductType.BRANDED_CALLING)
+            termsOfServiceServiceAsync.info(
+                TermsOfServiceInfoParams.builder()
+                    .productType(TermsOfServiceInfoParams.ProductType.BRANDED_CALLING)
                     .build()
             )
 

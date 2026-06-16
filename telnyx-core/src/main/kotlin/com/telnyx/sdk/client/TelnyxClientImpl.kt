@@ -966,16 +966,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         InfringementClaimServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val uacConnections: UacConnectionService by lazy {
-        UacConnectionServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val sipRegistrationStatus: SipRegistrationStatusService by lazy {
         SipRegistrationStatusServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val speechToText: SpeechToTextService by lazy {
         SpeechToTextServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val uacConnections: UacConnectionService by lazy {
+        UacConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val voiceSdkCallReports: VoiceSdkCallReportService by lazy {
@@ -1488,13 +1488,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun infringementClaims(): InfringementClaimService = infringementClaims
 
     /** UAC connection operations */
-    override fun uacConnections(): UacConnectionService = uacConnections
-
-    /** UAC connection operations */
     override fun sipRegistrationStatus(): SipRegistrationStatusService = sipRegistrationStatus
 
     /** Discover available speech-to-text providers, models, and supported languages. */
     override fun speechToText(): SpeechToTextService = speechToText
+
+    /** UAC connection operations */
+    override fun uacConnections(): UacConnectionService = uacConnections
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportService = voiceSdkCallReports
@@ -2183,16 +2183,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             InfringementClaimServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val uacConnections: UacConnectionService.WithRawResponse by lazy {
-            UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val sipRegistrationStatus: SipRegistrationStatusService.WithRawResponse by lazy {
             SipRegistrationStatusServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val speechToText: SpeechToTextService.WithRawResponse by lazy {
             SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val uacConnections: UacConnectionService.WithRawResponse by lazy {
+            UacConnectionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val voiceSdkCallReports: VoiceSdkCallReportService.WithRawResponse by lazy {
@@ -2760,14 +2760,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             infringementClaims
 
         /** UAC connection operations */
-        override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections
-
-        /** UAC connection operations */
         override fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse =
             sipRegistrationStatus
 
         /** Discover available speech-to-text providers, models, and supported languages. */
         override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
+
+        /** UAC connection operations */
+        override fun uacConnections(): UacConnectionService.WithRawResponse = uacConnections
 
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse =
