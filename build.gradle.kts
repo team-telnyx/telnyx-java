@@ -1,6 +1,6 @@
 allprojects {
     group = "com.telnyx.sdk"
-    version = "6.63.0" // x-release-please-version
+    version = "6.64.0" // x-release-please-version
 }
 
 subprojects {
