@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: EventListParams,
     private val response: EventListPageResponse,
-) : PageAsync<EventListResponse> {
+) : PageAsync<PortoutEvent> {
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
      * @see EventListPageResponse.data
      */
-    fun data(): List<EventListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<PortoutEvent> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
@@ -38,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<EventListResponse> = data()
+    override fun items(): List<PortoutEvent> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,8 +57,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<EventListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<EventListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<PortoutEvent> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): EventListParams = params

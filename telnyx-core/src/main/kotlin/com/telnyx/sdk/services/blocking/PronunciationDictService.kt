@@ -8,14 +8,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictDeleteParams
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListPage
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListParams
+import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateResponse
 import java.util.function.Consumer
 
 /**
@@ -54,17 +52,17 @@ interface PronunciationDictService {
      * - Alias/phoneme value: max 500 characters
      * - File upload: max 1MB (1,048,576 bytes)
      */
-    fun create(params: PronunciationDictCreateParams): PronunciationDictCreateResponse =
+    fun create(params: PronunciationDictCreateParams): PronunciationDictResponse =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PronunciationDictCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PronunciationDictCreateResponse
+    ): PronunciationDictResponse
 
     /** Retrieve a single pronunciation dictionary by ID. */
-    fun retrieve(id: String): PronunciationDictRetrieveResponse =
+    fun retrieve(id: String): PronunciationDictResponse =
         retrieve(id, PronunciationDictRetrieveParams.none())
 
     /** @see retrieve */
@@ -72,34 +70,33 @@ interface PronunciationDictService {
         id: String,
         params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PronunciationDictRetrieveResponse =
-        retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): PronunciationDictResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
-    ): PronunciationDictRetrieveResponse = retrieve(id, params, RequestOptions.none())
+    ): PronunciationDictResponse = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: PronunciationDictRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PronunciationDictRetrieveResponse
+    ): PronunciationDictResponse
 
     /** @see retrieve */
-    fun retrieve(params: PronunciationDictRetrieveParams): PronunciationDictRetrieveResponse =
+    fun retrieve(params: PronunciationDictRetrieveParams): PronunciationDictResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): PronunciationDictRetrieveResponse =
+    fun retrieve(id: String, requestOptions: RequestOptions): PronunciationDictResponse =
         retrieve(id, PronunciationDictRetrieveParams.none(), requestOptions)
 
     /**
      * Update the name and/or items of an existing pronunciation dictionary. Uses optimistic locking
      * — if the dictionary was modified concurrently, the request returns 409 Conflict.
      */
-    fun update(id: String): PronunciationDictUpdateResponse =
+    fun update(id: String): PronunciationDictResponse =
         update(id, PronunciationDictUpdateParams.none())
 
     /** @see update */
@@ -107,26 +104,26 @@ interface PronunciationDictService {
         id: String,
         params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PronunciationDictUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    ): PronunciationDictResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(
         id: String,
         params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
-    ): PronunciationDictUpdateResponse = update(id, params, RequestOptions.none())
+    ): PronunciationDictResponse = update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PronunciationDictUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PronunciationDictUpdateResponse
+    ): PronunciationDictResponse
 
     /** @see update */
-    fun update(params: PronunciationDictUpdateParams): PronunciationDictUpdateResponse =
+    fun update(params: PronunciationDictUpdateParams): PronunciationDictResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(id: String, requestOptions: RequestOptions): PronunciationDictUpdateResponse =
+    fun update(id: String, requestOptions: RequestOptions): PronunciationDictResponse =
         update(id, PronunciationDictUpdateParams.none(), requestOptions)
 
     /**
@@ -201,21 +198,21 @@ interface PronunciationDictService {
         @MustBeClosed
         fun create(
             params: PronunciationDictCreateParams
-        ): HttpResponseFor<PronunciationDictCreateResponse> = create(params, RequestOptions.none())
+        ): HttpResponseFor<PronunciationDictResponse> = create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: PronunciationDictCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PronunciationDictCreateResponse>
+        ): HttpResponseFor<PronunciationDictResponse>
 
         /**
          * Returns a raw HTTP response for `get /pronunciation_dicts/{id}`, but is otherwise the
          * same as [PronunciationDictService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponseFor<PronunciationDictRetrieveResponse> =
+        fun retrieve(id: String): HttpResponseFor<PronunciationDictResponse> =
             retrieve(id, PronunciationDictRetrieveParams.none())
 
         /** @see retrieve */
@@ -224,7 +221,7 @@ interface PronunciationDictService {
             id: String,
             params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PronunciationDictRetrieveResponse> =
+        ): HttpResponseFor<PronunciationDictResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -232,29 +229,27 @@ interface PronunciationDictService {
         fun retrieve(
             id: String,
             params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
-        ): HttpResponseFor<PronunciationDictRetrieveResponse> =
-            retrieve(id, params, RequestOptions.none())
+        ): HttpResponseFor<PronunciationDictResponse> = retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PronunciationDictRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PronunciationDictRetrieveResponse>
+        ): HttpResponseFor<PronunciationDictResponse>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PronunciationDictRetrieveParams
-        ): HttpResponseFor<PronunciationDictRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<PronunciationDictResponse> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PronunciationDictRetrieveResponse> =
+        ): HttpResponseFor<PronunciationDictResponse> =
             retrieve(id, PronunciationDictRetrieveParams.none(), requestOptions)
 
         /**
@@ -262,7 +257,7 @@ interface PronunciationDictService {
          * same as [PronunciationDictService.update].
          */
         @MustBeClosed
-        fun update(id: String): HttpResponseFor<PronunciationDictUpdateResponse> =
+        fun update(id: String): HttpResponseFor<PronunciationDictResponse> =
             update(id, PronunciationDictUpdateParams.none())
 
         /** @see update */
@@ -271,7 +266,7 @@ interface PronunciationDictService {
             id: String,
             params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PronunciationDictUpdateResponse> =
+        ): HttpResponseFor<PronunciationDictResponse> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
@@ -279,28 +274,27 @@ interface PronunciationDictService {
         fun update(
             id: String,
             params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
-        ): HttpResponseFor<PronunciationDictUpdateResponse> =
-            update(id, params, RequestOptions.none())
+        ): HttpResponseFor<PronunciationDictResponse> = update(id, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: PronunciationDictUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PronunciationDictUpdateResponse>
+        ): HttpResponseFor<PronunciationDictResponse>
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: PronunciationDictUpdateParams
-        ): HttpResponseFor<PronunciationDictUpdateResponse> = update(params, RequestOptions.none())
+        ): HttpResponseFor<PronunciationDictResponse> = update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PronunciationDictUpdateResponse> =
+        ): HttpResponseFor<PronunciationDictResponse> =
             update(id, PronunciationDictUpdateParams.none(), requestOptions)
 
         /**

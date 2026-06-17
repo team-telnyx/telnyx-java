@@ -14,8 +14,8 @@ class McpServerListPage
 private constructor(
     private val service: McpServerService,
     private val params: McpServerListParams,
-    private val items: List<McpServerListResponse>,
-) : Page<McpServerListResponse> {
+    private val items: List<McpServer>,
+) : Page<McpServer> {
 
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
@@ -26,13 +26,13 @@ private constructor(
 
     override fun nextPage(): McpServerListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<McpServerListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<McpServer> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): McpServerListParams = params
 
     /** The response that this page was parsed from. */
-    override fun items(): List<McpServerListResponse> = items
+    override fun items(): List<McpServer> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -56,7 +56,7 @@ private constructor(
 
         private var service: McpServerService? = null
         private var params: McpServerListParams? = null
-        private var items: List<McpServerListResponse>? = null
+        private var items: List<McpServer>? = null
 
         @JvmSynthetic
         internal fun from(mcpServerListPage: McpServerListPage) = apply {
@@ -71,7 +71,7 @@ private constructor(
         fun params(params: McpServerListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<McpServerListResponse>) = apply { this.items = items }
+        fun items(items: List<McpServer>) = apply { this.items = items }
 
         /**
          * Returns an immutable instance of [McpServerListPage].

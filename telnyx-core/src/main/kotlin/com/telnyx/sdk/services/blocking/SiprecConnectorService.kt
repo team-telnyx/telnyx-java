@@ -8,12 +8,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorDeleteParams
+import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateResponse
 import java.util.function.Consumer
 
 /** SIPREC connectors configuration. */
@@ -32,17 +30,17 @@ interface SiprecConnectorService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SiprecConnectorService
 
     /** Creates a new SIPREC connector configuration. */
-    fun create(params: SiprecConnectorCreateParams): SiprecConnectorCreateResponse =
+    fun create(params: SiprecConnectorCreateParams): SiprecConnectorResponse =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: SiprecConnectorCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiprecConnectorCreateResponse
+    ): SiprecConnectorResponse
 
     /** Returns details of a stored SIPREC connector. */
-    fun retrieve(connectorName: String): SiprecConnectorRetrieveResponse =
+    fun retrieve(connectorName: String): SiprecConnectorResponse =
         retrieve(connectorName, SiprecConnectorRetrieveParams.none())
 
     /** @see retrieve */
@@ -50,55 +48,52 @@ interface SiprecConnectorService {
         connectorName: String,
         params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiprecConnectorRetrieveResponse =
+    ): SiprecConnectorResponse =
         retrieve(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         connectorName: String,
         params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
-    ): SiprecConnectorRetrieveResponse = retrieve(connectorName, params, RequestOptions.none())
+    ): SiprecConnectorResponse = retrieve(connectorName, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: SiprecConnectorRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiprecConnectorRetrieveResponse
+    ): SiprecConnectorResponse
 
     /** @see retrieve */
-    fun retrieve(params: SiprecConnectorRetrieveParams): SiprecConnectorRetrieveResponse =
+    fun retrieve(params: SiprecConnectorRetrieveParams): SiprecConnectorResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(
-        connectorName: String,
-        requestOptions: RequestOptions,
-    ): SiprecConnectorRetrieveResponse =
+    fun retrieve(connectorName: String, requestOptions: RequestOptions): SiprecConnectorResponse =
         retrieve(connectorName, SiprecConnectorRetrieveParams.none(), requestOptions)
 
     /** Updates a stored SIPREC connector configuration. */
     fun update(
         connectorName: String,
         params: SiprecConnectorUpdateParams,
-    ): SiprecConnectorUpdateResponse = update(connectorName, params, RequestOptions.none())
+    ): SiprecConnectorResponse = update(connectorName, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         connectorName: String,
         params: SiprecConnectorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiprecConnectorUpdateResponse =
+    ): SiprecConnectorResponse =
         update(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
     /** @see update */
-    fun update(params: SiprecConnectorUpdateParams): SiprecConnectorUpdateResponse =
+    fun update(params: SiprecConnectorUpdateParams): SiprecConnectorResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: SiprecConnectorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiprecConnectorUpdateResponse
+    ): SiprecConnectorResponse
 
     /** Deletes a stored SIPREC connector. */
     fun delete(connectorName: String) = delete(connectorName, SiprecConnectorDeleteParams.none())
@@ -149,23 +144,22 @@ interface SiprecConnectorService {
          * [SiprecConnectorService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SiprecConnectorCreateParams
-        ): HttpResponseFor<SiprecConnectorCreateResponse> = create(params, RequestOptions.none())
+        fun create(params: SiprecConnectorCreateParams): HttpResponseFor<SiprecConnectorResponse> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: SiprecConnectorCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiprecConnectorCreateResponse>
+        ): HttpResponseFor<SiprecConnectorResponse>
 
         /**
          * Returns a raw HTTP response for `get /siprec_connectors/{connector_name}`, but is
          * otherwise the same as [SiprecConnectorService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(connectorName: String): HttpResponseFor<SiprecConnectorRetrieveResponse> =
+        fun retrieve(connectorName: String): HttpResponseFor<SiprecConnectorResponse> =
             retrieve(connectorName, SiprecConnectorRetrieveParams.none())
 
         /** @see retrieve */
@@ -174,7 +168,7 @@ interface SiprecConnectorService {
             connectorName: String,
             params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiprecConnectorRetrieveResponse> =
+        ): HttpResponseFor<SiprecConnectorResponse> =
             retrieve(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
         /** @see retrieve */
@@ -182,7 +176,7 @@ interface SiprecConnectorService {
         fun retrieve(
             connectorName: String,
             params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
-        ): HttpResponseFor<SiprecConnectorRetrieveResponse> =
+        ): HttpResponseFor<SiprecConnectorResponse> =
             retrieve(connectorName, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -190,21 +184,20 @@ interface SiprecConnectorService {
         fun retrieve(
             params: SiprecConnectorRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiprecConnectorRetrieveResponse>
+        ): HttpResponseFor<SiprecConnectorResponse>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: SiprecConnectorRetrieveParams
-        ): HttpResponseFor<SiprecConnectorRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<SiprecConnectorResponse> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             connectorName: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SiprecConnectorRetrieveResponse> =
+        ): HttpResponseFor<SiprecConnectorResponse> =
             retrieve(connectorName, SiprecConnectorRetrieveParams.none(), requestOptions)
 
         /**
@@ -215,7 +208,7 @@ interface SiprecConnectorService {
         fun update(
             connectorName: String,
             params: SiprecConnectorUpdateParams,
-        ): HttpResponseFor<SiprecConnectorUpdateResponse> =
+        ): HttpResponseFor<SiprecConnectorResponse> =
             update(connectorName, params, RequestOptions.none())
 
         /** @see update */
@@ -224,21 +217,20 @@ interface SiprecConnectorService {
             connectorName: String,
             params: SiprecConnectorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiprecConnectorUpdateResponse> =
+        ): HttpResponseFor<SiprecConnectorResponse> =
             update(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(
-            params: SiprecConnectorUpdateParams
-        ): HttpResponseFor<SiprecConnectorUpdateResponse> = update(params, RequestOptions.none())
+        fun update(params: SiprecConnectorUpdateParams): HttpResponseFor<SiprecConnectorResponse> =
+            update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: SiprecConnectorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiprecConnectorUpdateResponse>
+        ): HttpResponseFor<SiprecConnectorResponse>
 
         /**
          * Returns a raw HTTP response for `delete /siprec_connectors/{connector_name}`, but is

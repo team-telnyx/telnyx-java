@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
-import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.blocking.ai.openai.ChatService
 import com.telnyx.sdk.services.blocking.ai.openai.EmbeddingService
 import java.util.function.Consumer
@@ -94,21 +94,20 @@ interface OpenAIService {
      * `https://api.telnyx.com/v2/ai/openai` can call `client.models.list()` to retrieve the same
      * payload.
      */
-    fun listModels(): OpenAIListModelsResponse = listModels(OpenAIListModelsParams.none())
+    fun listModels(): ModelsResponse = listModels(OpenAIListModelsParams.none())
 
     /** @see listModels */
     fun listModels(
         params: OpenAIListModelsParams = OpenAIListModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OpenAIListModelsResponse
+    ): ModelsResponse
 
     /** @see listModels */
-    fun listModels(
-        params: OpenAIListModelsParams = OpenAIListModelsParams.none()
-    ): OpenAIListModelsResponse = listModels(params, RequestOptions.none())
+    fun listModels(params: OpenAIListModelsParams = OpenAIListModelsParams.none()): ModelsResponse =
+        listModels(params, RequestOptions.none())
 
     /** @see listModels */
-    fun listModels(requestOptions: RequestOptions): OpenAIListModelsResponse =
+    fun listModels(requestOptions: RequestOptions): ModelsResponse =
         listModels(OpenAIListModelsParams.none(), requestOptions)
 
     /** A view of [OpenAIService] that provides access to raw HTTP responses for each method. */
@@ -160,7 +159,7 @@ interface OpenAIService {
          * [OpenAIService.listModels].
          */
         @MustBeClosed
-        fun listModels(): HttpResponseFor<OpenAIListModelsResponse> =
+        fun listModels(): HttpResponseFor<ModelsResponse> =
             listModels(OpenAIListModelsParams.none())
 
         /** @see listModels */
@@ -168,17 +167,17 @@ interface OpenAIService {
         fun listModels(
             params: OpenAIListModelsParams = OpenAIListModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OpenAIListModelsResponse>
+        ): HttpResponseFor<ModelsResponse>
 
         /** @see listModels */
         @MustBeClosed
         fun listModels(
             params: OpenAIListModelsParams = OpenAIListModelsParams.none()
-        ): HttpResponseFor<OpenAIListModelsResponse> = listModels(params, RequestOptions.none())
+        ): HttpResponseFor<ModelsResponse> = listModels(params, RequestOptions.none())
 
         /** @see listModels */
         @MustBeClosed
-        fun listModels(requestOptions: RequestOptions): HttpResponseFor<OpenAIListModelsResponse> =
+        fun listModels(requestOptions: RequestOptions): HttpResponseFor<ModelsResponse> =
             listModels(OpenAIListModelsParams.none(), requestOptions)
     }
 }

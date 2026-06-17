@@ -22,19 +22,23 @@ import kotlin.jvm.optionals.getOrNull
 class AdvancedOrder
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val id: JsonField<String>,
     private val areaCode: JsonField<String>,
     private val comments: JsonField<String>,
     private val countryCode: JsonField<String>,
     private val customerReference: JsonField<String>,
     private val features: JsonField<List<Feature>>,
-    private val phoneNumberType: JsonField<PhoneNumberType>,
+    private val orders: JsonField<List<String>>,
+    private val phoneNumberType: JsonField<List<PhoneNumberType>>,
     private val quantity: JsonField<Long>,
     private val requirementGroupId: JsonField<String>,
+    private val status: JsonField<List<Status>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("area_code") @ExcludeMissing areaCode: JsonField<String> = JsonMissing.of(),
         @JsonProperty("comments") @ExcludeMissing comments: JsonField<String> = JsonMissing.of(),
         @JsonProperty("country_code")
@@ -46,24 +50,35 @@ private constructor(
         @JsonProperty("features")
         @ExcludeMissing
         features: JsonField<List<Feature>> = JsonMissing.of(),
+        @JsonProperty("orders") @ExcludeMissing orders: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("phone_number_type")
         @ExcludeMissing
-        phoneNumberType: JsonField<PhoneNumberType> = JsonMissing.of(),
+        phoneNumberType: JsonField<List<PhoneNumberType>> = JsonMissing.of(),
         @JsonProperty("quantity") @ExcludeMissing quantity: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("requirement_group_id")
         @ExcludeMissing
         requirementGroupId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<List<Status>> = JsonMissing.of(),
     ) : this(
+        id,
         areaCode,
         comments,
         countryCode,
         customerReference,
         features,
+        orders,
         phoneNumberType,
         quantity,
         requirementGroupId,
+        status,
         mutableMapOf(),
     )
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun id(): Optional<String> = id.getOptional("id")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -99,7 +114,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun phoneNumberType(): Optional<PhoneNumberType> =
+    fun orders(): Optional<List<String>> = orders.getOptional("orders")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun phoneNumberType(): Optional<List<PhoneNumberType>> =
         phoneNumberType.getOptional("phone_number_type")
 
     /**
@@ -109,13 +130,26 @@ private constructor(
     fun quantity(): Optional<Long> = quantity.getOptional("quantity")
 
     /**
-     * The ID of the requirement group to associate with this advanced order
+     * The ID of the requirement group associated with this advanced order
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun requirementGroupId(): Optional<String> =
         requirementGroupId.getOptional("requirement_group_id")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun status(): Optional<List<Status>> = status.getOptional("status")
+
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [areaCode].
@@ -158,13 +192,20 @@ private constructor(
     @JsonProperty("features") @ExcludeMissing fun _features(): JsonField<List<Feature>> = features
 
     /**
+     * Returns the raw JSON value of [orders].
+     *
+     * Unlike [orders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("orders") @ExcludeMissing fun _orders(): JsonField<List<String>> = orders
+
+    /**
      * Returns the raw JSON value of [phoneNumberType].
      *
      * Unlike [phoneNumberType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("phone_number_type")
     @ExcludeMissing
-    fun _phoneNumberType(): JsonField<PhoneNumberType> = phoneNumberType
+    fun _phoneNumberType(): JsonField<List<PhoneNumberType>> = phoneNumberType
 
     /**
      * Returns the raw JSON value of [quantity].
@@ -182,6 +223,13 @@ private constructor(
     @JsonProperty("requirement_group_id")
     @ExcludeMissing
     fun _requirementGroupId(): JsonField<String> = requirementGroupId
+
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<List<Status>> = status
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -204,28 +252,44 @@ private constructor(
     /** A builder for [AdvancedOrder]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var areaCode: JsonField<String> = JsonMissing.of()
         private var comments: JsonField<String> = JsonMissing.of()
         private var countryCode: JsonField<String> = JsonMissing.of()
         private var customerReference: JsonField<String> = JsonMissing.of()
         private var features: JsonField<MutableList<Feature>>? = null
-        private var phoneNumberType: JsonField<PhoneNumberType> = JsonMissing.of()
+        private var orders: JsonField<MutableList<String>>? = null
+        private var phoneNumberType: JsonField<MutableList<PhoneNumberType>>? = null
         private var quantity: JsonField<Long> = JsonMissing.of()
         private var requirementGroupId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<MutableList<Status>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(advancedOrder: AdvancedOrder) = apply {
+            id = advancedOrder.id
             areaCode = advancedOrder.areaCode
             comments = advancedOrder.comments
             countryCode = advancedOrder.countryCode
             customerReference = advancedOrder.customerReference
             features = advancedOrder.features.map { it.toMutableList() }
-            phoneNumberType = advancedOrder.phoneNumberType
+            orders = advancedOrder.orders.map { it.toMutableList() }
+            phoneNumberType = advancedOrder.phoneNumberType.map { it.toMutableList() }
             quantity = advancedOrder.quantity
             requirementGroupId = advancedOrder.requirementGroupId
+            status = advancedOrder.status.map { it.toMutableList() }
             additionalProperties = advancedOrder.additionalProperties.toMutableMap()
         }
+
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun areaCode(areaCode: String) = areaCode(JsonField.of(areaCode))
 
@@ -297,18 +361,55 @@ private constructor(
                 }
         }
 
-        fun phoneNumberType(phoneNumberType: PhoneNumberType) =
+        fun orders(orders: List<String>) = orders(JsonField.of(orders))
+
+        /**
+         * Sets [Builder.orders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.orders] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun orders(orders: JsonField<List<String>>) = apply {
+            this.orders = orders.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [orders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addOrder(order: String) = apply {
+            orders =
+                (orders ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("orders", it).add(order)
+                }
+        }
+
+        fun phoneNumberType(phoneNumberType: List<PhoneNumberType>) =
             phoneNumberType(JsonField.of(phoneNumberType))
 
         /**
          * Sets [Builder.phoneNumberType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.phoneNumberType] with a well-typed [PhoneNumberType]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.phoneNumberType] with a well-typed
+         * `List<PhoneNumberType>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun phoneNumberType(phoneNumberType: JsonField<PhoneNumberType>) = apply {
-            this.phoneNumberType = phoneNumberType
+        fun phoneNumberType(phoneNumberType: JsonField<List<PhoneNumberType>>) = apply {
+            this.phoneNumberType = phoneNumberType.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [PhoneNumberType] to [Builder.phoneNumberType].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addPhoneNumberType(phoneNumberType: PhoneNumberType) = apply {
+            this.phoneNumberType =
+                (this.phoneNumberType ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("phoneNumberType", it).add(phoneNumberType)
+                }
         }
 
         fun quantity(quantity: Long) = quantity(JsonField.of(quantity))
@@ -321,7 +422,7 @@ private constructor(
          */
         fun quantity(quantity: JsonField<Long>) = apply { this.quantity = quantity }
 
-        /** The ID of the requirement group to associate with this advanced order */
+        /** The ID of the requirement group associated with this advanced order */
         fun requirementGroupId(requirementGroupId: String) =
             requirementGroupId(JsonField.of(requirementGroupId))
 
@@ -334,6 +435,31 @@ private constructor(
          */
         fun requirementGroupId(requirementGroupId: JsonField<String>) = apply {
             this.requirementGroupId = requirementGroupId
+        }
+
+        fun status(status: List<Status>) = status(JsonField.of(status))
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed `List<Status>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun status(status: JsonField<List<Status>>) = apply {
+            this.status = status.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [Status] to [Builder.status].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addStatus(status: Status) = apply {
+            this.status =
+                (this.status ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("status", it).add(status)
+                }
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -362,14 +488,17 @@ private constructor(
          */
         fun build(): AdvancedOrder =
             AdvancedOrder(
+                id,
                 areaCode,
                 comments,
                 countryCode,
                 customerReference,
                 (features ?: JsonMissing.of()).map { it.toImmutable() },
-                phoneNumberType,
+                (orders ?: JsonMissing.of()).map { it.toImmutable() },
+                (phoneNumberType ?: JsonMissing.of()).map { it.toImmutable() },
                 quantity,
                 requirementGroupId,
+                (status ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -389,14 +518,17 @@ private constructor(
             return@apply
         }
 
+        id()
         areaCode()
         comments()
         countryCode()
         customerReference()
         features().ifPresent { it.forEach { it.validate() } }
-        phoneNumberType().ifPresent { it.validate() }
+        orders()
+        phoneNumberType().ifPresent { it.forEach { it.validate() } }
         quantity()
         requirementGroupId()
+        status().ifPresent { it.forEach { it.validate() } }
         validated = true
     }
 
@@ -415,14 +547,17 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (areaCode.asKnown().isPresent) 1 else 0) +
+        (if (id.asKnown().isPresent) 1 else 0) +
+            (if (areaCode.asKnown().isPresent) 1 else 0) +
             (if (comments.asKnown().isPresent) 1 else 0) +
             (if (countryCode.asKnown().isPresent) 1 else 0) +
             (if (customerReference.asKnown().isPresent) 1 else 0) +
             (features.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (phoneNumberType.asKnown().getOrNull()?.validity() ?: 0) +
+            (orders.asKnown().getOrNull()?.size ?: 0) +
+            (phoneNumberType.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (quantity.asKnown().isPresent) 1 else 0) +
-            (if (requirementGroupId.asKnown().isPresent) 1 else 0)
+            (if (requirementGroupId.asKnown().isPresent) 1 else 0) +
+            (status.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
     class Feature @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -738,33 +873,179 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PENDING = of("pending")
+
+            @JvmField val PROCESSING = of("processing")
+
+            @JvmField val ORDERED = of("ordered")
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING,
+            PROCESSING,
+            ORDERED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING,
+            PROCESSING,
+            ORDERED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
+                ORDERED -> Value.ORDERED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
+                ORDERED -> Known.ORDERED
+                else -> throw TelnyxInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
         return other is AdvancedOrder &&
+            id == other.id &&
             areaCode == other.areaCode &&
             comments == other.comments &&
             countryCode == other.countryCode &&
             customerReference == other.customerReference &&
             features == other.features &&
+            orders == other.orders &&
             phoneNumberType == other.phoneNumberType &&
             quantity == other.quantity &&
             requirementGroupId == other.requirementGroupId &&
+            status == other.status &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            id,
             areaCode,
             comments,
             countryCode,
             customerReference,
             features,
+            orders,
             phoneNumberType,
             quantity,
             requirementGroupId,
+            status,
             additionalProperties,
         )
     }
@@ -772,5 +1053,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AdvancedOrder{areaCode=$areaCode, comments=$comments, countryCode=$countryCode, customerReference=$customerReference, features=$features, phoneNumberType=$phoneNumberType, quantity=$quantity, requirementGroupId=$requirementGroupId, additionalProperties=$additionalProperties}"
+        "AdvancedOrder{id=$id, areaCode=$areaCode, comments=$comments, countryCode=$countryCode, customerReference=$customerReference, features=$features, orders=$orders, phoneNumberType=$phoneNumberType, quantity=$quantity, requirementGroupId=$requirementGroupId, status=$status, additionalProperties=$additionalProperties}"
 }

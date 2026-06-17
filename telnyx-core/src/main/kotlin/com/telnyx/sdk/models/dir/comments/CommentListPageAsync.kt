@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir.comments
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.async.dir.CommentServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,24 +21,23 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: CommentListParams,
     private val response: CommentListPageResponse,
-) : PageAsync<CommentListResponse> {
+) : PageAsync<DirComment> {
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.data
      */
-    fun data(): List<CommentListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<DirComment> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.meta
      */
-    fun meta(): Optional<CommentListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CommentListResponse> = data()
+    override fun items(): List<DirComment> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,8 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<CommentListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<CommentListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<DirComment> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): CommentListParams = params

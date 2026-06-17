@@ -6,22 +6,17 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.missions.runs.MissionRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListPage
 import com.telnyx.sdk.models.ai.missions.runs.RunListParams
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsPage
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsParams
 import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
-import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunUpdateResponse
 import com.telnyx.sdk.services.blocking.ai.missions.runs.EventService
 import com.telnyx.sdk.services.blocking.ai.missions.runs.PlanService
 import com.telnyx.sdk.services.blocking.ai.missions.runs.TelnyxAgentService
@@ -48,36 +43,36 @@ interface RunService {
     fun telnyxAgents(): TelnyxAgentService
 
     /** Start a new run for a mission */
-    fun create(missionId: String): RunCreateResponse = create(missionId, RunCreateParams.none())
+    fun create(missionId: String): MissionRunResponse = create(missionId, RunCreateParams.none())
 
     /** @see create */
     fun create(
         missionId: String,
         params: RunCreateParams = RunCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunCreateResponse = create(params.toBuilder().missionId(missionId).build(), requestOptions)
+    ): MissionRunResponse = create(params.toBuilder().missionId(missionId).build(), requestOptions)
 
     /** @see create */
     fun create(
         missionId: String,
         params: RunCreateParams = RunCreateParams.none(),
-    ): RunCreateResponse = create(missionId, params, RequestOptions.none())
+    ): MissionRunResponse = create(missionId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: RunCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunCreateResponse
+    ): MissionRunResponse
 
     /** @see create */
-    fun create(params: RunCreateParams): RunCreateResponse = create(params, RequestOptions.none())
+    fun create(params: RunCreateParams): MissionRunResponse = create(params, RequestOptions.none())
 
     /** @see create */
-    fun create(missionId: String, requestOptions: RequestOptions): RunCreateResponse =
+    fun create(missionId: String, requestOptions: RequestOptions): MissionRunResponse =
         create(missionId, RunCreateParams.none(), requestOptions)
 
     /** Get details of a specific run */
-    fun retrieve(runId: String, params: RunRetrieveParams): RunRetrieveResponse =
+    fun retrieve(runId: String, params: RunRetrieveParams): MissionRunResponse =
         retrieve(runId, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -85,20 +80,20 @@ interface RunService {
         runId: String,
         params: RunRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunRetrieveResponse = retrieve(params.toBuilder().runId(runId).build(), requestOptions)
+    ): MissionRunResponse = retrieve(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: RunRetrieveParams): RunRetrieveResponse =
+    fun retrieve(params: RunRetrieveParams): MissionRunResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: RunRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunRetrieveResponse
+    ): MissionRunResponse
 
     /** Update run status and/or result */
-    fun update(runId: String, params: RunUpdateParams): RunUpdateResponse =
+    fun update(runId: String, params: RunUpdateParams): MissionRunResponse =
         update(runId, params, RequestOptions.none())
 
     /** @see update */
@@ -106,16 +101,16 @@ interface RunService {
         runId: String,
         params: RunUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunUpdateResponse = update(params.toBuilder().runId(runId).build(), requestOptions)
+    ): MissionRunResponse = update(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: RunUpdateParams): RunUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: RunUpdateParams): MissionRunResponse = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: RunUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunUpdateResponse
+    ): MissionRunResponse
 
     /** List all runs for a specific mission */
     fun list(missionId: String): RunListPage = list(missionId, RunListParams.none())
@@ -145,7 +140,7 @@ interface RunService {
         list(missionId, RunListParams.none(), requestOptions)
 
     /** Cancel a running or paused run */
-    fun cancelRun(runId: String, params: RunCancelRunParams): RunCancelRunResponse =
+    fun cancelRun(runId: String, params: RunCancelRunParams): MissionRunResponse =
         cancelRun(runId, params, RequestOptions.none())
 
     /** @see cancelRun */
@@ -153,17 +148,17 @@ interface RunService {
         runId: String,
         params: RunCancelRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunCancelRunResponse = cancelRun(params.toBuilder().runId(runId).build(), requestOptions)
+    ): MissionRunResponse = cancelRun(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see cancelRun */
-    fun cancelRun(params: RunCancelRunParams): RunCancelRunResponse =
+    fun cancelRun(params: RunCancelRunParams): MissionRunResponse =
         cancelRun(params, RequestOptions.none())
 
     /** @see cancelRun */
     fun cancelRun(
         params: RunCancelRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunCancelRunResponse
+    ): MissionRunResponse
 
     /** List recent runs across all missions */
     fun listRuns(): RunListRunsPage = listRuns(RunListRunsParams.none())
@@ -183,7 +178,7 @@ interface RunService {
         listRuns(RunListRunsParams.none(), requestOptions)
 
     /** Pause a running run */
-    fun pauseRun(runId: String, params: RunPauseRunParams): RunPauseRunResponse =
+    fun pauseRun(runId: String, params: RunPauseRunParams): MissionRunResponse =
         pauseRun(runId, params, RequestOptions.none())
 
     /** @see pauseRun */
@@ -191,20 +186,20 @@ interface RunService {
         runId: String,
         params: RunPauseRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunPauseRunResponse = pauseRun(params.toBuilder().runId(runId).build(), requestOptions)
+    ): MissionRunResponse = pauseRun(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see pauseRun */
-    fun pauseRun(params: RunPauseRunParams): RunPauseRunResponse =
+    fun pauseRun(params: RunPauseRunParams): MissionRunResponse =
         pauseRun(params, RequestOptions.none())
 
     /** @see pauseRun */
     fun pauseRun(
         params: RunPauseRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunPauseRunResponse
+    ): MissionRunResponse
 
     /** Resume a paused run */
-    fun resumeRun(runId: String, params: RunResumeRunParams): RunResumeRunResponse =
+    fun resumeRun(runId: String, params: RunResumeRunParams): MissionRunResponse =
         resumeRun(runId, params, RequestOptions.none())
 
     /** @see resumeRun */
@@ -212,17 +207,17 @@ interface RunService {
         runId: String,
         params: RunResumeRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunResumeRunResponse = resumeRun(params.toBuilder().runId(runId).build(), requestOptions)
+    ): MissionRunResponse = resumeRun(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see resumeRun */
-    fun resumeRun(params: RunResumeRunParams): RunResumeRunResponse =
+    fun resumeRun(params: RunResumeRunParams): MissionRunResponse =
         resumeRun(params, RequestOptions.none())
 
     /** @see resumeRun */
     fun resumeRun(
         params: RunResumeRunParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunResumeRunResponse
+    ): MissionRunResponse
 
     /** A view of [RunService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -245,7 +240,7 @@ interface RunService {
          * the same as [RunService.create].
          */
         @MustBeClosed
-        fun create(missionId: String): HttpResponseFor<RunCreateResponse> =
+        fun create(missionId: String): HttpResponseFor<MissionRunResponse> =
             create(missionId, RunCreateParams.none())
 
         /** @see create */
@@ -254,7 +249,7 @@ interface RunService {
             missionId: String,
             params: RunCreateParams = RunCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunCreateResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             create(params.toBuilder().missionId(missionId).build(), requestOptions)
 
         /** @see create */
@@ -262,18 +257,18 @@ interface RunService {
         fun create(
             missionId: String,
             params: RunCreateParams = RunCreateParams.none(),
-        ): HttpResponseFor<RunCreateResponse> = create(missionId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionRunResponse> = create(missionId, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: RunCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunCreateResponse>
+        ): HttpResponseFor<MissionRunResponse>
 
         /** @see create */
         @MustBeClosed
-        fun create(params: RunCreateParams): HttpResponseFor<RunCreateResponse> =
+        fun create(params: RunCreateParams): HttpResponseFor<MissionRunResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -281,7 +276,7 @@ interface RunService {
         fun create(
             missionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunCreateResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             create(missionId, RunCreateParams.none(), requestOptions)
 
         /**
@@ -292,7 +287,7 @@ interface RunService {
         fun retrieve(
             runId: String,
             params: RunRetrieveParams,
-        ): HttpResponseFor<RunRetrieveResponse> = retrieve(runId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionRunResponse> = retrieve(runId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -300,12 +295,12 @@ interface RunService {
             runId: String,
             params: RunRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunRetrieveResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             retrieve(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: RunRetrieveParams): HttpResponseFor<RunRetrieveResponse> =
+        fun retrieve(params: RunRetrieveParams): HttpResponseFor<MissionRunResponse> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -313,14 +308,14 @@ interface RunService {
         fun retrieve(
             params: RunRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunRetrieveResponse>
+        ): HttpResponseFor<MissionRunResponse>
 
         /**
          * Returns a raw HTTP response for `patch /ai/missions/{mission_id}/runs/{run_id}`, but is
          * otherwise the same as [RunService.update].
          */
         @MustBeClosed
-        fun update(runId: String, params: RunUpdateParams): HttpResponseFor<RunUpdateResponse> =
+        fun update(runId: String, params: RunUpdateParams): HttpResponseFor<MissionRunResponse> =
             update(runId, params, RequestOptions.none())
 
         /** @see update */
@@ -329,12 +324,12 @@ interface RunService {
             runId: String,
             params: RunUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunUpdateResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             update(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: RunUpdateParams): HttpResponseFor<RunUpdateResponse> =
+        fun update(params: RunUpdateParams): HttpResponseFor<MissionRunResponse> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -342,7 +337,7 @@ interface RunService {
         fun update(
             params: RunUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunUpdateResponse>
+        ): HttpResponseFor<MissionRunResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/{mission_id}/runs`, but is otherwise
@@ -393,7 +388,7 @@ interface RunService {
         fun cancelRun(
             runId: String,
             params: RunCancelRunParams,
-        ): HttpResponseFor<RunCancelRunResponse> = cancelRun(runId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionRunResponse> = cancelRun(runId, params, RequestOptions.none())
 
         /** @see cancelRun */
         @MustBeClosed
@@ -401,12 +396,12 @@ interface RunService {
             runId: String,
             params: RunCancelRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunCancelRunResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             cancelRun(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see cancelRun */
         @MustBeClosed
-        fun cancelRun(params: RunCancelRunParams): HttpResponseFor<RunCancelRunResponse> =
+        fun cancelRun(params: RunCancelRunParams): HttpResponseFor<MissionRunResponse> =
             cancelRun(params, RequestOptions.none())
 
         /** @see cancelRun */
@@ -414,7 +409,7 @@ interface RunService {
         fun cancelRun(
             params: RunCancelRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunCancelRunResponse>
+        ): HttpResponseFor<MissionRunResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/runs`, but is otherwise the same as
@@ -449,7 +444,7 @@ interface RunService {
         fun pauseRun(
             runId: String,
             params: RunPauseRunParams,
-        ): HttpResponseFor<RunPauseRunResponse> = pauseRun(runId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionRunResponse> = pauseRun(runId, params, RequestOptions.none())
 
         /** @see pauseRun */
         @MustBeClosed
@@ -457,12 +452,12 @@ interface RunService {
             runId: String,
             params: RunPauseRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunPauseRunResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             pauseRun(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see pauseRun */
         @MustBeClosed
-        fun pauseRun(params: RunPauseRunParams): HttpResponseFor<RunPauseRunResponse> =
+        fun pauseRun(params: RunPauseRunParams): HttpResponseFor<MissionRunResponse> =
             pauseRun(params, RequestOptions.none())
 
         /** @see pauseRun */
@@ -470,7 +465,7 @@ interface RunService {
         fun pauseRun(
             params: RunPauseRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunPauseRunResponse>
+        ): HttpResponseFor<MissionRunResponse>
 
         /**
          * Returns a raw HTTP response for `post /ai/missions/{mission_id}/runs/{run_id}/resume`,
@@ -480,7 +475,7 @@ interface RunService {
         fun resumeRun(
             runId: String,
             params: RunResumeRunParams,
-        ): HttpResponseFor<RunResumeRunResponse> = resumeRun(runId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionRunResponse> = resumeRun(runId, params, RequestOptions.none())
 
         /** @see resumeRun */
         @MustBeClosed
@@ -488,12 +483,12 @@ interface RunService {
             runId: String,
             params: RunResumeRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunResumeRunResponse> =
+        ): HttpResponseFor<MissionRunResponse> =
             resumeRun(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see resumeRun */
         @MustBeClosed
-        fun resumeRun(params: RunResumeRunParams): HttpResponseFor<RunResumeRunResponse> =
+        fun resumeRun(params: RunResumeRunParams): HttpResponseFor<MissionRunResponse> =
             resumeRun(params, RequestOptions.none())
 
         /** @see resumeRun */
@@ -501,6 +496,6 @@ interface RunService {
         fun resumeRun(
             params: RunResumeRunParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunResumeRunResponse>
+        ): HttpResponseFor<MissionRunResponse>
     }
 }

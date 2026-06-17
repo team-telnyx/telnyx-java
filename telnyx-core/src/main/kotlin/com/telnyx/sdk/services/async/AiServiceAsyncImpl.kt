@@ -18,9 +18,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
@@ -139,7 +139,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AiRetrieveModelsResponse> =
+    ): CompletableFuture<ModelsResponse> =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).thenApply { it.parse() }
 
@@ -273,14 +273,14 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 }
         }
 
-        private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
-            jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
+        private val retrieveModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun retrieveModels(
             params: AiRetrieveModelsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>> {
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

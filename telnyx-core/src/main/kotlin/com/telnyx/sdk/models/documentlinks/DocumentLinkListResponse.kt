@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.documents.DocServiceRecord
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -20,11 +21,11 @@ class DocumentLinkListResponse
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<String>,
+    private val recordType: JsonField<String>,
+    private val updatedAt: JsonField<String>,
     private val documentId: JsonField<String>,
     private val linkedRecordType: JsonField<String>,
     private val linkedResourceId: JsonField<String>,
-    private val recordType: JsonField<String>,
-    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,6 +33,10 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("record_type")
+        @ExcludeMissing
+        recordType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("document_id")
         @ExcludeMissing
         documentId: JsonField<String> = JsonMissing.of(),
@@ -41,20 +46,24 @@ private constructor(
         @JsonProperty("linked_resource_id")
         @ExcludeMissing
         linkedResourceId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        recordType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         createdAt,
+        recordType,
+        updatedAt,
         documentId,
         linkedRecordType,
         linkedResourceId,
-        recordType,
-        updatedAt,
         mutableMapOf(),
     )
+
+    fun toDocServiceRecord(): DocServiceRecord =
+        DocServiceRecord.builder()
+            .id(id)
+            .createdAt(createdAt)
+            .recordType(recordType)
+            .updatedAt(updatedAt)
+            .build()
 
     /**
      * Identifies the resource.
@@ -71,6 +80,22 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
+
+    /**
+     * Identifies the type of the resource.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordType(): Optional<String> = recordType.getOptional("record_type")
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * Identifies the associated document.
@@ -97,22 +122,6 @@ private constructor(
     fun linkedResourceId(): Optional<String> = linkedResourceId.getOptional("linked_resource_id")
 
     /**
-     * Identifies the type of the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recordType(): Optional<String> = recordType.getOptional("record_type")
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
-
-    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -125,6 +134,20 @@ private constructor(
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
+
+    /**
+     * Returns the raw JSON value of [recordType].
+     *
+     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     /**
      * Returns the raw JSON value of [documentId].
@@ -153,20 +176,6 @@ private constructor(
     @ExcludeMissing
     fun _linkedResourceId(): JsonField<String> = linkedResourceId
 
-    /**
-     * Returns the raw JSON value of [recordType].
-     *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
-
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -190,22 +199,22 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
+        private var recordType: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var documentId: JsonField<String> = JsonMissing.of()
         private var linkedRecordType: JsonField<String> = JsonMissing.of()
         private var linkedResourceId: JsonField<String> = JsonMissing.of()
-        private var recordType: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(documentLinkListResponse: DocumentLinkListResponse) = apply {
             id = documentLinkListResponse.id
             createdAt = documentLinkListResponse.createdAt
+            recordType = documentLinkListResponse.recordType
+            updatedAt = documentLinkListResponse.updatedAt
             documentId = documentLinkListResponse.documentId
             linkedRecordType = documentLinkListResponse.linkedRecordType
             linkedResourceId = documentLinkListResponse.linkedResourceId
-            recordType = documentLinkListResponse.recordType
-            updatedAt = documentLinkListResponse.updatedAt
             additionalProperties = documentLinkListResponse.additionalProperties.toMutableMap()
         }
 
@@ -231,6 +240,30 @@ private constructor(
          * value.
          */
         fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
+
+        /** Identifies the type of the resource. */
+        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
+
+        /**
+         * Sets [Builder.recordType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
+
+        /** ISO 8601 formatted date-time indicating when the resource was updated. */
+        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
         /** Identifies the associated document. */
         fun documentId(documentId: String) = documentId(JsonField.of(documentId))
@@ -274,30 +307,6 @@ private constructor(
             this.linkedResourceId = linkedResourceId
         }
 
-        /** Identifies the type of the resource. */
-        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
-
-        /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
-
-        /** ISO 8601 formatted date-time indicating when the resource was updated. */
-        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -326,11 +335,11 @@ private constructor(
             DocumentLinkListResponse(
                 id,
                 createdAt,
+                recordType,
+                updatedAt,
                 documentId,
                 linkedRecordType,
                 linkedResourceId,
-                recordType,
-                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -352,11 +361,11 @@ private constructor(
 
         id()
         createdAt()
+        recordType()
+        updatedAt()
         documentId()
         linkedRecordType()
         linkedResourceId()
-        recordType()
-        updatedAt()
         validated = true
     }
 
@@ -377,11 +386,11 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (recordType.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (documentId.asKnown().isPresent) 1 else 0) +
             (if (linkedRecordType.asKnown().isPresent) 1 else 0) +
-            (if (linkedResourceId.asKnown().isPresent) 1 else 0) +
-            (if (recordType.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (linkedResourceId.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -391,11 +400,11 @@ private constructor(
         return other is DocumentLinkListResponse &&
             id == other.id &&
             createdAt == other.createdAt &&
+            recordType == other.recordType &&
+            updatedAt == other.updatedAt &&
             documentId == other.documentId &&
             linkedRecordType == other.linkedRecordType &&
             linkedResourceId == other.linkedResourceId &&
-            recordType == other.recordType &&
-            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -403,11 +412,11 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
+            recordType,
+            updatedAt,
             documentId,
             linkedRecordType,
             linkedResourceId,
-            recordType,
-            updatedAt,
             additionalProperties,
         )
     }
@@ -415,5 +424,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DocumentLinkListResponse{id=$id, createdAt=$createdAt, documentId=$documentId, linkedRecordType=$linkedRecordType, linkedResourceId=$linkedResourceId, recordType=$recordType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "DocumentLinkListResponse{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, documentId=$documentId, linkedRecordType=$linkedRecordType, linkedResourceId=$linkedResourceId, additionalProperties=$additionalProperties}"
 }

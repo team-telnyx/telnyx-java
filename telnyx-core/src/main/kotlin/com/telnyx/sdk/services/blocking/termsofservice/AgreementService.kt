@@ -9,7 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListPage
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListParams
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveParams
-import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveResponse
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import java.util.function.Consumer
 
 /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
@@ -31,7 +31,7 @@ interface AgreementService {
      * Retrieve a single ToS agreement record. Returns `404` if the agreement does not exist or does
      * not belong to the authenticated user.
      */
-    fun retrieve(agreementId: String): AgreementRetrieveResponse =
+    fun retrieve(agreementId: String): TosAgreementWrapped =
         retrieve(agreementId, AgreementRetrieveParams.none())
 
     /** @see retrieve */
@@ -39,27 +39,27 @@ interface AgreementService {
         agreementId: String,
         params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AgreementRetrieveResponse =
+    ): TosAgreementWrapped =
         retrieve(params.toBuilder().agreementId(agreementId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         agreementId: String,
         params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
-    ): AgreementRetrieveResponse = retrieve(agreementId, params, RequestOptions.none())
+    ): TosAgreementWrapped = retrieve(agreementId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: AgreementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AgreementRetrieveResponse
+    ): TosAgreementWrapped
 
     /** @see retrieve */
-    fun retrieve(params: AgreementRetrieveParams): AgreementRetrieveResponse =
+    fun retrieve(params: AgreementRetrieveParams): TosAgreementWrapped =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(agreementId: String, requestOptions: RequestOptions): AgreementRetrieveResponse =
+    fun retrieve(agreementId: String, requestOptions: RequestOptions): TosAgreementWrapped =
         retrieve(agreementId, AgreementRetrieveParams.none(), requestOptions)
 
     /**
@@ -104,7 +104,7 @@ interface AgreementService {
          * otherwise the same as [AgreementService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(agreementId: String): HttpResponseFor<AgreementRetrieveResponse> =
+        fun retrieve(agreementId: String): HttpResponseFor<TosAgreementWrapped> =
             retrieve(agreementId, AgreementRetrieveParams.none())
 
         /** @see retrieve */
@@ -113,7 +113,7 @@ interface AgreementService {
             agreementId: String,
             params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AgreementRetrieveResponse> =
+        ): HttpResponseFor<TosAgreementWrapped> =
             retrieve(params.toBuilder().agreementId(agreementId).build(), requestOptions)
 
         /** @see retrieve */
@@ -121,7 +121,7 @@ interface AgreementService {
         fun retrieve(
             agreementId: String,
             params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
-        ): HttpResponseFor<AgreementRetrieveResponse> =
+        ): HttpResponseFor<TosAgreementWrapped> =
             retrieve(agreementId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -129,11 +129,11 @@ interface AgreementService {
         fun retrieve(
             params: AgreementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AgreementRetrieveResponse>
+        ): HttpResponseFor<TosAgreementWrapped>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: AgreementRetrieveParams): HttpResponseFor<AgreementRetrieveResponse> =
+        fun retrieve(params: AgreementRetrieveParams): HttpResponseFor<TosAgreementWrapped> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -141,7 +141,7 @@ interface AgreementService {
         fun retrieve(
             agreementId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AgreementRetrieveResponse> =
+        ): HttpResponseFor<TosAgreementWrapped> =
             retrieve(agreementId, AgreementRetrieveParams.none(), requestOptions)
 
         /**

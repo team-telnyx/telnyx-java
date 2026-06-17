@@ -15,13 +15,13 @@ internal class NumberServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val numberServiceAsync = client.reputation().numbers()
 
-        val numberFuture =
+        val reputationPhoneNumberWithReputationFuture =
             numberServiceAsync.retrieve(
                 NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
             )
 
-        val number = numberFuture.get()
-        number.validate()
+        val reputationPhoneNumberWithReputation = reputationPhoneNumberWithReputationFuture.get()
+        reputationPhoneNumberWithReputation.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -5,6 +5,9 @@ package com.telnyx.sdk.models.calls.actions
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
+import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
+import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
+import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -88,53 +91,35 @@ internal class ActionAnswerParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .conversationRelayConfig(
-                ActionAnswerParams.ConversationRelayConfig.builder()
+                ConversationRelayEmbeddedConfig.builder()
                     .url("wss://example.com/conversation-relay")
                     .customParameters(
-                        ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                        ConversationRelayEmbeddedConfig.CustomParameters.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                             .build()
                     )
                     .dtmfDetection(true)
                     .greeting("Hi! Ask me anything!")
-                    .interruptible(ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH)
-                    .interruptibleGreeting(
-                        ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                    )
+                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                    .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                     .interruptionSettings(
-                        ActionAnswerParams.ConversationRelayConfig.InterruptionSettings.builder()
+                        ConversationRelayInterruptionSettings.builder()
                             .enable(true)
-                            .interruptible(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .InterruptibleGreeting
-                                    .SPEECH
-                            )
-                            .welcomeGreetingInterruptible(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .WelcomeGreetingInterruptible
-                                    .SPEECH
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                            .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        ActionAnswerParams.ConversationRelayConfig.Language.builder()
+                        ConversationRelayLanguage.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                ActionAnswerParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngine
-                                    .DEEPGRAM
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ActionAnswerParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),
@@ -154,17 +139,14 @@ internal class ActionAnswerParamsTest {
                     )
                     .provider("elevenlabs")
                     .structuredProvider(
-                        ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                        ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                             .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                             .putAdditionalProperty("model_id", JsonValue.from("bar"))
                             .build()
                     )
-                    .transcriptionEngine(
-                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
-                    )
+                    .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
-                            .builder()
+                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                             .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                             .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                             .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
@@ -355,56 +337,35 @@ internal class ActionAnswerParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .conversationRelayConfig(
-                    ActionAnswerParams.ConversationRelayConfig.builder()
+                    ConversationRelayEmbeddedConfig.builder()
                         .url("wss://example.com/conversation-relay")
                         .customParameters(
-                            ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                            ConversationRelayEmbeddedConfig.CustomParameters.builder()
                                 .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                                 .build()
                         )
                         .dtmfDetection(true)
                         .greeting("Hi! Ask me anything!")
-                        .interruptible(
-                            ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH
-                        )
-                        .interruptibleGreeting(
-                            ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                        )
+                        .interruptible(ConversationRelayInterruptible.SPEECH)
+                        .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                         .interruptionSettings(
-                            ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                .builder()
+                            ConversationRelayInterruptionSettings.builder()
                                 .enable(true)
-                                .interruptible(
-                                    ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                        .Interruptible
-                                        .SPEECH
-                                )
-                                .interruptibleGreeting(
-                                    ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                        .InterruptibleGreeting
-                                        .SPEECH
-                                )
-                                .welcomeGreetingInterruptible(
-                                    ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                        .WelcomeGreetingInterruptible
-                                        .SPEECH
-                                )
+                                .interruptible(ConversationRelayInterruptible.SPEECH)
+                                .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                                .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                                 .build()
                         )
                         .language("en-US")
                         .addLanguage(
-                            ActionAnswerParams.ConversationRelayConfig.Language.builder()
+                            ConversationRelayLanguage.builder()
                                 .language("en-US")
                                 .speechModel("nova-3")
                                 .transcriptionEngine(
-                                    ActionAnswerParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngine
-                                        .DEEPGRAM
+                                    ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                 )
                                 .transcriptionEngineConfig(
-                                    ActionAnswerParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngineConfig
-                                        .builder()
+                                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                         .putAdditionalProperty(
                                             "transcription_model",
                                             JsonValue.from("bar"),
@@ -424,17 +385,16 @@ internal class ActionAnswerParamsTest {
                         )
                         .provider("elevenlabs")
                         .structuredProvider(
-                            ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                            ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                                 .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                                 .putAdditionalProperty("model_id", JsonValue.from("bar"))
                                 .build()
                         )
                         .transcriptionEngine(
-                            ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                            ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                         )
                         .transcriptionEngineConfig(
-                            ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
-                                .builder()
+                            ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                                 .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                                 .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                                 .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
@@ -614,53 +574,35 @@ internal class ActionAnswerParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.conversationRelayConfig())
             .contains(
-                ActionAnswerParams.ConversationRelayConfig.builder()
+                ConversationRelayEmbeddedConfig.builder()
                     .url("wss://example.com/conversation-relay")
                     .customParameters(
-                        ActionAnswerParams.ConversationRelayConfig.CustomParameters.builder()
+                        ConversationRelayEmbeddedConfig.CustomParameters.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                             .build()
                     )
                     .dtmfDetection(true)
                     .greeting("Hi! Ask me anything!")
-                    .interruptible(ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH)
-                    .interruptibleGreeting(
-                        ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                    )
+                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                    .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                     .interruptionSettings(
-                        ActionAnswerParams.ConversationRelayConfig.InterruptionSettings.builder()
+                        ConversationRelayInterruptionSettings.builder()
                             .enable(true)
-                            .interruptible(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .InterruptibleGreeting
-                                    .SPEECH
-                            )
-                            .welcomeGreetingInterruptible(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .WelcomeGreetingInterruptible
-                                    .SPEECH
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                            .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        ActionAnswerParams.ConversationRelayConfig.Language.builder()
+                        ConversationRelayLanguage.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                ActionAnswerParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngine
-                                    .DEEPGRAM
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ActionAnswerParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),
@@ -680,17 +622,14 @@ internal class ActionAnswerParamsTest {
                     )
                     .provider("elevenlabs")
                     .structuredProvider(
-                        ActionAnswerParams.ConversationRelayConfig.StructuredProvider.builder()
+                        ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                             .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                             .putAdditionalProperty("model_id", JsonValue.from("bar"))
                             .build()
                     )
-                    .transcriptionEngine(
-                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
-                    )
+                    .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
-                            .builder()
+                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                             .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                             .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                             .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))

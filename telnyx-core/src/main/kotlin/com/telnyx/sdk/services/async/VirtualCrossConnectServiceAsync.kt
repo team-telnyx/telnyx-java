@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreate
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
@@ -50,6 +51,24 @@ interface VirtualCrossConnectServiceAsync {
         params: VirtualCrossConnectCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VirtualCrossConnectCreateResponse>
+
+    /** @see create */
+    fun create(
+        virtualCrossConnectCreate: VirtualCrossConnectCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VirtualCrossConnectCreateResponse> =
+        create(
+            VirtualCrossConnectCreateParams.builder()
+                .virtualCrossConnectCreate(virtualCrossConnectCreate)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        virtualCrossConnectCreate: VirtualCrossConnectCreate
+    ): CompletableFuture<VirtualCrossConnectCreateResponse> =
+        create(virtualCrossConnectCreate, RequestOptions.none())
 
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): CompletableFuture<VirtualCrossConnectRetrieveResponse> =
@@ -97,29 +116,19 @@ interface VirtualCrossConnectServiceAsync {
      * `provisioned` and you are ready to enable routing, you can toggle the routing announcements
      * to `true`.
      */
-    fun update(id: String): CompletableFuture<VirtualCrossConnectUpdateResponse> =
-        update(id, VirtualCrossConnectUpdateParams.none())
-
-    /** @see update */
     fun update(
         id: String,
-        params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectUpdateResponse> =
-        update(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see update */
-    fun update(
-        id: String,
-        params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
+        params: VirtualCrossConnectUpdateParams,
     ): CompletableFuture<VirtualCrossConnectUpdateResponse> =
         update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: VirtualCrossConnectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectUpdateResponse>
+    ): CompletableFuture<VirtualCrossConnectUpdateResponse> =
+        update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(
@@ -128,10 +137,9 @@ interface VirtualCrossConnectServiceAsync {
 
     /** @see update */
     fun update(
-        id: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<VirtualCrossConnectUpdateResponse> =
-        update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
+        params: VirtualCrossConnectUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VirtualCrossConnectUpdateResponse>
 
     /** List all Virtual Cross Connects. */
     fun list(): CompletableFuture<VirtualCrossConnectListPageAsync> =
@@ -219,6 +227,24 @@ interface VirtualCrossConnectServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>>
 
+        /** @see create */
+        fun create(
+            virtualCrossConnectCreate: VirtualCrossConnectCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
+            create(
+                VirtualCrossConnectCreateParams.builder()
+                    .virtualCrossConnectCreate(virtualCrossConnectCreate)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            virtualCrossConnectCreate: VirtualCrossConnectCreate
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
+            create(virtualCrossConnectCreate, RequestOptions.none())
+
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
          * same as [VirtualCrossConnectServiceAsync.retrieve].
@@ -267,30 +293,18 @@ interface VirtualCrossConnectServiceAsync {
          * the same as [VirtualCrossConnectServiceAsync.update].
          */
         fun update(
-            id: String
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>> =
-            update(id, VirtualCrossConnectUpdateParams.none())
-
-        /** @see update */
-        fun update(
             id: String,
-            params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>> =
-            update(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see update */
-        fun update(
-            id: String,
-            params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
+            params: VirtualCrossConnectUpdateParams,
         ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>> =
             update(id, params, RequestOptions.none())
 
         /** @see update */
         fun update(
+            id: String,
             params: VirtualCrossConnectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -300,10 +314,9 @@ interface VirtualCrossConnectServiceAsync {
 
         /** @see update */
         fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>> =
-            update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
+            params: VirtualCrossConnectUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectUpdateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects`, but is otherwise the same

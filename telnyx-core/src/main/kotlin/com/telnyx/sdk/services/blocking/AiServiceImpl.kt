@@ -18,9 +18,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AssistantServiceImpl
 import com.telnyx.sdk.services.blocking.ai.AudioService
@@ -127,7 +127,7 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
         requestOptions: RequestOptions,
-    ): AiRetrieveModelsResponse =
+    ): ModelsResponse =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).parse()
 
@@ -258,14 +258,14 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             }
         }
 
-        private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
-            jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
+        private val retrieveModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun retrieveModels(
             params: AiRetrieveModelsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AiRetrieveModelsResponse> {
+        ): HttpResponseFor<ModelsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

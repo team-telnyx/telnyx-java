@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking.dir
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.dir.Document
 import com.telnyx.sdk.models.dir.phonenumbers.PhoneNumberAddParams
 import com.telnyx.sdk.models.dir.phonenumbers.PhoneNumberRemoveParams
 import org.junit.jupiter.api.Disabled
@@ -32,11 +33,9 @@ internal class PhoneNumberServiceTest {
                 PhoneNumberAddParams.builder()
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                     .addDocument(
-                        PhoneNumberAddParams.Document.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                            )
+                            .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                             .description(
                                 "LOA authorising Telnyx to register these numbers under the DIR."
                             )

@@ -18,7 +18,7 @@ internal class QueueServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val queueService = client.texml().accounts().queues()
 
-        val queue =
+        val queueResource =
             queueService.create(
                 QueueCreateParams.builder()
                     .accountSid("account_sid")
@@ -27,7 +27,7 @@ internal class QueueServiceTest {
                     .build()
             )
 
-        queue.validate()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,7 +36,7 @@ internal class QueueServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val queueService = client.texml().accounts().queues()
 
-        val queue =
+        val queueResource =
             queueService.retrieve(
                 QueueRetrieveParams.builder()
                     .accountSid("account_sid")
@@ -44,7 +44,7 @@ internal class QueueServiceTest {
                     .build()
             )
 
-        queue.validate()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -53,7 +53,7 @@ internal class QueueServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val queueService = client.texml().accounts().queues()
 
-        val queue =
+        val queueResource =
             queueService.update(
                 QueueUpdateParams.builder()
                     .accountSid("account_sid")
@@ -62,7 +62,7 @@ internal class QueueServiceTest {
                     .build()
             )
 
-        queue.validate()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")

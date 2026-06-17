@@ -16,12 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVetting
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingListParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingListResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -41,21 +39,21 @@ class ExternalVettingServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: ExternalVettingListParams,
         requestOptions: RequestOptions,
-    ): List<ExternalVettingListResponse> =
+    ): List<ExternalVetting> =
         // get /10dlc/brand/{brandId}/externalVetting
         withRawResponse().list(params, requestOptions).parse()
 
     override fun imports(
         params: ExternalVettingImportsParams,
         requestOptions: RequestOptions,
-    ): ExternalVettingImportsResponse =
+    ): ExternalVetting =
         // put /10dlc/brand/{brandId}/externalVetting
         withRawResponse().imports(params, requestOptions).parse()
 
     override fun order(
         params: ExternalVettingOrderParams,
         requestOptions: RequestOptions,
-    ): ExternalVettingOrderResponse =
+    ): ExternalVetting =
         // post /10dlc/brand/{brandId}/externalVetting
         withRawResponse().order(params, requestOptions).parse()
 
@@ -72,13 +70,13 @@ class ExternalVettingServiceImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<List<ExternalVettingListResponse>> =
-            jsonHandler<List<ExternalVettingListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<ExternalVetting>> =
+            jsonHandler<List<ExternalVetting>>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExternalVettingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<ExternalVettingListResponse>> {
+        ): HttpResponseFor<List<ExternalVetting>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())
@@ -102,13 +100,13 @@ class ExternalVettingServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val importsHandler: Handler<ExternalVettingImportsResponse> =
-            jsonHandler<ExternalVettingImportsResponse>(clientOptions.jsonMapper)
+        private val importsHandler: Handler<ExternalVetting> =
+            jsonHandler<ExternalVetting>(clientOptions.jsonMapper)
 
         override fun imports(
             params: ExternalVettingImportsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalVettingImportsResponse> {
+        ): HttpResponseFor<ExternalVetting> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())
@@ -133,13 +131,13 @@ class ExternalVettingServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val orderHandler: Handler<ExternalVettingOrderResponse> =
-            jsonHandler<ExternalVettingOrderResponse>(clientOptions.jsonMapper)
+        private val orderHandler: Handler<ExternalVetting> =
+            jsonHandler<ExternalVetting>(clientOptions.jsonMapper)
 
         override fun order(
             params: ExternalVettingOrderParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalVettingOrderResponse> {
+        ): HttpResponseFor<ExternalVetting> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())

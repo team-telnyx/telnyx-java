@@ -519,6 +519,8 @@ interface TelnyxClientAsync {
 
     fun reports(): ReportServiceAsync
 
+    fun speechToText(): SpeechToTextServiceAsync
+
     /** Requirement Groups */
     fun requirementGroups(): RequirementGroupServiceAsync
 
@@ -683,6 +685,15 @@ interface TelnyxClientAsync {
      */
     fun pronunciationDicts(): PronunciationDictServiceAsync
 
+    /** UAC connection operations */
+    fun uacConnections(): UacConnectionServiceAsync
+
+    /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+    fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
+
+    /** UAC connection operations */
+    fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
+
     /** Static reference values the API accepts: call reasons, document types, rejection types. */
     fun callReasons(): CallReasonServiceAsync
 
@@ -693,18 +704,6 @@ interface TelnyxClientAsync {
      * supporting evidence.
      */
     fun infringementClaims(): InfringementClaimServiceAsync
-
-    /** UAC connection operations */
-    fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
-
-    /** Discover available speech-to-text providers, models, and supported languages. */
-    fun speechToText(): SpeechToTextServiceAsync
-
-    /** UAC connection operations */
-    fun uacConnections(): UacConnectionServiceAsync
-
-    /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
-    fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1040,6 +1039,8 @@ interface TelnyxClientAsync {
 
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
         /** Requirement Groups */
         fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse
 
@@ -1205,6 +1206,15 @@ interface TelnyxClientAsync {
          */
         fun pronunciationDicts(): PronunciationDictServiceAsync.WithRawResponse
 
+        /** UAC connection operations */
+        fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
+
+        /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
+        fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
+
+        /** UAC connection operations */
+        fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
+
         /**
          * Static reference values the API accepts: call reasons, document types, rejection types.
          */
@@ -1217,17 +1227,5 @@ interface TelnyxClientAsync {
          * with supporting evidence.
          */
         fun infringementClaims(): InfringementClaimServiceAsync.WithRawResponse
-
-        /** UAC connection operations */
-        fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
-
-        /** Discover available speech-to-text providers, models, and supported languages. */
-        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
-
-        /** UAC connection operations */
-        fun uacConnections(): UacConnectionServiceAsync.WithRawResponse
-
-        /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
-        fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse
     }
 }

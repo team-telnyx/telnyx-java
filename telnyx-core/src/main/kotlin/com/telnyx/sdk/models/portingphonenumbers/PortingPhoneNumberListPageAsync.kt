@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PortingPhoneNumberListParams,
     private val response: PortingPhoneNumberListPageResponse,
-) : PageAsync<PortingPhoneNumberListResponse> {
+) : PageAsync<PortingPhoneNumber> {
 
     /**
      * Delegates to [PortingPhoneNumberListPageResponse], but gracefully handles missing data.
      *
      * @see PortingPhoneNumberListPageResponse.data
      */
-    fun data(): List<PortingPhoneNumberListResponse> =
+    fun data(): List<PortingPhoneNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PortingPhoneNumberListResponse> = data()
+    override fun items(): List<PortingPhoneNumber> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PortingPhoneNumberListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PortingPhoneNumberListResponse> =
+    fun autoPager(): AutoPagerAsync<PortingPhoneNumber> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

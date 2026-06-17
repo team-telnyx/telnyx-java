@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class AdditionalDocumentListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<AdditionalDocumentListResponse>>,
+    private val data: JsonField<List<PortingAdditionalDocument>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<AdditionalDocumentListResponse>> = JsonMissing.of(),
+        data: JsonField<List<PortingAdditionalDocument>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<AdditionalDocumentListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<PortingAdditionalDocument>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,7 +54,7 @@ private constructor(
      */
     @JsonProperty("data")
     @ExcludeMissing
-    fun _data(): JsonField<List<AdditionalDocumentListResponse>> = data
+    fun _data(): JsonField<List<PortingAdditionalDocument>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -87,7 +87,7 @@ private constructor(
     /** A builder for [AdditionalDocumentListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<AdditionalDocumentListResponse>>? = null
+        private var data: JsonField<MutableList<PortingAdditionalDocument>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -100,25 +100,25 @@ private constructor(
                     additionalDocumentListPageResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: List<AdditionalDocumentListResponse>) = data(JsonField.of(data))
+        fun data(data: List<PortingAdditionalDocument>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
          * You should usually call [Builder.data] with a well-typed
-         * `List<AdditionalDocumentListResponse>` value instead. This method is primarily for
-         * setting the field to an undocumented or not yet supported value.
+         * `List<PortingAdditionalDocument>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<AdditionalDocumentListResponse>>) = apply {
+        fun data(data: JsonField<List<PortingAdditionalDocument>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [AdditionalDocumentListResponse] to [Builder.data].
+         * Adds a single [PortingAdditionalDocument] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: AdditionalDocumentListResponse) = apply {
+        fun addData(data: PortingAdditionalDocument) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

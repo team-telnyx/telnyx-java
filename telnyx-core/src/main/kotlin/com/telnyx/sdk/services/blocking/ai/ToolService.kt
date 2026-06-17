@@ -6,16 +6,14 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
-import com.telnyx.sdk.models.ai.tools.ToolCreateResponse
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPage
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
-import com.telnyx.sdk.models.ai.tools.ToolRetrieveResponse
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
-import com.telnyx.sdk.models.ai.tools.ToolUpdateResponse
 import java.util.function.Consumer
 
 /** Configure AI assistant specifications */
@@ -34,71 +32,71 @@ interface ToolService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolService
 
     /** Create Tool */
-    fun create(params: ToolCreateParams): ToolCreateResponse = create(params, RequestOptions.none())
+    fun create(params: ToolCreateParams): SharedToolResponse = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ToolCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolCreateResponse
+    ): SharedToolResponse
 
     /** Get Tool */
-    fun retrieve(toolId: String): ToolRetrieveResponse = retrieve(toolId, ToolRetrieveParams.none())
+    fun retrieve(toolId: String): SharedToolResponse = retrieve(toolId, ToolRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         toolId: String,
         params: ToolRetrieveParams = ToolRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolRetrieveResponse = retrieve(params.toBuilder().toolId(toolId).build(), requestOptions)
+    ): SharedToolResponse = retrieve(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         toolId: String,
         params: ToolRetrieveParams = ToolRetrieveParams.none(),
-    ): ToolRetrieveResponse = retrieve(toolId, params, RequestOptions.none())
+    ): SharedToolResponse = retrieve(toolId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ToolRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolRetrieveResponse
+    ): SharedToolResponse
 
     /** @see retrieve */
-    fun retrieve(params: ToolRetrieveParams): ToolRetrieveResponse =
+    fun retrieve(params: ToolRetrieveParams): SharedToolResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(toolId: String, requestOptions: RequestOptions): ToolRetrieveResponse =
+    fun retrieve(toolId: String, requestOptions: RequestOptions): SharedToolResponse =
         retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
     /** Update Tool */
-    fun update(toolId: String): ToolUpdateResponse = update(toolId, ToolUpdateParams.none())
+    fun update(toolId: String): SharedToolResponse = update(toolId, ToolUpdateParams.none())
 
     /** @see update */
     fun update(
         toolId: String,
         params: ToolUpdateParams = ToolUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolUpdateResponse = update(params.toBuilder().toolId(toolId).build(), requestOptions)
+    ): SharedToolResponse = update(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see update */
     fun update(
         toolId: String,
         params: ToolUpdateParams = ToolUpdateParams.none(),
-    ): ToolUpdateResponse = update(toolId, params, RequestOptions.none())
+    ): SharedToolResponse = update(toolId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ToolUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolUpdateResponse
+    ): SharedToolResponse
 
     /** @see update */
-    fun update(params: ToolUpdateParams): ToolUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: ToolUpdateParams): SharedToolResponse = update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(toolId: String, requestOptions: RequestOptions): ToolUpdateResponse =
+    fun update(toolId: String, requestOptions: RequestOptions): SharedToolResponse =
         update(toolId, ToolUpdateParams.none(), requestOptions)
 
     /** List Tools */
@@ -162,7 +160,7 @@ interface ToolService {
          * [ToolService.create].
          */
         @MustBeClosed
-        fun create(params: ToolCreateParams): HttpResponseFor<ToolCreateResponse> =
+        fun create(params: ToolCreateParams): HttpResponseFor<SharedToolResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -170,14 +168,14 @@ interface ToolService {
         fun create(
             params: ToolCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolCreateResponse>
+        ): HttpResponseFor<SharedToolResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/tools/{tool_id}`, but is otherwise the same as
          * [ToolService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(toolId: String): HttpResponseFor<ToolRetrieveResponse> =
+        fun retrieve(toolId: String): HttpResponseFor<SharedToolResponse> =
             retrieve(toolId, ToolRetrieveParams.none())
 
         /** @see retrieve */
@@ -186,7 +184,7 @@ interface ToolService {
             toolId: String,
             params: ToolRetrieveParams = ToolRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolRetrieveResponse> =
+        ): HttpResponseFor<SharedToolResponse> =
             retrieve(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see retrieve */
@@ -194,18 +192,18 @@ interface ToolService {
         fun retrieve(
             toolId: String,
             params: ToolRetrieveParams = ToolRetrieveParams.none(),
-        ): HttpResponseFor<ToolRetrieveResponse> = retrieve(toolId, params, RequestOptions.none())
+        ): HttpResponseFor<SharedToolResponse> = retrieve(toolId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ToolRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolRetrieveResponse>
+        ): HttpResponseFor<SharedToolResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: ToolRetrieveParams): HttpResponseFor<ToolRetrieveResponse> =
+        fun retrieve(params: ToolRetrieveParams): HttpResponseFor<SharedToolResponse> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -213,7 +211,7 @@ interface ToolService {
         fun retrieve(
             toolId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolRetrieveResponse> =
+        ): HttpResponseFor<SharedToolResponse> =
             retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
         /**
@@ -221,7 +219,7 @@ interface ToolService {
          * [ToolService.update].
          */
         @MustBeClosed
-        fun update(toolId: String): HttpResponseFor<ToolUpdateResponse> =
+        fun update(toolId: String): HttpResponseFor<SharedToolResponse> =
             update(toolId, ToolUpdateParams.none())
 
         /** @see update */
@@ -230,7 +228,7 @@ interface ToolService {
             toolId: String,
             params: ToolUpdateParams = ToolUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolUpdateResponse> =
+        ): HttpResponseFor<SharedToolResponse> =
             update(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see update */
@@ -238,18 +236,18 @@ interface ToolService {
         fun update(
             toolId: String,
             params: ToolUpdateParams = ToolUpdateParams.none(),
-        ): HttpResponseFor<ToolUpdateResponse> = update(toolId, params, RequestOptions.none())
+        ): HttpResponseFor<SharedToolResponse> = update(toolId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: ToolUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolUpdateResponse>
+        ): HttpResponseFor<SharedToolResponse>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ToolUpdateParams): HttpResponseFor<ToolUpdateResponse> =
+        fun update(params: ToolUpdateParams): HttpResponseFor<SharedToolResponse> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -257,7 +255,7 @@ interface ToolService {
         fun update(
             toolId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolUpdateResponse> =
+        ): HttpResponseFor<SharedToolResponse> =
             update(toolId, ToolUpdateParams.none(), requestOptions)
 
         /**

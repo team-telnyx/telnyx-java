@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
-import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.async.ai.openai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.openai.ChatServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.openai.EmbeddingServiceAsync
@@ -59,7 +59,7 @@ class OpenAIServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun listModels(
         params: OpenAIListModelsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OpenAIListModelsResponse> =
+    ): CompletableFuture<ModelsResponse> =
         // get /ai/openai/models
         withRawResponse().listModels(params, requestOptions).thenApply { it.parse() }
 
@@ -120,13 +120,13 @@ class OpenAIServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listModelsHandler: Handler<OpenAIListModelsResponse> =
-            jsonHandler<OpenAIListModelsResponse>(clientOptions.jsonMapper)
+        private val listModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         override fun listModels(
             params: OpenAIListModelsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OpenAIListModelsResponse>> {
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

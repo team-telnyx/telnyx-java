@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class ToolListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<ToolListResponse>>,
+    private val data: JsonField<List<SharedToolResponse>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<ToolListResponse>> = JsonMissing.of(),
+        data: JsonField<List<SharedToolResponse>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<ToolListResponse> = data.getRequired("data")
+    fun data(): List<SharedToolResponse> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<ToolListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<SharedToolResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -90,7 +90,7 @@ private constructor(
     /** A builder for [ToolListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<ToolListResponse>>? = null
+        private var data: JsonField<MutableList<SharedToolResponse>>? = null
         private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -101,25 +101,25 @@ private constructor(
             additionalProperties = toolListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<ToolListResponse>) = data(JsonField.of(data))
+        fun data(data: List<SharedToolResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<ToolListResponse>` value
+         * You should usually call [Builder.data] with a well-typed `List<SharedToolResponse>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<ToolListResponse>>) = apply {
+        fun data(data: JsonField<List<SharedToolResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [ToolListResponse] to [Builder.data].
+         * Adds a single [SharedToolResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: ToolListResponse) = apply {
+        fun addData(data: SharedToolResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

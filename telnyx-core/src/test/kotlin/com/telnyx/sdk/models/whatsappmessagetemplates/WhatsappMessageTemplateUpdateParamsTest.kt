@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.whatsappmessagetemplates
 
+import com.telnyx.sdk.models.whatsapp.templates.WhatsappTemplateHeaderComponent
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,10 +15,11 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
             .id("id")
             .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
             .addComponent(
-                WhatsappMessageTemplateUpdateParams.Component.Header.builder()
-                    .format(WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT)
+                WhatsappTemplateHeaderComponent.builder()
+                    .format(WhatsappTemplateHeaderComponent.Format.TEXT)
+                    .type(WhatsappTemplateHeaderComponent.Type.HEADER)
                     .example(
-                        WhatsappMessageTemplateUpdateParams.Component.Header.Example.builder()
+                        WhatsappTemplateHeaderComponent.Example.builder()
                             .addHeaderHandle("string")
                             .addHeaderText("string")
                             .build()
@@ -44,10 +46,11 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
                 .id("id")
                 .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                 .addComponent(
-                    WhatsappMessageTemplateUpdateParams.Component.Header.builder()
-                        .format(WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT)
+                    WhatsappTemplateHeaderComponent.builder()
+                        .format(WhatsappTemplateHeaderComponent.Format.TEXT)
+                        .type(WhatsappTemplateHeaderComponent.Type.HEADER)
                         .example(
-                            WhatsappMessageTemplateUpdateParams.Component.Header.Example.builder()
+                            WhatsappTemplateHeaderComponent.Example.builder()
                                 .addHeaderHandle("string")
                                 .addHeaderText("string")
                                 .build()
@@ -63,10 +66,11 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
         assertThat(body.components().getOrNull())
             .containsExactly(
                 WhatsappMessageTemplateUpdateParams.Component.ofHeader(
-                    WhatsappMessageTemplateUpdateParams.Component.Header.builder()
-                        .format(WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT)
+                    WhatsappTemplateHeaderComponent.builder()
+                        .format(WhatsappTemplateHeaderComponent.Format.TEXT)
+                        .type(WhatsappTemplateHeaderComponent.Type.HEADER)
                         .example(
-                            WhatsappMessageTemplateUpdateParams.Component.Header.Example.builder()
+                            WhatsappTemplateHeaderComponent.Example.builder()
                                 .addHeaderHandle("string")
                                 .addHeaderText("string")
                                 .build()

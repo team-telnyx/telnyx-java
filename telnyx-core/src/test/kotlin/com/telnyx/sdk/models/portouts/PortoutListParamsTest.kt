@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.portouts
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class PortoutListParamsTest {
@@ -46,7 +45,6 @@ internal class PortoutListParamsTest {
     }
 
     @Test
-    @Disabled("disabled due to timestamp serialization issue")
     fun queryParams() {
         val params =
             PortoutListParams.builder()

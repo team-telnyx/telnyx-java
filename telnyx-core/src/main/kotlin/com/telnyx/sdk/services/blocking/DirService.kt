@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.dir.DirCreateLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
@@ -15,14 +14,12 @@ import com.telnyx.sdk.models.dir.DirListInfringementClaimsPage
 import com.telnyx.sdk.models.dir.DirListInfringementClaimsParams
 import com.telnyx.sdk.models.dir.DirListPage
 import com.telnyx.sdk.models.dir.DirListParams
+import com.telnyx.sdk.models.dir.DirNewLoaParams
 import com.telnyx.sdk.models.dir.DirRetrieveParams
-import com.telnyx.sdk.models.dir.DirRetrieveResponse
 import com.telnyx.sdk.models.dir.DirSubmitParams
-import com.telnyx.sdk.models.dir.DirSubmitResponse
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
-import com.telnyx.sdk.models.dir.DirUpdateInfringementResponse
 import com.telnyx.sdk.models.dir.DirUpdateParams
-import com.telnyx.sdk.models.dir.DirUpdateResponse
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.services.blocking.dir.CommentService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberBatchService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberService
@@ -61,33 +58,30 @@ interface DirService {
      * Returns a single DIR by id. The enterprise is resolved server-side from the DIR id. Returns
      * `404` if the DIR does not exist or is not yours.
      */
-    fun retrieve(dirId: String): DirRetrieveResponse = retrieve(dirId, DirRetrieveParams.none())
+    fun retrieve(dirId: String): DirWrapped = retrieve(dirId, DirRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         dirId: String,
         params: DirRetrieveParams = DirRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirRetrieveResponse = retrieve(params.toBuilder().dirId(dirId).build(), requestOptions)
+    ): DirWrapped = retrieve(params.toBuilder().dirId(dirId).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(
-        dirId: String,
-        params: DirRetrieveParams = DirRetrieveParams.none(),
-    ): DirRetrieveResponse = retrieve(dirId, params, RequestOptions.none())
+    fun retrieve(dirId: String, params: DirRetrieveParams = DirRetrieveParams.none()): DirWrapped =
+        retrieve(dirId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: DirRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirRetrieveResponse
+    ): DirWrapped
 
     /** @see retrieve */
-    fun retrieve(params: DirRetrieveParams): DirRetrieveResponse =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(params: DirRetrieveParams): DirWrapped = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(dirId: String, requestOptions: RequestOptions): DirRetrieveResponse =
+    fun retrieve(dirId: String, requestOptions: RequestOptions): DirWrapped =
         retrieve(dirId, DirRetrieveParams.none(), requestOptions)
 
     /**
@@ -100,30 +94,30 @@ interface DirService {
      * safe. DIRs in any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
      * `permanently_rejected`) cannot be edited.
      */
-    fun update(dirId: String): DirUpdateResponse = update(dirId, DirUpdateParams.none())
+    fun update(dirId: String): DirWrapped = update(dirId, DirUpdateParams.none())
 
     /** @see update */
     fun update(
         dirId: String,
         params: DirUpdateParams = DirUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirUpdateResponse = update(params.toBuilder().dirId(dirId).build(), requestOptions)
+    ): DirWrapped = update(params.toBuilder().dirId(dirId).build(), requestOptions)
 
     /** @see update */
-    fun update(dirId: String, params: DirUpdateParams = DirUpdateParams.none()): DirUpdateResponse =
+    fun update(dirId: String, params: DirUpdateParams = DirUpdateParams.none()): DirWrapped =
         update(dirId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: DirUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirUpdateResponse
+    ): DirWrapped
 
     /** @see update */
-    fun update(params: DirUpdateParams): DirUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: DirUpdateParams): DirWrapped = update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(dirId: String, requestOptions: RequestOptions): DirUpdateResponse =
+    fun update(dirId: String, requestOptions: RequestOptions): DirWrapped =
         update(dirId, DirUpdateParams.none(), requestOptions)
 
     /**
@@ -176,42 +170,6 @@ interface DirService {
     /** @see delete */
     fun delete(dirId: String, requestOptions: RequestOptions) =
         delete(dirId, DirDeleteParams.none(), requestOptions)
-
-    /**
-     * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise identity (legal
-     * name, DBA, address, contact, website, tax id) and the DIR display name are read server-side;
-     * the caller supplies the telephone numbers to authorize, an optional Authorized Agent block,
-     * and an optional drawn signature.
-     *
-     * When `signature` is omitted the PDF is returned unsigned so the customer can sign it
-     * externally and upload it via the Documents API. When `signature` is present the PDF embeds
-     * the supplied image, printed name, and signed-at date.
-     *
-     * Returns `application/pdf`.
-     */
-    @MustBeClosed
-    fun createLoa(dirId: String, params: DirCreateLoaParams): HttpResponse =
-        createLoa(dirId, params, RequestOptions.none())
-
-    /** @see createLoa */
-    @MustBeClosed
-    fun createLoa(
-        dirId: String,
-        params: DirCreateLoaParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse = createLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
-
-    /** @see createLoa */
-    @MustBeClosed
-    fun createLoa(params: DirCreateLoaParams): HttpResponse =
-        createLoa(params, RequestOptions.none())
-
-    /** @see createLoa */
-    @MustBeClosed
-    fun createLoa(
-        params: DirCreateLoaParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
 
     /**
      * Reference list of `document_type` values accepted by
@@ -279,6 +237,41 @@ interface DirService {
         listInfringementClaims(dirId, DirListInfringementClaimsParams.none(), requestOptions)
 
     /**
+     * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise identity (legal
+     * name, DBA, address, contact, website, tax id) and the DIR display name are read server-side;
+     * the caller supplies the telephone numbers to authorize, an optional Authorized Agent block,
+     * and an optional drawn signature.
+     *
+     * When `signature` is omitted the PDF is returned unsigned so the customer can sign it
+     * externally and upload it via the Documents API. When `signature` is present the PDF embeds
+     * the supplied image, printed name, and signed-at date.
+     *
+     * Returns `application/pdf`.
+     */
+    @MustBeClosed
+    fun newLoa(dirId: String, params: DirNewLoaParams): HttpResponse =
+        newLoa(dirId, params, RequestOptions.none())
+
+    /** @see newLoa */
+    @MustBeClosed
+    fun newLoa(
+        dirId: String,
+        params: DirNewLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse = newLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+    /** @see newLoa */
+    @MustBeClosed
+    fun newLoa(params: DirNewLoaParams): HttpResponse = newLoa(params, RequestOptions.none())
+
+    /** @see newLoa */
+    @MustBeClosed
+    fun newLoa(
+        params: DirNewLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /**
      * Submit a DIR for vetting. Sends the DIR back through the vetting cycle from any non-terminal
      * status. When re-submitting from `suspended` or `expired`, the DIR's previous Branded Calling
      * registration is torn down transactionally and its phone numbers flip back to `submitted`.
@@ -288,30 +281,30 @@ interface DirService {
      * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `409` if the DIR
      * has an unresolved infringement claim.
      */
-    fun submit(dirId: String): DirSubmitResponse = submit(dirId, DirSubmitParams.none())
+    fun submit(dirId: String): DirWrapped = submit(dirId, DirSubmitParams.none())
 
     /** @see submit */
     fun submit(
         dirId: String,
         params: DirSubmitParams = DirSubmitParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirSubmitResponse = submit(params.toBuilder().dirId(dirId).build(), requestOptions)
+    ): DirWrapped = submit(params.toBuilder().dirId(dirId).build(), requestOptions)
 
     /** @see submit */
-    fun submit(dirId: String, params: DirSubmitParams = DirSubmitParams.none()): DirSubmitResponse =
+    fun submit(dirId: String, params: DirSubmitParams = DirSubmitParams.none()): DirWrapped =
         submit(dirId, params, RequestOptions.none())
 
     /** @see submit */
     fun submit(
         params: DirSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirSubmitResponse
+    ): DirWrapped
 
     /** @see submit */
-    fun submit(params: DirSubmitParams): DirSubmitResponse = submit(params, RequestOptions.none())
+    fun submit(params: DirSubmitParams): DirWrapped = submit(params, RequestOptions.none())
 
     /** @see submit */
-    fun submit(dirId: String, requestOptions: RequestOptions): DirSubmitResponse =
+    fun submit(dirId: String, requestOptions: RequestOptions): DirWrapped =
         submit(dirId, DirSubmitParams.none(), requestOptions)
 
     /**
@@ -322,28 +315,25 @@ interface DirService {
      * (`display_name`, `logo_url`, `call_reasons`, `documents`) update the DIR; documents are
      * append-only.
      */
-    fun updateInfringement(
-        dirId: String,
-        params: DirUpdateInfringementParams,
-    ): DirUpdateInfringementResponse = updateInfringement(dirId, params, RequestOptions.none())
+    fun updateInfringement(dirId: String, params: DirUpdateInfringementParams): DirWrapped =
+        updateInfringement(dirId, params, RequestOptions.none())
 
     /** @see updateInfringement */
     fun updateInfringement(
         dirId: String,
         params: DirUpdateInfringementParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirUpdateInfringementResponse =
-        updateInfringement(params.toBuilder().dirId(dirId).build(), requestOptions)
+    ): DirWrapped = updateInfringement(params.toBuilder().dirId(dirId).build(), requestOptions)
 
     /** @see updateInfringement */
-    fun updateInfringement(params: DirUpdateInfringementParams): DirUpdateInfringementResponse =
+    fun updateInfringement(params: DirUpdateInfringementParams): DirWrapped =
         updateInfringement(params, RequestOptions.none())
 
     /** @see updateInfringement */
     fun updateInfringement(
         params: DirUpdateInfringementParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirUpdateInfringementResponse
+    ): DirWrapped
 
     /** A view of [DirService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -375,7 +365,7 @@ interface DirService {
          * [DirService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(dirId: String): HttpResponseFor<DirRetrieveResponse> =
+        fun retrieve(dirId: String): HttpResponseFor<DirWrapped> =
             retrieve(dirId, DirRetrieveParams.none())
 
         /** @see retrieve */
@@ -384,7 +374,7 @@ interface DirService {
             dirId: String,
             params: DirRetrieveParams = DirRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirRetrieveResponse> =
+        ): HttpResponseFor<DirWrapped> =
             retrieve(params.toBuilder().dirId(dirId).build(), requestOptions)
 
         /** @see retrieve */
@@ -392,26 +382,23 @@ interface DirService {
         fun retrieve(
             dirId: String,
             params: DirRetrieveParams = DirRetrieveParams.none(),
-        ): HttpResponseFor<DirRetrieveResponse> = retrieve(dirId, params, RequestOptions.none())
+        ): HttpResponseFor<DirWrapped> = retrieve(dirId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DirRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirRetrieveResponse>
+        ): HttpResponseFor<DirWrapped>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: DirRetrieveParams): HttpResponseFor<DirRetrieveResponse> =
+        fun retrieve(params: DirRetrieveParams): HttpResponseFor<DirWrapped> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            dirId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DirRetrieveResponse> =
+        fun retrieve(dirId: String, requestOptions: RequestOptions): HttpResponseFor<DirWrapped> =
             retrieve(dirId, DirRetrieveParams.none(), requestOptions)
 
         /**
@@ -419,7 +406,7 @@ interface DirService {
          * [DirService.update].
          */
         @MustBeClosed
-        fun update(dirId: String): HttpResponseFor<DirUpdateResponse> =
+        fun update(dirId: String): HttpResponseFor<DirWrapped> =
             update(dirId, DirUpdateParams.none())
 
         /** @see update */
@@ -428,7 +415,7 @@ interface DirService {
             dirId: String,
             params: DirUpdateParams = DirUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirUpdateResponse> =
+        ): HttpResponseFor<DirWrapped> =
             update(params.toBuilder().dirId(dirId).build(), requestOptions)
 
         /** @see update */
@@ -436,26 +423,23 @@ interface DirService {
         fun update(
             dirId: String,
             params: DirUpdateParams = DirUpdateParams.none(),
-        ): HttpResponseFor<DirUpdateResponse> = update(dirId, params, RequestOptions.none())
+        ): HttpResponseFor<DirWrapped> = update(dirId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: DirUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirUpdateResponse>
+        ): HttpResponseFor<DirWrapped>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: DirUpdateParams): HttpResponseFor<DirUpdateResponse> =
+        fun update(params: DirUpdateParams): HttpResponseFor<DirWrapped> =
             update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
-        fun update(
-            dirId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DirUpdateResponse> =
+        fun update(dirId: String, requestOptions: RequestOptions): HttpResponseFor<DirWrapped> =
             update(dirId, DirUpdateParams.none(), requestOptions)
 
         /**
@@ -516,34 +500,6 @@ interface DirService {
         @MustBeClosed
         fun delete(dirId: String, requestOptions: RequestOptions): HttpResponse =
             delete(dirId, DirDeleteParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /dir/{dir_id}/loa`, but is otherwise the same as
-         * [DirService.createLoa].
-         */
-        @MustBeClosed
-        fun createLoa(dirId: String, params: DirCreateLoaParams): HttpResponse =
-            createLoa(dirId, params, RequestOptions.none())
-
-        /** @see createLoa */
-        @MustBeClosed
-        fun createLoa(
-            dirId: String,
-            params: DirCreateLoaParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = createLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
-
-        /** @see createLoa */
-        @MustBeClosed
-        fun createLoa(params: DirCreateLoaParams): HttpResponse =
-            createLoa(params, RequestOptions.none())
-
-        /** @see createLoa */
-        @MustBeClosed
-        fun createLoa(
-            params: DirCreateLoaParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `get /dir/document_types`, but is otherwise the same as
@@ -622,11 +578,38 @@ interface DirService {
             listInfringementClaims(dirId, DirListInfringementClaimsParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post /dir/{dir_id}/loa`, but is otherwise the same as
+         * [DirService.newLoa].
+         */
+        @MustBeClosed
+        fun newLoa(dirId: String, params: DirNewLoaParams): HttpResponse =
+            newLoa(dirId, params, RequestOptions.none())
+
+        /** @see newLoa */
+        @MustBeClosed
+        fun newLoa(
+            dirId: String,
+            params: DirNewLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = newLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+        /** @see newLoa */
+        @MustBeClosed
+        fun newLoa(params: DirNewLoaParams): HttpResponse = newLoa(params, RequestOptions.none())
+
+        /** @see newLoa */
+        @MustBeClosed
+        fun newLoa(
+            params: DirNewLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /**
          * Returns a raw HTTP response for `post /dir/{dir_id}/submit`, but is otherwise the same as
          * [DirService.submit].
          */
         @MustBeClosed
-        fun submit(dirId: String): HttpResponseFor<DirSubmitResponse> =
+        fun submit(dirId: String): HttpResponseFor<DirWrapped> =
             submit(dirId, DirSubmitParams.none())
 
         /** @see submit */
@@ -635,7 +618,7 @@ interface DirService {
             dirId: String,
             params: DirSubmitParams = DirSubmitParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirSubmitResponse> =
+        ): HttpResponseFor<DirWrapped> =
             submit(params.toBuilder().dirId(dirId).build(), requestOptions)
 
         /** @see submit */
@@ -643,26 +626,23 @@ interface DirService {
         fun submit(
             dirId: String,
             params: DirSubmitParams = DirSubmitParams.none(),
-        ): HttpResponseFor<DirSubmitResponse> = submit(dirId, params, RequestOptions.none())
+        ): HttpResponseFor<DirWrapped> = submit(dirId, params, RequestOptions.none())
 
         /** @see submit */
         @MustBeClosed
         fun submit(
             params: DirSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirSubmitResponse>
+        ): HttpResponseFor<DirWrapped>
 
         /** @see submit */
         @MustBeClosed
-        fun submit(params: DirSubmitParams): HttpResponseFor<DirSubmitResponse> =
+        fun submit(params: DirSubmitParams): HttpResponseFor<DirWrapped> =
             submit(params, RequestOptions.none())
 
         /** @see submit */
         @MustBeClosed
-        fun submit(
-            dirId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DirSubmitResponse> =
+        fun submit(dirId: String, requestOptions: RequestOptions): HttpResponseFor<DirWrapped> =
             submit(dirId, DirSubmitParams.none(), requestOptions)
 
         /**
@@ -673,8 +653,7 @@ interface DirService {
         fun updateInfringement(
             dirId: String,
             params: DirUpdateInfringementParams,
-        ): HttpResponseFor<DirUpdateInfringementResponse> =
-            updateInfringement(dirId, params, RequestOptions.none())
+        ): HttpResponseFor<DirWrapped> = updateInfringement(dirId, params, RequestOptions.none())
 
         /** @see updateInfringement */
         @MustBeClosed
@@ -682,14 +661,12 @@ interface DirService {
             dirId: String,
             params: DirUpdateInfringementParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirUpdateInfringementResponse> =
+        ): HttpResponseFor<DirWrapped> =
             updateInfringement(params.toBuilder().dirId(dirId).build(), requestOptions)
 
         /** @see updateInfringement */
         @MustBeClosed
-        fun updateInfringement(
-            params: DirUpdateInfringementParams
-        ): HttpResponseFor<DirUpdateInfringementResponse> =
+        fun updateInfringement(params: DirUpdateInfringementParams): HttpResponseFor<DirWrapped> =
             updateInfringement(params, RequestOptions.none())
 
         /** @see updateInfringement */
@@ -697,6 +674,6 @@ interface DirService {
         fun updateInfringement(
             params: DirUpdateInfringementParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirUpdateInfringementResponse>
+        ): HttpResponseFor<DirWrapped>
     }
 }

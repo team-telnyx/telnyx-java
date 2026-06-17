@@ -6,9 +6,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestResponse
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveResponse
+import com.telnyx.sdk.models.infringementclaims.InfringementClaimWrapped
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,7 +33,7 @@ interface InfringementClaimServiceAsync {
      * Retrieve a single claim by id. Returns `404` if the claim does not exist or is not against a
      * DIR you own.
      */
-    fun retrieve(claimId: String): CompletableFuture<InfringementClaimRetrieveResponse> =
+    fun retrieve(claimId: String): CompletableFuture<InfringementClaimWrapped> =
         retrieve(claimId, InfringementClaimRetrieveParams.none())
 
     /** @see retrieve */
@@ -42,33 +41,32 @@ interface InfringementClaimServiceAsync {
         claimId: String,
         params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InfringementClaimRetrieveResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         retrieve(params.toBuilder().claimId(claimId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         claimId: String,
         params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
-    ): CompletableFuture<InfringementClaimRetrieveResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         retrieve(claimId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: InfringementClaimRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InfringementClaimRetrieveResponse>
+    ): CompletableFuture<InfringementClaimWrapped>
 
     /** @see retrieve */
     fun retrieve(
         params: InfringementClaimRetrieveParams
-    ): CompletableFuture<InfringementClaimRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    ): CompletableFuture<InfringementClaimWrapped> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         claimId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InfringementClaimRetrieveResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         retrieve(claimId, InfringementClaimRetrieveParams.none(), requestOptions)
 
     /**
@@ -88,27 +86,26 @@ interface InfringementClaimServiceAsync {
     fun contest(
         claimId: String,
         params: InfringementClaimContestParams,
-    ): CompletableFuture<InfringementClaimContestResponse> =
-        contest(claimId, params, RequestOptions.none())
+    ): CompletableFuture<InfringementClaimWrapped> = contest(claimId, params, RequestOptions.none())
 
     /** @see contest */
     fun contest(
         claimId: String,
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InfringementClaimContestResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         contest(params.toBuilder().claimId(claimId).build(), requestOptions)
 
     /** @see contest */
     fun contest(
         params: InfringementClaimContestParams
-    ): CompletableFuture<InfringementClaimContestResponse> = contest(params, RequestOptions.none())
+    ): CompletableFuture<InfringementClaimWrapped> = contest(params, RequestOptions.none())
 
     /** @see contest */
     fun contest(
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InfringementClaimContestResponse>
+    ): CompletableFuture<InfringementClaimWrapped>
 
     /**
      * A view of [InfringementClaimServiceAsync] that provides access to raw HTTP responses for each
@@ -131,7 +128,7 @@ interface InfringementClaimServiceAsync {
          */
         fun retrieve(
             claimId: String
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             retrieve(claimId, InfringementClaimRetrieveParams.none())
 
         /** @see retrieve */
@@ -139,33 +136,33 @@ interface InfringementClaimServiceAsync {
             claimId: String,
             params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             retrieve(params.toBuilder().claimId(claimId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             claimId: String,
             params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             retrieve(claimId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: InfringementClaimRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>>
 
         /** @see retrieve */
         fun retrieve(
             params: InfringementClaimRetrieveParams
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             claimId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             retrieve(claimId, InfringementClaimRetrieveParams.none(), requestOptions)
 
         /**
@@ -175,7 +172,7 @@ interface InfringementClaimServiceAsync {
         fun contest(
             claimId: String,
             params: InfringementClaimContestParams,
-        ): CompletableFuture<HttpResponseFor<InfringementClaimContestResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             contest(claimId, params, RequestOptions.none())
 
         /** @see contest */
@@ -183,19 +180,19 @@ interface InfringementClaimServiceAsync {
             claimId: String,
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfringementClaimContestResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             contest(params.toBuilder().claimId(claimId).build(), requestOptions)
 
         /** @see contest */
         fun contest(
             params: InfringementClaimContestParams
-        ): CompletableFuture<HttpResponseFor<InfringementClaimContestResponse>> =
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> =
             contest(params, RequestOptions.none())
 
         /** @see contest */
         fun contest(
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfringementClaimContestResponse>>
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>>
     }
 }

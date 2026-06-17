@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.messaginghostednumbers
 
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,15 +11,25 @@ internal class MessagingHostedNumberUpdateParamsTest {
     fun create() {
         MessagingHostedNumberUpdateParams.builder()
             .id("id")
-            .messagingProduct("P2P")
-            .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
-            .addTag("string")
+            .updatePhoneNumberMessagingSettingsRequest(
+                UpdatePhoneNumberMessagingSettingsRequest.builder()
+                    .messagingProduct("P2P")
+                    .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                    .addTag("string")
+                    .build()
+            )
             .build()
     }
 
     @Test
     fun pathParams() {
-        val params = MessagingHostedNumberUpdateParams.builder().id("id").build()
+        val params =
+            MessagingHostedNumberUpdateParams.builder()
+                .id("id")
+                .updatePhoneNumberMessagingSettingsRequest(
+                    UpdatePhoneNumberMessagingSettingsRequest.builder().build()
+                )
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("id")
         // out-of-bound path param
@@ -32,22 +41,39 @@ internal class MessagingHostedNumberUpdateParamsTest {
         val params =
             MessagingHostedNumberUpdateParams.builder()
                 .id("id")
-                .messagingProduct("P2P")
-                .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
-                .addTag("string")
+                .updatePhoneNumberMessagingSettingsRequest(
+                    UpdatePhoneNumberMessagingSettingsRequest.builder()
+                        .messagingProduct("P2P")
+                        .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                        .addTag("string")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.messagingProduct()).contains("P2P")
-        assertThat(body.messagingProfileId()).contains("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
-        assertThat(body.tags().getOrNull()).containsExactly("string")
+        assertThat(body)
+            .isEqualTo(
+                UpdatePhoneNumberMessagingSettingsRequest.builder()
+                    .messagingProduct("P2P")
+                    .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                    .addTag("string")
+                    .build()
+            )
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = MessagingHostedNumberUpdateParams.builder().id("id").build()
+        val params =
+            MessagingHostedNumberUpdateParams.builder()
+                .id("id")
+                .updatePhoneNumberMessagingSettingsRequest(
+                    UpdatePhoneNumberMessagingSettingsRequest.builder().build()
+                )
+                .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(UpdatePhoneNumberMessagingSettingsRequest.builder().build())
     }
 }

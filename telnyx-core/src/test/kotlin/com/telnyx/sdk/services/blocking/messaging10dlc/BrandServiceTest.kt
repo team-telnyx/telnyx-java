@@ -146,7 +146,7 @@ internal class BrandServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
-        val response =
+        val brandSmsOtpStatus =
             brandService.getSmsOtpByReference(
                 BrandGetSmsOtpByReferenceParams.builder()
                     .referenceId("OTP4B2001")
@@ -154,7 +154,7 @@ internal class BrandServiceTest {
                     .build()
             )
 
-        response.validate()
+        brandSmsOtpStatus.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -172,9 +172,10 @@ internal class BrandServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
-        val response = brandService.retrieveSmsOtpStatus("4b20019b-043a-78f8-0657-b3be3f4b4002")
+        val brandSmsOtpStatus =
+            brandService.retrieveSmsOtpStatus("4b20019b-043a-78f8-0657-b3be3f4b4002")
 
-        response.validate()
+        brandSmsOtpStatus.validate()
     }
 
     @Disabled("Mock server tests are disabled")

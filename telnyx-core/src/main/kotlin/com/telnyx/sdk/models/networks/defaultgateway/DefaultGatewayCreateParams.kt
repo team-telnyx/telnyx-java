@@ -2,21 +2,11 @@
 
 package com.telnyx.sdk.models.networks.defaultgateway
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.ExcludeMissing
-import com.telnyx.sdk.core.JsonField
-import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
-import com.telnyx.sdk.models.networks.InterfaceStatus
-import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,119 +15,16 @@ import kotlin.jvm.optionals.getOrNull
 class DefaultGatewayCreateParams
 private constructor(
     private val networkIdentifier: String?,
-    private val body: Body,
+    private val defaultGateway: DefaultGateway,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun networkIdentifier(): Optional<String> = Optional.ofNullable(networkIdentifier)
 
-    /**
-     * Identifies the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun id(): Optional<String> = body.id()
+    fun defaultGateway(): DefaultGateway = defaultGateway
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<String> = body.createdAt()
-
-    /**
-     * Identifies the type of the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recordType(): Optional<String> = body.recordType()
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<String> = body.updatedAt()
-
-    /**
-     * Network ID.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun networkId(): Optional<String> = body.networkId()
-
-    /**
-     * The current status of the interface deployment.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun status(): Optional<InterfaceStatus> = body.status()
-
-    /**
-     * Wireguard peer ID.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun wireguardPeerId(): Optional<String> = body.wireguardPeerId()
-
-    /**
-     * Returns the raw JSON value of [id].
-     *
-     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _id(): JsonField<String> = body._id()
-
-    /**
-     * Returns the raw JSON value of [createdAt].
-     *
-     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _createdAt(): JsonField<String> = body._createdAt()
-
-    /**
-     * Returns the raw JSON value of [recordType].
-     *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _recordType(): JsonField<String> = body._recordType()
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _updatedAt(): JsonField<String> = body._updatedAt()
-
-    /**
-     * Returns the raw JSON value of [networkId].
-     *
-     * Unlike [networkId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _networkId(): JsonField<String> = body._networkId()
-
-    /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _status(): JsonField<InterfaceStatus> = body._status()
-
-    /**
-     * Returns the raw JSON value of [wireguardPeerId].
-     *
-     * Unlike [wireguardPeerId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _wireguardPeerId(): JsonField<String> = body._wireguardPeerId()
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = defaultGateway._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -149,10 +36,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): DefaultGatewayCreateParams = builder().build()
-
         /**
          * Returns a mutable builder for constructing an instance of [DefaultGatewayCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .defaultGateway()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -161,14 +51,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var networkIdentifier: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var defaultGateway: DefaultGateway? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(defaultGatewayCreateParams: DefaultGatewayCreateParams) = apply {
             networkIdentifier = defaultGatewayCreateParams.networkIdentifier
-            body = defaultGatewayCreateParams.body.toBuilder()
+            defaultGateway = defaultGatewayCreateParams.defaultGateway
             additionalHeaders = defaultGatewayCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = defaultGatewayCreateParams.additionalQueryParams.toBuilder()
         }
@@ -181,124 +71,8 @@ private constructor(
         fun networkIdentifier(networkIdentifier: Optional<String>) =
             networkIdentifier(networkIdentifier.getOrNull())
 
-        /**
-         * Sets the entire request body.
-         *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [id]
-         * - [createdAt]
-         * - [recordType]
-         * - [updatedAt]
-         * - [networkId]
-         * - etc.
-         */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /** Identifies the resource. */
-        fun id(id: String) = apply { body.id(id) }
-
-        /**
-         * Sets [Builder.id] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun id(id: JsonField<String>) = apply { body.id(id) }
-
-        /** ISO 8601 formatted date-time indicating when the resource was created. */
-        fun createdAt(createdAt: String) = apply { body.createdAt(createdAt) }
-
-        /**
-         * Sets [Builder.createdAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun createdAt(createdAt: JsonField<String>) = apply { body.createdAt(createdAt) }
-
-        /** Identifies the type of the resource. */
-        fun recordType(recordType: String) = apply { body.recordType(recordType) }
-
-        /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun recordType(recordType: JsonField<String>) = apply { body.recordType(recordType) }
-
-        /** ISO 8601 formatted date-time indicating when the resource was updated. */
-        fun updatedAt(updatedAt: String) = apply { body.updatedAt(updatedAt) }
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun updatedAt(updatedAt: JsonField<String>) = apply { body.updatedAt(updatedAt) }
-
-        /** Network ID. */
-        fun networkId(networkId: String) = apply { body.networkId(networkId) }
-
-        /**
-         * Sets [Builder.networkId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.networkId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun networkId(networkId: JsonField<String>) = apply { body.networkId(networkId) }
-
-        /** The current status of the interface deployment. */
-        fun status(status: InterfaceStatus) = apply { body.status(status) }
-
-        /**
-         * Sets [Builder.status] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun status(status: JsonField<InterfaceStatus>) = apply { body.status(status) }
-
-        /** Wireguard peer ID. */
-        fun wireguardPeerId(wireguardPeerId: String) = apply {
-            body.wireguardPeerId(wireguardPeerId)
-        }
-
-        /**
-         * Sets [Builder.wireguardPeerId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.wireguardPeerId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun wireguardPeerId(wireguardPeerId: JsonField<String>) = apply {
-            body.wireguardPeerId(wireguardPeerId)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+        fun defaultGateway(defaultGateway: DefaultGateway) = apply {
+            this.defaultGateway = defaultGateway
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -403,17 +177,24 @@ private constructor(
          * Returns an immutable instance of [DefaultGatewayCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .defaultGateway()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DefaultGatewayCreateParams =
             DefaultGatewayCreateParams(
                 networkIdentifier,
-                body.build(),
+                checkRequired("defaultGateway", defaultGateway),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): DefaultGateway = defaultGateway
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -425,420 +206,6 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val createdAt: JsonField<String>,
-        private val recordType: JsonField<String>,
-        private val updatedAt: JsonField<String>,
-        private val networkId: JsonField<String>,
-        private val status: JsonField<InterfaceStatus>,
-        private val wireguardPeerId: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            createdAt: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("record_type")
-            @ExcludeMissing
-            recordType: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            updatedAt: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("network_id")
-            @ExcludeMissing
-            networkId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("status")
-            @ExcludeMissing
-            status: JsonField<InterfaceStatus> = JsonMissing.of(),
-            @JsonProperty("wireguard_peer_id")
-            @ExcludeMissing
-            wireguardPeerId: JsonField<String> = JsonMissing.of(),
-        ) : this(
-            id,
-            createdAt,
-            recordType,
-            updatedAt,
-            networkId,
-            status,
-            wireguardPeerId,
-            mutableMapOf(),
-        )
-
-        fun toRecord(): Record =
-            Record.builder()
-                .id(id)
-                .createdAt(createdAt)
-                .recordType(recordType)
-                .updatedAt(updatedAt)
-                .build()
-
-        /**
-         * Identifies the resource.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun id(): Optional<String> = id.getOptional("id")
-
-        /**
-         * ISO 8601 formatted date-time indicating when the resource was created.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
-
-        /**
-         * Identifies the type of the resource.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun recordType(): Optional<String> = recordType.getOptional("record_type")
-
-        /**
-         * ISO 8601 formatted date-time indicating when the resource was updated.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
-
-        /**
-         * Network ID.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun networkId(): Optional<String> = networkId.getOptional("network_id")
-
-        /**
-         * The current status of the interface deployment.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun status(): Optional<InterfaceStatus> = status.getOptional("status")
-
-        /**
-         * Wireguard peer ID.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun wireguardPeerId(): Optional<String> = wireguardPeerId.getOptional("wireguard_peer_id")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [createdAt].
-         *
-         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
-
-        /**
-         * Returns the raw JSON value of [recordType].
-         *
-         * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        fun _recordType(): JsonField<String> = recordType
-
-        /**
-         * Returns the raw JSON value of [updatedAt].
-         *
-         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
-
-        /**
-         * Returns the raw JSON value of [networkId].
-         *
-         * Unlike [networkId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("network_id") @ExcludeMissing fun _networkId(): JsonField<String> = networkId
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
-
-        /**
-         * Returns the raw JSON value of [wireguardPeerId].
-         *
-         * Unlike [wireguardPeerId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("wireguard_peer_id")
-        @ExcludeMissing
-        fun _wireguardPeerId(): JsonField<String> = wireguardPeerId
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<String> = JsonMissing.of()
-            private var recordType: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<String> = JsonMissing.of()
-            private var networkId: JsonField<String> = JsonMissing.of()
-            private var status: JsonField<InterfaceStatus> = JsonMissing.of()
-            private var wireguardPeerId: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                id = body.id
-                createdAt = body.createdAt
-                recordType = body.recordType
-                updatedAt = body.updatedAt
-                networkId = body.networkId
-                status = body.status
-                wireguardPeerId = body.wireguardPeerId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** Identifies the resource. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /** ISO 8601 formatted date-time indicating when the resource was created. */
-            fun createdAt(createdAt: String) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * Sets [Builder.createdAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
-
-            /** Identifies the type of the resource. */
-            fun recordType(recordType: String) = recordType(JsonField.of(recordType))
-
-            /**
-             * Sets [Builder.recordType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.recordType] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
-
-            /** ISO 8601 formatted date-time indicating when the resource was updated. */
-            fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
-
-            /**
-             * Sets [Builder.updatedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
-
-            /** Network ID. */
-            fun networkId(networkId: String) = networkId(JsonField.of(networkId))
-
-            /**
-             * Sets [Builder.networkId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.networkId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun networkId(networkId: JsonField<String>) = apply { this.networkId = networkId }
-
-            /** The current status of the interface deployment. */
-            fun status(status: InterfaceStatus) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
-
-            /** Wireguard peer ID. */
-            fun wireguardPeerId(wireguardPeerId: String) =
-                wireguardPeerId(JsonField.of(wireguardPeerId))
-
-            /**
-             * Sets [Builder.wireguardPeerId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.wireguardPeerId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun wireguardPeerId(wireguardPeerId: JsonField<String>) = apply {
-                this.wireguardPeerId = wireguardPeerId
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body =
-                Body(
-                    id,
-                    createdAt,
-                    recordType,
-                    updatedAt,
-                    networkId,
-                    status,
-                    wireguardPeerId,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            createdAt()
-            recordType()
-            updatedAt()
-            networkId()
-            status().ifPresent { it.validate() }
-            wireguardPeerId()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (if (createdAt.asKnown().isPresent) 1 else 0) +
-                (if (recordType.asKnown().isPresent) 1 else 0) +
-                (if (updatedAt.asKnown().isPresent) 1 else 0) +
-                (if (networkId.asKnown().isPresent) 1 else 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (wireguardPeerId.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Body &&
-                id == other.id &&
-                createdAt == other.createdAt &&
-                recordType == other.recordType &&
-                updatedAt == other.updatedAt &&
-                networkId == other.networkId &&
-                status == other.status &&
-                wireguardPeerId == other.wireguardPeerId &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                id,
-                createdAt,
-                recordType,
-                updatedAt,
-                networkId,
-                status,
-                wireguardPeerId,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, networkId=$networkId, status=$status, wireguardPeerId=$wireguardPeerId, additionalProperties=$additionalProperties}"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -846,14 +213,14 @@ private constructor(
 
         return other is DefaultGatewayCreateParams &&
             networkIdentifier == other.networkIdentifier &&
-            body == other.body &&
+            defaultGateway == other.defaultGateway &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(networkIdentifier, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(networkIdentifier, defaultGateway, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "DefaultGatewayCreateParams{networkIdentifier=$networkIdentifier, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DefaultGatewayCreateParams{networkIdentifier=$networkIdentifier, defaultGateway=$defaultGateway, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

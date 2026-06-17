@@ -19,16 +19,14 @@ import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDeleteParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDownloadSampleParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListPage
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListPageResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListParams
+import com.telnyx.sdk.models.voiceclones.VoiceCloneResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneUpdateParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,14 +46,14 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
     override fun create(
         params: VoiceCloneCreateParams,
         requestOptions: RequestOptions,
-    ): VoiceCloneCreateResponse =
+    ): VoiceCloneResponse =
         // post /voice_clones
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: VoiceCloneUpdateParams,
         requestOptions: RequestOptions,
-    ): VoiceCloneUpdateResponse =
+    ): VoiceCloneResponse =
         // patch /voice_clones/{id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -74,7 +72,7 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
     override fun createFromUpload(
         params: VoiceCloneCreateFromUploadParams,
         requestOptions: RequestOptions,
-    ): VoiceCloneCreateFromUploadResponse =
+    ): VoiceCloneResponse =
         // post /voice_clones/from_upload
         withRawResponse().createFromUpload(params, requestOptions).parse()
 
@@ -98,13 +96,13 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<VoiceCloneCreateResponse> =
-            jsonHandler<VoiceCloneCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<VoiceCloneResponse> =
+            jsonHandler<VoiceCloneResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: VoiceCloneCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceCloneCreateResponse> {
+        ): HttpResponseFor<VoiceCloneResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -126,13 +124,13 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val updateHandler: Handler<VoiceCloneUpdateResponse> =
-            jsonHandler<VoiceCloneUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<VoiceCloneResponse> =
+            jsonHandler<VoiceCloneResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: VoiceCloneUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceCloneUpdateResponse> {
+        ): HttpResponseFor<VoiceCloneResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -215,13 +213,13 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val createFromUploadHandler: Handler<VoiceCloneCreateFromUploadResponse> =
-            jsonHandler<VoiceCloneCreateFromUploadResponse>(clientOptions.jsonMapper)
+        private val createFromUploadHandler: Handler<VoiceCloneResponse> =
+            jsonHandler<VoiceCloneResponse>(clientOptions.jsonMapper)
 
         override fun createFromUpload(
             params: VoiceCloneCreateFromUploadParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceCloneCreateFromUploadResponse> {
+        ): HttpResponseFor<VoiceCloneResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

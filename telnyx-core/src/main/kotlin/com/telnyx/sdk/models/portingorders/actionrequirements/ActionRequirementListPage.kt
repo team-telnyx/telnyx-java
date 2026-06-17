@@ -18,14 +18,14 @@ private constructor(
     private val service: ActionRequirementService,
     private val params: ActionRequirementListParams,
     private val response: ActionRequirementListPageResponse,
-) : Page<ActionRequirementListResponse> {
+) : Page<PortingActionRequirement> {
 
     /**
      * Delegates to [ActionRequirementListPageResponse], but gracefully handles missing data.
      *
      * @see ActionRequirementListPageResponse.data
      */
-    fun data(): List<ActionRequirementListResponse> =
+    fun data(): List<PortingActionRequirement> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ActionRequirementListResponse> = data()
+    override fun items(): List<PortingActionRequirement> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): ActionRequirementListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<ActionRequirementListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PortingActionRequirement> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ActionRequirementListParams = params

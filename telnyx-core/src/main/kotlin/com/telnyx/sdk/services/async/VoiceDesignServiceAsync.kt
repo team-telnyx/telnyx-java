@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
@@ -15,8 +14,8 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageAsync
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,20 +39,20 @@ interface VoiceDesignServiceAsync {
      * `voice_design_id` is provided, adds a new version to the existing design instead. A design
      * can have at most 50 versions.
      */
-    fun create(params: VoiceDesignCreateParams): CompletableFuture<VoiceDesignCreateResponse> =
+    fun create(params: VoiceDesignCreateParams): CompletableFuture<VoiceDesignResponse> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: VoiceDesignCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceDesignCreateResponse>
+    ): CompletableFuture<VoiceDesignResponse>
 
     /**
      * Returns the latest version of a voice design, or a specific version when `?version=N` is
      * provided. The `id` parameter accepts either a UUID or the design name.
      */
-    fun retrieve(id: String): CompletableFuture<VoiceDesignRetrieveResponse> =
+    fun retrieve(id: String): CompletableFuture<VoiceDesignResponse> =
         retrieve(id, VoiceDesignRetrieveParams.none())
 
     /** @see retrieve */
@@ -61,31 +60,30 @@ interface VoiceDesignServiceAsync {
         id: String,
         params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceDesignRetrieveResponse> =
+    ): CompletableFuture<VoiceDesignResponse> =
         retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
-    ): CompletableFuture<VoiceDesignRetrieveResponse> = retrieve(id, params, RequestOptions.none())
+    ): CompletableFuture<VoiceDesignResponse> = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VoiceDesignRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceDesignRetrieveResponse>
+    ): CompletableFuture<VoiceDesignResponse>
 
     /** @see retrieve */
-    fun retrieve(
-        params: VoiceDesignRetrieveParams
-    ): CompletableFuture<VoiceDesignRetrieveResponse> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: VoiceDesignRetrieveParams): CompletableFuture<VoiceDesignResponse> =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VoiceDesignRetrieveResponse> =
+    ): CompletableFuture<VoiceDesignResponse> =
         retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
 
     /** Returns a paginated list of voice designs belonging to the authenticated account. */
@@ -247,20 +245,20 @@ interface VoiceDesignServiceAsync {
          */
         fun create(
             params: VoiceDesignCreateParams
-        ): CompletableFuture<HttpResponseFor<VoiceDesignCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: VoiceDesignCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>>
 
         /**
          * Returns a raw HTTP response for `get /voice_designs/{id}`, but is otherwise the same as
          * [VoiceDesignServiceAsync.retrieve].
          */
-        fun retrieve(id: String): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
+        fun retrieve(id: String): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             retrieve(id, VoiceDesignRetrieveParams.none())
 
         /** @see retrieve */
@@ -268,33 +266,33 @@ interface VoiceDesignServiceAsync {
             id: String,
             params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: VoiceDesignRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: VoiceDesignRetrieveParams
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceDesignResponse>> =
             retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
 
         /**

@@ -12,14 +12,15 @@ import java.util.Objects
 /** Create Advanced Order */
 class AdvancedOrderCreateParams
 private constructor(
-    private val advancedOrder: AdvancedOrder,
+    private val advancedOrderRequest: AdvancedOrderRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun advancedOrder(): AdvancedOrder = advancedOrder
+    fun advancedOrderRequest(): AdvancedOrderRequest = advancedOrderRequest
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = advancedOrder._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        advancedOrderRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -36,7 +37,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .advancedOrder()
+         * .advancedOrderRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -45,19 +46,19 @@ private constructor(
     /** A builder for [AdvancedOrderCreateParams]. */
     class Builder internal constructor() {
 
-        private var advancedOrder: AdvancedOrder? = null
+        private var advancedOrderRequest: AdvancedOrderRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(advancedOrderCreateParams: AdvancedOrderCreateParams) = apply {
-            advancedOrder = advancedOrderCreateParams.advancedOrder
+            advancedOrderRequest = advancedOrderCreateParams.advancedOrderRequest
             additionalHeaders = advancedOrderCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = advancedOrderCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun advancedOrder(advancedOrder: AdvancedOrder) = apply {
-            this.advancedOrder = advancedOrder
+        fun advancedOrderRequest(advancedOrderRequest: AdvancedOrderRequest) = apply {
+            this.advancedOrderRequest = advancedOrderRequest
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -165,20 +166,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .advancedOrder()
+         * .advancedOrderRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AdvancedOrderCreateParams =
             AdvancedOrderCreateParams(
-                checkRequired("advancedOrder", advancedOrder),
+                checkRequired("advancedOrderRequest", advancedOrderRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): AdvancedOrder = advancedOrder
+    fun _body(): AdvancedOrderRequest = advancedOrderRequest
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -190,14 +191,14 @@ private constructor(
         }
 
         return other is AdvancedOrderCreateParams &&
-            advancedOrder == other.advancedOrder &&
+            advancedOrderRequest == other.advancedOrderRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(advancedOrder, additionalHeaders, additionalQueryParams)
+        Objects.hash(advancedOrderRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AdvancedOrderCreateParams{advancedOrder=$advancedOrder, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AdvancedOrderCreateParams{advancedOrderRequest=$advancedOrderRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

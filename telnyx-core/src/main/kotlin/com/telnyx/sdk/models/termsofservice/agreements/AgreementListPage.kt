@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.termsofservice.agreements
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
 import java.util.Objects
 import java.util.Optional
@@ -17,24 +18,23 @@ private constructor(
     private val service: AgreementService,
     private val params: AgreementListParams,
     private val response: AgreementListPageResponse,
-) : Page<AgreementListResponse> {
+) : Page<TosAgreement> {
 
     /**
      * Delegates to [AgreementListPageResponse], but gracefully handles missing data.
      *
      * @see AgreementListPageResponse.data
      */
-    fun data(): List<AgreementListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<TosAgreement> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [AgreementListPageResponse], but gracefully handles missing data.
      *
      * @see AgreementListPageResponse.meta
      */
-    fun meta(): Optional<AgreementListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AgreementListResponse> = data()
+    override fun items(): List<TosAgreement> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +54,7 @@ private constructor(
 
     override fun nextPage(): AgreementListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<AgreementListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<TosAgreement> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AgreementListParams = params

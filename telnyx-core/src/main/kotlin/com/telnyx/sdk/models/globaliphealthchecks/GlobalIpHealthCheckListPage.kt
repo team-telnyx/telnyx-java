@@ -18,14 +18,14 @@ private constructor(
     private val service: GlobalIpHealthCheckService,
     private val params: GlobalIpHealthCheckListParams,
     private val response: GlobalIpHealthCheckListPageResponse,
-) : Page<GlobalIpHealthCheckListResponse> {
+) : Page<GlobalIpHealthCheck> {
 
     /**
      * Delegates to [GlobalIpHealthCheckListPageResponse], but gracefully handles missing data.
      *
      * @see GlobalIpHealthCheckListPageResponse.data
      */
-    fun data(): List<GlobalIpHealthCheckListResponse> =
+    fun data(): List<GlobalIpHealthCheck> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<GlobalIpHealthCheckListResponse> = data()
+    override fun items(): List<GlobalIpHealthCheck> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): GlobalIpHealthCheckListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<GlobalIpHealthCheckListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<GlobalIpHealthCheck> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): GlobalIpHealthCheckListParams = params

@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonParams
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import com.telnyx.sdk.services.blocking.texml.accounts.CallService
 import com.telnyx.sdk.services.blocking.texml.accounts.CallServiceImpl
 import com.telnyx.sdk.services.blocking.texml.accounts.ConferenceService
@@ -73,7 +73,7 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
     override fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
-    ): AccountRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         // get /texml/Accounts/{account_sid}/Recordings.json
         withRawResponse().retrieveRecordingsJson(params, requestOptions).parse()
 
@@ -130,13 +130,13 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
         /** TeXML REST Commands */
         override fun queues(): QueueService.WithRawResponse = queues
 
-        private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =
-            jsonHandler<AccountRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)
+        private val retrieveRecordingsJsonHandler: Handler<TexmlGetCallRecordingsResponseBody> =
+            jsonHandler<TexmlGetCallRecordingsResponseBody>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingsJson(
             params: AccountRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> {
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountSid", params.accountSid().getOrNull())

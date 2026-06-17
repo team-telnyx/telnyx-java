@@ -22,11 +22,9 @@ internal class DirUpdateInfringementParamsTest {
             .addCallReason("string")
             .displayName("x")
             .addDocument(
-                DirUpdateInfringementParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        DirUpdateInfringementParams.Document.DocumentType.BUSINESS_REGISTRATION
-                    )
+                    .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                     .description("Certificate of incorporation.")
                     .build()
             )
@@ -68,11 +66,9 @@ internal class DirUpdateInfringementParamsTest {
                 .addCallReason("string")
                 .displayName("x")
                 .addDocument(
-                    DirUpdateInfringementParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(
-                            DirUpdateInfringementParams.Document.DocumentType.BUSINESS_REGISTRATION
-                        )
+                        .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                         .description("Certificate of incorporation.")
                         .build()
                 )
@@ -97,11 +93,9 @@ internal class DirUpdateInfringementParamsTest {
         assertThat(body.displayName()).contains("x")
         assertThat(body.documents().getOrNull())
             .containsExactly(
-                DirUpdateInfringementParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        DirUpdateInfringementParams.Document.DocumentType.BUSINESS_REGISTRATION
-                    )
+                    .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                     .description("Certificate of incorporation.")
                     .build()
             )

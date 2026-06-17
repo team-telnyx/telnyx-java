@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class CommentListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<CommentListResponse>>,
+    private val data: JsonField<List<PortingOrdersComment>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<CommentListResponse>> = JsonMissing.of(),
+        data: JsonField<List<PortingOrdersComment>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<CommentListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<PortingOrdersComment>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<CommentListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<PortingOrdersComment>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +82,7 @@ private constructor(
     /** A builder for [CommentListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<CommentListResponse>>? = null
+        private var data: JsonField<MutableList<PortingOrdersComment>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,25 +93,25 @@ private constructor(
             additionalProperties = commentListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<CommentListResponse>) = data(JsonField.of(data))
+        fun data(data: List<PortingOrdersComment>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<CommentListResponse>`
+         * You should usually call [Builder.data] with a well-typed `List<PortingOrdersComment>`
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        fun data(data: JsonField<List<CommentListResponse>>) = apply {
+        fun data(data: JsonField<List<PortingOrdersComment>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [CommentListResponse] to [Builder.data].
+         * Adds a single [PortingOrdersComment] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: CommentListResponse) = apply {
+        fun addData(data: PortingOrdersComment) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

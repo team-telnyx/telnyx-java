@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.enterprises.reputation.remediation
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.enterprises.NumberReputationPaginationMeta
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,14 +21,14 @@ internal class RemediationListPageResponseTest {
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                         .phoneNumbersCount(2L)
-                        .status(RemediationListResponse.Status.IN_PROGRESS)
+                        .status(RemediationStatus.IN_PROGRESS)
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .tier1CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .tier2CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    RemediationListPageResponse.Meta.builder()
+                    NumberReputationPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -43,7 +44,7 @@ internal class RemediationListPageResponseTest {
                     .callPurpose("Appointment reminders for our dental clinic.")
                     .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                     .phoneNumbersCount(2L)
-                    .status(RemediationListResponse.Status.IN_PROGRESS)
+                    .status(RemediationStatus.IN_PROGRESS)
                     .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                     .tier1CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .tier2CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -51,7 +52,7 @@ internal class RemediationListPageResponseTest {
             )
         assertThat(remediationListPageResponse.meta())
             .isEqualTo(
-                RemediationListPageResponse.Meta.builder()
+                NumberReputationPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -71,14 +72,14 @@ internal class RemediationListPageResponseTest {
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
                         .phoneNumbersCount(2L)
-                        .status(RemediationListResponse.Status.IN_PROGRESS)
+                        .status(RemediationStatus.IN_PROGRESS)
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .tier1CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .tier2CompletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    RemediationListPageResponse.Meta.builder()
+                    NumberReputationPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

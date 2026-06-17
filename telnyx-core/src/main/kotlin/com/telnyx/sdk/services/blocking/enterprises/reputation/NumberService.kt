@@ -8,14 +8,14 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import java.util.function.Consumer
 
 /** Phone-number reputation monitoring (spam-score lookup and tracking). */
@@ -37,26 +37,28 @@ interface NumberService {
      * Retrieve one registered number with its latest reputation snapshot. The `phone_number` path
      * parameter is in E.164 format and must be URL-encoded (e.g. `%2B19493253498`).
      */
-    fun retrieve(phoneNumber: String, params: NumberRetrieveParams): NumberRetrieveResponse =
-        retrieve(phoneNumber, params, RequestOptions.none())
+    fun retrieve(
+        phoneNumber: String,
+        params: NumberRetrieveParams,
+    ): ReputationPhoneNumberWithReputation = retrieve(phoneNumber, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         phoneNumber: String,
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberRetrieveResponse =
+    ): ReputationPhoneNumberWithReputation =
         retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: NumberRetrieveParams): NumberRetrieveResponse =
+    fun retrieve(params: NumberRetrieveParams): ReputationPhoneNumberWithReputation =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberRetrieveResponse
+    ): ReputationPhoneNumberWithReputation
 
     /**
      * Paginated list of phone numbers registered for reputation monitoring under this enterprise.
@@ -100,7 +102,7 @@ interface NumberService {
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.
      */
-    fun associate(enterpriseId: String, params: NumberAssociateParams): NumberAssociateResponse =
+    fun associate(enterpriseId: String, params: NumberAssociateParams): ReputationPhoneNumberList =
         associate(enterpriseId, params, RequestOptions.none())
 
     /** @see associate */
@@ -108,18 +110,18 @@ interface NumberService {
         enterpriseId: String,
         params: NumberAssociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberAssociateResponse =
+    ): ReputationPhoneNumberList =
         associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see associate */
-    fun associate(params: NumberAssociateParams): NumberAssociateResponse =
+    fun associate(params: NumberAssociateParams): ReputationPhoneNumberList =
         associate(params, RequestOptions.none())
 
     /** @see associate */
     fun associate(
         params: NumberAssociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberAssociateResponse
+    ): ReputationPhoneNumberList
 
     /**
      * Stop tracking the reputation of this phone number. The number itself remains in your
@@ -192,7 +194,7 @@ interface NumberService {
         fun retrieve(
             phoneNumber: String,
             params: NumberRetrieveParams,
-        ): HttpResponseFor<NumberRetrieveResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(phoneNumber, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -201,12 +203,14 @@ interface NumberService {
             phoneNumber: String,
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberRetrieveResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: NumberRetrieveParams): HttpResponseFor<NumberRetrieveResponse> =
+        fun retrieve(
+            params: NumberRetrieveParams
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -214,7 +218,7 @@ interface NumberService {
         fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberRetrieveResponse>
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation/numbers`,
@@ -268,7 +272,7 @@ interface NumberService {
         fun associate(
             enterpriseId: String,
             params: NumberAssociateParams,
-        ): HttpResponseFor<NumberAssociateResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberList> =
             associate(enterpriseId, params, RequestOptions.none())
 
         /** @see associate */
@@ -277,12 +281,12 @@ interface NumberService {
             enterpriseId: String,
             params: NumberAssociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberAssociateResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberList> =
             associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see associate */
         @MustBeClosed
-        fun associate(params: NumberAssociateParams): HttpResponseFor<NumberAssociateResponse> =
+        fun associate(params: NumberAssociateParams): HttpResponseFor<ReputationPhoneNumberList> =
             associate(params, RequestOptions.none())
 
         /** @see associate */
@@ -290,7 +294,7 @@ interface NumberService {
         fun associate(
             params: NumberAssociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberAssociateResponse>
+        ): HttpResponseFor<ReputationPhoneNumberList>
 
         /**
          * Returns a raw HTTP response for `delete

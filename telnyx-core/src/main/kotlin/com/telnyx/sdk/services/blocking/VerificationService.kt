@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.verifications.CreateVerificationRequestSms
 import com.telnyx.sdk.models.verifications.CreateVerificationResponse
 import com.telnyx.sdk.models.verifications.VerificationRetrieveParams
 import com.telnyx.sdk.models.verifications.VerificationRetrieveResponse
@@ -102,6 +103,23 @@ interface VerificationService {
         params: VerificationTriggerSmsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreateVerificationResponse
+
+    /** @see triggerSms */
+    fun triggerSms(
+        createVerificationRequestSms: CreateVerificationRequestSms,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CreateVerificationResponse =
+        triggerSms(
+            VerificationTriggerSmsParams.builder()
+                .createVerificationRequestSms(createVerificationRequestSms)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see triggerSms */
+    fun triggerSms(
+        createVerificationRequestSms: CreateVerificationRequestSms
+    ): CreateVerificationResponse = triggerSms(createVerificationRequestSms, RequestOptions.none())
 
     /** Trigger WhatsApp verification */
     fun triggerWhatsappVerification(
@@ -228,6 +246,26 @@ interface VerificationService {
             params: VerificationTriggerSmsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CreateVerificationResponse>
+
+        /** @see triggerSms */
+        @MustBeClosed
+        fun triggerSms(
+            createVerificationRequestSms: CreateVerificationRequestSms,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CreateVerificationResponse> =
+            triggerSms(
+                VerificationTriggerSmsParams.builder()
+                    .createVerificationRequestSms(createVerificationRequestSms)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see triggerSms */
+        @MustBeClosed
+        fun triggerSms(
+            createVerificationRequestSms: CreateVerificationRequestSms
+        ): HttpResponseFor<CreateVerificationResponse> =
+            triggerSms(createVerificationRequestSms, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /verifications/whatsapp`, but is otherwise the same

@@ -8,16 +8,15 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsResponse
+import com.telnyx.sdk.models.texml.accounts.calls.CallResource
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateResponse
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.RecordingService
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.RecordingsJsonService
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.SiprecService
@@ -54,7 +53,7 @@ interface CallService {
     /**
      * Returns an individual call identified by its CallSid. This endpoint is eventually consistent.
      */
-    fun retrieve(callSid: String, params: CallRetrieveParams): CallRetrieveResponse =
+    fun retrieve(callSid: String, params: CallRetrieveParams): CallResource =
         retrieve(callSid, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -62,23 +61,22 @@ interface CallService {
         callSid: String,
         params: CallRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallRetrieveResponse = retrieve(params.toBuilder().callSid(callSid).build(), requestOptions)
+    ): CallResource = retrieve(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: CallRetrieveParams): CallRetrieveResponse =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(params: CallRetrieveParams): CallResource = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: CallRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallRetrieveResponse
+    ): CallResource
 
     /**
      * Update TeXML call. Please note that the keys present in the payload MUST BE formatted in
      * CamelCase as specified in the example.
      */
-    fun update(callSid: String, params: CallUpdateParams): CallUpdateResponse =
+    fun update(callSid: String, params: CallUpdateParams): CallResource =
         update(callSid, params, RequestOptions.none())
 
     /** @see update */
@@ -86,16 +84,16 @@ interface CallService {
         callSid: String,
         params: CallUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallUpdateResponse = update(params.toBuilder().callSid(callSid).build(), requestOptions)
+    ): CallResource = update(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: CallUpdateParams): CallUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: CallUpdateParams): CallResource = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CallUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallUpdateResponse
+    ): CallResource
 
     /**
      * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL
@@ -226,10 +224,8 @@ interface CallService {
          * is otherwise the same as [CallService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            callSid: String,
-            params: CallRetrieveParams,
-        ): HttpResponseFor<CallRetrieveResponse> = retrieve(callSid, params, RequestOptions.none())
+        fun retrieve(callSid: String, params: CallRetrieveParams): HttpResponseFor<CallResource> =
+            retrieve(callSid, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -237,12 +233,12 @@ interface CallService {
             callSid: String,
             params: CallRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallRetrieveResponse> =
+        ): HttpResponseFor<CallResource> =
             retrieve(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: CallRetrieveParams): HttpResponseFor<CallRetrieveResponse> =
+        fun retrieve(params: CallRetrieveParams): HttpResponseFor<CallResource> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -250,14 +246,14 @@ interface CallService {
         fun retrieve(
             params: CallRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallRetrieveResponse>
+        ): HttpResponseFor<CallResource>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Calls/{call_sid}`,
          * but is otherwise the same as [CallService.update].
          */
         @MustBeClosed
-        fun update(callSid: String, params: CallUpdateParams): HttpResponseFor<CallUpdateResponse> =
+        fun update(callSid: String, params: CallUpdateParams): HttpResponseFor<CallResource> =
             update(callSid, params, RequestOptions.none())
 
         /** @see update */
@@ -266,12 +262,12 @@ interface CallService {
             callSid: String,
             params: CallUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallUpdateResponse> =
+        ): HttpResponseFor<CallResource> =
             update(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: CallUpdateParams): HttpResponseFor<CallUpdateResponse> =
+        fun update(params: CallUpdateParams): HttpResponseFor<CallResource> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -279,7 +275,7 @@ interface CallService {
         fun update(
             params: CallUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallUpdateResponse>
+        ): HttpResponseFor<CallResource>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Calls`, but is

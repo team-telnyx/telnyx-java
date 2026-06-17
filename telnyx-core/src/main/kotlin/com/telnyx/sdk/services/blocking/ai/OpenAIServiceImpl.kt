@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
-import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.blocking.ai.openai.ChatService
 import com.telnyx.sdk.services.blocking.ai.openai.ChatServiceImpl
 import com.telnyx.sdk.services.blocking.ai.openai.EmbeddingService
@@ -56,7 +56,7 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun listModels(
         params: OpenAIListModelsParams,
         requestOptions: RequestOptions,
-    ): OpenAIListModelsResponse =
+    ): ModelsResponse =
         // get /ai/openai/models
         withRawResponse().listModels(params, requestOptions).parse()
 
@@ -114,13 +114,13 @@ class OpenAIServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listModelsHandler: Handler<OpenAIListModelsResponse> =
-            jsonHandler<OpenAIListModelsResponse>(clientOptions.jsonMapper)
+        private val listModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         override fun listModels(
             params: OpenAIListModelsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OpenAIListModelsResponse> {
+        ): HttpResponseFor<ModelsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

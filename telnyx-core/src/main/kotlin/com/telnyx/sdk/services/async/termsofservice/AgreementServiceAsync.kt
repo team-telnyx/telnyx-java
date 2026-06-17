@@ -8,7 +8,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListPageAsync
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListParams
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveParams
-import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveResponse
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,7 +31,7 @@ interface AgreementServiceAsync {
      * Retrieve a single ToS agreement record. Returns `404` if the agreement does not exist or does
      * not belong to the authenticated user.
      */
-    fun retrieve(agreementId: String): CompletableFuture<AgreementRetrieveResponse> =
+    fun retrieve(agreementId: String): CompletableFuture<TosAgreementWrapped> =
         retrieve(agreementId, AgreementRetrieveParams.none())
 
     /** @see retrieve */
@@ -39,31 +39,30 @@ interface AgreementServiceAsync {
         agreementId: String,
         params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AgreementRetrieveResponse> =
+    ): CompletableFuture<TosAgreementWrapped> =
         retrieve(params.toBuilder().agreementId(agreementId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         agreementId: String,
         params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
-    ): CompletableFuture<AgreementRetrieveResponse> =
-        retrieve(agreementId, params, RequestOptions.none())
+    ): CompletableFuture<TosAgreementWrapped> = retrieve(agreementId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: AgreementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AgreementRetrieveResponse>
+    ): CompletableFuture<TosAgreementWrapped>
 
     /** @see retrieve */
-    fun retrieve(params: AgreementRetrieveParams): CompletableFuture<AgreementRetrieveResponse> =
+    fun retrieve(params: AgreementRetrieveParams): CompletableFuture<TosAgreementWrapped> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         agreementId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AgreementRetrieveResponse> =
+    ): CompletableFuture<TosAgreementWrapped> =
         retrieve(agreementId, AgreementRetrieveParams.none(), requestOptions)
 
     /**
@@ -112,9 +111,7 @@ interface AgreementServiceAsync {
          * Returns a raw HTTP response for `get /terms_of_service/agreements/{agreement_id}`, but is
          * otherwise the same as [AgreementServiceAsync.retrieve].
          */
-        fun retrieve(
-            agreementId: String
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> =
+        fun retrieve(agreementId: String): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             retrieve(agreementId, AgreementRetrieveParams.none())
 
         /** @see retrieve */
@@ -122,33 +119,33 @@ interface AgreementServiceAsync {
             agreementId: String,
             params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             retrieve(params.toBuilder().agreementId(agreementId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             agreementId: String,
             params: AgreementRetrieveParams = AgreementRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             retrieve(agreementId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: AgreementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>>
 
         /** @see retrieve */
         fun retrieve(
             params: AgreementRetrieveParams
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             agreementId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             retrieve(agreementId, AgreementRetrieveParams.none(), requestOptions)
 
         /**

@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -29,7 +29,7 @@ interface RecordingServiceAsync {
     fun recordingSidJson(
         recordingSid: String,
         params: RecordingRecordingSidJsonParams,
-    ): CompletableFuture<RecordingRecordingSidJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingSidJson(recordingSid, params, RequestOptions.none())
 
     /** @see recordingSidJson */
@@ -37,20 +37,20 @@ interface RecordingServiceAsync {
         recordingSid: String,
         params: RecordingRecordingSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingRecordingSidJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingSidJson(params.toBuilder().recordingSid(recordingSid).build(), requestOptions)
 
     /** @see recordingSidJson */
     fun recordingSidJson(
         params: RecordingRecordingSidJsonParams
-    ): CompletableFuture<RecordingRecordingSidJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingSidJson(params, RequestOptions.none())
 
     /** @see recordingSidJson */
     fun recordingSidJson(
         params: RecordingRecordingSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingRecordingSidJsonResponse>
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody>
 
     /**
      * A view of [RecordingServiceAsync] that provides access to raw HTTP responses for each method.
@@ -74,7 +74,7 @@ interface RecordingServiceAsync {
         fun recordingSidJson(
             recordingSid: String,
             params: RecordingRecordingSidJsonParams,
-        ): CompletableFuture<HttpResponseFor<RecordingRecordingSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingSidJson(recordingSid, params, RequestOptions.none())
 
         /** @see recordingSidJson */
@@ -82,19 +82,19 @@ interface RecordingServiceAsync {
             recordingSid: String,
             params: RecordingRecordingSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingRecordingSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingSidJson(params.toBuilder().recordingSid(recordingSid).build(), requestOptions)
 
         /** @see recordingSidJson */
         fun recordingSidJson(
             params: RecordingRecordingSidJsonParams
-        ): CompletableFuture<HttpResponseFor<RecordingRecordingSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingSidJson(params, RequestOptions.none())
 
         /** @see recordingSidJson */
         fun recordingSidJson(
             params: RecordingRecordingSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingRecordingSidJsonResponse>>
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>>
     }
 }

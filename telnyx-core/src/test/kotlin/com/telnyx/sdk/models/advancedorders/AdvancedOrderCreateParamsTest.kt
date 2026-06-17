@@ -10,14 +10,14 @@ internal class AdvancedOrderCreateParamsTest {
     @Test
     fun create() {
         AdvancedOrderCreateParams.builder()
-            .advancedOrder(
-                AdvancedOrder.builder()
+            .advancedOrderRequest(
+                AdvancedOrderRequest.builder()
                     .areaCode("xxx")
                     .comments("comments")
                     .countryCode("xx")
                     .customerReference("customer_reference")
-                    .addFeature(AdvancedOrder.Feature.SMS)
-                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                    .addFeature(AdvancedOrderRequest.Feature.SMS)
+                    .phoneNumberType(AdvancedOrderRequest.PhoneNumberType.LOCAL)
                     .quantity(1L)
                     .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .build()
@@ -29,14 +29,14 @@ internal class AdvancedOrderCreateParamsTest {
     fun body() {
         val params =
             AdvancedOrderCreateParams.builder()
-                .advancedOrder(
-                    AdvancedOrder.builder()
+                .advancedOrderRequest(
+                    AdvancedOrderRequest.builder()
                         .areaCode("xxx")
                         .comments("comments")
                         .countryCode("xx")
                         .customerReference("customer_reference")
-                        .addFeature(AdvancedOrder.Feature.SMS)
-                        .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                        .addFeature(AdvancedOrderRequest.Feature.SMS)
+                        .phoneNumberType(AdvancedOrderRequest.PhoneNumberType.LOCAL)
                         .quantity(1L)
                         .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .build()
@@ -47,13 +47,13 @@ internal class AdvancedOrderCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                AdvancedOrder.builder()
+                AdvancedOrderRequest.builder()
                     .areaCode("xxx")
                     .comments("comments")
                     .countryCode("xx")
                     .customerReference("customer_reference")
-                    .addFeature(AdvancedOrder.Feature.SMS)
-                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                    .addFeature(AdvancedOrderRequest.Feature.SMS)
+                    .phoneNumberType(AdvancedOrderRequest.PhoneNumberType.LOCAL)
                     .quantity(1L)
                     .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .build()
@@ -64,11 +64,11 @@ internal class AdvancedOrderCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             AdvancedOrderCreateParams.builder()
-                .advancedOrder(AdvancedOrder.builder().build())
+                .advancedOrderRequest(AdvancedOrderRequest.builder().build())
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo(AdvancedOrder.builder().build())
+        assertThat(body).isEqualTo(AdvancedOrderRequest.builder().build())
     }
 }

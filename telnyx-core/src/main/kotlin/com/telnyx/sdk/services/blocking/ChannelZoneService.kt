@@ -9,7 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.channelzones.ChannelZoneListPage
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
-import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
+import com.telnyx.sdk.models.channelzones.GcbChannelZone
 import java.util.function.Consumer
 
 /** Voice Channels */
@@ -32,7 +32,7 @@ interface ChannelZoneService {
      * multiple simultaneous inbound calls to Non-US numbers. Use this endpoint to increase or
      * decrease your capacity based on expected call volume.
      */
-    fun update(channelZoneId: String, params: ChannelZoneUpdateParams): ChannelZoneUpdateResponse =
+    fun update(channelZoneId: String, params: ChannelZoneUpdateParams): GcbChannelZone =
         update(channelZoneId, params, RequestOptions.none())
 
     /** @see update */
@@ -40,18 +40,18 @@ interface ChannelZoneService {
         channelZoneId: String,
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChannelZoneUpdateResponse =
+    ): GcbChannelZone =
         update(params.toBuilder().channelZoneId(channelZoneId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ChannelZoneUpdateParams): ChannelZoneUpdateResponse =
+    fun update(params: ChannelZoneUpdateParams): GcbChannelZone =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChannelZoneUpdateResponse
+    ): GcbChannelZone
 
     /**
      * Returns the non-US voice channels for your account. voice channels allow you to use Channel
@@ -97,8 +97,7 @@ interface ChannelZoneService {
         fun update(
             channelZoneId: String,
             params: ChannelZoneUpdateParams,
-        ): HttpResponseFor<ChannelZoneUpdateResponse> =
-            update(channelZoneId, params, RequestOptions.none())
+        ): HttpResponseFor<GcbChannelZone> = update(channelZoneId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -106,12 +105,12 @@ interface ChannelZoneService {
             channelZoneId: String,
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChannelZoneUpdateResponse> =
+        ): HttpResponseFor<GcbChannelZone> =
             update(params.toBuilder().channelZoneId(channelZoneId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ChannelZoneUpdateParams): HttpResponseFor<ChannelZoneUpdateResponse> =
+        fun update(params: ChannelZoneUpdateParams): HttpResponseFor<GcbChannelZone> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -119,7 +118,7 @@ interface ChannelZoneService {
         fun update(
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChannelZoneUpdateResponse>
+        ): HttpResponseFor<GcbChannelZone>
 
         /**
          * Returns a raw HTTP response for `get /channel_zones`, but is otherwise the same as

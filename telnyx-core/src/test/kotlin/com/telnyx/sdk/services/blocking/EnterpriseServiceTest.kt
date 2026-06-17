@@ -20,7 +20,7 @@ internal class EnterpriseServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val enterpriseService = client.enterprises()
 
-        val enterprise =
+        val enterprisePublicWrapped =
             enterpriseService.create(
                 EnterpriseCreateParams.builder()
                     .billingAddress(
@@ -81,7 +81,7 @@ internal class EnterpriseServiceTest {
                     .build()
             )
 
-        enterprise.validate()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -90,9 +90,10 @@ internal class EnterpriseServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val enterpriseService = client.enterprises()
 
-        val enterprise = enterpriseService.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        val enterprisePublicWrapped =
+            enterpriseService.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
-        enterprise.validate()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -101,7 +102,7 @@ internal class EnterpriseServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val enterpriseService = client.enterprises()
 
-        val enterprise =
+        val enterprisePublicWrapped =
             enterpriseService.update(
                 EnterpriseUpdateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -158,7 +159,7 @@ internal class EnterpriseServiceTest {
                     .build()
             )
 
-        enterprise.validate()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -183,13 +184,13 @@ internal class EnterpriseServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun activateBrandedCalling() {
+    fun brandedCalling() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val enterpriseService = client.enterprises()
 
-        val response =
-            enterpriseService.activateBrandedCalling("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        val enterprisePublicWrapped =
+            enterpriseService.brandedCalling("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
-        response.validate()
+        enterprisePublicWrapped.validate()
     }
 }

@@ -19,7 +19,7 @@ internal class AiServiceTest {
 
         val response =
             aiService.createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.Body.builder()
+                AiCreateResponseDeprecatedParams.ResponseRequest.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
@@ -34,9 +34,9 @@ internal class AiServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val aiService = client.ai()
 
-        val response = aiService.retrieveModels()
+        val modelsResponse = aiService.retrieveModels()
 
-        response.validate()
+        modelsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

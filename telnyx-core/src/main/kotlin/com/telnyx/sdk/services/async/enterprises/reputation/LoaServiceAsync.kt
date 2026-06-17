@@ -6,9 +6,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaRenderParams
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateParams
-import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,25 +35,26 @@ interface LoaServiceAsync {
     fun update(
         enterpriseId: String,
         params: LoaUpdateParams,
-    ): CompletableFuture<LoaUpdateResponse> = update(enterpriseId, params, RequestOptions.none())
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
+        update(enterpriseId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         enterpriseId: String,
         params: LoaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<LoaUpdateResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: LoaUpdateParams): CompletableFuture<LoaUpdateResponse> =
+    fun update(params: LoaUpdateParams): CompletableFuture<EnterpriseReputationPublicWrapped> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: LoaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<LoaUpdateResponse>
+    ): CompletableFuture<EnterpriseReputationPublicWrapped>
 
     /**
      * Render the LOA for this enterprise as a PDF. The enterprise identity, address, and
@@ -114,7 +115,7 @@ interface LoaServiceAsync {
         fun update(
             enterpriseId: String,
             params: LoaUpdateParams,
-        ): CompletableFuture<HttpResponseFor<LoaUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             update(enterpriseId, params, RequestOptions.none())
 
         /** @see update */
@@ -122,18 +123,20 @@ interface LoaServiceAsync {
             enterpriseId: String,
             params: LoaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<LoaUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see update */
-        fun update(params: LoaUpdateParams): CompletableFuture<HttpResponseFor<LoaUpdateResponse>> =
+        fun update(
+            params: LoaUpdateParams
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: LoaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<LoaUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/loa`, but

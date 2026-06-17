@@ -20,7 +20,7 @@ import com.telnyx.sdk.models.channelzones.ChannelZoneListPageAsync
 import com.telnyx.sdk.models.channelzones.ChannelZoneListPageResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
-import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
+import com.telnyx.sdk.models.channelzones.GcbChannelZone
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -41,7 +41,7 @@ class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions
     override fun update(
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ChannelZoneUpdateResponse> =
+    ): CompletableFuture<GcbChannelZone> =
         // put /channel_zones/{channel_zone_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -65,13 +65,13 @@ class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<ChannelZoneUpdateResponse> =
-            jsonHandler<ChannelZoneUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<GcbChannelZone> =
+            jsonHandler<GcbChannelZone>(clientOptions.jsonMapper)
 
         override fun update(
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ChannelZoneUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<GcbChannelZone>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelZoneId", params.channelZoneId().getOrNull())

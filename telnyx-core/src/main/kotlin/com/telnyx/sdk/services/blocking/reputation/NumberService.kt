@@ -7,11 +7,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import com.telnyx.sdk.models.reputation.numbers.NumberDeleteParams
 import com.telnyx.sdk.models.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveResponse
 import java.util.function.Consumer
 
 /** Phone-number reputation monitoring (spam-score lookup and tracking). */
@@ -33,7 +33,7 @@ interface NumberService {
      * Convenience alias for `GET
      * /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
      */
-    fun retrieve(phoneNumber: String): NumberRetrieveResponse =
+    fun retrieve(phoneNumber: String): ReputationPhoneNumberWithReputation =
         retrieve(phoneNumber, NumberRetrieveParams.none())
 
     /** @see retrieve */
@@ -41,27 +41,30 @@ interface NumberService {
         phoneNumber: String,
         params: NumberRetrieveParams = NumberRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberRetrieveResponse =
+    ): ReputationPhoneNumberWithReputation =
         retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         phoneNumber: String,
         params: NumberRetrieveParams = NumberRetrieveParams.none(),
-    ): NumberRetrieveResponse = retrieve(phoneNumber, params, RequestOptions.none())
+    ): ReputationPhoneNumberWithReputation = retrieve(phoneNumber, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberRetrieveResponse
+    ): ReputationPhoneNumberWithReputation
 
     /** @see retrieve */
-    fun retrieve(params: NumberRetrieveParams): NumberRetrieveResponse =
+    fun retrieve(params: NumberRetrieveParams): ReputationPhoneNumberWithReputation =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(phoneNumber: String, requestOptions: RequestOptions): NumberRetrieveResponse =
+    fun retrieve(
+        phoneNumber: String,
+        requestOptions: RequestOptions,
+    ): ReputationPhoneNumberWithReputation =
         retrieve(phoneNumber, NumberRetrieveParams.none(), requestOptions)
 
     /**
@@ -127,7 +130,7 @@ interface NumberService {
          * otherwise the same as [NumberService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(phoneNumber: String): HttpResponseFor<NumberRetrieveResponse> =
+        fun retrieve(phoneNumber: String): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(phoneNumber, NumberRetrieveParams.none())
 
         /** @see retrieve */
@@ -136,7 +139,7 @@ interface NumberService {
             phoneNumber: String,
             params: NumberRetrieveParams = NumberRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberRetrieveResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
         /** @see retrieve */
@@ -144,7 +147,7 @@ interface NumberService {
         fun retrieve(
             phoneNumber: String,
             params: NumberRetrieveParams = NumberRetrieveParams.none(),
-        ): HttpResponseFor<NumberRetrieveResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(phoneNumber, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -152,11 +155,13 @@ interface NumberService {
         fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberRetrieveResponse>
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: NumberRetrieveParams): HttpResponseFor<NumberRetrieveResponse> =
+        fun retrieve(
+            params: NumberRetrieveParams
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -164,7 +169,7 @@ interface NumberService {
         fun retrieve(
             phoneNumber: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberRetrieveResponse> =
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
             retrieve(phoneNumber, NumberRetrieveParams.none(), requestOptions)
 
         /**

@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.voicedesigns
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.voiceclones.VoiceDesignsPaginationMeta
 import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: VoiceDesignListParams,
     private val response: VoiceDesignListPageResponse,
-) : PageAsync<VoiceDesignListResponse> {
+) : PageAsync<VoiceDesignSummaryData> {
 
     /**
      * Delegates to [VoiceDesignListPageResponse], but gracefully handles missing data.
      *
      * @see VoiceDesignListPageResponse.data
      */
-    fun data(): List<VoiceDesignListResponse> =
+    fun data(): List<VoiceDesignSummaryData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,9 +36,9 @@ private constructor(
      *
      * @see VoiceDesignListPageResponse.meta
      */
-    fun meta(): Optional<VoiceDesignListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<VoiceDesignsPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VoiceDesignListResponse> = data()
+    override fun items(): List<VoiceDesignSummaryData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<VoiceDesignListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<VoiceDesignListResponse> =
+    fun autoPager(): AutoPagerAsync<VoiceDesignSummaryData> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

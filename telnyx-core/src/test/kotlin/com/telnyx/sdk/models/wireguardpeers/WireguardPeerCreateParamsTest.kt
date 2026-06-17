@@ -14,9 +14,9 @@ internal class WireguardPeerCreateParamsTest {
             .createdAt("2018-02-02T22:25:27.521Z")
             .recordType("sample_record_type")
             .updatedAt("2018-02-02T22:25:27.521Z")
-            .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .lastSeen("2018-02-02T22:25:27.521Z")
             .privateKey("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+            .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .build()
     }
 
@@ -28,9 +28,9 @@ internal class WireguardPeerCreateParamsTest {
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .recordType("sample_record_type")
                 .updatedAt("2018-02-02T22:25:27.521Z")
-                .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .lastSeen("2018-02-02T22:25:27.521Z")
                 .privateKey("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+                .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .build()
 
         val body = params._body()
@@ -39,20 +39,15 @@ internal class WireguardPeerCreateParamsTest {
         assertThat(body.createdAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(body.recordType()).contains("sample_record_type")
         assertThat(body.updatedAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(body.wireguardInterfaceId()).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(body.lastSeen()).contains("2018-02-02T22:25:27.521Z")
         assertThat(body.privateKey()).contains("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+        assertThat(body.wireguardInterfaceId()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            WireguardPeerCreateParams.builder()
-                .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .build()
+        val params = WireguardPeerCreateParams.builder().build()
 
         val body = params._body()
-
-        assertThat(body.wireguardInterfaceId()).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
     }
 }

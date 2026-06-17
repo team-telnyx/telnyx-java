@@ -15,7 +15,7 @@ internal class EnterpriseReputationPublicTest {
     fun create() {
         val enterpriseReputationPublic =
             EnterpriseReputationPublic.builder()
-                .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
+                .checkFrequency(ReputationCheckFrequency.BUSINESS_DAILY)
                 .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
@@ -26,7 +26,7 @@ internal class EnterpriseReputationPublicTest {
                 .build()
 
         assertThat(enterpriseReputationPublic.checkFrequency())
-            .contains(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
+            .contains(ReputationCheckFrequency.BUSINESS_DAILY)
         assertThat(enterpriseReputationPublic.createdAt())
             .contains(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
         assertThat(enterpriseReputationPublic.enterpriseId())
@@ -48,7 +48,7 @@ internal class EnterpriseReputationPublicTest {
         val jsonMapper = jsonMapper()
         val enterpriseReputationPublic =
             EnterpriseReputationPublic.builder()
-                .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
+                .checkFrequency(ReputationCheckFrequency.BUSINESS_DAILY)
                 .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")

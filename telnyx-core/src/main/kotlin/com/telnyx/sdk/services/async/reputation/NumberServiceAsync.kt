@@ -6,11 +6,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import com.telnyx.sdk.models.reputation.numbers.NumberDeleteParams
 import com.telnyx.sdk.models.reputation.numbers.NumberListPageAsync
 import com.telnyx.sdk.models.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,7 +33,7 @@ interface NumberServiceAsync {
      * Convenience alias for `GET
      * /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
      */
-    fun retrieve(phoneNumber: String): CompletableFuture<NumberRetrieveResponse> =
+    fun retrieve(phoneNumber: String): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(phoneNumber, NumberRetrieveParams.none())
 
     /** @see retrieve */
@@ -41,31 +41,33 @@ interface NumberServiceAsync {
         phoneNumber: String,
         params: NumberRetrieveParams = NumberRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         phoneNumber: String,
         params: NumberRetrieveParams = NumberRetrieveParams.none(),
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(phoneNumber, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberRetrieveResponse>
+    ): CompletableFuture<ReputationPhoneNumberWithReputation>
 
     /** @see retrieve */
-    fun retrieve(params: NumberRetrieveParams): CompletableFuture<NumberRetrieveResponse> =
+    fun retrieve(
+        params: NumberRetrieveParams
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         phoneNumber: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(phoneNumber, NumberRetrieveParams.none(), requestOptions)
 
     /**
@@ -145,7 +147,7 @@ interface NumberServiceAsync {
          */
         fun retrieve(
             phoneNumber: String
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(phoneNumber, NumberRetrieveParams.none())
 
         /** @see retrieve */
@@ -153,33 +155,33 @@ interface NumberServiceAsync {
             phoneNumber: String,
             params: NumberRetrieveParams = NumberRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             phoneNumber: String,
             params: NumberRetrieveParams = NumberRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(phoneNumber, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>>
 
         /** @see retrieve */
         fun retrieve(
             params: NumberRetrieveParams
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             phoneNumber: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(phoneNumber, NumberRetrieveParams.none(), requestOptions)
 
         /**

@@ -12,13 +12,17 @@ internal class DefaultGatewayCreateParamsTest {
     fun create() {
         DefaultGatewayCreateParams.builder()
             .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .createdAt("2018-02-02T22:25:27.521Z")
-            .recordType("sample_record_type")
-            .updatedAt("2018-02-02T22:25:27.521Z")
-            .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
-            .status(InterfaceStatus.PROVISIONED)
-            .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+            .defaultGateway(
+                DefaultGateway.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .createdAt("2018-02-02T22:25:27.521Z")
+                    .recordType("sample_record_type")
+                    .updatedAt("2018-02-02T22:25:27.521Z")
+                    .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                    .status(InterfaceStatus.PROVISIONED)
+                    .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                    .build()
+            )
             .build()
     }
 
@@ -27,6 +31,7 @@ internal class DefaultGatewayCreateParamsTest {
         val params =
             DefaultGatewayCreateParams.builder()
                 .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .defaultGateway(DefaultGateway.builder().build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -39,24 +44,33 @@ internal class DefaultGatewayCreateParamsTest {
         val params =
             DefaultGatewayCreateParams.builder()
                 .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .createdAt("2018-02-02T22:25:27.521Z")
-                .recordType("sample_record_type")
-                .updatedAt("2018-02-02T22:25:27.521Z")
-                .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
-                .status(InterfaceStatus.PROVISIONED)
-                .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                .defaultGateway(
+                    DefaultGateway.builder()
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .recordType("sample_record_type")
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                        .status(InterfaceStatus.PROVISIONED)
+                        .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(body.createdAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(body.recordType()).contains("sample_record_type")
-        assertThat(body.updatedAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(body.networkId()).contains("e66c496d-4a85-423b-8b2a-8e63fac20320")
-        assertThat(body.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(body.wireguardPeerId()).contains("e66c496d-4a85-423b-8b2a-8e63fac20320")
+        assertThat(body)
+            .isEqualTo(
+                DefaultGateway.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .createdAt("2018-02-02T22:25:27.521Z")
+                    .recordType("sample_record_type")
+                    .updatedAt("2018-02-02T22:25:27.521Z")
+                    .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                    .status(InterfaceStatus.PROVISIONED)
+                    .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                    .build()
+            )
     }
 
     @Test
@@ -64,8 +78,11 @@ internal class DefaultGatewayCreateParamsTest {
         val params =
             DefaultGatewayCreateParams.builder()
                 .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .defaultGateway(DefaultGateway.builder().build())
                 .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(DefaultGateway.builder().build())
     }
 }

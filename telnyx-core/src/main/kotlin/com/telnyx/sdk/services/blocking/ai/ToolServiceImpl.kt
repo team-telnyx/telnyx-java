@@ -16,17 +16,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
-import com.telnyx.sdk.models.ai.tools.ToolCreateResponse
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPage
 import com.telnyx.sdk.models.ai.tools.ToolListPageResponse
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
-import com.telnyx.sdk.models.ai.tools.ToolRetrieveResponse
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
-import com.telnyx.sdk.models.ai.tools.ToolUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -45,21 +43,21 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun create(
         params: ToolCreateParams,
         requestOptions: RequestOptions,
-    ): ToolCreateResponse =
+    ): SharedToolResponse =
         // post /ai/tools
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: ToolRetrieveParams,
         requestOptions: RequestOptions,
-    ): ToolRetrieveResponse =
+    ): SharedToolResponse =
         // get /ai/tools/{tool_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: ToolUpdateParams,
         requestOptions: RequestOptions,
-    ): ToolUpdateResponse =
+    ): SharedToolResponse =
         // patch /ai/tools/{tool_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -87,13 +85,13 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<ToolCreateResponse> =
-            jsonHandler<ToolCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: ToolCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolCreateResponse> {
+        ): HttpResponseFor<SharedToolResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -115,13 +113,13 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val retrieveHandler: Handler<ToolRetrieveResponse> =
-            jsonHandler<ToolRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ToolRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolRetrieveResponse> {
+        ): HttpResponseFor<SharedToolResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())
@@ -145,13 +143,13 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val updateHandler: Handler<ToolUpdateResponse> =
-            jsonHandler<ToolUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: ToolUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolUpdateResponse> {
+        ): HttpResponseFor<SharedToolResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())

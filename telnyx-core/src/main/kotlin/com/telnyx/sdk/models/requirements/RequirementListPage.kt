@@ -18,14 +18,14 @@ private constructor(
     private val service: RequirementService,
     private val params: RequirementListParams,
     private val response: RequirementListPageResponse,
-) : Page<RequirementListResponse> {
+) : Page<DocReqsRequirement> {
 
     /**
      * Delegates to [RequirementListPageResponse], but gracefully handles missing data.
      *
      * @see RequirementListPageResponse.data
      */
-    fun data(): List<RequirementListResponse> =
+    fun data(): List<DocReqsRequirement> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<RequirementListResponse> = data()
+    override fun items(): List<DocReqsRequirement> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): RequirementListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<RequirementListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<DocReqsRequirement> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): RequirementListParams = params

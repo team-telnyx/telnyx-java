@@ -54,7 +54,7 @@ internal class PronunciationDictUpdateParamsTest {
 
         assertThat(body.items().getOrNull())
             .containsExactly(
-                PronunciationDictUpdateParams.Item.ofAlias(
+                PronunciationDictItem.ofAlias(
                     PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")

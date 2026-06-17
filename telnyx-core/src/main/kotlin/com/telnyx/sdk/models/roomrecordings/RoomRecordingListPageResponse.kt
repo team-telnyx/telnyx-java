@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class RoomRecordingListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<RoomRecordingListResponse>>,
+    private val data: JsonField<List<RoomRecording>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<RoomRecordingListResponse>> = JsonMissing.of(),
+        data: JsonField<List<RoomRecording>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<RoomRecordingListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<RoomRecording>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,9 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<RoomRecordingListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<RoomRecording>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -87,7 +85,7 @@ private constructor(
     /** A builder for [RoomRecordingListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<RoomRecordingListResponse>>? = null
+        private var data: JsonField<MutableList<RoomRecording>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -98,25 +96,25 @@ private constructor(
             additionalProperties = roomRecordingListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<RoomRecordingListResponse>) = data(JsonField.of(data))
+        fun data(data: List<RoomRecording>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<RoomRecordingListResponse>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<RoomRecording>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<List<RoomRecordingListResponse>>) = apply {
+        fun data(data: JsonField<List<RoomRecording>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [RoomRecordingListResponse] to [Builder.data].
+         * Adds a single [RoomRecording] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: RoomRecordingListResponse) = apply {
+        fun addData(data: RoomRecording) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

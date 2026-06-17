@@ -15,20 +15,16 @@ internal class AssistantUpdateParamsTest {
         AssistantUpdateParams.builder()
             .assistantId("assistant_id")
             .conversationFlow(
-                UpdateAssistant.ConversationFlow.builder()
+                ConversationFlowReq.builder()
                     .addNode(
-                        UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                        ConversationFlowReq.Node.Prompt.builder()
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm.builder()
+                                ExternalLlmReq.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(
-                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                            .AuthenticationMethod
-                                            .TOKEN
-                                    )
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -36,22 +32,14 @@ internal class AssistantUpdateParamsTest {
                                     .build()
                             )
                             .instructionsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode
-                                    .REPLACE
+                                ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
                             )
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Intake")
-                            .position(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                    .x(120.0)
-                                    .y(80.0)
-                                    .build()
-                            )
+                            .position(NodePosition.builder().x(120.0).y(80.0).build())
                             .addSharedToolId("tool-faq-kb")
-                            .toolsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.REPLACE
-                            )
+                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -76,7 +64,7 @@ internal class AssistantUpdateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -104,20 +92,16 @@ internal class AssistantUpdateParamsTest {
                             .build()
                     )
                     .addNode(
-                        UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                        ConversationFlowReq.Node.Prompt.builder()
                             .id("n_billing")
                             .instructions(
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                             )
                             .externalLlm(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm.builder()
+                                ExternalLlmReq.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(
-                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                            .AuthenticationMethod
-                                            .TOKEN
-                                    )
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -125,21 +109,14 @@ internal class AssistantUpdateParamsTest {
                                     .build()
                             )
                             .instructionsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode.APPEND
+                                ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
                             )
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Billing")
-                            .position(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                    .x(420.0)
-                                    .y(80.0)
-                                    .build()
-                            )
+                            .position(NodePosition.builder().x(420.0).y(80.0).build())
                             .addSharedToolId("tool-billing-lookup")
-                            .toolsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.APPEND
-                            )
+                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -164,7 +141,7 @@ internal class AssistantUpdateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -193,7 +170,7 @@ internal class AssistantUpdateParamsTest {
                     )
                     .startNodeId("n_intake")
                     .addEdge(
-                        UpdateAssistant.ConversationFlow.Edge.builder()
+                        FlowEdge.builder()
                             .id("e_intake_to_billing")
                             .llmCondition("The caller is asking about a bill or charge.")
                             .startNodeId("n_intake")
@@ -201,26 +178,15 @@ internal class AssistantUpdateParamsTest {
                             .build()
                     )
                     .addEdge(
-                        UpdateAssistant.ConversationFlow.Edge.builder()
+                        FlowEdge.builder()
                             .id("e_intake_to_escalation_assistant")
                             .llmCondition("The caller has explicitly asked for a human.")
                             .startNodeId("n_intake")
                             .target(
-                                UpdateAssistant.ConversationFlow.Edge.Target.Assistant.builder()
+                                FlowEdge.Target.Assistant.builder()
                                     .assistantId("assistant-human-handoff")
-                                    .position(
-                                        UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                            .Position
-                                            .builder()
-                                            .x(600.0)
-                                            .y(80.0)
-                                            .build()
-                                    )
-                                    .voiceMode(
-                                        UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                            .VoiceMode
-                                            .DISTINCT
-                                    )
+                                    .position(NodePosition.builder().x(600.0).y(80.0).build())
+                                    .voiceMode(FlowEdge.Target.Assistant.VoiceMode.DISTINCT)
                                     .build()
                             )
                             .build()
@@ -237,10 +203,10 @@ internal class AssistantUpdateParamsTest {
             .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
             .addEnabledFeature(EnabledFeatures.TELEPHONY)
             .externalLlm(
-                UpdateAssistant.ExternalLlm.builder()
+                ExternalLlmReq.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -248,15 +214,12 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
             .fallbackConfig(
-                UpdateAssistant.FallbackConfig.builder()
+                FallbackConfigReq.builder()
                     .externalLlm(
-                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                        ExternalLlmReq.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(
-                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                    .TOKEN
-                            )
+                            .authenticationMethod(AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -271,21 +234,19 @@ internal class AssistantUpdateParamsTest {
             .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
             .instructions("instructions")
             .addIntegration(
-                UpdateAssistant.Integration.builder()
+                AssistantIntegration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
             .interruptionSettings(
-                UpdateAssistant.InterruptionSettings.builder()
+                InferenceEmbeddingInterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                        StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                    .TranscriptionEndpointingPlan
-                                    .builder()
+                                TranscriptionEndpointingPlan.builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -297,9 +258,7 @@ internal class AssistantUpdateParamsTest {
                     .build()
             )
             .llmApiKeyRef("llm_api_key_ref")
-            .addMcpServer(
-                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
-            )
+            .addMcpServer(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
             .messagingSettings(
                 MessagingSettings.builder()
                     .conversationInactivityMinutes(1L)
@@ -314,16 +273,14 @@ internal class AssistantUpdateParamsTest {
                     .host("host")
                     .promptLabel("prompt_label")
                     .promptName("prompt_name")
-                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptSync(PromptSyncStatus.ENABLED)
                     .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
-                    .status(ObservabilityReq.Status.ENABLED)
+                    .status(ObservabilityStatus.ENABLED)
                     .build()
             )
-            .postConversationSettings(
-                UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
-            )
+            .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
             .privacySettings(PrivacySettings.builder().dataRetention(true).build())
             .addTag("string")
             .telephonySettings(
@@ -539,23 +496,18 @@ internal class AssistantUpdateParamsTest {
             AssistantUpdateParams.builder()
                 .assistantId("assistant_id")
                 .conversationFlow(
-                    UpdateAssistant.ConversationFlow.builder()
+                    ConversationFlowReq.builder()
                         .addNode(
-                            UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                            ConversationFlowReq.Node.Prompt.builder()
                                 .id("n_intake")
                                 .instructions(
                                     "Greet the caller and ask what they're calling about."
                                 )
                                 .externalLlm(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                        .builder()
+                                    ExternalLlmReq.builder()
                                         .baseUrl("base_url")
                                         .model("model")
-                                        .authenticationMethod(
-                                            UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                                .AuthenticationMethod
-                                                .TOKEN
-                                        )
+                                        .authenticationMethod(AuthenticationMethod.TOKEN)
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
                                         .llmApiKeyRef("llm_api_key_ref")
@@ -563,22 +515,14 @@ internal class AssistantUpdateParamsTest {
                                         .build()
                                 )
                                 .instructionsMode(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode
-                                        .REPLACE
+                                    ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
                                 )
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Intake")
-                                .position(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                        .x(120.0)
-                                        .y(80.0)
-                                        .build()
-                                )
+                                .position(NodePosition.builder().x(120.0).y(80.0).build())
                                 .addSharedToolId("tool-faq-kb")
-                                .toolsMode(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.REPLACE
-                                )
+                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -603,7 +547,7 @@ internal class AssistantUpdateParamsTest {
                                         )
                                         .build()
                                 )
-                                .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -631,21 +575,16 @@ internal class AssistantUpdateParamsTest {
                                 .build()
                         )
                         .addNode(
-                            UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                            ConversationFlowReq.Node.Prompt.builder()
                                 .id("n_billing")
                                 .instructions(
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                                 )
                                 .externalLlm(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                        .builder()
+                                    ExternalLlmReq.builder()
                                         .baseUrl("base_url")
                                         .model("model")
-                                        .authenticationMethod(
-                                            UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                                .AuthenticationMethod
-                                                .TOKEN
-                                        )
+                                        .authenticationMethod(AuthenticationMethod.TOKEN)
                                         .certificateRef("certificate_ref")
                                         .forwardMetadata(true)
                                         .llmApiKeyRef("llm_api_key_ref")
@@ -653,22 +592,14 @@ internal class AssistantUpdateParamsTest {
                                         .build()
                                 )
                                 .instructionsMode(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode
-                                        .APPEND
+                                    ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
                                 )
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Billing")
-                                .position(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                        .x(420.0)
-                                        .y(80.0)
-                                        .build()
-                                )
+                                .position(NodePosition.builder().x(420.0).y(80.0).build())
                                 .addSharedToolId("tool-billing-lookup")
-                                .toolsMode(
-                                    UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.APPEND
-                                )
+                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -693,7 +624,7 @@ internal class AssistantUpdateParamsTest {
                                         )
                                         .build()
                                 )
-                                .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -722,7 +653,7 @@ internal class AssistantUpdateParamsTest {
                         )
                         .startNodeId("n_intake")
                         .addEdge(
-                            UpdateAssistant.ConversationFlow.Edge.builder()
+                            FlowEdge.builder()
                                 .id("e_intake_to_billing")
                                 .llmCondition("The caller is asking about a bill or charge.")
                                 .startNodeId("n_intake")
@@ -730,26 +661,15 @@ internal class AssistantUpdateParamsTest {
                                 .build()
                         )
                         .addEdge(
-                            UpdateAssistant.ConversationFlow.Edge.builder()
+                            FlowEdge.builder()
                                 .id("e_intake_to_escalation_assistant")
                                 .llmCondition("The caller has explicitly asked for a human.")
                                 .startNodeId("n_intake")
                                 .target(
-                                    UpdateAssistant.ConversationFlow.Edge.Target.Assistant.builder()
+                                    FlowEdge.Target.Assistant.builder()
                                         .assistantId("assistant-human-handoff")
-                                        .position(
-                                            UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                                .Position
-                                                .builder()
-                                                .x(600.0)
-                                                .y(80.0)
-                                                .build()
-                                        )
-                                        .voiceMode(
-                                            UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                                .VoiceMode
-                                                .DISTINCT
-                                        )
+                                        .position(NodePosition.builder().x(600.0).y(80.0).build())
+                                        .voiceMode(FlowEdge.Target.Assistant.VoiceMode.DISTINCT)
                                         .build()
                                 )
                                 .build()
@@ -766,12 +686,10 @@ internal class AssistantUpdateParamsTest {
                 .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
                 .addEnabledFeature(EnabledFeatures.TELEPHONY)
                 .externalLlm(
-                    UpdateAssistant.ExternalLlm.builder()
+                    ExternalLlmReq.builder()
                         .baseUrl("base_url")
                         .model("model")
-                        .authenticationMethod(
-                            UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN
-                        )
+                        .authenticationMethod(AuthenticationMethod.TOKEN)
                         .certificateRef("certificate_ref")
                         .forwardMetadata(true)
                         .llmApiKeyRef("llm_api_key_ref")
@@ -779,15 +697,12 @@ internal class AssistantUpdateParamsTest {
                         .build()
                 )
                 .fallbackConfig(
-                    UpdateAssistant.FallbackConfig.builder()
+                    FallbackConfigReq.builder()
                         .externalLlm(
-                            UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                            ExternalLlmReq.builder()
                                 .baseUrl("base_url")
                                 .model("model")
-                                .authenticationMethod(
-                                    UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                        .TOKEN
-                                )
+                                .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
@@ -804,21 +719,19 @@ internal class AssistantUpdateParamsTest {
                 )
                 .instructions("instructions")
                 .addIntegration(
-                    UpdateAssistant.Integration.builder()
+                    AssistantIntegration.builder()
                         .integrationId("integration_id")
                         .addAllowedList("string")
                         .build()
                 )
                 .interruptionSettings(
-                    UpdateAssistant.InterruptionSettings.builder()
+                    InferenceEmbeddingInterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
                         .startSpeakingPlan(
-                            UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                            StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
-                                    UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                        .TranscriptionEndpointingPlan
-                                        .builder()
+                                    TranscriptionEndpointingPlan.builder()
                                         .onNoPunctuationSeconds(0.0f)
                                         .onNumberSeconds(0.0f)
                                         .onPunctuationSeconds(0.0f)
@@ -831,7 +744,7 @@ internal class AssistantUpdateParamsTest {
                 )
                 .llmApiKeyRef("llm_api_key_ref")
                 .addMcpServer(
-                    UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
+                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
                 )
                 .messagingSettings(
                     MessagingSettings.builder()
@@ -847,15 +760,15 @@ internal class AssistantUpdateParamsTest {
                         .host("host")
                         .promptLabel("prompt_label")
                         .promptName("prompt_name")
-                        .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                        .promptSync(PromptSyncStatus.ENABLED)
                         .promptVersion(1L)
                         .publicKeyRef("public_key_ref")
                         .secretKeyRef("secret_key_ref")
-                        .status(ObservabilityReq.Status.ENABLED)
+                        .status(ObservabilityStatus.ENABLED)
                         .build()
                 )
                 .postConversationSettings(
-                    UpdateAssistant.PostConversationSettings.builder().enabled(true).build()
+                    PostConversationSettingsReq.builder().enabled(true).build()
                 )
                 .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                 .addTag("string")
@@ -1063,20 +976,16 @@ internal class AssistantUpdateParamsTest {
 
         assertThat(body.conversationFlow())
             .contains(
-                UpdateAssistant.ConversationFlow.builder()
+                ConversationFlowReq.builder()
                     .addNode(
-                        UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                        ConversationFlowReq.Node.Prompt.builder()
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm.builder()
+                                ExternalLlmReq.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(
-                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                            .AuthenticationMethod
-                                            .TOKEN
-                                    )
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -1084,22 +993,14 @@ internal class AssistantUpdateParamsTest {
                                     .build()
                             )
                             .instructionsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode
-                                    .REPLACE
+                                ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
                             )
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Intake")
-                            .position(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                    .x(120.0)
-                                    .y(80.0)
-                                    .build()
-                            )
+                            .position(NodePosition.builder().x(120.0).y(80.0).build())
                             .addSharedToolId("tool-faq-kb")
-                            .toolsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.REPLACE
-                            )
+                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -1124,7 +1025,7 @@ internal class AssistantUpdateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1152,20 +1053,16 @@ internal class AssistantUpdateParamsTest {
                             .build()
                     )
                     .addNode(
-                        UpdateAssistant.ConversationFlow.Node.Prompt.builder()
+                        ConversationFlowReq.Node.Prompt.builder()
                             .id("n_billing")
                             .instructions(
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
                             )
                             .externalLlm(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm.builder()
+                                ExternalLlmReq.builder()
                                     .baseUrl("base_url")
                                     .model("model")
-                                    .authenticationMethod(
-                                        UpdateAssistant.ConversationFlow.Node.Prompt.ExternalLlm
-                                            .AuthenticationMethod
-                                            .TOKEN
-                                    )
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
@@ -1173,21 +1070,14 @@ internal class AssistantUpdateParamsTest {
                                     .build()
                             )
                             .instructionsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.InstructionsMode.APPEND
+                                ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
                             )
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Billing")
-                            .position(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.Position.builder()
-                                    .x(420.0)
-                                    .y(80.0)
-                                    .build()
-                            )
+                            .position(NodePosition.builder().x(420.0).y(80.0).build())
                             .addSharedToolId("tool-billing-lookup")
-                            .toolsMode(
-                                UpdateAssistant.ConversationFlow.Node.Prompt.ToolsMode.APPEND
-                            )
+                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -1212,7 +1102,7 @@ internal class AssistantUpdateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(UpdateAssistant.ConversationFlow.Node.Prompt.Type.PROMPT)
+                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1241,7 +1131,7 @@ internal class AssistantUpdateParamsTest {
                     )
                     .startNodeId("n_intake")
                     .addEdge(
-                        UpdateAssistant.ConversationFlow.Edge.builder()
+                        FlowEdge.builder()
                             .id("e_intake_to_billing")
                             .llmCondition("The caller is asking about a bill or charge.")
                             .startNodeId("n_intake")
@@ -1249,26 +1139,15 @@ internal class AssistantUpdateParamsTest {
                             .build()
                     )
                     .addEdge(
-                        UpdateAssistant.ConversationFlow.Edge.builder()
+                        FlowEdge.builder()
                             .id("e_intake_to_escalation_assistant")
                             .llmCondition("The caller has explicitly asked for a human.")
                             .startNodeId("n_intake")
                             .target(
-                                UpdateAssistant.ConversationFlow.Edge.Target.Assistant.builder()
+                                FlowEdge.Target.Assistant.builder()
                                     .assistantId("assistant-human-handoff")
-                                    .position(
-                                        UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                            .Position
-                                            .builder()
-                                            .x(600.0)
-                                            .y(80.0)
-                                            .build()
-                                    )
-                                    .voiceMode(
-                                        UpdateAssistant.ConversationFlow.Edge.Target.Assistant
-                                            .VoiceMode
-                                            .DISTINCT
-                                    )
+                                    .position(NodePosition.builder().x(600.0).y(80.0).build())
+                                    .voiceMode(FlowEdge.Target.Assistant.VoiceMode.DISTINCT)
                                     .build()
                             )
                             .build()
@@ -1287,10 +1166,10 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.enabledFeatures().getOrNull()).containsExactly(EnabledFeatures.TELEPHONY)
         assertThat(body.externalLlm())
             .contains(
-                UpdateAssistant.ExternalLlm.builder()
+                ExternalLlmReq.builder()
                     .baseUrl("base_url")
                     .model("model")
-                    .authenticationMethod(UpdateAssistant.ExternalLlm.AuthenticationMethod.TOKEN)
+                    .authenticationMethod(AuthenticationMethod.TOKEN)
                     .certificateRef("certificate_ref")
                     .forwardMetadata(true)
                     .llmApiKeyRef("llm_api_key_ref")
@@ -1299,15 +1178,12 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.fallbackConfig())
             .contains(
-                UpdateAssistant.FallbackConfig.builder()
+                FallbackConfigReq.builder()
                     .externalLlm(
-                        UpdateAssistant.FallbackConfig.ExternalLlm.builder()
+                        ExternalLlmReq.builder()
                             .baseUrl("base_url")
                             .model("model")
-                            .authenticationMethod(
-                                UpdateAssistant.FallbackConfig.ExternalLlm.AuthenticationMethod
-                                    .TOKEN
-                            )
+                            .authenticationMethod(AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
@@ -1324,22 +1200,20 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.instructions()).contains("instructions")
         assertThat(body.integrations().getOrNull())
             .containsExactly(
-                UpdateAssistant.Integration.builder()
+                AssistantIntegration.builder()
                     .integrationId("integration_id")
                     .addAllowedList("string")
                     .build()
             )
         assertThat(body.interruptionSettings())
             .contains(
-                UpdateAssistant.InterruptionSettings.builder()
+                InferenceEmbeddingInterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
                     .startSpeakingPlan(
-                        UpdateAssistant.InterruptionSettings.StartSpeakingPlan.builder()
+                        StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
-                                UpdateAssistant.InterruptionSettings.StartSpeakingPlan
-                                    .TranscriptionEndpointingPlan
-                                    .builder()
+                                TranscriptionEndpointingPlan.builder()
                                     .onNoPunctuationSeconds(0.0f)
                                     .onNumberSeconds(0.0f)
                                     .onPunctuationSeconds(0.0f)
@@ -1352,9 +1226,7 @@ internal class AssistantUpdateParamsTest {
             )
         assertThat(body.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(body.mcpServers().getOrNull())
-            .containsExactly(
-                UpdateAssistant.McpServer.builder().id("id").addAllowedTool("string").build()
-            )
+            .containsExactly(AssistantMcpServer.builder().id("id").addAllowedTool("string").build())
         assertThat(body.messagingSettings())
             .contains(
                 MessagingSettings.builder()
@@ -1371,15 +1243,15 @@ internal class AssistantUpdateParamsTest {
                     .host("host")
                     .promptLabel("prompt_label")
                     .promptName("prompt_name")
-                    .promptSync(ObservabilityReq.PromptSync.ENABLED)
+                    .promptSync(PromptSyncStatus.ENABLED)
                     .promptVersion(1L)
                     .publicKeyRef("public_key_ref")
                     .secretKeyRef("secret_key_ref")
-                    .status(ObservabilityReq.Status.ENABLED)
+                    .status(ObservabilityStatus.ENABLED)
                     .build()
             )
         assertThat(body.postConversationSettings())
-            .contains(UpdateAssistant.PostConversationSettings.builder().enabled(true).build())
+            .contains(PostConversationSettingsReq.builder().enabled(true).build())
         assertThat(body.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
         assertThat(body.tags().getOrNull()).containsExactly("string")

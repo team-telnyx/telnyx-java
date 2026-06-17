@@ -7,14 +7,14 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,7 +40,7 @@ interface NumberServiceAsync {
     fun retrieve(
         phoneNumber: String,
         params: NumberRetrieveParams,
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(phoneNumber, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -48,18 +48,20 @@ interface NumberServiceAsync {
         phoneNumber: String,
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: NumberRetrieveParams): CompletableFuture<NumberRetrieveResponse> =
+    fun retrieve(
+        params: NumberRetrieveParams
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberRetrieveResponse>
+    ): CompletableFuture<ReputationPhoneNumberWithReputation>
 
     /**
      * Paginated list of phone numbers registered for reputation monitoring under this enterprise.
@@ -112,7 +114,7 @@ interface NumberServiceAsync {
     fun associate(
         enterpriseId: String,
         params: NumberAssociateParams,
-    ): CompletableFuture<NumberAssociateResponse> =
+    ): CompletableFuture<ReputationPhoneNumberList> =
         associate(enterpriseId, params, RequestOptions.none())
 
     /** @see associate */
@@ -120,18 +122,18 @@ interface NumberServiceAsync {
         enterpriseId: String,
         params: NumberAssociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberAssociateResponse> =
+    ): CompletableFuture<ReputationPhoneNumberList> =
         associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see associate */
-    fun associate(params: NumberAssociateParams): CompletableFuture<NumberAssociateResponse> =
+    fun associate(params: NumberAssociateParams): CompletableFuture<ReputationPhoneNumberList> =
         associate(params, RequestOptions.none())
 
     /** @see associate */
     fun associate(
         params: NumberAssociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberAssociateResponse>
+    ): CompletableFuture<ReputationPhoneNumberList>
 
     /**
      * Stop tracking the reputation of this phone number. The number itself remains in your
@@ -214,7 +216,7 @@ interface NumberServiceAsync {
         fun retrieve(
             phoneNumber: String,
             params: NumberRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(phoneNumber, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -222,20 +224,20 @@ interface NumberServiceAsync {
             phoneNumber: String,
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             params: NumberRetrieveParams
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation/numbers`,
@@ -285,7 +287,7 @@ interface NumberServiceAsync {
         fun associate(
             enterpriseId: String,
             params: NumberAssociateParams,
-        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberList>> =
             associate(enterpriseId, params, RequestOptions.none())
 
         /** @see associate */
@@ -293,20 +295,20 @@ interface NumberServiceAsync {
             enterpriseId: String,
             params: NumberAssociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberList>> =
             associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see associate */
         fun associate(
             params: NumberAssociateParams
-        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberList>> =
             associate(params, RequestOptions.none())
 
         /** @see associate */
         fun associate(
             params: NumberAssociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>>
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberList>>
 
         /**
          * Returns a raw HTTP response for `delete

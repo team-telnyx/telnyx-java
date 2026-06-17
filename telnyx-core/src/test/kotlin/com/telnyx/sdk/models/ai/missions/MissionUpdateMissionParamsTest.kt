@@ -13,7 +13,7 @@ internal class MissionUpdateMissionParamsTest {
         MissionUpdateMissionParams.builder()
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("description")
-            .executionMode(MissionUpdateMissionParams.ExecutionMode.EXTERNAL)
+            .executionMode(ExecutionMode.EXTERNAL)
             .instructions("instructions")
             .metadata(
                 MissionUpdateMissionParams.Metadata.builder()
@@ -43,7 +43,7 @@ internal class MissionUpdateMissionParamsTest {
             MissionUpdateMissionParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("description")
-                .executionMode(MissionUpdateMissionParams.ExecutionMode.EXTERNAL)
+                .executionMode(ExecutionMode.EXTERNAL)
                 .instructions("instructions")
                 .metadata(
                     MissionUpdateMissionParams.Metadata.builder()
@@ -57,7 +57,7 @@ internal class MissionUpdateMissionParamsTest {
         val body = params._body()
 
         assertThat(body.description()).contains("description")
-        assertThat(body.executionMode()).contains(MissionUpdateMissionParams.ExecutionMode.EXTERNAL)
+        assertThat(body.executionMode()).contains(ExecutionMode.EXTERNAL)
         assertThat(body.instructions()).contains("instructions")
         assertThat(body.metadata())
             .contains(

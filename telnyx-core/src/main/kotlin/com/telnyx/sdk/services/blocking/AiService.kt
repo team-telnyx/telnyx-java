@@ -9,9 +9,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AudioService
 import com.telnyx.sdk.services.blocking.ai.ChatService
@@ -93,19 +93,20 @@ interface AiService {
     /** @see createResponseDeprecated */
     @Deprecated("deprecated")
     fun createResponseDeprecated(
-        body: AiCreateResponseDeprecatedParams.Body,
+        responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AiCreateResponseDeprecatedResponse =
         createResponseDeprecated(
-            AiCreateResponseDeprecatedParams.builder().body(body).build(),
+            AiCreateResponseDeprecatedParams.builder().responseRequest(responseRequest).build(),
             requestOptions,
         )
 
     /** @see createResponseDeprecated */
     @Deprecated("deprecated")
     fun createResponseDeprecated(
-        body: AiCreateResponseDeprecatedParams.Body
-    ): AiCreateResponseDeprecatedResponse = createResponseDeprecated(body, RequestOptions.none())
+        responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest
+    ): AiCreateResponseDeprecatedResponse =
+        createResponseDeprecated(responseRequest, RequestOptions.none())
 
     /**
      * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -118,24 +119,24 @@ interface AiService {
      * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
      */
     @Deprecated("deprecated")
-    fun retrieveModels(): AiRetrieveModelsResponse = retrieveModels(AiRetrieveModelsParams.none())
+    fun retrieveModels(): ModelsResponse = retrieveModels(AiRetrieveModelsParams.none())
 
     /** @see retrieveModels */
     @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiRetrieveModelsResponse
+    ): ModelsResponse
 
     /** @see retrieveModels */
     @Deprecated("deprecated")
     fun retrieveModels(
         params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
-    ): AiRetrieveModelsResponse = retrieveModels(params, RequestOptions.none())
+    ): ModelsResponse = retrieveModels(params, RequestOptions.none())
 
     /** @see retrieveModels */
     @Deprecated("deprecated")
-    fun retrieveModels(requestOptions: RequestOptions): AiRetrieveModelsResponse =
+    fun retrieveModels(requestOptions: RequestOptions): ModelsResponse =
         retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
 
     /**
@@ -220,11 +221,11 @@ interface AiService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun createResponseDeprecated(
-            body: AiCreateResponseDeprecatedParams.Body,
+            responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
             createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.builder().body(body).build(),
+                AiCreateResponseDeprecatedParams.builder().responseRequest(responseRequest).build(),
                 requestOptions,
             )
 
@@ -232,9 +233,9 @@ interface AiService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun createResponseDeprecated(
-            body: AiCreateResponseDeprecatedParams.Body
+            responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest
         ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(body, RequestOptions.none())
+            createResponseDeprecated(responseRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
@@ -242,7 +243,7 @@ interface AiService {
          */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun retrieveModels(): HttpResponseFor<AiRetrieveModelsResponse> =
+        fun retrieveModels(): HttpResponseFor<ModelsResponse> =
             retrieveModels(AiRetrieveModelsParams.none())
 
         /** @see retrieveModels */
@@ -251,21 +252,19 @@ interface AiService {
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiRetrieveModelsResponse>
+        ): HttpResponseFor<ModelsResponse>
 
         /** @see retrieveModels */
         @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveModels(
             params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
-        ): HttpResponseFor<AiRetrieveModelsResponse> = retrieveModels(params, RequestOptions.none())
+        ): HttpResponseFor<ModelsResponse> = retrieveModels(params, RequestOptions.none())
 
         /** @see retrieveModels */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun retrieveModels(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<AiRetrieveModelsResponse> =
+        fun retrieveModels(requestOptions: RequestOptions): HttpResponseFor<ModelsResponse> =
             retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
 
         /**
