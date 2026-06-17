@@ -2,16 +2,17 @@ name: Release Please
 
 # Self-hosted release-please for team-telnyx/telnyx-java.
 #
-# The stlc generate pipeline pushes generated SDK code directly to the
-# `next` branch (with a `Release-As: X.Y.Z` footer). This workflow
-# runs release-please when `next` receives new commits, which:
-#   1. Reads conventional commits from `next` (--changes-branch)
-#   2. Opens a release PR targeting `master` (--target-branch)
+# The promote-to-prod workflow pushes generated SDK code to the `next` branch
+# with a `Release-As: X.Y.Z` footer. This workflow runs release-please when
+# `next` receives new commits, which:
+#   1. Reads the Release-As version from the commit footer
+#   2. Opens a release PR targeting `master` with --release-as
 #   3. On merge, tags vX.Y.Z and creates a GitHub Release
 #   4. publish-sonatype.yml picks up the release event and publishes to Maven Central
 #
-# This replaces the Stainless SaaS mirror that previously synced
-# stainless-sdks/telnyx-java → team-telnyx/telnyx-java.
+# Uses the official Google release-please from npm (not the Stainless fork,
+# which has broken TypeScript compilation on newer Node versions).
+# The --release-as flag replaces the need for the Stainless-only --changes-branch.
 
 on:
   push:
@@ -42,19 +43,47 @@ jobs:
           node-version: '20'
 
       - name: Install release-please
-        run: npm install stainless-api/release-please
+        run: npm install release-please@17
+
+      - name: Read Release-As version from next branch
+        id: version
+        run: |
+          VERSION=""
+          for commit in $(git rev-list HEAD --max-count=50); do
+            BODY=$(git log -1 --format=%b "$commit")
+            RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
+            if [ -n "$RA" ]; then
+              VERSION="$RA"
+              break
+            fi
+          done
+
+          if [ -z "$VERSION" ]; then
+            echo "::warning::No Release-As found; release-please will use semantic versioning"
+            echo "has_version=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "has_version=true" >> "$GITHUB_OUTPUT"
+            echo "Release-As version: $VERSION"
+          fi
 
       - name: Run release-please (release-pr)
         id: release-pr
         run: |
-          OUTPUT=$(npx release-please release-pr \
-            --repo-url "${{ github.repositoryUrl }}" \
-            --token "${{ secrets.SDK_WRITE_TOKEN }}" \
-            --target-branch master \
-            --changes-branch next \
-            --config-file release-please-config.json \
-            --manifest-file .release-please-manifest.json \
-            2>&1) || true
+          ARGS=(
+            release-pr
+            --repo-url "${{ github.repositoryUrl }}"
+            --token "${{ secrets.SDK_WRITE_TOKEN }}"
+            --target-branch master
+            --config-file release-please-config.json
+            --manifest-file .release-please-manifest.json
+          )
+
+          if [ "${{ steps.version.outputs.has_version }}" = "true" ]; then
+            ARGS+=(--release-as "${{ steps.version.outputs.version }}")
+          fi
+
+          OUTPUT=$(npx release-please "${ARGS[@]}" 2>&1) || true
           echo "$OUTPUT"
 
           # Parse PR number from output if a PR was created
@@ -73,7 +102,6 @@ jobs:
             --repo-url "${{ github.repositoryUrl }}" \
             --token "${{ secrets.SDK_WRITE_TOKEN }}" \
             --target-branch master \
-            --changes-branch next \
             --config-file release-please-config.json \
             --manifest-file .release-please-manifest.json \
             2>&1 || true
