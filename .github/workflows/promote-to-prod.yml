@@ -18,6 +18,7 @@ name: Promote to Prod
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
