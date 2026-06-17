@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.75.0](https://github.com/team-telnyx/telnyx-java-staging/compare/v6.74.0...v6.75.0) (2026-06-17)
+
+
+### Features
+
+* add promote-to-prod workflow ([60d7f24](https://github.com/team-telnyx/telnyx-java-staging/commit/60d7f24989c753c9f94328315691014d93dcd188))
+* add promote-to-prod workflow ([f3aa129](https://github.com/team-telnyx/telnyx-java-staging/commit/f3aa129a1a2f98600083cce2ade360f6053a42cb))
+
 ## [6.74.0](https://github.com/team-telnyx/telnyx-java-staging/compare/v6.73.0...v6.74.0) (2026-06-16)
 
 
