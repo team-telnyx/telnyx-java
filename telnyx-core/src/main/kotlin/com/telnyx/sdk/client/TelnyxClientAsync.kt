@@ -245,7 +245,6 @@ interface TelnyxClientAsync {
 
     fun advancedOrders(): AdvancedOrderServiceAsync
 
-    /** Generate text with LLMs */
     fun ai(): AiServiceAsync
 
     /** Audit log operations. */
@@ -765,7 +764,6 @@ interface TelnyxClientAsync {
 
         fun advancedOrders(): AdvancedOrderServiceAsync.WithRawResponse
 
-        /** Generate text with LLMs */
         fun ai(): AiServiceAsync.WithRawResponse
 
         /** Audit log operations. */
