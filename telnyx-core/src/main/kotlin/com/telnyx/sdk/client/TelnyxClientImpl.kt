@@ -1023,7 +1023,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     override fun advancedOrders(): AdvancedOrderService = advancedOrders
 
-    /** Generate text with LLMs */
     override fun ai(): AiService = ai
 
     /** Audit log operations. */
@@ -2239,7 +2238,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun advancedOrders(): AdvancedOrderService.WithRawResponse = advancedOrders
 
-        /** Generate text with LLMs */
         override fun ai(): AiService.WithRawResponse = ai
 
         /** Audit log operations. */

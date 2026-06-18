@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
+import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesParams
+import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.models.ai.ModelsResponse
@@ -48,7 +50,6 @@ import com.telnyx.sdk.services.async.ai.ToolServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Generate text with LLMs */
 class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AiServiceAsync {
 
@@ -142,6 +143,15 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     ): CompletableFuture<ModelsResponse> =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).thenApply { it.parse() }
+
+    override fun searchConversationHistories(
+        params: AiSearchConversationHistoriesParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AiSearchConversationHistoriesResponse> =
+        // get /ai/conversation_histories
+        withRawResponse().searchConversationHistories(params, requestOptions).thenApply {
+            it.parse()
+        }
 
     override fun summarize(
         params: AiSummarizeParams,
@@ -295,6 +305,37 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveModelsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val searchConversationHistoriesHandler:
+            Handler<AiSearchConversationHistoriesResponse> =
+            jsonHandler<AiSearchConversationHistoriesResponse>(clientOptions.jsonMapper)
+
+        override fun searchConversationHistories(
+            params: AiSearchConversationHistoriesParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AiSearchConversationHistoriesResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "conversation_histories")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { searchConversationHistoriesHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
