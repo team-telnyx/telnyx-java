@@ -2,13 +2,18 @@ name: Release Please
 
 # Self-hosted release-please for team-telnyx/telnyx-java.
 #
+# Two-phase trigger:
+#   1. Push to `next` → create/update release PR targeting `master`
+#   2. Push to `master` (release PR merged) → create GitHub release + tag
+#
 # The promote-to-prod workflow pushes generated SDK code to the `next` branch
 # with a `Release-As: X.Y.Z` footer. This workflow runs release-please when
 # `next` receives new commits, which:
 #   1. Reads the Release-As version from the commit footer
 #   2. Opens a release PR targeting `master` with --release-as
-#   3. On merge, tags vX.Y.Z and creates a GitHub Release
-#   4. publish-sonatype.yml picks up the release event and publishes to Maven Central
+#   3. On merge, push to `master` triggers this workflow again
+#   4. github-release creates vX.Y.Z tag and GitHub Release
+#   5. publish-sonatype.yml picks up the release event and publishes to Maven Central
 #
 # Uses the official Google release-please from npm (not the Stainless fork,
 # which has broken TypeScript compilation on newer Node versions).
@@ -17,7 +22,8 @@ name: Release Please
 on:
   push:
     branches:
-      - next
+      - next      # Phase 1: create release PR
+      - master    # Phase 2: create GitHub release + tag
 
 permissions:
   contents: write
@@ -46,9 +52,12 @@ jobs:
         run: npm install release-please@17
 
       - name: Read Release-As version from next branch
+        if: github.ref == 'refs/heads/next'
         id: version
         run: |
           VERSION=""
+          # The stlc-generate.yml injects a "Release-As: X.Y.Z" footer
+          # into the generate commit. Find the latest one in main history.
           for commit in $(git rev-list HEAD --max-count=50); do
             BODY=$(git log -1 --format=%b "$commit")
             RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
@@ -68,6 +77,7 @@ jobs:
           fi
 
       - name: Run release-please (release-pr)
+        if: github.ref == 'refs/heads/next'
         id: release-pr
         run: |
           ARGS=(
@@ -97,6 +107,7 @@ jobs:
           fi
 
       - name: Run release-please (github-release)
+        if: github.ref == 'refs/heads/master'
         run: |
           npx release-please github-release \
             --repo-url "${{ github.repositoryUrl }}" \
@@ -107,7 +118,7 @@ jobs:
             2>&1 || true
 
       - name: Enable auto-merge on release PRs
-        if: steps.release-pr.outputs.prs_created == 'true'
+        if: github.ref == 'refs/heads/next' && steps.release-pr.outputs.prs_created == 'true'
         env:
           GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
           REPO: ${{ github.repository }}
