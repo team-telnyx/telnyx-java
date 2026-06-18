@@ -7,9 +7,9 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.models.ai.ModelsResponse
@@ -111,38 +111,6 @@ interface AiServiceAsync {
         createResponseDeprecated(responseRequest, RequestOptions.none())
 
     /**
-     * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
-     *
-     * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint — open-source
-     * LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.1-FP8`,
-     * `MiniMaxAI/MiniMax-M2.7`), embedding models, and fine-tuned models — kept around for
-     * backwards compatibility. New integrations should use `/v2/ai/openai/models`.
-     *
-     * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
-     */
-    @Deprecated("deprecated")
-    fun retrieveModels(): CompletableFuture<ModelsResponse> =
-        retrieveModels(AiRetrieveModelsParams.none())
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(
-        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ModelsResponse>
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(
-        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
-    ): CompletableFuture<ModelsResponse> = retrieveModels(params, RequestOptions.none())
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(requestOptions: RequestOptions): CompletableFuture<ModelsResponse> =
-        retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
-
-    /**
      * Performs semantic vector search across conversation history records.
      *
      * **How it works:**
@@ -190,16 +158,48 @@ interface AiServiceAsync {
      * GET /v2/ai/conversation_histories?q=hold+time&record_type=voice&filter[language]=en
      * ```
      */
-    fun searchConversationHistories(
-        params: AiSearchConversationHistoriesParams
-    ): CompletableFuture<AiSearchConversationHistoriesResponse> =
-        searchConversationHistories(params, RequestOptions.none())
+    fun retrieveConversationHistories(
+        params: AiRetrieveConversationHistoriesParams
+    ): CompletableFuture<AiRetrieveConversationHistoriesResponse> =
+        retrieveConversationHistories(params, RequestOptions.none())
 
-    /** @see searchConversationHistories */
-    fun searchConversationHistories(
-        params: AiSearchConversationHistoriesParams,
+    /** @see retrieveConversationHistories */
+    fun retrieveConversationHistories(
+        params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AiSearchConversationHistoriesResponse>
+    ): CompletableFuture<AiRetrieveConversationHistoriesResponse>
+
+    /**
+     * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
+     *
+     * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint — open-source
+     * LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.1-FP8`,
+     * `MiniMaxAI/MiniMax-M2.7`), embedding models, and fine-tuned models — kept around for
+     * backwards compatibility. New integrations should use `/v2/ai/openai/models`.
+     *
+     * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
+     */
+    @Deprecated("deprecated")
+    fun retrieveModels(): CompletableFuture<ModelsResponse> =
+        retrieveModels(AiRetrieveModelsParams.none())
+
+    /** @see retrieveModels */
+    @Deprecated("deprecated")
+    fun retrieveModels(
+        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ModelsResponse>
+
+    /** @see retrieveModels */
+    @Deprecated("deprecated")
+    fun retrieveModels(
+        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
+    ): CompletableFuture<ModelsResponse> = retrieveModels(params, RequestOptions.none())
+
+    /** @see retrieveModels */
+    @Deprecated("deprecated")
+    fun retrieveModels(requestOptions: RequestOptions): CompletableFuture<ModelsResponse> =
+        retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
 
     /**
      * Generate a summary of a file's contents.
@@ -296,6 +296,21 @@ interface AiServiceAsync {
             createResponseDeprecated(responseRequest, RequestOptions.none())
 
         /**
+         * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
+         * same as [AiServiceAsync.retrieveConversationHistories].
+         */
+        fun retrieveConversationHistories(
+            params: AiRetrieveConversationHistoriesParams
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>> =
+            retrieveConversationHistories(params, RequestOptions.none())
+
+        /** @see retrieveConversationHistories */
+        fun retrieveConversationHistories(
+            params: AiRetrieveConversationHistoriesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>>
+
+        /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
          * [AiServiceAsync.retrieveModels].
          */
@@ -323,21 +338,6 @@ interface AiServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ModelsResponse>> =
             retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
-         * same as [AiServiceAsync.searchConversationHistories].
-         */
-        fun searchConversationHistories(
-            params: AiSearchConversationHistoriesParams
-        ): CompletableFuture<HttpResponseFor<AiSearchConversationHistoriesResponse>> =
-            searchConversationHistories(params, RequestOptions.none())
-
-        /** @see searchConversationHistories */
-        fun searchConversationHistories(
-            params: AiSearchConversationHistoriesParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AiSearchConversationHistoriesResponse>>
 
         /**
          * Returns a raw HTTP response for `post /ai/summarize`, but is otherwise the same as

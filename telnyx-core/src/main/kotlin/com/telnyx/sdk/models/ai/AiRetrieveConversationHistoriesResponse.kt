@@ -22,7 +22,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Search response following the standard Telnyx V2 API format. */
-class AiSearchConversationHistoriesResponse
+class AiRetrieveConversationHistoriesResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Data>>,
@@ -82,7 +82,7 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [AiSearchConversationHistoriesResponse].
+         * [AiRetrieveConversationHistoriesResponse].
          *
          * The following fields are required:
          * ```java
@@ -93,7 +93,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AiSearchConversationHistoriesResponse]. */
+    /** A builder for [AiRetrieveConversationHistoriesResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Data>>? = null
@@ -102,12 +102,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(
-            aiSearchConversationHistoriesResponse: AiSearchConversationHistoriesResponse
+            aiRetrieveConversationHistoriesResponse: AiRetrieveConversationHistoriesResponse
         ) = apply {
-            data = aiSearchConversationHistoriesResponse.data.map { it.toMutableList() }
-            meta = aiSearchConversationHistoriesResponse.meta
+            data = aiRetrieveConversationHistoriesResponse.data.map { it.toMutableList() }
+            meta = aiRetrieveConversationHistoriesResponse.meta
             additionalProperties =
-                aiSearchConversationHistoriesResponse.additionalProperties.toMutableMap()
+                aiRetrieveConversationHistoriesResponse.additionalProperties.toMutableMap()
         }
 
         /** Ranked list of matching text chunks, sorted by cosine similarity score descending. */
@@ -166,7 +166,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AiSearchConversationHistoriesResponse].
+         * Returns an immutable instance of [AiRetrieveConversationHistoriesResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -178,8 +178,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): AiSearchConversationHistoriesResponse =
-            AiSearchConversationHistoriesResponse(
+        fun build(): AiRetrieveConversationHistoriesResponse =
+            AiRetrieveConversationHistoriesResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -196,7 +196,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): AiSearchConversationHistoriesResponse = apply {
+    fun validate(): AiRetrieveConversationHistoriesResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1696,7 +1696,7 @@ private constructor(
             return true
         }
 
-        return other is AiSearchConversationHistoriesResponse &&
+        return other is AiRetrieveConversationHistoriesResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -1707,5 +1707,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AiSearchConversationHistoriesResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "AiRetrieveConversationHistoriesResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }
