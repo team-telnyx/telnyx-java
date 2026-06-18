@@ -1,60 +1,69 @@
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.SonatypeHost
-
 plugins {
-    id("com.vanniktech.maven.publish")
+    `maven-publish`
+    signing
 }
 
-publishing {
-  repositories {
-      if (project.hasProperty("publishLocal")) {
-          maven {
-              name = "LocalFileSystem"
-              url = uri("${rootProject.layout.buildDirectory.get()}/local-maven-repo")
-          }
-      }
-  }
-}
+configure<PublishingExtension> {
+    publications {
+        register<MavenPublication>("maven") {
+            from(components["java"])
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-}
+            pom {
+                name.set("Telnyx API")
+                description.set("Telnyx provides global communications and connectivity APIs for developers —\nincluding SIP trunking, programmable voice, SMS, MMS, WhatsApp Business\nMessaging, Call Control, Fax, Wireless (IoT & eSIM), Phone Numbers (DID\nprovisioning & porting), Emergency Services, and Network APIs for private\ninterconnects and edge connectivity. Build, scale, and manage voice, messaging,\nand data networks with Telnyx's carrier-grade global infrastructure and\nAPI-first platform.")
+                url.set("https://www.github.com/stainless-sdks/telnyx-java")
 
-extra["signingInMemoryKey"] = System.getenv("GPG_SIGNING_KEY")
-extra["signingInMemoryKeyId"] = System.getenv("GPG_SIGNING_KEY_ID")
-extra["signingInMemoryKeyPassword"] = System.getenv("GPG_SIGNING_PASSWORD")
+                licenses {
+                    license {
+                        name.set("MIT")
+                    }
+                }
 
-configure<MavenPublishBaseExtension> {
-    if (!project.hasProperty("publishLocal")) {
-        signAllPublications()
-        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    }
+                developers {
+                    developer {
+                        name.set("Telnyx")
+                        email.set("support@telnyx.com")
+                    }
+                }
 
-    coordinates(project.group.toString(), project.name, project.version.toString())
+                scm {
+                    connection.set("scm:git:git://github.com/stainless-sdks/telnyx-java.git")
+                    developerConnection.set("scm:git:git://github.com/stainless-sdks/telnyx-java.git")
+                    url.set("https://github.com/stainless-sdks/telnyx-java")
+                }
 
-    pom {
-        name.set("Telnyx API")
-        description.set("Telnyx provides global communications and connectivity APIs for developers —\nincluding SIP trunking, programmable voice, SMS, MMS, WhatsApp Business\nMessaging, Call Control, Fax, Wireless (IoT & eSIM), Phone Numbers (DID\nprovisioning & porting), Emergency Services, and Network APIs for private\ninterconnects and edge connectivity. Build, scale, and manage voice, messaging,\nand data networks with Telnyx's carrier-grade global infrastructure and\nAPI-first platform.")
-        url.set("https://www.github.com/team-telnyx/telnyx-java")
-
-        licenses {
-            license {
-                name.set("MIT")
+                versionMapping {
+                    allVariants {
+                        fromResolutionResult()
+                    }
+                }
             }
         }
-
-        developers {
-            developer {
-                name.set("Telnyx")
-                email.set("support@telnyx.com")
+    }
+    repositories {
+        if (project.hasProperty("publishLocal")) {
+            maven {
+                name = "LocalFileSystem"
+                url = uri("${rootProject.layout.buildDirectory.get()}/local-maven-repo")
             }
         }
-
-        scm {
-            connection.set("scm:git:git://github.com/team-telnyx/telnyx-java.git")
-            developerConnection.set("scm:git:git://github.com/team-telnyx/telnyx-java.git")
-            url.set("https://github.com/team-telnyx/telnyx-java")
-        }
     }
+}
+
+signing {
+    val signingKeyId = System.getenv("GPG_SIGNING_KEY_ID")?.ifBlank { null }
+    val signingKey = System.getenv("GPG_SIGNING_KEY")?.ifBlank { null }
+    val signingPassword = System.getenv("GPG_SIGNING_PASSWORD")?.ifBlank { null }
+    if (signingKey != null && signingPassword != null) {
+        useInMemoryPgpKeys(
+            signingKeyId,
+            signingKey,
+            signingPassword,
+        )
+        sign(publishing.publications["maven"])
+    }
+}
+
+tasks.named("publish") {
+    dependsOn(":closeAndReleaseSonatypeStagingRepository")
 }
