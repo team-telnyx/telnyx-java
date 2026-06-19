@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.76.0](https://github.com/team-telnyx/telnyx-java/compare/v6.74.0...v6.76.0) (2026-06-19)
+
+
+### Bug Fixes
+
+* add code-carry merge step to release-please workflow ([#175](https://github.com/team-telnyx/telnyx-java/issues/175)) ([24d7ded](https://github.com/team-telnyx/telnyx-java/commit/24d7deddd37400f2167a6852387b705738b002c0))
+* trigger github-release on master push after release PR merge ([#171](https://github.com/team-telnyx/telnyx-java/issues/171)) ([5201a67](https://github.com/team-telnyx/telnyx-java/commit/5201a673eebc86625cd9528f5f8d70149486ac98))
+
 ## [6.74.0](https://github.com/team-telnyx/telnyx-java/compare/v6.74.0...v6.74.0) (2026-06-17)
 
 
