@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: MessagingListParams,
     private val response: MessagingListPageResponse,
-) : PageAsync<MessagingListResponse> {
+) : PageAsync<MobilePhoneNumberWithMessagingSettings> {
 
     /**
      * Delegates to [MessagingListPageResponse], but gracefully handles missing data.
      *
      * @see MessagingListPageResponse.data
      */
-    fun data(): List<MessagingListResponse> =
+    fun data(): List<MobilePhoneNumberWithMessagingSettings> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessagingListResponse> = data()
+    override fun items(): List<MobilePhoneNumberWithMessagingSettings> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<MessagingListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MessagingListResponse> =
+    fun autoPager(): AutoPagerAsync<MobilePhoneNumberWithMessagingSettings> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

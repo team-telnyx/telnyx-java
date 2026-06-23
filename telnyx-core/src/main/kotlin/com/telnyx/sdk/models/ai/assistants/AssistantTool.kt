@@ -1771,16 +1771,8 @@ private constructor(
                  */
                 fun targets(targets: JsonField<Targets>) = apply { this.targets = targets }
 
-                /**
-                 * Alias for calling [targets] with
-                 * `Targets.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)`.
-                 */
-                fun targetsOfUnnamedSchemaWithArrayParent0s(
-                    unnamedSchemaWithArrayParent0s: List<Targets.UnnamedSchemaWithArrayParent0>
-                ) =
-                    targets(
-                        Targets.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)
-                    )
+                /** Alias for calling [targets] with `Targets.ofList(list)`. */
+                fun targetsOfList(list: List<Targets.TargetObject>) = targets(Targets.ofList(list))
 
                 /** Alias for calling [targets] with `Targets.ofString(string)`. */
                 fun targets(string: String) = targets(Targets.ofString(string))
@@ -2013,15 +2005,12 @@ private constructor(
             @JsonSerialize(using = Targets.Serializer::class)
             class Targets
             private constructor(
-                private val unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>? =
-                    null,
+                private val list: List<TargetObject>? = null,
                 private val string: String? = null,
                 private val _json: JsonValue? = null,
             ) {
 
-                fun unnamedSchemaWithArrayParent0s():
-                    Optional<List<UnnamedSchemaWithArrayParent0>> =
-                    Optional.ofNullable(unnamedSchemaWithArrayParent0s)
+                fun list(): Optional<List<TargetObject>> = Optional.ofNullable(list)
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -2029,13 +2018,11 @@ private constructor(
                  */
                 fun string(): Optional<String> = Optional.ofNullable(string)
 
-                fun isUnnamedSchemaWithArrayParent0s(): Boolean =
-                    unnamedSchemaWithArrayParent0s != null
+                fun isList(): Boolean = list != null
 
                 fun isString(): Boolean = string != null
 
-                fun asUnnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0> =
-                    unnamedSchemaWithArrayParent0s.getOrThrow("unnamedSchemaWithArrayParent0s")
+                fun asList(): List<TargetObject> = list.getOrThrow("list")
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -2058,8 +2045,8 @@ private constructor(
                  *
                  * Optional<String> result = targets.accept(new Targets.Visitor<Optional<String>>() {
                  *     @Override
-                 *     public Optional<String> visitUnnamedSchemaWithArrayParent0s(List<UnnamedSchemaWithArrayParent0> unnamedSchemaWithArrayParent0s) {
-                 *         return Optional.of(unnamedSchemaWithArrayParent0s.toString());
+                 *     public Optional<String> visitList(List<TargetObject> list) {
+                 *         return Optional.of(list.toString());
                  *     }
                  *
                  *     // ...
@@ -2077,10 +2064,7 @@ private constructor(
                  */
                 fun <T> accept(visitor: Visitor<T>): T =
                     when {
-                        unnamedSchemaWithArrayParent0s != null ->
-                            visitor.visitUnnamedSchemaWithArrayParent0s(
-                                unnamedSchemaWithArrayParent0s
-                            )
+                        list != null -> visitor.visitList(list)
                         string != null -> visitor.visitString(string)
                         else -> visitor.unknown(_json)
                     }
@@ -2104,10 +2088,8 @@ private constructor(
 
                     accept(
                         object : Visitor<Unit> {
-                            override fun visitUnnamedSchemaWithArrayParent0s(
-                                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-                            ) {
-                                unnamedSchemaWithArrayParent0s.forEach { it.validate() }
+                            override fun visitList(list: List<TargetObject>) {
+                                list.forEach { it.validate() }
                             }
 
                             override fun visitString(string: String) {}
@@ -2134,9 +2116,8 @@ private constructor(
                 internal fun validity(): Int =
                     accept(
                         object : Visitor<Int> {
-                            override fun visitUnnamedSchemaWithArrayParent0s(
-                                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-                            ) = unnamedSchemaWithArrayParent0s.sumOf { it.validity().toInt() }
+                            override fun visitList(list: List<TargetObject>) =
+                                list.sumOf { it.validity().toInt() }
 
                             override fun visitString(string: String) = 1
 
@@ -2149,17 +2130,14 @@ private constructor(
                         return true
                     }
 
-                    return other is Targets &&
-                        unnamedSchemaWithArrayParent0s == other.unnamedSchemaWithArrayParent0s &&
-                        string == other.string
+                    return other is Targets && list == other.list && string == other.string
                 }
 
-                override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent0s, string)
+                override fun hashCode(): Int = Objects.hash(list, string)
 
                 override fun toString(): String =
                     when {
-                        unnamedSchemaWithArrayParent0s != null ->
-                            "Targets{unnamedSchemaWithArrayParent0s=$unnamedSchemaWithArrayParent0s}"
+                        list != null -> "Targets{list=$list}"
                         string != null -> "Targets{string=$string}"
                         _json != null -> "Targets{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid Targets")
@@ -2168,13 +2146,7 @@ private constructor(
                 companion object {
 
                     @JvmStatic
-                    fun ofUnnamedSchemaWithArrayParent0s(
-                        unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-                    ) =
-                        Targets(
-                            unnamedSchemaWithArrayParent0s =
-                                unnamedSchemaWithArrayParent0s.toImmutable()
-                        )
+                    fun ofList(list: List<TargetObject>) = Targets(list = list.toImmutable())
 
                     /**
                      * A dynamic variable string like `{{ targets }}` where `targets` is returned by
@@ -2190,9 +2162,7 @@ private constructor(
                  */
                 interface Visitor<out T> {
 
-                    fun visitUnnamedSchemaWithArrayParent0s(
-                        unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-                    ): T
+                    fun visitList(list: List<TargetObject>): T
 
                     /**
                      * A dynamic variable string like `{{ targets }}` where `targets` is returned by
@@ -2226,16 +2196,8 @@ private constructor(
                                     tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                         Targets(string = it, _json = json)
                                     },
-                                    tryDeserialize(
-                                            node,
-                                            jacksonTypeRef<List<UnnamedSchemaWithArrayParent0>>(),
-                                        )
-                                        ?.let {
-                                            Targets(
-                                                unnamedSchemaWithArrayParent0s = it,
-                                                _json = json,
-                                            )
-                                        },
+                                    tryDeserialize(node, jacksonTypeRef<List<TargetObject>>())
+                                        ?.let { Targets(list = it, _json = json) },
                                 )
                                 .filterNotNull()
                                 .allMaxBy { it.validity() }
@@ -2262,8 +2224,7 @@ private constructor(
                         provider: SerializerProvider,
                     ) {
                         when {
-                            value.unnamedSchemaWithArrayParent0s != null ->
-                                generator.writeObject(value.unnamedSchemaWithArrayParent0s)
+                            value.list != null -> generator.writeObject(value.list)
                             value.string != null -> generator.writeObject(value.string)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid Targets")
@@ -2271,7 +2232,7 @@ private constructor(
                     }
                 }
 
-                class UnnamedSchemaWithArrayParent0
+                class TargetObject
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val to: JsonField<String>,
@@ -2337,8 +2298,7 @@ private constructor(
                     companion object {
 
                         /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [UnnamedSchemaWithArrayParent0].
+                         * Returns a mutable builder for constructing an instance of [TargetObject].
                          *
                          * The following fields are required:
                          * ```java
@@ -2348,7 +2308,7 @@ private constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [UnnamedSchemaWithArrayParent0]. */
+                    /** A builder for [TargetObject]. */
                     class Builder internal constructor() {
 
                         private var to: JsonField<String>? = null
@@ -2357,13 +2317,10 @@ private constructor(
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(
-                            unnamedSchemaWithArrayParent0: UnnamedSchemaWithArrayParent0
-                        ) = apply {
-                            to = unnamedSchemaWithArrayParent0.to
-                            name = unnamedSchemaWithArrayParent0.name
-                            additionalProperties =
-                                unnamedSchemaWithArrayParent0.additionalProperties.toMutableMap()
+                        internal fun from(targetObject: TargetObject) = apply {
+                            to = targetObject.to
+                            name = targetObject.name
+                            additionalProperties = targetObject.additionalProperties.toMutableMap()
                         }
 
                         /** The destination number or SIP URI of the call. */
@@ -2413,7 +2370,7 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [UnnamedSchemaWithArrayParent0].
+                         * Returns an immutable instance of [TargetObject].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          *
@@ -2424,8 +2381,8 @@ private constructor(
                          *
                          * @throws IllegalStateException if any required field is unset.
                          */
-                        fun build(): UnnamedSchemaWithArrayParent0 =
-                            UnnamedSchemaWithArrayParent0(
+                        fun build(): TargetObject =
+                            TargetObject(
                                 checkRequired("to", to),
                                 name,
                                 additionalProperties.toMutableMap(),
@@ -2444,7 +2401,7 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): UnnamedSchemaWithArrayParent0 = apply {
+                    fun validate(): TargetObject = apply {
                         if (validated) {
                             return@apply
                         }
@@ -2478,7 +2435,7 @@ private constructor(
                             return true
                         }
 
-                        return other is UnnamedSchemaWithArrayParent0 &&
+                        return other is TargetObject &&
                             to == other.to &&
                             name == other.name &&
                             additionalProperties == other.additionalProperties
@@ -2491,7 +2448,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "UnnamedSchemaWithArrayParent0{to=$to, name=$name, additionalProperties=$additionalProperties}"
+                        "TargetObject{to=$to, name=$name, additionalProperties=$additionalProperties}"
                 }
             }
 
@@ -4624,7 +4581,7 @@ private constructor(
     class Invite
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val invite: JsonField<InnerInvite>,
+        private val invite: JsonField<InviteToolInviteConfig>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -4633,7 +4590,7 @@ private constructor(
         private constructor(
             @JsonProperty("invite")
             @ExcludeMissing
-            invite: JsonField<InnerInvite> = JsonMissing.of(),
+            invite: JsonField<InviteToolInviteConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(invite, type, mutableMapOf())
 
@@ -4641,7 +4598,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun invite(): InnerInvite = invite.getRequired("invite")
+        fun invite(): InviteToolInviteConfig = invite.getRequired("invite")
 
         /**
          * Expected to always return the following:
@@ -4659,7 +4616,9 @@ private constructor(
          *
          * Unlike [invite], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("invite") @ExcludeMissing fun _invite(): JsonField<InnerInvite> = invite
+        @JsonProperty("invite")
+        @ExcludeMissing
+        fun _invite(): JsonField<InviteToolInviteConfig> = invite
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4689,7 +4648,7 @@ private constructor(
         /** A builder for [Invite]. */
         class Builder internal constructor() {
 
-            private var invite: JsonField<InnerInvite>? = null
+            private var invite: JsonField<InviteToolInviteConfig>? = null
             private var type: JsonValue = JsonValue.from("invite")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4700,16 +4659,16 @@ private constructor(
                 additionalProperties = invite.additionalProperties.toMutableMap()
             }
 
-            fun invite(invite: InnerInvite) = invite(JsonField.of(invite))
+            fun invite(invite: InviteToolInviteConfig) = invite(JsonField.of(invite))
 
             /**
              * Sets [Builder.invite] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.invite] with a well-typed [InnerInvite] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.invite] with a well-typed [InviteToolInviteConfig]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun invite(invite: JsonField<InnerInvite>) = apply { this.invite = invite }
+            fun invite(invite: JsonField<InviteToolInviteConfig>) = apply { this.invite = invite }
 
             /**
              * Sets the field to an arbitrary JSON value.
@@ -4804,7 +4763,7 @@ private constructor(
             (invite.asKnown().getOrNull()?.validity() ?: 0) +
                 type.let { if (it == JsonValue.from("invite")) 1 else 0 }
 
-        class InnerInvite
+        class InviteToolInviteConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val from: JsonField<String>,
@@ -4917,7 +4876,8 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [InnerInvite].
+                 * Returns a mutable builder for constructing an instance of
+                 * [InviteToolInviteConfig].
                  *
                  * The following fields are required:
                  * ```java
@@ -4927,7 +4887,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InnerInvite]. */
+            /** A builder for [InviteToolInviteConfig]. */
             class Builder internal constructor() {
 
                 private var from: JsonField<String>? = null
@@ -4937,12 +4897,13 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(innerInvite: InnerInvite) = apply {
-                    from = innerInvite.from
-                    customHeaders = innerInvite.customHeaders.map { it.toMutableList() }
-                    targets = innerInvite.targets
-                    voicemailDetection = innerInvite.voicemailDetection
-                    additionalProperties = innerInvite.additionalProperties.toMutableMap()
+                internal fun from(inviteToolInviteConfig: InviteToolInviteConfig) = apply {
+                    from = inviteToolInviteConfig.from
+                    customHeaders = inviteToolInviteConfig.customHeaders.map { it.toMutableList() }
+                    targets = inviteToolInviteConfig.targets
+                    voicemailDetection = inviteToolInviteConfig.voicemailDetection
+                    additionalProperties =
+                        inviteToolInviteConfig.additionalProperties.toMutableMap()
                 }
 
                 /** Number or SIP URI placing the call. */
@@ -5006,16 +4967,8 @@ private constructor(
                  */
                 fun targets(targets: JsonField<Targets>) = apply { this.targets = targets }
 
-                /**
-                 * Alias for calling [targets] with
-                 * `Targets.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)`.
-                 */
-                fun targetsOfUnnamedSchemaWithArrayParent1s(
-                    unnamedSchemaWithArrayParent1s: List<Targets.UnnamedSchemaWithArrayParent1>
-                ) =
-                    targets(
-                        Targets.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)
-                    )
+                /** Alias for calling [targets] with `Targets.ofList(list)`. */
+                fun targetsOfList(list: List<Targets.TargetObject>) = targets(Targets.ofList(list))
 
                 /** Alias for calling [targets] with `Targets.ofString(string)`. */
                 fun targets(string: String) = targets(Targets.ofString(string))
@@ -5061,7 +5014,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InnerInvite].
+                 * Returns an immutable instance of [InviteToolInviteConfig].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -5072,8 +5025,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): InnerInvite =
-                    InnerInvite(
+                fun build(): InviteToolInviteConfig =
+                    InviteToolInviteConfig(
                         checkRequired("from", from),
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                         targets,
@@ -5094,7 +5047,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): InnerInvite = apply {
+            fun validate(): InviteToolInviteConfig = apply {
                 if (validated) {
                     return@apply
                 }
@@ -5342,15 +5295,12 @@ private constructor(
             @JsonSerialize(using = Targets.Serializer::class)
             class Targets
             private constructor(
-                private val unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>? =
-                    null,
+                private val list: List<TargetObject>? = null,
                 private val string: String? = null,
                 private val _json: JsonValue? = null,
             ) {
 
-                fun unnamedSchemaWithArrayParent1s():
-                    Optional<List<UnnamedSchemaWithArrayParent1>> =
-                    Optional.ofNullable(unnamedSchemaWithArrayParent1s)
+                fun list(): Optional<List<TargetObject>> = Optional.ofNullable(list)
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -5358,13 +5308,11 @@ private constructor(
                  */
                 fun string(): Optional<String> = Optional.ofNullable(string)
 
-                fun isUnnamedSchemaWithArrayParent1s(): Boolean =
-                    unnamedSchemaWithArrayParent1s != null
+                fun isList(): Boolean = list != null
 
                 fun isString(): Boolean = string != null
 
-                fun asUnnamedSchemaWithArrayParent1s(): List<UnnamedSchemaWithArrayParent1> =
-                    unnamedSchemaWithArrayParent1s.getOrThrow("unnamedSchemaWithArrayParent1s")
+                fun asList(): List<TargetObject> = list.getOrThrow("list")
 
                 /**
                  * A dynamic variable string like `{{ targets }}` where `targets` is returned by the
@@ -5387,8 +5335,8 @@ private constructor(
                  *
                  * Optional<String> result = targets.accept(new Targets.Visitor<Optional<String>>() {
                  *     @Override
-                 *     public Optional<String> visitUnnamedSchemaWithArrayParent1s(List<UnnamedSchemaWithArrayParent1> unnamedSchemaWithArrayParent1s) {
-                 *         return Optional.of(unnamedSchemaWithArrayParent1s.toString());
+                 *     public Optional<String> visitList(List<TargetObject> list) {
+                 *         return Optional.of(list.toString());
                  *     }
                  *
                  *     // ...
@@ -5406,10 +5354,7 @@ private constructor(
                  */
                 fun <T> accept(visitor: Visitor<T>): T =
                     when {
-                        unnamedSchemaWithArrayParent1s != null ->
-                            visitor.visitUnnamedSchemaWithArrayParent1s(
-                                unnamedSchemaWithArrayParent1s
-                            )
+                        list != null -> visitor.visitList(list)
                         string != null -> visitor.visitString(string)
                         else -> visitor.unknown(_json)
                     }
@@ -5433,10 +5378,8 @@ private constructor(
 
                     accept(
                         object : Visitor<Unit> {
-                            override fun visitUnnamedSchemaWithArrayParent1s(
-                                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-                            ) {
-                                unnamedSchemaWithArrayParent1s.forEach { it.validate() }
+                            override fun visitList(list: List<TargetObject>) {
+                                list.forEach { it.validate() }
                             }
 
                             override fun visitString(string: String) {}
@@ -5463,9 +5406,8 @@ private constructor(
                 internal fun validity(): Int =
                     accept(
                         object : Visitor<Int> {
-                            override fun visitUnnamedSchemaWithArrayParent1s(
-                                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-                            ) = unnamedSchemaWithArrayParent1s.sumOf { it.validity().toInt() }
+                            override fun visitList(list: List<TargetObject>) =
+                                list.sumOf { it.validity().toInt() }
 
                             override fun visitString(string: String) = 1
 
@@ -5478,17 +5420,14 @@ private constructor(
                         return true
                     }
 
-                    return other is Targets &&
-                        unnamedSchemaWithArrayParent1s == other.unnamedSchemaWithArrayParent1s &&
-                        string == other.string
+                    return other is Targets && list == other.list && string == other.string
                 }
 
-                override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent1s, string)
+                override fun hashCode(): Int = Objects.hash(list, string)
 
                 override fun toString(): String =
                     when {
-                        unnamedSchemaWithArrayParent1s != null ->
-                            "Targets{unnamedSchemaWithArrayParent1s=$unnamedSchemaWithArrayParent1s}"
+                        list != null -> "Targets{list=$list}"
                         string != null -> "Targets{string=$string}"
                         _json != null -> "Targets{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid Targets")
@@ -5497,13 +5436,7 @@ private constructor(
                 companion object {
 
                     @JvmStatic
-                    fun ofUnnamedSchemaWithArrayParent1s(
-                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-                    ) =
-                        Targets(
-                            unnamedSchemaWithArrayParent1s =
-                                unnamedSchemaWithArrayParent1s.toImmutable()
-                        )
+                    fun ofList(list: List<TargetObject>) = Targets(list = list.toImmutable())
 
                     /**
                      * A dynamic variable string like `{{ targets }}` where `targets` is returned by
@@ -5519,9 +5452,7 @@ private constructor(
                  */
                 interface Visitor<out T> {
 
-                    fun visitUnnamedSchemaWithArrayParent1s(
-                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-                    ): T
+                    fun visitList(list: List<TargetObject>): T
 
                     /**
                      * A dynamic variable string like `{{ targets }}` where `targets` is returned by
@@ -5555,16 +5486,8 @@ private constructor(
                                     tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                         Targets(string = it, _json = json)
                                     },
-                                    tryDeserialize(
-                                            node,
-                                            jacksonTypeRef<List<UnnamedSchemaWithArrayParent1>>(),
-                                        )
-                                        ?.let {
-                                            Targets(
-                                                unnamedSchemaWithArrayParent1s = it,
-                                                _json = json,
-                                            )
-                                        },
+                                    tryDeserialize(node, jacksonTypeRef<List<TargetObject>>())
+                                        ?.let { Targets(list = it, _json = json) },
                                 )
                                 .filterNotNull()
                                 .allMaxBy { it.validity() }
@@ -5591,8 +5514,7 @@ private constructor(
                         provider: SerializerProvider,
                     ) {
                         when {
-                            value.unnamedSchemaWithArrayParent1s != null ->
-                                generator.writeObject(value.unnamedSchemaWithArrayParent1s)
+                            value.list != null -> generator.writeObject(value.list)
                             value.string != null -> generator.writeObject(value.string)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid Targets")
@@ -5600,7 +5522,7 @@ private constructor(
                     }
                 }
 
-                class UnnamedSchemaWithArrayParent1
+                class TargetObject
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val to: JsonField<String>,
@@ -5666,8 +5588,7 @@ private constructor(
                     companion object {
 
                         /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [UnnamedSchemaWithArrayParent1].
+                         * Returns a mutable builder for constructing an instance of [TargetObject].
                          *
                          * The following fields are required:
                          * ```java
@@ -5677,7 +5598,7 @@ private constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [UnnamedSchemaWithArrayParent1]. */
+                    /** A builder for [TargetObject]. */
                     class Builder internal constructor() {
 
                         private var to: JsonField<String>? = null
@@ -5686,13 +5607,10 @@ private constructor(
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(
-                            unnamedSchemaWithArrayParent1: UnnamedSchemaWithArrayParent1
-                        ) = apply {
-                            to = unnamedSchemaWithArrayParent1.to
-                            name = unnamedSchemaWithArrayParent1.name
-                            additionalProperties =
-                                unnamedSchemaWithArrayParent1.additionalProperties.toMutableMap()
+                        internal fun from(targetObject: TargetObject) = apply {
+                            to = targetObject.to
+                            name = targetObject.name
+                            additionalProperties = targetObject.additionalProperties.toMutableMap()
                         }
 
                         /** The destination number or SIP URI of the call. */
@@ -5742,7 +5660,7 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [UnnamedSchemaWithArrayParent1].
+                         * Returns an immutable instance of [TargetObject].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          *
@@ -5753,8 +5671,8 @@ private constructor(
                          *
                          * @throws IllegalStateException if any required field is unset.
                          */
-                        fun build(): UnnamedSchemaWithArrayParent1 =
-                            UnnamedSchemaWithArrayParent1(
+                        fun build(): TargetObject =
+                            TargetObject(
                                 checkRequired("to", to),
                                 name,
                                 additionalProperties.toMutableMap(),
@@ -5773,7 +5691,7 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): UnnamedSchemaWithArrayParent1 = apply {
+                    fun validate(): TargetObject = apply {
                         if (validated) {
                             return@apply
                         }
@@ -5807,7 +5725,7 @@ private constructor(
                             return true
                         }
 
-                        return other is UnnamedSchemaWithArrayParent1 &&
+                        return other is TargetObject &&
                             to == other.to &&
                             name == other.name &&
                             additionalProperties == other.additionalProperties
@@ -5820,7 +5738,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "UnnamedSchemaWithArrayParent1{to=$to, name=$name, additionalProperties=$additionalProperties}"
+                        "TargetObject{to=$to, name=$name, additionalProperties=$additionalProperties}"
                 }
             }
 
@@ -6517,7 +6435,7 @@ private constructor(
                     return true
                 }
 
-                return other is InnerInvite &&
+                return other is InviteToolInviteConfig &&
                     from == other.from &&
                     customHeaders == other.customHeaders &&
                     targets == other.targets &&
@@ -6532,7 +6450,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InnerInvite{from=$from, customHeaders=$customHeaders, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+                "InviteToolInviteConfig{from=$from, customHeaders=$customHeaders, targets=$targets, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

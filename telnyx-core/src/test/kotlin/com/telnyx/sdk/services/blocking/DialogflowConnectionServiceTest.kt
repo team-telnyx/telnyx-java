@@ -17,7 +17,7 @@ internal class DialogflowConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val dialogflowConnectionService = client.dialogflowConnections()
 
-        val dialogflowConnection =
+        val dialogflowConnectionResponse =
             dialogflowConnectionService.create(
                 DialogflowConnectionCreateParams.builder()
                     .connectionId("connection_id")
@@ -45,7 +45,7 @@ internal class DialogflowConnectionServiceTest {
                     .build()
             )
 
-        dialogflowConnection.validate()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -54,9 +54,9 @@ internal class DialogflowConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val dialogflowConnectionService = client.dialogflowConnections()
 
-        val dialogflowConnection = dialogflowConnectionService.retrieve("connection_id")
+        val dialogflowConnectionResponse = dialogflowConnectionService.retrieve("connection_id")
 
-        dialogflowConnection.validate()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -65,7 +65,7 @@ internal class DialogflowConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val dialogflowConnectionService = client.dialogflowConnections()
 
-        val dialogflowConnection =
+        val dialogflowConnectionResponse =
             dialogflowConnectionService.update(
                 DialogflowConnectionUpdateParams.builder()
                     .connectionId("connection_id")
@@ -93,7 +93,7 @@ internal class DialogflowConnectionServiceTest {
                     .build()
             )
 
-        dialogflowConnection.validate()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

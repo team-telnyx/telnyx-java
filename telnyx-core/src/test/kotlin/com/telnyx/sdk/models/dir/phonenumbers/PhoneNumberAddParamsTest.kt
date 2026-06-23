@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.dir.phonenumbers
 
+import com.telnyx.sdk.models.dir.Document
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,11 +13,9 @@ internal class PhoneNumberAddParamsTest {
         PhoneNumberAddParams.builder()
             .dirId("16635d38-75a6-4481-82e8-69af60e05011")
             .addDocument(
-                PhoneNumberAddParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                    )
+                    .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                     .description("LOA authorising Telnyx to register these numbers under the DIR.")
                     .build()
             )
@@ -31,11 +30,9 @@ internal class PhoneNumberAddParamsTest {
             PhoneNumberAddParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .addDocument(
-                    PhoneNumberAddParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(
-                            PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                        )
+                        .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                         .build()
                 )
                 .addPhoneNumber("+19493253498")
@@ -53,11 +50,9 @@ internal class PhoneNumberAddParamsTest {
             PhoneNumberAddParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .addDocument(
-                    PhoneNumberAddParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(
-                            PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                        )
+                        .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                         .description(
                             "LOA authorising Telnyx to register these numbers under the DIR."
                         )
@@ -71,11 +66,9 @@ internal class PhoneNumberAddParamsTest {
 
         assertThat(body.documents())
             .containsExactly(
-                PhoneNumberAddParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                    )
+                    .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                     .description("LOA authorising Telnyx to register these numbers under the DIR.")
                     .build()
             )
@@ -88,11 +81,9 @@ internal class PhoneNumberAddParamsTest {
             PhoneNumberAddParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .addDocument(
-                    PhoneNumberAddParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(
-                            PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                        )
+                        .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                         .build()
                 )
                 .addPhoneNumber("+19493253498")
@@ -103,11 +94,9 @@ internal class PhoneNumberAddParamsTest {
 
         assertThat(body.documents())
             .containsExactly(
-                PhoneNumberAddParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        PhoneNumberAddParams.Document.DocumentType.LETTER_OF_AUTHORIZATION
-                    )
+                    .documentType(Document.DocumentType.LETTER_OF_AUTHORIZATION)
                     .build()
             )
         assertThat(body.phoneNumbers()).containsExactly("+19493253498", "+12134445566")

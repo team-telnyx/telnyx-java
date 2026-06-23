@@ -14,7 +14,7 @@ internal class EventLogParamsTest {
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .summary("summary")
-            .type(EventLogParams.Type.STATUS_CHANGE)
+            .type(EventType.STATUS_CHANGE)
             .agentId("agent_id")
             .idempotencyKey("idempotency_key")
             .payload(
@@ -33,7 +33,7 @@ internal class EventLogParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .summary("summary")
-                .type(EventLogParams.Type.STATUS_CHANGE)
+                .type(EventType.STATUS_CHANGE)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -49,7 +49,7 @@ internal class EventLogParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .summary("summary")
-                .type(EventLogParams.Type.STATUS_CHANGE)
+                .type(EventType.STATUS_CHANGE)
                 .agentId("agent_id")
                 .idempotencyKey("idempotency_key")
                 .payload(
@@ -63,7 +63,7 @@ internal class EventLogParamsTest {
         val body = params._body()
 
         assertThat(body.summary()).isEqualTo("summary")
-        assertThat(body.type()).isEqualTo(EventLogParams.Type.STATUS_CHANGE)
+        assertThat(body.type()).isEqualTo(EventType.STATUS_CHANGE)
         assertThat(body.agentId()).contains("agent_id")
         assertThat(body.idempotencyKey()).contains("idempotency_key")
         assertThat(body.payload())
@@ -82,12 +82,12 @@ internal class EventLogParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .summary("summary")
-                .type(EventLogParams.Type.STATUS_CHANGE)
+                .type(EventType.STATUS_CHANGE)
                 .build()
 
         val body = params._body()
 
         assertThat(body.summary()).isEqualTo("summary")
-        assertThat(body.type()).isEqualTo(EventLogParams.Type.STATUS_CHANGE)
+        assertThat(body.type()).isEqualTo(EventType.STATUS_CHANGE)
     }
 }

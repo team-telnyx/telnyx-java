@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir.phonenumberbatches
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.async.dir.PhoneNumberBatchServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PhoneNumberBatchListParams,
     private val response: PhoneNumberBatchListPageResponse,
-) : PageAsync<PhoneNumberBatchListResponse> {
+) : PageAsync<PhoneNumberBatch> {
 
     /**
      * Delegates to [PhoneNumberBatchListPageResponse], but gracefully handles missing data.
      *
      * @see PhoneNumberBatchListPageResponse.data
      */
-    fun data(): List<PhoneNumberBatchListResponse> =
+    fun data(): List<PhoneNumberBatch> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,10 +36,9 @@ private constructor(
      *
      * @see PhoneNumberBatchListPageResponse.meta
      */
-    fun meta(): Optional<PhoneNumberBatchListPageResponse.Meta> =
-        response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PhoneNumberBatchListResponse> = data()
+    override fun items(): List<PhoneNumberBatch> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PhoneNumberBatchListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PhoneNumberBatchListResponse> =
+    fun autoPager(): AutoPagerAsync<PhoneNumberBatch> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

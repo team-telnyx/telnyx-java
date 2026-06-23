@@ -19,17 +19,17 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: QueueListParams,
     private val response: QueueListPageResponse,
-) : PageAsync<QueueListResponse> {
+) : PageAsync<QueueResource> {
 
     /**
      * Delegates to [QueueListPageResponse], but gracefully handles missing data.
      *
      * @see QueueListPageResponse.queues
      */
-    fun queues(): List<QueueListResponse> =
+    fun queues(): List<QueueResource> =
         response._queues().getOptional("queues").getOrNull() ?: emptyList()
 
-    override fun items(): List<QueueListResponse> = queues()
+    override fun items(): List<QueueResource> = queues()
 
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
@@ -40,7 +40,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<QueueListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<QueueListResponse> =
+    fun autoPager(): AutoPagerAsync<QueueResource> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

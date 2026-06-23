@@ -10,12 +10,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantDeleteParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsResponse
+import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantResource
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateResponse
 import java.util.function.Consumer
 
 /** TeXML REST Commands */
@@ -37,56 +36,55 @@ interface ParticipantService {
     fun retrieve(
         callSidOrParticipantLabel: String,
         params: ParticipantRetrieveParams,
-    ): ParticipantRetrieveResponse =
-        retrieve(callSidOrParticipantLabel, params, RequestOptions.none())
+    ): ParticipantResource = retrieve(callSidOrParticipantLabel, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         callSidOrParticipantLabel: String,
         params: ParticipantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ParticipantRetrieveResponse =
+    ): ParticipantResource =
         retrieve(
             params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
             requestOptions,
         )
 
     /** @see retrieve */
-    fun retrieve(params: ParticipantRetrieveParams): ParticipantRetrieveResponse =
+    fun retrieve(params: ParticipantRetrieveParams): ParticipantResource =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ParticipantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ParticipantRetrieveResponse
+    ): ParticipantResource
 
     /** Updates a conference participant */
     fun update(
         callSidOrParticipantLabel: String,
         params: ParticipantUpdateParams,
-    ): ParticipantUpdateResponse = update(callSidOrParticipantLabel, params, RequestOptions.none())
+    ): ParticipantResource = update(callSidOrParticipantLabel, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         callSidOrParticipantLabel: String,
         params: ParticipantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ParticipantUpdateResponse =
+    ): ParticipantResource =
         update(
             params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
             requestOptions,
         )
 
     /** @see update */
-    fun update(params: ParticipantUpdateParams): ParticipantUpdateResponse =
+    fun update(params: ParticipantUpdateParams): ParticipantResource =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ParticipantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ParticipantUpdateResponse
+    ): ParticipantResource
 
     /** Deletes a conference participant */
     fun delete(callSidOrParticipantLabel: String, params: ParticipantDeleteParams) =
@@ -188,7 +186,7 @@ interface ParticipantService {
         fun retrieve(
             callSidOrParticipantLabel: String,
             params: ParticipantRetrieveParams,
-        ): HttpResponseFor<ParticipantRetrieveResponse> =
+        ): HttpResponseFor<ParticipantResource> =
             retrieve(callSidOrParticipantLabel, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -197,7 +195,7 @@ interface ParticipantService {
             callSidOrParticipantLabel: String,
             params: ParticipantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ParticipantRetrieveResponse> =
+        ): HttpResponseFor<ParticipantResource> =
             retrieve(
                 params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
                 requestOptions,
@@ -205,16 +203,15 @@ interface ParticipantService {
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: ParticipantRetrieveParams
-        ): HttpResponseFor<ParticipantRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: ParticipantRetrieveParams): HttpResponseFor<ParticipantResource> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ParticipantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ParticipantRetrieveResponse>
+        ): HttpResponseFor<ParticipantResource>
 
         /**
          * Returns a raw HTTP response for `post
@@ -225,7 +222,7 @@ interface ParticipantService {
         fun update(
             callSidOrParticipantLabel: String,
             params: ParticipantUpdateParams,
-        ): HttpResponseFor<ParticipantUpdateResponse> =
+        ): HttpResponseFor<ParticipantResource> =
             update(callSidOrParticipantLabel, params, RequestOptions.none())
 
         /** @see update */
@@ -234,7 +231,7 @@ interface ParticipantService {
             callSidOrParticipantLabel: String,
             params: ParticipantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ParticipantUpdateResponse> =
+        ): HttpResponseFor<ParticipantResource> =
             update(
                 params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
                 requestOptions,
@@ -242,7 +239,7 @@ interface ParticipantService {
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ParticipantUpdateParams): HttpResponseFor<ParticipantUpdateResponse> =
+        fun update(params: ParticipantUpdateParams): HttpResponseFor<ParticipantResource> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -250,7 +247,7 @@ interface ParticipantService {
         fun update(
             params: ParticipantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ParticipantUpdateResponse>
+        ): HttpResponseFor<ParticipantResource>
 
         /**
          * Returns a raw HTTP response for `delete

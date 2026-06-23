@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.termsofservice.agreements
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.async.termsofservice.AgreementServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,24 +21,23 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: AgreementListParams,
     private val response: AgreementListPageResponse,
-) : PageAsync<AgreementListResponse> {
+) : PageAsync<TosAgreement> {
 
     /**
      * Delegates to [AgreementListPageResponse], but gracefully handles missing data.
      *
      * @see AgreementListPageResponse.data
      */
-    fun data(): List<AgreementListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<TosAgreement> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [AgreementListPageResponse], but gracefully handles missing data.
      *
      * @see AgreementListPageResponse.meta
      */
-    fun meta(): Optional<AgreementListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AgreementListResponse> = data()
+    override fun items(): List<TosAgreement> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,8 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<AgreementListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<AgreementListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<TosAgreement> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): AgreementListParams = params

@@ -89,23 +89,22 @@ internal class ActionStartAiAssistantParamsTest {
             .greeting("Hello, can you tell me your age and where you live?")
             .interruptionSettings(InterruptionSettings.builder().enable(true).build())
             .addMessageHistory(
-                ActionStartAiAssistantParams.MessageHistory.User.builder()
+                UserMessage.builder()
                     .content("Hello, I would like some help.")
+                    .role(UserMessage.Role.USER)
                     .metadata(
-                        ActionStartAiAssistantParams.MessageHistory.User.Metadata.builder()
+                        UserMessage.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
                     .build()
             )
             .addParticipant(
-                ActionStartAiAssistantParams.Participant.builder()
+                AiAssistantJoinParticipant.builder()
                     .id("v3:abc123def456")
-                    .role(ActionStartAiAssistantParams.Participant.Role.USER)
+                    .role(AiAssistantJoinParticipant.Role.USER)
                     .name("John Doe")
-                    .onHangup(
-                        ActionStartAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                    )
+                    .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                     .build()
             )
             .sendMessageHistoryUpdates(true)
@@ -213,23 +212,22 @@ internal class ActionStartAiAssistantParamsTest {
                 .greeting("Hello, can you tell me your age and where you live?")
                 .interruptionSettings(InterruptionSettings.builder().enable(true).build())
                 .addMessageHistory(
-                    ActionStartAiAssistantParams.MessageHistory.User.builder()
+                    UserMessage.builder()
                         .content("Hello, I would like some help.")
+                        .role(UserMessage.Role.USER)
                         .metadata(
-                            ActionStartAiAssistantParams.MessageHistory.User.Metadata.builder()
+                            UserMessage.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .build()
                 )
                 .addParticipant(
-                    ActionStartAiAssistantParams.Participant.builder()
+                    AiAssistantJoinParticipant.builder()
                         .id("v3:abc123def456")
-                        .role(ActionStartAiAssistantParams.Participant.Role.USER)
+                        .role(AiAssistantJoinParticipant.Role.USER)
                         .name("John Doe")
-                        .onHangup(
-                            ActionStartAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                        )
+                        .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                         .build()
                 )
                 .sendMessageHistoryUpdates(true)
@@ -328,10 +326,11 @@ internal class ActionStartAiAssistantParamsTest {
         assertThat(body.messageHistory().getOrNull())
             .containsExactly(
                 ActionStartAiAssistantParams.MessageHistory.ofUser(
-                    ActionStartAiAssistantParams.MessageHistory.User.builder()
+                    UserMessage.builder()
                         .content("Hello, I would like some help.")
+                        .role(UserMessage.Role.USER)
                         .metadata(
-                            ActionStartAiAssistantParams.MessageHistory.User.Metadata.builder()
+                            UserMessage.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -340,13 +339,11 @@ internal class ActionStartAiAssistantParamsTest {
             )
         assertThat(body.participants().getOrNull())
             .containsExactly(
-                ActionStartAiAssistantParams.Participant.builder()
+                AiAssistantJoinParticipant.builder()
                     .id("v3:abc123def456")
-                    .role(ActionStartAiAssistantParams.Participant.Role.USER)
+                    .role(AiAssistantJoinParticipant.Role.USER)
                     .name("John Doe")
-                    .onHangup(
-                        ActionStartAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                    )
+                    .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                     .build()
             )
         assertThat(body.sendMessageHistoryUpdates()).contains(true)

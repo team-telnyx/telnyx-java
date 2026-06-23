@@ -16,16 +16,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
+import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceResource
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateResponse
 import com.telnyx.sdk.services.async.texml.accounts.conferences.ParticipantServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.conferences.ParticipantServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -55,14 +54,14 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun retrieve(
         params: ConferenceRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceRetrieveResponse> =
+    ): CompletableFuture<ConferenceResource> =
         // get /texml/Accounts/{account_sid}/Conferences/{conference_sid}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceUpdateResponse> =
+    ): CompletableFuture<ConferenceResource> =
         // post /texml/Accounts/{account_sid}/Conferences/{conference_sid}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -83,7 +82,7 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         // get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json
         withRawResponse().retrieveRecordingsJson(params, requestOptions).thenApply { it.parse() }
 
@@ -107,13 +106,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
         /** TeXML REST Commands */
         override fun participants(): ParticipantServiceAsync.WithRawResponse = participants
 
-        private val retrieveHandler: Handler<ConferenceRetrieveResponse> =
-            jsonHandler<ConferenceRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ConferenceResource> =
+            jsonHandler<ConferenceResource>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ConferenceRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conferenceSid", params.conferenceSid().getOrNull())
@@ -146,13 +145,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val updateHandler: Handler<ConferenceUpdateResponse> =
-            jsonHandler<ConferenceUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ConferenceResource> =
+            jsonHandler<ConferenceResource>(clientOptions.jsonMapper)
 
         override fun update(
             params: ConferenceUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conferenceSid", params.conferenceSid().getOrNull())
@@ -259,14 +258,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val retrieveRecordingsJsonHandler:
-            Handler<ConferenceRetrieveRecordingsJsonResponse> =
-            jsonHandler<ConferenceRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)
+        private val retrieveRecordingsJsonHandler: Handler<TexmlGetCallRecordingsResponseBody> =
+            jsonHandler<TexmlGetCallRecordingsResponseBody>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingsJson(
             params: ConferenceRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>> {
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conferenceSid", params.conferenceSid().getOrNull())

@@ -17,9 +17,8 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestResponse
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveResponse
+import com.telnyx.sdk.models.infringementclaims.InfringementClaimWrapped
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,14 +44,14 @@ internal constructor(private val clientOptions: ClientOptions) : InfringementCla
     override fun retrieve(
         params: InfringementClaimRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InfringementClaimRetrieveResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         // get /infringement_claims/{claim_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun contest(
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InfringementClaimContestResponse> =
+    ): CompletableFuture<InfringementClaimWrapped> =
         // post /infringement_claims/{claim_id}/contest
         withRawResponse().contest(params, requestOptions).thenApply { it.parse() }
 
@@ -69,13 +68,13 @@ internal constructor(private val clientOptions: ClientOptions) : InfringementCla
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<InfringementClaimRetrieveResponse> =
-            jsonHandler<InfringementClaimRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InfringementClaimWrapped> =
+            jsonHandler<InfringementClaimWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: InfringementClaimRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InfringementClaimRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("claimId", params.claimId().getOrNull())
@@ -102,13 +101,13 @@ internal constructor(private val clientOptions: ClientOptions) : InfringementCla
                 }
         }
 
-        private val contestHandler: Handler<InfringementClaimContestResponse> =
-            jsonHandler<InfringementClaimContestResponse>(clientOptions.jsonMapper)
+        private val contestHandler: Handler<InfringementClaimWrapped> =
+            jsonHandler<InfringementClaimWrapped>(clientOptions.jsonMapper)
 
         override fun contest(
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InfringementClaimContestResponse>> {
+        ): CompletableFuture<HttpResponseFor<InfringementClaimWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("claimId", params.claimId().getOrNull())

@@ -9,16 +9,14 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionCreateParams
-import com.telnyx.sdk.models.ai.missions.MissionCreateResponse
 import com.telnyx.sdk.models.ai.missions.MissionDeleteMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionListEventsPageAsync
 import com.telnyx.sdk.models.ai.missions.MissionListEventsParams
 import com.telnyx.sdk.models.ai.missions.MissionListPageAsync
 import com.telnyx.sdk.models.ai.missions.MissionListParams
+import com.telnyx.sdk.models.ai.missions.MissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionRetrieveParams
-import com.telnyx.sdk.models.ai.missions.MissionRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionParams
-import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionResponse
 import com.telnyx.sdk.services.async.ai.missions.KnowledgeBaseServiceAsync
 import com.telnyx.sdk.services.async.ai.missions.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.missions.RunServiceAsync
@@ -49,17 +47,17 @@ interface MissionServiceAsync {
     fun tools(): ToolServiceAsync
 
     /** Create a new mission definition */
-    fun create(params: MissionCreateParams): CompletableFuture<MissionCreateResponse> =
+    fun create(params: MissionCreateParams): CompletableFuture<MissionResponse> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: MissionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MissionCreateResponse>
+    ): CompletableFuture<MissionResponse>
 
     /** Get a mission by ID (includes tools, knowledge_bases, mcp_servers) */
-    fun retrieve(missionId: String): CompletableFuture<MissionRetrieveResponse> =
+    fun retrieve(missionId: String): CompletableFuture<MissionResponse> =
         retrieve(missionId, MissionRetrieveParams.none())
 
     /** @see retrieve */
@@ -67,31 +65,30 @@ interface MissionServiceAsync {
         missionId: String,
         params: MissionRetrieveParams = MissionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MissionRetrieveResponse> =
+    ): CompletableFuture<MissionResponse> =
         retrieve(params.toBuilder().missionId(missionId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         missionId: String,
         params: MissionRetrieveParams = MissionRetrieveParams.none(),
-    ): CompletableFuture<MissionRetrieveResponse> =
-        retrieve(missionId, params, RequestOptions.none())
+    ): CompletableFuture<MissionResponse> = retrieve(missionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: MissionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MissionRetrieveResponse>
+    ): CompletableFuture<MissionResponse>
 
     /** @see retrieve */
-    fun retrieve(params: MissionRetrieveParams): CompletableFuture<MissionRetrieveResponse> =
+    fun retrieve(params: MissionRetrieveParams): CompletableFuture<MissionResponse> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         missionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MissionRetrieveResponse> =
+    ): CompletableFuture<MissionResponse> =
         retrieve(missionId, MissionRetrieveParams.none(), requestOptions)
 
     /** List all missions for the organization */
@@ -201,7 +198,7 @@ interface MissionServiceAsync {
         listEvents(MissionListEventsParams.none(), requestOptions)
 
     /** Update a mission definition */
-    fun updateMission(missionId: String): CompletableFuture<MissionUpdateMissionResponse> =
+    fun updateMission(missionId: String): CompletableFuture<MissionResponse> =
         updateMission(missionId, MissionUpdateMissionParams.none())
 
     /** @see updateMission */
@@ -209,33 +206,30 @@ interface MissionServiceAsync {
         missionId: String,
         params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MissionUpdateMissionResponse> =
+    ): CompletableFuture<MissionResponse> =
         updateMission(params.toBuilder().missionId(missionId).build(), requestOptions)
 
     /** @see updateMission */
     fun updateMission(
         missionId: String,
         params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
-    ): CompletableFuture<MissionUpdateMissionResponse> =
-        updateMission(missionId, params, RequestOptions.none())
+    ): CompletableFuture<MissionResponse> = updateMission(missionId, params, RequestOptions.none())
 
     /** @see updateMission */
     fun updateMission(
         params: MissionUpdateMissionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MissionUpdateMissionResponse>
+    ): CompletableFuture<MissionResponse>
 
     /** @see updateMission */
-    fun updateMission(
-        params: MissionUpdateMissionParams
-    ): CompletableFuture<MissionUpdateMissionResponse> =
+    fun updateMission(params: MissionUpdateMissionParams): CompletableFuture<MissionResponse> =
         updateMission(params, RequestOptions.none())
 
     /** @see updateMission */
     fun updateMission(
         missionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MissionUpdateMissionResponse> =
+    ): CompletableFuture<MissionResponse> =
         updateMission(missionId, MissionUpdateMissionParams.none(), requestOptions)
 
     /**
@@ -266,22 +260,20 @@ interface MissionServiceAsync {
          */
         fun create(
             params: MissionCreateParams
-        ): CompletableFuture<HttpResponseFor<MissionCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: MissionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MissionCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<MissionResponse>>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/{mission_id}`, but is otherwise the
          * same as [MissionServiceAsync.retrieve].
          */
-        fun retrieve(
-            missionId: String
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> =
+        fun retrieve(missionId: String): CompletableFuture<HttpResponseFor<MissionResponse>> =
             retrieve(missionId, MissionRetrieveParams.none())
 
         /** @see retrieve */
@@ -289,33 +281,33 @@ interface MissionServiceAsync {
             missionId: String,
             params: MissionRetrieveParams = MissionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             retrieve(params.toBuilder().missionId(missionId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             missionId: String,
             params: MissionRetrieveParams = MissionRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             retrieve(missionId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: MissionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<MissionResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: MissionRetrieveParams
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             missionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             retrieve(missionId, MissionRetrieveParams.none(), requestOptions)
 
         /**
@@ -453,9 +445,7 @@ interface MissionServiceAsync {
          * Returns a raw HTTP response for `put /ai/missions/{mission_id}`, but is otherwise the
          * same as [MissionServiceAsync.updateMission].
          */
-        fun updateMission(
-            missionId: String
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> =
+        fun updateMission(missionId: String): CompletableFuture<HttpResponseFor<MissionResponse>> =
             updateMission(missionId, MissionUpdateMissionParams.none())
 
         /** @see updateMission */
@@ -463,33 +453,33 @@ interface MissionServiceAsync {
             missionId: String,
             params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             updateMission(params.toBuilder().missionId(missionId).build(), requestOptions)
 
         /** @see updateMission */
         fun updateMission(
             missionId: String,
             params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             updateMission(missionId, params, RequestOptions.none())
 
         /** @see updateMission */
         fun updateMission(
             params: MissionUpdateMissionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>>
+        ): CompletableFuture<HttpResponseFor<MissionResponse>>
 
         /** @see updateMission */
         fun updateMission(
             params: MissionUpdateMissionParams
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             updateMission(params, RequestOptions.none())
 
         /** @see updateMission */
         fun updateMission(
             missionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> =
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> =
             updateMission(missionId, MissionUpdateMissionParams.none(), requestOptions)
     }
 }

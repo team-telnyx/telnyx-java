@@ -5,7 +5,9 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -19,9 +21,39 @@ internal class AiServiceAsyncTest {
 
         val responseFuture =
             aiServiceAsync.createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.Body.builder()
+                AiCreateResponseDeprecatedParams.ResponseRequest.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveConversationHistories() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val aiServiceAsync = client.ai()
+
+        val responseFuture =
+            aiServiceAsync.retrieveConversationHistories(
+                AiRetrieveConversationHistoriesParams.builder()
+                    .q("customer called about billing issue")
+                    .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
+                    .filterDocumentId("doc-789")
+                    .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
+                    .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
+                    .filterRecordCreatedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
+                    .filterRecordCreatedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
+                    .filterRecordId("rec-001")
+                    .filterRegionIn("USA,DEU")
+                    .filterRetention("filter[retention]")
+                    .filterUserId("user-123")
+                    .minScore(0.5f)
+                    .region(AiRetrieveConversationHistoriesParams.Region.USA)
+                    .topK(10L)
                     .build()
             )
 
@@ -35,10 +67,10 @@ internal class AiServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val aiServiceAsync = client.ai()
 
-        val responseFuture = aiServiceAsync.retrieveModels()
+        val modelsResponseFuture = aiServiceAsync.retrieveModels()
 
-        val response = responseFuture.get()
-        response.validate()
+        val modelsResponse = modelsResponseFuture.get()
+        modelsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -17,16 +17,13 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.mcpservers.McpServer
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListPage
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,24 +39,18 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerService =
         McpServerServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: McpServerCreateParams,
-        requestOptions: RequestOptions,
-    ): McpServerCreateResponse =
+    override fun create(params: McpServerCreateParams, requestOptions: RequestOptions): McpServer =
         // post /ai/mcp_servers
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: McpServerRetrieveParams,
         requestOptions: RequestOptions,
-    ): McpServerRetrieveResponse =
+    ): McpServer =
         // get /ai/mcp_servers/{mcp_server_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: McpServerUpdateParams,
-        requestOptions: RequestOptions,
-    ): McpServerUpdateResponse =
+    override fun update(params: McpServerUpdateParams, requestOptions: RequestOptions): McpServer =
         // put /ai/mcp_servers/{mcp_server_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -88,13 +79,13 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<McpServerCreateResponse> =
-            jsonHandler<McpServerCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<McpServer> =
+            jsonHandler<McpServer>(clientOptions.jsonMapper)
 
         override fun create(
             params: McpServerCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerCreateResponse> {
+        ): HttpResponseFor<McpServer> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -116,13 +107,13 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val retrieveHandler: Handler<McpServerRetrieveResponse> =
-            jsonHandler<McpServerRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<McpServer> =
+            jsonHandler<McpServer>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: McpServerRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerRetrieveResponse> {
+        ): HttpResponseFor<McpServer> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("mcpServerId", params.mcpServerId().getOrNull())
@@ -146,13 +137,13 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val updateHandler: Handler<McpServerUpdateResponse> =
-            jsonHandler<McpServerUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<McpServer> =
+            jsonHandler<McpServer>(clientOptions.jsonMapper)
 
         override fun update(
             params: McpServerUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerUpdateResponse> {
+        ): HttpResponseFor<McpServer> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("mcpServerId", params.mcpServerId().getOrNull())
@@ -177,8 +168,8 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<List<McpServerListResponse>> =
-            jsonHandler<List<McpServerListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<McpServer>> =
+            jsonHandler<List<McpServer>>(clientOptions.jsonMapper)
 
         override fun list(
             params: McpServerListParams,

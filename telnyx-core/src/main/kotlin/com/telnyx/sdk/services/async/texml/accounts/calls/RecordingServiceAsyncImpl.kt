@@ -17,7 +17,7 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -38,7 +38,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun recordingSidJson(
         params: RecordingRecordingSidJsonParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingRecordingSidJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json
         withRawResponse().recordingSidJson(params, requestOptions).thenApply { it.parse() }
 
@@ -55,13 +55,13 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val recordingSidJsonHandler: Handler<RecordingRecordingSidJsonResponse> =
-            jsonHandler<RecordingRecordingSidJsonResponse>(clientOptions.jsonMapper)
+        private val recordingSidJsonHandler: Handler<TexmlCreateCallRecordingResponseBody> =
+            jsonHandler<TexmlCreateCallRecordingResponseBody>(clientOptions.jsonMapper)
 
         override fun recordingSidJson(
             params: RecordingRecordingSidJsonParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingRecordingSidJsonResponse>> {
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("recordingSid", params.recordingSid().getOrNull())

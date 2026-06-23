@@ -14,9 +14,9 @@ internal class RecordingServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val recordingService = client.recordings()
 
-        val recording = recordingService.retrieve("recording_id")
+        val recordingResponse = recordingService.retrieve("recording_id")
 
-        recording.validate()
+        recordingResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,8 +36,8 @@ internal class RecordingServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val recordingService = client.recordings()
 
-        val recording = recordingService.delete("recording_id")
+        val recordingResponse = recordingService.delete("recording_id")
 
-        recording.validate()
+        recordingResponse.validate()
     }
 }

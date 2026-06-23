@@ -18,14 +18,14 @@ private constructor(
     private val service: VerificationCodeService,
     private val params: VerificationCodeListParams,
     private val response: VerificationCodeListPageResponse,
-) : Page<VerificationCodeListResponse> {
+) : Page<PortingVerificationCode> {
 
     /**
      * Delegates to [VerificationCodeListPageResponse], but gracefully handles missing data.
      *
      * @see VerificationCodeListPageResponse.data
      */
-    fun data(): List<VerificationCodeListResponse> =
+    fun data(): List<PortingVerificationCode> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VerificationCodeListResponse> = data()
+    override fun items(): List<PortingVerificationCode> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): VerificationCodeListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<VerificationCodeListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PortingVerificationCode> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): VerificationCodeListParams = params

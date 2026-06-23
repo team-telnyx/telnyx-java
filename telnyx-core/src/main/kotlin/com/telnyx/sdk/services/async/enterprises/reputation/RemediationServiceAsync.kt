@@ -5,12 +5,11 @@ package com.telnyx.sdk.services.async.enterprises.reputation
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationCreateParams
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationListParams
+import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRequestWrapped
 import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationRetrieveResponse
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitParams
-import com.telnyx.sdk.models.enterprises.reputation.remediation.RemediationSubmitResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -30,13 +29,46 @@ interface RemediationServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RemediationServiceAsync
 
     /**
+     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
+     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
+     * id, then the request transitions through processing states until completion. Use the GET
+     * endpoints to poll status and per-number results.
+     *
+     * Each phone number must be in E.164 format and belong to this enterprise. A number that
+     * already has an in-flight remediation request is rejected.
+     */
+    fun create(
+        enterpriseId: String,
+        params: RemediationCreateParams,
+    ): CompletableFuture<RemediationRequestWrapped> =
+        create(enterpriseId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        enterpriseId: String,
+        params: RemediationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RemediationRequestWrapped> =
+        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: RemediationCreateParams): CompletableFuture<RemediationRequestWrapped> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: RemediationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RemediationRequestWrapped>
+
+    /**
      * Retrieve the full detail of a remediation request, including current status, per-number
      * results (once available), and submission metadata.
      */
     fun retrieve(
         remediationId: String,
         params: RemediationRetrieveParams,
-    ): CompletableFuture<RemediationRetrieveResponse> =
+    ): CompletableFuture<RemediationRequestWrapped> =
         retrieve(remediationId, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -44,19 +76,18 @@ interface RemediationServiceAsync {
         remediationId: String,
         params: RemediationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationRetrieveResponse> =
+    ): CompletableFuture<RemediationRequestWrapped> =
         retrieve(params.toBuilder().remediationId(remediationId).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(
-        params: RemediationRetrieveParams
-    ): CompletableFuture<RemediationRetrieveResponse> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: RemediationRetrieveParams): CompletableFuture<RemediationRequestWrapped> =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: RemediationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationRetrieveResponse>
+    ): CompletableFuture<RemediationRequestWrapped>
 
     /**
      * Paginated list of remediation requests for this enterprise. List items omit per-number
@@ -99,39 +130,6 @@ interface RemediationServiceAsync {
         list(enterpriseId, RemediationListParams.none(), requestOptions)
 
     /**
-     * Submit a batch of phone numbers belonging to this enterprise for reputation remediation. The
-     * request is accepted asynchronously: this endpoint returns `202` with the persisted request
-     * id, then the request transitions through processing states until completion. Use the GET
-     * endpoints to poll status and per-number results.
-     *
-     * Each phone number must be in E.164 format and belong to this enterprise. A number that
-     * already has an in-flight remediation request is rejected.
-     */
-    fun submit(
-        enterpriseId: String,
-        params: RemediationSubmitParams,
-    ): CompletableFuture<RemediationSubmitResponse> =
-        submit(enterpriseId, params, RequestOptions.none())
-
-    /** @see submit */
-    fun submit(
-        enterpriseId: String,
-        params: RemediationSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationSubmitResponse> =
-        submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see submit */
-    fun submit(params: RemediationSubmitParams): CompletableFuture<RemediationSubmitResponse> =
-        submit(params, RequestOptions.none())
-
-    /** @see submit */
-    fun submit(
-        params: RemediationSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RemediationSubmitResponse>
-
-    /**
      * A view of [RemediationServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -147,6 +145,37 @@ interface RemediationServiceAsync {
         ): RemediationServiceAsync.WithRawResponse
 
         /**
+         * Returns a raw HTTP response for `post
+         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
+         * [RemediationServiceAsync.create].
+         */
+        fun create(
+            enterpriseId: String,
+            params: RemediationCreateParams,
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
+            create(enterpriseId, params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            enterpriseId: String,
+            params: RemediationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
+            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see create */
+        fun create(
+            params: RemediationCreateParams
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: RemediationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>>
+
+        /**
          * Returns a raw HTTP response for `get
          * /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}`, but is otherwise
          * the same as [RemediationServiceAsync.retrieve].
@@ -154,7 +183,7 @@ interface RemediationServiceAsync {
         fun retrieve(
             remediationId: String,
             params: RemediationRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<RemediationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
             retrieve(remediationId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -162,20 +191,20 @@ interface RemediationServiceAsync {
             remediationId: String,
             params: RemediationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
             retrieve(params.toBuilder().remediationId(remediationId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             params: RemediationRetrieveParams
-        ): CompletableFuture<HttpResponseFor<RemediationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: RemediationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<RemediationRequestWrapped>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -220,36 +249,5 @@ interface RemediationServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<RemediationListPageAsync>> =
             list(enterpriseId, RemediationListParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /enterprises/{enterprise_id}/reputation/remediation`, but is otherwise the same as
-         * [RemediationServiceAsync.submit].
-         */
-        fun submit(
-            enterpriseId: String,
-            params: RemediationSubmitParams,
-        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
-            submit(enterpriseId, params, RequestOptions.none())
-
-        /** @see submit */
-        fun submit(
-            enterpriseId: String,
-            params: RemediationSubmitParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
-            submit(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see submit */
-        fun submit(
-            params: RemediationSubmitParams
-        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>> =
-            submit(params, RequestOptions.none())
-
-        /** @see submit */
-        fun submit(
-            params: RemediationSubmitParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RemediationSubmitResponse>>
     }
 }

@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: RoomRecordingListParams,
     private val response: RoomRecordingListPageResponse,
-) : PageAsync<RoomRecordingListResponse> {
+) : PageAsync<RoomRecording> {
 
     /**
      * Delegates to [RoomRecordingListPageResponse], but gracefully handles missing data.
      *
      * @see RoomRecordingListPageResponse.data
      */
-    fun data(): List<RoomRecordingListResponse> =
+    fun data(): List<RoomRecording> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<RoomRecordingListResponse> = data()
+    override fun items(): List<RoomRecording> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<RoomRecordingListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<RoomRecordingListResponse> =
+    fun autoPager(): AutoPagerAsync<RoomRecording> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

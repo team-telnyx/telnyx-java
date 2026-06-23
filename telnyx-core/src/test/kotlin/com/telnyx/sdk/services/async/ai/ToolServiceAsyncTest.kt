@@ -17,7 +17,7 @@ internal class ToolServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().tools()
 
-        val toolFuture =
+        val sharedToolResponseFuture =
             toolServiceAsync.create(
                 ToolCreateParams.builder()
                     .displayName("display_name")
@@ -51,8 +51,8 @@ internal class ToolServiceAsyncTest {
                     .build()
             )
 
-        val tool = toolFuture.get()
-        tool.validate()
+        val sharedToolResponse = sharedToolResponseFuture.get()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -61,10 +61,10 @@ internal class ToolServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().tools()
 
-        val toolFuture = toolServiceAsync.retrieve("tool_id")
+        val sharedToolResponseFuture = toolServiceAsync.retrieve("tool_id")
 
-        val tool = toolFuture.get()
-        tool.validate()
+        val sharedToolResponse = sharedToolResponseFuture.get()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -73,7 +73,7 @@ internal class ToolServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().tools()
 
-        val toolFuture =
+        val sharedToolResponseFuture =
             toolServiceAsync.update(
                 ToolUpdateParams.builder()
                     .toolId("tool_id")
@@ -108,8 +108,8 @@ internal class ToolServiceAsyncTest {
                     .build()
             )
 
-        val tool = toolFuture.get()
-        tool.validate()
+        val sharedToolResponse = sharedToolResponseFuture.get()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

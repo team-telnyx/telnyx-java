@@ -4,7 +4,8 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.networks.InterfaceStatus
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParams
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreate
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectPatch
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -19,7 +20,7 @@ internal class VirtualCrossConnectServiceAsyncTest {
 
         val virtualCrossConnectFuture =
             virtualCrossConnectServiceAsync.create(
-                VirtualCrossConnectCreateParams.builder()
+                VirtualCrossConnectCreate.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
@@ -30,7 +31,7 @@ internal class VirtualCrossConnectServiceAsyncTest {
                     .regionCode("ashburn-va")
                     .bandwidthMbps(50.0)
                     .bgpAsn(1234.0)
-                    .cloudProvider(VirtualCrossConnectCreateParams.CloudProvider.AWS)
+                    .cloudProvider(VirtualCrossConnectCreate.CloudProvider.AWS)
                     .cloudProviderRegion("us-east-1")
                     .primaryBgpKey("yFV4wEPtPVPfDUGLWiyQzwga")
                     .primaryCloudAccountId("123456789012")
@@ -72,12 +73,16 @@ internal class VirtualCrossConnectServiceAsyncTest {
             virtualCrossConnectServiceAsync.update(
                 VirtualCrossConnectUpdateParams.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .primaryCloudIp("169.254.0.2")
-                    .primaryEnabled(true)
-                    .primaryRoutingAnnouncement(false)
-                    .secondaryCloudIp("169.254.0.4")
-                    .secondaryEnabled(true)
-                    .secondaryRoutingAnnouncement(false)
+                    .virtualCrossConnectPatch(
+                        VirtualCrossConnectPatch.builder()
+                            .primaryCloudIp("169.254.0.2")
+                            .primaryEnabled(true)
+                            .primaryRoutingAnnouncement(false)
+                            .secondaryCloudIp("169.254.0.4")
+                            .secondaryEnabled(true)
+                            .secondaryRoutingAnnouncement(false)
+                            .build()
+                    )
                     .build()
             )
 

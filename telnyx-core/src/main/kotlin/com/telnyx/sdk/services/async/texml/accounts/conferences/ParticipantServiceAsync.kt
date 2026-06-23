@@ -9,12 +9,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantDeleteParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsResponse
+import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantResource
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -37,7 +36,7 @@ interface ParticipantServiceAsync {
     fun retrieve(
         callSidOrParticipantLabel: String,
         params: ParticipantRetrieveParams,
-    ): CompletableFuture<ParticipantRetrieveResponse> =
+    ): CompletableFuture<ParticipantResource> =
         retrieve(callSidOrParticipantLabel, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -45,28 +44,27 @@ interface ParticipantServiceAsync {
         callSidOrParticipantLabel: String,
         params: ParticipantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ParticipantRetrieveResponse> =
+    ): CompletableFuture<ParticipantResource> =
         retrieve(
             params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
             requestOptions,
         )
 
     /** @see retrieve */
-    fun retrieve(
-        params: ParticipantRetrieveParams
-    ): CompletableFuture<ParticipantRetrieveResponse> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: ParticipantRetrieveParams): CompletableFuture<ParticipantResource> =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ParticipantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ParticipantRetrieveResponse>
+    ): CompletableFuture<ParticipantResource>
 
     /** Updates a conference participant */
     fun update(
         callSidOrParticipantLabel: String,
         params: ParticipantUpdateParams,
-    ): CompletableFuture<ParticipantUpdateResponse> =
+    ): CompletableFuture<ParticipantResource> =
         update(callSidOrParticipantLabel, params, RequestOptions.none())
 
     /** @see update */
@@ -74,21 +72,21 @@ interface ParticipantServiceAsync {
         callSidOrParticipantLabel: String,
         params: ParticipantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ParticipantUpdateResponse> =
+    ): CompletableFuture<ParticipantResource> =
         update(
             params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
             requestOptions,
         )
 
     /** @see update */
-    fun update(params: ParticipantUpdateParams): CompletableFuture<ParticipantUpdateResponse> =
+    fun update(params: ParticipantUpdateParams): CompletableFuture<ParticipantResource> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ParticipantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ParticipantUpdateResponse>
+    ): CompletableFuture<ParticipantResource>
 
     /** Deletes a conference participant */
     fun delete(
@@ -197,7 +195,7 @@ interface ParticipantServiceAsync {
         fun retrieve(
             callSidOrParticipantLabel: String,
             params: ParticipantRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<ParticipantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             retrieve(callSidOrParticipantLabel, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -205,7 +203,7 @@ interface ParticipantServiceAsync {
             callSidOrParticipantLabel: String,
             params: ParticipantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ParticipantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             retrieve(
                 params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
                 requestOptions,
@@ -214,14 +212,14 @@ interface ParticipantServiceAsync {
         /** @see retrieve */
         fun retrieve(
             params: ParticipantRetrieveParams
-        ): CompletableFuture<HttpResponseFor<ParticipantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: ParticipantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ParticipantRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -231,7 +229,7 @@ interface ParticipantServiceAsync {
         fun update(
             callSidOrParticipantLabel: String,
             params: ParticipantUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ParticipantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             update(callSidOrParticipantLabel, params, RequestOptions.none())
 
         /** @see update */
@@ -239,7 +237,7 @@ interface ParticipantServiceAsync {
             callSidOrParticipantLabel: String,
             params: ParticipantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ParticipantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             update(
                 params.toBuilder().callSidOrParticipantLabel(callSidOrParticipantLabel).build(),
                 requestOptions,
@@ -248,14 +246,14 @@ interface ParticipantServiceAsync {
         /** @see update */
         fun update(
             params: ParticipantUpdateParams
-        ): CompletableFuture<HttpResponseFor<ParticipantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ParticipantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ParticipantUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<ParticipantResource>>
 
         /**
          * Returns a raw HTTP response for `delete

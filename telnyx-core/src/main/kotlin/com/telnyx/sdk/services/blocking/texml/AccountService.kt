@@ -7,9 +7,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonParams
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import com.telnyx.sdk.services.blocking.texml.accounts.CallService
 import com.telnyx.sdk.services.blocking.texml.accounts.ConferenceService
 import com.telnyx.sdk.services.blocking.texml.accounts.QueueService
@@ -46,7 +46,7 @@ interface AccountService {
     fun queues(): QueueService
 
     /** Returns multiple recording resources for an account. */
-    fun retrieveRecordingsJson(accountSid: String): AccountRetrieveRecordingsJsonResponse =
+    fun retrieveRecordingsJson(accountSid: String): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(accountSid, AccountRetrieveRecordingsJsonParams.none())
 
     /** @see retrieveRecordingsJson */
@@ -54,32 +54,32 @@ interface AccountService {
         accountSid: String,
         params: AccountRetrieveRecordingsJsonParams = AccountRetrieveRecordingsJsonParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         accountSid: String,
         params: AccountRetrieveRecordingsJsonParams = AccountRetrieveRecordingsJsonParams.none(),
-    ): AccountRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(accountSid, params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountRetrieveRecordingsJsonResponse
+    ): TexmlGetCallRecordingsResponseBody
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams
-    ): AccountRetrieveRecordingsJsonResponse = retrieveRecordingsJson(params, RequestOptions.none())
+    ): TexmlGetCallRecordingsResponseBody = retrieveRecordingsJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         accountSid: String,
         requestOptions: RequestOptions,
-    ): AccountRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(
             accountSid,
             AccountRetrieveRecordingsJsonParams.none(),
@@ -163,7 +163,7 @@ interface AccountService {
         @MustBeClosed
         fun retrieveRecordingsJson(
             accountSid: String
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(accountSid, AccountRetrieveRecordingsJsonParams.none())
 
         /** @see retrieveRecordingsJson */
@@ -173,7 +173,7 @@ interface AccountService {
             params: AccountRetrieveRecordingsJsonParams =
                 AccountRetrieveRecordingsJsonParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(
                 params.toBuilder().accountSid(accountSid).build(),
                 requestOptions,
@@ -184,7 +184,7 @@ interface AccountService {
         fun retrieveRecordingsJson(
             accountSid: String,
             params: AccountRetrieveRecordingsJsonParams = AccountRetrieveRecordingsJsonParams.none(),
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(accountSid, params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -192,13 +192,13 @@ interface AccountService {
         fun retrieveRecordingsJson(
             params: AccountRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse>
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody>
 
         /** @see retrieveRecordingsJson */
         @MustBeClosed
         fun retrieveRecordingsJson(
             params: AccountRetrieveRecordingsJsonParams
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -206,7 +206,7 @@ interface AccountService {
         fun retrieveRecordingsJson(
             accountSid: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(
                 accountSid,
                 AccountRetrieveRecordingsJsonParams.none(),

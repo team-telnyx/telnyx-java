@@ -15,7 +15,7 @@ internal class ChannelZoneServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val channelZoneServiceAsync = client.channelZones()
 
-        val channelZoneFuture =
+        val gcbChannelZoneFuture =
             channelZoneServiceAsync.update(
                 ChannelZoneUpdateParams.builder()
                     .channelZoneId("channel_zone_id")
@@ -23,8 +23,8 @@ internal class ChannelZoneServiceAsyncTest {
                     .build()
             )
 
-        val channelZone = channelZoneFuture.get()
-        channelZone.validate()
+        val gcbChannelZone = gcbChannelZoneFuture.get()
+        gcbChannelZone.validate()
     }
 
     @Disabled("Mock server tests are disabled")

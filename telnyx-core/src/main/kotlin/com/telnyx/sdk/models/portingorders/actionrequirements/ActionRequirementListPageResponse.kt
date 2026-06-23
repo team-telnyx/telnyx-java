@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class ActionRequirementListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<ActionRequirementListResponse>>,
+    private val data: JsonField<List<PortingActionRequirement>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<ActionRequirementListResponse>> = JsonMissing.of(),
+        data: JsonField<List<PortingActionRequirement>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<ActionRequirementListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<PortingActionRequirement>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,7 +54,7 @@ private constructor(
      */
     @JsonProperty("data")
     @ExcludeMissing
-    fun _data(): JsonField<List<ActionRequirementListResponse>> = data
+    fun _data(): JsonField<List<PortingActionRequirement>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -87,7 +87,7 @@ private constructor(
     /** A builder for [ActionRequirementListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<ActionRequirementListResponse>>? = null
+        private var data: JsonField<MutableList<PortingActionRequirement>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -100,25 +100,25 @@ private constructor(
                     actionRequirementListPageResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: List<ActionRequirementListResponse>) = data(JsonField.of(data))
+        fun data(data: List<PortingActionRequirement>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<ActionRequirementListResponse>` value instead. This method is primarily for setting
-         * the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<PortingActionRequirement>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<ActionRequirementListResponse>>) = apply {
+        fun data(data: JsonField<List<PortingActionRequirement>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [ActionRequirementListResponse] to [Builder.data].
+         * Adds a single [PortingActionRequirement] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: ActionRequirementListResponse) = apply {
+        fun addData(data: PortingActionRequirement) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

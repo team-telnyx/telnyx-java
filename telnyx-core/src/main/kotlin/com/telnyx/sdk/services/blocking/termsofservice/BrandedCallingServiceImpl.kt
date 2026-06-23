@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeParams
-import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeResponse
 import java.util.function.Consumer
 
 /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
@@ -35,7 +35,7 @@ class BrandedCallingServiceImpl internal constructor(private val clientOptions: 
     override fun agree(
         params: BrandedCallingAgreeParams,
         requestOptions: RequestOptions,
-    ): BrandedCallingAgreeResponse =
+    ): TosAgreementWrapped =
         // post /terms_of_service/branded_calling/agree
         withRawResponse().agree(params, requestOptions).parse()
 
@@ -52,13 +52,13 @@ class BrandedCallingServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val agreeHandler: Handler<BrandedCallingAgreeResponse> =
-            jsonHandler<BrandedCallingAgreeResponse>(clientOptions.jsonMapper)
+        private val agreeHandler: Handler<TosAgreementWrapped> =
+            jsonHandler<TosAgreementWrapped>(clientOptions.jsonMapper)
 
         override fun agree(
             params: BrandedCallingAgreeParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandedCallingAgreeResponse> {
+        ): HttpResponseFor<TosAgreementWrapped> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

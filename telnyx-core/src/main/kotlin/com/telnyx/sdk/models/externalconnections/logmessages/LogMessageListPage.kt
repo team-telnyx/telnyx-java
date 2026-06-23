@@ -18,14 +18,14 @@ private constructor(
     private val service: LogMessageService,
     private val params: LogMessageListParams,
     private val response: LogMessageListPageResponse,
-) : Page<LogMessageListResponse> {
+) : Page<LogMessage> {
 
     /**
      * Delegates to [LogMessageListPageResponse], but gracefully handles missing data.
      *
      * @see LogMessageListPageResponse.logMessages
      */
-    fun logMessages(): List<LogMessageListResponse> =
+    fun logMessages(): List<LogMessage> =
         response._logMessages().getOptional("log_messages").getOrNull() ?: emptyList()
 
     /**
@@ -36,7 +36,7 @@ private constructor(
     fun meta(): Optional<ExternalVoiceIntegrationsPaginationMeta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<LogMessageListResponse> = logMessages()
+    override fun items(): List<LogMessage> = logMessages()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -56,7 +56,7 @@ private constructor(
 
     override fun nextPage(): LogMessageListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<LogMessageListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<LogMessage> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): LogMessageListParams = params

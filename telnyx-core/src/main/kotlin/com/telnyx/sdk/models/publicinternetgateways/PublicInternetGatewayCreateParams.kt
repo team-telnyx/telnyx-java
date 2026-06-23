@@ -14,7 +14,6 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import java.util.Collections
 import java.util.Objects
@@ -509,16 +508,18 @@ private constructor(
             mutableMapOf(),
         )
 
-        fun toRecord(): Record =
-            Record.builder()
+        fun toPublicInternetGateway(): PublicInternetGateway =
+            PublicInternetGateway.builder()
                 .id(id)
                 .createdAt(createdAt)
                 .recordType(recordType)
                 .updatedAt(updatedAt)
+                .name(name)
+                .networkId(networkId)
+                .status(status)
+                .publicIp(publicIp)
+                .regionCode(regionCode)
                 .build()
-
-        fun toNetworkInterface(): NetworkInterface =
-            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
 
         /**
          * Identifies the resource.

@@ -2,13 +2,9 @@
 
 package com.telnyx.sdk.models.dir.phonenumberbatches
 
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.telnyx.sdk.core.Enum
-import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -20,7 +16,7 @@ import kotlin.jvm.optionals.getOrNull
 class PhoneNumberBatchListParams
 private constructor(
     private val dirId: String?,
-    private val filterStatus: FilterStatus?,
+    private val filterStatus: DirPhoneNumberStatus?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: Headers,
@@ -30,7 +26,7 @@ private constructor(
     fun dirId(): Optional<String> = Optional.ofNullable(dirId)
 
     /** Restrict to batches whose aggregate status equals this value. */
-    fun filterStatus(): Optional<FilterStatus> = Optional.ofNullable(filterStatus)
+    fun filterStatus(): Optional<DirPhoneNumberStatus> = Optional.ofNullable(filterStatus)
 
     /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -60,7 +56,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var dirId: String? = null
-        private var filterStatus: FilterStatus? = null
+        private var filterStatus: DirPhoneNumberStatus? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -82,10 +78,12 @@ private constructor(
         fun dirId(dirId: Optional<String>) = dirId(dirId.getOrNull())
 
         /** Restrict to batches whose aggregate status equals this value. */
-        fun filterStatus(filterStatus: FilterStatus?) = apply { this.filterStatus = filterStatus }
+        fun filterStatus(filterStatus: DirPhoneNumberStatus?) = apply {
+            this.filterStatus = filterStatus
+        }
 
         /** Alias for calling [Builder.filterStatus] with `filterStatus.orElse(null)`. */
-        fun filterStatus(filterStatus: Optional<FilterStatus>) =
+        fun filterStatus(filterStatus: Optional<DirPhoneNumberStatus>) =
             filterStatus(filterStatus.getOrNull())
 
         /** 1-based page number. Out-of-range values return an empty page with correct meta. */
@@ -245,174 +243,6 @@ private constructor(
                 putAll(additionalQueryParams)
             }
             .build()
-
-    /** Restrict to batches whose aggregate status equals this value. */
-    class FilterStatus @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val SUBMITTED = of("submitted")
-
-            @JvmField val IN_REVIEW = of("in_review")
-
-            @JvmField val VERIFIED = of("verified")
-
-            @JvmField val UNSUCCESSFUL = of("unsuccessful")
-
-            @JvmField val SUSPENDED = of("suspended")
-
-            @JvmField val EXPIRED = of("expired")
-
-            @JvmField val PERMANENTLY_REJECTED = of("permanently_rejected")
-
-            @JvmStatic fun of(value: String) = FilterStatus(JsonField.of(value))
-        }
-
-        /** An enum containing [FilterStatus]'s known values. */
-        enum class Known {
-            SUBMITTED,
-            IN_REVIEW,
-            VERIFIED,
-            UNSUCCESSFUL,
-            SUSPENDED,
-            EXPIRED,
-            PERMANENTLY_REJECTED,
-        }
-
-        /**
-         * An enum containing [FilterStatus]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [FilterStatus] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            SUBMITTED,
-            IN_REVIEW,
-            VERIFIED,
-            UNSUCCESSFUL,
-            SUSPENDED,
-            EXPIRED,
-            PERMANENTLY_REJECTED,
-            /**
-             * An enum member indicating that [FilterStatus] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                SUBMITTED -> Value.SUBMITTED
-                IN_REVIEW -> Value.IN_REVIEW
-                VERIFIED -> Value.VERIFIED
-                UNSUCCESSFUL -> Value.UNSUCCESSFUL
-                SUSPENDED -> Value.SUSPENDED
-                EXPIRED -> Value.EXPIRED
-                PERMANENTLY_REJECTED -> Value.PERMANENTLY_REJECTED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                SUBMITTED -> Known.SUBMITTED
-                IN_REVIEW -> Known.IN_REVIEW
-                VERIFIED -> Known.VERIFIED
-                UNSUCCESSFUL -> Known.UNSUCCESSFUL
-                SUSPENDED -> Known.SUSPENDED
-                EXPIRED -> Known.EXPIRED
-                PERMANENTLY_REJECTED -> Known.PERMANENTLY_REJECTED
-                else -> throw TelnyxInvalidDataException("Unknown FilterStatus: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): FilterStatus = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is FilterStatus && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

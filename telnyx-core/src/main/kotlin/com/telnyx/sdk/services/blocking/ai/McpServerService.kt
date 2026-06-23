@@ -7,15 +7,13 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.mcpservers.McpServer
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListPage
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateResponse
 import java.util.function.Consumer
 
 interface McpServerService {
@@ -33,17 +31,16 @@ interface McpServerService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerService
 
     /** Create a new MCP server. */
-    fun create(params: McpServerCreateParams): McpServerCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(params: McpServerCreateParams): McpServer = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: McpServerCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerCreateResponse
+    ): McpServer
 
     /** Retrieve details for a specific MCP server. */
-    fun retrieve(mcpServerId: String): McpServerRetrieveResponse =
+    fun retrieve(mcpServerId: String): McpServer =
         retrieve(mcpServerId, McpServerRetrieveParams.none())
 
     /** @see retrieve */
@@ -51,59 +48,55 @@ interface McpServerService {
         mcpServerId: String,
         params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerRetrieveResponse =
-        retrieve(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
+    ): McpServer = retrieve(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         mcpServerId: String,
         params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
-    ): McpServerRetrieveResponse = retrieve(mcpServerId, params, RequestOptions.none())
+    ): McpServer = retrieve(mcpServerId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: McpServerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerRetrieveResponse
+    ): McpServer
 
     /** @see retrieve */
-    fun retrieve(params: McpServerRetrieveParams): McpServerRetrieveResponse =
+    fun retrieve(params: McpServerRetrieveParams): McpServer =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(mcpServerId: String, requestOptions: RequestOptions): McpServerRetrieveResponse =
+    fun retrieve(mcpServerId: String, requestOptions: RequestOptions): McpServer =
         retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
     /** Update an existing MCP server. */
-    fun update(mcpServerId: String): McpServerUpdateResponse =
-        update(mcpServerId, McpServerUpdateParams.none())
+    fun update(mcpServerId: String): McpServer = update(mcpServerId, McpServerUpdateParams.none())
 
     /** @see update */
     fun update(
         mcpServerId: String,
         params: McpServerUpdateParams = McpServerUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerUpdateResponse =
-        update(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
+    ): McpServer = update(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see update */
     fun update(
         mcpServerId: String,
         params: McpServerUpdateParams = McpServerUpdateParams.none(),
-    ): McpServerUpdateResponse = update(mcpServerId, params, RequestOptions.none())
+    ): McpServer = update(mcpServerId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: McpServerUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerUpdateResponse
+    ): McpServer
 
     /** @see update */
-    fun update(params: McpServerUpdateParams): McpServerUpdateResponse =
-        update(params, RequestOptions.none())
+    fun update(params: McpServerUpdateParams): McpServer = update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(mcpServerId: String, requestOptions: RequestOptions): McpServerUpdateResponse =
+    fun update(mcpServerId: String, requestOptions: RequestOptions): McpServer =
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of MCP servers. */
@@ -165,7 +158,7 @@ interface McpServerService {
          * [McpServerService.create].
          */
         @MustBeClosed
-        fun create(params: McpServerCreateParams): HttpResponseFor<McpServerCreateResponse> =
+        fun create(params: McpServerCreateParams): HttpResponseFor<McpServer> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -173,14 +166,14 @@ interface McpServerService {
         fun create(
             params: McpServerCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerCreateResponse>
+        ): HttpResponseFor<McpServer>
 
         /**
          * Returns a raw HTTP response for `get /ai/mcp_servers/{mcp_server_id}`, but is otherwise
          * the same as [McpServerService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(mcpServerId: String): HttpResponseFor<McpServerRetrieveResponse> =
+        fun retrieve(mcpServerId: String): HttpResponseFor<McpServer> =
             retrieve(mcpServerId, McpServerRetrieveParams.none())
 
         /** @see retrieve */
@@ -189,7 +182,7 @@ interface McpServerService {
             mcpServerId: String,
             params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerRetrieveResponse> =
+        ): HttpResponseFor<McpServer> =
             retrieve(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see retrieve */
@@ -197,19 +190,18 @@ interface McpServerService {
         fun retrieve(
             mcpServerId: String,
             params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
-        ): HttpResponseFor<McpServerRetrieveResponse> =
-            retrieve(mcpServerId, params, RequestOptions.none())
+        ): HttpResponseFor<McpServer> = retrieve(mcpServerId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: McpServerRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerRetrieveResponse>
+        ): HttpResponseFor<McpServer>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: McpServerRetrieveParams): HttpResponseFor<McpServerRetrieveResponse> =
+        fun retrieve(params: McpServerRetrieveParams): HttpResponseFor<McpServer> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -217,7 +209,7 @@ interface McpServerService {
         fun retrieve(
             mcpServerId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerRetrieveResponse> =
+        ): HttpResponseFor<McpServer> =
             retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
         /**
@@ -225,7 +217,7 @@ interface McpServerService {
          * the same as [McpServerService.update].
          */
         @MustBeClosed
-        fun update(mcpServerId: String): HttpResponseFor<McpServerUpdateResponse> =
+        fun update(mcpServerId: String): HttpResponseFor<McpServer> =
             update(mcpServerId, McpServerUpdateParams.none())
 
         /** @see update */
@@ -234,7 +226,7 @@ interface McpServerService {
             mcpServerId: String,
             params: McpServerUpdateParams = McpServerUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerUpdateResponse> =
+        ): HttpResponseFor<McpServer> =
             update(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see update */
@@ -242,19 +234,18 @@ interface McpServerService {
         fun update(
             mcpServerId: String,
             params: McpServerUpdateParams = McpServerUpdateParams.none(),
-        ): HttpResponseFor<McpServerUpdateResponse> =
-            update(mcpServerId, params, RequestOptions.none())
+        ): HttpResponseFor<McpServer> = update(mcpServerId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: McpServerUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerUpdateResponse>
+        ): HttpResponseFor<McpServer>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: McpServerUpdateParams): HttpResponseFor<McpServerUpdateResponse> =
+        fun update(params: McpServerUpdateParams): HttpResponseFor<McpServer> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -262,7 +253,7 @@ interface McpServerService {
         fun update(
             mcpServerId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerUpdateResponse> =
+        ): HttpResponseFor<McpServer> =
             update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
         /**

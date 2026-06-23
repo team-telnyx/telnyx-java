@@ -61,34 +61,25 @@ interface MessagingService {
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
     /** Update the messaging profile and/or messaging product of a phone number */
-    fun update(id: String): MessagingUpdateResponse = update(id, MessagingUpdateParams.none())
+    fun update(id: String, params: MessagingUpdateParams): MessagingUpdateResponse =
+        update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         id: String,
-        params: MessagingUpdateParams = MessagingUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see update */
-    fun update(
-        id: String,
-        params: MessagingUpdateParams = MessagingUpdateParams.none(),
-    ): MessagingUpdateResponse = update(id, params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
         params: MessagingUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingUpdateResponse
+    ): MessagingUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(params: MessagingUpdateParams): MessagingUpdateResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(id: String, requestOptions: RequestOptions): MessagingUpdateResponse =
-        update(id, MessagingUpdateParams.none(), requestOptions)
+    fun update(
+        params: MessagingUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingUpdateResponse
 
     /** List phone numbers with messaging settings */
     fun list(): MessagingListPage = list(MessagingListParams.none())
@@ -166,31 +157,19 @@ interface MessagingService {
          * the same as [MessagingService.update].
          */
         @MustBeClosed
-        fun update(id: String): HttpResponseFor<MessagingUpdateResponse> =
-            update(id, MessagingUpdateParams.none())
-
-        /** @see update */
-        @MustBeClosed
         fun update(
             id: String,
-            params: MessagingUpdateParams = MessagingUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            id: String,
-            params: MessagingUpdateParams = MessagingUpdateParams.none(),
+            params: MessagingUpdateParams,
         ): HttpResponseFor<MessagingUpdateResponse> = update(id, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
+            id: String,
             params: MessagingUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingUpdateResponse>
+        ): HttpResponseFor<MessagingUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -200,10 +179,9 @@ interface MessagingService {
         /** @see update */
         @MustBeClosed
         fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingUpdateResponse> =
-            update(id, MessagingUpdateParams.none(), requestOptions)
+            params: MessagingUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /phone_numbers/messaging`, but is otherwise the same

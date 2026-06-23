@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.missions.ExecutionMode
 import com.telnyx.sdk.models.ai.missions.MissionCreateParams
 import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionParams
 import org.junit.jupiter.api.Disabled
@@ -17,12 +18,12 @@ internal class MissionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val missionService = client.ai().missions()
 
-        val mission =
+        val missionResponse =
             missionService.create(
                 MissionCreateParams.builder()
                     .name("name")
                     .description("description")
-                    .executionMode(MissionCreateParams.ExecutionMode.EXTERNAL)
+                    .executionMode(ExecutionMode.EXTERNAL)
                     .instructions("instructions")
                     .metadata(
                         MissionCreateParams.Metadata.builder()
@@ -33,7 +34,7 @@ internal class MissionServiceTest {
                     .build()
             )
 
-        mission.validate()
+        missionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -42,9 +43,9 @@ internal class MissionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val missionService = client.ai().missions()
 
-        val mission = missionService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val missionResponse = missionService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        mission.validate()
+        missionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -95,12 +96,12 @@ internal class MissionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val missionService = client.ai().missions()
 
-        val response =
+        val missionResponse =
             missionService.updateMission(
                 MissionUpdateMissionParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .description("description")
-                    .executionMode(MissionUpdateMissionParams.ExecutionMode.EXTERNAL)
+                    .executionMode(ExecutionMode.EXTERNAL)
                     .instructions("instructions")
                     .metadata(
                         MissionUpdateMissionParams.Metadata.builder()
@@ -112,6 +113,6 @@ internal class MissionServiceTest {
                     .build()
             )
 
-        response.validate()
+        missionResponse.validate()
     }
 }

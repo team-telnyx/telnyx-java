@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.blocking.DirService
 import java.util.Objects
 import java.util.Optional
@@ -16,25 +17,24 @@ class DirListPage
 private constructor(
     private val service: DirService,
     private val params: DirListParams,
-    private val response: DirListPageResponse,
-) : Page<DirListResponse> {
+    private val response: DirList,
+) : Page<Dir> {
 
     /**
-     * Delegates to [DirListPageResponse], but gracefully handles missing data.
+     * Delegates to [DirList], but gracefully handles missing data.
      *
-     * @see DirListPageResponse.data
+     * @see DirList.data
      */
-    fun data(): List<DirListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Dir> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [DirListPageResponse], but gracefully handles missing data.
+     * Delegates to [DirList], but gracefully handles missing data.
      *
-     * @see DirListPageResponse.meta
+     * @see DirList.meta
      */
-    fun meta(): Optional<DirListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<DirListResponse> = data()
+    override fun items(): List<Dir> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,13 +54,13 @@ private constructor(
 
     override fun nextPage(): DirListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<DirListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<Dir> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): DirListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): DirListPageResponse = response
+    fun response(): DirList = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,7 +84,7 @@ private constructor(
 
         private var service: DirService? = null
         private var params: DirListParams? = null
-        private var response: DirListPageResponse? = null
+        private var response: DirList? = null
 
         @JvmSynthetic
         internal fun from(dirListPage: DirListPage) = apply {
@@ -99,7 +99,7 @@ private constructor(
         fun params(params: DirListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: DirListPageResponse) = apply { this.response = response }
+        fun response(response: DirList) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [DirListPage].

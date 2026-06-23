@@ -16,33 +16,24 @@ internal class VoiceSdkCallReportListPageResponseTest {
         val voiceSdkCallReportListPageResponse =
             VoiceSdkCallReportListPageResponse.builder()
                 .addData(
-                    VoiceSdkCallReportListResponse.builder()
+                    VoiceSdkCallReport.builder()
                         .callId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .callReportId("call_report_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .flushReason(
-                            VoiceSdkCallReportListResponse.FlushReason.builder()
+                            VoiceSdkCallReport.FlushReason.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .logsOfVoiceSdkCallReportLogEntries(
                             listOf(
-                                VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.builder()
                                     .context(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Context
-                                            .builder()
+                                        VoiceSdkCallReportLogEntry.Context.builder()
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .level(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Level
-                                            .DEBUG
-                                    )
+                                    .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                     .message("message")
                                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
@@ -50,17 +41,16 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .segment(0L)
-                        .statsOfUnnamedSchemaWithArrayParent4s(
+                        .statsOfUnnamedSchemaWithArrayParent0s(
                             listOf(
-                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
-                                    .builder()
+                                VoiceSdkCallReport.Stats.UnnamedSchemaWithArrayParent0.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                         )
                         .storedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .summary(
-                            VoiceSdkCallReportListResponse.Summary.builder()
+                            VoiceSdkCallReport.Summary.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -71,7 +61,7 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         .version("version")
                         .voiceSdkId("voice_sdk_id")
                         .voiceSdkIdDecoded(
-                            VoiceSdkCallReportListResponse.VoiceSdkIdDecoded.builder()
+                            VoiceSdkCallReport.VoiceSdkIdDecoded.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -90,30 +80,24 @@ internal class VoiceSdkCallReportListPageResponseTest {
 
         assertThat(voiceSdkCallReportListPageResponse.data())
             .containsExactly(
-                VoiceSdkCallReportListResponse.builder()
+                VoiceSdkCallReport.builder()
                     .callId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .callReportId("call_report_id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .flushReason(
-                        VoiceSdkCallReportListResponse.FlushReason.builder()
+                        VoiceSdkCallReport.FlushReason.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
                     .logsOfVoiceSdkCallReportLogEntries(
                         listOf(
-                            VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry.builder()
+                            VoiceSdkCallReportLogEntry.builder()
                                 .context(
-                                    VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                        .Context
-                                        .builder()
+                                    VoiceSdkCallReportLogEntry.Context.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .level(
-                                    VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                        .Level
-                                        .DEBUG
-                                )
+                                .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                 .message("message")
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
@@ -121,17 +105,16 @@ internal class VoiceSdkCallReportListPageResponseTest {
                     )
                     .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .segment(0L)
-                    .statsOfUnnamedSchemaWithArrayParent4s(
+                    .statsOfUnnamedSchemaWithArrayParent0s(
                         listOf(
-                            VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
-                                .builder()
+                            VoiceSdkCallReport.Stats.UnnamedSchemaWithArrayParent0.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                     )
                     .storedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .summary(
-                        VoiceSdkCallReportListResponse.Summary.builder()
+                        VoiceSdkCallReport.Summary.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -142,7 +125,7 @@ internal class VoiceSdkCallReportListPageResponseTest {
                     .version("version")
                     .voiceSdkId("voice_sdk_id")
                     .voiceSdkIdDecoded(
-                        VoiceSdkCallReportListResponse.VoiceSdkIdDecoded.builder()
+                        VoiceSdkCallReport.VoiceSdkIdDecoded.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -166,33 +149,24 @@ internal class VoiceSdkCallReportListPageResponseTest {
         val voiceSdkCallReportListPageResponse =
             VoiceSdkCallReportListPageResponse.builder()
                 .addData(
-                    VoiceSdkCallReportListResponse.builder()
+                    VoiceSdkCallReport.builder()
                         .callId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .callReportId("call_report_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .flushReason(
-                            VoiceSdkCallReportListResponse.FlushReason.builder()
+                            VoiceSdkCallReport.FlushReason.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .logsOfVoiceSdkCallReportLogEntries(
                             listOf(
-                                VoiceSdkCallReportListResponse.Logs.VoiceSdkCallReportLogEntry
-                                    .builder()
+                                VoiceSdkCallReportLogEntry.builder()
                                     .context(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Context
-                                            .builder()
+                                        VoiceSdkCallReportLogEntry.Context.builder()
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .level(
-                                        VoiceSdkCallReportListResponse.Logs
-                                            .VoiceSdkCallReportLogEntry
-                                            .Level
-                                            .DEBUG
-                                    )
+                                    .level(VoiceSdkCallReportLogEntry.Level.DEBUG)
                                     .message("message")
                                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
@@ -200,17 +174,16 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         )
                         .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .segment(0L)
-                        .statsOfUnnamedSchemaWithArrayParent4s(
+                        .statsOfUnnamedSchemaWithArrayParent0s(
                             listOf(
-                                VoiceSdkCallReportListResponse.Stats.UnnamedSchemaWithArrayParent4
-                                    .builder()
+                                VoiceSdkCallReport.Stats.UnnamedSchemaWithArrayParent0.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                         )
                         .storedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .summary(
-                            VoiceSdkCallReportListResponse.Summary.builder()
+                            VoiceSdkCallReport.Summary.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -221,7 +194,7 @@ internal class VoiceSdkCallReportListPageResponseTest {
                         .version("version")
                         .voiceSdkId("voice_sdk_id")
                         .voiceSdkIdDecoded(
-                            VoiceSdkCallReportListResponse.VoiceSdkIdDecoded.builder()
+                            VoiceSdkCallReport.VoiceSdkIdDecoded.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

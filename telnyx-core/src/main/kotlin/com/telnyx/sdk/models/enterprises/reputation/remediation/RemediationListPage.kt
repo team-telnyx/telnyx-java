@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.enterprises.reputation.remediation
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.enterprises.NumberReputationPaginationMeta
 import com.telnyx.sdk.services.blocking.enterprises.reputation.RemediationService
 import java.util.Objects
 import java.util.Optional
@@ -32,7 +33,7 @@ private constructor(
      *
      * @see RemediationListPageResponse.meta
      */
-    fun meta(): Optional<RemediationListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<NumberReputationPaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<RemediationListResponse> = data()
 

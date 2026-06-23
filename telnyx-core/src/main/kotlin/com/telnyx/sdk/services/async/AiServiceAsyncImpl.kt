@@ -17,10 +17,12 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
@@ -48,7 +50,6 @@ import com.telnyx.sdk.services.async.ai.ToolServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Generate text with LLMs */
 class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AiServiceAsync {
 
@@ -135,11 +136,20 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         // post /ai/responses
         withRawResponse().createResponseDeprecated(params, requestOptions).thenApply { it.parse() }
 
+    override fun retrieveConversationHistories(
+        params: AiRetrieveConversationHistoriesParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AiRetrieveConversationHistoriesResponse> =
+        // get /ai/conversation_histories
+        withRawResponse().retrieveConversationHistories(params, requestOptions).thenApply {
+            it.parse()
+        }
+
     @Deprecated("deprecated")
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AiRetrieveModelsResponse> =
+    ): CompletableFuture<ModelsResponse> =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).thenApply { it.parse() }
 
@@ -273,14 +283,45 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 }
         }
 
-        private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
-            jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
+        private val retrieveConversationHistoriesHandler:
+            Handler<AiRetrieveConversationHistoriesResponse> =
+            jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveConversationHistories(
+            params: AiRetrieveConversationHistoriesParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "conversation_histories")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveConversationHistoriesHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrieveModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun retrieveModels(
             params: AiRetrieveModelsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AiRetrieveModelsResponse>> {
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

@@ -19,7 +19,7 @@ internal class ConferenceServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
-        val conferenceFuture =
+        val conferenceResourceFuture =
             conferenceServiceAsync.retrieve(
                 ConferenceRetrieveParams.builder()
                     .accountSid("account_sid")
@@ -27,8 +27,8 @@ internal class ConferenceServiceAsyncTest {
                     .build()
             )
 
-        val conference = conferenceFuture.get()
-        conference.validate()
+        val conferenceResource = conferenceResourceFuture.get()
+        conferenceResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -37,7 +37,7 @@ internal class ConferenceServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
-        val conferenceFuture =
+        val conferenceResourceFuture =
             conferenceServiceAsync.update(
                 ConferenceUpdateParams.builder()
                     .accountSid("account_sid")
@@ -48,8 +48,8 @@ internal class ConferenceServiceAsyncTest {
                     .build()
             )
 
-        val conference = conferenceFuture.get()
-        conference.validate()
+        val conferenceResource = conferenceResourceFuture.get()
+        conferenceResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -100,7 +100,7 @@ internal class ConferenceServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
-        val responseFuture =
+        val texmlGetCallRecordingsResponseBodyFuture =
             conferenceServiceAsync.retrieveRecordingsJson(
                 ConferenceRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -108,7 +108,7 @@ internal class ConferenceServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val texmlGetCallRecordingsResponseBody = texmlGetCallRecordingsResponseBodyFuture.get()
+        texmlGetCallRecordingsResponseBody.validate()
     }
 }

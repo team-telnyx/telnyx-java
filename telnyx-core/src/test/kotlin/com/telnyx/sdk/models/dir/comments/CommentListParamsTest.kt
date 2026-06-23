@@ -12,7 +12,7 @@ internal class CommentListParamsTest {
     fun create() {
         CommentListParams.builder()
             .dirId("16635d38-75a6-4481-82e8-69af60e05011")
-            .commentType(CommentListParams.CommentType.VETTING_COMMENT)
+            .commentType(CommentType.VETTING_COMMENT)
             .pageNumber(1L)
             .pageSize(20L)
             .build()
@@ -33,7 +33,7 @@ internal class CommentListParamsTest {
         val params =
             CommentListParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
-                .commentType(CommentListParams.CommentType.VETTING_COMMENT)
+                .commentType(CommentType.VETTING_COMMENT)
                 .pageNumber(1L)
                 .pageSize(20L)
                 .build()

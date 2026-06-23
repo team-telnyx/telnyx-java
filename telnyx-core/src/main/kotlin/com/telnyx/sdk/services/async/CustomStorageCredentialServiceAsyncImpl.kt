@@ -17,13 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.customstoragecredentials.CredentialsResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialDeleteParams
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -50,21 +48,21 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun create(
         params: CustomStorageCredentialCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomStorageCredentialCreateResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         // post /custom_storage_credentials/{connection_id}
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: CustomStorageCredentialRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         // get /custom_storage_credentials/{connection_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: CustomStorageCredentialUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomStorageCredentialUpdateResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         // put /custom_storage_credentials/{connection_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -88,13 +86,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<CustomStorageCredentialCreateResponse> =
-            jsonHandler<CustomStorageCredentialCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: CustomStorageCredentialCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -122,13 +120,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val retrieveHandler: Handler<CustomStorageCredentialRetrieveResponse> =
-            jsonHandler<CustomStorageCredentialRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CustomStorageCredentialRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -155,13 +153,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val updateHandler: Handler<CustomStorageCredentialUpdateResponse> =
-            jsonHandler<CustomStorageCredentialUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: CustomStorageCredentialUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())

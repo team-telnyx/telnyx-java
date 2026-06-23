@@ -14,7 +14,7 @@ internal class CallRetrieveResponseTest {
         val callRetrieveResponse =
             CallRetrieveResponse.builder()
                 .data(
-                    CallRetrieveResponse.Data.builder()
+                    QueueCall.builder()
                         .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                         .callLegId("2dc6fc34-f9e0-11ea-b68e-02420a0f7768")
                         .callSessionId("2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768")
@@ -23,7 +23,7 @@ internal class CallRetrieveResponseTest {
                         .from("+18005550101")
                         .queueId("ae1626cc-6f42-11ea-becd-02420a0f8b69")
                         .queuePosition(3L)
-                        .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
+                        .recordType(QueueCall.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
                         .isAlive(true)
@@ -33,7 +33,7 @@ internal class CallRetrieveResponseTest {
 
         assertThat(callRetrieveResponse.data())
             .contains(
-                CallRetrieveResponse.Data.builder()
+                QueueCall.builder()
                     .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .callLegId("2dc6fc34-f9e0-11ea-b68e-02420a0f7768")
                     .callSessionId("2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768")
@@ -42,7 +42,7 @@ internal class CallRetrieveResponseTest {
                     .from("+18005550101")
                     .queueId("ae1626cc-6f42-11ea-becd-02420a0f8b69")
                     .queuePosition(3L)
-                    .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
+                    .recordType(QueueCall.RecordType.QUEUE_CALL)
                     .to("+18005550102")
                     .waitTimeSecs(145L)
                     .isAlive(true)
@@ -56,7 +56,7 @@ internal class CallRetrieveResponseTest {
         val callRetrieveResponse =
             CallRetrieveResponse.builder()
                 .data(
-                    CallRetrieveResponse.Data.builder()
+                    QueueCall.builder()
                         .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                         .callLegId("2dc6fc34-f9e0-11ea-b68e-02420a0f7768")
                         .callSessionId("2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768")
@@ -65,7 +65,7 @@ internal class CallRetrieveResponseTest {
                         .from("+18005550101")
                         .queueId("ae1626cc-6f42-11ea-becd-02420a0f8b69")
                         .queuePosition(3L)
-                        .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
+                        .recordType(QueueCall.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
                         .isAlive(true)

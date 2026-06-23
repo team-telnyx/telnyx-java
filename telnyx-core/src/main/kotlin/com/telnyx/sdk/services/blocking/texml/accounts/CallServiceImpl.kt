@@ -18,16 +18,15 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsResponse
+import com.telnyx.sdk.models.texml.accounts.calls.CallResource
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateResponse
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.RecordingService
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.RecordingServiceImpl
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.RecordingsJsonService
@@ -76,14 +75,11 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun retrieve(
         params: CallRetrieveParams,
         requestOptions: RequestOptions,
-    ): CallRetrieveResponse =
+    ): CallResource =
         // get /texml/Accounts/{account_sid}/Calls/{call_sid}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: CallUpdateParams,
-        requestOptions: RequestOptions,
-    ): CallUpdateResponse =
+    override fun update(params: CallUpdateParams, requestOptions: RequestOptions): CallResource =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -153,13 +149,13 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
         /** TeXML REST Commands */
         override fun streams(): StreamService.WithRawResponse = streams
 
-        private val retrieveHandler: Handler<CallRetrieveResponse> =
-            jsonHandler<CallRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<CallResource> =
+            jsonHandler<CallResource>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CallRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallRetrieveResponse> {
+        ): HttpResponseFor<CallResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("callSid", params.callSid().getOrNull())
@@ -189,13 +185,13 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val updateHandler: Handler<CallUpdateResponse> =
-            jsonHandler<CallUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<CallResource> =
+            jsonHandler<CallResource>(clientOptions.jsonMapper)
 
         override fun update(
             params: CallUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallUpdateResponse> {
+        ): HttpResponseFor<CallResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("callSid", params.callSid().getOrNull())

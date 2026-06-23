@@ -18,14 +18,14 @@ private constructor(
     private val service: MessagingService,
     private val params: MessagingListParams,
     private val response: MessagingListPageResponse,
-) : Page<MessagingListResponse> {
+) : Page<MobilePhoneNumberWithMessagingSettings> {
 
     /**
      * Delegates to [MessagingListPageResponse], but gracefully handles missing data.
      *
      * @see MessagingListPageResponse.data
      */
-    fun data(): List<MessagingListResponse> =
+    fun data(): List<MobilePhoneNumberWithMessagingSettings> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessagingListResponse> = data()
+    override fun items(): List<MobilePhoneNumberWithMessagingSettings> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): MessagingListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<MessagingListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<MobilePhoneNumberWithMessagingSettings> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MessagingListParams = params

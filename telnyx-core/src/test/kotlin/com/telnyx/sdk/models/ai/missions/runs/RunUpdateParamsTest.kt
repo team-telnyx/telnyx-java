@@ -25,7 +25,7 @@ internal class RunUpdateParamsTest {
                     .build()
             )
             .resultSummary("result_summary")
-            .status(RunUpdateParams.Status.PENDING)
+            .status(RunStatus.PENDING)
             .build()
     }
 
@@ -61,7 +61,7 @@ internal class RunUpdateParamsTest {
                         .build()
                 )
                 .resultSummary("result_summary")
-                .status(RunUpdateParams.Status.PENDING)
+                .status(RunStatus.PENDING)
                 .build()
 
         val body = params._body()
@@ -80,7 +80,7 @@ internal class RunUpdateParamsTest {
                     .build()
             )
         assertThat(body.resultSummary()).contains("result_summary")
-        assertThat(body.status()).contains(RunUpdateParams.Status.PENDING)
+        assertThat(body.status()).contains(RunStatus.PENDING)
     }
 
     @Test

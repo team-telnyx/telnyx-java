@@ -18,7 +18,7 @@ internal class WebhookDeliveryListPageResponseTest {
         val webhookDeliveryListPageResponse =
             WebhookDeliveryListPageResponse.builder()
                 .addData(
-                    WebhookDeliveryListResponse.builder()
+                    WebhookDelivery.builder()
                         .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                         .addAttempt(
                             Attempt.builder()
@@ -74,19 +74,19 @@ internal class WebhookDeliveryListPageResponseTest {
                         .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                         .recordType("webhook_delivery")
                         .startedAt(OffsetDateTime.parse("2020-08-10T14:00:00.000Z"))
-                        .status(WebhookDeliveryListResponse.Status.DELIVERED)
+                        .status(WebhookDelivery.Status.DELIVERED)
                         .userId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .webhook(
-                            WebhookDeliveryListResponse.Webhook.builder()
+                            WebhookDelivery.Webhook.builder()
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
                                 .payload(
-                                    WebhookDeliveryListResponse.Webhook.Payload.builder()
+                                    WebhookDelivery.Webhook.Payload.builder()
                                         .putAdditionalProperty("useful", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .recordType(WebhookDeliveryListResponse.Webhook.RecordType.EVENT)
+                                .recordType(WebhookDelivery.Webhook.RecordType.EVENT)
                                 .build()
                         )
                         .build()
@@ -103,7 +103,7 @@ internal class WebhookDeliveryListPageResponseTest {
 
         assertThat(webhookDeliveryListPageResponse.data().getOrNull())
             .containsExactly(
-                WebhookDeliveryListResponse.builder()
+                WebhookDelivery.builder()
                     .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                     .addAttempt(
                         Attempt.builder()
@@ -159,19 +159,19 @@ internal class WebhookDeliveryListPageResponseTest {
                     .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                     .recordType("webhook_delivery")
                     .startedAt(OffsetDateTime.parse("2020-08-10T14:00:00.000Z"))
-                    .status(WebhookDeliveryListResponse.Status.DELIVERED)
+                    .status(WebhookDelivery.Status.DELIVERED)
                     .userId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .webhook(
-                        WebhookDeliveryListResponse.Webhook.builder()
+                        WebhookDelivery.Webhook.builder()
                             .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                             .eventType("call_initiated")
                             .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
                             .payload(
-                                WebhookDeliveryListResponse.Webhook.Payload.builder()
+                                WebhookDelivery.Webhook.Payload.builder()
                                     .putAdditionalProperty("useful", JsonValue.from("bar"))
                                     .build()
                             )
-                            .recordType(WebhookDeliveryListResponse.Webhook.RecordType.EVENT)
+                            .recordType(WebhookDelivery.Webhook.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -193,7 +193,7 @@ internal class WebhookDeliveryListPageResponseTest {
         val webhookDeliveryListPageResponse =
             WebhookDeliveryListPageResponse.builder()
                 .addData(
-                    WebhookDeliveryListResponse.builder()
+                    WebhookDelivery.builder()
                         .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                         .addAttempt(
                             Attempt.builder()
@@ -249,19 +249,19 @@ internal class WebhookDeliveryListPageResponseTest {
                         .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                         .recordType("webhook_delivery")
                         .startedAt(OffsetDateTime.parse("2020-08-10T14:00:00.000Z"))
-                        .status(WebhookDeliveryListResponse.Status.DELIVERED)
+                        .status(WebhookDelivery.Status.DELIVERED)
                         .userId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .webhook(
-                            WebhookDeliveryListResponse.Webhook.builder()
+                            WebhookDelivery.Webhook.builder()
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
                                 .payload(
-                                    WebhookDeliveryListResponse.Webhook.Payload.builder()
+                                    WebhookDelivery.Webhook.Payload.builder()
                                         .putAdditionalProperty("useful", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .recordType(WebhookDeliveryListResponse.Webhook.RecordType.EVENT)
+                                .recordType(WebhookDelivery.Webhook.RecordType.EVENT)
                                 .build()
                         )
                         .build()

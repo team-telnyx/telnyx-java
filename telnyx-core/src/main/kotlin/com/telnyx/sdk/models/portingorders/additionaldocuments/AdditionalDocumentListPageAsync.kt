@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: AdditionalDocumentListParams,
     private val response: AdditionalDocumentListPageResponse,
-) : PageAsync<AdditionalDocumentListResponse> {
+) : PageAsync<PortingAdditionalDocument> {
 
     /**
      * Delegates to [AdditionalDocumentListPageResponse], but gracefully handles missing data.
      *
      * @see AdditionalDocumentListPageResponse.data
      */
-    fun data(): List<AdditionalDocumentListResponse> =
+    fun data(): List<PortingAdditionalDocument> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AdditionalDocumentListResponse> = data()
+    override fun items(): List<PortingAdditionalDocument> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<AdditionalDocumentListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<AdditionalDocumentListResponse> =
+    fun autoPager(): AutoPagerAsync<PortingAdditionalDocument> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.enterprises.reputation.numbers
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.enterprises.NumberReputationPaginationMeta
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
 import java.util.Objects
 import java.util.Optional
@@ -16,25 +17,25 @@ class NumberListPage
 private constructor(
     private val service: NumberService,
     private val params: NumberListParams,
-    private val response: NumberListPageResponse,
-) : Page<NumberListResponse> {
+    private val response: ReputationPhoneNumberList,
+) : Page<ReputationPhoneNumber> {
 
     /**
-     * Delegates to [NumberListPageResponse], but gracefully handles missing data.
+     * Delegates to [ReputationPhoneNumberList], but gracefully handles missing data.
      *
-     * @see NumberListPageResponse.data
+     * @see ReputationPhoneNumberList.data
      */
-    fun data(): List<NumberListResponse> =
+    fun data(): List<ReputationPhoneNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [NumberListPageResponse], but gracefully handles missing data.
+     * Delegates to [ReputationPhoneNumberList], but gracefully handles missing data.
      *
-     * @see NumberListPageResponse.meta
+     * @see ReputationPhoneNumberList.meta
      */
-    fun meta(): Optional<NumberListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<NumberReputationPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<NumberListResponse> = data()
+    override fun items(): List<ReputationPhoneNumber> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,13 +55,13 @@ private constructor(
 
     override fun nextPage(): NumberListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<NumberListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<ReputationPhoneNumber> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): NumberListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): NumberListPageResponse = response
+    fun response(): ReputationPhoneNumberList = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,7 +85,7 @@ private constructor(
 
         private var service: NumberService? = null
         private var params: NumberListParams? = null
-        private var response: NumberListPageResponse? = null
+        private var response: ReputationPhoneNumberList? = null
 
         @JvmSynthetic
         internal fun from(numberListPage: NumberListPage) = apply {
@@ -99,7 +100,7 @@ private constructor(
         fun params(params: NumberListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: NumberListPageResponse) = apply { this.response = response }
+        fun response(response: ReputationPhoneNumberList) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [NumberListPage].

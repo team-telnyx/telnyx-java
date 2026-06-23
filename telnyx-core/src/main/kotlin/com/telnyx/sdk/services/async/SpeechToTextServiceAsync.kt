@@ -4,13 +4,14 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.speechtotext.SpeechToTextListProvidersParams
 import com.telnyx.sdk.models.speechtotext.SpeechToTextListProvidersResponse
+import com.telnyx.sdk.models.speechtotext.SpeechToTextRetrieveTranscriptionParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Discover available speech-to-text providers, models, and supported languages. */
 interface SpeechToTextServiceAsync {
 
     /**
@@ -62,6 +63,28 @@ interface SpeechToTextServiceAsync {
         listProviders(SpeechToTextListProvidersParams.none(), requestOptions)
 
     /**
+     * Open a WebSocket connection to stream audio and receive transcriptions in real-time.
+     * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
+     *
+     * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`.
+     *
+     * **Connection flow:**
+     * 1. Open WebSocket with query parameters specifying engine, input format, and language.
+     * 2. Send binary audio frames (mp3/wav format).
+     * 3. Receive JSON transcript frames with `transcript`, `is_final`, and `confidence` fields.
+     * 4. Close connection when done.
+     */
+    fun retrieveTranscription(
+        params: SpeechToTextRetrieveTranscriptionParams
+    ): CompletableFuture<Void?> = retrieveTranscription(params, RequestOptions.none())
+
+    /** @see retrieveTranscription */
+    fun retrieveTranscription(
+        params: SpeechToTextRetrieveTranscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /**
      * A view of [SpeechToTextServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -100,5 +123,19 @@ interface SpeechToTextServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<SpeechToTextListProvidersResponse>> =
             listProviders(SpeechToTextListProvidersParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /speech-to-text/transcription`, but is otherwise the
+         * same as [SpeechToTextServiceAsync.retrieveTranscription].
+         */
+        fun retrieveTranscription(
+            params: SpeechToTextRetrieveTranscriptionParams
+        ): CompletableFuture<HttpResponse> = retrieveTranscription(params, RequestOptions.none())
+
+        /** @see retrieveTranscription */
+        fun retrieveTranscription(
+            params: SpeechToTextRetrieveTranscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
     }
 }

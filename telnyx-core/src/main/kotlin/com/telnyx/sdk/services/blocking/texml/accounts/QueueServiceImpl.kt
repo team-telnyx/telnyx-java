@@ -18,15 +18,13 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListPage
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueResource
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -43,24 +41,18 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService =
         QueueServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: QueueCreateParams,
-        requestOptions: RequestOptions,
-    ): QueueCreateResponse =
+    override fun create(params: QueueCreateParams, requestOptions: RequestOptions): QueueResource =
         // post /texml/Accounts/{account_sid}/Queues
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: QueueRetrieveParams,
         requestOptions: RequestOptions,
-    ): QueueRetrieveResponse =
+    ): QueueResource =
         // get /texml/Accounts/{account_sid}/Queues/{queue_sid}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: QueueUpdateParams,
-        requestOptions: RequestOptions,
-    ): QueueUpdateResponse =
+    override fun update(params: QueueUpdateParams, requestOptions: RequestOptions): QueueResource =
         // post /texml/Accounts/{account_sid}/Queues/{queue_sid}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -86,13 +78,13 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<QueueCreateResponse> =
-            jsonHandler<QueueCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<QueueResource> =
+            jsonHandler<QueueResource>(clientOptions.jsonMapper)
 
         override fun create(
             params: QueueCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueCreateResponse> {
+        ): HttpResponseFor<QueueResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountSid", params.accountSid().getOrNull())
@@ -117,13 +109,13 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val retrieveHandler: Handler<QueueRetrieveResponse> =
-            jsonHandler<QueueRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<QueueResource> =
+            jsonHandler<QueueResource>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: QueueRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueRetrieveResponse> {
+        ): HttpResponseFor<QueueResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("queueSid", params.queueSid().getOrNull())
@@ -153,13 +145,13 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val updateHandler: Handler<QueueUpdateResponse> =
-            jsonHandler<QueueUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<QueueResource> =
+            jsonHandler<QueueResource>(clientOptions.jsonMapper)
 
         override fun update(
             params: QueueUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueUpdateResponse> {
+        ): HttpResponseFor<QueueResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("queueSid", params.queueSid().getOrNull())

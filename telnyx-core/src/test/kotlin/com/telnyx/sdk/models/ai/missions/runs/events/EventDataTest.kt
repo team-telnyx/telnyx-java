@@ -19,7 +19,7 @@ internal class EventDataTest {
                 .runId("run_id")
                 .summary("summary")
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .type(EventData.Type.STATUS_CHANGE)
+                .type(EventType.STATUS_CHANGE)
                 .agentId("agent_id")
                 .idempotencyKey("idempotency_key")
                 .payload(
@@ -35,7 +35,7 @@ internal class EventDataTest {
         assertThat(eventData.summary()).isEqualTo("summary")
         assertThat(eventData.timestamp())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(eventData.type()).isEqualTo(EventData.Type.STATUS_CHANGE)
+        assertThat(eventData.type()).isEqualTo(EventType.STATUS_CHANGE)
         assertThat(eventData.agentId()).contains("agent_id")
         assertThat(eventData.idempotencyKey()).contains("idempotency_key")
         assertThat(eventData.payload())
@@ -56,7 +56,7 @@ internal class EventDataTest {
                 .runId("run_id")
                 .summary("summary")
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .type(EventData.Type.STATUS_CHANGE)
+                .type(EventType.STATUS_CHANGE)
                 .agentId("agent_id")
                 .idempotencyKey("idempotency_key")
                 .payload(

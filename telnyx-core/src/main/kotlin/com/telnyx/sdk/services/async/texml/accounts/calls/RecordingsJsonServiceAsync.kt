@@ -6,9 +6,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,7 +31,7 @@ interface RecordingsJsonServiceAsync {
     fun recordingsJson(
         callSid: String,
         params: RecordingsJsonRecordingsJsonParams,
-    ): CompletableFuture<RecordingsJsonRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingsJson(callSid, params, RequestOptions.none())
 
     /** @see recordingsJson */
@@ -39,26 +39,26 @@ interface RecordingsJsonServiceAsync {
         callSid: String,
         params: RecordingsJsonRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingsJsonRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see recordingsJson */
     fun recordingsJson(
         params: RecordingsJsonRecordingsJsonParams
-    ): CompletableFuture<RecordingsJsonRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         recordingsJson(params, RequestOptions.none())
 
     /** @see recordingsJson */
     fun recordingsJson(
         params: RecordingsJsonRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingsJsonRecordingsJsonResponse>
+    ): CompletableFuture<TexmlCreateCallRecordingResponseBody>
 
     /** Returns recordings for a call identified by call_sid. */
     fun retrieveRecordingsJson(
         callSid: String,
         params: RecordingsJsonRetrieveRecordingsJsonParams,
-    ): CompletableFuture<RecordingsJsonRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(callSid, params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
@@ -66,20 +66,20 @@ interface RecordingsJsonServiceAsync {
         callSid: String,
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingsJsonRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams
-    ): CompletableFuture<RecordingsJsonRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingsJsonRetrieveRecordingsJsonResponse>
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody>
 
     /**
      * A view of [RecordingsJsonServiceAsync] that provides access to raw HTTP responses for each
@@ -104,7 +104,7 @@ interface RecordingsJsonServiceAsync {
         fun recordingsJson(
             callSid: String,
             params: RecordingsJsonRecordingsJsonParams,
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingsJson(callSid, params, RequestOptions.none())
 
         /** @see recordingsJson */
@@ -112,20 +112,20 @@ interface RecordingsJsonServiceAsync {
             callSid: String,
             params: RecordingsJsonRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see recordingsJson */
         fun recordingsJson(
             params: RecordingsJsonRecordingsJsonParams
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>> =
             recordingsJson(params, RequestOptions.none())
 
         /** @see recordingsJson */
         fun recordingsJson(
             params: RecordingsJsonRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRecordingsJsonResponse>>
+        ): CompletableFuture<HttpResponseFor<TexmlCreateCallRecordingResponseBody>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -135,7 +135,7 @@ interface RecordingsJsonServiceAsync {
         fun retrieveRecordingsJson(
             callSid: String,
             params: RecordingsJsonRetrieveRecordingsJsonParams,
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(callSid, params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -143,19 +143,19 @@ interface RecordingsJsonServiceAsync {
             callSid: String,
             params: RecordingsJsonRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see retrieveRecordingsJson */
         fun retrieveRecordingsJson(
             params: RecordingsJsonRetrieveRecordingsJsonParams
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
         fun retrieveRecordingsJson(
             params: RecordingsJsonRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse>>
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>>
     }
 }

@@ -30,7 +30,7 @@ internal class JsonServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jsonService = client.texml().accounts().transcriptions().json()
 
-        val response =
+        val texmlRecordingTranscription =
             jsonService.retrieveRecordingTranscriptionSidJson(
                 JsonRetrieveRecordingTranscriptionSidJsonParams.builder()
                     .accountSid("account_sid")
@@ -38,6 +38,6 @@ internal class JsonServiceTest {
                     .build()
             )
 
-        response.validate()
+        texmlRecordingTranscription.validate()
     }
 }

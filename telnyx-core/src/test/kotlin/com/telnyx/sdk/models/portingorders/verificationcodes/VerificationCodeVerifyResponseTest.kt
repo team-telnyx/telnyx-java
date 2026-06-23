@@ -16,7 +16,7 @@ internal class VerificationCodeVerifyResponseTest {
         val verificationCodeVerifyResponse =
             VerificationCodeVerifyResponse.builder()
                 .addData(
-                    VerificationCodeVerifyResponse.Data.builder()
+                    PortingVerificationCode.builder()
                         .id("52090326-6533-4421-bcf4-bd0117cf3954")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000001")
@@ -27,7 +27,7 @@ internal class VerificationCodeVerifyResponseTest {
                         .build()
                 )
                 .addData(
-                    VerificationCodeVerifyResponse.Data.builder()
+                    PortingVerificationCode.builder()
                         .id("cf076b8e-645b-4040-8209-543c5909775f")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000002")
@@ -41,7 +41,7 @@ internal class VerificationCodeVerifyResponseTest {
 
         assertThat(verificationCodeVerifyResponse.data().getOrNull())
             .containsExactly(
-                VerificationCodeVerifyResponse.Data.builder()
+                PortingVerificationCode.builder()
                     .id("52090326-6533-4421-bcf4-bd0117cf3954")
                     .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .phoneNumber("+61424000001")
@@ -50,7 +50,7 @@ internal class VerificationCodeVerifyResponseTest {
                     .updatedAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .verified(true)
                     .build(),
-                VerificationCodeVerifyResponse.Data.builder()
+                PortingVerificationCode.builder()
                     .id("cf076b8e-645b-4040-8209-543c5909775f")
                     .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .phoneNumber("+61424000002")
@@ -68,7 +68,7 @@ internal class VerificationCodeVerifyResponseTest {
         val verificationCodeVerifyResponse =
             VerificationCodeVerifyResponse.builder()
                 .addData(
-                    VerificationCodeVerifyResponse.Data.builder()
+                    PortingVerificationCode.builder()
                         .id("52090326-6533-4421-bcf4-bd0117cf3954")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000001")
@@ -79,7 +79,7 @@ internal class VerificationCodeVerifyResponseTest {
                         .build()
                 )
                 .addData(
-                    VerificationCodeVerifyResponse.Data.builder()
+                    PortingVerificationCode.builder()
                         .id("cf076b8e-645b-4040-8209-543c5909775f")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000002")

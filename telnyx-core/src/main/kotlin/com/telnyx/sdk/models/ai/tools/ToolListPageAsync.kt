@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: ToolListParams,
     private val response: ToolListPageResponse,
-) : PageAsync<ToolListResponse> {
+) : PageAsync<SharedToolResponse> {
 
     /**
      * Delegates to [ToolListPageResponse], but gracefully handles missing data.
      *
      * @see ToolListPageResponse.data
      */
-    fun data(): List<ToolListResponse> =
+    fun data(): List<SharedToolResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ToolListResponse> = data()
+    override fun items(): List<SharedToolResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,7 +58,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<ToolListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<ToolListResponse> =
+    fun autoPager(): AutoPagerAsync<SharedToolResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

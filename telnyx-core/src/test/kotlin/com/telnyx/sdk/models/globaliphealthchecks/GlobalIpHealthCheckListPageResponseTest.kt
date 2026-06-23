@@ -17,14 +17,14 @@ internal class GlobalIpHealthCheckListPageResponseTest {
         val globalIpHealthCheckListPageResponse =
             GlobalIpHealthCheckListPageResponse.builder()
                 .addData(
-                    GlobalIpHealthCheckListResponse.builder()
+                    GlobalIpHealthCheck.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                         .healthCheckParams(
-                            GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                            GlobalIpHealthCheck.HealthCheckParams.builder()
                                 .putAdditionalProperty("path", JsonValue.from("bar"))
                                 .putAdditionalProperty("port", JsonValue.from("bar"))
                                 .build()
@@ -44,14 +44,14 @@ internal class GlobalIpHealthCheckListPageResponseTest {
 
         assertThat(globalIpHealthCheckListPageResponse.data().getOrNull())
             .containsExactly(
-                GlobalIpHealthCheckListResponse.builder()
+                GlobalIpHealthCheck.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                     .healthCheckParams(
-                        GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                        GlobalIpHealthCheck.HealthCheckParams.builder()
                             .putAdditionalProperty("path", JsonValue.from("bar"))
                             .putAdditionalProperty("port", JsonValue.from("bar"))
                             .build()
@@ -76,14 +76,14 @@ internal class GlobalIpHealthCheckListPageResponseTest {
         val globalIpHealthCheckListPageResponse =
             GlobalIpHealthCheckListPageResponse.builder()
                 .addData(
-                    GlobalIpHealthCheckListResponse.builder()
+                    GlobalIpHealthCheck.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                         .healthCheckParams(
-                            GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                            GlobalIpHealthCheck.HealthCheckParams.builder()
                                 .putAdditionalProperty("path", JsonValue.from("bar"))
                                 .putAdditionalProperty("port", JsonValue.from("bar"))
                                 .build()

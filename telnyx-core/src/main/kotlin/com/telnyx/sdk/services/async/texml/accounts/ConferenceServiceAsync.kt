@@ -5,16 +5,15 @@ package com.telnyx.sdk.services.async.texml.accounts
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
+import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceResource
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateResponse
 import com.telnyx.sdk.services.async.texml.accounts.conferences.ParticipantServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -41,7 +40,7 @@ interface ConferenceServiceAsync {
     fun retrieve(
         conferenceSid: String,
         params: ConferenceRetrieveParams,
-    ): CompletableFuture<ConferenceRetrieveResponse> =
+    ): CompletableFuture<ConferenceResource> =
         retrieve(conferenceSid, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -49,43 +48,42 @@ interface ConferenceServiceAsync {
         conferenceSid: String,
         params: ConferenceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceRetrieveResponse> =
+    ): CompletableFuture<ConferenceResource> =
         retrieve(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: ConferenceRetrieveParams): CompletableFuture<ConferenceRetrieveResponse> =
+    fun retrieve(params: ConferenceRetrieveParams): CompletableFuture<ConferenceResource> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ConferenceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceRetrieveResponse>
+    ): CompletableFuture<ConferenceResource>
 
     /** Updates a conference resource. */
     fun update(
         conferenceSid: String,
         params: ConferenceUpdateParams,
-    ): CompletableFuture<ConferenceUpdateResponse> =
-        update(conferenceSid, params, RequestOptions.none())
+    ): CompletableFuture<ConferenceResource> = update(conferenceSid, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         conferenceSid: String,
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceUpdateResponse> =
+    ): CompletableFuture<ConferenceResource> =
         update(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ConferenceUpdateParams): CompletableFuture<ConferenceUpdateResponse> =
+    fun update(params: ConferenceUpdateParams): CompletableFuture<ConferenceResource> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceUpdateResponse>
+    ): CompletableFuture<ConferenceResource>
 
     /** Lists conference resources. */
     fun retrieveConferences(
@@ -158,7 +156,7 @@ interface ConferenceServiceAsync {
     fun retrieveRecordingsJson(
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsJsonParams,
-    ): CompletableFuture<ConferenceRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(conferenceSid, params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
@@ -166,7 +164,7 @@ interface ConferenceServiceAsync {
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(
             params.toBuilder().conferenceSid(conferenceSid).build(),
             requestOptions,
@@ -175,14 +173,14 @@ interface ConferenceServiceAsync {
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams
-    ): CompletableFuture<ConferenceRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         retrieveRecordingsJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceRetrieveRecordingsJsonResponse>
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody>
 
     /**
      * A view of [ConferenceServiceAsync] that provides access to raw HTTP responses for each
@@ -210,7 +208,7 @@ interface ConferenceServiceAsync {
         fun retrieve(
             conferenceSid: String,
             params: ConferenceRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             retrieve(conferenceSid, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -218,20 +216,20 @@ interface ConferenceServiceAsync {
             conferenceSid: String,
             params: ConferenceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             retrieve(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             params: ConferenceRetrieveParams
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: ConferenceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -241,7 +239,7 @@ interface ConferenceServiceAsync {
         fun update(
             conferenceSid: String,
             params: ConferenceUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             update(conferenceSid, params, RequestOptions.none())
 
         /** @see update */
@@ -249,20 +247,20 @@ interface ConferenceServiceAsync {
             conferenceSid: String,
             params: ConferenceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             update(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: ConferenceUpdateParams
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ConferenceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<ConferenceResource>>
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Conferences`, but is
@@ -354,7 +352,7 @@ interface ConferenceServiceAsync {
         fun retrieveRecordingsJson(
             conferenceSid: String,
             params: ConferenceRetrieveRecordingsJsonParams,
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(conferenceSid, params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -362,7 +360,7 @@ interface ConferenceServiceAsync {
             conferenceSid: String,
             params: ConferenceRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(
                 params.toBuilder().conferenceSid(conferenceSid).build(),
                 requestOptions,
@@ -371,13 +369,13 @@ interface ConferenceServiceAsync {
         /** @see retrieveRecordingsJson */
         fun retrieveRecordingsJson(
             params: ConferenceRetrieveRecordingsJsonParams
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> =
             retrieveRecordingsJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
         fun retrieveRecordingsJson(
             params: ConferenceRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>>
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>>
     }
 }

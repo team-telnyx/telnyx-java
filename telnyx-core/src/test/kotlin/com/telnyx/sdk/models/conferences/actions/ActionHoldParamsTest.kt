@@ -15,7 +15,7 @@ internal class ActionHoldParamsTest {
             .audioUrl("http://example.com/message.wav")
             .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
             .mediaName("my_media_uploaded_to_media_storage_api")
-            .region(ActionHoldParams.Region.US)
+            .region(ConferenceRegion.US)
             .build()
     }
 
@@ -36,7 +36,7 @@ internal class ActionHoldParamsTest {
                 .audioUrl("http://example.com/message.wav")
                 .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .mediaName("my_media_uploaded_to_media_storage_api")
-                .region(ActionHoldParams.Region.US)
+                .region(ConferenceRegion.US)
                 .build()
 
         val body = params._body()
@@ -45,7 +45,7 @@ internal class ActionHoldParamsTest {
         assertThat(body.callControlIds().getOrNull())
             .containsExactly("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
         assertThat(body.mediaName()).contains("my_media_uploaded_to_media_storage_api")
-        assertThat(body.region()).contains(ActionHoldParams.Region.US)
+        assertThat(body.region()).contains(ConferenceRegion.US)
     }
 
     @Test

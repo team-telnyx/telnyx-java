@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.dir
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,7 +23,7 @@ internal class DirListDocumentTypesResponseTest {
                         .build()
                 )
                 .meta(
-                    DirListDocumentTypesResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -42,7 +43,7 @@ internal class DirListDocumentTypesResponseTest {
             )
         assertThat(dirListDocumentTypesResponse.meta())
             .isEqualTo(
-                DirListDocumentTypesResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -65,7 +66,7 @@ internal class DirListDocumentTypesResponseTest {
                         .build()
                 )
                 .meta(
-                    DirListDocumentTypesResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

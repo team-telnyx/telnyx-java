@@ -7,13 +7,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.RemediationService
@@ -51,7 +49,7 @@ interface ReputationService {
      *
      * Returns `404` if reputation has never been enabled for this enterprise.
      */
-    fun retrieve(enterpriseId: String): ReputationRetrieveResponse =
+    fun retrieve(enterpriseId: String): EnterpriseReputationPublicWrapped =
         retrieve(enterpriseId, ReputationRetrieveParams.none())
 
     /** @see retrieve */
@@ -59,27 +57,30 @@ interface ReputationService {
         enterpriseId: String,
         params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationRetrieveResponse =
+    ): EnterpriseReputationPublicWrapped =
         retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-    ): ReputationRetrieveResponse = retrieve(enterpriseId, params, RequestOptions.none())
+    ): EnterpriseReputationPublicWrapped = retrieve(enterpriseId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ReputationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationRetrieveResponse
+    ): EnterpriseReputationPublicWrapped
 
     /** @see retrieve */
-    fun retrieve(params: ReputationRetrieveParams): ReputationRetrieveResponse =
+    fun retrieve(params: ReputationRetrieveParams): EnterpriseReputationPublicWrapped =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(enterpriseId: String, requestOptions: RequestOptions): ReputationRetrieveResponse =
+    fun retrieve(
+        enterpriseId: String,
+        requestOptions: RequestOptions,
+    ): EnterpriseReputationPublicWrapped =
         retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
 
     /**
@@ -133,26 +134,28 @@ interface ReputationService {
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.
      */
-    fun enable(enterpriseId: String, params: ReputationEnableParams): ReputationEnableResponse =
-        enable(enterpriseId, params, RequestOptions.none())
+    fun enable(
+        enterpriseId: String,
+        params: ReputationEnableParams,
+    ): EnterpriseReputationPublicWrapped = enable(enterpriseId, params, RequestOptions.none())
 
     /** @see enable */
     fun enable(
         enterpriseId: String,
         params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationEnableResponse =
+    ): EnterpriseReputationPublicWrapped =
         enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see enable */
-    fun enable(params: ReputationEnableParams): ReputationEnableResponse =
+    fun enable(params: ReputationEnableParams): EnterpriseReputationPublicWrapped =
         enable(params, RequestOptions.none())
 
     /** @see enable */
     fun enable(
         params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationEnableResponse
+    ): EnterpriseReputationPublicWrapped
 
     /**
      * Update how often Telnyx refreshes the reputation data for this enterprise's registered
@@ -164,7 +167,7 @@ interface ReputationService {
     fun updateFrequency(
         enterpriseId: String,
         params: ReputationUpdateFrequencyParams,
-    ): ReputationUpdateFrequencyResponse =
+    ): EnterpriseReputationPublicWrapped =
         updateFrequency(enterpriseId, params, RequestOptions.none())
 
     /** @see updateFrequency */
@@ -172,19 +175,19 @@ interface ReputationService {
         enterpriseId: String,
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationUpdateFrequencyResponse =
+    ): EnterpriseReputationPublicWrapped =
         updateFrequency(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see updateFrequency */
     fun updateFrequency(
         params: ReputationUpdateFrequencyParams
-    ): ReputationUpdateFrequencyResponse = updateFrequency(params, RequestOptions.none())
+    ): EnterpriseReputationPublicWrapped = updateFrequency(params, RequestOptions.none())
 
     /** @see updateFrequency */
     fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationUpdateFrequencyResponse
+    ): EnterpriseReputationPublicWrapped
 
     /** A view of [ReputationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -212,7 +215,7 @@ interface ReputationService {
          * otherwise the same as [ReputationService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(enterpriseId: String): HttpResponseFor<ReputationRetrieveResponse> =
+        fun retrieve(enterpriseId: String): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             retrieve(enterpriseId, ReputationRetrieveParams.none())
 
         /** @see retrieve */
@@ -221,7 +224,7 @@ interface ReputationService {
             enterpriseId: String,
             params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see retrieve */
@@ -229,7 +232,7 @@ interface ReputationService {
         fun retrieve(
             enterpriseId: String,
             params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             retrieve(enterpriseId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -237,20 +240,21 @@ interface ReputationService {
         fun retrieve(
             params: ReputationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse>
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ReputationRetrieveParams
-        ): HttpResponseFor<ReputationRetrieveResponse> = retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationRetrieveResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
 
         /**
@@ -302,7 +306,7 @@ interface ReputationService {
         fun enable(
             enterpriseId: String,
             params: ReputationEnableParams,
-        ): HttpResponseFor<ReputationEnableResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             enable(enterpriseId, params, RequestOptions.none())
 
         /** @see enable */
@@ -311,12 +315,14 @@ interface ReputationService {
             enterpriseId: String,
             params: ReputationEnableParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationEnableResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see enable */
         @MustBeClosed
-        fun enable(params: ReputationEnableParams): HttpResponseFor<ReputationEnableResponse> =
+        fun enable(
+            params: ReputationEnableParams
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             enable(params, RequestOptions.none())
 
         /** @see enable */
@@ -324,7 +330,7 @@ interface ReputationService {
         fun enable(
             params: ReputationEnableParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationEnableResponse>
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -335,7 +341,7 @@ interface ReputationService {
         fun updateFrequency(
             enterpriseId: String,
             params: ReputationUpdateFrequencyParams,
-        ): HttpResponseFor<ReputationUpdateFrequencyResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             updateFrequency(enterpriseId, params, RequestOptions.none())
 
         /** @see updateFrequency */
@@ -344,14 +350,14 @@ interface ReputationService {
             enterpriseId: String,
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationUpdateFrequencyResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             updateFrequency(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see updateFrequency */
         @MustBeClosed
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams
-        ): HttpResponseFor<ReputationUpdateFrequencyResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             updateFrequency(params, RequestOptions.none())
 
         /** @see updateFrequency */
@@ -359,6 +365,6 @@ interface ReputationService {
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationUpdateFrequencyResponse>
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped>
     }
 }

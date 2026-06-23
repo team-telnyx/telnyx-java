@@ -19,7 +19,7 @@ internal class ParticipantServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val participantServiceAsync = client.texml().accounts().conferences().participants()
 
-        val participantFuture =
+        val participantResourceFuture =
             participantServiceAsync.retrieve(
                 ParticipantRetrieveParams.builder()
                     .accountSid("account_sid")
@@ -28,8 +28,8 @@ internal class ParticipantServiceAsyncTest {
                     .build()
             )
 
-        val participant = participantFuture.get()
-        participant.validate()
+        val participantResource = participantResourceFuture.get()
+        participantResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -38,7 +38,7 @@ internal class ParticipantServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val participantServiceAsync = client.texml().accounts().conferences().participants()
 
-        val participantFuture =
+        val participantResourceFuture =
             participantServiceAsync.update(
                 ParticipantUpdateParams.builder()
                     .accountSid("account_sid")
@@ -58,8 +58,8 @@ internal class ParticipantServiceAsyncTest {
                     .build()
             )
 
-        val participant = participantFuture.get()
-        participant.validate()
+        val participantResource = participantResourceFuture.get()
+        participantResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")

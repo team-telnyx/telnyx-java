@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class WebhookDeliveryListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<WebhookDeliveryListResponse>>,
+    private val data: JsonField<List<WebhookDelivery>>,
     private val meta: JsonField<PaginationMetaSimple>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<WebhookDeliveryListResponse>> = JsonMissing.of(),
+        data: JsonField<List<WebhookDelivery>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<PaginationMetaSimple> = JsonMissing.of(),
@@ -41,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<WebhookDeliveryListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<WebhookDelivery>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,9 +54,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<WebhookDeliveryListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<WebhookDelivery>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -89,7 +87,7 @@ private constructor(
     /** A builder for [WebhookDeliveryListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<WebhookDeliveryListResponse>>? = null
+        private var data: JsonField<MutableList<WebhookDelivery>>? = null
         private var meta: JsonField<PaginationMetaSimple> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -102,25 +100,25 @@ private constructor(
                     webhookDeliveryListPageResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: List<WebhookDeliveryListResponse>) = data(JsonField.of(data))
+        fun data(data: List<WebhookDelivery>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<WebhookDeliveryListResponse>` value instead. This method is primarily for setting
-         * the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<WebhookDelivery>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<List<WebhookDeliveryListResponse>>) = apply {
+        fun data(data: JsonField<List<WebhookDelivery>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [WebhookDeliveryListResponse] to [Builder.data].
+         * Adds a single [WebhookDelivery] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: WebhookDeliveryListResponse) = apply {
+        fun addData(data: WebhookDelivery) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

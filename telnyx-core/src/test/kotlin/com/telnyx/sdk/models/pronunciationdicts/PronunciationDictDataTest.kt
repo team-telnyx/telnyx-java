@@ -35,7 +35,7 @@ internal class PronunciationDictDataTest {
             .contains(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
         assertThat(pronunciationDictData.items().getOrNull())
             .containsExactly(
-                PronunciationDictData.Item.ofAlias(
+                PronunciationDictItem.ofAlias(
                     PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")

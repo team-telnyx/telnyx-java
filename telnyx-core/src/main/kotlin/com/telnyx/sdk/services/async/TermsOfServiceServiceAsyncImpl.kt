@@ -14,10 +14,10 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoResponse
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusResponse
 import com.telnyx.sdk.services.async.termsofservice.AgreementServiceAsync
 import com.telnyx.sdk.services.async.termsofservice.AgreementServiceAsyncImpl
 import com.telnyx.sdk.services.async.termsofservice.BrandedCallingServiceAsync
@@ -63,19 +63,19 @@ internal constructor(private val clientOptions: ClientOptions) : TermsOfServiceS
     /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     override fun brandedCalling(): BrandedCallingServiceAsync = brandedCalling
 
-    override fun info(
-        params: TermsOfServiceInfoParams,
+    override fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TermsOfServiceInfoResponse> =
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
         // get /terms_of_service/info
-        withRawResponse().info(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveInfo(params, requestOptions).thenApply { it.parse() }
 
-    override fun status(
-        params: TermsOfServiceStatusParams,
+    override fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TermsOfServiceStatusResponse> =
+    ): CompletableFuture<TermsOfServiceRetrieveStatusResponse> =
         // get /terms_of_service/status
-        withRawResponse().status(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveStatus(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TermsOfServiceServiceAsync.WithRawResponse {
@@ -112,13 +112,13 @@ internal constructor(private val clientOptions: ClientOptions) : TermsOfServiceS
         /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         override fun brandedCalling(): BrandedCallingServiceAsync.WithRawResponse = brandedCalling
 
-        private val infoHandler: Handler<TermsOfServiceInfoResponse> =
-            jsonHandler<TermsOfServiceInfoResponse>(clientOptions.jsonMapper)
+        private val retrieveInfoHandler: Handler<TermsOfServiceRetrieveInfoResponse> =
+            jsonHandler<TermsOfServiceRetrieveInfoResponse>(clientOptions.jsonMapper)
 
-        override fun info(
-            params: TermsOfServiceInfoParams,
+        override fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceInfoResponse>> {
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -132,7 +132,7 @@ internal constructor(private val clientOptions: ClientOptions) : TermsOfServiceS
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { infoHandler.handle(it) }
+                            .use { retrieveInfoHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -142,13 +142,13 @@ internal constructor(private val clientOptions: ClientOptions) : TermsOfServiceS
                 }
         }
 
-        private val statusHandler: Handler<TermsOfServiceStatusResponse> =
-            jsonHandler<TermsOfServiceStatusResponse>(clientOptions.jsonMapper)
+        private val retrieveStatusHandler: Handler<TermsOfServiceRetrieveStatusResponse> =
+            jsonHandler<TermsOfServiceRetrieveStatusResponse>(clientOptions.jsonMapper)
 
-        override fun status(
-            params: TermsOfServiceStatusParams,
+        override fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceStatusResponse>> {
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveStatusResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,7 +162,7 @@ internal constructor(private val clientOptions: ClientOptions) : TermsOfServiceS
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { statusHandler.handle(it) }
+                            .use { retrieveStatusHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -30,28 +30,18 @@ interface DefaultGatewayService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefaultGatewayService
 
     /** Create Default Gateway. */
-    fun create(networkIdentifier: String): DefaultGatewayCreateResponse =
-        create(networkIdentifier, DefaultGatewayCreateParams.none())
-
-    /** @see create */
     fun create(
         networkIdentifier: String,
-        params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DefaultGatewayCreateResponse =
-        create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
-
-    /** @see create */
-    fun create(
-        networkIdentifier: String,
-        params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
+        params: DefaultGatewayCreateParams,
     ): DefaultGatewayCreateResponse = create(networkIdentifier, params, RequestOptions.none())
 
     /** @see create */
     fun create(
+        networkIdentifier: String,
         params: DefaultGatewayCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DefaultGatewayCreateResponse
+    ): DefaultGatewayCreateResponse =
+        create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
 
     /** @see create */
     fun create(params: DefaultGatewayCreateParams): DefaultGatewayCreateResponse =
@@ -59,10 +49,9 @@ interface DefaultGatewayService {
 
     /** @see create */
     fun create(
-        networkIdentifier: String,
-        requestOptions: RequestOptions,
-    ): DefaultGatewayCreateResponse =
-        create(networkIdentifier, DefaultGatewayCreateParams.none(), requestOptions)
+        params: DefaultGatewayCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DefaultGatewayCreateResponse
 
     /** Get Default Gateway status. */
     fun retrieve(id: String): DefaultGatewayRetrieveResponse =
@@ -145,32 +134,20 @@ interface DefaultGatewayService {
          * the same as [DefaultGatewayService.create].
          */
         @MustBeClosed
-        fun create(networkIdentifier: String): HttpResponseFor<DefaultGatewayCreateResponse> =
-            create(networkIdentifier, DefaultGatewayCreateParams.none())
-
-        /** @see create */
-        @MustBeClosed
         fun create(
             networkIdentifier: String,
-            params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DefaultGatewayCreateResponse> =
-            create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            networkIdentifier: String,
-            params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
+            params: DefaultGatewayCreateParams,
         ): HttpResponseFor<DefaultGatewayCreateResponse> =
             create(networkIdentifier, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
+            networkIdentifier: String,
             params: DefaultGatewayCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DefaultGatewayCreateResponse>
+        ): HttpResponseFor<DefaultGatewayCreateResponse> =
+            create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
@@ -181,10 +158,9 @@ interface DefaultGatewayService {
         /** @see create */
         @MustBeClosed
         fun create(
-            networkIdentifier: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DefaultGatewayCreateResponse> =
-            create(networkIdentifier, DefaultGatewayCreateParams.none(), requestOptions)
+            params: DefaultGatewayCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DefaultGatewayCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /networks/{id}/default_gateway`, but is otherwise

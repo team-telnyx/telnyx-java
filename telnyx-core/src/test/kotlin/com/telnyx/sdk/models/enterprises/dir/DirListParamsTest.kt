@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.enterprises.dir
 
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.models.dir.DirStatus
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +19,7 @@ internal class DirListParamsTest {
             .filterExpiringAtGte(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .filterExpiringAtLte(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .filterExpiringWithinDays(1L)
-            .filterStatus(DirListParams.FilterStatus.DRAFT)
+            .filterStatus(DirStatus.DRAFT)
             .pageNumber(1L)
             .pageSize(20L)
             .sort(DirListParams.Sort.CREATED_AT)
@@ -45,7 +46,7 @@ internal class DirListParamsTest {
                 .filterExpiringAtGte(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .filterExpiringAtLte(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .filterExpiringWithinDays(1L)
-                .filterStatus(DirListParams.FilterStatus.DRAFT)
+                .filterStatus(DirStatus.DRAFT)
                 .pageNumber(1L)
                 .pageSize(20L)
                 .sort(DirListParams.Sort.CREATED_AT)

@@ -19,7 +19,7 @@ import com.telnyx.sdk.models.termsofservice.agreements.AgreementListPageAsync
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListPageResponse
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementListParams
 import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveParams
-import com.telnyx.sdk.models.termsofservice.agreements.AgreementRetrieveResponse
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -40,7 +40,7 @@ class AgreementServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun retrieve(
         params: AgreementRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AgreementRetrieveResponse> =
+    ): CompletableFuture<TosAgreementWrapped> =
         // get /terms_of_service/agreements/{agreement_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -64,13 +64,13 @@ class AgreementServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<AgreementRetrieveResponse> =
-            jsonHandler<AgreementRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<TosAgreementWrapped> =
+            jsonHandler<TosAgreementWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AgreementRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AgreementRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("agreementId", params.agreementId().getOrNull())

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.termsofservice
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeParams
-import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,22 +33,21 @@ interface BrandedCallingServiceAsync {
      * This is a prerequisite for activating Branded Calling on any enterprise (`POST
      * /enterprises/{id}/branded_calling`); without an agreement, activation returns `403`.
      */
-    fun agree(): CompletableFuture<BrandedCallingAgreeResponse> =
-        agree(BrandedCallingAgreeParams.none())
+    fun agree(): CompletableFuture<TosAgreementWrapped> = agree(BrandedCallingAgreeParams.none())
 
     /** @see agree */
     fun agree(
         params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandedCallingAgreeResponse>
+    ): CompletableFuture<TosAgreementWrapped>
 
     /** @see agree */
     fun agree(
         params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none()
-    ): CompletableFuture<BrandedCallingAgreeResponse> = agree(params, RequestOptions.none())
+    ): CompletableFuture<TosAgreementWrapped> = agree(params, RequestOptions.none())
 
     /** @see agree */
-    fun agree(requestOptions: RequestOptions): CompletableFuture<BrandedCallingAgreeResponse> =
+    fun agree(requestOptions: RequestOptions): CompletableFuture<TosAgreementWrapped> =
         agree(BrandedCallingAgreeParams.none(), requestOptions)
 
     /**
@@ -70,25 +69,25 @@ interface BrandedCallingServiceAsync {
          * Returns a raw HTTP response for `post /terms_of_service/branded_calling/agree`, but is
          * otherwise the same as [BrandedCallingServiceAsync.agree].
          */
-        fun agree(): CompletableFuture<HttpResponseFor<BrandedCallingAgreeResponse>> =
+        fun agree(): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             agree(BrandedCallingAgreeParams.none())
 
         /** @see agree */
         fun agree(
             params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandedCallingAgreeResponse>>
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>>
 
         /** @see agree */
         fun agree(
             params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none()
-        ): CompletableFuture<HttpResponseFor<BrandedCallingAgreeResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             agree(params, RequestOptions.none())
 
         /** @see agree */
         fun agree(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BrandedCallingAgreeResponse>> =
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> =
             agree(BrandedCallingAgreeParams.none(), requestOptions)
     }
 }
