@@ -14,8 +14,8 @@ internal class AuditEventListParamsTest {
         AuditEventListParams.builder()
             .filter(
                 AuditEventListParams.Filter.builder()
-                    .createdAfter(OffsetDateTime.parse("2021-01-02T00:00:00Z"))
-                    .createdBefore(OffsetDateTime.parse("2021-01-02T00:00:00Z"))
+                    .createdAfter(OffsetDateTime.parse("2021-01-04T00:00:00Z"))
+                    .createdBefore(OffsetDateTime.parse("2021-01-04T00:00:00Z"))
                     .build()
             )
             .pageNumber(0L)
@@ -30,8 +30,8 @@ internal class AuditEventListParamsTest {
             AuditEventListParams.builder()
                 .filter(
                     AuditEventListParams.Filter.builder()
-                        .createdAfter(OffsetDateTime.parse("2021-01-02T00:00:00Z"))
-                        .createdBefore(OffsetDateTime.parse("2021-01-02T00:00:00Z"))
+                        .createdAfter(OffsetDateTime.parse("2021-01-04T00:00:00Z"))
+                        .createdBefore(OffsetDateTime.parse("2021-01-04T00:00:00Z"))
                         .build()
                 )
                 .pageNumber(0L)
@@ -44,8 +44,8 @@ internal class AuditEventListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[created_after]", "2021-01-02T00:00:00Z")
-                    .put("filter[created_before]", "2021-01-02T00:00:00Z")
+                    .put("filter[created_after]", "2021-01-04T00:00:00Z")
+                    .put("filter[created_before]", "2021-01-04T00:00:00Z")
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .put("sort", "desc")
