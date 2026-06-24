@@ -17,7 +17,7 @@ internal class ConnectionListPageResponseTest {
         val connectionListPageResponse =
             ConnectionListPageResponse.builder()
                 .addData(
-                    ConnectionListResponse.builder()
+                    Connection.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -28,7 +28,7 @@ internal class ConnectionListPageResponseTest {
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
-                        .webhookApiVersion(ConnectionListResponse.WebhookApiVersion.V1)
+                        .webhookApiVersion(Connection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .build()
@@ -45,7 +45,7 @@ internal class ConnectionListPageResponseTest {
 
         assertThat(connectionListPageResponse.data().getOrNull())
             .containsExactly(
-                ConnectionListResponse.builder()
+                Connection.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -56,7 +56,7 @@ internal class ConnectionListPageResponseTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .updatedAt("2018-02-02T22:25:27.521Z")
-                    .webhookApiVersion(ConnectionListResponse.WebhookApiVersion.V1)
+                    .webhookApiVersion(Connection.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .build()
@@ -78,7 +78,7 @@ internal class ConnectionListPageResponseTest {
         val connectionListPageResponse =
             ConnectionListPageResponse.builder()
                 .addData(
-                    ConnectionListResponse.builder()
+                    Connection.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -89,7 +89,7 @@ internal class ConnectionListPageResponseTest {
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
-                        .webhookApiVersion(ConnectionListResponse.WebhookApiVersion.V1)
+                        .webhookApiVersion(Connection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .build()

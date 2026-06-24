@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async.phonenumbers
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messaginghostednumbers.UpdatePhoneNumberMessagingSettingsRequest
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -31,9 +32,13 @@ internal class MessagingServiceAsyncTest {
             messagingServiceAsync.update(
                 MessagingUpdateParams.builder()
                     .id("id")
-                    .messagingProduct("P2P")
-                    .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
-                    .addTag("string")
+                    .updatePhoneNumberMessagingSettingsRequest(
+                        UpdatePhoneNumberMessagingSettingsRequest.builder()
+                            .messagingProduct("P2P")
+                            .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                            .addTag("string")
+                            .build()
+                    )
                     .build()
             )
 

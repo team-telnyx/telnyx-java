@@ -21,54 +21,62 @@ class DocServiceDocument
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val createdAt: JsonField<String>,
+    private val recordType: JsonField<String>,
+    private val updatedAt: JsonField<String>,
     private val avScanStatus: JsonField<AvScanStatus>,
     private val contentType: JsonField<String>,
-    private val createdAt: JsonField<String>,
     private val customerReference: JsonField<String>,
     private val filename: JsonField<String>,
-    private val recordType: JsonField<String>,
     private val sha256: JsonField<String>,
     private val size: JsonField<Size>,
     private val status: JsonField<Status>,
-    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("record_type")
+        @ExcludeMissing
+        recordType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("av_scan_status")
         @ExcludeMissing
         avScanStatus: JsonField<AvScanStatus> = JsonMissing.of(),
         @JsonProperty("content_type")
         @ExcludeMissing
         contentType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("customer_reference")
         @ExcludeMissing
         customerReference: JsonField<String> = JsonMissing.of(),
         @JsonProperty("filename") @ExcludeMissing filename: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        recordType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sha256") @ExcludeMissing sha256: JsonField<String> = JsonMissing.of(),
         @JsonProperty("size") @ExcludeMissing size: JsonField<Size> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        createdAt,
+        recordType,
+        updatedAt,
         avScanStatus,
         contentType,
-        createdAt,
         customerReference,
         filename,
-        recordType,
         sha256,
         size,
         status,
-        updatedAt,
         mutableMapOf(),
     )
+
+    fun toDocServiceRecord(): DocServiceRecord =
+        DocServiceRecord.builder()
+            .id(id)
+            .createdAt(createdAt)
+            .recordType(recordType)
+            .updatedAt(updatedAt)
+            .build()
 
     /**
      * Identifies the resource.
@@ -77,6 +85,30 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
+
+    /**
+     * Identifies the type of the resource.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordType(): Optional<String> = recordType.getOptional("record_type")
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * The antivirus scan status of the document.
@@ -95,14 +127,6 @@ private constructor(
     fun contentType(): Optional<String> = contentType.getOptional("content_type")
 
     /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
-
-    /**
      * Optional reference string for customer tracking.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -117,14 +141,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun filename(): Optional<String> = filename.getOptional("filename")
-
-    /**
-     * Identifies the type of the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recordType(): Optional<String> = recordType.getOptional("record_type")
 
     /**
      * The document's SHA256 hash provided for optional verification purposes.
@@ -151,19 +167,32 @@ private constructor(
     fun status(): Optional<Status> = status.getOptional("status")
 
     /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
-
-    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
+
+    /**
+     * Returns the raw JSON value of [recordType].
+     *
+     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     /**
      * Returns the raw JSON value of [avScanStatus].
@@ -184,13 +213,6 @@ private constructor(
     fun _contentType(): JsonField<String> = contentType
 
     /**
-     * Returns the raw JSON value of [createdAt].
-     *
-     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
-
-    /**
      * Returns the raw JSON value of [customerReference].
      *
      * Unlike [customerReference], this method doesn't throw if the JSON field has an unexpected
@@ -206,13 +228,6 @@ private constructor(
      * Unlike [filename], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-    /**
-     * Returns the raw JSON value of [recordType].
-     *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
 
     /**
      * Returns the raw JSON value of [sha256].
@@ -234,13 +249,6 @@ private constructor(
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -264,31 +272,31 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<String> = JsonMissing.of()
+        private var recordType: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var avScanStatus: JsonField<AvScanStatus> = JsonMissing.of()
         private var contentType: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<String> = JsonMissing.of()
         private var customerReference: JsonField<String> = JsonMissing.of()
         private var filename: JsonField<String> = JsonMissing.of()
-        private var recordType: JsonField<String> = JsonMissing.of()
         private var sha256: JsonField<String> = JsonMissing.of()
         private var size: JsonField<Size> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
-        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(docServiceDocument: DocServiceDocument) = apply {
             id = docServiceDocument.id
+            createdAt = docServiceDocument.createdAt
+            recordType = docServiceDocument.recordType
+            updatedAt = docServiceDocument.updatedAt
             avScanStatus = docServiceDocument.avScanStatus
             contentType = docServiceDocument.contentType
-            createdAt = docServiceDocument.createdAt
             customerReference = docServiceDocument.customerReference
             filename = docServiceDocument.filename
-            recordType = docServiceDocument.recordType
             sha256 = docServiceDocument.sha256
             size = docServiceDocument.size
             status = docServiceDocument.status
-            updatedAt = docServiceDocument.updatedAt
             additionalProperties = docServiceDocument.additionalProperties.toMutableMap()
         }
 
@@ -302,6 +310,42 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** ISO 8601 formatted date-time indicating when the resource was created. */
+        fun createdAt(createdAt: String) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
+
+        /** Identifies the type of the resource. */
+        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
+
+        /**
+         * Sets [Builder.recordType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
+
+        /** ISO 8601 formatted date-time indicating when the resource was updated. */
+        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
         /** The antivirus scan status of the document. */
         fun avScanStatus(avScanStatus: AvScanStatus) = avScanStatus(JsonField.of(avScanStatus))
@@ -329,18 +373,6 @@ private constructor(
          */
         fun contentType(contentType: JsonField<String>) = apply { this.contentType = contentType }
 
-        /** ISO 8601 formatted date-time indicating when the resource was created. */
-        fun createdAt(createdAt: String) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * Sets [Builder.createdAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
-
         /** Optional reference string for customer tracking. */
         fun customerReference(customerReference: String) =
             customerReference(JsonField.of(customerReference))
@@ -366,18 +398,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-        /** Identifies the type of the resource. */
-        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
-
-        /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
         /** The document's SHA256 hash provided for optional verification purposes. */
         fun sha256(sha256: String) = sha256(JsonField.of(sha256))
@@ -412,18 +432,6 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** ISO 8601 formatted date-time indicating when the resource was updated. */
-        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -451,16 +459,16 @@ private constructor(
         fun build(): DocServiceDocument =
             DocServiceDocument(
                 id,
+                createdAt,
+                recordType,
+                updatedAt,
                 avScanStatus,
                 contentType,
-                createdAt,
                 customerReference,
                 filename,
-                recordType,
                 sha256,
                 size,
                 status,
-                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -481,16 +489,16 @@ private constructor(
         }
 
         id()
+        createdAt()
+        recordType()
+        updatedAt()
         avScanStatus().ifPresent { it.validate() }
         contentType()
-        createdAt()
         customerReference()
         filename()
-        recordType()
         sha256()
         size().ifPresent { it.validate() }
         status().ifPresent { it.validate() }
-        updatedAt()
         validated = true
     }
 
@@ -510,16 +518,16 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (recordType.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (avScanStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (contentType.asKnown().isPresent) 1 else 0) +
-            (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (customerReference.asKnown().isPresent) 1 else 0) +
             (if (filename.asKnown().isPresent) 1 else 0) +
-            (if (recordType.asKnown().isPresent) 1 else 0) +
             (if (sha256.asKnown().isPresent) 1 else 0) +
             (size.asKnown().getOrNull()?.validity() ?: 0) +
-            (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (status.asKnown().getOrNull()?.validity() ?: 0)
 
     /** The antivirus scan status of the document. */
     class AvScanStatus @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -1005,32 +1013,32 @@ private constructor(
 
         return other is DocServiceDocument &&
             id == other.id &&
+            createdAt == other.createdAt &&
+            recordType == other.recordType &&
+            updatedAt == other.updatedAt &&
             avScanStatus == other.avScanStatus &&
             contentType == other.contentType &&
-            createdAt == other.createdAt &&
             customerReference == other.customerReference &&
             filename == other.filename &&
-            recordType == other.recordType &&
             sha256 == other.sha256 &&
             size == other.size &&
             status == other.status &&
-            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            createdAt,
+            recordType,
+            updatedAt,
             avScanStatus,
             contentType,
-            createdAt,
             customerReference,
             filename,
-            recordType,
             sha256,
             size,
             status,
-            updatedAt,
             additionalProperties,
         )
     }
@@ -1038,5 +1046,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DocServiceDocument{id=$id, avScanStatus=$avScanStatus, contentType=$contentType, createdAt=$createdAt, customerReference=$customerReference, filename=$filename, recordType=$recordType, sha256=$sha256, size=$size, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "DocServiceDocument{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, avScanStatus=$avScanStatus, contentType=$contentType, customerReference=$customerReference, filename=$filename, sha256=$sha256, size=$size, status=$status, additionalProperties=$additionalProperties}"
 }

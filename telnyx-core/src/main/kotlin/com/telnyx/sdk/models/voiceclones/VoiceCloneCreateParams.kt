@@ -38,13 +38,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class VoiceCloneCreateParams
 private constructor(
-    private val params: Params,
+    private val voiceCloneRequest: VoiceCloneRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** Request body for creating a voice clone from an existing voice design. */
-    fun params(): Params = params
+    fun voiceCloneRequest(): VoiceCloneRequest = voiceCloneRequest
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -61,7 +61,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .voiceCloneRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -70,27 +70,35 @@ private constructor(
     /** A builder for [VoiceCloneCreateParams]. */
     class Builder internal constructor() {
 
-        private var params: Params? = null
+        private var voiceCloneRequest: VoiceCloneRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(voiceCloneCreateParams: VoiceCloneCreateParams) = apply {
-            params = voiceCloneCreateParams.params
+            voiceCloneRequest = voiceCloneCreateParams.voiceCloneRequest
             additionalHeaders = voiceCloneCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = voiceCloneCreateParams.additionalQueryParams.toBuilder()
         }
 
         /** Request body for creating a voice clone from an existing voice design. */
-        fun params(params: Params) = apply { this.params = params }
+        fun voiceCloneRequest(voiceCloneRequest: VoiceCloneRequest) = apply {
+            this.voiceCloneRequest = voiceCloneRequest
+        }
 
-        /** Alias for calling [params] with `Params.ofTelnyxDesignClone(telnyxDesignClone)`. */
-        fun params(telnyxDesignClone: Params.TelnyxDesignClone) =
-            params(Params.ofTelnyxDesignClone(telnyxDesignClone))
+        /**
+         * Alias for calling [voiceCloneRequest] with
+         * `VoiceCloneRequest.ofTelnyxDesignClone(telnyxDesignClone)`.
+         */
+        fun voiceCloneRequest(telnyxDesignClone: VoiceCloneRequest.TelnyxDesignClone) =
+            voiceCloneRequest(VoiceCloneRequest.ofTelnyxDesignClone(telnyxDesignClone))
 
-        /** Alias for calling [params] with `Params.ofMinimaxDesignClone(minimaxDesignClone)`. */
-        fun params(minimaxDesignClone: Params.MinimaxDesignClone) =
-            params(Params.ofMinimaxDesignClone(minimaxDesignClone))
+        /**
+         * Alias for calling [voiceCloneRequest] with
+         * `VoiceCloneRequest.ofMinimaxDesignClone(minimaxDesignClone)`.
+         */
+        fun voiceCloneRequest(minimaxDesignClone: VoiceCloneRequest.MinimaxDesignClone) =
+            voiceCloneRequest(VoiceCloneRequest.ofMinimaxDesignClone(minimaxDesignClone))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -197,29 +205,29 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .voiceCloneRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): VoiceCloneCreateParams =
             VoiceCloneCreateParams(
-                checkRequired("params", params),
+                checkRequired("voiceCloneRequest", voiceCloneRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Params = params
+    fun _body(): VoiceCloneRequest = voiceCloneRequest
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /** Request body for creating a voice clone from an existing voice design. */
-    @JsonDeserialize(using = Params.Deserializer::class)
-    @JsonSerialize(using = Params.Serializer::class)
-    class Params
+    @JsonDeserialize(using = VoiceCloneRequest.Deserializer::class)
+    @JsonSerialize(using = VoiceCloneRequest.Serializer::class)
+    class VoiceCloneRequest
     private constructor(
         private val telnyxDesignClone: TelnyxDesignClone? = null,
         private val minimaxDesignClone: MinimaxDesignClone? = null,
@@ -258,7 +266,7 @@ private constructor(
          * import com.telnyx.sdk.core.JsonValue;
          * import java.util.Optional;
          *
-         * Optional<String> result = params.accept(new Params.Visitor<Optional<String>>() {
+         * Optional<String> result = voiceCloneRequest.accept(new VoiceCloneRequest.Visitor<Optional<String>>() {
          *     @Override
          *     public Optional<String> visitTelnyxDesignClone(TelnyxDesignClone telnyxDesignClone) {
          *         return Optional.of(telnyxDesignClone.toString());
@@ -295,7 +303,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Params = apply {
+        fun validate(): VoiceCloneRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -347,7 +355,7 @@ private constructor(
                 return true
             }
 
-            return other is Params &&
+            return other is VoiceCloneRequest &&
                 telnyxDesignClone == other.telnyxDesignClone &&
                 minimaxDesignClone == other.minimaxDesignClone
         }
@@ -356,10 +364,12 @@ private constructor(
 
         override fun toString(): String =
             when {
-                telnyxDesignClone != null -> "Params{telnyxDesignClone=$telnyxDesignClone}"
-                minimaxDesignClone != null -> "Params{minimaxDesignClone=$minimaxDesignClone}"
-                _json != null -> "Params{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Params")
+                telnyxDesignClone != null ->
+                    "VoiceCloneRequest{telnyxDesignClone=$telnyxDesignClone}"
+                minimaxDesignClone != null ->
+                    "VoiceCloneRequest{minimaxDesignClone=$minimaxDesignClone}"
+                _json != null -> "VoiceCloneRequest{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid VoiceCloneRequest")
             }
 
         companion object {
@@ -367,15 +377,18 @@ private constructor(
             /** Create a voice clone from a voice design using the Telnyx provider. */
             @JvmStatic
             fun ofTelnyxDesignClone(telnyxDesignClone: TelnyxDesignClone) =
-                Params(telnyxDesignClone = telnyxDesignClone)
+                VoiceCloneRequest(telnyxDesignClone = telnyxDesignClone)
 
             /** Create a voice clone from a voice design using the Minimax provider. */
             @JvmStatic
             fun ofMinimaxDesignClone(minimaxDesignClone: MinimaxDesignClone) =
-                Params(minimaxDesignClone = minimaxDesignClone)
+                VoiceCloneRequest(minimaxDesignClone = minimaxDesignClone)
         }
 
-        /** An interface that defines how to map each variant of [Params] to a value of type [T]. */
+        /**
+         * An interface that defines how to map each variant of [VoiceCloneRequest] to a value of
+         * type [T].
+         */
         interface Visitor<out T> {
 
             /** Create a voice clone from a voice design using the Telnyx provider. */
@@ -385,23 +398,24 @@ private constructor(
             fun visitMinimaxDesignClone(minimaxDesignClone: MinimaxDesignClone): T
 
             /**
-             * Maps an unknown variant of [Params] to a value of type [T].
+             * Maps an unknown variant of [VoiceCloneRequest] to a value of type [T].
              *
-             * An instance of [Params] can contain an unknown variant if it was deserialized from
-             * data that doesn't match any known variant. For example, if the SDK is on an older
-             * version than the API, then the API may respond with new variants that the SDK is
-             * unaware of.
+             * An instance of [VoiceCloneRequest] can contain an unknown variant if it was
+             * deserialized from data that doesn't match any known variant. For example, if the SDK
+             * is on an older version than the API, then the API may respond with new variants that
+             * the SDK is unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Params: $json")
+                throw TelnyxInvalidDataException("Unknown VoiceCloneRequest: $json")
             }
         }
 
-        internal class Deserializer : BaseDeserializer<Params>(Params::class) {
+        internal class Deserializer :
+            BaseDeserializer<VoiceCloneRequest>(VoiceCloneRequest::class) {
 
-            override fun ObjectCodec.deserialize(node: JsonNode): Params {
+            override fun ObjectCodec.deserialize(node: JsonNode): VoiceCloneRequest {
                 val json = JsonValue.fromJsonNode(node)
                 val provider = json.asObject().getOrNull()?.get("provider")?.asString()?.getOrNull()
 
@@ -410,10 +424,10 @@ private constructor(
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<TelnyxDesignClone>())?.let {
-                                Params(telnyxDesignClone = it, _json = json)
+                                VoiceCloneRequest(telnyxDesignClone = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<MinimaxDesignClone>())?.let {
-                                Params(minimaxDesignClone = it, _json = json)
+                                VoiceCloneRequest(minimaxDesignClone = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -422,7 +436,7 @@ private constructor(
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
                     // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Params(_json = json)
+                    0 -> VoiceCloneRequest(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
                     // completely valid match, or simply the first match if none are completely
@@ -432,10 +446,10 @@ private constructor(
             }
         }
 
-        internal class Serializer : BaseSerializer<Params>(Params::class) {
+        internal class Serializer : BaseSerializer<VoiceCloneRequest>(VoiceCloneRequest::class) {
 
             override fun serialize(
-                value: Params,
+                value: VoiceCloneRequest,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -445,7 +459,7 @@ private constructor(
                     value.minimaxDesignClone != null ->
                         generator.writeObject(value.minimaxDesignClone)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Params")
+                    else -> throw IllegalStateException("Invalid VoiceCloneRequest")
                 }
             }
         }
@@ -1732,13 +1746,14 @@ private constructor(
         }
 
         return other is VoiceCloneCreateParams &&
-            params == other.params &&
+            voiceCloneRequest == other.voiceCloneRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(params, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(voiceCloneRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "VoiceCloneCreateParams{params=$params, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneCreateParams{voiceCloneRequest=$voiceCloneRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

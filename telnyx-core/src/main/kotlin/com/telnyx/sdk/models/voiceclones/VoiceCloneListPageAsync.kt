@@ -35,7 +35,7 @@ private constructor(
      *
      * @see VoiceCloneListPageResponse.meta
      */
-    fun meta(): Optional<VoiceCloneListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<VoiceDesignsPaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<VoiceCloneData> = data()
 

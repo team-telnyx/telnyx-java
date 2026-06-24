@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseParams
 import com.telnyx.sdk.models.ai.openai.OpenAICreateResponseResponse
 import com.telnyx.sdk.models.ai.openai.OpenAIListModelsParams
-import com.telnyx.sdk.models.ai.openai.OpenAIListModelsResponse
 import com.telnyx.sdk.services.async.ai.openai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.openai.EmbeddingServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -97,22 +97,21 @@ interface OpenAIServiceAsync {
      * `https://api.telnyx.com/v2/ai/openai` can call `client.models.list()` to retrieve the same
      * payload.
      */
-    fun listModels(): CompletableFuture<OpenAIListModelsResponse> =
-        listModels(OpenAIListModelsParams.none())
+    fun listModels(): CompletableFuture<ModelsResponse> = listModels(OpenAIListModelsParams.none())
 
     /** @see listModels */
     fun listModels(
         params: OpenAIListModelsParams = OpenAIListModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OpenAIListModelsResponse>
+    ): CompletableFuture<ModelsResponse>
 
     /** @see listModels */
     fun listModels(
         params: OpenAIListModelsParams = OpenAIListModelsParams.none()
-    ): CompletableFuture<OpenAIListModelsResponse> = listModels(params, RequestOptions.none())
+    ): CompletableFuture<ModelsResponse> = listModels(params, RequestOptions.none())
 
     /** @see listModels */
-    fun listModels(requestOptions: RequestOptions): CompletableFuture<OpenAIListModelsResponse> =
+    fun listModels(requestOptions: RequestOptions): CompletableFuture<ModelsResponse> =
         listModels(OpenAIListModelsParams.none(), requestOptions)
 
     /**
@@ -163,25 +162,25 @@ interface OpenAIServiceAsync {
          * Returns a raw HTTP response for `get /ai/openai/models`, but is otherwise the same as
          * [OpenAIServiceAsync.listModels].
          */
-        fun listModels(): CompletableFuture<HttpResponseFor<OpenAIListModelsResponse>> =
+        fun listModels(): CompletableFuture<HttpResponseFor<ModelsResponse>> =
             listModels(OpenAIListModelsParams.none())
 
         /** @see listModels */
         fun listModels(
             params: OpenAIListModelsParams = OpenAIListModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OpenAIListModelsResponse>>
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>>
 
         /** @see listModels */
         fun listModels(
             params: OpenAIListModelsParams = OpenAIListModelsParams.none()
-        ): CompletableFuture<HttpResponseFor<OpenAIListModelsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>> =
             listModels(params, RequestOptions.none())
 
         /** @see listModels */
         fun listModels(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OpenAIListModelsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ModelsResponse>> =
             listModels(OpenAIListModelsParams.none(), requestOptions)
     }
 }

@@ -6,15 +6,13 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepsCreatedResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,26 +31,28 @@ interface PlanServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PlanServiceAsync
 
     /** Create the initial plan for a run */
-    fun create(runId: String, params: PlanCreateParams): CompletableFuture<PlanCreateResponse> =
-        create(runId, params, RequestOptions.none())
+    fun create(
+        runId: String,
+        params: PlanCreateParams,
+    ): CompletableFuture<PlanStepsCreatedResponse> = create(runId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         runId: String,
         params: PlanCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanCreateResponse> =
+    ): CompletableFuture<PlanStepsCreatedResponse> =
         create(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: PlanCreateParams): CompletableFuture<PlanCreateResponse> =
+    fun create(params: PlanCreateParams): CompletableFuture<PlanStepsCreatedResponse> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PlanCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanCreateResponse>
+    ): CompletableFuture<PlanStepsCreatedResponse>
 
     /** Get the plan (all steps) for a run */
     fun retrieve(
@@ -82,7 +82,7 @@ interface PlanServiceAsync {
     fun addStepsToPlan(
         runId: String,
         params: PlanAddStepsToPlanParams,
-    ): CompletableFuture<PlanAddStepsToPlanResponse> =
+    ): CompletableFuture<PlanStepsCreatedResponse> =
         addStepsToPlan(runId, params, RequestOptions.none())
 
     /** @see addStepsToPlan */
@@ -90,69 +90,67 @@ interface PlanServiceAsync {
         runId: String,
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanAddStepsToPlanResponse> =
+    ): CompletableFuture<PlanStepsCreatedResponse> =
         addStepsToPlan(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see addStepsToPlan */
     fun addStepsToPlan(
         params: PlanAddStepsToPlanParams
-    ): CompletableFuture<PlanAddStepsToPlanResponse> = addStepsToPlan(params, RequestOptions.none())
+    ): CompletableFuture<PlanStepsCreatedResponse> = addStepsToPlan(params, RequestOptions.none())
 
     /** @see addStepsToPlan */
     fun addStepsToPlan(
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanAddStepsToPlanResponse>
+    ): CompletableFuture<PlanStepsCreatedResponse>
 
     /** Get details of a specific plan step */
     fun getStepDetails(
         stepId: String,
         params: PlanGetStepDetailsParams,
-    ): CompletableFuture<PlanGetStepDetailsResponse> =
-        getStepDetails(stepId, params, RequestOptions.none())
+    ): CompletableFuture<PlanStepResponse> = getStepDetails(stepId, params, RequestOptions.none())
 
     /** @see getStepDetails */
     fun getStepDetails(
         stepId: String,
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanGetStepDetailsResponse> =
+    ): CompletableFuture<PlanStepResponse> =
         getStepDetails(params.toBuilder().stepId(stepId).build(), requestOptions)
 
     /** @see getStepDetails */
-    fun getStepDetails(
-        params: PlanGetStepDetailsParams
-    ): CompletableFuture<PlanGetStepDetailsResponse> = getStepDetails(params, RequestOptions.none())
+    fun getStepDetails(params: PlanGetStepDetailsParams): CompletableFuture<PlanStepResponse> =
+        getStepDetails(params, RequestOptions.none())
 
     /** @see getStepDetails */
     fun getStepDetails(
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanGetStepDetailsResponse>
+    ): CompletableFuture<PlanStepResponse>
 
     /** Update the status of a plan step */
     fun updateStep(
         stepId: String,
         params: PlanUpdateStepParams,
-    ): CompletableFuture<PlanUpdateStepResponse> = updateStep(stepId, params, RequestOptions.none())
+    ): CompletableFuture<PlanStepResponse> = updateStep(stepId, params, RequestOptions.none())
 
     /** @see updateStep */
     fun updateStep(
         stepId: String,
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanUpdateStepResponse> =
+    ): CompletableFuture<PlanStepResponse> =
         updateStep(params.toBuilder().stepId(stepId).build(), requestOptions)
 
     /** @see updateStep */
-    fun updateStep(params: PlanUpdateStepParams): CompletableFuture<PlanUpdateStepResponse> =
+    fun updateStep(params: PlanUpdateStepParams): CompletableFuture<PlanStepResponse> =
         updateStep(params, RequestOptions.none())
 
     /** @see updateStep */
     fun updateStep(
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PlanUpdateStepResponse>
+    ): CompletableFuture<PlanStepResponse>
 
     /** A view of [PlanServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -171,7 +169,7 @@ interface PlanServiceAsync {
         fun create(
             runId: String,
             params: PlanCreateParams,
-        ): CompletableFuture<HttpResponseFor<PlanCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             create(runId, params, RequestOptions.none())
 
         /** @see create */
@@ -179,20 +177,20 @@ interface PlanServiceAsync {
             runId: String,
             params: PlanCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             create(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: PlanCreateParams
-        ): CompletableFuture<HttpResponseFor<PlanCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: PlanCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/{mission_id}/runs/{run_id}/plan`, but
@@ -232,7 +230,7 @@ interface PlanServiceAsync {
         fun addStepsToPlan(
             runId: String,
             params: PlanAddStepsToPlanParams,
-        ): CompletableFuture<HttpResponseFor<PlanAddStepsToPlanResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             addStepsToPlan(runId, params, RequestOptions.none())
 
         /** @see addStepsToPlan */
@@ -240,20 +238,20 @@ interface PlanServiceAsync {
             runId: String,
             params: PlanAddStepsToPlanParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanAddStepsToPlanResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             addStepsToPlan(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see addStepsToPlan */
         fun addStepsToPlan(
             params: PlanAddStepsToPlanParams
-        ): CompletableFuture<HttpResponseFor<PlanAddStepsToPlanResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>> =
             addStepsToPlan(params, RequestOptions.none())
 
         /** @see addStepsToPlan */
         fun addStepsToPlan(
             params: PlanAddStepsToPlanParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanAddStepsToPlanResponse>>
+        ): CompletableFuture<HttpResponseFor<PlanStepsCreatedResponse>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -263,7 +261,7 @@ interface PlanServiceAsync {
         fun getStepDetails(
             stepId: String,
             params: PlanGetStepDetailsParams,
-        ): CompletableFuture<HttpResponseFor<PlanGetStepDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             getStepDetails(stepId, params, RequestOptions.none())
 
         /** @see getStepDetails */
@@ -271,20 +269,20 @@ interface PlanServiceAsync {
             stepId: String,
             params: PlanGetStepDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanGetStepDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             getStepDetails(params.toBuilder().stepId(stepId).build(), requestOptions)
 
         /** @see getStepDetails */
         fun getStepDetails(
             params: PlanGetStepDetailsParams
-        ): CompletableFuture<HttpResponseFor<PlanGetStepDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             getStepDetails(params, RequestOptions.none())
 
         /** @see getStepDetails */
         fun getStepDetails(
             params: PlanGetStepDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanGetStepDetailsResponse>>
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -294,7 +292,7 @@ interface PlanServiceAsync {
         fun updateStep(
             stepId: String,
             params: PlanUpdateStepParams,
-        ): CompletableFuture<HttpResponseFor<PlanUpdateStepResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             updateStep(stepId, params, RequestOptions.none())
 
         /** @see updateStep */
@@ -302,19 +300,19 @@ interface PlanServiceAsync {
             stepId: String,
             params: PlanUpdateStepParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanUpdateStepResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             updateStep(params.toBuilder().stepId(stepId).build(), requestOptions)
 
         /** @see updateStep */
         fun updateStep(
             params: PlanUpdateStepParams
-        ): CompletableFuture<HttpResponseFor<PlanUpdateStepResponse>> =
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>> =
             updateStep(params, RequestOptions.none())
 
         /** @see updateStep */
         fun updateStep(
             params: PlanUpdateStepParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PlanUpdateStepResponse>>
+        ): CompletableFuture<HttpResponseFor<PlanStepResponse>>
     }
 }

@@ -14,7 +14,7 @@ internal class ActionRecordStopParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .recordingId("6e00ab49-9487-4364-8ad6-23965965afb2")
-            .region(ActionRecordStopParams.Region.US)
+            .region(ConferenceRegion.US)
             .build()
     }
 
@@ -35,7 +35,7 @@ internal class ActionRecordStopParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .recordingId("6e00ab49-9487-4364-8ad6-23965965afb2")
-                .region(ActionRecordStopParams.Region.US)
+                .region(ConferenceRegion.US)
                 .build()
 
         val body = params._body()
@@ -43,7 +43,7 @@ internal class ActionRecordStopParamsTest {
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.recordingId()).contains("6e00ab49-9487-4364-8ad6-23965965afb2")
-        assertThat(body.region()).contains(ActionRecordStopParams.Region.US)
+        assertThat(body.region()).contains(ConferenceRegion.US)
     }
 
     @Test

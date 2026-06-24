@@ -60,7 +60,6 @@ internal class Messaging10dlcGetEnumResponseTest {
             .isEqualTo(messaging10dlcGetEnumResponse)
     }
 
-    @Disabled("These schemas are identical as is and can't be disambiguated")
     @Test
     fun ofEnumObjectList() {
         val enumObjectList =
@@ -166,7 +165,12 @@ internal class Messaging10dlcGetEnumResponseTest {
     }
 
     @Test
-    @Disabled("These schemas are identical as is and can't be disambiguated")
+    @Disabled(
+        "oneOf deserialization is ambiguous when EnumObjectToStringResponse and " +
+            "EnumObjecToObjecttResponse have structurally identical schemas (both additionalProperties: true). " +
+            "The deserializer always picks EnumObjectToStringResponse first. " +
+            "Fix: spec updated to use typed additionalProperties — will be resolved on next STLC regeneration."
+    )
     fun ofEnumObjecToObjecttRoundtrip() {
         val jsonMapper = jsonMapper()
         val messaging10dlcGetEnumResponse =

@@ -17,13 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
@@ -64,7 +62,7 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
     override fun retrieve(
         params: ReputationRetrieveParams,
         requestOptions: RequestOptions,
-    ): ReputationRetrieveResponse =
+    ): EnterpriseReputationPublicWrapped =
         // get /enterprises/{enterprise_id}/reputation
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -76,14 +74,14 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
     override fun enable(
         params: ReputationEnableParams,
         requestOptions: RequestOptions,
-    ): ReputationEnableResponse =
+    ): EnterpriseReputationPublicWrapped =
         // post /enterprises/{enterprise_id}/reputation
         withRawResponse().enable(params, requestOptions).parse()
 
     override fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions,
-    ): ReputationUpdateFrequencyResponse =
+    ): EnterpriseReputationPublicWrapped =
         // patch /enterprises/{enterprise_id}/reputation/frequency
         withRawResponse().updateFrequency(params, requestOptions).parse()
 
@@ -121,13 +119,13 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun remediation(): RemediationService.WithRawResponse = remediation
 
-        private val retrieveHandler: Handler<ReputationRetrieveResponse> =
-            jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ReputationRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationRetrieveResponse> {
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -175,13 +173,13 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val enableHandler: Handler<ReputationEnableResponse> =
-            jsonHandler<ReputationEnableResponse>(clientOptions.jsonMapper)
+        private val enableHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun enable(
             params: ReputationEnableParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationEnableResponse> {
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -206,13 +204,13 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val updateFrequencyHandler: Handler<ReputationUpdateFrequencyResponse> =
-            jsonHandler<ReputationUpdateFrequencyResponse>(clientOptions.jsonMapper)
+        private val updateFrequencyHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationUpdateFrequencyResponse> {
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())

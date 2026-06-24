@@ -17,9 +17,9 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -39,14 +39,14 @@ class RecordingsJsonServiceImpl internal constructor(private val clientOptions: 
     override fun recordingsJson(
         params: RecordingsJsonRecordingsJsonParams,
         requestOptions: RequestOptions,
-    ): RecordingsJsonRecordingsJsonResponse =
+    ): TexmlCreateCallRecordingResponseBody =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json
         withRawResponse().recordingsJson(params, requestOptions).parse()
 
     override fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
-    ): RecordingsJsonRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         // get /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json
         withRawResponse().retrieveRecordingsJson(params, requestOptions).parse()
 
@@ -63,13 +63,13 @@ class RecordingsJsonServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val recordingsJsonHandler: Handler<RecordingsJsonRecordingsJsonResponse> =
-            jsonHandler<RecordingsJsonRecordingsJsonResponse>(clientOptions.jsonMapper)
+        private val recordingsJsonHandler: Handler<TexmlCreateCallRecordingResponseBody> =
+            jsonHandler<TexmlCreateCallRecordingResponseBody>(clientOptions.jsonMapper)
 
         override fun recordingsJson(
             params: RecordingsJsonRecordingsJsonParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingsJsonRecordingsJsonResponse> {
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("callSid", params.callSid().getOrNull())
@@ -101,14 +101,13 @@ class RecordingsJsonServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val retrieveRecordingsJsonHandler:
-            Handler<RecordingsJsonRetrieveRecordingsJsonResponse> =
-            jsonHandler<RecordingsJsonRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)
+        private val retrieveRecordingsJsonHandler: Handler<TexmlGetCallRecordingsResponseBody> =
+            jsonHandler<TexmlGetCallRecordingsResponseBody>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingsJson(
             params: RecordingsJsonRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse> {
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("callSid", params.callSid().getOrNull())

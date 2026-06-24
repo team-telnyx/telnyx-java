@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class LogMessageListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val logMessages: JsonField<List<LogMessageListResponse>>,
+    private val logMessages: JsonField<List<LogMessage>>,
     private val meta: JsonField<ExternalVoiceIntegrationsPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("log_messages")
         @ExcludeMissing
-        logMessages: JsonField<List<LogMessageListResponse>> = JsonMissing.of(),
+        logMessages: JsonField<List<LogMessage>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<ExternalVoiceIntegrationsPaginationMeta> = JsonMissing.of(),
@@ -41,8 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun logMessages(): Optional<List<LogMessageListResponse>> =
-        logMessages.getOptional("log_messages")
+    fun logMessages(): Optional<List<LogMessage>> = logMessages.getOptional("log_messages")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -57,7 +56,7 @@ private constructor(
      */
     @JsonProperty("log_messages")
     @ExcludeMissing
-    fun _logMessages(): JsonField<List<LogMessageListResponse>> = logMessages
+    fun _logMessages(): JsonField<List<LogMessage>> = logMessages
 
     /**
      * Returns the raw JSON value of [meta].
@@ -91,7 +90,7 @@ private constructor(
     /** A builder for [LogMessageListPageResponse]. */
     class Builder internal constructor() {
 
-        private var logMessages: JsonField<MutableList<LogMessageListResponse>>? = null
+        private var logMessages: JsonField<MutableList<LogMessage>>? = null
         private var meta: JsonField<ExternalVoiceIntegrationsPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -102,26 +101,25 @@ private constructor(
             additionalProperties = logMessageListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun logMessages(logMessages: List<LogMessageListResponse>) =
-            logMessages(JsonField.of(logMessages))
+        fun logMessages(logMessages: List<LogMessage>) = logMessages(JsonField.of(logMessages))
 
         /**
          * Sets [Builder.logMessages] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.logMessages] with a well-typed
-         * `List<LogMessageListResponse>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.logMessages] with a well-typed `List<LogMessage>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun logMessages(logMessages: JsonField<List<LogMessageListResponse>>) = apply {
+        fun logMessages(logMessages: JsonField<List<LogMessage>>) = apply {
             this.logMessages = logMessages.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [LogMessageListResponse] to [logMessages].
+         * Adds a single [LogMessage] to [logMessages].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addLogMessage(logMessage: LogMessageListResponse) = apply {
+        fun addLogMessage(logMessage: LogMessage) = apply {
             logMessages =
                 (logMessages ?: JsonField.of(mutableListOf())).also {
                     checkKnown("logMessages", it).add(logMessage)

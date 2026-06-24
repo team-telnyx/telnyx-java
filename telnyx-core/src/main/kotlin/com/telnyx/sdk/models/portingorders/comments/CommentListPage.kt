@@ -18,14 +18,14 @@ private constructor(
     private val service: CommentService,
     private val params: CommentListParams,
     private val response: CommentListPageResponse,
-) : Page<CommentListResponse> {
+) : Page<PortingOrdersComment> {
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.data
      */
-    fun data(): List<CommentListResponse> =
+    fun data(): List<PortingOrdersComment> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CommentListResponse> = data()
+    override fun items(): List<PortingOrdersComment> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): CommentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<CommentListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PortingOrdersComment> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CommentListParams = params

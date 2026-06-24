@@ -25,7 +25,7 @@ internal class QueueListPageResponseTest {
                 .page(0L)
                 .pageSize(1L)
                 .addQueue(
-                    QueueListResponse.builder()
+                    QueueResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .averageWaitTime(30L)
                         .currentSize(3L)
@@ -34,7 +34,7 @@ internal class QueueListPageResponseTest {
                         .maxSize(10L)
                         .sid("my-queue")
                         .subresourceUris(
-                            QueueListResponse.SubresourceUris.builder()
+                            QueueResource.SubresourceUris.builder()
                                 .putAdditionalProperty("members", JsonValue.from("bar"))
                                 .build()
                         )
@@ -60,7 +60,7 @@ internal class QueueListPageResponseTest {
         assertThat(queueListPageResponse.pageSize()).contains(1L)
         assertThat(queueListPageResponse.queues().getOrNull())
             .containsExactly(
-                QueueListResponse.builder()
+                QueueResource.builder()
                     .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                     .averageWaitTime(30L)
                     .currentSize(3L)
@@ -69,7 +69,7 @@ internal class QueueListPageResponseTest {
                     .maxSize(10L)
                     .sid("my-queue")
                     .subresourceUris(
-                        QueueListResponse.SubresourceUris.builder()
+                        QueueResource.SubresourceUris.builder()
                             .putAdditionalProperty("members", JsonValue.from("bar"))
                             .build()
                     )
@@ -98,7 +98,7 @@ internal class QueueListPageResponseTest {
                 .page(0L)
                 .pageSize(1L)
                 .addQueue(
-                    QueueListResponse.builder()
+                    QueueResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .averageWaitTime(30L)
                         .currentSize(3L)
@@ -107,7 +107,7 @@ internal class QueueListPageResponseTest {
                         .maxSize(10L)
                         .sid("my-queue")
                         .subresourceUris(
-                            QueueListResponse.SubresourceUris.builder()
+                            QueueResource.SubresourceUris.builder()
                                 .putAdditionalProperty("members", JsonValue.from("bar"))
                                 .build()
                         )

@@ -7,9 +7,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestResponse
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveResponse
+import com.telnyx.sdk.models.infringementclaims.InfringementClaimWrapped
 import java.util.function.Consumer
 
 /**
@@ -34,7 +33,7 @@ interface InfringementClaimService {
      * Retrieve a single claim by id. Returns `404` if the claim does not exist or is not against a
      * DIR you own.
      */
-    fun retrieve(claimId: String): InfringementClaimRetrieveResponse =
+    fun retrieve(claimId: String): InfringementClaimWrapped =
         retrieve(claimId, InfringementClaimRetrieveParams.none())
 
     /** @see retrieve */
@@ -42,30 +41,27 @@ interface InfringementClaimService {
         claimId: String,
         params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InfringementClaimRetrieveResponse =
+    ): InfringementClaimWrapped =
         retrieve(params.toBuilder().claimId(claimId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         claimId: String,
         params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
-    ): InfringementClaimRetrieveResponse = retrieve(claimId, params, RequestOptions.none())
+    ): InfringementClaimWrapped = retrieve(claimId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: InfringementClaimRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InfringementClaimRetrieveResponse
+    ): InfringementClaimWrapped
 
     /** @see retrieve */
-    fun retrieve(params: InfringementClaimRetrieveParams): InfringementClaimRetrieveResponse =
+    fun retrieve(params: InfringementClaimRetrieveParams): InfringementClaimWrapped =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(
-        claimId: String,
-        requestOptions: RequestOptions,
-    ): InfringementClaimRetrieveResponse =
+    fun retrieve(claimId: String, requestOptions: RequestOptions): InfringementClaimWrapped =
         retrieve(claimId, InfringementClaimRetrieveParams.none(), requestOptions)
 
     /**
@@ -82,28 +78,26 @@ interface InfringementClaimService {
      * - `422` - `contest_notes` is too short (< 10 chars), too long (> 2000 chars), `documents`
      *   is > 20 entries, or a `document_id` is duplicated within the same submission.
      */
-    fun contest(
-        claimId: String,
-        params: InfringementClaimContestParams,
-    ): InfringementClaimContestResponse = contest(claimId, params, RequestOptions.none())
+    fun contest(claimId: String, params: InfringementClaimContestParams): InfringementClaimWrapped =
+        contest(claimId, params, RequestOptions.none())
 
     /** @see contest */
     fun contest(
         claimId: String,
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InfringementClaimContestResponse =
+    ): InfringementClaimWrapped =
         contest(params.toBuilder().claimId(claimId).build(), requestOptions)
 
     /** @see contest */
-    fun contest(params: InfringementClaimContestParams): InfringementClaimContestResponse =
+    fun contest(params: InfringementClaimContestParams): InfringementClaimWrapped =
         contest(params, RequestOptions.none())
 
     /** @see contest */
     fun contest(
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InfringementClaimContestResponse
+    ): InfringementClaimWrapped
 
     /**
      * A view of [InfringementClaimService] that provides access to raw HTTP responses for each
@@ -125,7 +119,7 @@ interface InfringementClaimService {
          * the same as [InfringementClaimService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(claimId: String): HttpResponseFor<InfringementClaimRetrieveResponse> =
+        fun retrieve(claimId: String): HttpResponseFor<InfringementClaimWrapped> =
             retrieve(claimId, InfringementClaimRetrieveParams.none())
 
         /** @see retrieve */
@@ -134,7 +128,7 @@ interface InfringementClaimService {
             claimId: String,
             params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InfringementClaimRetrieveResponse> =
+        ): HttpResponseFor<InfringementClaimWrapped> =
             retrieve(params.toBuilder().claimId(claimId).build(), requestOptions)
 
         /** @see retrieve */
@@ -142,7 +136,7 @@ interface InfringementClaimService {
         fun retrieve(
             claimId: String,
             params: InfringementClaimRetrieveParams = InfringementClaimRetrieveParams.none(),
-        ): HttpResponseFor<InfringementClaimRetrieveResponse> =
+        ): HttpResponseFor<InfringementClaimWrapped> =
             retrieve(claimId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -150,21 +144,20 @@ interface InfringementClaimService {
         fun retrieve(
             params: InfringementClaimRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InfringementClaimRetrieveResponse>
+        ): HttpResponseFor<InfringementClaimWrapped>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InfringementClaimRetrieveParams
-        ): HttpResponseFor<InfringementClaimRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<InfringementClaimWrapped> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             claimId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InfringementClaimRetrieveResponse> =
+        ): HttpResponseFor<InfringementClaimWrapped> =
             retrieve(claimId, InfringementClaimRetrieveParams.none(), requestOptions)
 
         /**
@@ -175,7 +168,7 @@ interface InfringementClaimService {
         fun contest(
             claimId: String,
             params: InfringementClaimContestParams,
-        ): HttpResponseFor<InfringementClaimContestResponse> =
+        ): HttpResponseFor<InfringementClaimWrapped> =
             contest(claimId, params, RequestOptions.none())
 
         /** @see contest */
@@ -184,21 +177,20 @@ interface InfringementClaimService {
             claimId: String,
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InfringementClaimContestResponse> =
+        ): HttpResponseFor<InfringementClaimWrapped> =
             contest(params.toBuilder().claimId(claimId).build(), requestOptions)
 
         /** @see contest */
         @MustBeClosed
         fun contest(
             params: InfringementClaimContestParams
-        ): HttpResponseFor<InfringementClaimContestResponse> =
-            contest(params, RequestOptions.none())
+        ): HttpResponseFor<InfringementClaimWrapped> = contest(params, RequestOptions.none())
 
         /** @see contest */
         @MustBeClosed
         fun contest(
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InfringementClaimContestResponse>
+        ): HttpResponseFor<InfringementClaimWrapped>
     }
 }

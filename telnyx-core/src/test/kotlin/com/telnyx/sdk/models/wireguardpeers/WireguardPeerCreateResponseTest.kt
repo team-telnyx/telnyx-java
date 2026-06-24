@@ -14,7 +14,7 @@ internal class WireguardPeerCreateResponseTest {
         val wireguardPeerCreateResponse =
             WireguardPeerCreateResponse.builder()
                 .data(
-                    WireguardPeerCreateResponse.Data.builder()
+                    WireguardPeer.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
@@ -28,7 +28,7 @@ internal class WireguardPeerCreateResponseTest {
 
         assertThat(wireguardPeerCreateResponse.data())
             .contains(
-                WireguardPeerCreateResponse.Data.builder()
+                WireguardPeer.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
@@ -46,7 +46,7 @@ internal class WireguardPeerCreateResponseTest {
         val wireguardPeerCreateResponse =
             WireguardPeerCreateResponse.builder()
                 .data(
-                    WireguardPeerCreateResponse.Data.builder()
+                    WireguardPeer.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")

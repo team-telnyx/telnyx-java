@@ -12,12 +12,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListPage
 import com.telnyx.sdk.models.conferences.ConferenceListParams
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPage
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceParticipantResource
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
 import java.util.function.Consumer
 
@@ -154,7 +153,7 @@ interface ConferenceService {
     fun retrieveParticipant(
         participantId: String,
         params: ConferenceRetrieveParticipantParams,
-    ): ConferenceRetrieveParticipantResponse =
+    ): ConferenceParticipantResource =
         retrieveParticipant(participantId, params, RequestOptions.none())
 
     /** @see retrieveParticipant */
@@ -162,25 +161,25 @@ interface ConferenceService {
         participantId: String,
         params: ConferenceRetrieveParticipantParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveParticipantResponse =
+    ): ConferenceParticipantResource =
         retrieveParticipant(params.toBuilder().participantId(participantId).build(), requestOptions)
 
     /** @see retrieveParticipant */
     fun retrieveParticipant(
         params: ConferenceRetrieveParticipantParams
-    ): ConferenceRetrieveParticipantResponse = retrieveParticipant(params, RequestOptions.none())
+    ): ConferenceParticipantResource = retrieveParticipant(params, RequestOptions.none())
 
     /** @see retrieveParticipant */
     fun retrieveParticipant(
         params: ConferenceRetrieveParticipantParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveParticipantResponse
+    ): ConferenceParticipantResource
 
     /** Update properties of a conference participant. */
     fun updateParticipant(
         participantId: String,
         params: ConferenceUpdateParticipantParams,
-    ): ConferenceUpdateParticipantResponse =
+    ): ConferenceParticipantResource =
         updateParticipant(participantId, params, RequestOptions.none())
 
     /** @see updateParticipant */
@@ -188,19 +187,19 @@ interface ConferenceService {
         participantId: String,
         params: ConferenceUpdateParticipantParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceUpdateParticipantResponse =
+    ): ConferenceParticipantResource =
         updateParticipant(params.toBuilder().participantId(participantId).build(), requestOptions)
 
     /** @see updateParticipant */
     fun updateParticipant(
         params: ConferenceUpdateParticipantParams
-    ): ConferenceUpdateParticipantResponse = updateParticipant(params, RequestOptions.none())
+    ): ConferenceParticipantResource = updateParticipant(params, RequestOptions.none())
 
     /** @see updateParticipant */
     fun updateParticipant(
         params: ConferenceUpdateParticipantParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceUpdateParticipantResponse
+    ): ConferenceParticipantResource
 
     /** A view of [ConferenceService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -359,7 +358,7 @@ interface ConferenceService {
         fun retrieveParticipant(
             participantId: String,
             params: ConferenceRetrieveParticipantParams,
-        ): HttpResponseFor<ConferenceRetrieveParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             retrieveParticipant(participantId, params, RequestOptions.none())
 
         /** @see retrieveParticipant */
@@ -368,7 +367,7 @@ interface ConferenceService {
             participantId: String,
             params: ConferenceRetrieveParticipantParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             retrieveParticipant(
                 params.toBuilder().participantId(participantId).build(),
                 requestOptions,
@@ -378,7 +377,7 @@ interface ConferenceService {
         @MustBeClosed
         fun retrieveParticipant(
             params: ConferenceRetrieveParticipantParams
-        ): HttpResponseFor<ConferenceRetrieveParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             retrieveParticipant(params, RequestOptions.none())
 
         /** @see retrieveParticipant */
@@ -386,7 +385,7 @@ interface ConferenceService {
         fun retrieveParticipant(
             params: ConferenceRetrieveParticipantParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveParticipantResponse>
+        ): HttpResponseFor<ConferenceParticipantResource>
 
         /**
          * Returns a raw HTTP response for `patch /conferences/{id}/participants/{participant_id}`,
@@ -396,7 +395,7 @@ interface ConferenceService {
         fun updateParticipant(
             participantId: String,
             params: ConferenceUpdateParticipantParams,
-        ): HttpResponseFor<ConferenceUpdateParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             updateParticipant(participantId, params, RequestOptions.none())
 
         /** @see updateParticipant */
@@ -405,7 +404,7 @@ interface ConferenceService {
             participantId: String,
             params: ConferenceUpdateParticipantParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceUpdateParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             updateParticipant(
                 params.toBuilder().participantId(participantId).build(),
                 requestOptions,
@@ -415,7 +414,7 @@ interface ConferenceService {
         @MustBeClosed
         fun updateParticipant(
             params: ConferenceUpdateParticipantParams
-        ): HttpResponseFor<ConferenceUpdateParticipantResponse> =
+        ): HttpResponseFor<ConferenceParticipantResource> =
             updateParticipant(params, RequestOptions.none())
 
         /** @see updateParticipant */
@@ -423,6 +422,6 @@ interface ConferenceService {
         fun updateParticipant(
             params: ConferenceUpdateParticipantParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceUpdateParticipantResponse>
+        ): HttpResponseFor<ConferenceParticipantResource>
     }
 }

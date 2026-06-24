@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheck
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteParams
@@ -32,25 +33,33 @@ interface GlobalIpHealthCheckServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpHealthCheckServiceAsync
 
     /** Create a Global IP health check. */
-    fun create(): CompletableFuture<GlobalIpHealthCheckCreateResponse> =
-        create(GlobalIpHealthCheckCreateParams.none())
+    fun create(
+        params: GlobalIpHealthCheckCreateParams
+    ): CompletableFuture<GlobalIpHealthCheckCreateResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none(),
+        params: GlobalIpHealthCheckCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<GlobalIpHealthCheckCreateResponse>
 
     /** @see create */
     fun create(
-        params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none()
-    ): CompletableFuture<GlobalIpHealthCheckCreateResponse> = create(params, RequestOptions.none())
+        globalIpHealthCheck: GlobalIpHealthCheck,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<GlobalIpHealthCheckCreateResponse> =
+        create(
+            GlobalIpHealthCheckCreateParams.builder()
+                .globalIpHealthCheck(globalIpHealthCheck)
+                .build(),
+            requestOptions,
+        )
 
     /** @see create */
     fun create(
-        requestOptions: RequestOptions
+        globalIpHealthCheck: GlobalIpHealthCheck
     ): CompletableFuture<GlobalIpHealthCheckCreateResponse> =
-        create(GlobalIpHealthCheckCreateParams.none(), requestOptions)
+        create(globalIpHealthCheck, RequestOptions.none())
 
     /** Retrieve a Global IP health check. */
     fun retrieve(id: String): CompletableFuture<GlobalIpHealthCheckRetrieveResponse> =
@@ -165,26 +174,34 @@ interface GlobalIpHealthCheckServiceAsync {
          * Returns a raw HTTP response for `post /global_ip_health_checks`, but is otherwise the
          * same as [GlobalIpHealthCheckServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>> =
-            create(GlobalIpHealthCheckCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none()
+            params: GlobalIpHealthCheckCreateParams
         ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
+            params: GlobalIpHealthCheckCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>>
+
+        /** @see create */
+        fun create(
+            globalIpHealthCheck: GlobalIpHealthCheck,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>> =
-            create(GlobalIpHealthCheckCreateParams.none(), requestOptions)
+            create(
+                GlobalIpHealthCheckCreateParams.builder()
+                    .globalIpHealthCheck(globalIpHealthCheck)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            globalIpHealthCheck: GlobalIpHealthCheck
+        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckCreateResponse>> =
+            create(globalIpHealthCheck, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /global_ip_health_checks/{id}`, but is otherwise the

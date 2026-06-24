@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
+import com.telnyx.sdk.models.ai.missions.EventsListResponse
 import com.telnyx.sdk.services.blocking.ai.missions.runs.EventService
 import java.util.Objects
 import java.util.Optional
@@ -17,20 +18,20 @@ class EventListPage
 private constructor(
     private val service: EventService,
     private val params: EventListParams,
-    private val response: EventListPageResponse,
+    private val response: EventsListResponse,
 ) : Page<EventData> {
 
     /**
-     * Delegates to [EventListPageResponse], but gracefully handles missing data.
+     * Delegates to [EventsListResponse], but gracefully handles missing data.
      *
-     * @see EventListPageResponse.data
+     * @see EventsListResponse.data
      */
     fun data(): List<EventData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [EventListPageResponse], but gracefully handles missing data.
+     * Delegates to [EventsListResponse], but gracefully handles missing data.
      *
-     * @see EventListPageResponse.meta
+     * @see EventsListResponse.meta
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
@@ -60,7 +61,7 @@ private constructor(
     fun params(): EventListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): EventListPageResponse = response
+    fun response(): EventsListResponse = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,7 +85,7 @@ private constructor(
 
         private var service: EventService? = null
         private var params: EventListParams? = null
-        private var response: EventListPageResponse? = null
+        private var response: EventsListResponse? = null
 
         @JvmSynthetic
         internal fun from(eventListPage: EventListPage) = apply {
@@ -99,7 +100,7 @@ private constructor(
         fun params(params: EventListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: EventListPageResponse) = apply { this.response = response }
+        fun response(response: EventsListResponse) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [EventListPage].

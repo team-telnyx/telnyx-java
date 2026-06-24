@@ -16,21 +16,21 @@ internal class ObservabilityTest {
                 .host("host")
                 .promptLabel("prompt_label")
                 .promptName("prompt_name")
-                .promptSync(Observability.PromptSync.ENABLED)
+                .promptSync(PromptSyncStatus.ENABLED)
                 .promptVersion(1L)
                 .publicKeyRef("public_key_ref")
                 .secretKeyRef("secret_key_ref")
-                .status(Observability.Status.ENABLED)
+                .status(ObservabilityStatus.ENABLED)
                 .build()
 
         assertThat(observability.host()).contains("host")
         assertThat(observability.promptLabel()).contains("prompt_label")
         assertThat(observability.promptName()).contains("prompt_name")
-        assertThat(observability.promptSync()).contains(Observability.PromptSync.ENABLED)
+        assertThat(observability.promptSync()).contains(PromptSyncStatus.ENABLED)
         assertThat(observability.promptVersion()).contains(1L)
         assertThat(observability.publicKeyRef()).contains("public_key_ref")
         assertThat(observability.secretKeyRef()).contains("secret_key_ref")
-        assertThat(observability.status()).contains(Observability.Status.ENABLED)
+        assertThat(observability.status()).contains(ObservabilityStatus.ENABLED)
     }
 
     @Test
@@ -41,11 +41,11 @@ internal class ObservabilityTest {
                 .host("host")
                 .promptLabel("prompt_label")
                 .promptName("prompt_name")
-                .promptSync(Observability.PromptSync.ENABLED)
+                .promptSync(PromptSyncStatus.ENABLED)
                 .promptVersion(1L)
                 .publicKeyRef("public_key_ref")
                 .secretKeyRef("secret_key_ref")
-                .status(Observability.Status.ENABLED)
+                .status(ObservabilityStatus.ENABLED)
                 .build()
 
         val roundtrippedObservability =

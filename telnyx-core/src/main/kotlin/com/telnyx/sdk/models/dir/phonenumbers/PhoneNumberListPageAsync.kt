@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir.phonenumbers
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.async.dir.PhoneNumberServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PhoneNumberListParams,
     private val response: PhoneNumberListPageResponse,
-) : PageAsync<PhoneNumberListResponse> {
+) : PageAsync<DirPhoneNumber> {
 
     /**
      * Delegates to [PhoneNumberListPageResponse], but gracefully handles missing data.
      *
      * @see PhoneNumberListPageResponse.data
      */
-    fun data(): List<PhoneNumberListResponse> =
+    fun data(): List<DirPhoneNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,9 +36,9 @@ private constructor(
      *
      * @see PhoneNumberListPageResponse.meta
      */
-    fun meta(): Optional<PhoneNumberListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PhoneNumberListResponse> = data()
+    override fun items(): List<DirPhoneNumber> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PhoneNumberListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PhoneNumberListResponse> =
+    fun autoPager(): AutoPagerAsync<DirPhoneNumber> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

@@ -8,13 +8,11 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListResponse
+import com.telnyx.sdk.models.advancedorders.AdvancedOrderRequest
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupResponse
 import java.util.function.Consumer
 
 interface AdvancedOrderService {
@@ -32,31 +30,31 @@ interface AdvancedOrderService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdvancedOrderService
 
     /** Create Advanced Order */
-    fun create(params: AdvancedOrderCreateParams): AdvancedOrderCreateResponse =
+    fun create(params: AdvancedOrderCreateParams): AdvancedOrder =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: AdvancedOrderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderCreateResponse
+    ): AdvancedOrder
 
     /** @see create */
     fun create(
-        advancedOrder: AdvancedOrder,
+        advancedOrderRequest: AdvancedOrderRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderCreateResponse =
+    ): AdvancedOrder =
         create(
-            AdvancedOrderCreateParams.builder().advancedOrder(advancedOrder).build(),
+            AdvancedOrderCreateParams.builder().advancedOrderRequest(advancedOrderRequest).build(),
             requestOptions,
         )
 
     /** @see create */
-    fun create(advancedOrder: AdvancedOrder): AdvancedOrderCreateResponse =
-        create(advancedOrder, RequestOptions.none())
+    fun create(advancedOrderRequest: AdvancedOrderRequest): AdvancedOrder =
+        create(advancedOrderRequest, RequestOptions.none())
 
     /** Get Advanced Order */
-    fun retrieve(orderId: String): AdvancedOrderRetrieveResponse =
+    fun retrieve(orderId: String): AdvancedOrder =
         retrieve(orderId, AdvancedOrderRetrieveParams.none())
 
     /** @see retrieve */
@@ -64,27 +62,26 @@ interface AdvancedOrderService {
         orderId: String,
         params: AdvancedOrderRetrieveParams = AdvancedOrderRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderRetrieveResponse =
-        retrieve(params.toBuilder().orderId(orderId).build(), requestOptions)
+    ): AdvancedOrder = retrieve(params.toBuilder().orderId(orderId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         orderId: String,
         params: AdvancedOrderRetrieveParams = AdvancedOrderRetrieveParams.none(),
-    ): AdvancedOrderRetrieveResponse = retrieve(orderId, params, RequestOptions.none())
+    ): AdvancedOrder = retrieve(orderId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: AdvancedOrderRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderRetrieveResponse
+    ): AdvancedOrder
 
     /** @see retrieve */
-    fun retrieve(params: AdvancedOrderRetrieveParams): AdvancedOrderRetrieveResponse =
+    fun retrieve(params: AdvancedOrderRetrieveParams): AdvancedOrder =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(orderId: String, requestOptions: RequestOptions): AdvancedOrderRetrieveResponse =
+    fun retrieve(orderId: String, requestOptions: RequestOptions): AdvancedOrder =
         retrieve(orderId, AdvancedOrderRetrieveParams.none(), requestOptions)
 
     /** List Advanced Orders */
@@ -109,31 +106,28 @@ interface AdvancedOrderService {
     fun updateRequirementGroup(
         advancedOrderId: String,
         params: AdvancedOrderUpdateRequirementGroupParams,
-    ): AdvancedOrderUpdateRequirementGroupResponse =
-        updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
+    ): AdvancedOrder = updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
 
     /** @see updateRequirementGroup */
     fun updateRequirementGroup(
         advancedOrderId: String,
         params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderUpdateRequirementGroupResponse =
+    ): AdvancedOrder =
         updateRequirementGroup(
             params.toBuilder().advancedOrderId(advancedOrderId).build(),
             requestOptions,
         )
 
     /** @see updateRequirementGroup */
-    fun updateRequirementGroup(
-        params: AdvancedOrderUpdateRequirementGroupParams
-    ): AdvancedOrderUpdateRequirementGroupResponse =
+    fun updateRequirementGroup(params: AdvancedOrderUpdateRequirementGroupParams): AdvancedOrder =
         updateRequirementGroup(params, RequestOptions.none())
 
     /** @see updateRequirementGroup */
     fun updateRequirementGroup(
         params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdvancedOrderUpdateRequirementGroupResponse
+    ): AdvancedOrder
 
     /**
      * A view of [AdvancedOrderService] that provides access to raw HTTP responses for each method.
@@ -154,39 +148,40 @@ interface AdvancedOrderService {
          * [AdvancedOrderService.create].
          */
         @MustBeClosed
-        fun create(
-            params: AdvancedOrderCreateParams
-        ): HttpResponseFor<AdvancedOrderCreateResponse> = create(params, RequestOptions.none())
+        fun create(params: AdvancedOrderCreateParams): HttpResponseFor<AdvancedOrder> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: AdvancedOrderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderCreateResponse>
+        ): HttpResponseFor<AdvancedOrder>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            advancedOrder: AdvancedOrder,
+            advancedOrderRequest: AdvancedOrderRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderCreateResponse> =
+        ): HttpResponseFor<AdvancedOrder> =
             create(
-                AdvancedOrderCreateParams.builder().advancedOrder(advancedOrder).build(),
+                AdvancedOrderCreateParams.builder()
+                    .advancedOrderRequest(advancedOrderRequest)
+                    .build(),
                 requestOptions,
             )
 
         /** @see create */
         @MustBeClosed
-        fun create(advancedOrder: AdvancedOrder): HttpResponseFor<AdvancedOrderCreateResponse> =
-            create(advancedOrder, RequestOptions.none())
+        fun create(advancedOrderRequest: AdvancedOrderRequest): HttpResponseFor<AdvancedOrder> =
+            create(advancedOrderRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /advanced_orders/{order_id}`, but is otherwise the
          * same as [AdvancedOrderService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(orderId: String): HttpResponseFor<AdvancedOrderRetrieveResponse> =
+        fun retrieve(orderId: String): HttpResponseFor<AdvancedOrder> =
             retrieve(orderId, AdvancedOrderRetrieveParams.none())
 
         /** @see retrieve */
@@ -195,7 +190,7 @@ interface AdvancedOrderService {
             orderId: String,
             params: AdvancedOrderRetrieveParams = AdvancedOrderRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse> =
+        ): HttpResponseFor<AdvancedOrder> =
             retrieve(params.toBuilder().orderId(orderId).build(), requestOptions)
 
         /** @see retrieve */
@@ -203,28 +198,26 @@ interface AdvancedOrderService {
         fun retrieve(
             orderId: String,
             params: AdvancedOrderRetrieveParams = AdvancedOrderRetrieveParams.none(),
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse> =
-            retrieve(orderId, params, RequestOptions.none())
+        ): HttpResponseFor<AdvancedOrder> = retrieve(orderId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AdvancedOrderRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse>
+        ): HttpResponseFor<AdvancedOrder>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: AdvancedOrderRetrieveParams
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: AdvancedOrderRetrieveParams): HttpResponseFor<AdvancedOrder> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             orderId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse> =
+        ): HttpResponseFor<AdvancedOrder> =
             retrieve(orderId, AdvancedOrderRetrieveParams.none(), requestOptions)
 
         /**
@@ -262,7 +255,7 @@ interface AdvancedOrderService {
         fun updateRequirementGroup(
             advancedOrderId: String,
             params: AdvancedOrderUpdateRequirementGroupParams,
-        ): HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse> =
+        ): HttpResponseFor<AdvancedOrder> =
             updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
 
         /** @see updateRequirementGroup */
@@ -271,7 +264,7 @@ interface AdvancedOrderService {
             advancedOrderId: String,
             params: AdvancedOrderUpdateRequirementGroupParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse> =
+        ): HttpResponseFor<AdvancedOrder> =
             updateRequirementGroup(
                 params.toBuilder().advancedOrderId(advancedOrderId).build(),
                 requestOptions,
@@ -281,14 +274,13 @@ interface AdvancedOrderService {
         @MustBeClosed
         fun updateRequirementGroup(
             params: AdvancedOrderUpdateRequirementGroupParams
-        ): HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse> =
-            updateRequirementGroup(params, RequestOptions.none())
+        ): HttpResponseFor<AdvancedOrder> = updateRequirementGroup(params, RequestOptions.none())
 
         /** @see updateRequirementGroup */
         @MustBeClosed
         fun updateRequirementGroup(
             params: AdvancedOrderUpdateRequirementGroupParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>
+        ): HttpResponseFor<AdvancedOrder>
     }
 }

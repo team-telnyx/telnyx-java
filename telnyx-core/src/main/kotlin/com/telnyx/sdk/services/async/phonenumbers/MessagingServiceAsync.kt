@@ -65,28 +65,18 @@ interface MessagingServiceAsync {
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
     /** Update the messaging profile and/or messaging product of a phone number */
-    fun update(id: String): CompletableFuture<MessagingUpdateResponse> =
-        update(id, MessagingUpdateParams.none())
-
-    /** @see update */
     fun update(
         id: String,
-        params: MessagingUpdateParams = MessagingUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingUpdateResponse> =
-        update(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see update */
-    fun update(
-        id: String,
-        params: MessagingUpdateParams = MessagingUpdateParams.none(),
+        params: MessagingUpdateParams,
     ): CompletableFuture<MessagingUpdateResponse> = update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: MessagingUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingUpdateResponse>
+    ): CompletableFuture<MessagingUpdateResponse> =
+        update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(params: MessagingUpdateParams): CompletableFuture<MessagingUpdateResponse> =
@@ -94,10 +84,9 @@ interface MessagingServiceAsync {
 
     /** @see update */
     fun update(
-        id: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingUpdateResponse> =
-        update(id, MessagingUpdateParams.none(), requestOptions)
+        params: MessagingUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessagingUpdateResponse>
 
     /** List phone numbers with messaging settings */
     fun list(): CompletableFuture<MessagingListPageAsync> = list(MessagingListParams.none())
@@ -176,29 +165,19 @@ interface MessagingServiceAsync {
          * Returns a raw HTTP response for `patch /phone_numbers/{id}/messaging`, but is otherwise
          * the same as [MessagingServiceAsync.update].
          */
-        fun update(id: String): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>> =
-            update(id, MessagingUpdateParams.none())
-
-        /** @see update */
         fun update(
             id: String,
-            params: MessagingUpdateParams = MessagingUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>> =
-            update(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see update */
-        fun update(
-            id: String,
-            params: MessagingUpdateParams = MessagingUpdateParams.none(),
+            params: MessagingUpdateParams,
         ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>> =
             update(id, params, RequestOptions.none())
 
         /** @see update */
         fun update(
+            id: String,
             params: MessagingUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -208,10 +187,9 @@ interface MessagingServiceAsync {
 
         /** @see update */
         fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>> =
-            update(id, MessagingUpdateParams.none(), requestOptions)
+            params: MessagingUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingUpdateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /phone_numbers/messaging`, but is otherwise the same

@@ -16,17 +16,17 @@ private constructor(
     private val service: QueueService,
     private val params: QueueListParams,
     private val response: QueueListPageResponse,
-) : Page<QueueListResponse> {
+) : Page<QueueResource> {
 
     /**
      * Delegates to [QueueListPageResponse], but gracefully handles missing data.
      *
      * @see QueueListPageResponse.queues
      */
-    fun queues(): List<QueueListResponse> =
+    fun queues(): List<QueueResource> =
         response._queues().getOptional("queues").getOrNull() ?: emptyList()
 
-    override fun items(): List<QueueListResponse> = queues()
+    override fun items(): List<QueueResource> = queues()
 
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
@@ -37,7 +37,7 @@ private constructor(
 
     override fun nextPage(): QueueListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<QueueListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<QueueResource> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): QueueListParams = params

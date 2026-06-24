@@ -15,11 +15,11 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReport
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListPageAsync
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListPageResponse
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListParams
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveParams
-import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -44,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : VoiceSdkCallRep
     override fun retrieve(
         params: VoiceSdkCallReportRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
+    ): CompletableFuture<List<VoiceSdkCallReport>> =
         // get /voice_sdk_call_reports/{call_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -68,13 +68,13 @@ internal constructor(private val clientOptions: ClientOptions) : VoiceSdkCallRep
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<List<VoiceSdkCallReportRetrieveResponse>> =
-            jsonHandler<List<VoiceSdkCallReportRetrieveResponse>>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<List<VoiceSdkCallReport>> =
+            jsonHandler<List<VoiceSdkCallReport>>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: VoiceSdkCallReportRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> {
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("callId", params.callId().getOrNull())

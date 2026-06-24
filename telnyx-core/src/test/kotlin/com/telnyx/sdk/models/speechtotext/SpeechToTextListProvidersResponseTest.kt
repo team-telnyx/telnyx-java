@@ -20,10 +20,7 @@ internal class SpeechToTextListProvidersResponseTest {
                         .addServiceType(
                             SpeechToTextListProvidersResponse.Data.ServiceType.builder()
                                 .languages(listOf("en", "es", "fr"))
-                                .type(
-                                    SpeechToTextListProvidersResponse.Data.ServiceType.Type
-                                        .STREAMING
-                                )
+                                .type(SttServiceType.STREAMING)
                                 .build()
                         )
                         .build()
@@ -39,7 +36,7 @@ internal class SpeechToTextListProvidersResponseTest {
                     .addServiceType(
                         SpeechToTextListProvidersResponse.Data.ServiceType.builder()
                             .languages(listOf("en", "es", "fr"))
-                            .type(SpeechToTextListProvidersResponse.Data.ServiceType.Type.STREAMING)
+                            .type(SttServiceType.STREAMING)
                             .build()
                     )
                     .build()
@@ -60,10 +57,7 @@ internal class SpeechToTextListProvidersResponseTest {
                         .addServiceType(
                             SpeechToTextListProvidersResponse.Data.ServiceType.builder()
                                 .languages(listOf("en", "es", "fr"))
-                                .type(
-                                    SpeechToTextListProvidersResponse.Data.ServiceType.Type
-                                        .STREAMING
-                                )
+                                .type(SttServiceType.STREAMING)
                                 .build()
                         )
                         .build()

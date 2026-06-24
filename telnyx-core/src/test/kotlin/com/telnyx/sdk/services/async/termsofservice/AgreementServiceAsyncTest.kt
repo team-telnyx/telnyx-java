@@ -14,10 +14,11 @@ internal class AgreementServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val agreementServiceAsync = client.termsOfService().agreements()
 
-        val agreementFuture = agreementServiceAsync.retrieve("550e8400-e29b-41d4-a716-446655440000")
+        val tosAgreementWrappedFuture =
+            agreementServiceAsync.retrieve("550e8400-e29b-41d4-a716-446655440000")
 
-        val agreement = agreementFuture.get()
-        agreement.validate()
+        val tosAgreementWrapped = tosAgreementWrappedFuture.get()
+        tosAgreementWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")

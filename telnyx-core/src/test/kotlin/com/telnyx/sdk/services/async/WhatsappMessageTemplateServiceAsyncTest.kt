@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.whatsapp.templates.WhatsappTemplateHeaderComponent
 import com.telnyx.sdk.models.whatsappmessagetemplates.WhatsappMessageTemplateUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -33,13 +34,11 @@ internal class WhatsappMessageTemplateServiceAsyncTest {
                     .id("id")
                     .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                     .addComponent(
-                        WhatsappMessageTemplateUpdateParams.Component.Header.builder()
-                            .format(
-                                WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT
-                            )
+                        WhatsappTemplateHeaderComponent.builder()
+                            .format(WhatsappTemplateHeaderComponent.Format.TEXT)
+                            .type(WhatsappTemplateHeaderComponent.Type.HEADER)
                             .example(
-                                WhatsappMessageTemplateUpdateParams.Component.Header.Example
-                                    .builder()
+                                WhatsappTemplateHeaderComponent.Example.builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")
                                     .build()

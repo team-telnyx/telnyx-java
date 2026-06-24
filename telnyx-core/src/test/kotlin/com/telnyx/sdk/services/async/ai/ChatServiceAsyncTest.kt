@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.chat.ChatCreateCompletionParams
+import com.telnyx.sdk.models.ai.chat.ChatCompletionRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -18,17 +18,17 @@ internal class ChatServiceAsyncTest {
 
         val responseFuture =
             chatServiceAsync.createCompletion(
-                ChatCreateCompletionParams.builder()
+                ChatCompletionRequest.builder()
                     .addMessage(
-                        ChatCreateCompletionParams.Message.builder()
+                        ChatCompletionRequest.Message.builder()
                             .content("You are a friendly chatbot.")
-                            .role(ChatCreateCompletionParams.Message.Role.SYSTEM)
+                            .role(ChatCompletionRequest.Message.Role.SYSTEM)
                             .build()
                     )
                     .addMessage(
-                        ChatCreateCompletionParams.Message.builder()
+                        ChatCompletionRequest.Message.builder()
                             .content("Hello, world!")
-                            .role(ChatCreateCompletionParams.Message.Role.USER)
+                            .role(ChatCompletionRequest.Message.Role.USER)
                             .build()
                     )
                     .apiKeyRef("api_key_ref")
@@ -38,7 +38,7 @@ internal class ChatServiceAsyncTest {
                     .frequencyPenalty(0.0)
                     .addGuidedChoice("string")
                     .guidedJson(
-                        ChatCreateCompletionParams.GuidedJson.builder()
+                        ChatCompletionRequest.GuidedJson.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -51,22 +51,21 @@ internal class ChatServiceAsyncTest {
                     .n(0.0)
                     .presencePenalty(0.0)
                     .responseFormat(
-                        ChatCreateCompletionParams.ResponseFormat.builder()
-                            .type(ChatCreateCompletionParams.ResponseFormat.Type.TEXT)
+                        ChatCompletionRequest.ResponseFormat.builder()
+                            .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)
                             .build()
                     )
                     .seed(0L)
                     .stop("string")
                     .stream(true)
                     .temperature(0.0)
-                    .toolChoice(ChatCreateCompletionParams.ToolChoice.NONE)
+                    .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                     .addFunctionTool(
-                        ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.builder()
+                        ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
                             .name("name")
                             .description("description")
                             .parameters(
-                                ChatCreateCompletionParams.Tool.ChatCompletionTool.Function
-                                    .Parameters
+                                ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
                                     .builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()

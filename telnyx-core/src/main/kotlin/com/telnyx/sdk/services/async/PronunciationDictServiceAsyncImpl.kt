@@ -19,15 +19,13 @@ import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictDeleteParams
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListPageAsync
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListPageResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListParams
+import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,21 +52,21 @@ internal constructor(private val clientOptions: ClientOptions) : PronunciationDi
     override fun create(
         params: PronunciationDictCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PronunciationDictCreateResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         // post /pronunciation_dicts
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: PronunciationDictRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PronunciationDictRetrieveResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         // get /pronunciation_dicts/{id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: PronunciationDictUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PronunciationDictUpdateResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         // patch /pronunciation_dicts/{id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -99,13 +97,13 @@ internal constructor(private val clientOptions: ClientOptions) : PronunciationDi
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<PronunciationDictCreateResponse> =
-            jsonHandler<PronunciationDictCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PronunciationDictResponse> =
+            jsonHandler<PronunciationDictResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: PronunciationDictCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PronunciationDictCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -130,13 +128,13 @@ internal constructor(private val clientOptions: ClientOptions) : PronunciationDi
                 }
         }
 
-        private val retrieveHandler: Handler<PronunciationDictRetrieveResponse> =
-            jsonHandler<PronunciationDictRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<PronunciationDictResponse> =
+            jsonHandler<PronunciationDictResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: PronunciationDictRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -163,13 +161,13 @@ internal constructor(private val clientOptions: ClientOptions) : PronunciationDi
                 }
         }
 
-        private val updateHandler: Handler<PronunciationDictUpdateResponse> =
-            jsonHandler<PronunciationDictUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PronunciationDictResponse> =
+            jsonHandler<PronunciationDictResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: PronunciationDictUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())

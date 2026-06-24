@@ -55,7 +55,7 @@ internal class CredentialConnectionUpdateResponseTest {
                                 .jitterbufferMsecMin(60L)
                                 .build()
                         )
-                        .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                        .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
                             ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
@@ -139,7 +139,7 @@ internal class CredentialConnectionUpdateResponseTest {
                             .jitterbufferMsecMin(60L)
                             .build()
                     )
-                    .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                    .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
@@ -227,7 +227,7 @@ internal class CredentialConnectionUpdateResponseTest {
                                 .jitterbufferMsecMin(60L)
                                 .build()
                         )
-                        .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                        .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
                             ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)

@@ -22,7 +22,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                 .page(0L)
                 .pageSize(20L)
                 .addParticipant(
-                    ParticipantRetrieveParticipantsResponse.Participant.builder()
+                    ParticipantResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .apiVersion("v2/texml")
                         .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
@@ -40,9 +40,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .endConferenceOnExit(false)
                         .hold(false)
                         .muted(false)
-                        .status(
-                            ParticipantRetrieveParticipantsResponse.Participant.Status.COMPLETED
-                        )
+                        .status(ParticipantResource.Status.COMPLETED)
                         .uri(
                             "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json"
                         )
@@ -64,7 +62,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
         assertThat(participantRetrieveParticipantsResponse.pageSize()).contains(20L)
         assertThat(participantRetrieveParticipantsResponse.participants().getOrNull())
             .containsExactly(
-                ParticipantRetrieveParticipantsResponse.Participant.builder()
+                ParticipantResource.builder()
                     .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                     .apiVersion("v2/texml")
                     .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
@@ -80,7 +78,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                     .endConferenceOnExit(false)
                     .hold(false)
                     .muted(false)
-                    .status(ParticipantRetrieveParticipantsResponse.Participant.Status.COMPLETED)
+                    .status(ParticipantResource.Status.COMPLETED)
                     .uri(
                         "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json"
                     )
@@ -106,7 +104,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                 .page(0L)
                 .pageSize(20L)
                 .addParticipant(
-                    ParticipantRetrieveParticipantsResponse.Participant.builder()
+                    ParticipantResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .apiVersion("v2/texml")
                         .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
@@ -124,9 +122,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .endConferenceOnExit(false)
                         .hold(false)
                         .muted(false)
-                        .status(
-                            ParticipantRetrieveParticipantsResponse.Participant.Status.COMPLETED
-                        )
+                        .status(ParticipantResource.Status.COMPLETED)
                         .uri(
                             "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json"
                         )

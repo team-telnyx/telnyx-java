@@ -24,12 +24,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListParams
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageAsync
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceParticipantResource
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -85,14 +84,14 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun retrieveParticipant(
         params: ConferenceRetrieveParticipantParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceRetrieveParticipantResponse> =
+    ): CompletableFuture<ConferenceParticipantResource> =
         // get /conferences/{id}/participants/{participant_id}
         withRawResponse().retrieveParticipant(params, requestOptions).thenApply { it.parse() }
 
     override fun updateParticipant(
         params: ConferenceUpdateParticipantParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceUpdateParticipantResponse> =
+    ): CompletableFuture<ConferenceParticipantResource> =
         // patch /conferences/{id}/participants/{participant_id}
         withRawResponse().updateParticipant(params, requestOptions).thenApply { it.parse() }
 
@@ -259,13 +258,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val retrieveParticipantHandler: Handler<ConferenceRetrieveParticipantResponse> =
-            jsonHandler<ConferenceRetrieveParticipantResponse>(clientOptions.jsonMapper)
+        private val retrieveParticipantHandler: Handler<ConferenceParticipantResource> =
+            jsonHandler<ConferenceParticipantResource>(clientOptions.jsonMapper)
 
         override fun retrieveParticipant(
             params: ConferenceRetrieveParticipantParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceParticipantResource>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("participantId", params.participantId().getOrNull())
@@ -297,13 +296,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val updateParticipantHandler: Handler<ConferenceUpdateParticipantResponse> =
-            jsonHandler<ConferenceUpdateParticipantResponse>(clientOptions.jsonMapper)
+        private val updateParticipantHandler: Handler<ConferenceParticipantResource> =
+            jsonHandler<ConferenceParticipantResource>(clientOptions.jsonMapper)
 
         override fun updateParticipant(
             params: ConferenceUpdateParticipantParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceParticipantResource>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("participantId", params.participantId().getOrNull())

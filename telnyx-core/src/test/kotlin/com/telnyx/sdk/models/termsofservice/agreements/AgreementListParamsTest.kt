@@ -13,7 +13,7 @@ internal class AgreementListParamsTest {
         AgreementListParams.builder()
             .pageNumber(1L)
             .pageSize(20L)
-            .productType(AgreementListParams.ProductType.BRANDED_CALLING)
+            .productType(TosProductType.BRANDED_CALLING)
             .build()
     }
 
@@ -23,7 +23,7 @@ internal class AgreementListParamsTest {
             AgreementListParams.builder()
                 .pageNumber(1L)
                 .pageSize(20L)
-                .productType(AgreementListParams.ProductType.BRANDED_CALLING)
+                .productType(TosProductType.BRANDED_CALLING)
                 .build()
 
         val queryParams = params._queryParams()

@@ -17,8 +17,8 @@ private constructor(
     private val service: McpServerServiceAsync,
     private val streamHandlerExecutor: Executor,
     private val params: McpServerListParams,
-    private val items: List<McpServerListResponse>,
-) : PageAsync<McpServerListResponse> {
+    private val items: List<McpServer>,
+) : PageAsync<McpServer> {
 
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
@@ -30,14 +30,13 @@ private constructor(
     override fun nextPage(): CompletableFuture<McpServerListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<McpServerListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<McpServer> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): McpServerListParams = params
 
     /** The response that this page was parsed from. */
-    override fun items(): List<McpServerListResponse> = items
+    override fun items(): List<McpServer> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,7 +62,7 @@ private constructor(
         private var service: McpServerServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
         private var params: McpServerListParams? = null
-        private var items: List<McpServerListResponse>? = null
+        private var items: List<McpServer>? = null
 
         @JvmSynthetic
         internal fun from(mcpServerListPageAsync: McpServerListPageAsync) = apply {
@@ -83,7 +82,7 @@ private constructor(
         fun params(params: McpServerListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<McpServerListResponse>) = apply { this.items = items }
+        fun items(items: List<McpServer>) = apply { this.items = items }
 
         /**
          * Returns an immutable instance of [McpServerListPageAsync].

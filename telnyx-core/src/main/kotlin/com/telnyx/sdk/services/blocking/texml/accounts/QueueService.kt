@@ -8,14 +8,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListPage
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueResource
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateResponse
 import java.util.function.Consumer
 
 /** TeXML REST Commands */
@@ -34,39 +32,36 @@ interface QueueService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService
 
     /** Creates a new queue resource. */
-    fun create(accountSid: String): QueueCreateResponse =
-        create(accountSid, QueueCreateParams.none())
+    fun create(accountSid: String): QueueResource = create(accountSid, QueueCreateParams.none())
 
     /** @see create */
     fun create(
         accountSid: String,
         params: QueueCreateParams = QueueCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueCreateResponse =
-        create(params.toBuilder().accountSid(accountSid).build(), requestOptions)
+    ): QueueResource = create(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
     /** @see create */
     fun create(
         accountSid: String,
         params: QueueCreateParams = QueueCreateParams.none(),
-    ): QueueCreateResponse = create(accountSid, params, RequestOptions.none())
+    ): QueueResource = create(accountSid, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: QueueCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueCreateResponse
+    ): QueueResource
 
     /** @see create */
-    fun create(params: QueueCreateParams): QueueCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(params: QueueCreateParams): QueueResource = create(params, RequestOptions.none())
 
     /** @see create */
-    fun create(accountSid: String, requestOptions: RequestOptions): QueueCreateResponse =
+    fun create(accountSid: String, requestOptions: RequestOptions): QueueResource =
         create(accountSid, QueueCreateParams.none(), requestOptions)
 
     /** Returns a queue resource. */
-    fun retrieve(queueSid: String, params: QueueRetrieveParams): QueueRetrieveResponse =
+    fun retrieve(queueSid: String, params: QueueRetrieveParams): QueueResource =
         retrieve(queueSid, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -74,21 +69,20 @@ interface QueueService {
         queueSid: String,
         params: QueueRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueRetrieveResponse =
-        retrieve(params.toBuilder().queueSid(queueSid).build(), requestOptions)
+    ): QueueResource = retrieve(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: QueueRetrieveParams): QueueRetrieveResponse =
+    fun retrieve(params: QueueRetrieveParams): QueueResource =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: QueueRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueRetrieveResponse
+    ): QueueResource
 
     /** Updates a queue resource. */
-    fun update(queueSid: String, params: QueueUpdateParams): QueueUpdateResponse =
+    fun update(queueSid: String, params: QueueUpdateParams): QueueResource =
         update(queueSid, params, RequestOptions.none())
 
     /** @see update */
@@ -96,17 +90,16 @@ interface QueueService {
         queueSid: String,
         params: QueueUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueUpdateResponse = update(params.toBuilder().queueSid(queueSid).build(), requestOptions)
+    ): QueueResource = update(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: QueueUpdateParams): QueueUpdateResponse =
-        update(params, RequestOptions.none())
+    fun update(params: QueueUpdateParams): QueueResource = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: QueueUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueUpdateResponse
+    ): QueueResource
 
     /** Lists queue resources. */
     fun list(accountSid: String): QueueListPage = list(accountSid, QueueListParams.none())
@@ -167,7 +160,7 @@ interface QueueService {
          * otherwise the same as [QueueService.create].
          */
         @MustBeClosed
-        fun create(accountSid: String): HttpResponseFor<QueueCreateResponse> =
+        fun create(accountSid: String): HttpResponseFor<QueueResource> =
             create(accountSid, QueueCreateParams.none())
 
         /** @see create */
@@ -176,7 +169,7 @@ interface QueueService {
             accountSid: String,
             params: QueueCreateParams = QueueCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueCreateResponse> =
+        ): HttpResponseFor<QueueResource> =
             create(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
         /** @see create */
@@ -184,18 +177,18 @@ interface QueueService {
         fun create(
             accountSid: String,
             params: QueueCreateParams = QueueCreateParams.none(),
-        ): HttpResponseFor<QueueCreateResponse> = create(accountSid, params, RequestOptions.none())
+        ): HttpResponseFor<QueueResource> = create(accountSid, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: QueueCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueCreateResponse>
+        ): HttpResponseFor<QueueResource>
 
         /** @see create */
         @MustBeClosed
-        fun create(params: QueueCreateParams): HttpResponseFor<QueueCreateResponse> =
+        fun create(params: QueueCreateParams): HttpResponseFor<QueueResource> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -203,7 +196,7 @@ interface QueueService {
         fun create(
             accountSid: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueCreateResponse> =
+        ): HttpResponseFor<QueueResource> =
             create(accountSid, QueueCreateParams.none(), requestOptions)
 
         /**
@@ -214,8 +207,7 @@ interface QueueService {
         fun retrieve(
             queueSid: String,
             params: QueueRetrieveParams,
-        ): HttpResponseFor<QueueRetrieveResponse> =
-            retrieve(queueSid, params, RequestOptions.none())
+        ): HttpResponseFor<QueueResource> = retrieve(queueSid, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -223,12 +215,12 @@ interface QueueService {
             queueSid: String,
             params: QueueRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueRetrieveResponse> =
+        ): HttpResponseFor<QueueResource> =
             retrieve(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: QueueRetrieveParams): HttpResponseFor<QueueRetrieveResponse> =
+        fun retrieve(params: QueueRetrieveParams): HttpResponseFor<QueueResource> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -236,17 +228,15 @@ interface QueueService {
         fun retrieve(
             params: QueueRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueRetrieveResponse>
+        ): HttpResponseFor<QueueResource>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Queues/{queue_sid}`,
          * but is otherwise the same as [QueueService.update].
          */
         @MustBeClosed
-        fun update(
-            queueSid: String,
-            params: QueueUpdateParams,
-        ): HttpResponseFor<QueueUpdateResponse> = update(queueSid, params, RequestOptions.none())
+        fun update(queueSid: String, params: QueueUpdateParams): HttpResponseFor<QueueResource> =
+            update(queueSid, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -254,12 +244,12 @@ interface QueueService {
             queueSid: String,
             params: QueueUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueUpdateResponse> =
+        ): HttpResponseFor<QueueResource> =
             update(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: QueueUpdateParams): HttpResponseFor<QueueUpdateResponse> =
+        fun update(params: QueueUpdateParams): HttpResponseFor<QueueResource> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -267,7 +257,7 @@ interface QueueService {
         fun update(
             params: QueueUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueUpdateResponse>
+        ): HttpResponseFor<QueueResource>
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Queues`, but is

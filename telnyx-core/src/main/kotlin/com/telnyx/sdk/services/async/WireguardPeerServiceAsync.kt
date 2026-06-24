@@ -35,14 +35,23 @@ interface WireguardPeerServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WireguardPeerServiceAsync
 
     /** Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created. */
-    fun create(params: WireguardPeerCreateParams): CompletableFuture<WireguardPeerCreateResponse> =
-        create(params, RequestOptions.none())
+    fun create(): CompletableFuture<WireguardPeerCreateResponse> =
+        create(WireguardPeerCreateParams.none())
 
     /** @see create */
     fun create(
-        params: WireguardPeerCreateParams,
+        params: WireguardPeerCreateParams = WireguardPeerCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireguardPeerCreateResponse>
+
+    /** @see create */
+    fun create(
+        params: WireguardPeerCreateParams = WireguardPeerCreateParams.none()
+    ): CompletableFuture<WireguardPeerCreateResponse> = create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(requestOptions: RequestOptions): CompletableFuture<WireguardPeerCreateResponse> =
+        create(WireguardPeerCreateParams.none(), requestOptions)
 
     /** Retrieve the WireGuard peer. */
     fun retrieve(id: String): CompletableFuture<WireguardPeerRetrieveResponse> =
@@ -208,16 +217,26 @@ interface WireguardPeerServiceAsync {
          * Returns a raw HTTP response for `post /wireguard_peers`, but is otherwise the same as
          * [WireguardPeerServiceAsync.create].
          */
+        fun create(): CompletableFuture<HttpResponseFor<WireguardPeerCreateResponse>> =
+            create(WireguardPeerCreateParams.none())
+
+        /** @see create */
         fun create(
-            params: WireguardPeerCreateParams
+            params: WireguardPeerCreateParams = WireguardPeerCreateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireguardPeerCreateResponse>>
+
+        /** @see create */
+        fun create(
+            params: WireguardPeerCreateParams = WireguardPeerCreateParams.none()
         ): CompletableFuture<HttpResponseFor<WireguardPeerCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            params: WireguardPeerCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireguardPeerCreateResponse>>
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<WireguardPeerCreateResponse>> =
+            create(WireguardPeerCreateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wireguard_peers/{id}`, but is otherwise the same as

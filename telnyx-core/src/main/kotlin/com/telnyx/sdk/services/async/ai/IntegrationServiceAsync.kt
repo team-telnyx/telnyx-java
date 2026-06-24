@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.integrations.Integration
 import com.telnyx.sdk.models.ai.integrations.IntegrationListParams
 import com.telnyx.sdk.models.ai.integrations.IntegrationListResponse
 import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveParams
-import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveResponse
 import com.telnyx.sdk.services.async.ai.integrations.ConnectionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -30,7 +30,7 @@ interface IntegrationServiceAsync {
     fun connections(): ConnectionServiceAsync
 
     /** Retrieve integration details */
-    fun retrieve(integrationId: String): CompletableFuture<IntegrationRetrieveResponse> =
+    fun retrieve(integrationId: String): CompletableFuture<Integration> =
         retrieve(integrationId, IntegrationRetrieveParams.none())
 
     /** @see retrieve */
@@ -38,32 +38,30 @@ interface IntegrationServiceAsync {
         integrationId: String,
         params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegrationRetrieveResponse> =
+    ): CompletableFuture<Integration> =
         retrieve(params.toBuilder().integrationId(integrationId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         integrationId: String,
         params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
-    ): CompletableFuture<IntegrationRetrieveResponse> =
-        retrieve(integrationId, params, RequestOptions.none())
+    ): CompletableFuture<Integration> = retrieve(integrationId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: IntegrationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegrationRetrieveResponse>
+    ): CompletableFuture<Integration>
 
     /** @see retrieve */
-    fun retrieve(
-        params: IntegrationRetrieveParams
-    ): CompletableFuture<IntegrationRetrieveResponse> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: IntegrationRetrieveParams): CompletableFuture<Integration> =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         integrationId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegrationRetrieveResponse> =
+    ): CompletableFuture<Integration> =
         retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
     /** List all available integrations. */
@@ -105,9 +103,7 @@ interface IntegrationServiceAsync {
          * Returns a raw HTTP response for `get /ai/integrations/{integration_id}`, but is otherwise
          * the same as [IntegrationServiceAsync.retrieve].
          */
-        fun retrieve(
-            integrationId: String
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> =
+        fun retrieve(integrationId: String): CompletableFuture<HttpResponseFor<Integration>> =
             retrieve(integrationId, IntegrationRetrieveParams.none())
 
         /** @see retrieve */
@@ -115,33 +111,32 @@ interface IntegrationServiceAsync {
             integrationId: String,
             params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<Integration>> =
             retrieve(params.toBuilder().integrationId(integrationId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             integrationId: String,
             params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<Integration>> =
             retrieve(integrationId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: IntegrationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<Integration>>
 
         /** @see retrieve */
         fun retrieve(
             params: IntegrationRetrieveParams
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> =
-            retrieve(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<Integration>> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             integrationId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<Integration>> =
             retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
         /**

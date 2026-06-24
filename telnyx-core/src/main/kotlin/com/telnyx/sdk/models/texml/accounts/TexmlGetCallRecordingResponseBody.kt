@@ -12,6 +12,8 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingSource
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TwimlRecordingChannels
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -23,7 +25,7 @@ class TexmlGetCallRecordingResponseBody
 private constructor(
     private val accountSid: JsonField<String>,
     private val callSid: JsonField<String>,
-    private val channels: JsonField<Channels>,
+    private val channels: JsonField<TwimlRecordingChannels>,
     private val conferenceSid: JsonField<String>,
     private val dateCreated: JsonField<OffsetDateTime>,
     private val dateUpdated: JsonField<OffsetDateTime>,
@@ -31,7 +33,7 @@ private constructor(
     private val errorCode: JsonField<String>,
     private val mediaUrl: JsonField<String>,
     private val sid: JsonField<String>,
-    private val source: JsonField<Source>,
+    private val source: JsonField<RecordingSource>,
     private val startTime: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val subresourcesUris: JsonField<TexmlRecordingSubresourcesUris>,
@@ -45,7 +47,9 @@ private constructor(
         @ExcludeMissing
         accountSid: JsonField<String> = JsonMissing.of(),
         @JsonProperty("call_sid") @ExcludeMissing callSid: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("channels") @ExcludeMissing channels: JsonField<Channels> = JsonMissing.of(),
+        @JsonProperty("channels")
+        @ExcludeMissing
+        channels: JsonField<TwimlRecordingChannels> = JsonMissing.of(),
         @JsonProperty("conference_sid")
         @ExcludeMissing
         conferenceSid: JsonField<String> = JsonMissing.of(),
@@ -59,7 +63,9 @@ private constructor(
         @JsonProperty("error_code") @ExcludeMissing errorCode: JsonField<String> = JsonMissing.of(),
         @JsonProperty("media_url") @ExcludeMissing mediaUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sid") @ExcludeMissing sid: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
+        @JsonProperty("source")
+        @ExcludeMissing
+        source: JsonField<RecordingSource> = JsonMissing.of(),
         @JsonProperty("start_time")
         @ExcludeMissing
         startTime: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -103,7 +109,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun channels(): Optional<Channels> = channels.getOptional("channels")
+    fun channels(): Optional<TwimlRecordingChannels> = channels.getOptional("channels")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -157,7 +163,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun source(): Optional<Source> = source.getOptional("source")
+    fun source(): Optional<RecordingSource> = source.getOptional("source")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -207,7 +213,9 @@ private constructor(
      *
      * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("channels") @ExcludeMissing fun _channels(): JsonField<Channels> = channels
+    @JsonProperty("channels")
+    @ExcludeMissing
+    fun _channels(): JsonField<TwimlRecordingChannels> = channels
 
     /**
      * Returns the raw JSON value of [conferenceSid].
@@ -269,7 +277,7 @@ private constructor(
      *
      * Unlike [source], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("source") @ExcludeMissing fun _source(): JsonField<Source> = source
+    @JsonProperty("source") @ExcludeMissing fun _source(): JsonField<RecordingSource> = source
 
     /**
      * Returns the raw JSON value of [startTime].
@@ -330,7 +338,7 @@ private constructor(
 
         private var accountSid: JsonField<String> = JsonMissing.of()
         private var callSid: JsonField<String> = JsonMissing.of()
-        private var channels: JsonField<Channels> = JsonMissing.of()
+        private var channels: JsonField<TwimlRecordingChannels> = JsonMissing.of()
         private var conferenceSid: JsonField<String> = JsonMissing.of()
         private var dateCreated: JsonField<OffsetDateTime> = JsonMissing.of()
         private var dateUpdated: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -338,7 +346,7 @@ private constructor(
         private var errorCode: JsonField<String> = JsonMissing.of()
         private var mediaUrl: JsonField<String> = JsonMissing.of()
         private var sid: JsonField<String> = JsonMissing.of()
-        private var source: JsonField<Source> = JsonMissing.of()
+        private var source: JsonField<RecordingSource> = JsonMissing.of()
         private var startTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var subresourcesUris: JsonField<TexmlRecordingSubresourcesUris> = JsonMissing.of()
@@ -388,16 +396,18 @@ private constructor(
          */
         fun callSid(callSid: JsonField<String>) = apply { this.callSid = callSid }
 
-        fun channels(channels: Channels) = channels(JsonField.of(channels))
+        fun channels(channels: TwimlRecordingChannels) = channels(JsonField.of(channels))
 
         /**
          * Sets [Builder.channels] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.channels] with a well-typed [Channels] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.channels] with a well-typed [TwimlRecordingChannels]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun channels(channels: JsonField<Channels>) = apply { this.channels = channels }
+        fun channels(channels: JsonField<TwimlRecordingChannels>) = apply {
+            this.channels = channels
+        }
 
         fun conferenceSid(conferenceSid: String?) =
             conferenceSid(JsonField.ofNullable(conferenceSid))
@@ -493,15 +503,16 @@ private constructor(
         fun sid(sid: JsonField<String>) = apply { this.sid = sid }
 
         /** Defines how the recording was created. */
-        fun source(source: Source) = source(JsonField.of(source))
+        fun source(source: RecordingSource) = source(JsonField.of(source))
 
         /**
          * Sets [Builder.source] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.source] with a well-typed [Source] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.source] with a well-typed [RecordingSource] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun source(source: JsonField<Source>) = apply { this.source = source }
+        fun source(source: JsonField<RecordingSource>) = apply { this.source = source }
 
         fun startTime(startTime: OffsetDateTime) = startTime(JsonField.of(startTime))
 
@@ -658,304 +669,6 @@ private constructor(
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (subresourcesUris.asKnown().getOrNull()?.validity() ?: 0) +
             (if (uri.asKnown().isPresent) 1 else 0)
-
-    class Channels @JsonCreator private constructor(private val value: JsonField<Long>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
-
-        companion object {
-
-            @JvmField val CHANNEL_1 = of(1L)
-
-            @JvmField val CHANNEL_2 = of(2L)
-
-            @JvmStatic fun of(value: Long) = Channels(JsonField.of(value))
-        }
-
-        /** An enum containing [Channels]'s known values. */
-        enum class Known {
-            CHANNEL_1,
-            CHANNEL_2,
-        }
-
-        /**
-         * An enum containing [Channels]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Channels] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            CHANNEL_1,
-            CHANNEL_2,
-            /** An enum member indicating that [Channels] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                CHANNEL_1 -> Value.CHANNEL_1
-                CHANNEL_2 -> Value.CHANNEL_2
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                CHANNEL_1 -> Known.CHANNEL_1
-                CHANNEL_2 -> Known.CHANNEL_2
-                else -> throw TelnyxInvalidDataException("Unknown Channels: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asLong(): Long =
-            _value().asNumber().getOrNull()?.let {
-                if (it.toDouble() % 1 == 0.0) it.toLong() else null
-            } ?: throw TelnyxInvalidDataException("Value is not a Long")
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Channels = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Channels && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** Defines how the recording was created. */
-    class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val START_CALL_RECORDING_API = of("StartCallRecordingAPI")
-
-            @JvmField val START_CONFERENCE_RECORDING_API = of("StartConferenceRecordingAPI")
-
-            @JvmField val OUTBOUND_API = of("OutboundAPI")
-
-            @JvmField val DIAL_VERB = of("DialVerb")
-
-            @JvmField val CONFERENCE = of("Conference")
-
-            @JvmField val RECORD_VERB = of("RecordVerb")
-
-            @JvmField val TRUNKING = of("Trunking")
-
-            @JvmStatic fun of(value: String) = Source(JsonField.of(value))
-        }
-
-        /** An enum containing [Source]'s known values. */
-        enum class Known {
-            START_CALL_RECORDING_API,
-            START_CONFERENCE_RECORDING_API,
-            OUTBOUND_API,
-            DIAL_VERB,
-            CONFERENCE,
-            RECORD_VERB,
-            TRUNKING,
-        }
-
-        /**
-         * An enum containing [Source]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Source] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            START_CALL_RECORDING_API,
-            START_CONFERENCE_RECORDING_API,
-            OUTBOUND_API,
-            DIAL_VERB,
-            CONFERENCE,
-            RECORD_VERB,
-            TRUNKING,
-            /** An enum member indicating that [Source] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                START_CALL_RECORDING_API -> Value.START_CALL_RECORDING_API
-                START_CONFERENCE_RECORDING_API -> Value.START_CONFERENCE_RECORDING_API
-                OUTBOUND_API -> Value.OUTBOUND_API
-                DIAL_VERB -> Value.DIAL_VERB
-                CONFERENCE -> Value.CONFERENCE
-                RECORD_VERB -> Value.RECORD_VERB
-                TRUNKING -> Value.TRUNKING
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                START_CALL_RECORDING_API -> Known.START_CALL_RECORDING_API
-                START_CONFERENCE_RECORDING_API -> Known.START_CONFERENCE_RECORDING_API
-                OUTBOUND_API -> Known.OUTBOUND_API
-                DIAL_VERB -> Known.DIAL_VERB
-                CONFERENCE -> Known.CONFERENCE
-                RECORD_VERB -> Known.RECORD_VERB
-                TRUNKING -> Known.TRUNKING
-                else -> throw TelnyxInvalidDataException("Unknown Source: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Source = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Source && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

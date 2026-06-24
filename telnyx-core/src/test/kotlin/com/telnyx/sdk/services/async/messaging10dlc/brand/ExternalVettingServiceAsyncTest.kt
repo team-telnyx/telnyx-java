@@ -28,7 +28,7 @@ internal class ExternalVettingServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalVettingServiceAsync = client.messaging10dlc().brand().externalVetting()
 
-        val responseFuture =
+        val externalVettingFuture =
             externalVettingServiceAsync.imports(
                 ExternalVettingImportsParams.builder()
                     .brandId("brandId")
@@ -38,8 +38,8 @@ internal class ExternalVettingServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val externalVetting = externalVettingFuture.get()
+        externalVetting.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -48,7 +48,7 @@ internal class ExternalVettingServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalVettingServiceAsync = client.messaging10dlc().brand().externalVetting()
 
-        val responseFuture =
+        val externalVettingFuture =
             externalVettingServiceAsync.order(
                 ExternalVettingOrderParams.builder()
                     .brandId("brandId")
@@ -57,7 +57,7 @@ internal class ExternalVettingServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val externalVetting = externalVettingFuture.get()
+        externalVetting.validate()
     }
 }

@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: RequirementListParams,
     private val response: RequirementListPageResponse,
-) : PageAsync<RequirementListResponse> {
+) : PageAsync<DocReqsRequirement> {
 
     /**
      * Delegates to [RequirementListPageResponse], but gracefully handles missing data.
      *
      * @see RequirementListPageResponse.data
      */
-    fun data(): List<RequirementListResponse> =
+    fun data(): List<DocReqsRequirement> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<RequirementListResponse> = data()
+    override fun items(): List<DocReqsRequirement> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<RequirementListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<RequirementListResponse> =
+    fun autoPager(): AutoPagerAsync<DocReqsRequirement> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

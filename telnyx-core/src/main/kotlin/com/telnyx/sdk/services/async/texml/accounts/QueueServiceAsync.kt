@@ -7,14 +7,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageAsync
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueResource
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,7 +32,7 @@ interface QueueServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueServiceAsync
 
     /** Creates a new queue resource. */
-    fun create(accountSid: String): CompletableFuture<QueueCreateResponse> =
+    fun create(accountSid: String): CompletableFuture<QueueResource> =
         create(accountSid, QueueCreateParams.none())
 
     /** @see create */
@@ -42,79 +40,75 @@ interface QueueServiceAsync {
         accountSid: String,
         params: QueueCreateParams = QueueCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueCreateResponse> =
+    ): CompletableFuture<QueueResource> =
         create(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
     /** @see create */
     fun create(
         accountSid: String,
         params: QueueCreateParams = QueueCreateParams.none(),
-    ): CompletableFuture<QueueCreateResponse> = create(accountSid, params, RequestOptions.none())
+    ): CompletableFuture<QueueResource> = create(accountSid, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: QueueCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueCreateResponse>
+    ): CompletableFuture<QueueResource>
 
     /** @see create */
-    fun create(params: QueueCreateParams): CompletableFuture<QueueCreateResponse> =
+    fun create(params: QueueCreateParams): CompletableFuture<QueueResource> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         accountSid: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<QueueCreateResponse> =
+    ): CompletableFuture<QueueResource> =
         create(accountSid, QueueCreateParams.none(), requestOptions)
 
     /** Returns a queue resource. */
-    fun retrieve(
-        queueSid: String,
-        params: QueueRetrieveParams,
-    ): CompletableFuture<QueueRetrieveResponse> = retrieve(queueSid, params, RequestOptions.none())
+    fun retrieve(queueSid: String, params: QueueRetrieveParams): CompletableFuture<QueueResource> =
+        retrieve(queueSid, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         queueSid: String,
         params: QueueRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueRetrieveResponse> =
+    ): CompletableFuture<QueueResource> =
         retrieve(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: QueueRetrieveParams): CompletableFuture<QueueRetrieveResponse> =
+    fun retrieve(params: QueueRetrieveParams): CompletableFuture<QueueResource> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: QueueRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueRetrieveResponse>
+    ): CompletableFuture<QueueResource>
 
     /** Updates a queue resource. */
-    fun update(
-        queueSid: String,
-        params: QueueUpdateParams,
-    ): CompletableFuture<QueueUpdateResponse> = update(queueSid, params, RequestOptions.none())
+    fun update(queueSid: String, params: QueueUpdateParams): CompletableFuture<QueueResource> =
+        update(queueSid, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         queueSid: String,
         params: QueueUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueUpdateResponse> =
+    ): CompletableFuture<QueueResource> =
         update(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: QueueUpdateParams): CompletableFuture<QueueUpdateResponse> =
+    fun update(params: QueueUpdateParams): CompletableFuture<QueueResource> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: QueueUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueUpdateResponse>
+    ): CompletableFuture<QueueResource>
 
     /** Lists queue resources. */
     fun list(accountSid: String): CompletableFuture<QueueListPageAsync> =
@@ -189,7 +183,7 @@ interface QueueServiceAsync {
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Queues`, but is
          * otherwise the same as [QueueServiceAsync.create].
          */
-        fun create(accountSid: String): CompletableFuture<HttpResponseFor<QueueCreateResponse>> =
+        fun create(accountSid: String): CompletableFuture<HttpResponseFor<QueueResource>> =
             create(accountSid, QueueCreateParams.none())
 
         /** @see create */
@@ -197,33 +191,31 @@ interface QueueServiceAsync {
             accountSid: String,
             params: QueueCreateParams = QueueCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             create(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
         /** @see create */
         fun create(
             accountSid: String,
             params: QueueCreateParams = QueueCreateParams.none(),
-        ): CompletableFuture<HttpResponseFor<QueueCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             create(accountSid, params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: QueueCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<QueueResource>>
 
         /** @see create */
-        fun create(
-            params: QueueCreateParams
-        ): CompletableFuture<HttpResponseFor<QueueCreateResponse>> =
+        fun create(params: QueueCreateParams): CompletableFuture<HttpResponseFor<QueueResource>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             accountSid: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<QueueCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             create(accountSid, QueueCreateParams.none(), requestOptions)
 
         /**
@@ -233,7 +225,7 @@ interface QueueServiceAsync {
         fun retrieve(
             queueSid: String,
             params: QueueRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<QueueRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             retrieve(queueSid, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -241,20 +233,20 @@ interface QueueServiceAsync {
             queueSid: String,
             params: QueueRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             retrieve(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             params: QueueRetrieveParams
-        ): CompletableFuture<HttpResponseFor<QueueRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: QueueRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<QueueResource>>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Queues/{queue_sid}`,
@@ -263,7 +255,7 @@ interface QueueServiceAsync {
         fun update(
             queueSid: String,
             params: QueueUpdateParams,
-        ): CompletableFuture<HttpResponseFor<QueueUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             update(queueSid, params, RequestOptions.none())
 
         /** @see update */
@@ -271,20 +263,18 @@ interface QueueServiceAsync {
             queueSid: String,
             params: QueueUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<QueueResource>> =
             update(params.toBuilder().queueSid(queueSid).build(), requestOptions)
 
         /** @see update */
-        fun update(
-            params: QueueUpdateParams
-        ): CompletableFuture<HttpResponseFor<QueueUpdateResponse>> =
+        fun update(params: QueueUpdateParams): CompletableFuture<HttpResponseFor<QueueResource>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: QueueUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<QueueResource>>
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Queues`, but is

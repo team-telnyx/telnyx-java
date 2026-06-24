@@ -16,14 +16,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -43,14 +41,14 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
     override fun create(
         params: AdvancedOrderCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AdvancedOrderCreateResponse> =
+    ): CompletableFuture<AdvancedOrder> =
         // post /advanced_orders
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: AdvancedOrderRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AdvancedOrderRetrieveResponse> =
+    ): CompletableFuture<AdvancedOrder> =
         // get /advanced_orders/{order_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -64,7 +62,7 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
     override fun updateRequirementGroup(
         params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
+    ): CompletableFuture<AdvancedOrder> =
         // patch /advanced_orders/{advanced-order-id}/requirement_group
         withRawResponse().updateRequirementGroup(params, requestOptions).thenApply { it.parse() }
 
@@ -81,13 +79,13 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<AdvancedOrderCreateResponse> =
-            jsonHandler<AdvancedOrderCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun create(
             params: AdvancedOrderCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<AdvancedOrder>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -112,13 +110,13 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val retrieveHandler: Handler<AdvancedOrderRetrieveResponse> =
-            jsonHandler<AdvancedOrderRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AdvancedOrderRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<AdvancedOrder>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("orderId", params.orderId().getOrNull())
@@ -175,14 +173,13 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val updateRequirementGroupHandler:
-            Handler<AdvancedOrderUpdateRequirementGroupResponse> =
-            jsonHandler<AdvancedOrderUpdateRequirementGroupResponse>(clientOptions.jsonMapper)
+        private val updateRequirementGroupHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun updateRequirementGroup(
             params: AdvancedOrderUpdateRequirementGroupParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> {
+        ): CompletableFuture<HttpResponseFor<AdvancedOrder>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("advancedOrderId", params.advancedOrderId().getOrNull())

@@ -17,7 +17,7 @@ internal class PronunciationDictServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val pronunciationDictServiceAsync = client.pronunciationDicts()
 
-        val pronunciationDictFuture =
+        val pronunciationDictResponseFuture =
             pronunciationDictServiceAsync.create(
                 PronunciationDictCreateParams.builder()
                     .addItem(
@@ -31,8 +31,8 @@ internal class PronunciationDictServiceAsyncTest {
                     .build()
             )
 
-        val pronunciationDict = pronunciationDictFuture.get()
-        pronunciationDict.validate()
+        val pronunciationDictResponse = pronunciationDictResponseFuture.get()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -41,11 +41,11 @@ internal class PronunciationDictServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val pronunciationDictServiceAsync = client.pronunciationDicts()
 
-        val pronunciationDictFuture =
+        val pronunciationDictResponseFuture =
             pronunciationDictServiceAsync.retrieve("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
 
-        val pronunciationDict = pronunciationDictFuture.get()
-        pronunciationDict.validate()
+        val pronunciationDictResponse = pronunciationDictResponseFuture.get()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -54,7 +54,7 @@ internal class PronunciationDictServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val pronunciationDictServiceAsync = client.pronunciationDicts()
 
-        val pronunciationDictFuture =
+        val pronunciationDictResponseFuture =
             pronunciationDictServiceAsync.update(
                 PronunciationDictUpdateParams.builder()
                     .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
@@ -69,8 +69,8 @@ internal class PronunciationDictServiceAsyncTest {
                     .build()
             )
 
-        val pronunciationDict = pronunciationDictFuture.get()
-        pronunciationDict.validate()
+        val pronunciationDictResponse = pronunciationDictResponseFuture.get()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

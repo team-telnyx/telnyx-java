@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.portingorders
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.portingphonenumbers.PortingOrderActivationStatus
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,14 +15,14 @@ internal class PortingOrderActivationSettingsTest {
     fun create() {
         val portingOrderActivationSettings =
             PortingOrderActivationSettings.builder()
-                .activationStatus(PortingOrderActivationSettings.ActivationStatus.ACTIVE)
+                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                 .fastPortEligible(true)
                 .focDatetimeActual(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                 .focDatetimeRequested(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                 .build()
 
         assertThat(portingOrderActivationSettings.activationStatus())
-            .contains(PortingOrderActivationSettings.ActivationStatus.ACTIVE)
+            .contains(PortingOrderActivationStatus.ACTIVE)
         assertThat(portingOrderActivationSettings.fastPortEligible()).contains(true)
         assertThat(portingOrderActivationSettings.focDatetimeActual())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
@@ -34,7 +35,7 @@ internal class PortingOrderActivationSettingsTest {
         val jsonMapper = jsonMapper()
         val portingOrderActivationSettings =
             PortingOrderActivationSettings.builder()
-                .activationStatus(PortingOrderActivationSettings.ActivationStatus.ACTIVE)
+                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                 .fastPortEligible(true)
                 .focDatetimeActual(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                 .focDatetimeRequested(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))

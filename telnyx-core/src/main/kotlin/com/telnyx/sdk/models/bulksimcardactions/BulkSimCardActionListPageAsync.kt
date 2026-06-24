@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: BulkSimCardActionListParams,
     private val response: BulkSimCardActionListPageResponse,
-) : PageAsync<BulkSimCardActionListResponse> {
+) : PageAsync<BulkSimCardActionDetailed> {
 
     /**
      * Delegates to [BulkSimCardActionListPageResponse], but gracefully handles missing data.
      *
      * @see BulkSimCardActionListPageResponse.data
      */
-    fun data(): List<BulkSimCardActionListResponse> =
+    fun data(): List<BulkSimCardActionDetailed> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<BulkSimCardActionListResponse> = data()
+    override fun items(): List<BulkSimCardActionDetailed> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<BulkSimCardActionListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<BulkSimCardActionListResponse> =
+    fun autoPager(): AutoPagerAsync<BulkSimCardActionDetailed> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

@@ -33,7 +33,7 @@ internal class JsonServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jsonServiceAsync = client.texml().accounts().transcriptions().json()
 
-        val responseFuture =
+        val texmlRecordingTranscriptionFuture =
             jsonServiceAsync.retrieveRecordingTranscriptionSidJson(
                 JsonRetrieveRecordingTranscriptionSidJsonParams.builder()
                     .accountSid("account_sid")
@@ -41,7 +41,7 @@ internal class JsonServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val texmlRecordingTranscription = texmlRecordingTranscriptionFuture.get()
+        texmlRecordingTranscription.validate()
     }
 }

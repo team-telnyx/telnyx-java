@@ -14,9 +14,9 @@ internal class BrandedCallingServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandedCallingServiceAsync = client.termsOfService().brandedCalling()
 
-        val responseFuture = brandedCallingServiceAsync.agree()
+        val tosAgreementWrappedFuture = brandedCallingServiceAsync.agree()
 
-        val response = responseFuture.get()
-        response.validate()
+        val tosAgreementWrapped = tosAgreementWrappedFuture.get()
+        tosAgreementWrapped.validate()
     }
 }

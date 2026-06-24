@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.portouts
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class PortoutListParamsTest {
@@ -19,19 +18,19 @@ internal class PortoutListParamsTest {
                     .countryCode("US")
                     .addCountryCodeIn("CA")
                     .addCountryCodeIn("US")
-                    .focDate(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                    .focDate(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                     .insertedAt(
                         PortoutListParams.Filter.InsertedAt.builder()
-                            .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                            .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                            .gte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
+                            .lte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                             .build()
                     )
                     .phoneNumber("+13035551212")
                     .pon("pon")
                     .portedOutAt(
                         PortoutListParams.Filter.PortedOutAt.builder()
-                            .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                            .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                            .gte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
+                            .lte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                             .build()
                     )
                     .spid("spid")
@@ -46,7 +45,6 @@ internal class PortoutListParamsTest {
     }
 
     @Test
-    @Disabled("disabled due to timestamp serialization issue")
     fun queryParams() {
         val params =
             PortoutListParams.builder()
@@ -56,19 +54,19 @@ internal class PortoutListParamsTest {
                         .countryCode("US")
                         .addCountryCodeIn("CA")
                         .addCountryCodeIn("US")
-                        .focDate(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                        .focDate(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                         .insertedAt(
                             PortoutListParams.Filter.InsertedAt.builder()
-                                .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                                .gte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
+                                .lte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                                 .build()
                         )
                         .phoneNumber("+13035551212")
                         .pon("pon")
                         .portedOutAt(
                             PortoutListParams.Filter.PortedOutAt.builder()
-                                .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
+                                .gte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
+                                .lte(OffsetDateTime.parse("2024-09-04T00:00:00Z"))
                                 .build()
                         )
                         .spid("spid")
@@ -89,13 +87,13 @@ internal class PortoutListParamsTest {
                     .put("filter[carrier_name]", "carrier_name")
                     .put("filter[country_code]", "US")
                     .put("filter[country_code_in]", listOf("CA", "US").joinToString(","))
-                    .put("filter[foc_date]", "2024-09-04T00:00:00.000Z")
-                    .put("filter[inserted_at][gte]", "2024-09-04T00:00:00.000Z")
-                    .put("filter[inserted_at][lte]", "2024-09-04T00:00:00.000Z")
+                    .put("filter[foc_date]", "2024-09-04T00:00:00Z")
+                    .put("filter[inserted_at][gte]", "2024-09-04T00:00:00Z")
+                    .put("filter[inserted_at][lte]", "2024-09-04T00:00:00Z")
                     .put("filter[phone_number]", "+13035551212")
                     .put("filter[pon]", "pon")
-                    .put("filter[ported_out_at][gte]", "2024-09-04T00:00:00.000Z")
-                    .put("filter[ported_out_at][lte]", "2024-09-04T00:00:00.000Z")
+                    .put("filter[ported_out_at][gte]", "2024-09-04T00:00:00Z")
+                    .put("filter[ported_out_at][lte]", "2024-09-04T00:00:00Z")
                     .put("filter[spid]", "spid")
                     .put("filter[status]", "pending")
                     .put("filter[status_in]", listOf("pending").joinToString(","))

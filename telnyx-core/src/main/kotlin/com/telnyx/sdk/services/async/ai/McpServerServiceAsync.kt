@@ -6,15 +6,13 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.mcpservers.McpServer
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListPageAsync
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,17 +31,17 @@ interface McpServerServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerServiceAsync
 
     /** Create a new MCP server. */
-    fun create(params: McpServerCreateParams): CompletableFuture<McpServerCreateResponse> =
+    fun create(params: McpServerCreateParams): CompletableFuture<McpServer> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: McpServerCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerCreateResponse>
+    ): CompletableFuture<McpServer>
 
     /** Retrieve details for a specific MCP server. */
-    fun retrieve(mcpServerId: String): CompletableFuture<McpServerRetrieveResponse> =
+    fun retrieve(mcpServerId: String): CompletableFuture<McpServer> =
         retrieve(mcpServerId, McpServerRetrieveParams.none())
 
     /** @see retrieve */
@@ -51,35 +49,34 @@ interface McpServerServiceAsync {
         mcpServerId: String,
         params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerRetrieveResponse> =
+    ): CompletableFuture<McpServer> =
         retrieve(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         mcpServerId: String,
         params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
-    ): CompletableFuture<McpServerRetrieveResponse> =
-        retrieve(mcpServerId, params, RequestOptions.none())
+    ): CompletableFuture<McpServer> = retrieve(mcpServerId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: McpServerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerRetrieveResponse>
+    ): CompletableFuture<McpServer>
 
     /** @see retrieve */
-    fun retrieve(params: McpServerRetrieveParams): CompletableFuture<McpServerRetrieveResponse> =
+    fun retrieve(params: McpServerRetrieveParams): CompletableFuture<McpServer> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         mcpServerId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<McpServerRetrieveResponse> =
+    ): CompletableFuture<McpServer> =
         retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
     /** Update an existing MCP server. */
-    fun update(mcpServerId: String): CompletableFuture<McpServerUpdateResponse> =
+    fun update(mcpServerId: String): CompletableFuture<McpServer> =
         update(mcpServerId, McpServerUpdateParams.none())
 
     /** @see update */
@@ -87,31 +84,27 @@ interface McpServerServiceAsync {
         mcpServerId: String,
         params: McpServerUpdateParams = McpServerUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerUpdateResponse> =
+    ): CompletableFuture<McpServer> =
         update(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see update */
     fun update(
         mcpServerId: String,
         params: McpServerUpdateParams = McpServerUpdateParams.none(),
-    ): CompletableFuture<McpServerUpdateResponse> =
-        update(mcpServerId, params, RequestOptions.none())
+    ): CompletableFuture<McpServer> = update(mcpServerId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: McpServerUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerUpdateResponse>
+    ): CompletableFuture<McpServer>
 
     /** @see update */
-    fun update(params: McpServerUpdateParams): CompletableFuture<McpServerUpdateResponse> =
+    fun update(params: McpServerUpdateParams): CompletableFuture<McpServer> =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(
-        mcpServerId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<McpServerUpdateResponse> =
+    fun update(mcpServerId: String, requestOptions: RequestOptions): CompletableFuture<McpServer> =
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of MCP servers. */
@@ -182,24 +175,20 @@ interface McpServerServiceAsync {
          * Returns a raw HTTP response for `post /ai/mcp_servers`, but is otherwise the same as
          * [McpServerServiceAsync.create].
          */
-        fun create(
-            params: McpServerCreateParams
-        ): CompletableFuture<HttpResponseFor<McpServerCreateResponse>> =
+        fun create(params: McpServerCreateParams): CompletableFuture<HttpResponseFor<McpServer>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: McpServerCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<McpServer>>
 
         /**
          * Returns a raw HTTP response for `get /ai/mcp_servers/{mcp_server_id}`, but is otherwise
          * the same as [McpServerServiceAsync.retrieve].
          */
-        fun retrieve(
-            mcpServerId: String
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>> =
+        fun retrieve(mcpServerId: String): CompletableFuture<HttpResponseFor<McpServer>> =
             retrieve(mcpServerId, McpServerRetrieveParams.none())
 
         /** @see retrieve */
@@ -207,42 +196,39 @@ interface McpServerServiceAsync {
             mcpServerId: String,
             params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             retrieve(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             mcpServerId: String,
             params: McpServerRetrieveParams = McpServerRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             retrieve(mcpServerId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: McpServerRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<McpServer>>
 
         /** @see retrieve */
         fun retrieve(
             params: McpServerRetrieveParams
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>> =
-            retrieve(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<McpServer>> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             mcpServerId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<McpServerRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /ai/mcp_servers/{mcp_server_id}`, but is otherwise
          * the same as [McpServerServiceAsync.update].
          */
-        fun update(
-            mcpServerId: String
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>> =
+        fun update(mcpServerId: String): CompletableFuture<HttpResponseFor<McpServer>> =
             update(mcpServerId, McpServerUpdateParams.none())
 
         /** @see update */
@@ -250,33 +236,31 @@ interface McpServerServiceAsync {
             mcpServerId: String,
             params: McpServerUpdateParams = McpServerUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             update(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see update */
         fun update(
             mcpServerId: String,
             params: McpServerUpdateParams = McpServerUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             update(mcpServerId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: McpServerUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<McpServer>>
 
         /** @see update */
-        fun update(
-            params: McpServerUpdateParams
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>> =
+        fun update(params: McpServerUpdateParams): CompletableFuture<HttpResponseFor<McpServer>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             mcpServerId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<McpServerUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<McpServer>> =
             update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
         /**

@@ -17,12 +17,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import com.telnyx.sdk.models.reputation.numbers.NumberDeleteParams
 import com.telnyx.sdk.models.reputation.numbers.NumberListPage
-import com.telnyx.sdk.models.reputation.numbers.NumberListPageResponse
 import com.telnyx.sdk.models.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.reputation.numbers.NumberRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,7 +42,7 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions,
-    ): NumberRetrieveResponse =
+    ): ReputationPhoneNumberWithReputation =
         // get /reputation/numbers/{phone_number}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -68,13 +68,13 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<NumberRetrieveResponse> =
-            jsonHandler<NumberRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ReputationPhoneNumberWithReputation> =
+            jsonHandler<ReputationPhoneNumberWithReputation>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberRetrieveResponse> {
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("phoneNumber", params.phoneNumber().getOrNull())
@@ -98,8 +98,8 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<NumberListPageResponse> =
-            jsonHandler<NumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ReputationPhoneNumberList> =
+            jsonHandler<ReputationPhoneNumberList>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberListParams,

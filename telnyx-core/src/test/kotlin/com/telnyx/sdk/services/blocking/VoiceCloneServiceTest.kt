@@ -27,18 +27,20 @@ internal class VoiceCloneServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceCloneService = client.voiceClones()
 
-        val voiceClone =
+        val voiceCloneResponse =
             voiceCloneService.create(
-                VoiceCloneCreateParams.Params.TelnyxDesignClone.builder()
-                    .gender(VoiceCloneCreateParams.Params.TelnyxDesignClone.Gender.MALE)
+                VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.builder()
+                    .gender(VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Gender.MALE)
                     .language("en")
                     .name("clone-narrator")
                     .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                    .provider(VoiceCloneCreateParams.Params.TelnyxDesignClone.Provider.TELNYX)
+                    .provider(
+                        VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Provider.TELNYX
+                    )
                     .build()
             )
 
-        voiceClone.validate()
+        voiceCloneResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -47,7 +49,7 @@ internal class VoiceCloneServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceCloneService = client.voiceClones()
 
-        val voiceClone =
+        val voiceCloneResponse =
             voiceCloneService.update(
                 VoiceCloneUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -57,7 +59,7 @@ internal class VoiceCloneServiceTest {
                     .build()
             )
 
-        voiceClone.validate()
+        voiceCloneResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -86,26 +88,34 @@ internal class VoiceCloneServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceCloneService = client.voiceClones()
 
-        val response =
+        val voiceCloneResponse =
             voiceCloneService.createFromUpload(
-                VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.builder()
+                VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.TelnyxQwen3TtsClone
+                    .builder()
                     .audioFile("Example data".byteInputStream())
-                    .gender(VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Gender.MALE)
+                    .gender(
+                        VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.TelnyxQwen3TtsClone
+                            .Gender
+                            .MALE
+                    )
                     .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
                     .name("name")
                     .provider(
-                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.Provider.TELNYX
+                        VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.TelnyxQwen3TtsClone
+                            .Provider
+                            .TELNYX
                     )
                     .label("label")
                     .modelId(
-                        VoiceCloneCreateFromUploadParams.Params.TelnyxQwen3TtsClone.ModelId
+                        VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.TelnyxQwen3TtsClone
+                            .ModelId
                             .QWEN3_TTS
                     )
                     .refText("ref_text")
                     .build()
             )
 
-        response.validate()
+        voiceCloneResponse.validate()
     }
 
     @Test

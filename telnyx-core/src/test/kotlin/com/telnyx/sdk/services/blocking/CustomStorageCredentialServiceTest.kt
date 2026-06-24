@@ -18,7 +18,7 @@ internal class CustomStorageCredentialServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val customStorageCredentialService = client.customStorageCredentials()
 
-        val customStorageCredential =
+        val credentialsResponse =
             customStorageCredentialService.create(
                 CustomStorageCredentialCreateParams.builder()
                     .connectionId("connection_id")
@@ -37,7 +37,7 @@ internal class CustomStorageCredentialServiceTest {
                     .build()
             )
 
-        customStorageCredential.validate()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -46,9 +46,9 @@ internal class CustomStorageCredentialServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val customStorageCredentialService = client.customStorageCredentials()
 
-        val customStorageCredential = customStorageCredentialService.retrieve("connection_id")
+        val credentialsResponse = customStorageCredentialService.retrieve("connection_id")
 
-        customStorageCredential.validate()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -57,7 +57,7 @@ internal class CustomStorageCredentialServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val customStorageCredentialService = client.customStorageCredentials()
 
-        val customStorageCredential =
+        val credentialsResponse =
             customStorageCredentialService.update(
                 CustomStorageCredentialUpdateParams.builder()
                     .connectionId("connection_id")
@@ -76,7 +76,7 @@ internal class CustomStorageCredentialServiceTest {
                     .build()
             )
 
-        customStorageCredential.validate()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
