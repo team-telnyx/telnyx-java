@@ -28,7 +28,10 @@ internal class WebhookServiceAsyncTest {
     fun unwrapMissingSignatureHeaderThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
         val client =
-            TelnyxOkHttpClientAsync.builder().apiKey("My API Key").publicKey(publicKeyBase64).build()
+            TelnyxOkHttpClientAsync.builder()
+                .apiKey("My API Key")
+                .publicKey(publicKeyBase64)
+                .build()
         val webhookServiceAsync = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -45,7 +48,10 @@ internal class WebhookServiceAsyncTest {
     fun unwrapExpiredTimestampThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
         val client =
-            TelnyxOkHttpClientAsync.builder().apiKey("My API Key").publicKey(publicKeyBase64).build()
+            TelnyxOkHttpClientAsync.builder()
+                .apiKey("My API Key")
+                .publicKey(publicKeyBase64)
+                .build()
         val webhookServiceAsync = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
@@ -70,7 +76,10 @@ internal class WebhookServiceAsyncTest {
     fun unwrapMissingTimestampHeaderThrows() {
         val publicKeyBase64 = "jrMBoswHlhhVx2W2Www72WU/xn4UMpjreslD0m2u0qs="
         val client =
-            TelnyxOkHttpClientAsync.builder().apiKey("My API Key").publicKey(publicKeyBase64).build()
+            TelnyxOkHttpClientAsync.builder()
+                .apiKey("My API Key")
+                .publicKey(publicKeyBase64)
+                .build()
         val webhookServiceAsync = client.webhooks()
 
         val payload = "{\"event_type\":\"test\"}"
