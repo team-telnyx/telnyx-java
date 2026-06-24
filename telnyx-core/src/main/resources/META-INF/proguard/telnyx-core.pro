@@ -35,8 +35,11 @@
 -keep class com.telnyx.sdk.models.** { *; }
 
 # The @ExcludeMissing annotation uses @JsonInclude(CUSTOM, valueFilter = JsonField.IsMissing::class)
-# to skip missing fields. The annotation must be kept so Jackson can read the @JsonInclude meta-annotation.
--keep @interface com.telnyx.sdk.core.ExcludeMissing
+# to skip missing fields. The annotation interface must be kept so Jackson can read the
+# @JsonInclude meta-annotation inside it. Without this, ProGuard strips @ExcludeMissing,
+# Jackson can't find the valueFilter, and JsonMissing values reach the serializer →
+# "JsonMissing cannot be serialized" at runtime.
+-keep @interface com.telnyx.sdk.core.ExcludeMissing { *; }
 
 # Keep core JSON value classes and their inner classes (used by Jackson at runtime).
 # Under ProGuard, these are not reachable from @JsonSerialize/@JsonDeserialize classes,
