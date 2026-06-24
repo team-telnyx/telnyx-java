@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.enterprises
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -77,7 +78,7 @@ internal class EnterpriseListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    EnterpriseListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -151,7 +152,7 @@ internal class EnterpriseListPageResponseTest {
             )
         assertThat(enterpriseListPageResponse.meta())
             .isEqualTo(
-                EnterpriseListPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -228,7 +229,7 @@ internal class EnterpriseListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    EnterpriseListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

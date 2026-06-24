@@ -18,15 +18,14 @@ private constructor(
     private val service: GlobalIpService,
     private val params: GlobalIpListParams,
     private val response: GlobalIpListPageResponse,
-) : Page<GlobalIpListResponse> {
+) : Page<GlobalIp> {
 
     /**
      * Delegates to [GlobalIpListPageResponse], but gracefully handles missing data.
      *
      * @see GlobalIpListPageResponse.data
      */
-    fun data(): List<GlobalIpListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<GlobalIp> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [GlobalIpListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<GlobalIpListResponse> = data()
+    override fun items(): List<GlobalIp> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): GlobalIpListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<GlobalIpListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<GlobalIp> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): GlobalIpListParams = params

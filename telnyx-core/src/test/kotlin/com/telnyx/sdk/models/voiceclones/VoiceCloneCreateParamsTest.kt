@@ -10,13 +10,15 @@ internal class VoiceCloneCreateParamsTest {
     @Test
     fun create() {
         VoiceCloneCreateParams.builder()
-            .params(
-                VoiceCloneCreateParams.Params.TelnyxDesignClone.builder()
-                    .gender(VoiceCloneCreateParams.Params.TelnyxDesignClone.Gender.MALE)
+            .voiceCloneRequest(
+                VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.builder()
+                    .gender(VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Gender.MALE)
                     .language("en")
                     .name("clone-narrator")
                     .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                    .provider(VoiceCloneCreateParams.Params.TelnyxDesignClone.Provider.TELNYX)
+                    .provider(
+                        VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Provider.TELNYX
+                    )
                     .build()
             )
             .build()
@@ -26,13 +28,18 @@ internal class VoiceCloneCreateParamsTest {
     fun body() {
         val params =
             VoiceCloneCreateParams.builder()
-                .params(
-                    VoiceCloneCreateParams.Params.TelnyxDesignClone.builder()
-                        .gender(VoiceCloneCreateParams.Params.TelnyxDesignClone.Gender.MALE)
+                .voiceCloneRequest(
+                    VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.builder()
+                        .gender(
+                            VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Gender.MALE
+                        )
                         .language("en")
                         .name("clone-narrator")
                         .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                        .provider(VoiceCloneCreateParams.Params.TelnyxDesignClone.Provider.TELNYX)
+                        .provider(
+                            VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Provider
+                                .TELNYX
+                        )
                         .build()
                 )
                 .build()
@@ -41,13 +48,18 @@ internal class VoiceCloneCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                VoiceCloneCreateParams.Params.ofTelnyxDesignClone(
-                    VoiceCloneCreateParams.Params.TelnyxDesignClone.builder()
-                        .gender(VoiceCloneCreateParams.Params.TelnyxDesignClone.Gender.MALE)
+                VoiceCloneCreateParams.VoiceCloneRequest.ofTelnyxDesignClone(
+                    VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.builder()
+                        .gender(
+                            VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Gender.MALE
+                        )
                         .language("en")
                         .name("clone-narrator")
                         .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                        .provider(VoiceCloneCreateParams.Params.TelnyxDesignClone.Provider.TELNYX)
+                        .provider(
+                            VoiceCloneCreateParams.VoiceCloneRequest.TelnyxDesignClone.Provider
+                                .TELNYX
+                        )
                         .build()
                 )
             )

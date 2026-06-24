@@ -17,7 +17,7 @@ internal class VerificationCodeListPageResponseTest {
         val verificationCodeListPageResponse =
             VerificationCodeListPageResponse.builder()
                 .addData(
-                    VerificationCodeListResponse.builder()
+                    PortingVerificationCode.builder()
                         .id("52090326-6533-4421-bcf4-bd0117cf3954")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000001")
@@ -28,7 +28,7 @@ internal class VerificationCodeListPageResponseTest {
                         .build()
                 )
                 .addData(
-                    VerificationCodeListResponse.builder()
+                    PortingVerificationCode.builder()
                         .id("cf076b8e-645b-4040-8209-543c5909775f")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000002")
@@ -50,7 +50,7 @@ internal class VerificationCodeListPageResponseTest {
 
         assertThat(verificationCodeListPageResponse.data().getOrNull())
             .containsExactly(
-                VerificationCodeListResponse.builder()
+                PortingVerificationCode.builder()
                     .id("52090326-6533-4421-bcf4-bd0117cf3954")
                     .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .phoneNumber("+61424000001")
@@ -59,7 +59,7 @@ internal class VerificationCodeListPageResponseTest {
                     .updatedAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .verified(true)
                     .build(),
-                VerificationCodeListResponse.builder()
+                PortingVerificationCode.builder()
                     .id("cf076b8e-645b-4040-8209-543c5909775f")
                     .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                     .phoneNumber("+61424000002")
@@ -86,7 +86,7 @@ internal class VerificationCodeListPageResponseTest {
         val verificationCodeListPageResponse =
             VerificationCodeListPageResponse.builder()
                 .addData(
-                    VerificationCodeListResponse.builder()
+                    PortingVerificationCode.builder()
                         .id("52090326-6533-4421-bcf4-bd0117cf3954")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000001")
@@ -97,7 +97,7 @@ internal class VerificationCodeListPageResponseTest {
                         .build()
                 )
                 .addData(
-                    VerificationCodeListResponse.builder()
+                    PortingVerificationCode.builder()
                         .id("cf076b8e-645b-4040-8209-543c5909775f")
                         .createdAt(OffsetDateTime.parse("2020-10-22T15:00:00.000Z"))
                         .phoneNumber("+61424000002")

@@ -17,9 +17,8 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimContestResponse
 import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveParams
-import com.telnyx.sdk.models.infringementclaims.InfringementClaimRetrieveResponse
+import com.telnyx.sdk.models.infringementclaims.InfringementClaimWrapped
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,14 +41,14 @@ class InfringementClaimServiceImpl internal constructor(private val clientOption
     override fun retrieve(
         params: InfringementClaimRetrieveParams,
         requestOptions: RequestOptions,
-    ): InfringementClaimRetrieveResponse =
+    ): InfringementClaimWrapped =
         // get /infringement_claims/{claim_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun contest(
         params: InfringementClaimContestParams,
         requestOptions: RequestOptions,
-    ): InfringementClaimContestResponse =
+    ): InfringementClaimWrapped =
         // post /infringement_claims/{claim_id}/contest
         withRawResponse().contest(params, requestOptions).parse()
 
@@ -66,13 +65,13 @@ class InfringementClaimServiceImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<InfringementClaimRetrieveResponse> =
-            jsonHandler<InfringementClaimRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InfringementClaimWrapped> =
+            jsonHandler<InfringementClaimWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: InfringementClaimRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InfringementClaimRetrieveResponse> {
+        ): HttpResponseFor<InfringementClaimWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("claimId", params.claimId().getOrNull())
@@ -96,13 +95,13 @@ class InfringementClaimServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val contestHandler: Handler<InfringementClaimContestResponse> =
-            jsonHandler<InfringementClaimContestResponse>(clientOptions.jsonMapper)
+        private val contestHandler: Handler<InfringementClaimWrapped> =
+            jsonHandler<InfringementClaimWrapped>(clientOptions.jsonMapper)
 
         override fun contest(
             params: InfringementClaimContestParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InfringementClaimContestResponse> {
+        ): HttpResponseFor<InfringementClaimWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("claimId", params.claimId().getOrNull())

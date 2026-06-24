@@ -17,14 +17,14 @@ private constructor(
     private val service: VoiceSdkCallReportService,
     private val params: VoiceSdkCallReportListParams,
     private val response: VoiceSdkCallReportListPageResponse,
-) : Page<VoiceSdkCallReportListResponse> {
+) : Page<VoiceSdkCallReport> {
 
     /**
      * Delegates to [VoiceSdkCallReportListPageResponse], but gracefully handles missing data.
      *
      * @see VoiceSdkCallReportListPageResponse.data
      */
-    fun data(): List<VoiceSdkCallReportListResponse> =
+    fun data(): List<VoiceSdkCallReport> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
     fun meta(): Optional<VoiceSdkCallReportListPageResponse.Meta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<VoiceSdkCallReportListResponse> = data()
+    override fun items(): List<VoiceSdkCallReport> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): VoiceSdkCallReportListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<VoiceSdkCallReportListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<VoiceSdkCallReport> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): VoiceSdkCallReportListParams = params

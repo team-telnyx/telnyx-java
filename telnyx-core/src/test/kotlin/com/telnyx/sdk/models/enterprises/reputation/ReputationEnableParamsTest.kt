@@ -12,7 +12,7 @@ internal class ReputationEnableParamsTest {
         ReputationEnableParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-            .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
+            .checkFrequency(ReputationCheckFrequency.BUSINESS_DAILY)
             .build()
     }
 
@@ -35,14 +35,13 @@ internal class ReputationEnableParamsTest {
             ReputationEnableParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
+                .checkFrequency(ReputationCheckFrequency.BUSINESS_DAILY)
                 .build()
 
         val body = params._body()
 
         assertThat(body.loaDocumentId()).isEqualTo("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-        assertThat(body.checkFrequency())
-            .contains(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
+        assertThat(body.checkFrequency()).contains(ReputationCheckFrequency.BUSINESS_DAILY)
     }
 
     @Test

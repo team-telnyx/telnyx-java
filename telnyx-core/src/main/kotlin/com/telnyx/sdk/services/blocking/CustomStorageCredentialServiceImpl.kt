@@ -17,13 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.customstoragecredentials.CredentialsResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialDeleteParams
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -47,21 +45,21 @@ internal constructor(private val clientOptions: ClientOptions) : CustomStorageCr
     override fun create(
         params: CustomStorageCredentialCreateParams,
         requestOptions: RequestOptions,
-    ): CustomStorageCredentialCreateResponse =
+    ): CredentialsResponse =
         // post /custom_storage_credentials/{connection_id}
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: CustomStorageCredentialRetrieveParams,
         requestOptions: RequestOptions,
-    ): CustomStorageCredentialRetrieveResponse =
+    ): CredentialsResponse =
         // get /custom_storage_credentials/{connection_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: CustomStorageCredentialUpdateParams,
         requestOptions: RequestOptions,
-    ): CustomStorageCredentialUpdateResponse =
+    ): CredentialsResponse =
         // put /custom_storage_credentials/{connection_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -86,13 +84,13 @@ internal constructor(private val clientOptions: ClientOptions) : CustomStorageCr
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<CustomStorageCredentialCreateResponse> =
-            jsonHandler<CustomStorageCredentialCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: CustomStorageCredentialCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CustomStorageCredentialCreateResponse> {
+        ): HttpResponseFor<CredentialsResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -117,13 +115,13 @@ internal constructor(private val clientOptions: ClientOptions) : CustomStorageCr
             }
         }
 
-        private val retrieveHandler: Handler<CustomStorageCredentialRetrieveResponse> =
-            jsonHandler<CustomStorageCredentialRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CustomStorageCredentialRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CustomStorageCredentialRetrieveResponse> {
+        ): HttpResponseFor<CredentialsResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -147,13 +145,13 @@ internal constructor(private val clientOptions: ClientOptions) : CustomStorageCr
             }
         }
 
-        private val updateHandler: Handler<CustomStorageCredentialUpdateResponse> =
-            jsonHandler<CustomStorageCredentialUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<CredentialsResponse> =
+            jsonHandler<CredentialsResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: CustomStorageCredentialUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CustomStorageCredentialUpdateResponse> {
+        ): HttpResponseFor<CredentialsResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())

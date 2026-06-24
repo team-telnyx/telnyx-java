@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class EventListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EventListResponse>>,
+    private val data: JsonField<List<PortingEvent>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<EventListResponse>> = JsonMissing.of(),
+        data: JsonField<List<PortingEvent>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<EventListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<PortingEvent>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EventListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<PortingEvent>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +82,7 @@ private constructor(
     /** A builder for [EventListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EventListResponse>>? = null
+        private var data: JsonField<MutableList<PortingEvent>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,72 +93,59 @@ private constructor(
             additionalProperties = eventListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EventListResponse>) = data(JsonField.of(data))
+        fun data(data: List<PortingEvent>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EventListResponse>` value
+         * You should usually call [Builder.data] with a well-typed `List<PortingEvent>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<EventListResponse>>) = apply {
+        fun data(data: JsonField<List<PortingEvent>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EventListResponse] to [Builder.data].
+         * Adds a single [PortingEvent] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EventListResponse) = apply {
+        fun addData(data: PortingEvent) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
                 }
         }
 
-        /**
-         * Alias for calling [addData] with
-         * `EventListResponse.ofPortingOrderDeleted(portingOrderDeleted)`.
-         */
-        fun addData(portingOrderDeleted: PortingEventDeletedPayload) =
-            addData(EventListResponse.ofPortingOrderDeleted(portingOrderDeleted))
+        /** Alias for calling [addData] with `PortingEvent.ofOrderDeleted(orderDeleted)`. */
+        fun addData(orderDeleted: PortingEventDeletedPayload) =
+            addData(PortingEvent.ofOrderDeleted(orderDeleted))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingOrderMessagingChanged(portingOrderMessagingChanged)`.
+         * `PortingEvent.ofOrderMessagingChanged(orderMessagingChanged)`.
          */
-        fun addData(portingOrderMessagingChanged: PortingEventMessagingChangedPayload) =
-            addData(EventListResponse.ofPortingOrderMessagingChanged(portingOrderMessagingChanged))
+        fun addData(orderMessagingChanged: PortingEventMessagingChangedPayload) =
+            addData(PortingEvent.ofOrderMessagingChanged(orderMessagingChanged))
 
         /**
-         * Alias for calling [addData] with
-         * `EventListResponse.ofPortingOrderStatusChanged(portingOrderStatusChanged)`.
+         * Alias for calling [addData] with `PortingEvent.ofOrderStatusChanged(orderStatusChanged)`.
          */
-        fun addData(portingOrderStatusChanged: PortingEventStatusChangedEvent) =
-            addData(EventListResponse.ofPortingOrderStatusChanged(portingOrderStatusChanged))
+        fun addData(orderStatusChanged: PortingEventStatusChangedEvent) =
+            addData(PortingEvent.ofOrderStatusChanged(orderStatusChanged))
 
-        /**
-         * Alias for calling [addData] with
-         * `EventListResponse.ofPortingOrderNewComment(portingOrderNewComment)`.
-         */
-        fun addData(portingOrderNewComment: PortingEventNewCommentEvent) =
-            addData(EventListResponse.ofPortingOrderNewComment(portingOrderNewComment))
+        /** Alias for calling [addData] with `PortingEvent.ofOrderNewComment(orderNewComment)`. */
+        fun addData(orderNewComment: PortingEventNewCommentEvent) =
+            addData(PortingEvent.ofOrderNewComment(orderNewComment))
 
-        /**
-         * Alias for calling [addData] with
-         * `EventListResponse.ofPortingOrderSplit(portingOrderSplit)`.
-         */
-        fun addData(portingOrderSplit: PortingEventSplitEvent) =
-            addData(EventListResponse.ofPortingOrderSplit(portingOrderSplit))
+        /** Alias for calling [addData] with `PortingEvent.ofOrderSplit(orderSplit)`. */
+        fun addData(orderSplit: PortingEventSplitEvent) =
+            addData(PortingEvent.ofOrderSplit(orderSplit))
 
-        /**
-         * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook)`.
-         */
-        fun addData(portingEventWithoutWebhook: PortingEventWithoutWebhook) =
-            addData(EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook))
+        /** Alias for calling [addData] with `PortingEvent.ofWithoutWebhook(withoutWebhook)`. */
+        fun addData(withoutWebhook: PortingEventWithoutWebhook) =
+            addData(PortingEvent.ofWithoutWebhook(withoutWebhook))
 
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
 

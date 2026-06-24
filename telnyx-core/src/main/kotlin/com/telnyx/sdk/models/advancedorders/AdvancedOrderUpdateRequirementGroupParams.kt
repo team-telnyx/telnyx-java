@@ -15,16 +15,17 @@ import kotlin.jvm.optionals.getOrNull
 class AdvancedOrderUpdateRequirementGroupParams
 private constructor(
     private val advancedOrderId: String?,
-    private val advancedOrder: AdvancedOrder,
+    private val advancedOrderRequest: AdvancedOrderRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun advancedOrderId(): Optional<String> = Optional.ofNullable(advancedOrderId)
 
-    fun advancedOrder(): AdvancedOrder = advancedOrder
+    fun advancedOrderRequest(): AdvancedOrderRequest = advancedOrderRequest
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = advancedOrder._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        advancedOrderRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -42,7 +43,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .advancedOrder()
+         * .advancedOrderRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -52,7 +53,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var advancedOrderId: String? = null
-        private var advancedOrder: AdvancedOrder? = null
+        private var advancedOrderRequest: AdvancedOrderRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -61,7 +62,7 @@ private constructor(
             advancedOrderUpdateRequirementGroupParams: AdvancedOrderUpdateRequirementGroupParams
         ) = apply {
             advancedOrderId = advancedOrderUpdateRequirementGroupParams.advancedOrderId
-            advancedOrder = advancedOrderUpdateRequirementGroupParams.advancedOrder
+            advancedOrderRequest = advancedOrderUpdateRequirementGroupParams.advancedOrderRequest
             additionalHeaders =
                 advancedOrderUpdateRequirementGroupParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -76,8 +77,8 @@ private constructor(
         fun advancedOrderId(advancedOrderId: Optional<String>) =
             advancedOrderId(advancedOrderId.getOrNull())
 
-        fun advancedOrder(advancedOrder: AdvancedOrder) = apply {
-            this.advancedOrder = advancedOrder
+        fun advancedOrderRequest(advancedOrderRequest: AdvancedOrderRequest) = apply {
+            this.advancedOrderRequest = advancedOrderRequest
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -185,7 +186,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .advancedOrder()
+         * .advancedOrderRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -193,13 +194,13 @@ private constructor(
         fun build(): AdvancedOrderUpdateRequirementGroupParams =
             AdvancedOrderUpdateRequirementGroupParams(
                 advancedOrderId,
-                checkRequired("advancedOrder", advancedOrder),
+                checkRequired("advancedOrderRequest", advancedOrderRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): AdvancedOrder = advancedOrder
+    fun _body(): AdvancedOrderRequest = advancedOrderRequest
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -218,14 +219,19 @@ private constructor(
 
         return other is AdvancedOrderUpdateRequirementGroupParams &&
             advancedOrderId == other.advancedOrderId &&
-            advancedOrder == other.advancedOrder &&
+            advancedOrderRequest == other.advancedOrderRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(advancedOrderId, advancedOrder, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            advancedOrderId,
+            advancedOrderRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "AdvancedOrderUpdateRequirementGroupParams{advancedOrderId=$advancedOrderId, advancedOrder=$advancedOrder, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AdvancedOrderUpdateRequirementGroupParams{advancedOrderId=$advancedOrderId, advancedOrderRequest=$advancedOrderRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

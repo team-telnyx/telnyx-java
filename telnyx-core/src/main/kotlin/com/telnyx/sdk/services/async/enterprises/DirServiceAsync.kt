@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.enterprises
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
-import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPageAsync
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
 import java.util.concurrent.CompletableFuture
@@ -53,28 +53,26 @@ interface DirServiceAsync {
      *   /enterprises/{id}/branded_calling`).
      * - `404` - enterprise does not exist or does not belong to your account.
      */
-    fun create(
-        enterpriseId: String,
-        params: DirCreateParams,
-    ): CompletableFuture<DirCreateResponse> = create(enterpriseId, params, RequestOptions.none())
+    fun create(enterpriseId: String, params: DirCreateParams): CompletableFuture<DirWrapped> =
+        create(enterpriseId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         enterpriseId: String,
         params: DirCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DirCreateResponse> =
+    ): CompletableFuture<DirWrapped> =
         create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: DirCreateParams): CompletableFuture<DirCreateResponse> =
+    fun create(params: DirCreateParams): CompletableFuture<DirWrapped> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: DirCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DirCreateResponse>
+    ): CompletableFuture<DirWrapped>
 
     /**
      * Return the DIRs (Display Identity Records) belonging to a single enterprise. Pagination is
@@ -136,7 +134,7 @@ interface DirServiceAsync {
         fun create(
             enterpriseId: String,
             params: DirCreateParams,
-        ): CompletableFuture<HttpResponseFor<DirCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DirWrapped>> =
             create(enterpriseId, params, RequestOptions.none())
 
         /** @see create */
@@ -144,18 +142,18 @@ interface DirServiceAsync {
             enterpriseId: String,
             params: DirCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DirCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DirWrapped>> =
             create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see create */
-        fun create(params: DirCreateParams): CompletableFuture<HttpResponseFor<DirCreateResponse>> =
+        fun create(params: DirCreateParams): CompletableFuture<HttpResponseFor<DirWrapped>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: DirCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DirCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<DirWrapped>>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/dir`, but is otherwise

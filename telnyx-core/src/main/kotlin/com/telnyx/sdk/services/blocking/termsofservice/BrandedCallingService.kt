@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeParams
-import com.telnyx.sdk.models.termsofservice.brandedcalling.BrandedCallingAgreeResponse
 import java.util.function.Consumer
 
 /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
@@ -33,21 +33,21 @@ interface BrandedCallingService {
      * This is a prerequisite for activating Branded Calling on any enterprise (`POST
      * /enterprises/{id}/branded_calling`); without an agreement, activation returns `403`.
      */
-    fun agree(): BrandedCallingAgreeResponse = agree(BrandedCallingAgreeParams.none())
+    fun agree(): TosAgreementWrapped = agree(BrandedCallingAgreeParams.none())
 
     /** @see agree */
     fun agree(
         params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandedCallingAgreeResponse
+    ): TosAgreementWrapped
 
     /** @see agree */
     fun agree(
         params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none()
-    ): BrandedCallingAgreeResponse = agree(params, RequestOptions.none())
+    ): TosAgreementWrapped = agree(params, RequestOptions.none())
 
     /** @see agree */
-    fun agree(requestOptions: RequestOptions): BrandedCallingAgreeResponse =
+    fun agree(requestOptions: RequestOptions): TosAgreementWrapped =
         agree(BrandedCallingAgreeParams.none(), requestOptions)
 
     /**
@@ -69,25 +69,24 @@ interface BrandedCallingService {
          * otherwise the same as [BrandedCallingService.agree].
          */
         @MustBeClosed
-        fun agree(): HttpResponseFor<BrandedCallingAgreeResponse> =
-            agree(BrandedCallingAgreeParams.none())
+        fun agree(): HttpResponseFor<TosAgreementWrapped> = agree(BrandedCallingAgreeParams.none())
 
         /** @see agree */
         @MustBeClosed
         fun agree(
             params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandedCallingAgreeResponse>
+        ): HttpResponseFor<TosAgreementWrapped>
 
         /** @see agree */
         @MustBeClosed
         fun agree(
             params: BrandedCallingAgreeParams = BrandedCallingAgreeParams.none()
-        ): HttpResponseFor<BrandedCallingAgreeResponse> = agree(params, RequestOptions.none())
+        ): HttpResponseFor<TosAgreementWrapped> = agree(params, RequestOptions.none())
 
         /** @see agree */
         @MustBeClosed
-        fun agree(requestOptions: RequestOptions): HttpResponseFor<BrandedCallingAgreeResponse> =
+        fun agree(requestOptions: RequestOptions): HttpResponseFor<TosAgreementWrapped> =
             agree(BrandedCallingAgreeParams.none(), requestOptions)
     }
 }

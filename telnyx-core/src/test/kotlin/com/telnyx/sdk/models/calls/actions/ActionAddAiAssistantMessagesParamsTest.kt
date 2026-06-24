@@ -16,10 +16,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .addMessage(
-                ActionAddAiAssistantMessagesParams.Message.System.builder()
+                SystemMessage.builder()
                     .content("Get the user's favorite color")
+                    .role(SystemMessage.Role.SYSTEM)
                     .metadata(
-                        ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                        SystemMessage.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -46,10 +47,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .addMessage(
-                    ActionAddAiAssistantMessagesParams.Message.System.builder()
+                    SystemMessage.builder()
                         .content("Get the user's favorite color")
+                        .role(SystemMessage.Role.SYSTEM)
                         .metadata(
-                            ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                            SystemMessage.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -64,10 +66,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
         assertThat(body.messages().getOrNull())
             .containsExactly(
                 ActionAddAiAssistantMessagesParams.Message.ofSystem(
-                    ActionAddAiAssistantMessagesParams.Message.System.builder()
+                    SystemMessage.builder()
                         .content("Get the user's favorite color")
+                        .role(SystemMessage.Role.SYSTEM)
                         .metadata(
-                            ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                            SystemMessage.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

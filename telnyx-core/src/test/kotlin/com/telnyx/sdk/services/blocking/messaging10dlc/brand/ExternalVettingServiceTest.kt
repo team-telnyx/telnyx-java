@@ -27,7 +27,7 @@ internal class ExternalVettingServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val externalVettingService = client.messaging10dlc().brand().externalVetting()
 
-        val response =
+        val externalVetting =
             externalVettingService.imports(
                 ExternalVettingImportsParams.builder()
                     .brandId("brandId")
@@ -37,7 +37,7 @@ internal class ExternalVettingServiceTest {
                     .build()
             )
 
-        response.validate()
+        externalVetting.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -46,7 +46,7 @@ internal class ExternalVettingServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val externalVettingService = client.messaging10dlc().brand().externalVetting()
 
-        val response =
+        val externalVetting =
             externalVettingService.order(
                 ExternalVettingOrderParams.builder()
                     .brandId("brandId")
@@ -55,6 +55,6 @@ internal class ExternalVettingServiceTest {
                     .build()
             )
 
-        response.validate()
+        externalVetting.validate()
     }
 }

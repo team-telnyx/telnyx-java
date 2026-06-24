@@ -7,11 +7,10 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
-import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
 import com.telnyx.sdk.models.recordings.RecordingListPage
 import com.telnyx.sdk.models.recordings.RecordingListParams
+import com.telnyx.sdk.models.recordings.RecordingResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
-import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.blocking.recordings.ActionService
 import java.util.function.Consumer
 
@@ -34,7 +33,7 @@ interface RecordingService {
     fun actions(): ActionService
 
     /** Retrieves the details of an existing call recording. */
-    fun retrieve(recordingId: String): RecordingRetrieveResponse =
+    fun retrieve(recordingId: String): RecordingResponse =
         retrieve(recordingId, RecordingRetrieveParams.none())
 
     /** @see retrieve */
@@ -42,27 +41,27 @@ interface RecordingService {
         recordingId: String,
         params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingRetrieveResponse =
+    ): RecordingResponse =
         retrieve(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         recordingId: String,
         params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
-    ): RecordingRetrieveResponse = retrieve(recordingId, params, RequestOptions.none())
+    ): RecordingResponse = retrieve(recordingId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: RecordingRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingRetrieveResponse
+    ): RecordingResponse
 
     /** @see retrieve */
-    fun retrieve(params: RecordingRetrieveParams): RecordingRetrieveResponse =
+    fun retrieve(params: RecordingRetrieveParams): RecordingResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(recordingId: String, requestOptions: RequestOptions): RecordingRetrieveResponse =
+    fun retrieve(recordingId: String, requestOptions: RequestOptions): RecordingResponse =
         retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your call recordings. */
@@ -83,7 +82,7 @@ interface RecordingService {
         list(RecordingListParams.none(), requestOptions)
 
     /** Permanently deletes a call recording. */
-    fun delete(recordingId: String): RecordingDeleteResponse =
+    fun delete(recordingId: String): RecordingResponse =
         delete(recordingId, RecordingDeleteParams.none())
 
     /** @see delete */
@@ -91,27 +90,27 @@ interface RecordingService {
         recordingId: String,
         params: RecordingDeleteParams = RecordingDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingDeleteResponse =
+    ): RecordingResponse =
         delete(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         recordingId: String,
         params: RecordingDeleteParams = RecordingDeleteParams.none(),
-    ): RecordingDeleteResponse = delete(recordingId, params, RequestOptions.none())
+    ): RecordingResponse = delete(recordingId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: RecordingDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingDeleteResponse
+    ): RecordingResponse
 
     /** @see delete */
-    fun delete(params: RecordingDeleteParams): RecordingDeleteResponse =
+    fun delete(params: RecordingDeleteParams): RecordingResponse =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(recordingId: String, requestOptions: RequestOptions): RecordingDeleteResponse =
+    fun delete(recordingId: String, requestOptions: RequestOptions): RecordingResponse =
         delete(recordingId, RecordingDeleteParams.none(), requestOptions)
 
     /** A view of [RecordingService] that provides access to raw HTTP responses for each method. */
@@ -132,7 +131,7 @@ interface RecordingService {
          * same as [RecordingService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(recordingId: String): HttpResponseFor<RecordingRetrieveResponse> =
+        fun retrieve(recordingId: String): HttpResponseFor<RecordingResponse> =
             retrieve(recordingId, RecordingRetrieveParams.none())
 
         /** @see retrieve */
@@ -141,7 +140,7 @@ interface RecordingService {
             recordingId: String,
             params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingRetrieveResponse> =
+        ): HttpResponseFor<RecordingResponse> =
             retrieve(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
         /** @see retrieve */
@@ -149,19 +148,18 @@ interface RecordingService {
         fun retrieve(
             recordingId: String,
             params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
-        ): HttpResponseFor<RecordingRetrieveResponse> =
-            retrieve(recordingId, params, RequestOptions.none())
+        ): HttpResponseFor<RecordingResponse> = retrieve(recordingId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: RecordingRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingRetrieveResponse>
+        ): HttpResponseFor<RecordingResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: RecordingRetrieveParams): HttpResponseFor<RecordingRetrieveResponse> =
+        fun retrieve(params: RecordingRetrieveParams): HttpResponseFor<RecordingResponse> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -169,7 +167,7 @@ interface RecordingService {
         fun retrieve(
             recordingId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingRetrieveResponse> =
+        ): HttpResponseFor<RecordingResponse> =
             retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
         /**
@@ -202,7 +200,7 @@ interface RecordingService {
          * same as [RecordingService.delete].
          */
         @MustBeClosed
-        fun delete(recordingId: String): HttpResponseFor<RecordingDeleteResponse> =
+        fun delete(recordingId: String): HttpResponseFor<RecordingResponse> =
             delete(recordingId, RecordingDeleteParams.none())
 
         /** @see delete */
@@ -211,7 +209,7 @@ interface RecordingService {
             recordingId: String,
             params: RecordingDeleteParams = RecordingDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingDeleteResponse> =
+        ): HttpResponseFor<RecordingResponse> =
             delete(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
         /** @see delete */
@@ -219,19 +217,18 @@ interface RecordingService {
         fun delete(
             recordingId: String,
             params: RecordingDeleteParams = RecordingDeleteParams.none(),
-        ): HttpResponseFor<RecordingDeleteResponse> =
-            delete(recordingId, params, RequestOptions.none())
+        ): HttpResponseFor<RecordingResponse> = delete(recordingId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: RecordingDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingDeleteResponse>
+        ): HttpResponseFor<RecordingResponse>
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: RecordingDeleteParams): HttpResponseFor<RecordingDeleteResponse> =
+        fun delete(params: RecordingDeleteParams): HttpResponseFor<RecordingResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
@@ -239,7 +236,7 @@ interface RecordingService {
         fun delete(
             recordingId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingDeleteResponse> =
+        ): HttpResponseFor<RecordingResponse> =
             delete(recordingId, RecordingDeleteParams.none(), requestOptions)
     }
 }

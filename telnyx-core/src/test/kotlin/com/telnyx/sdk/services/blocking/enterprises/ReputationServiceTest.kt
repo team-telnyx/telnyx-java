@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking.enterprises
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCheckFrequency
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import org.junit.jupiter.api.Disabled
@@ -16,9 +17,10 @@ internal class ReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val reputationService = client.enterprises().reputation()
 
-        val reputation = reputationService.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        val enterpriseReputationPublicWrapped =
+            reputationService.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
-        reputation.validate()
+        enterpriseReputationPublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,16 +38,16 @@ internal class ReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val reputationService = client.enterprises().reputation()
 
-        val response =
+        val enterpriseReputationPublicWrapped =
             reputationService.enable(
                 ReputationEnableParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
+                    .checkFrequency(ReputationCheckFrequency.BUSINESS_DAILY)
                     .build()
             )
 
-        response.validate()
+        enterpriseReputationPublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -54,14 +56,14 @@ internal class ReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val reputationService = client.enterprises().reputation()
 
-        val response =
+        val enterpriseReputationPublicWrapped =
             reputationService.updateFrequency(
                 ReputationUpdateFrequencyParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
-                    .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
+                    .checkFrequency(ReputationCheckFrequency.WEEKLY)
                     .build()
             )
 
-        response.validate()
+        enterpriseReputationPublicWrapped.validate()
     }
 }

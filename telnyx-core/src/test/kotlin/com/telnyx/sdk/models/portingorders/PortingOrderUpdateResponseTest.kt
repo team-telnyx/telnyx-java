@@ -6,6 +6,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.PortingOrderStatus
 import com.telnyx.sdk.models.PortingOrdersExceptionType
+import com.telnyx.sdk.models.portingphonenumbers.PortingOrderActivationStatus
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumber
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -88,21 +90,17 @@ internal class PortingOrderUpdateResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .phoneNumber("13035550987")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
                                 .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
+                                    PortingPhoneNumber.PortingOrderStatus.IN_PROCESS
                                 )
                                 .recordType("porting_phone_number")
-                                .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                                )
+                                .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                                 .supportKey("sr_a12345")
                                 .build()
                         )
@@ -220,19 +218,15 @@ internal class PortingOrderUpdateResponseTest {
                     )
                     .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                     .addPhoneNumber(
-                        PortingOrder.PhoneNumber.builder()
-                            .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                        PortingPhoneNumber.builder()
+                            .activationStatus(PortingOrderActivationStatus.ACTIVE)
                             .phoneNumber("13035550987")
-                            .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                            .portabilityStatus(PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED)
+                            .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                            .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                             .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
-                            .portingOrderStatus(
-                                PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
-                            )
+                            .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.IN_PROCESS)
                             .recordType("porting_phone_number")
-                            .requirementsStatus(
-                                PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                            )
+                            .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                             .supportKey("sr_a12345")
                             .build()
                     )
@@ -357,21 +351,17 @@ internal class PortingOrderUpdateResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .phoneNumber("13035550987")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
                                 .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
+                                    PortingPhoneNumber.PortingOrderStatus.IN_PROCESS
                                 )
                                 .recordType("porting_phone_number")
-                                .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                                )
+                                .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                                 .supportKey("sr_a12345")
                                 .build()
                         )

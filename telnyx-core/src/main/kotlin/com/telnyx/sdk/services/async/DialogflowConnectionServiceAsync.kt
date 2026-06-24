@@ -7,12 +7,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionDeleteParams
+import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,7 +33,7 @@ interface DialogflowConnectionServiceAsync {
     fun create(
         connectionId: String,
         params: DialogflowConnectionCreateParams,
-    ): CompletableFuture<DialogflowConnectionCreateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         create(connectionId, params, RequestOptions.none())
 
     /** @see create */
@@ -43,24 +41,24 @@ interface DialogflowConnectionServiceAsync {
         connectionId: String,
         params: DialogflowConnectionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionCreateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see create */
     fun create(
         params: DialogflowConnectionCreateParams
-    ): CompletableFuture<DialogflowConnectionCreateResponse> = create(params, RequestOptions.none())
+    ): CompletableFuture<DialogflowConnectionResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: DialogflowConnectionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionCreateResponse>
+    ): CompletableFuture<DialogflowConnectionResponse>
 
     /**
      * Return details of the Dialogflow connection associated with the given CallControl connection.
      */
-    fun retrieve(connectionId: String): CompletableFuture<DialogflowConnectionRetrieveResponse> =
+    fun retrieve(connectionId: String): CompletableFuture<DialogflowConnectionResponse> =
         retrieve(connectionId, DialogflowConnectionRetrieveParams.none())
 
     /** @see retrieve */
@@ -68,40 +66,39 @@ interface DialogflowConnectionServiceAsync {
         connectionId: String,
         params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         retrieve(connectionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: DialogflowConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse>
+    ): CompletableFuture<DialogflowConnectionResponse>
 
     /** @see retrieve */
     fun retrieve(
         params: DialogflowConnectionRetrieveParams
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    ): CompletableFuture<DialogflowConnectionResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         retrieve(connectionId, DialogflowConnectionRetrieveParams.none(), requestOptions)
 
     /** Updates a stored Dialogflow Connection. */
     fun update(
         connectionId: String,
         params: DialogflowConnectionUpdateParams,
-    ): CompletableFuture<DialogflowConnectionUpdateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         update(connectionId, params, RequestOptions.none())
 
     /** @see update */
@@ -109,19 +106,19 @@ interface DialogflowConnectionServiceAsync {
         connectionId: String,
         params: DialogflowConnectionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionUpdateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see update */
     fun update(
         params: DialogflowConnectionUpdateParams
-    ): CompletableFuture<DialogflowConnectionUpdateResponse> = update(params, RequestOptions.none())
+    ): CompletableFuture<DialogflowConnectionResponse> = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: DialogflowConnectionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DialogflowConnectionUpdateResponse>
+    ): CompletableFuture<DialogflowConnectionResponse>
 
     /** Deletes a stored Dialogflow Connection. */
     fun delete(connectionId: String): CompletableFuture<Void?> =
@@ -177,7 +174,7 @@ interface DialogflowConnectionServiceAsync {
         fun create(
             connectionId: String,
             params: DialogflowConnectionCreateParams,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             create(connectionId, params, RequestOptions.none())
 
         /** @see create */
@@ -185,20 +182,20 @@ interface DialogflowConnectionServiceAsync {
             connectionId: String,
             params: DialogflowConnectionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: DialogflowConnectionCreateParams
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: DialogflowConnectionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>>
 
         /**
          * Returns a raw HTTP response for `get /dialogflow_connections/{connection_id}`, but is
@@ -206,7 +203,7 @@ interface DialogflowConnectionServiceAsync {
          */
         fun retrieve(
             connectionId: String
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             retrieve(connectionId, DialogflowConnectionRetrieveParams.none())
 
         /** @see retrieve */
@@ -214,33 +211,33 @@ interface DialogflowConnectionServiceAsync {
             connectionId: String,
             params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             connectionId: String,
             params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             retrieve(connectionId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: DialogflowConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: DialogflowConnectionRetrieveParams
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             connectionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             retrieve(connectionId, DialogflowConnectionRetrieveParams.none(), requestOptions)
 
         /**
@@ -250,7 +247,7 @@ interface DialogflowConnectionServiceAsync {
         fun update(
             connectionId: String,
             params: DialogflowConnectionUpdateParams,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             update(connectionId, params, RequestOptions.none())
 
         /** @see update */
@@ -258,20 +255,20 @@ interface DialogflowConnectionServiceAsync {
             connectionId: String,
             params: DialogflowConnectionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: DialogflowConnectionUpdateParams
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: DialogflowConnectionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>>
 
         /**
          * Returns a raw HTTP response for `delete /dialogflow_connections/{connection_id}`, but is

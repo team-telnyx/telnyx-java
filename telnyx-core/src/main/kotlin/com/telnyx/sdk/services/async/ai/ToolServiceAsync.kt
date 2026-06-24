@@ -5,16 +5,14 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
-import com.telnyx.sdk.models.ai.tools.ToolCreateResponse
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPageAsync
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
-import com.telnyx.sdk.models.ai.tools.ToolRetrieveResponse
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
-import com.telnyx.sdk.models.ai.tools.ToolUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,17 +32,17 @@ interface ToolServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolServiceAsync
 
     /** Create Tool */
-    fun create(params: ToolCreateParams): CompletableFuture<ToolCreateResponse> =
+    fun create(params: ToolCreateParams): CompletableFuture<SharedToolResponse> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ToolCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolCreateResponse>
+    ): CompletableFuture<SharedToolResponse>
 
     /** Get Tool */
-    fun retrieve(toolId: String): CompletableFuture<ToolRetrieveResponse> =
+    fun retrieve(toolId: String): CompletableFuture<SharedToolResponse> =
         retrieve(toolId, ToolRetrieveParams.none())
 
     /** @see retrieve */
@@ -52,34 +50,34 @@ interface ToolServiceAsync {
         toolId: String,
         params: ToolRetrieveParams = ToolRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolRetrieveResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         retrieve(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         toolId: String,
         params: ToolRetrieveParams = ToolRetrieveParams.none(),
-    ): CompletableFuture<ToolRetrieveResponse> = retrieve(toolId, params, RequestOptions.none())
+    ): CompletableFuture<SharedToolResponse> = retrieve(toolId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ToolRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolRetrieveResponse>
+    ): CompletableFuture<SharedToolResponse>
 
     /** @see retrieve */
-    fun retrieve(params: ToolRetrieveParams): CompletableFuture<ToolRetrieveResponse> =
+    fun retrieve(params: ToolRetrieveParams): CompletableFuture<SharedToolResponse> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         toolId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolRetrieveResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
     /** Update Tool */
-    fun update(toolId: String): CompletableFuture<ToolUpdateResponse> =
+    fun update(toolId: String): CompletableFuture<SharedToolResponse> =
         update(toolId, ToolUpdateParams.none())
 
     /** @see update */
@@ -87,30 +85,30 @@ interface ToolServiceAsync {
         toolId: String,
         params: ToolUpdateParams = ToolUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolUpdateResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         update(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see update */
     fun update(
         toolId: String,
         params: ToolUpdateParams = ToolUpdateParams.none(),
-    ): CompletableFuture<ToolUpdateResponse> = update(toolId, params, RequestOptions.none())
+    ): CompletableFuture<SharedToolResponse> = update(toolId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ToolUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolUpdateResponse>
+    ): CompletableFuture<SharedToolResponse>
 
     /** @see update */
-    fun update(params: ToolUpdateParams): CompletableFuture<ToolUpdateResponse> =
+    fun update(params: ToolUpdateParams): CompletableFuture<SharedToolResponse> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         toolId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolUpdateResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         update(toolId, ToolUpdateParams.none(), requestOptions)
 
     /** List Tools */
@@ -181,20 +179,20 @@ interface ToolServiceAsync {
          */
         fun create(
             params: ToolCreateParams
-        ): CompletableFuture<HttpResponseFor<ToolCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: ToolCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>>
 
         /**
          * Returns a raw HTTP response for `get /ai/tools/{tool_id}`, but is otherwise the same as
          * [ToolServiceAsync.retrieve].
          */
-        fun retrieve(toolId: String): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> =
+        fun retrieve(toolId: String): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             retrieve(toolId, ToolRetrieveParams.none())
 
         /** @see retrieve */
@@ -202,40 +200,40 @@ interface ToolServiceAsync {
             toolId: String,
             params: ToolRetrieveParams = ToolRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             retrieve(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             toolId: String,
             params: ToolRetrieveParams = ToolRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             retrieve(toolId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: ToolRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: ToolRetrieveParams
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             toolId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /ai/tools/{tool_id}`, but is otherwise the same as
          * [ToolServiceAsync.update].
          */
-        fun update(toolId: String): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> =
+        fun update(toolId: String): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             update(toolId, ToolUpdateParams.none())
 
         /** @see update */
@@ -243,33 +241,33 @@ interface ToolServiceAsync {
             toolId: String,
             params: ToolUpdateParams = ToolUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             update(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see update */
         fun update(
             toolId: String,
             params: ToolUpdateParams = ToolUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             update(toolId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ToolUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>>
 
         /** @see update */
         fun update(
             params: ToolUpdateParams
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             toolId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> =
             update(toolId, ToolUpdateParams.none(), requestOptions)
 
         /**

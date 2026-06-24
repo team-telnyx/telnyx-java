@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeParams
-import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -38,7 +38,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
     override fun agree(
         params: NumberReputationAgreeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberReputationAgreeResponse> =
+    ): CompletableFuture<TosAgreementWrapped> =
         // post /terms_of_service/number_reputation/agree
         withRawResponse().agree(params, requestOptions).thenApply { it.parse() }
 
@@ -55,13 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val agreeHandler: Handler<NumberReputationAgreeResponse> =
-            jsonHandler<NumberReputationAgreeResponse>(clientOptions.jsonMapper)
+        private val agreeHandler: Handler<TosAgreementWrapped> =
+            jsonHandler<TosAgreementWrapped>(clientOptions.jsonMapper)
 
         override fun agree(
             params: NumberReputationAgreeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberReputationAgreeResponse>> {
+        ): CompletableFuture<HttpResponseFor<TosAgreementWrapped>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

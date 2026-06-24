@@ -12,15 +12,14 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPage
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.messaging10dlc.brand.BrandSmsOtpStatus
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandUpdateParams
@@ -211,7 +210,7 @@ interface BrandService {
      *
      * The response includes delivery status, verification dates, and detailed delivery information.
      */
-    fun getSmsOtpByReference(referenceId: String): BrandGetSmsOtpByReferenceResponse =
+    fun getSmsOtpByReference(referenceId: String): BrandSmsOtpStatus =
         getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
 
     /** @see getSmsOtpByReference */
@@ -219,32 +218,30 @@ interface BrandService {
         referenceId: String,
         params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandGetSmsOtpByReferenceResponse =
+    ): BrandSmsOtpStatus =
         getSmsOtpByReference(params.toBuilder().referenceId(referenceId).build(), requestOptions)
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         referenceId: String,
         params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
-    ): BrandGetSmsOtpByReferenceResponse =
-        getSmsOtpByReference(referenceId, params, RequestOptions.none())
+    ): BrandSmsOtpStatus = getSmsOtpByReference(referenceId, params, RequestOptions.none())
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         params: BrandGetSmsOtpByReferenceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandGetSmsOtpByReferenceResponse
+    ): BrandSmsOtpStatus
 
     /** @see getSmsOtpByReference */
-    fun getSmsOtpByReference(
-        params: BrandGetSmsOtpByReferenceParams
-    ): BrandGetSmsOtpByReferenceResponse = getSmsOtpByReference(params, RequestOptions.none())
+    fun getSmsOtpByReference(params: BrandGetSmsOtpByReferenceParams): BrandSmsOtpStatus =
+        getSmsOtpByReference(params, RequestOptions.none())
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         referenceId: String,
         requestOptions: RequestOptions,
-    ): BrandGetSmsOtpByReferenceResponse =
+    ): BrandSmsOtpStatus =
         getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none(), requestOptions)
 
     /** Resend brand 2FA email */
@@ -289,7 +286,7 @@ interface BrandService {
      * **Note:** This is an alternative to the `/10dlc/brand/smsOtp/{referenceId}` endpoint when you
      * have the Brand ID but not the reference ID.
      */
-    fun retrieveSmsOtpStatus(brandId: String): BrandRetrieveSmsOtpStatusResponse =
+    fun retrieveSmsOtpStatus(brandId: String): BrandSmsOtpStatus =
         retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
     /** @see retrieveSmsOtpStatus */
@@ -297,32 +294,27 @@ interface BrandService {
         brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveSmsOtpStatusResponse =
+    ): BrandSmsOtpStatus =
         retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-    ): BrandRetrieveSmsOtpStatusResponse =
-        retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
+    ): BrandSmsOtpStatus = retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         params: BrandRetrieveSmsOtpStatusParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveSmsOtpStatusResponse
+    ): BrandSmsOtpStatus
 
     /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        params: BrandRetrieveSmsOtpStatusParams
-    ): BrandRetrieveSmsOtpStatusResponse = retrieveSmsOtpStatus(params, RequestOptions.none())
+    fun retrieveSmsOtpStatus(params: BrandRetrieveSmsOtpStatusParams): BrandSmsOtpStatus =
+        retrieveSmsOtpStatus(params, RequestOptions.none())
 
     /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        brandId: String,
-        requestOptions: RequestOptions,
-    ): BrandRetrieveSmsOtpStatusResponse =
+    fun retrieveSmsOtpStatus(brandId: String, requestOptions: RequestOptions): BrandSmsOtpStatus =
         retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
     /**
@@ -643,9 +635,7 @@ interface BrandService {
          * the same as [BrandService.getSmsOtpByReference].
          */
         @MustBeClosed
-        fun getSmsOtpByReference(
-            referenceId: String
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse> =
+        fun getSmsOtpByReference(referenceId: String): HttpResponseFor<BrandSmsOtpStatus> =
             getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
 
         /** @see getSmsOtpByReference */
@@ -654,7 +644,7 @@ interface BrandService {
             referenceId: String,
             params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             getSmsOtpByReference(
                 params.toBuilder().referenceId(referenceId).build(),
                 requestOptions,
@@ -665,7 +655,7 @@ interface BrandService {
         fun getSmsOtpByReference(
             referenceId: String,
             params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             getSmsOtpByReference(referenceId, params, RequestOptions.none())
 
         /** @see getSmsOtpByReference */
@@ -673,21 +663,20 @@ interface BrandService {
         fun getSmsOtpByReference(
             params: BrandGetSmsOtpByReferenceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse>
+        ): HttpResponseFor<BrandSmsOtpStatus>
 
         /** @see getSmsOtpByReference */
         @MustBeClosed
         fun getSmsOtpByReference(
             params: BrandGetSmsOtpByReferenceParams
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse> =
-            getSmsOtpByReference(params, RequestOptions.none())
+        ): HttpResponseFor<BrandSmsOtpStatus> = getSmsOtpByReference(params, RequestOptions.none())
 
         /** @see getSmsOtpByReference */
         @MustBeClosed
         fun getSmsOtpByReference(
             referenceId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandGetSmsOtpByReferenceResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             getSmsOtpByReference(
                 referenceId,
                 BrandGetSmsOtpByReferenceParams.none(),
@@ -740,9 +729,7 @@ interface BrandService {
          * same as [BrandService.retrieveSmsOtpStatus].
          */
         @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            brandId: String
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+        fun retrieveSmsOtpStatus(brandId: String): HttpResponseFor<BrandSmsOtpStatus> =
             retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
         /** @see retrieveSmsOtpStatus */
@@ -751,7 +738,7 @@ interface BrandService {
             brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see retrieveSmsOtpStatus */
@@ -759,7 +746,7 @@ interface BrandService {
         fun retrieveSmsOtpStatus(
             brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
         /** @see retrieveSmsOtpStatus */
@@ -767,21 +754,20 @@ interface BrandService {
         fun retrieveSmsOtpStatus(
             params: BrandRetrieveSmsOtpStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>
+        ): HttpResponseFor<BrandSmsOtpStatus>
 
         /** @see retrieveSmsOtpStatus */
         @MustBeClosed
         fun retrieveSmsOtpStatus(
             params: BrandRetrieveSmsOtpStatusParams
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(params, RequestOptions.none())
+        ): HttpResponseFor<BrandSmsOtpStatus> = retrieveSmsOtpStatus(params, RequestOptions.none())
 
         /** @see retrieveSmsOtpStatus */
         @MustBeClosed
         fun retrieveSmsOtpStatus(
             brandId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+        ): HttpResponseFor<BrandSmsOtpStatus> =
             retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
         /**

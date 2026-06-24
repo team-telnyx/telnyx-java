@@ -6,22 +6,12 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.BaseDeserializer
-import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkKnown
-import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
@@ -51,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun items(): Optional<List<Item>> = body.items()
+    fun items(): Optional<List<PronunciationDictItem>> = body.items()
 
     /**
      * Updated dictionary name.
@@ -66,7 +56,7 @@ private constructor(
      *
      * Unlike [items], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _items(): JsonField<List<Item>> = body._items()
+    fun _items(): JsonField<List<PronunciationDictItem>> = body._items()
 
     /**
      * Returns the raw JSON value of [name].
@@ -128,28 +118,28 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** Updated list of pronunciation items (alias or phoneme type). */
-        fun items(items: List<Item>) = apply { body.items(items) }
+        fun items(items: List<PronunciationDictItem>) = apply { body.items(items) }
 
         /**
          * Sets [Builder.items] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.items] with a well-typed `List<Item>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.items] with a well-typed `List<PronunciationDictItem>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun items(items: JsonField<List<Item>>) = apply { body.items(items) }
+        fun items(items: JsonField<List<PronunciationDictItem>>) = apply { body.items(items) }
 
         /**
-         * Adds a single [Item] to [items].
+         * Adds a single [PronunciationDictItem] to [items].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addItem(item: Item) = apply { body.addItem(item) }
+        fun addItem(item: PronunciationDictItem) = apply { body.addItem(item) }
 
-        /** Alias for calling [addItem] with `Item.ofAlias(alias)`. */
+        /** Alias for calling [addItem] with `PronunciationDictItem.ofAlias(alias)`. */
         fun addItem(alias: PronunciationDictAliasItem) = apply { body.addItem(alias) }
 
-        /** Alias for calling [addItem] with `Item.ofPhoneme(phoneme)`. */
+        /** Alias for calling [addItem] with `PronunciationDictItem.ofPhoneme(phoneme)`. */
         fun addItem(phoneme: PronunciationDictPhonemeItem) = apply { body.addItem(phoneme) }
 
         /** Updated dictionary name. */
@@ -312,14 +302,16 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val items: JsonField<List<Item>>,
+        private val items: JsonField<List<PronunciationDictItem>>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("items") @ExcludeMissing items: JsonField<List<Item>> = JsonMissing.of(),
+            @JsonProperty("items")
+            @ExcludeMissing
+            items: JsonField<List<PronunciationDictItem>> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         ) : this(items, name, mutableMapOf())
 
@@ -329,7 +321,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun items(): Optional<List<Item>> = items.getOptional("items")
+        fun items(): Optional<List<PronunciationDictItem>> = items.getOptional("items")
 
         /**
          * Updated dictionary name.
@@ -344,7 +336,9 @@ private constructor(
          *
          * Unlike [items], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("items") @ExcludeMissing fun _items(): JsonField<List<Item>> = items
+        @JsonProperty("items")
+        @ExcludeMissing
+        fun _items(): JsonField<List<PronunciationDictItem>> = items
 
         /**
          * Returns the raw JSON value of [name].
@@ -374,7 +368,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var items: JsonField<MutableList<Item>>? = null
+            private var items: JsonField<MutableList<PronunciationDictItem>>? = null
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -386,36 +380,38 @@ private constructor(
             }
 
             /** Updated list of pronunciation items (alias or phoneme type). */
-            fun items(items: List<Item>) = items(JsonField.of(items))
+            fun items(items: List<PronunciationDictItem>) = items(JsonField.of(items))
 
             /**
              * Sets [Builder.items] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.items] with a well-typed `List<Item>` value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.items] with a well-typed
+             * `List<PronunciationDictItem>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun items(items: JsonField<List<Item>>) = apply {
+            fun items(items: JsonField<List<PronunciationDictItem>>) = apply {
                 this.items = items.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [Item] to [items].
+             * Adds a single [PronunciationDictItem] to [items].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addItem(item: Item) = apply {
+            fun addItem(item: PronunciationDictItem) = apply {
                 items =
                     (items ?: JsonField.of(mutableListOf())).also {
                         checkKnown("items", it).add(item)
                     }
             }
 
-            /** Alias for calling [addItem] with `Item.ofAlias(alias)`. */
-            fun addItem(alias: PronunciationDictAliasItem) = addItem(Item.ofAlias(alias))
+            /** Alias for calling [addItem] with `PronunciationDictItem.ofAlias(alias)`. */
+            fun addItem(alias: PronunciationDictAliasItem) =
+                addItem(PronunciationDictItem.ofAlias(alias))
 
-            /** Alias for calling [addItem] with `Item.ofPhoneme(phoneme)`. */
-            fun addItem(phoneme: PronunciationDictPhonemeItem) = addItem(Item.ofPhoneme(phoneme))
+            /** Alias for calling [addItem] with `PronunciationDictItem.ofPhoneme(phoneme)`. */
+            fun addItem(phoneme: PronunciationDictPhonemeItem) =
+                addItem(PronunciationDictItem.ofPhoneme(phoneme))
 
             /** Updated dictionary name. */
             fun name(name: String) = name(JsonField.of(name))
@@ -518,243 +514,6 @@ private constructor(
 
         override fun toString() =
             "Body{items=$items, name=$name, additionalProperties=$additionalProperties}"
-    }
-
-    /**
-     * A single pronunciation dictionary item. Use type 'alias' to replace matched text with a
-     * spoken alias, or type 'phoneme' to specify exact pronunciation using IPA notation.
-     */
-    @JsonDeserialize(using = Item.Deserializer::class)
-    @JsonSerialize(using = Item.Serializer::class)
-    class Item
-    private constructor(
-        private val alias: PronunciationDictAliasItem? = null,
-        private val phoneme: PronunciationDictPhonemeItem? = null,
-        private val _json: JsonValue? = null,
-    ) {
-
-        /**
-         * An alias pronunciation item. When the `text` value is found in input, it is replaced with
-         * the `alias` before speech synthesis.
-         */
-        fun alias(): Optional<PronunciationDictAliasItem> = Optional.ofNullable(alias)
-
-        /**
-         * A phoneme pronunciation item. When the `text` value is found in input, it is pronounced
-         * using the specified IPA phoneme notation.
-         */
-        fun phoneme(): Optional<PronunciationDictPhonemeItem> = Optional.ofNullable(phoneme)
-
-        fun isAlias(): Boolean = alias != null
-
-        fun isPhoneme(): Boolean = phoneme != null
-
-        /**
-         * An alias pronunciation item. When the `text` value is found in input, it is replaced with
-         * the `alias` before speech synthesis.
-         */
-        fun asAlias(): PronunciationDictAliasItem = alias.getOrThrow("alias")
-
-        /**
-         * A phoneme pronunciation item. When the `text` value is found in input, it is pronounced
-         * using the specified IPA phoneme notation.
-         */
-        fun asPhoneme(): PronunciationDictPhonemeItem = phoneme.getOrThrow("phoneme")
-
-        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
-
-        /**
-         * Maps this instance's current variant to a value of type [T] using the given [visitor].
-         *
-         * Note that this method is _not_ forwards compatible with new variants from the API, unless
-         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
-         * the SDK gracefully, consider overriding [Visitor.unknown]:
-         * ```java
-         * import com.telnyx.sdk.core.JsonValue;
-         * import java.util.Optional;
-         *
-         * Optional<String> result = item.accept(new Item.Visitor<Optional<String>>() {
-         *     @Override
-         *     public Optional<String> visitAlias(PronunciationDictAliasItem alias) {
-         *         return Optional.of(alias.toString());
-         *     }
-         *
-         *     // ...
-         *
-         *     @Override
-         *     public Optional<String> unknown(JsonValue json) {
-         *         // Or inspect the `json`.
-         *         return Optional.empty();
-         *     }
-         * });
-         * ```
-         *
-         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
-         *   and the current variant is unknown.
-         */
-        fun <T> accept(visitor: Visitor<T>): T =
-            when {
-                alias != null -> visitor.visitAlias(alias)
-                phoneme != null -> visitor.visitPhoneme(phoneme)
-                else -> visitor.unknown(_json)
-            }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Item = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accept(
-                object : Visitor<Unit> {
-                    override fun visitAlias(alias: PronunciationDictAliasItem) {
-                        alias.validate()
-                    }
-
-                    override fun visitPhoneme(phoneme: PronunciationDictPhonemeItem) {
-                        phoneme.validate()
-                    }
-                }
-            )
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            accept(
-                object : Visitor<Int> {
-                    override fun visitAlias(alias: PronunciationDictAliasItem) = alias.validity()
-
-                    override fun visitPhoneme(phoneme: PronunciationDictPhonemeItem) =
-                        phoneme.validity()
-
-                    override fun unknown(json: JsonValue?) = 0
-                }
-            )
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Item && alias == other.alias && phoneme == other.phoneme
-        }
-
-        override fun hashCode(): Int = Objects.hash(alias, phoneme)
-
-        override fun toString(): String =
-            when {
-                alias != null -> "Item{alias=$alias}"
-                phoneme != null -> "Item{phoneme=$phoneme}"
-                _json != null -> "Item{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Item")
-            }
-
-        companion object {
-
-            /**
-             * An alias pronunciation item. When the `text` value is found in input, it is replaced
-             * with the `alias` before speech synthesis.
-             */
-            @JvmStatic fun ofAlias(alias: PronunciationDictAliasItem) = Item(alias = alias)
-
-            /**
-             * A phoneme pronunciation item. When the `text` value is found in input, it is
-             * pronounced using the specified IPA phoneme notation.
-             */
-            @JvmStatic
-            fun ofPhoneme(phoneme: PronunciationDictPhonemeItem) = Item(phoneme = phoneme)
-        }
-
-        /** An interface that defines how to map each variant of [Item] to a value of type [T]. */
-        interface Visitor<out T> {
-
-            /**
-             * An alias pronunciation item. When the `text` value is found in input, it is replaced
-             * with the `alias` before speech synthesis.
-             */
-            fun visitAlias(alias: PronunciationDictAliasItem): T
-
-            /**
-             * A phoneme pronunciation item. When the `text` value is found in input, it is
-             * pronounced using the specified IPA phoneme notation.
-             */
-            fun visitPhoneme(phoneme: PronunciationDictPhonemeItem): T
-
-            /**
-             * Maps an unknown variant of [Item] to a value of type [T].
-             *
-             * An instance of [Item] can contain an unknown variant if it was deserialized from data
-             * that doesn't match any known variant. For example, if the SDK is on an older version
-             * than the API, then the API may respond with new variants that the SDK is unaware of.
-             *
-             * @throws TelnyxInvalidDataException in the default implementation.
-             */
-            fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Item: $json")
-            }
-        }
-
-        internal class Deserializer : BaseDeserializer<Item>(Item::class) {
-
-            override fun ObjectCodec.deserialize(node: JsonNode): Item {
-                val json = JsonValue.fromJsonNode(node)
-                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
-
-                when (type) {
-                    "alias" -> {
-                        return tryDeserialize(node, jacksonTypeRef<PronunciationDictAliasItem>())
-                            ?.let { Item(alias = it, _json = json) } ?: Item(_json = json)
-                    }
-                    "phoneme" -> {
-                        return tryDeserialize(node, jacksonTypeRef<PronunciationDictPhonemeItem>())
-                            ?.let { Item(phoneme = it, _json = json) } ?: Item(_json = json)
-                    }
-                }
-
-                return Item(_json = json)
-            }
-        }
-
-        internal class Serializer : BaseSerializer<Item>(Item::class) {
-
-            override fun serialize(
-                value: Item,
-                generator: JsonGenerator,
-                provider: SerializerProvider,
-            ) {
-                when {
-                    value.alias != null -> generator.writeObject(value.alias)
-                    value.phoneme != null -> generator.writeObject(value.phoneme)
-                    value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Item")
-                }
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

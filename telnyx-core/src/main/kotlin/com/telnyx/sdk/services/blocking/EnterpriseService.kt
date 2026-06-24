@@ -7,17 +7,14 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
+import com.telnyx.sdk.models.enterprises.EnterpriseBrandedCallingParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
 import com.telnyx.sdk.models.enterprises.EnterpriseListPage
 import com.telnyx.sdk.models.enterprises.EnterpriseListParams
+import com.telnyx.sdk.models.enterprises.EnterprisePublicWrapped
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
-import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
 import java.util.function.Consumer
@@ -57,20 +54,20 @@ interface EnterpriseService {
      *   names the field).
      * - `409` - an enterprise with the same identifying details already exists under your account.
      */
-    fun create(params: EnterpriseCreateParams): EnterpriseCreateResponse =
+    fun create(params: EnterpriseCreateParams): EnterprisePublicWrapped =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: EnterpriseCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseCreateResponse
+    ): EnterprisePublicWrapped
 
     /**
      * Retrieve a single enterprise by id. Returns `404` if the id does not exist or does not belong
      * to your account.
      */
-    fun retrieve(enterpriseId: String): EnterpriseRetrieveResponse =
+    fun retrieve(enterpriseId: String): EnterprisePublicWrapped =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
     /** @see retrieve */
@@ -78,27 +75,27 @@ interface EnterpriseService {
         enterpriseId: String,
         params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseRetrieveResponse =
+    ): EnterprisePublicWrapped =
         retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
-    ): EnterpriseRetrieveResponse = retrieve(enterpriseId, params, RequestOptions.none())
+    ): EnterprisePublicWrapped = retrieve(enterpriseId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: EnterpriseRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseRetrieveResponse
+    ): EnterprisePublicWrapped
 
     /** @see retrieve */
-    fun retrieve(params: EnterpriseRetrieveParams): EnterpriseRetrieveResponse =
+    fun retrieve(params: EnterpriseRetrieveParams): EnterprisePublicWrapped =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(enterpriseId: String, requestOptions: RequestOptions): EnterpriseRetrieveResponse =
+    fun retrieve(enterpriseId: String, requestOptions: RequestOptions): EnterprisePublicWrapped =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
     /**
@@ -107,7 +104,7 @@ interface EnterpriseService {
      * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in
      * the body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
      */
-    fun update(enterpriseId: String): EnterpriseUpdateResponse =
+    fun update(enterpriseId: String): EnterprisePublicWrapped =
         update(enterpriseId, EnterpriseUpdateParams.none())
 
     /** @see update */
@@ -115,27 +112,27 @@ interface EnterpriseService {
         enterpriseId: String,
         params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseUpdateResponse =
+    ): EnterprisePublicWrapped =
         update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see update */
     fun update(
         enterpriseId: String,
         params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
-    ): EnterpriseUpdateResponse = update(enterpriseId, params, RequestOptions.none())
+    ): EnterprisePublicWrapped = update(enterpriseId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: EnterpriseUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseUpdateResponse
+    ): EnterprisePublicWrapped
 
     /** @see update */
-    fun update(params: EnterpriseUpdateParams): EnterpriseUpdateResponse =
+    fun update(params: EnterpriseUpdateParams): EnterprisePublicWrapped =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(enterpriseId: String, requestOptions: RequestOptions): EnterpriseUpdateResponse =
+    fun update(enterpriseId: String, requestOptions: RequestOptions): EnterprisePublicWrapped =
         update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
     /**
@@ -214,51 +211,39 @@ interface EnterpriseService {
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.
      */
-    fun activateBrandedCalling(enterpriseId: String): EnterpriseActivateBrandedCallingResponse =
-        activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+    fun brandedCalling(enterpriseId: String): EnterprisePublicWrapped =
+        brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
-        params: EnterpriseActivateBrandedCallingParams =
-            EnterpriseActivateBrandedCallingParams.none(),
+        params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseActivateBrandedCallingResponse =
-        activateBrandedCalling(
-            params.toBuilder().enterpriseId(enterpriseId).build(),
-            requestOptions,
-        )
+    ): EnterprisePublicWrapped =
+        brandedCalling(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
-        params: EnterpriseActivateBrandedCallingParams =
-            EnterpriseActivateBrandedCallingParams.none(),
-    ): EnterpriseActivateBrandedCallingResponse =
-        activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+        params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
+    ): EnterprisePublicWrapped = brandedCalling(enterpriseId, params, RequestOptions.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams,
+    /** @see brandedCalling */
+    fun brandedCalling(
+        params: EnterpriseBrandedCallingParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EnterpriseActivateBrandedCallingResponse
+    ): EnterprisePublicWrapped
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams
-    ): EnterpriseActivateBrandedCallingResponse =
-        activateBrandedCalling(params, RequestOptions.none())
+    /** @see brandedCalling */
+    fun brandedCalling(params: EnterpriseBrandedCallingParams): EnterprisePublicWrapped =
+        brandedCalling(params, RequestOptions.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
         requestOptions: RequestOptions,
-    ): EnterpriseActivateBrandedCallingResponse =
-        activateBrandedCalling(
-            enterpriseId,
-            EnterpriseActivateBrandedCallingParams.none(),
-            requestOptions,
-        )
+    ): EnterprisePublicWrapped =
+        brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none(), requestOptions)
 
     /** A view of [EnterpriseService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -286,7 +271,7 @@ interface EnterpriseService {
          * [EnterpriseService.create].
          */
         @MustBeClosed
-        fun create(params: EnterpriseCreateParams): HttpResponseFor<EnterpriseCreateResponse> =
+        fun create(params: EnterpriseCreateParams): HttpResponseFor<EnterprisePublicWrapped> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -294,14 +279,14 @@ interface EnterpriseService {
         fun create(
             params: EnterpriseCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseCreateResponse>
+        ): HttpResponseFor<EnterprisePublicWrapped>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}`, but is otherwise the
          * same as [EnterpriseService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(enterpriseId: String): HttpResponseFor<EnterpriseRetrieveResponse> =
+        fun retrieve(enterpriseId: String): HttpResponseFor<EnterprisePublicWrapped> =
             retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
         /** @see retrieve */
@@ -310,7 +295,7 @@ interface EnterpriseService {
             enterpriseId: String,
             params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseRetrieveResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see retrieve */
@@ -318,7 +303,7 @@ interface EnterpriseService {
         fun retrieve(
             enterpriseId: String,
             params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
-        ): HttpResponseFor<EnterpriseRetrieveResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             retrieve(enterpriseId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -326,20 +311,19 @@ interface EnterpriseService {
         fun retrieve(
             params: EnterpriseRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseRetrieveResponse>
+        ): HttpResponseFor<EnterprisePublicWrapped>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: EnterpriseRetrieveParams
-        ): HttpResponseFor<EnterpriseRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: EnterpriseRetrieveParams): HttpResponseFor<EnterprisePublicWrapped> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseRetrieveResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
         /**
@@ -347,7 +331,7 @@ interface EnterpriseService {
          * same as [EnterpriseService.update].
          */
         @MustBeClosed
-        fun update(enterpriseId: String): HttpResponseFor<EnterpriseUpdateResponse> =
+        fun update(enterpriseId: String): HttpResponseFor<EnterprisePublicWrapped> =
             update(enterpriseId, EnterpriseUpdateParams.none())
 
         /** @see update */
@@ -356,7 +340,7 @@ interface EnterpriseService {
             enterpriseId: String,
             params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseUpdateResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see update */
@@ -364,7 +348,7 @@ interface EnterpriseService {
         fun update(
             enterpriseId: String,
             params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
-        ): HttpResponseFor<EnterpriseUpdateResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             update(enterpriseId, params, RequestOptions.none())
 
         /** @see update */
@@ -372,11 +356,11 @@ interface EnterpriseService {
         fun update(
             params: EnterpriseUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseUpdateResponse>
+        ): HttpResponseFor<EnterprisePublicWrapped>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: EnterpriseUpdateParams): HttpResponseFor<EnterpriseUpdateResponse> =
+        fun update(params: EnterpriseUpdateParams): HttpResponseFor<EnterprisePublicWrapped> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -384,7 +368,7 @@ interface EnterpriseService {
         fun update(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseUpdateResponse> =
+        ): HttpResponseFor<EnterprisePublicWrapped> =
             update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
         /**
@@ -455,60 +439,48 @@ interface EnterpriseService {
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/branded_calling`, but
-         * is otherwise the same as [EnterpriseService.activateBrandedCalling].
+         * is otherwise the same as [EnterpriseService.brandedCalling].
          */
         @MustBeClosed
-        fun activateBrandedCalling(
-            enterpriseId: String
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
-            activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+        fun brandedCalling(enterpriseId: String): HttpResponseFor<EnterprisePublicWrapped> =
+            brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none())
 
-        /** @see activateBrandedCalling */
+        /** @see brandedCalling */
         @MustBeClosed
-        fun activateBrandedCalling(
+        fun brandedCalling(
             enterpriseId: String,
-            params: EnterpriseActivateBrandedCallingParams =
-                EnterpriseActivateBrandedCallingParams.none(),
+            params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
-            activateBrandedCalling(
-                params.toBuilder().enterpriseId(enterpriseId).build(),
-                requestOptions,
-            )
+        ): HttpResponseFor<EnterprisePublicWrapped> =
+            brandedCalling(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see activateBrandedCalling */
+        /** @see brandedCalling */
         @MustBeClosed
-        fun activateBrandedCalling(
+        fun brandedCalling(
             enterpriseId: String,
-            params: EnterpriseActivateBrandedCallingParams =
-                EnterpriseActivateBrandedCallingParams.none(),
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
-            activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+            params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
+        ): HttpResponseFor<EnterprisePublicWrapped> =
+            brandedCalling(enterpriseId, params, RequestOptions.none())
 
-        /** @see activateBrandedCalling */
+        /** @see brandedCalling */
         @MustBeClosed
-        fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams,
+        fun brandedCalling(
+            params: EnterpriseBrandedCallingParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse>
+        ): HttpResponseFor<EnterprisePublicWrapped>
 
-        /** @see activateBrandedCalling */
+        /** @see brandedCalling */
         @MustBeClosed
-        fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
-            activateBrandedCalling(params, RequestOptions.none())
+        fun brandedCalling(
+            params: EnterpriseBrandedCallingParams
+        ): HttpResponseFor<EnterprisePublicWrapped> = brandedCalling(params, RequestOptions.none())
 
-        /** @see activateBrandedCalling */
+        /** @see brandedCalling */
         @MustBeClosed
-        fun activateBrandedCalling(
+        fun brandedCalling(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> =
-            activateBrandedCalling(
-                enterpriseId,
-                EnterpriseActivateBrandedCallingParams.none(),
-                requestOptions,
-            )
+        ): HttpResponseFor<EnterprisePublicWrapped> =
+            brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none(), requestOptions)
     }
 }

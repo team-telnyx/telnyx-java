@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.dir
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
+import com.telnyx.sdk.models.infringementclaims.InfringementClaim
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,25 +17,22 @@ internal class DirListInfringementClaimsPageResponseTest {
         val dirListInfringementClaimsPageResponse =
             DirListInfringementClaimsPageResponse.builder()
                 .addData(
-                    DirListInfringementClaimsResponse.builder()
+                    InfringementClaim.builder()
                         .id("e379fbc8-cd83-4bef-a280-a0ac9d00dcf8")
                         .claimDate(OffsetDateTime.parse("2026-04-22T02:12:54Z"))
                         .claimDescription("Alleged infringement on trademark XYZ.")
-                        .claimType(DirListInfringementClaimsResponse.ClaimType.TRADEMARK)
+                        .claimType(InfringementClaim.ClaimType.TRADEMARK)
                         .claimantContact("legal@testclaimant.example.com")
                         .claimantName("Test Claimant LLC")
                         .addContestDocument(
-                            DirListInfringementClaimsResponse.ContestDocument.builder()
+                            Document.builder()
                                 .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                                .documentType(
-                                    DirListInfringementClaimsResponse.ContestDocument.DocumentType
-                                        .BUSINESS_REGISTRATION
-                                )
+                                .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                                 .description("Certificate of incorporation.")
                                 .build()
                         )
                         .addContestHistory(
-                            DirListInfringementClaimsResponse.ContestHistory.builder()
+                            InfringementClaim.ContestHistory.builder()
                                 .documentCount(1L)
                                 .notes(
                                     "We own the trademark outright; our registration precedes the claimant by three years."
@@ -43,24 +42,24 @@ internal class DirListInfringementClaimsPageResponseTest {
                         )
                         .createdAt(OffsetDateTime.parse("2026-04-22T02:12:55.908411Z"))
                         .dir(
-                            DirListInfringementClaimsResponse.Dir.builder()
+                            InfringementClaim.Dir.builder()
                                 .id("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                                 .displayName("Acme Plumbing")
                                 .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                                .status(DirListInfringementClaimsResponse.Dir.Status.DRAFT)
+                                .status(DirStatus.DRAFT)
                                 .build()
                         )
                         .dirId("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                         .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                        .resolution(DirListInfringementClaimsResponse.Resolution.UPHELD)
+                        .resolution(InfringementClaim.Resolution.UPHELD)
                         .resolutionDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .resolutionNotes("resolution_notes")
-                        .status(DirListInfringementClaimsResponse.Status.PENDING)
+                        .status(InfringementClaim.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2026-04-22T02:12:55.908417Z"))
                         .build()
                 )
                 .meta(
-                    DirListInfringementClaimsPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -71,25 +70,22 @@ internal class DirListInfringementClaimsPageResponseTest {
 
         assertThat(dirListInfringementClaimsPageResponse.data())
             .containsExactly(
-                DirListInfringementClaimsResponse.builder()
+                InfringementClaim.builder()
                     .id("e379fbc8-cd83-4bef-a280-a0ac9d00dcf8")
                     .claimDate(OffsetDateTime.parse("2026-04-22T02:12:54Z"))
                     .claimDescription("Alleged infringement on trademark XYZ.")
-                    .claimType(DirListInfringementClaimsResponse.ClaimType.TRADEMARK)
+                    .claimType(InfringementClaim.ClaimType.TRADEMARK)
                     .claimantContact("legal@testclaimant.example.com")
                     .claimantName("Test Claimant LLC")
                     .addContestDocument(
-                        DirListInfringementClaimsResponse.ContestDocument.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                DirListInfringementClaimsResponse.ContestDocument.DocumentType
-                                    .BUSINESS_REGISTRATION
-                            )
+                            .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                             .description("Certificate of incorporation.")
                             .build()
                     )
                     .addContestHistory(
-                        DirListInfringementClaimsResponse.ContestHistory.builder()
+                        InfringementClaim.ContestHistory.builder()
                             .documentCount(1L)
                             .notes(
                                 "We own the trademark outright; our registration precedes the claimant by three years."
@@ -99,25 +95,25 @@ internal class DirListInfringementClaimsPageResponseTest {
                     )
                     .createdAt(OffsetDateTime.parse("2026-04-22T02:12:55.908411Z"))
                     .dir(
-                        DirListInfringementClaimsResponse.Dir.builder()
+                        InfringementClaim.Dir.builder()
                             .id("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                             .displayName("Acme Plumbing")
                             .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                            .status(DirListInfringementClaimsResponse.Dir.Status.DRAFT)
+                            .status(DirStatus.DRAFT)
                             .build()
                     )
                     .dirId("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                     .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                    .resolution(DirListInfringementClaimsResponse.Resolution.UPHELD)
+                    .resolution(InfringementClaim.Resolution.UPHELD)
                     .resolutionDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .resolutionNotes("resolution_notes")
-                    .status(DirListInfringementClaimsResponse.Status.PENDING)
+                    .status(InfringementClaim.Status.PENDING)
                     .updatedAt(OffsetDateTime.parse("2026-04-22T02:12:55.908417Z"))
                     .build()
             )
         assertThat(dirListInfringementClaimsPageResponse.meta())
             .isEqualTo(
-                DirListInfringementClaimsPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -132,25 +128,22 @@ internal class DirListInfringementClaimsPageResponseTest {
         val dirListInfringementClaimsPageResponse =
             DirListInfringementClaimsPageResponse.builder()
                 .addData(
-                    DirListInfringementClaimsResponse.builder()
+                    InfringementClaim.builder()
                         .id("e379fbc8-cd83-4bef-a280-a0ac9d00dcf8")
                         .claimDate(OffsetDateTime.parse("2026-04-22T02:12:54Z"))
                         .claimDescription("Alleged infringement on trademark XYZ.")
-                        .claimType(DirListInfringementClaimsResponse.ClaimType.TRADEMARK)
+                        .claimType(InfringementClaim.ClaimType.TRADEMARK)
                         .claimantContact("legal@testclaimant.example.com")
                         .claimantName("Test Claimant LLC")
                         .addContestDocument(
-                            DirListInfringementClaimsResponse.ContestDocument.builder()
+                            Document.builder()
                                 .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                                .documentType(
-                                    DirListInfringementClaimsResponse.ContestDocument.DocumentType
-                                        .BUSINESS_REGISTRATION
-                                )
+                                .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                                 .description("Certificate of incorporation.")
                                 .build()
                         )
                         .addContestHistory(
-                            DirListInfringementClaimsResponse.ContestHistory.builder()
+                            InfringementClaim.ContestHistory.builder()
                                 .documentCount(1L)
                                 .notes(
                                     "We own the trademark outright; our registration precedes the claimant by three years."
@@ -160,24 +153,24 @@ internal class DirListInfringementClaimsPageResponseTest {
                         )
                         .createdAt(OffsetDateTime.parse("2026-04-22T02:12:55.908411Z"))
                         .dir(
-                            DirListInfringementClaimsResponse.Dir.builder()
+                            InfringementClaim.Dir.builder()
                                 .id("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                                 .displayName("Acme Plumbing")
                                 .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                                .status(DirListInfringementClaimsResponse.Dir.Status.DRAFT)
+                                .status(DirStatus.DRAFT)
                                 .build()
                         )
                         .dirId("42a3f554-7ce3-44c2-bfe9-6e1afe0d7991")
                         .enterpriseId("7eca8226-8081-4e11-abdc-437b5f53a81f")
-                        .resolution(DirListInfringementClaimsResponse.Resolution.UPHELD)
+                        .resolution(InfringementClaim.Resolution.UPHELD)
                         .resolutionDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .resolutionNotes("resolution_notes")
-                        .status(DirListInfringementClaimsResponse.Status.PENDING)
+                        .status(InfringementClaim.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2026-04-22T02:12:55.908417Z"))
                         .build()
                 )
                 .meta(
-                    DirListInfringementClaimsPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

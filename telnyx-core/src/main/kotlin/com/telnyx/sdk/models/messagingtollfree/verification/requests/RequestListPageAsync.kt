@@ -41,7 +41,7 @@ private constructor(
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
     fun nextPageParams(): RequestListParams {
-        val pageNumber = params.page() // cc workaround for SDK-4053
+        val pageNumber = params.page()
         return params.toBuilder().page(pageNumber + 1).build()
     }
 

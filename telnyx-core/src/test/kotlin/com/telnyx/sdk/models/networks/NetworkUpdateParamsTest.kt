@@ -11,15 +11,7 @@ internal class NetworkUpdateParamsTest {
     fun create() {
         NetworkUpdateParams.builder()
             .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .networkCreate(
-                NetworkCreate.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("sample_record_type")
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .name("test network")
-                    .build()
-            )
+            .networkCreate(NetworkCreate.builder().build())
             .build()
     }
 
@@ -28,7 +20,7 @@ internal class NetworkUpdateParamsTest {
         val params =
             NetworkUpdateParams.builder()
                 .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .networkCreate(NetworkCreate.builder().name("test network").build())
+                .networkCreate(NetworkCreate.builder().build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -41,41 +33,11 @@ internal class NetworkUpdateParamsTest {
         val params =
             NetworkUpdateParams.builder()
                 .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .networkCreate(
-                    NetworkCreate.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("sample_record_type")
-                        .updatedAt("2018-02-02T22:25:27.521Z")
-                        .name("test network")
-                        .build()
-                )
+                .networkCreate(NetworkCreate.builder().build())
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
-            .isEqualTo(
-                NetworkCreate.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("sample_record_type")
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .name("test network")
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            NetworkUpdateParams.builder()
-                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .networkCreate(NetworkCreate.builder().name("test network").build())
-                .build()
-
-        val body = params._body()
-
-        assertThat(body).isEqualTo(NetworkCreate.builder().name("test network").build())
+        assertThat(body).isEqualTo(NetworkCreate.builder().build())
     }
 }

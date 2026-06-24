@@ -22,7 +22,7 @@ internal class FaxCreateParamsTest {
             .mediaUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
             .monochrome(true)
             .previewFormat(FaxCreateParams.PreviewFormat.PDF)
-            .quality(FaxCreateParams.Quality.HIGH)
+            .quality(Quality.HIGH)
             .storeMedia(true)
             .storePreview(true)
             .t38Enabled(true)
@@ -44,7 +44,7 @@ internal class FaxCreateParamsTest {
                 .mediaUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                 .monochrome(true)
                 .previewFormat(FaxCreateParams.PreviewFormat.PDF)
-                .quality(FaxCreateParams.Quality.HIGH)
+                .quality(Quality.HIGH)
                 .storeMedia(true)
                 .storePreview(true)
                 .t38Enabled(true)
@@ -76,7 +76,7 @@ internal class FaxCreateParamsTest {
                             ),
                         "monochrome" to MultipartField.of(true),
                         "preview_format" to MultipartField.of(FaxCreateParams.PreviewFormat.PDF),
-                        "quality" to MultipartField.of(FaxCreateParams.Quality.HIGH),
+                        "quality" to MultipartField.of(Quality.HIGH),
                         "store_media" to MultipartField.of(true),
                         "store_preview" to MultipartField.of(true),
                         "t38_enabled" to MultipartField.of(true),

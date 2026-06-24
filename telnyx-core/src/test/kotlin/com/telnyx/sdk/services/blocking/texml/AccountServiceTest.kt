@@ -17,7 +17,7 @@ internal class AccountServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val accountService = client.texml().accounts()
 
-        val response =
+        val texmlGetCallRecordingsResponseBody =
             accountService.retrieveRecordingsJson(
                 AccountRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -27,7 +27,7 @@ internal class AccountServiceTest {
                     .build()
             )
 
-        response.validate()
+        texmlGetCallRecordingsResponseBody.validate()
     }
 
     @Disabled("Mock server tests are disabled")

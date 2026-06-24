@@ -18,8 +18,8 @@ internal class ScheduledEventCreateParamsTest {
             .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
             .telnyxEndUserTarget("telnyx_end_user_target")
             .callSettings(
-                ScheduledEventCreateParams.CallSettings.builder()
-                    .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                ScheduledCallSettings.builder()
+                    .sipRegion(ScheduledCallSettings.SipRegion.US)
                     .build()
             )
             .conversationMetadata(
@@ -64,8 +64,8 @@ internal class ScheduledEventCreateParamsTest {
                 .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
                 .telnyxEndUserTarget("telnyx_end_user_target")
                 .callSettings(
-                    ScheduledEventCreateParams.CallSettings.builder()
-                        .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                    ScheduledCallSettings.builder()
+                        .sipRegion(ScheduledCallSettings.SipRegion.US)
                         .build()
                 )
                 .conversationMetadata(
@@ -92,8 +92,8 @@ internal class ScheduledEventCreateParamsTest {
         assertThat(body.telnyxEndUserTarget()).isEqualTo("telnyx_end_user_target")
         assertThat(body.callSettings())
             .contains(
-                ScheduledEventCreateParams.CallSettings.builder()
-                    .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                ScheduledCallSettings.builder()
+                    .sipRegion(ScheduledCallSettings.SipRegion.US)
                     .build()
             )
         assertThat(body.conversationMetadata())

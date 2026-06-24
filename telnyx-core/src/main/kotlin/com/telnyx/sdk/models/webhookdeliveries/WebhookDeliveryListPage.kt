@@ -18,14 +18,14 @@ private constructor(
     private val service: WebhookDeliveryService,
     private val params: WebhookDeliveryListParams,
     private val response: WebhookDeliveryListPageResponse,
-) : Page<WebhookDeliveryListResponse> {
+) : Page<WebhookDelivery> {
 
     /**
      * Delegates to [WebhookDeliveryListPageResponse], but gracefully handles missing data.
      *
      * @see WebhookDeliveryListPageResponse.data
      */
-    fun data(): List<WebhookDeliveryListResponse> =
+    fun data(): List<WebhookDelivery> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMetaSimple> = response._meta().getOptional("meta")
 
-    override fun items(): List<WebhookDeliveryListResponse> = data()
+    override fun items(): List<WebhookDelivery> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): WebhookDeliveryListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<WebhookDeliveryListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<WebhookDelivery> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): WebhookDeliveryListParams = params

@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReport
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListPage
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListParams
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveParams
-import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveResponse
 import java.util.function.Consumer
 
 /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
@@ -31,7 +31,7 @@ interface VoiceSdkCallReportService {
      * Returns raw call report stats JSON payloads stored for the authenticated user and `call_id`.
      * The user is derived from Telnyx authentication, not from request parameters.
      */
-    fun retrieve(callId: String): List<VoiceSdkCallReportRetrieveResponse> =
+    fun retrieve(callId: String): List<VoiceSdkCallReport> =
         retrieve(callId, VoiceSdkCallReportRetrieveParams.none())
 
     /** @see retrieve */
@@ -39,31 +39,27 @@ interface VoiceSdkCallReportService {
         callId: String,
         params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<VoiceSdkCallReportRetrieveResponse> =
+    ): List<VoiceSdkCallReport> =
         retrieve(params.toBuilder().callId(callId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         callId: String,
         params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
-    ): List<VoiceSdkCallReportRetrieveResponse> = retrieve(callId, params, RequestOptions.none())
+    ): List<VoiceSdkCallReport> = retrieve(callId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VoiceSdkCallReportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<VoiceSdkCallReportRetrieveResponse>
+    ): List<VoiceSdkCallReport>
 
     /** @see retrieve */
-    fun retrieve(
-        params: VoiceSdkCallReportRetrieveParams
-    ): List<VoiceSdkCallReportRetrieveResponse> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: VoiceSdkCallReportRetrieveParams): List<VoiceSdkCallReport> =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(
-        callId: String,
-        requestOptions: RequestOptions,
-    ): List<VoiceSdkCallReportRetrieveResponse> =
+    fun retrieve(callId: String, requestOptions: RequestOptions): List<VoiceSdkCallReport> =
         retrieve(callId, VoiceSdkCallReportRetrieveParams.none(), requestOptions)
 
     /**
@@ -107,7 +103,7 @@ interface VoiceSdkCallReportService {
          * the same as [VoiceSdkCallReportService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(callId: String): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>> =
+        fun retrieve(callId: String): HttpResponseFor<List<VoiceSdkCallReport>> =
             retrieve(callId, VoiceSdkCallReportRetrieveParams.none())
 
         /** @see retrieve */
@@ -116,7 +112,7 @@ interface VoiceSdkCallReportService {
             callId: String,
             params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>> =
+        ): HttpResponseFor<List<VoiceSdkCallReport>> =
             retrieve(params.toBuilder().callId(callId).build(), requestOptions)
 
         /** @see retrieve */
@@ -124,7 +120,7 @@ interface VoiceSdkCallReportService {
         fun retrieve(
             callId: String,
             params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
-        ): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>> =
+        ): HttpResponseFor<List<VoiceSdkCallReport>> =
             retrieve(callId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -132,21 +128,20 @@ interface VoiceSdkCallReportService {
         fun retrieve(
             params: VoiceSdkCallReportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>
+        ): HttpResponseFor<List<VoiceSdkCallReport>>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: VoiceSdkCallReportRetrieveParams
-        ): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>> =
-            retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<List<VoiceSdkCallReport>> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             callId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>> =
+        ): HttpResponseFor<List<VoiceSdkCallReport>> =
             retrieve(callId, VoiceSdkCallReportRetrieveParams.none(), requestOptions)
 
         /**

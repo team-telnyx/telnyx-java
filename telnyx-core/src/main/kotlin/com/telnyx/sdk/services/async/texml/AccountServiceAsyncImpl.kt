@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonParams
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import com.telnyx.sdk.services.async.texml.accounts.CallServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.CallServiceAsyncImpl
 import com.telnyx.sdk.services.async.texml.accounts.ConferenceServiceAsync
@@ -78,7 +78,7 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AccountRetrieveRecordingsJsonResponse> =
+    ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         // get /texml/Accounts/{account_sid}/Recordings.json
         withRawResponse().retrieveRecordingsJson(params, requestOptions).thenApply { it.parse() }
 
@@ -137,13 +137,13 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
         /** TeXML REST Commands */
         override fun queues(): QueueServiceAsync.WithRawResponse = queues
 
-        private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =
-            jsonHandler<AccountRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)
+        private val retrieveRecordingsJsonHandler: Handler<TexmlGetCallRecordingsResponseBody> =
+            jsonHandler<TexmlGetCallRecordingsResponseBody>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingsJson(
             params: AccountRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AccountRetrieveRecordingsJsonResponse>> {
+        ): CompletableFuture<HttpResponseFor<TexmlGetCallRecordingsResponseBody>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountSid", params.accountSid().getOrNull())

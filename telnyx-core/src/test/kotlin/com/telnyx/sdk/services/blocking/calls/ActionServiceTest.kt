@@ -8,6 +8,9 @@ import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.calls.CallAssistantRequest
+import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
+import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
+import com.telnyx.sdk.models.calls.ConversationRelayLanguage
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.SipHeader
@@ -57,14 +60,18 @@ import com.telnyx.sdk.models.calls.actions.ActionStopTranscriptionParams
 import com.telnyx.sdk.models.calls.actions.ActionSwitchSupervisorRoleParams
 import com.telnyx.sdk.models.calls.actions.ActionTransferParams
 import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateParams
+import com.telnyx.sdk.models.calls.actions.AiAssistantJoinParticipant
+import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
+import com.telnyx.sdk.models.calls.actions.SystemMessage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
+import com.telnyx.sdk.models.calls.actions.UserMessage
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -83,10 +90,11 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .addMessage(
-                        ActionAddAiAssistantMessagesParams.Message.System.builder()
+                        SystemMessage.builder()
                             .content("Get the user's favorite color")
+                            .role(SystemMessage.Role.SYSTEM)
                             .metadata(
-                                ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                                SystemMessage.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -179,60 +187,37 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .conversationRelayConfig(
-                        ActionAnswerParams.ConversationRelayConfig.builder()
+                        ConversationRelayEmbeddedConfig.builder()
                             .url("wss://example.com/conversation-relay")
                             .customParameters(
-                                ActionAnswerParams.ConversationRelayConfig.CustomParameters
-                                    .builder()
+                                ConversationRelayEmbeddedConfig.CustomParameters.builder()
                                     .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                                     .build()
                             )
                             .dtmfDetection(true)
                             .greeting("Hi! Ask me anything!")
-                            .interruptible(
-                                ActionAnswerParams.ConversationRelayConfig.Interruptible.SPEECH
-                            )
-                            .interruptibleGreeting(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptibleGreeting
-                                    .DTMF
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                             .interruptionSettings(
-                                ActionAnswerParams.ConversationRelayConfig.InterruptionSettings
-                                    .builder()
+                                ConversationRelayInterruptionSettings.builder()
                                     .enable(true)
-                                    .interruptible(
-                                        ActionAnswerParams.ConversationRelayConfig
-                                            .InterruptionSettings
-                                            .Interruptible
-                                            .SPEECH
-                                    )
-                                    .interruptibleGreeting(
-                                        ActionAnswerParams.ConversationRelayConfig
-                                            .InterruptionSettings
-                                            .InterruptibleGreeting
-                                            .SPEECH
-                                    )
+                                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                                    .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
                                     .welcomeGreetingInterruptible(
-                                        ActionAnswerParams.ConversationRelayConfig
-                                            .InterruptionSettings
-                                            .WelcomeGreetingInterruptible
-                                            .SPEECH
+                                        ConversationRelayInterruptible.SPEECH
                                     )
                                     .build()
                             )
                             .language("en-US")
                             .addLanguage(
-                                ActionAnswerParams.ConversationRelayConfig.Language.builder()
+                                ConversationRelayLanguage.builder()
                                     .language("en-US")
                                     .speechModel("nova-3")
                                     .transcriptionEngine(
-                                        ActionAnswerParams.ConversationRelayConfig.Language
-                                            .TranscriptionEngine
-                                            .DEEPGRAM
+                                        ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ActionAnswerParams.ConversationRelayConfig.Language
-                                            .TranscriptionEngineConfig
+                                        ConversationRelayLanguage.TranscriptionEngineConfig
                                             .builder()
                                             .putAdditionalProperty(
                                                 "transcription_model",
@@ -253,19 +238,16 @@ internal class ActionServiceTest {
                             )
                             .provider("elevenlabs")
                             .structuredProvider(
-                                ActionAnswerParams.ConversationRelayConfig.StructuredProvider
-                                    .builder()
+                                ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                                     .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                                     .putAdditionalProperty("model_id", JsonValue.from("bar"))
                                     .build()
                             )
                             .transcriptionEngine(
-                                ActionAnswerParams.ConversationRelayConfig.TranscriptionEngine
-                                    .GOOGLE
+                                ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                ActionAnswerParams.ConversationRelayConfig.TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),
@@ -649,14 +631,11 @@ internal class ActionServiceTest {
                     .callControlId("call_control_id")
                     .conversationId("v3:abc123")
                     .participant(
-                        ActionJoinAiAssistantParams.Participant.builder()
+                        AiAssistantJoinParticipant.builder()
                             .id("v3:abc123def456")
-                            .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                            .role(AiAssistantJoinParticipant.Role.USER)
                             .name("John Doe")
-                            .onHangup(
-                                ActionJoinAiAssistantParams.Participant.OnHangup
-                                    .CONTINUE_CONVERSATION
-                            )
+                            .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                             .build()
                     )
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -931,24 +910,22 @@ internal class ActionServiceTest {
                     .greeting("Hello, can you tell me your age and where you live?")
                     .interruptionSettings(InterruptionSettings.builder().enable(true).build())
                     .addMessageHistory(
-                        ActionStartAiAssistantParams.MessageHistory.User.builder()
+                        UserMessage.builder()
                             .content("Hello, I would like some help.")
+                            .role(UserMessage.Role.USER)
                             .metadata(
-                                ActionStartAiAssistantParams.MessageHistory.User.Metadata.builder()
+                                UserMessage.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                             .build()
                     )
                     .addParticipant(
-                        ActionStartAiAssistantParams.Participant.builder()
+                        AiAssistantJoinParticipant.builder()
                             .id("v3:abc123def456")
-                            .role(ActionStartAiAssistantParams.Participant.Role.USER)
+                            .role(AiAssistantJoinParticipant.Role.USER)
                             .name("John Doe")
-                            .onHangup(
-                                ActionStartAiAssistantParams.Participant.OnHangup
-                                    .CONTINUE_CONVERSATION
-                            )
+                            .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                             .build()
                     )
                     .sendMessageHistoryUpdates(true)
@@ -999,32 +976,17 @@ internal class ActionServiceTest {
                         ActionStartConversationRelayParams.ConversationRelaySettings.builder()
                             .url("wss://example.com/conversation-relay")
                             .dtmfDetection(true)
-                            .interruptible(
-                                ActionStartConversationRelayParams.ConversationRelaySettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                ActionStartConversationRelayParams.ConversationRelaySettings
-                                    .InterruptibleGreeting
-                                    .DTMF
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                             .addLanguage(
-                                ActionStartConversationRelayParams.ConversationRelaySettings
-                                    .Language
-                                    .builder()
+                                ConversationRelayLanguage.builder()
                                     .language("en-US")
                                     .speechModel("nova-3")
                                     .transcriptionEngine(
-                                        ActionStartConversationRelayParams.ConversationRelaySettings
-                                            .Language
-                                            .TranscriptionEngine
-                                            .DEEPGRAM
+                                        ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ActionStartConversationRelayParams.ConversationRelaySettings
-                                            .Language
-                                            .TranscriptionEngineConfig
+                                        ConversationRelayLanguage.TranscriptionEngineConfig
                                             .builder()
                                             .putAdditionalProperty(
                                                 "transcription_model",
@@ -1053,43 +1015,26 @@ internal class ActionServiceTest {
                     )
                     .dtmfDetection(true)
                     .greeting("Hi! Ask me anything!")
-                    .interruptible(ActionStartConversationRelayParams.Interruptible.SPEECH)
-                    .interruptibleGreeting(
-                        ActionStartConversationRelayParams.InterruptibleGreeting.DTMF
-                    )
+                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                    .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                     .interruptionSettings(
-                        ActionStartConversationRelayParams.InterruptionSettings.builder()
+                        ConversationRelayInterruptionSettings.builder()
                             .enable(true)
-                            .interruptible(
-                                ActionStartConversationRelayParams.InterruptionSettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                ActionStartConversationRelayParams.InterruptionSettings
-                                    .InterruptibleGreeting
-                                    .SPEECH
-                            )
-                            .welcomeGreetingInterruptible(
-                                ActionStartConversationRelayParams.InterruptionSettings
-                                    .WelcomeGreetingInterruptible
-                                    .SPEECH
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                            .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        ActionStartConversationRelayParams.Language.builder()
+                        ConversationRelayLanguage.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                ActionStartConversationRelayParams.Language.TranscriptionEngine
-                                    .DEEPGRAM
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ActionStartConversationRelayParams.Language
-                                    .TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),

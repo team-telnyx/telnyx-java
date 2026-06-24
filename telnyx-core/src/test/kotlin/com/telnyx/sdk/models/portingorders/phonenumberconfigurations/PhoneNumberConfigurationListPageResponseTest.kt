@@ -17,7 +17,7 @@ internal class PhoneNumberConfigurationListPageResponseTest {
         val phoneNumberConfigurationListPageResponse =
             PhoneNumberConfigurationListPageResponse.builder()
                 .addData(
-                    PhoneNumberConfigurationListResponse.builder()
+                    PortingPhoneNumberConfiguration.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
@@ -38,7 +38,7 @@ internal class PhoneNumberConfigurationListPageResponseTest {
 
         assertThat(phoneNumberConfigurationListPageResponse.data().getOrNull())
             .containsExactly(
-                PhoneNumberConfigurationListResponse.builder()
+                PortingPhoneNumberConfiguration.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                     .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
@@ -64,7 +64,7 @@ internal class PhoneNumberConfigurationListPageResponseTest {
         val phoneNumberConfigurationListPageResponse =
             PhoneNumberConfigurationListPageResponse.builder()
                 .addData(
-                    PhoneNumberConfigurationListResponse.builder()
+                    PortingPhoneNumberConfiguration.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")

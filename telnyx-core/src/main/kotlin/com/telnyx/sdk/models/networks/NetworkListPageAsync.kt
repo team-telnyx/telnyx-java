@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: NetworkListParams,
     private val response: NetworkListPageResponse,
-) : PageAsync<NetworkListResponse> {
+) : PageAsync<Network> {
 
     /**
      * Delegates to [NetworkListPageResponse], but gracefully handles missing data.
      *
      * @see NetworkListPageResponse.data
      */
-    fun data(): List<NetworkListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Network> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [NetworkListPageResponse], but gracefully handles missing data.
@@ -38,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<NetworkListResponse> = data()
+    override fun items(): List<Network> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,8 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<NetworkListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<NetworkListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<Network> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): NetworkListParams = params

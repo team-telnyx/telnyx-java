@@ -19,7 +19,7 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonDeleteRecordingTranscriptionSidJsonParams
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.transcriptions.json.TexmlRecordingTranscription
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -46,7 +46,7 @@ class JsonServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions,
-    ): JsonRetrieveRecordingTranscriptionSidJsonResponse =
+    ): TexmlRecordingTranscription =
         // get /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json
         withRawResponse().retrieveRecordingTranscriptionSidJson(params, requestOptions).parse()
 
@@ -97,13 +97,13 @@ class JsonServiceImpl internal constructor(private val clientOptions: ClientOpti
         }
 
         private val retrieveRecordingTranscriptionSidJsonHandler:
-            Handler<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
-            jsonHandler<JsonRetrieveRecordingTranscriptionSidJsonResponse>(clientOptions.jsonMapper)
+            Handler<TexmlRecordingTranscription> =
+            jsonHandler<TexmlRecordingTranscription>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse> {
+        ): HttpResponseFor<TexmlRecordingTranscription> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired(

@@ -16,7 +16,7 @@ internal class RecordingsJsonServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val recordingsJsonServiceAsync = client.texml().accounts().calls().recordingsJson()
 
-        val responseFuture =
+        val texmlCreateCallRecordingResponseBodyFuture =
             recordingsJsonServiceAsync.recordingsJson(
                 RecordingsJsonRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -33,8 +33,8 @@ internal class RecordingsJsonServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val texmlCreateCallRecordingResponseBody = texmlCreateCallRecordingResponseBodyFuture.get()
+        texmlCreateCallRecordingResponseBody.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -43,7 +43,7 @@ internal class RecordingsJsonServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val recordingsJsonServiceAsync = client.texml().accounts().calls().recordingsJson()
 
-        val responseFuture =
+        val texmlGetCallRecordingsResponseBodyFuture =
             recordingsJsonServiceAsync.retrieveRecordingsJson(
                 RecordingsJsonRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -51,7 +51,7 @@ internal class RecordingsJsonServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val texmlGetCallRecordingsResponseBody = texmlGetCallRecordingsResponseBodyFuture.get()
+        texmlGetCallRecordingsResponseBody.validate()
     }
 }

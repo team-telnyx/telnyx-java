@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.dir.phonenumbers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
+import com.telnyx.sdk.models.dir.phonenumberbatches.DirPhoneNumberStatus
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +17,7 @@ internal class PhoneNumberListPageResponseTest {
         val phoneNumberListPageResponse =
             PhoneNumberListPageResponse.builder()
                 .addData(
-                    PhoneNumberListResponse.builder()
+                    DirPhoneNumber.builder()
                         .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                         .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                         .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -24,20 +26,20 @@ internal class PhoneNumberListPageResponseTest {
                         .loaDocumentId(null)
                         .phoneNumber("+19493253498")
                         .rejectionReason(
-                            PhoneNumberListResponse.RejectionReason.builder()
+                            RejectionReason.builder()
                                 .code("documentation_incomplete")
                                 .detail("Provided documents do not establish business identity.")
                                 .message("Please re-upload a clearer scan of the certificate.")
                                 .title("Documentation incomplete")
                                 .build()
                         )
-                        .status(PhoneNumberListResponse.Status.SUBMITTED)
+                        .status(DirPhoneNumberStatus.SUBMITTED)
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                         .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                         .build()
                 )
                 .meta(
-                    PhoneNumberListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -48,7 +50,7 @@ internal class PhoneNumberListPageResponseTest {
 
         assertThat(phoneNumberListPageResponse.data())
             .containsExactly(
-                PhoneNumberListResponse.builder()
+                DirPhoneNumber.builder()
                     .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                     .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                     .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -57,21 +59,21 @@ internal class PhoneNumberListPageResponseTest {
                     .loaDocumentId(null)
                     .phoneNumber("+19493253498")
                     .rejectionReason(
-                        PhoneNumberListResponse.RejectionReason.builder()
+                        RejectionReason.builder()
                             .code("documentation_incomplete")
                             .detail("Provided documents do not establish business identity.")
                             .message("Please re-upload a clearer scan of the certificate.")
                             .title("Documentation incomplete")
                             .build()
                     )
-                    .status(PhoneNumberListResponse.Status.SUBMITTED)
+                    .status(DirPhoneNumberStatus.SUBMITTED)
                     .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                     .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                     .build()
             )
         assertThat(phoneNumberListPageResponse.meta())
             .isEqualTo(
-                PhoneNumberListPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -86,7 +88,7 @@ internal class PhoneNumberListPageResponseTest {
         val phoneNumberListPageResponse =
             PhoneNumberListPageResponse.builder()
                 .addData(
-                    PhoneNumberListResponse.builder()
+                    DirPhoneNumber.builder()
                         .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                         .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                         .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -95,20 +97,20 @@ internal class PhoneNumberListPageResponseTest {
                         .loaDocumentId(null)
                         .phoneNumber("+19493253498")
                         .rejectionReason(
-                            PhoneNumberListResponse.RejectionReason.builder()
+                            RejectionReason.builder()
                                 .code("documentation_incomplete")
                                 .detail("Provided documents do not establish business identity.")
                                 .message("Please re-upload a clearer scan of the certificate.")
                                 .title("Documentation incomplete")
                                 .build()
                         )
-                        .status(PhoneNumberListResponse.Status.SUBMITTED)
+                        .status(DirPhoneNumberStatus.SUBMITTED)
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                         .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                         .build()
                 )
                 .meta(
-                    PhoneNumberListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

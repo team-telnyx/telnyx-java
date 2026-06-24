@@ -11,15 +11,14 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.messaging10dlc.brand.BrandSmsOtpStatus
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandUpdateParams
@@ -231,9 +230,7 @@ interface BrandServiceAsync {
      *
      * The response includes delivery status, verification dates, and detailed delivery information.
      */
-    fun getSmsOtpByReference(
-        referenceId: String
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+    fun getSmsOtpByReference(referenceId: String): CompletableFuture<BrandSmsOtpStatus> =
         getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
 
     /** @see getSmsOtpByReference */
@@ -241,33 +238,32 @@ interface BrandServiceAsync {
         referenceId: String,
         params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         getSmsOtpByReference(params.toBuilder().referenceId(referenceId).build(), requestOptions)
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         referenceId: String,
         params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         getSmsOtpByReference(referenceId, params, RequestOptions.none())
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         params: BrandGetSmsOtpByReferenceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse>
+    ): CompletableFuture<BrandSmsOtpStatus>
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         params: BrandGetSmsOtpByReferenceParams
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
-        getSmsOtpByReference(params, RequestOptions.none())
+    ): CompletableFuture<BrandSmsOtpStatus> = getSmsOtpByReference(params, RequestOptions.none())
 
     /** @see getSmsOtpByReference */
     fun getSmsOtpByReference(
         referenceId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none(), requestOptions)
 
     /** Resend brand 2FA email */
@@ -314,9 +310,7 @@ interface BrandServiceAsync {
      * **Note:** This is an alternative to the `/10dlc/brand/smsOtp/{referenceId}` endpoint when you
      * have the Brand ID but not the reference ID.
      */
-    fun retrieveSmsOtpStatus(
-        brandId: String
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+    fun retrieveSmsOtpStatus(brandId: String): CompletableFuture<BrandSmsOtpStatus> =
         retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
     /** @see retrieveSmsOtpStatus */
@@ -324,33 +318,32 @@ interface BrandServiceAsync {
         brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         params: BrandRetrieveSmsOtpStatusParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse>
+    ): CompletableFuture<BrandSmsOtpStatus>
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         params: BrandRetrieveSmsOtpStatusParams
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        retrieveSmsOtpStatus(params, RequestOptions.none())
+    ): CompletableFuture<BrandSmsOtpStatus> = retrieveSmsOtpStatus(params, RequestOptions.none())
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
         brandId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
     /**
@@ -677,7 +670,7 @@ interface BrandServiceAsync {
          */
         fun getSmsOtpByReference(
             referenceId: String
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
 
         /** @see getSmsOtpByReference */
@@ -685,7 +678,7 @@ interface BrandServiceAsync {
             referenceId: String,
             params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             getSmsOtpByReference(
                 params.toBuilder().referenceId(referenceId).build(),
                 requestOptions,
@@ -695,26 +688,26 @@ interface BrandServiceAsync {
         fun getSmsOtpByReference(
             referenceId: String,
             params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             getSmsOtpByReference(referenceId, params, RequestOptions.none())
 
         /** @see getSmsOtpByReference */
         fun getSmsOtpByReference(
             params: BrandGetSmsOtpByReferenceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>>
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>>
 
         /** @see getSmsOtpByReference */
         fun getSmsOtpByReference(
             params: BrandGetSmsOtpByReferenceParams
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             getSmsOtpByReference(params, RequestOptions.none())
 
         /** @see getSmsOtpByReference */
         fun getSmsOtpByReference(
             referenceId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             getSmsOtpByReference(
                 referenceId,
                 BrandGetSmsOtpByReferenceParams.none(),
@@ -765,7 +758,7 @@ interface BrandServiceAsync {
          */
         fun retrieveSmsOtpStatus(
             brandId: String
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
         /** @see retrieveSmsOtpStatus */
@@ -773,33 +766,33 @@ interface BrandServiceAsync {
             brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
             brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
             params: BrandRetrieveSmsOtpStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>>
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>>
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
             params: BrandRetrieveSmsOtpStatusParams
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             retrieveSmsOtpStatus(params, RequestOptions.none())
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
             brandId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> =
             retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
         /**

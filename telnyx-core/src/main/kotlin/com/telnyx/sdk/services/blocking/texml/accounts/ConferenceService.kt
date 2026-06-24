@@ -6,16 +6,15 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
+import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceResource
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecordingsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateResponse
 import com.telnyx.sdk.services.blocking.texml.accounts.conferences.ParticipantService
 import java.util.function.Consumer
 
@@ -38,31 +37,29 @@ interface ConferenceService {
     fun participants(): ParticipantService
 
     /** Returns a conference resource. */
-    fun retrieve(
-        conferenceSid: String,
-        params: ConferenceRetrieveParams,
-    ): ConferenceRetrieveResponse = retrieve(conferenceSid, params, RequestOptions.none())
+    fun retrieve(conferenceSid: String, params: ConferenceRetrieveParams): ConferenceResource =
+        retrieve(conferenceSid, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         conferenceSid: String,
         params: ConferenceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveResponse =
+    ): ConferenceResource =
         retrieve(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: ConferenceRetrieveParams): ConferenceRetrieveResponse =
+    fun retrieve(params: ConferenceRetrieveParams): ConferenceResource =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ConferenceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveResponse
+    ): ConferenceResource
 
     /** Updates a conference resource. */
-    fun update(conferenceSid: String, params: ConferenceUpdateParams): ConferenceUpdateResponse =
+    fun update(conferenceSid: String, params: ConferenceUpdateParams): ConferenceResource =
         update(conferenceSid, params, RequestOptions.none())
 
     /** @see update */
@@ -70,18 +67,18 @@ interface ConferenceService {
         conferenceSid: String,
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceUpdateResponse =
+    ): ConferenceResource =
         update(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ConferenceUpdateParams): ConferenceUpdateResponse =
+    fun update(params: ConferenceUpdateParams): ConferenceResource =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceUpdateResponse
+    ): ConferenceResource
 
     /** Lists conference resources. */
     fun retrieveConferences(accountSid: String): ConferenceRetrieveConferencesResponse =
@@ -150,7 +147,7 @@ interface ConferenceService {
     fun retrieveRecordingsJson(
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsJsonParams,
-    ): ConferenceRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(conferenceSid, params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
@@ -158,7 +155,7 @@ interface ConferenceService {
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(
             params.toBuilder().conferenceSid(conferenceSid).build(),
             requestOptions,
@@ -167,14 +164,13 @@ interface ConferenceService {
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams
-    ): ConferenceRetrieveRecordingsJsonResponse =
-        retrieveRecordingsJson(params, RequestOptions.none())
+    ): TexmlGetCallRecordingsResponseBody = retrieveRecordingsJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceRetrieveRecordingsJsonResponse
+    ): TexmlGetCallRecordingsResponseBody
 
     /** A view of [ConferenceService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -200,7 +196,7 @@ interface ConferenceService {
         fun retrieve(
             conferenceSid: String,
             params: ConferenceRetrieveParams,
-        ): HttpResponseFor<ConferenceRetrieveResponse> =
+        ): HttpResponseFor<ConferenceResource> =
             retrieve(conferenceSid, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -209,21 +205,20 @@ interface ConferenceService {
             conferenceSid: String,
             params: ConferenceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveResponse> =
+        ): HttpResponseFor<ConferenceResource> =
             retrieve(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: ConferenceRetrieveParams
-        ): HttpResponseFor<ConferenceRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: ConferenceRetrieveParams): HttpResponseFor<ConferenceResource> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ConferenceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveResponse>
+        ): HttpResponseFor<ConferenceResource>
 
         /**
          * Returns a raw HTTP response for `post
@@ -234,7 +229,7 @@ interface ConferenceService {
         fun update(
             conferenceSid: String,
             params: ConferenceUpdateParams,
-        ): HttpResponseFor<ConferenceUpdateResponse> =
+        ): HttpResponseFor<ConferenceResource> =
             update(conferenceSid, params, RequestOptions.none())
 
         /** @see update */
@@ -243,12 +238,12 @@ interface ConferenceService {
             conferenceSid: String,
             params: ConferenceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceUpdateResponse> =
+        ): HttpResponseFor<ConferenceResource> =
             update(params.toBuilder().conferenceSid(conferenceSid).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ConferenceUpdateParams): HttpResponseFor<ConferenceUpdateResponse> =
+        fun update(params: ConferenceUpdateParams): HttpResponseFor<ConferenceResource> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -256,7 +251,7 @@ interface ConferenceService {
         fun update(
             params: ConferenceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceUpdateResponse>
+        ): HttpResponseFor<ConferenceResource>
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Conferences`, but is
@@ -359,7 +354,7 @@ interface ConferenceService {
         fun retrieveRecordingsJson(
             conferenceSid: String,
             params: ConferenceRetrieveRecordingsJsonParams,
-        ): HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(conferenceSid, params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -368,7 +363,7 @@ interface ConferenceService {
             conferenceSid: String,
             params: ConferenceRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(
                 params.toBuilder().conferenceSid(conferenceSid).build(),
                 requestOptions,
@@ -378,7 +373,7 @@ interface ConferenceService {
         @MustBeClosed
         fun retrieveRecordingsJson(
             params: ConferenceRetrieveRecordingsJsonParams
-        ): HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -386,6 +381,6 @@ interface ConferenceService {
         fun retrieveRecordingsJson(
             params: ConferenceRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceRetrieveRecordingsJsonResponse>
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody>
     }
 }

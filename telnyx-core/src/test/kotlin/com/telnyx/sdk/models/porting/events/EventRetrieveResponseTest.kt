@@ -39,7 +39,7 @@ internal class EventRetrieveResponseTest {
 
         assertThat(eventRetrieveResponse.data())
             .contains(
-                EventRetrieveResponse.Data.ofPortingOrderDeleted(
+                PortingEvent.ofOrderDeleted(
                     PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(

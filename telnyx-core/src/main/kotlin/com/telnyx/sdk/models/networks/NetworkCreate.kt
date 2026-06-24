@@ -10,9 +10,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -39,12 +37,13 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
     ) : this(id, createdAt, recordType, updatedAt, name, mutableMapOf())
 
-    fun toRecord(): Record =
-        Record.builder()
+    fun toNetwork(): Network =
+        Network.builder()
             .id(id)
             .createdAt(createdAt)
             .recordType(recordType)
             .updatedAt(updatedAt)
+            .name(name)
             .build()
 
     /**
@@ -82,10 +81,10 @@ private constructor(
     /**
      * A user specified name for the network.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun name(): String = name.getRequired("name")
+    fun name(): Optional<String> = name.getOptional("name")
 
     /**
      * Returns the raw JSON value of [id].
@@ -136,14 +135,7 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [NetworkCreate].
-         *
-         * The following fields are required:
-         * ```java
-         * .name()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [NetworkCreate]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -154,7 +146,7 @@ private constructor(
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
-        private var name: JsonField<String>? = null
+        private var name: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -248,13 +240,6 @@ private constructor(
          * Returns an immutable instance of [NetworkCreate].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .name()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): NetworkCreate =
             NetworkCreate(
@@ -262,7 +247,7 @@ private constructor(
                 createdAt,
                 recordType,
                 updatedAt,
-                checkRequired("name", name),
+                name,
                 additionalProperties.toMutableMap(),
             )
     }

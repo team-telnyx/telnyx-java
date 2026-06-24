@@ -16,14 +16,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,14 +40,14 @@ class AdvancedOrderServiceImpl internal constructor(private val clientOptions: C
     override fun create(
         params: AdvancedOrderCreateParams,
         requestOptions: RequestOptions,
-    ): AdvancedOrderCreateResponse =
+    ): AdvancedOrder =
         // post /advanced_orders
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: AdvancedOrderRetrieveParams,
         requestOptions: RequestOptions,
-    ): AdvancedOrderRetrieveResponse =
+    ): AdvancedOrder =
         // get /advanced_orders/{order_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -63,7 +61,7 @@ class AdvancedOrderServiceImpl internal constructor(private val clientOptions: C
     override fun updateRequirementGroup(
         params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions,
-    ): AdvancedOrderUpdateRequirementGroupResponse =
+    ): AdvancedOrder =
         // patch /advanced_orders/{advanced-order-id}/requirement_group
         withRawResponse().updateRequirementGroup(params, requestOptions).parse()
 
@@ -80,13 +78,13 @@ class AdvancedOrderServiceImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<AdvancedOrderCreateResponse> =
-            jsonHandler<AdvancedOrderCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun create(
             params: AdvancedOrderCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdvancedOrderCreateResponse> {
+        ): HttpResponseFor<AdvancedOrder> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -108,13 +106,13 @@ class AdvancedOrderServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val retrieveHandler: Handler<AdvancedOrderRetrieveResponse> =
-            jsonHandler<AdvancedOrderRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AdvancedOrderRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdvancedOrderRetrieveResponse> {
+        ): HttpResponseFor<AdvancedOrder> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("orderId", params.orderId().getOrNull())
@@ -165,14 +163,13 @@ class AdvancedOrderServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val updateRequirementGroupHandler:
-            Handler<AdvancedOrderUpdateRequirementGroupResponse> =
-            jsonHandler<AdvancedOrderUpdateRequirementGroupResponse>(clientOptions.jsonMapper)
+        private val updateRequirementGroupHandler: Handler<AdvancedOrder> =
+            jsonHandler<AdvancedOrder>(clientOptions.jsonMapper)
 
         override fun updateRequirementGroup(
             params: AdvancedOrderUpdateRequirementGroupParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse> {
+        ): HttpResponseFor<AdvancedOrder> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("advancedOrderId", params.advancedOrderId().getOrNull())

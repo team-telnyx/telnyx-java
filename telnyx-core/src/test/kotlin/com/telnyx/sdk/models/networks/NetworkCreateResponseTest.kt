@@ -14,7 +14,7 @@ internal class NetworkCreateResponseTest {
         val networkCreateResponse =
             NetworkCreateResponse.builder()
                 .data(
-                    NetworkCreateResponse.Data.builder()
+                    Network.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
@@ -26,7 +26,7 @@ internal class NetworkCreateResponseTest {
 
         assertThat(networkCreateResponse.data())
             .contains(
-                NetworkCreateResponse.Data.builder()
+                Network.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
@@ -42,7 +42,7 @@ internal class NetworkCreateResponseTest {
         val networkCreateResponse =
             NetworkCreateResponse.builder()
                 .data(
-                    NetworkCreateResponse.Data.builder()
+                    Network.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")

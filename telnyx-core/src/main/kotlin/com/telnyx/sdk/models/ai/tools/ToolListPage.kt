@@ -18,14 +18,14 @@ private constructor(
     private val service: ToolService,
     private val params: ToolListParams,
     private val response: ToolListPageResponse,
-) : Page<ToolListResponse> {
+) : Page<SharedToolResponse> {
 
     /**
      * Delegates to [ToolListPageResponse], but gracefully handles missing data.
      *
      * @see ToolListPageResponse.data
      */
-    fun data(): List<ToolListResponse> =
+    fun data(): List<SharedToolResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ToolListResponse> = data()
+    override fun items(): List<SharedToolResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): ToolListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<ToolListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<SharedToolResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ToolListParams = params

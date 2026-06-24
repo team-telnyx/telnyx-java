@@ -6,13 +6,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.RemediationServiceAsync
@@ -51,7 +49,7 @@ interface ReputationServiceAsync {
      *
      * Returns `404` if reputation has never been enabled for this enterprise.
      */
-    fun retrieve(enterpriseId: String): CompletableFuture<ReputationRetrieveResponse> =
+    fun retrieve(enterpriseId: String): CompletableFuture<EnterpriseReputationPublicWrapped> =
         retrieve(enterpriseId, ReputationRetrieveParams.none())
 
     /** @see retrieve */
@@ -59,31 +57,33 @@ interface ReputationServiceAsync {
         enterpriseId: String,
         params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationRetrieveResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-    ): CompletableFuture<ReputationRetrieveResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         retrieve(enterpriseId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ReputationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationRetrieveResponse>
+    ): CompletableFuture<EnterpriseReputationPublicWrapped>
 
     /** @see retrieve */
-    fun retrieve(params: ReputationRetrieveParams): CompletableFuture<ReputationRetrieveResponse> =
+    fun retrieve(
+        params: ReputationRetrieveParams
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationRetrieveResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
 
     /**
@@ -143,7 +143,7 @@ interface ReputationServiceAsync {
     fun enable(
         enterpriseId: String,
         params: ReputationEnableParams,
-    ): CompletableFuture<ReputationEnableResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         enable(enterpriseId, params, RequestOptions.none())
 
     /** @see enable */
@@ -151,18 +151,19 @@ interface ReputationServiceAsync {
         enterpriseId: String,
         params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationEnableResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see enable */
-    fun enable(params: ReputationEnableParams): CompletableFuture<ReputationEnableResponse> =
-        enable(params, RequestOptions.none())
+    fun enable(
+        params: ReputationEnableParams
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> = enable(params, RequestOptions.none())
 
     /** @see enable */
     fun enable(
         params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationEnableResponse>
+    ): CompletableFuture<EnterpriseReputationPublicWrapped>
 
     /**
      * Update how often Telnyx refreshes the reputation data for this enterprise's registered
@@ -174,7 +175,7 @@ interface ReputationServiceAsync {
     fun updateFrequency(
         enterpriseId: String,
         params: ReputationUpdateFrequencyParams,
-    ): CompletableFuture<ReputationUpdateFrequencyResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         updateFrequency(enterpriseId, params, RequestOptions.none())
 
     /** @see updateFrequency */
@@ -182,20 +183,20 @@ interface ReputationServiceAsync {
         enterpriseId: String,
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationUpdateFrequencyResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         updateFrequency(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see updateFrequency */
     fun updateFrequency(
         params: ReputationUpdateFrequencyParams
-    ): CompletableFuture<ReputationUpdateFrequencyResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         updateFrequency(params, RequestOptions.none())
 
     /** @see updateFrequency */
     fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationUpdateFrequencyResponse>
+    ): CompletableFuture<EnterpriseReputationPublicWrapped>
 
     /**
      * A view of [ReputationServiceAsync] that provides access to raw HTTP responses for each
@@ -227,7 +228,7 @@ interface ReputationServiceAsync {
          */
         fun retrieve(
             enterpriseId: String
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             retrieve(enterpriseId, ReputationRetrieveParams.none())
 
         /** @see retrieve */
@@ -235,33 +236,33 @@ interface ReputationServiceAsync {
             enterpriseId: String,
             params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             enterpriseId: String,
             params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             retrieve(enterpriseId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: ReputationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
 
         /** @see retrieve */
         fun retrieve(
             params: ReputationRetrieveParams
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
 
         /**
@@ -309,7 +310,7 @@ interface ReputationServiceAsync {
         fun enable(
             enterpriseId: String,
             params: ReputationEnableParams,
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             enable(enterpriseId, params, RequestOptions.none())
 
         /** @see enable */
@@ -317,20 +318,20 @@ interface ReputationServiceAsync {
             enterpriseId: String,
             params: ReputationEnableParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see enable */
         fun enable(
             params: ReputationEnableParams
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             enable(params, RequestOptions.none())
 
         /** @see enable */
         fun enable(
             params: ReputationEnableParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -340,7 +341,7 @@ interface ReputationServiceAsync {
         fun updateFrequency(
             enterpriseId: String,
             params: ReputationUpdateFrequencyParams,
-        ): CompletableFuture<HttpResponseFor<ReputationUpdateFrequencyResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             updateFrequency(enterpriseId, params, RequestOptions.none())
 
         /** @see updateFrequency */
@@ -348,19 +349,19 @@ interface ReputationServiceAsync {
             enterpriseId: String,
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationUpdateFrequencyResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             updateFrequency(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see updateFrequency */
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams
-        ): CompletableFuture<HttpResponseFor<ReputationUpdateFrequencyResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
             updateFrequency(params, RequestOptions.none())
 
         /** @see updateFrequency */
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationUpdateFrequencyResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
     }
 }

@@ -137,7 +137,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun region(): Optional<Region> = body.region()
+    fun region(): Optional<ConferenceRegion> = body.region()
 
     /**
      * Whether the conference should end after the participant leaves the conference. NOTE this
@@ -247,7 +247,7 @@ private constructor(
      *
      * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _region(): JsonField<Region> = body._region()
+    fun _region(): JsonField<ConferenceRegion> = body._region()
 
     /**
      * Returns the raw JSON value of [softEndConferenceOnExit].
@@ -491,15 +491,16 @@ private constructor(
          * Region where the conference data is located. Defaults to the region defined in user's
          * data locality settings (Europe or US).
          */
-        fun region(region: Region) = apply { body.region(region) }
+        fun region(region: ConferenceRegion) = apply { body.region(region) }
 
         /**
          * Sets [Builder.region] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.region] with a well-typed [Region] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.region] with a well-typed [ConferenceRegion] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun region(region: JsonField<Region>) = apply { body.region(region) }
+        fun region(region: JsonField<ConferenceRegion>) = apply { body.region(region) }
 
         /**
          * Whether the conference should end after the participant leaves the conference. NOTE this
@@ -751,7 +752,7 @@ private constructor(
         private val holdAudioUrl: JsonField<String>,
         private val holdMediaName: JsonField<String>,
         private val mute: JsonField<Boolean>,
-        private val region: JsonField<Region>,
+        private val region: JsonField<ConferenceRegion>,
         private val softEndConferenceOnExit: JsonField<Boolean>,
         private val startConferenceOnEnter: JsonField<Boolean>,
         private val supervisorRole: JsonField<SupervisorRole>,
@@ -784,7 +785,9 @@ private constructor(
             @ExcludeMissing
             holdMediaName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mute") @ExcludeMissing mute: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
+            @JsonProperty("region")
+            @ExcludeMissing
+            region: JsonField<ConferenceRegion> = JsonMissing.of(),
             @JsonProperty("soft_end_conference_on_exit")
             @ExcludeMissing
             softEndConferenceOnExit: JsonField<Boolean> = JsonMissing.of(),
@@ -910,7 +913,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun region(): Optional<Region> = region.getOptional("region")
+        fun region(): Optional<ConferenceRegion> = region.getOptional("region")
 
         /**
          * Whether the conference should end after the participant leaves the conference. NOTE this
@@ -1039,7 +1042,7 @@ private constructor(
          *
          * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<ConferenceRegion> = region
 
         /**
          * Returns the raw JSON value of [softEndConferenceOnExit].
@@ -1118,7 +1121,7 @@ private constructor(
             private var holdAudioUrl: JsonField<String> = JsonMissing.of()
             private var holdMediaName: JsonField<String> = JsonMissing.of()
             private var mute: JsonField<Boolean> = JsonMissing.of()
-            private var region: JsonField<Region> = JsonMissing.of()
+            private var region: JsonField<ConferenceRegion> = JsonMissing.of()
             private var softEndConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
             private var startConferenceOnEnter: JsonField<Boolean> = JsonMissing.of()
             private var supervisorRole: JsonField<SupervisorRole> = JsonMissing.of()
@@ -1300,16 +1303,16 @@ private constructor(
              * Region where the conference data is located. Defaults to the region defined in user's
              * data locality settings (Europe or US).
              */
-            fun region(region: Region) = region(JsonField.of(region))
+            fun region(region: ConferenceRegion) = region(JsonField.of(region))
 
             /**
              * Sets [Builder.region] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.region] with a well-typed [Region] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.region] with a well-typed [ConferenceRegion] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun region(region: JsonField<Region>) = apply { this.region = region }
+            fun region(region: JsonField<ConferenceRegion>) = apply { this.region = region }
 
             /**
              * Whether the conference should end after the participant leaves the conference. NOTE
@@ -1708,156 +1711,6 @@ private constructor(
             }
 
             return other is BeepEnabled && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /**
-     * Region where the conference data is located. Defaults to the region defined in user's data
-     * locality settings (Europe or US).
-     */
-    class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val AUSTRALIA = of("Australia")
-
-            @JvmField val EUROPE = of("Europe")
-
-            @JvmField val MIDDLE_EAST = of("Middle East")
-
-            @JvmField val US = of("US")
-
-            @JvmStatic fun of(value: String) = Region(JsonField.of(value))
-        }
-
-        /** An enum containing [Region]'s known values. */
-        enum class Known {
-            AUSTRALIA,
-            EUROPE,
-            MIDDLE_EAST,
-            US,
-        }
-
-        /**
-         * An enum containing [Region]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Region] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            AUSTRALIA,
-            EUROPE,
-            MIDDLE_EAST,
-            US,
-            /** An enum member indicating that [Region] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                AUSTRALIA -> Value.AUSTRALIA
-                EUROPE -> Value.EUROPE
-                MIDDLE_EAST -> Value.MIDDLE_EAST
-                US -> Value.US
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                AUSTRALIA -> Known.AUSTRALIA
-                EUROPE -> Known.EUROPE
-                MIDDLE_EAST -> Known.MIDDLE_EAST
-                US -> Known.US
-                else -> throw TelnyxInvalidDataException("Unknown Region: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Region = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Region && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

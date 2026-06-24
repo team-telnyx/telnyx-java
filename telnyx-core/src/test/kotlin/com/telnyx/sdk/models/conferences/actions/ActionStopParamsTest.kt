@@ -13,7 +13,7 @@ internal class ActionStopParamsTest {
         ActionStopParams.builder()
             .id("id")
             .addCallControlId("string")
-            .region(ActionStopParams.Region.US)
+            .region(ConferenceRegion.US)
             .build()
     }
 
@@ -32,13 +32,13 @@ internal class ActionStopParamsTest {
             ActionStopParams.builder()
                 .id("id")
                 .addCallControlId("string")
-                .region(ActionStopParams.Region.US)
+                .region(ConferenceRegion.US)
                 .build()
 
         val body = params._body()
 
         assertThat(body.callControlIds().getOrNull()).containsExactly("string")
-        assertThat(body.region()).contains(ActionStopParams.Region.US)
+        assertThat(body.region()).contains(ConferenceRegion.US)
     }
 
     @Test

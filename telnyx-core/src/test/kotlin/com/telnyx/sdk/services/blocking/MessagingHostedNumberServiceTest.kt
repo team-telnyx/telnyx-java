@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaginghostednumbers.MessagingHostedNumberUpdateParams
+import com.telnyx.sdk.models.messaginghostednumbers.UpdatePhoneNumberMessagingSettingsRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -30,9 +31,13 @@ internal class MessagingHostedNumberServiceTest {
             messagingHostedNumberService.update(
                 MessagingHostedNumberUpdateParams.builder()
                     .id("id")
-                    .messagingProduct("P2P")
-                    .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
-                    .addTag("string")
+                    .updatePhoneNumberMessagingSettingsRequest(
+                        UpdatePhoneNumberMessagingSettingsRequest.builder()
+                            .messagingProduct("P2P")
+                            .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                            .addTag("string")
+                            .build()
+                    )
                     .build()
             )
 

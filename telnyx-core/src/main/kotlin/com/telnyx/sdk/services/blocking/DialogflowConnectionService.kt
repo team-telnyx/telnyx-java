@@ -8,12 +8,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionDeleteParams
+import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateResponse
 import java.util.function.Consumer
 
 /** Dialogflow Connection Operations. */
@@ -35,30 +33,30 @@ interface DialogflowConnectionService {
     fun create(
         connectionId: String,
         params: DialogflowConnectionCreateParams,
-    ): DialogflowConnectionCreateResponse = create(connectionId, params, RequestOptions.none())
+    ): DialogflowConnectionResponse = create(connectionId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         connectionId: String,
         params: DialogflowConnectionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionCreateResponse =
+    ): DialogflowConnectionResponse =
         create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: DialogflowConnectionCreateParams): DialogflowConnectionCreateResponse =
+    fun create(params: DialogflowConnectionCreateParams): DialogflowConnectionResponse =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: DialogflowConnectionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionCreateResponse
+    ): DialogflowConnectionResponse
 
     /**
      * Return details of the Dialogflow connection associated with the given CallControl connection.
      */
-    fun retrieve(connectionId: String): DialogflowConnectionRetrieveResponse =
+    fun retrieve(connectionId: String): DialogflowConnectionResponse =
         retrieve(connectionId, DialogflowConnectionRetrieveParams.none())
 
     /** @see retrieve */
@@ -66,55 +64,55 @@ interface DialogflowConnectionService {
         connectionId: String,
         params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionRetrieveResponse =
+    ): DialogflowConnectionResponse =
         retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
-    ): DialogflowConnectionRetrieveResponse = retrieve(connectionId, params, RequestOptions.none())
+    ): DialogflowConnectionResponse = retrieve(connectionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: DialogflowConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionRetrieveResponse
+    ): DialogflowConnectionResponse
 
     /** @see retrieve */
-    fun retrieve(params: DialogflowConnectionRetrieveParams): DialogflowConnectionRetrieveResponse =
+    fun retrieve(params: DialogflowConnectionRetrieveParams): DialogflowConnectionResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         requestOptions: RequestOptions,
-    ): DialogflowConnectionRetrieveResponse =
+    ): DialogflowConnectionResponse =
         retrieve(connectionId, DialogflowConnectionRetrieveParams.none(), requestOptions)
 
     /** Updates a stored Dialogflow Connection. */
     fun update(
         connectionId: String,
         params: DialogflowConnectionUpdateParams,
-    ): DialogflowConnectionUpdateResponse = update(connectionId, params, RequestOptions.none())
+    ): DialogflowConnectionResponse = update(connectionId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         connectionId: String,
         params: DialogflowConnectionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionUpdateResponse =
+    ): DialogflowConnectionResponse =
         update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: DialogflowConnectionUpdateParams): DialogflowConnectionUpdateResponse =
+    fun update(params: DialogflowConnectionUpdateParams): DialogflowConnectionResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: DialogflowConnectionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DialogflowConnectionUpdateResponse
+    ): DialogflowConnectionResponse
 
     /** Deletes a stored Dialogflow Connection. */
     fun delete(connectionId: String) = delete(connectionId, DialogflowConnectionDeleteParams.none())
@@ -168,7 +166,7 @@ interface DialogflowConnectionService {
         fun create(
             connectionId: String,
             params: DialogflowConnectionCreateParams,
-        ): HttpResponseFor<DialogflowConnectionCreateResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             create(connectionId, params, RequestOptions.none())
 
         /** @see create */
@@ -177,29 +175,28 @@ interface DialogflowConnectionService {
             connectionId: String,
             params: DialogflowConnectionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionCreateResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: DialogflowConnectionCreateParams
-        ): HttpResponseFor<DialogflowConnectionCreateResponse> =
-            create(params, RequestOptions.none())
+        ): HttpResponseFor<DialogflowConnectionResponse> = create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: DialogflowConnectionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionCreateResponse>
+        ): HttpResponseFor<DialogflowConnectionResponse>
 
         /**
          * Returns a raw HTTP response for `get /dialogflow_connections/{connection_id}`, but is
          * otherwise the same as [DialogflowConnectionService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(connectionId: String): HttpResponseFor<DialogflowConnectionRetrieveResponse> =
+        fun retrieve(connectionId: String): HttpResponseFor<DialogflowConnectionResponse> =
             retrieve(connectionId, DialogflowConnectionRetrieveParams.none())
 
         /** @see retrieve */
@@ -208,7 +205,7 @@ interface DialogflowConnectionService {
             connectionId: String,
             params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionRetrieveResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see retrieve */
@@ -216,7 +213,7 @@ interface DialogflowConnectionService {
         fun retrieve(
             connectionId: String,
             params: DialogflowConnectionRetrieveParams = DialogflowConnectionRetrieveParams.none(),
-        ): HttpResponseFor<DialogflowConnectionRetrieveResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             retrieve(connectionId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -224,21 +221,20 @@ interface DialogflowConnectionService {
         fun retrieve(
             params: DialogflowConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionRetrieveResponse>
+        ): HttpResponseFor<DialogflowConnectionResponse>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DialogflowConnectionRetrieveParams
-        ): HttpResponseFor<DialogflowConnectionRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<DialogflowConnectionResponse> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             connectionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DialogflowConnectionRetrieveResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             retrieve(connectionId, DialogflowConnectionRetrieveParams.none(), requestOptions)
 
         /**
@@ -249,7 +245,7 @@ interface DialogflowConnectionService {
         fun update(
             connectionId: String,
             params: DialogflowConnectionUpdateParams,
-        ): HttpResponseFor<DialogflowConnectionUpdateResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             update(connectionId, params, RequestOptions.none())
 
         /** @see update */
@@ -258,22 +254,21 @@ interface DialogflowConnectionService {
             connectionId: String,
             params: DialogflowConnectionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionUpdateResponse> =
+        ): HttpResponseFor<DialogflowConnectionResponse> =
             update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: DialogflowConnectionUpdateParams
-        ): HttpResponseFor<DialogflowConnectionUpdateResponse> =
-            update(params, RequestOptions.none())
+        ): HttpResponseFor<DialogflowConnectionResponse> = update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: DialogflowConnectionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DialogflowConnectionUpdateResponse>
+        ): HttpResponseFor<DialogflowConnectionResponse>
 
         /**
          * Returns a raw HTTP response for `delete /dialogflow_connections/{connection_id}`, but is

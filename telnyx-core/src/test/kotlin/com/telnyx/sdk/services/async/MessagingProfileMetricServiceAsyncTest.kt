@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messagingprofilemetrics.MessagingMetricsTimeFrame
 import com.telnyx.sdk.models.messagingprofilemetrics.MessagingProfileMetricListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -18,7 +19,7 @@ internal class MessagingProfileMetricServiceAsyncTest {
         val messagingProfileMetricsFuture =
             messagingProfileMetricServiceAsync.list(
                 MessagingProfileMetricListParams.builder()
-                    .timeFrame(MessagingProfileMetricListParams.TimeFrame.TIME_FRAME_1_H)
+                    .timeFrame(MessagingMetricsTimeFrame.TIME_FRAME_1_H)
                     .build()
             )
 

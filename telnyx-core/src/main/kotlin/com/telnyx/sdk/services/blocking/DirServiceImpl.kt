@@ -17,24 +17,21 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.dir.DirCreateLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
+import com.telnyx.sdk.models.dir.DirList
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
 import com.telnyx.sdk.models.dir.DirListInfringementClaimsPage
 import com.telnyx.sdk.models.dir.DirListInfringementClaimsPageResponse
 import com.telnyx.sdk.models.dir.DirListInfringementClaimsParams
 import com.telnyx.sdk.models.dir.DirListPage
-import com.telnyx.sdk.models.dir.DirListPageResponse
 import com.telnyx.sdk.models.dir.DirListParams
+import com.telnyx.sdk.models.dir.DirNewLoaParams
 import com.telnyx.sdk.models.dir.DirRetrieveParams
-import com.telnyx.sdk.models.dir.DirRetrieveResponse
 import com.telnyx.sdk.models.dir.DirSubmitParams
-import com.telnyx.sdk.models.dir.DirSubmitResponse
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
-import com.telnyx.sdk.models.dir.DirUpdateInfringementResponse
 import com.telnyx.sdk.models.dir.DirUpdateParams
-import com.telnyx.sdk.models.dir.DirUpdateResponse
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.services.blocking.dir.CommentService
 import com.telnyx.sdk.services.blocking.dir.CommentServiceImpl
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberBatchService
@@ -78,17 +75,11 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
      */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
 
-    override fun retrieve(
-        params: DirRetrieveParams,
-        requestOptions: RequestOptions,
-    ): DirRetrieveResponse =
+    override fun retrieve(params: DirRetrieveParams, requestOptions: RequestOptions): DirWrapped =
         // get /dir/{dir_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: DirUpdateParams,
-        requestOptions: RequestOptions,
-    ): DirUpdateResponse =
+    override fun update(params: DirUpdateParams, requestOptions: RequestOptions): DirWrapped =
         // patch /dir/{dir_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -100,13 +91,6 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
         // delete /dir/{dir_id}
         withRawResponse().delete(params, requestOptions)
     }
-
-    override fun createLoa(
-        params: DirCreateLoaParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /dir/{dir_id}/loa
-        withRawResponse().createLoa(params, requestOptions)
 
     override fun listDocumentTypes(
         params: DirListDocumentTypesParams,
@@ -122,17 +106,18 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
         // get /dir/{dir_id}/infringement_claims
         withRawResponse().listInfringementClaims(params, requestOptions).parse()
 
-    override fun submit(
-        params: DirSubmitParams,
-        requestOptions: RequestOptions,
-    ): DirSubmitResponse =
+    override fun newLoa(params: DirNewLoaParams, requestOptions: RequestOptions): HttpResponse =
+        // post /dir/{dir_id}/loa
+        withRawResponse().newLoa(params, requestOptions)
+
+    override fun submit(params: DirSubmitParams, requestOptions: RequestOptions): DirWrapped =
         // post /dir/{dir_id}/submit
         withRawResponse().submit(params, requestOptions).parse()
 
     override fun updateInfringement(
         params: DirUpdateInfringementParams,
         requestOptions: RequestOptions,
-    ): DirUpdateInfringementResponse =
+    ): DirWrapped =
         // put /dir/{dir_id}/infringement_update
         withRawResponse().updateInfringement(params, requestOptions).parse()
 
@@ -177,13 +162,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
          */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
 
-        private val retrieveHandler: Handler<DirRetrieveResponse> =
-            jsonHandler<DirRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: DirRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DirRetrieveResponse> {
+        ): HttpResponseFor<DirWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("dirId", params.dirId().getOrNull())
@@ -207,13 +192,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val updateHandler: Handler<DirUpdateResponse> =
-            jsonHandler<DirUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun update(
             params: DirUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DirUpdateResponse> {
+        ): HttpResponseFor<DirWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("dirId", params.dirId().getOrNull())
@@ -238,8 +223,7 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<DirListPageResponse> =
-            jsonHandler<DirListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DirList> = jsonHandler<DirList>(clientOptions.jsonMapper)
 
         override fun list(
             params: DirListParams,
@@ -291,27 +275,6 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
             }
-        }
-
-        override fun createLoa(
-            params: DirCreateLoaParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("dirId", params.dirId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("dir", params._pathParam(0), "loa")
-                    .putHeader("Accept", "application/pdf")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
         }
 
         private val listDocumentTypesHandler: Handler<DirListDocumentTypesResponse> =
@@ -378,13 +341,31 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val submitHandler: Handler<DirSubmitResponse> =
-            jsonHandler<DirSubmitResponse>(clientOptions.jsonMapper)
+        override fun newLoa(params: DirNewLoaParams, requestOptions: RequestOptions): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("dirId", params.dirId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("dir", params._pathParam(0), "loa")
+                    .putHeader("Accept", "application/pdf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        private val submitHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun submit(
             params: DirSubmitParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DirSubmitResponse> {
+        ): HttpResponseFor<DirWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("dirId", params.dirId().getOrNull())
@@ -409,13 +390,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val updateInfringementHandler: Handler<DirUpdateInfringementResponse> =
-            jsonHandler<DirUpdateInfringementResponse>(clientOptions.jsonMapper)
+        private val updateInfringementHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun updateInfringement(
             params: DirUpdateInfringementParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DirUpdateInfringementResponse> {
+        ): HttpResponseFor<DirWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("dirId", params.dirId().getOrNull())

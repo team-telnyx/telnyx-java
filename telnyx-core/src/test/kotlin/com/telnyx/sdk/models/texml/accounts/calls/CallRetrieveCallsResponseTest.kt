@@ -15,13 +15,13 @@ internal class CallRetrieveCallsResponseTest {
         val callRetrieveCallsResponse =
             CallRetrieveCallsResponse.builder()
                 .addCall(
-                    CallRetrieveCallsResponse.Call.builder()
+                    CallResource.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
-                        .answeredBy(CallRetrieveCallsResponse.Call.AnsweredBy.HUMAN)
+                        .answeredBy(CallResource.AnsweredBy.HUMAN)
                         .callerName("+13122010094")
                         .dateCreated("Thu, 15 Jun 2023 09:56:45 +0000")
                         .dateUpdated("Thu, 15 Jun 2023 09:56:56 +0000")
-                        .direction(CallRetrieveCallsResponse.Call.Direction.INBOUND)
+                        .direction(CallResource.Direction.INBOUND)
                         .duration("11")
                         .endTime("Thu, 15 Jun 2023 09:56:56 +0000")
                         .from("+13123456789")
@@ -30,7 +30,7 @@ internal class CallRetrieveCallsResponseTest {
                         .priceUnit("USD")
                         .sid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                         .startTime("Thu, 15 Jun 2023 09:56:45 +0000")
-                        .status(CallRetrieveCallsResponse.Call.Status.COMPLETED)
+                        .status(CallResource.Status.COMPLETED)
                         .to("+13987654321")
                         .toFormatted("(398) 765-4321")
                         .uri(
@@ -55,13 +55,13 @@ internal class CallRetrieveCallsResponseTest {
 
         assertThat(callRetrieveCallsResponse.calls().getOrNull())
             .containsExactly(
-                CallRetrieveCallsResponse.Call.builder()
+                CallResource.builder()
                     .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
-                    .answeredBy(CallRetrieveCallsResponse.Call.AnsweredBy.HUMAN)
+                    .answeredBy(CallResource.AnsweredBy.HUMAN)
                     .callerName("+13122010094")
                     .dateCreated("Thu, 15 Jun 2023 09:56:45 +0000")
                     .dateUpdated("Thu, 15 Jun 2023 09:56:56 +0000")
-                    .direction(CallRetrieveCallsResponse.Call.Direction.INBOUND)
+                    .direction(CallResource.Direction.INBOUND)
                     .duration("11")
                     .endTime("Thu, 15 Jun 2023 09:56:56 +0000")
                     .from("+13123456789")
@@ -70,7 +70,7 @@ internal class CallRetrieveCallsResponseTest {
                     .priceUnit("USD")
                     .sid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                     .startTime("Thu, 15 Jun 2023 09:56:45 +0000")
-                    .status(CallRetrieveCallsResponse.Call.Status.COMPLETED)
+                    .status(CallResource.Status.COMPLETED)
                     .to("+13987654321")
                     .toFormatted("(398) 765-4321")
                     .uri(
@@ -102,13 +102,13 @@ internal class CallRetrieveCallsResponseTest {
         val callRetrieveCallsResponse =
             CallRetrieveCallsResponse.builder()
                 .addCall(
-                    CallRetrieveCallsResponse.Call.builder()
+                    CallResource.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
-                        .answeredBy(CallRetrieveCallsResponse.Call.AnsweredBy.HUMAN)
+                        .answeredBy(CallResource.AnsweredBy.HUMAN)
                         .callerName("+13122010094")
                         .dateCreated("Thu, 15 Jun 2023 09:56:45 +0000")
                         .dateUpdated("Thu, 15 Jun 2023 09:56:56 +0000")
-                        .direction(CallRetrieveCallsResponse.Call.Direction.INBOUND)
+                        .direction(CallResource.Direction.INBOUND)
                         .duration("11")
                         .endTime("Thu, 15 Jun 2023 09:56:56 +0000")
                         .from("+13123456789")
@@ -117,7 +117,7 @@ internal class CallRetrieveCallsResponseTest {
                         .priceUnit("USD")
                         .sid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                         .startTime("Thu, 15 Jun 2023 09:56:45 +0000")
-                        .status(CallRetrieveCallsResponse.Call.Status.COMPLETED)
+                        .status(CallResource.Status.COMPLETED)
                         .to("+13987654321")
                         .toFormatted("(398) 765-4321")
                         .uri(

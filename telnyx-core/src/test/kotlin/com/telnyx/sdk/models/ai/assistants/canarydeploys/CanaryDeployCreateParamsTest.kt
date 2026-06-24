@@ -14,11 +14,11 @@ internal class CanaryDeployCreateParamsTest {
             .canaryDeploy(
                 CanaryDeploy.builder()
                     .addRule(
-                        CanaryDeploy.Rule.builder()
+                        RuleInput.builder()
                             .serve(
-                                CanaryDeploy.Rule.Serve.builder()
+                                Serve.builder()
                                     .addRollout(
-                                        CanaryDeploy.Rule.Serve.Rollout.builder()
+                                        RolloutSlot.builder()
                                             .versionId("version_id")
                                             .weight(0.0)
                                             .build()
@@ -27,9 +27,9 @@ internal class CanaryDeployCreateParamsTest {
                                     .build()
                             )
                             .addMatch(
-                                CanaryDeploy.Rule.Match.builder()
+                                Clause.builder()
                                     .attribute("attribute")
-                                    .operator(CanaryDeploy.Rule.Match.Operator.IN)
+                                    .operator(Clause.Operator.IN)
                                     .addValue("string")
                                     .build()
                             )
@@ -61,11 +61,11 @@ internal class CanaryDeployCreateParamsTest {
                 .canaryDeploy(
                     CanaryDeploy.builder()
                         .addRule(
-                            CanaryDeploy.Rule.builder()
+                            RuleInput.builder()
                                 .serve(
-                                    CanaryDeploy.Rule.Serve.builder()
+                                    Serve.builder()
                                         .addRollout(
-                                            CanaryDeploy.Rule.Serve.Rollout.builder()
+                                            RolloutSlot.builder()
                                                 .versionId("version_id")
                                                 .weight(0.0)
                                                 .build()
@@ -74,9 +74,9 @@ internal class CanaryDeployCreateParamsTest {
                                         .build()
                                 )
                                 .addMatch(
-                                    CanaryDeploy.Rule.Match.builder()
+                                    Clause.builder()
                                         .attribute("attribute")
-                                        .operator(CanaryDeploy.Rule.Match.Operator.IN)
+                                        .operator(Clause.Operator.IN)
                                         .addValue("string")
                                         .build()
                                 )
@@ -92,11 +92,11 @@ internal class CanaryDeployCreateParamsTest {
             .isEqualTo(
                 CanaryDeploy.builder()
                     .addRule(
-                        CanaryDeploy.Rule.builder()
+                        RuleInput.builder()
                             .serve(
-                                CanaryDeploy.Rule.Serve.builder()
+                                Serve.builder()
                                     .addRollout(
-                                        CanaryDeploy.Rule.Serve.Rollout.builder()
+                                        RolloutSlot.builder()
                                             .versionId("version_id")
                                             .weight(0.0)
                                             .build()
@@ -105,9 +105,9 @@ internal class CanaryDeployCreateParamsTest {
                                     .build()
                             )
                             .addMatch(
-                                CanaryDeploy.Rule.Match.builder()
+                                Clause.builder()
                                     .attribute("attribute")
-                                    .operator(CanaryDeploy.Rule.Match.Operator.IN)
+                                    .operator(Clause.Operator.IN)
                                     .addValue("string")
                                     .build()
                             )

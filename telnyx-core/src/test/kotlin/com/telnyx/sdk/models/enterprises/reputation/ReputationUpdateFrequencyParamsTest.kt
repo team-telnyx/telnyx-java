@@ -11,7 +11,7 @@ internal class ReputationUpdateFrequencyParamsTest {
     fun create() {
         ReputationUpdateFrequencyParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
-            .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
+            .checkFrequency(ReputationCheckFrequency.WEEKLY)
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class ReputationUpdateFrequencyParamsTest {
         val params =
             ReputationUpdateFrequencyParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
-                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
+                .checkFrequency(ReputationCheckFrequency.WEEKLY)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -33,12 +33,11 @@ internal class ReputationUpdateFrequencyParamsTest {
         val params =
             ReputationUpdateFrequencyParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
-                .checkFrequency(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
+                .checkFrequency(ReputationCheckFrequency.WEEKLY)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.checkFrequency())
-            .isEqualTo(ReputationUpdateFrequencyParams.CheckFrequency.WEEKLY)
+        assertThat(body.checkFrequency()).isEqualTo(ReputationCheckFrequency.WEEKLY)
     }
 }

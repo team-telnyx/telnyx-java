@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoResponse
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusResponse
 import com.telnyx.sdk.services.async.termsofservice.AgreementServiceAsync
 import com.telnyx.sdk.services.async.termsofservice.BrandedCallingServiceAsync
 import com.telnyx.sdk.services.async.termsofservice.NumberReputationServiceAsync
@@ -43,23 +43,26 @@ interface TermsOfServiceServiceAsync {
      * Returns the available Terms of Service agreements (product, current version, terms URL,
      * effective date). Omit `product_type` to return all products; pass it to scope to one.
      */
-    fun info(): CompletableFuture<TermsOfServiceInfoResponse> =
-        info(TermsOfServiceInfoParams.none())
+    fun retrieveInfo(): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
 
-    /** @see info */
-    fun info(
-        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TermsOfServiceInfoResponse>
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse>
 
-    /** @see info */
-    fun info(
-        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
-    ): CompletableFuture<TermsOfServiceInfoResponse> = info(params, RequestOptions.none())
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(params, RequestOptions.none())
 
-    /** @see info */
-    fun info(requestOptions: RequestOptions): CompletableFuture<TermsOfServiceInfoResponse> =
-        info(TermsOfServiceInfoParams.none(), requestOptions)
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        requestOptions: RequestOptions
+    ): CompletableFuture<TermsOfServiceRetrieveInfoResponse> =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
     /**
      * Returns whether the authenticated user has agreed to the current Terms of Service for the
@@ -69,23 +72,26 @@ interface TermsOfServiceServiceAsync {
      * `agreement_required: true` means the user has not yet agreed (or has agreed to an outdated
      * version) and must agree before using that product's endpoints.
      */
-    fun status(): CompletableFuture<TermsOfServiceStatusResponse> =
-        status(TermsOfServiceStatusParams.none())
+    fun retrieveStatus(): CompletableFuture<TermsOfServiceRetrieveStatusResponse> =
+        retrieveStatus(TermsOfServiceRetrieveStatusParams.none())
 
-    /** @see status */
-    fun status(
-        params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none(),
+    /** @see retrieveStatus */
+    fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TermsOfServiceStatusResponse>
+    ): CompletableFuture<TermsOfServiceRetrieveStatusResponse>
 
-    /** @see status */
-    fun status(
-        params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none()
-    ): CompletableFuture<TermsOfServiceStatusResponse> = status(params, RequestOptions.none())
+    /** @see retrieveStatus */
+    fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none()
+    ): CompletableFuture<TermsOfServiceRetrieveStatusResponse> =
+        retrieveStatus(params, RequestOptions.none())
 
-    /** @see status */
-    fun status(requestOptions: RequestOptions): CompletableFuture<TermsOfServiceStatusResponse> =
-        status(TermsOfServiceStatusParams.none(), requestOptions)
+    /** @see retrieveStatus */
+    fun retrieveStatus(
+        requestOptions: RequestOptions
+    ): CompletableFuture<TermsOfServiceRetrieveStatusResponse> =
+        retrieveStatus(TermsOfServiceRetrieveStatusParams.none(), requestOptions)
 
     /**
      * A view of [TermsOfServiceServiceAsync] that provides access to raw HTTP responses for each
@@ -113,52 +119,53 @@ interface TermsOfServiceServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/info`, but is otherwise the same
-         * as [TermsOfServiceServiceAsync.info].
+         * as [TermsOfServiceServiceAsync.retrieveInfo].
          */
-        fun info(): CompletableFuture<HttpResponseFor<TermsOfServiceInfoResponse>> =
-            info(TermsOfServiceInfoParams.none())
+        fun retrieveInfo(): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
 
-        /** @see info */
-        fun info(
-            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
+        /** @see retrieveInfo */
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceInfoResponse>>
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>>
 
-        /** @see info */
-        fun info(
-            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceInfoResponse>> =
-            info(params, RequestOptions.none())
+        /** @see retrieveInfo */
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(params, RequestOptions.none())
 
-        /** @see info */
-        fun info(
+        /** @see retrieveInfo */
+        fun retrieveInfo(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceInfoResponse>> =
-            info(TermsOfServiceInfoParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveInfoResponse>> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/status`, but is otherwise the same
-         * as [TermsOfServiceServiceAsync.status].
+         * as [TermsOfServiceServiceAsync.retrieveStatus].
          */
-        fun status(): CompletableFuture<HttpResponseFor<TermsOfServiceStatusResponse>> =
-            status(TermsOfServiceStatusParams.none())
+        fun retrieveStatus():
+            CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveStatusResponse>> =
+            retrieveStatus(TermsOfServiceRetrieveStatusParams.none())
 
-        /** @see status */
-        fun status(
-            params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none(),
+        /** @see retrieveStatus */
+        fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceStatusResponse>>
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveStatusResponse>>
 
-        /** @see status */
-        fun status(
-            params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none()
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceStatusResponse>> =
-            status(params, RequestOptions.none())
+        /** @see retrieveStatus */
+        fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none()
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveStatusResponse>> =
+            retrieveStatus(params, RequestOptions.none())
 
-        /** @see status */
-        fun status(
+        /** @see retrieveStatus */
+        fun retrieveStatus(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TermsOfServiceStatusResponse>> =
-            status(TermsOfServiceStatusParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<TermsOfServiceRetrieveStatusResponse>> =
+            retrieveStatus(TermsOfServiceRetrieveStatusParams.none(), requestOptions)
     }
 }

@@ -52,7 +52,7 @@ internal class PronunciationDictCreateParamsTest {
                         "items" to
                             MultipartField.of(
                                 listOf(
-                                    PronunciationDictCreateParams.Item.ofAlias(
+                                    PronunciationDictItem.ofAlias(
                                         PronunciationDictAliasItem.builder()
                                             .alias("tel-nicks")
                                             .text("Telnyx")

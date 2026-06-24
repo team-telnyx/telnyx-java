@@ -32,7 +32,7 @@ private constructor(
      *
      * @see CallReasonListPageResponse.meta
      */
-    fun meta(): Optional<CallReasonListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<CallReasonListResponse> = data()
 

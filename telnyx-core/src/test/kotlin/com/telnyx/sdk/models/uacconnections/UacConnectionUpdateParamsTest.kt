@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.uacconnections
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
+import com.telnyx.sdk.models.credentialconnections.ConnectionNoiseSuppression
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
@@ -28,40 +29,36 @@ internal class UacConnectionUpdateParamsTest {
             .encodeContactHeaderEnabled(true)
             .encryptedMedia(EncryptedMedia.SRTP)
             .externalUacSettings(
-                UacConnectionUpdateParams.ExternalUacSettings.builder()
+                UacExternalSettings.builder()
                     .authUsername("auth8492")
                     .expirationSec(600L)
                     .fromUser("8492")
                     .outboundProxy("outbound.sip-pbx.acme.example:5061")
                     .password("testtesttest")
                     .proxy("sip-pbx.acme.example")
-                    .transport(UacConnectionUpdateParams.ExternalUacSettings.Transport.TLS)
+                    .transport(UacExternalSettings.Transport.TLS)
                     .username("ext8492")
                     .build()
             )
             .inbound(
-                UacConnectionUpdateParams.Inbound.builder()
-                    .aniNumberFormat(UacConnectionUpdateParams.Inbound.AniNumberFormat.PLUS_E_164)
+                UacInboundRequest.builder()
+                    .aniNumberFormat(UacInboundRequest.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
                     .addCodec("G722")
-                    .defaultRoutingMethod(
-                        UacConnectionUpdateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
-                    )
-                    .dnisNumberFormat(UacConnectionUpdateParams.Inbound.DnisNumberFormat.PLUS_E164)
+                    .defaultRoutingMethod(UacInboundRequest.DefaultRoutingMethod.SEQUENTIAL)
+                    .dnisNumberFormat(UacInboundRequest.DnisNumberFormat.PLUS_E164)
                     .generateRingbackTone(true)
                     .isupHeadersEnabled(true)
                     .prackEnabled(true)
                     .shakenStirEnabled(true)
-                    .simultaneousRinging(
-                        UacConnectionUpdateParams.Inbound.SimultaneousRinging.DISABLED
-                    )
+                    .simultaneousRinging(UacInboundRequest.SimultaneousRinging.DISABLED)
                     .sipCompactHeadersEnabled(true)
                     .timeout1xxSecs(10L)
                     .timeout2xxSecs(20L)
                     .build()
             )
             .internalUacSettings(
-                UacConnectionUpdateParams.InternalUacSettings.builder()
+                UacInternalSettings.builder()
                     .destinationUri("14155550123@acme.sip.telnyx.com")
                     .build()
             )
@@ -73,7 +70,7 @@ internal class UacConnectionUpdateParamsTest {
                     .jitterbufferMsecMin(60L)
                     .build()
             )
-            .noiseSuppression(UacConnectionUpdateParams.NoiseSuppression.BOTH)
+            .noiseSuppression(ConnectionNoiseSuppression.BOTH)
             .noiseSuppressionDetails(
                 ConnectionNoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
@@ -82,18 +79,16 @@ internal class UacConnectionUpdateParamsTest {
             )
             .onnetT38PassthroughEnabled(true)
             .outbound(
-                UacConnectionUpdateParams.Outbound.builder()
+                UacOutbound.builder()
                     .aniOverride("always")
-                    .aniOverrideType(UacConnectionUpdateParams.Outbound.AniOverrideType.ALWAYS)
+                    .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
                     .callParkingEnabled(true)
                     .channelLimit(10L)
                     .generateRingbackTone(true)
                     .instantRingbackEnabled(true)
                     .localization("US")
                     .outboundVoiceProfileId("1293384261075731499")
-                    .t38ReinviteSource(
-                        UacConnectionUpdateParams.Outbound.T38ReinviteSource.CUSTOMER
-                    )
+                    .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
                     .build()
             )
             .password("my123secure456password789")
@@ -139,44 +134,36 @@ internal class UacConnectionUpdateParamsTest {
                 .encodeContactHeaderEnabled(true)
                 .encryptedMedia(EncryptedMedia.SRTP)
                 .externalUacSettings(
-                    UacConnectionUpdateParams.ExternalUacSettings.builder()
+                    UacExternalSettings.builder()
                         .authUsername("auth8492")
                         .expirationSec(600L)
                         .fromUser("8492")
                         .outboundProxy("outbound.sip-pbx.acme.example:5061")
                         .password("testtesttest")
                         .proxy("sip-pbx.acme.example")
-                        .transport(UacConnectionUpdateParams.ExternalUacSettings.Transport.TLS)
+                        .transport(UacExternalSettings.Transport.TLS)
                         .username("ext8492")
                         .build()
                 )
                 .inbound(
-                    UacConnectionUpdateParams.Inbound.builder()
-                        .aniNumberFormat(
-                            UacConnectionUpdateParams.Inbound.AniNumberFormat.PLUS_E_164
-                        )
+                    UacInboundRequest.builder()
+                        .aniNumberFormat(UacInboundRequest.AniNumberFormat.PLUS_E_164)
                         .channelLimit(10L)
                         .addCodec("G722")
-                        .defaultRoutingMethod(
-                            UacConnectionUpdateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
-                        )
-                        .dnisNumberFormat(
-                            UacConnectionUpdateParams.Inbound.DnisNumberFormat.PLUS_E164
-                        )
+                        .defaultRoutingMethod(UacInboundRequest.DefaultRoutingMethod.SEQUENTIAL)
+                        .dnisNumberFormat(UacInboundRequest.DnisNumberFormat.PLUS_E164)
                         .generateRingbackTone(true)
                         .isupHeadersEnabled(true)
                         .prackEnabled(true)
                         .shakenStirEnabled(true)
-                        .simultaneousRinging(
-                            UacConnectionUpdateParams.Inbound.SimultaneousRinging.DISABLED
-                        )
+                        .simultaneousRinging(UacInboundRequest.SimultaneousRinging.DISABLED)
                         .sipCompactHeadersEnabled(true)
                         .timeout1xxSecs(10L)
                         .timeout2xxSecs(20L)
                         .build()
                 )
                 .internalUacSettings(
-                    UacConnectionUpdateParams.InternalUacSettings.builder()
+                    UacInternalSettings.builder()
                         .destinationUri("14155550123@acme.sip.telnyx.com")
                         .build()
                 )
@@ -188,7 +175,7 @@ internal class UacConnectionUpdateParamsTest {
                         .jitterbufferMsecMin(60L)
                         .build()
                 )
-                .noiseSuppression(UacConnectionUpdateParams.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
@@ -197,18 +184,16 @@ internal class UacConnectionUpdateParamsTest {
                 )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
-                    UacConnectionUpdateParams.Outbound.builder()
+                    UacOutbound.builder()
                         .aniOverride("always")
-                        .aniOverrideType(UacConnectionUpdateParams.Outbound.AniOverrideType.ALWAYS)
+                        .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
                         .callParkingEnabled(true)
                         .channelLimit(10L)
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
                         .localization("US")
                         .outboundVoiceProfileId("1293384261075731499")
-                        .t38ReinviteSource(
-                            UacConnectionUpdateParams.Outbound.T38ReinviteSource.CUSTOMER
-                        )
+                        .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
                         .build()
                 )
                 .password("my123secure456password789")
@@ -242,34 +227,30 @@ internal class UacConnectionUpdateParamsTest {
         assertThat(body.encryptedMedia()).contains(EncryptedMedia.SRTP)
         assertThat(body.externalUacSettings())
             .contains(
-                UacConnectionUpdateParams.ExternalUacSettings.builder()
+                UacExternalSettings.builder()
                     .authUsername("auth8492")
                     .expirationSec(600L)
                     .fromUser("8492")
                     .outboundProxy("outbound.sip-pbx.acme.example:5061")
                     .password("testtesttest")
                     .proxy("sip-pbx.acme.example")
-                    .transport(UacConnectionUpdateParams.ExternalUacSettings.Transport.TLS)
+                    .transport(UacExternalSettings.Transport.TLS)
                     .username("ext8492")
                     .build()
             )
         assertThat(body.inbound())
             .contains(
-                UacConnectionUpdateParams.Inbound.builder()
-                    .aniNumberFormat(UacConnectionUpdateParams.Inbound.AniNumberFormat.PLUS_E_164)
+                UacInboundRequest.builder()
+                    .aniNumberFormat(UacInboundRequest.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
                     .addCodec("G722")
-                    .defaultRoutingMethod(
-                        UacConnectionUpdateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
-                    )
-                    .dnisNumberFormat(UacConnectionUpdateParams.Inbound.DnisNumberFormat.PLUS_E164)
+                    .defaultRoutingMethod(UacInboundRequest.DefaultRoutingMethod.SEQUENTIAL)
+                    .dnisNumberFormat(UacInboundRequest.DnisNumberFormat.PLUS_E164)
                     .generateRingbackTone(true)
                     .isupHeadersEnabled(true)
                     .prackEnabled(true)
                     .shakenStirEnabled(true)
-                    .simultaneousRinging(
-                        UacConnectionUpdateParams.Inbound.SimultaneousRinging.DISABLED
-                    )
+                    .simultaneousRinging(UacInboundRequest.SimultaneousRinging.DISABLED)
                     .sipCompactHeadersEnabled(true)
                     .timeout1xxSecs(10L)
                     .timeout2xxSecs(20L)
@@ -277,7 +258,7 @@ internal class UacConnectionUpdateParamsTest {
             )
         assertThat(body.internalUacSettings())
             .contains(
-                UacConnectionUpdateParams.InternalUacSettings.builder()
+                UacInternalSettings.builder()
                     .destinationUri("14155550123@acme.sip.telnyx.com")
                     .build()
             )
@@ -290,8 +271,7 @@ internal class UacConnectionUpdateParamsTest {
                     .jitterbufferMsecMin(60L)
                     .build()
             )
-        assertThat(body.noiseSuppression())
-            .contains(UacConnectionUpdateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppression()).contains(ConnectionNoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
                 ConnectionNoiseSuppressionDetails.builder()
@@ -302,18 +282,16 @@ internal class UacConnectionUpdateParamsTest {
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(
-                UacConnectionUpdateParams.Outbound.builder()
+                UacOutbound.builder()
                     .aniOverride("always")
-                    .aniOverrideType(UacConnectionUpdateParams.Outbound.AniOverrideType.ALWAYS)
+                    .aniOverrideType(UacOutbound.AniOverrideType.ALWAYS)
                     .callParkingEnabled(true)
                     .channelLimit(10L)
                     .generateRingbackTone(true)
                     .instantRingbackEnabled(true)
                     .localization("US")
                     .outboundVoiceProfileId("1293384261075731499")
-                    .t38ReinviteSource(
-                        UacConnectionUpdateParams.Outbound.T38ReinviteSource.CUSTOMER
-                    )
+                    .t38ReinviteSource(UacOutbound.T38ReinviteSource.CUSTOMER)
                     .build()
             )
         assertThat(body.password()).contains("my123secure456password789")
