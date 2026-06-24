@@ -38,7 +38,7 @@ internal class CdrUsageReportFetchSyncParamsTest {
                 QueryParams.builder()
                     .put("aggregation_type", "NO_AGGREGATION")
                     .put("product_breakdown", "NO_BREAKDOWN")
-                    .put("connections", listOf("1234567890123.0").joinToString(","))
+                    .put("connections", listOf("1.234567890123E12").joinToString(","))
                     .put("end_date", "2020-07-01T00:00:00-06:00")
                     .put("start_date", "2020-07-01T00:00:00-06:00")
                     .build()

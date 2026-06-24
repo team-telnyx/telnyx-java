@@ -30,3 +30,15 @@
     <init>(...);
     @com.fasterxml.jackson.annotation.* *;
 }
+# Keep core JSON value classes and their inner classes (used by Jackson at runtime).
+# The @ExcludeMissing annotation uses @JsonInclude(CUSTOM, valueFilter = JsonField.IsMissing::class)
+# to skip missing fields. Under ProGuard, IsMissing is not reachable from @JsonSerialize/@JsonDeserialize
+# classes, so it gets stripped, causing "JsonMissing cannot be serialized" at runtime.
+-keep class com.telnyx.sdk.core.JsonField { *; }
+-keep class com.telnyx.sdk.core.JsonField$* { *; }
+-keep class com.telnyx.sdk.core.JsonValue { *; }
+-keep class com.telnyx.sdk.core.JsonValue$* { *; }
+-keep class com.telnyx.sdk.core.JsonMissing { *; }
+-keep class com.telnyx.sdk.core.JsonMissing$* { *; }
+-keep class com.telnyx.sdk.core.JsonNull { *; }
+-keep class com.telnyx.sdk.core.JsonNull$* { *; }
