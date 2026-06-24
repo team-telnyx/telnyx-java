@@ -118,6 +118,7 @@ jobs:
             .github/workflows/ci.yml \
             .github/workflows/publish-sonatype.yml \
             .github/workflows/release-doctor.yml \
+            bin/check-release-environment \
             2>/dev/null || true
 
       - name: Commit and push to prod next
