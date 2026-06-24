@@ -30,10 +30,17 @@
     <init>(...);
     @com.fasterxml.jackson.annotation.* *;
 }
-# Keep core JSON value classes and their inner classes (used by Jackson at runtime).
+
+# Keep model classes entirely so R8 preserves Kotlin metadata needed for default parameter values.
+-keep class com.telnyx.sdk.models.** { *; }
+
 # The @ExcludeMissing annotation uses @JsonInclude(CUSTOM, valueFilter = JsonField.IsMissing::class)
-# to skip missing fields. Under ProGuard, IsMissing is not reachable from @JsonSerialize/@JsonDeserialize
-# classes, so it gets stripped, causing "JsonMissing cannot be serialized" at runtime.
+# to skip missing fields. The annotation must be kept so Jackson can read the @JsonInclude meta-annotation.
+-keep @interface com.telnyx.sdk.core.ExcludeMissing
+
+# Keep core JSON value classes and their inner classes (used by Jackson at runtime).
+# Under ProGuard, these are not reachable from @JsonSerialize/@JsonDeserialize classes,
+# so they get stripped, causing "JsonMissing cannot be serialized" at runtime.
 -keep class com.telnyx.sdk.core.JsonField { *; }
 -keep class com.telnyx.sdk.core.JsonField$* { *; }
 -keep class com.telnyx.sdk.core.JsonValue { *; }
