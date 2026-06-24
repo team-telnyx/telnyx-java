@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.76.0](https://github.com/team-telnyx/telnyx-java/compare/v6.76.0...v6.76.0) (2026-06-24)
+
+
+### Bug Fixes
+
+* remove `|| true` from github-release step ([#177](https://github.com/team-telnyx/telnyx-java/issues/177)) ([1730f9d](https://github.com/team-telnyx/telnyx-java/commit/1730f9def0148823ef1cc7c5509bfa52c40c8da5))
+
 ## [6.76.0](https://github.com/team-telnyx/telnyx-java/compare/v6.74.0...v6.76.0) (2026-06-19)
 
 
