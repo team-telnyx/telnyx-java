@@ -15,48 +15,40 @@ internal class LogMessageRetrieveResponseTest {
         val logMessageRetrieveResponse =
             LogMessageRetrieveResponse.builder()
                 .addLogMessage(
-                    LogMessageRetrieveResponse.LogMessage.builder()
+                    LogMessage.builder()
                         .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
                         )
                         .meta(
-                            LogMessageRetrieveResponse.LogMessage.Meta.builder()
+                            LogMessage.Meta.builder()
                                 .externalConnectionId("1293384261075731499")
                                 .telephoneNumber("+12345678")
                                 .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                                 .build()
                         )
-                        .source(
-                            LogMessageRetrieveResponse.LogMessage.Source.builder()
-                                .pointer("/attribute")
-                                .build()
-                        )
+                        .source(LogMessage.Source.builder().pointer("/attribute").build())
                         .build()
                 )
                 .build()
 
         assertThat(logMessageRetrieveResponse.logMessages().getOrNull())
             .containsExactly(
-                LogMessageRetrieveResponse.LogMessage.builder()
+                LogMessage.builder()
                     .code("10015")
                     .title("Invalid attribute")
                     .detail(
                         "The value provided for the attribute is not valid. Check the value used and try again."
                     )
                     .meta(
-                        LogMessageRetrieveResponse.LogMessage.Meta.builder()
+                        LogMessage.Meta.builder()
                             .externalConnectionId("1293384261075731499")
                             .telephoneNumber("+12345678")
                             .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                             .build()
                     )
-                    .source(
-                        LogMessageRetrieveResponse.LogMessage.Source.builder()
-                            .pointer("/attribute")
-                            .build()
-                    )
+                    .source(LogMessage.Source.builder().pointer("/attribute").build())
                     .build()
             )
     }
@@ -67,24 +59,20 @@ internal class LogMessageRetrieveResponseTest {
         val logMessageRetrieveResponse =
             LogMessageRetrieveResponse.builder()
                 .addLogMessage(
-                    LogMessageRetrieveResponse.LogMessage.builder()
+                    LogMessage.builder()
                         .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
                         )
                         .meta(
-                            LogMessageRetrieveResponse.LogMessage.Meta.builder()
+                            LogMessage.Meta.builder()
                                 .externalConnectionId("1293384261075731499")
                                 .telephoneNumber("+12345678")
                                 .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                                 .build()
                         )
-                        .source(
-                            LogMessageRetrieveResponse.LogMessage.Source.builder()
-                                .pointer("/attribute")
-                                .build()
-                        )
+                        .source(LogMessage.Source.builder().pointer("/attribute").build())
                         .build()
                 )
                 .build()

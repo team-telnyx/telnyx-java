@@ -6,11 +6,10 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
-import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
 import com.telnyx.sdk.models.recordings.RecordingListPageAsync
 import com.telnyx.sdk.models.recordings.RecordingListParams
+import com.telnyx.sdk.models.recordings.RecordingResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
-import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.async.recordings.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -34,7 +33,7 @@ interface RecordingServiceAsync {
     fun actions(): ActionServiceAsync
 
     /** Retrieves the details of an existing call recording. */
-    fun retrieve(recordingId: String): CompletableFuture<RecordingRetrieveResponse> =
+    fun retrieve(recordingId: String): CompletableFuture<RecordingResponse> =
         retrieve(recordingId, RecordingRetrieveParams.none())
 
     /** @see retrieve */
@@ -42,31 +41,30 @@ interface RecordingServiceAsync {
         recordingId: String,
         params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingRetrieveResponse> =
+    ): CompletableFuture<RecordingResponse> =
         retrieve(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         recordingId: String,
         params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
-    ): CompletableFuture<RecordingRetrieveResponse> =
-        retrieve(recordingId, params, RequestOptions.none())
+    ): CompletableFuture<RecordingResponse> = retrieve(recordingId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: RecordingRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingRetrieveResponse>
+    ): CompletableFuture<RecordingResponse>
 
     /** @see retrieve */
-    fun retrieve(params: RecordingRetrieveParams): CompletableFuture<RecordingRetrieveResponse> =
+    fun retrieve(params: RecordingRetrieveParams): CompletableFuture<RecordingResponse> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         recordingId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingRetrieveResponse> =
+    ): CompletableFuture<RecordingResponse> =
         retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your call recordings. */
@@ -88,7 +86,7 @@ interface RecordingServiceAsync {
         list(RecordingListParams.none(), requestOptions)
 
     /** Permanently deletes a call recording. */
-    fun delete(recordingId: String): CompletableFuture<RecordingDeleteResponse> =
+    fun delete(recordingId: String): CompletableFuture<RecordingResponse> =
         delete(recordingId, RecordingDeleteParams.none())
 
     /** @see delete */
@@ -96,31 +94,30 @@ interface RecordingServiceAsync {
         recordingId: String,
         params: RecordingDeleteParams = RecordingDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingDeleteResponse> =
+    ): CompletableFuture<RecordingResponse> =
         delete(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         recordingId: String,
         params: RecordingDeleteParams = RecordingDeleteParams.none(),
-    ): CompletableFuture<RecordingDeleteResponse> =
-        delete(recordingId, params, RequestOptions.none())
+    ): CompletableFuture<RecordingResponse> = delete(recordingId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: RecordingDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingDeleteResponse>
+    ): CompletableFuture<RecordingResponse>
 
     /** @see delete */
-    fun delete(params: RecordingDeleteParams): CompletableFuture<RecordingDeleteResponse> =
+    fun delete(params: RecordingDeleteParams): CompletableFuture<RecordingResponse> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         recordingId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingDeleteResponse> =
+    ): CompletableFuture<RecordingResponse> =
         delete(recordingId, RecordingDeleteParams.none(), requestOptions)
 
     /**
@@ -144,9 +141,7 @@ interface RecordingServiceAsync {
          * Returns a raw HTTP response for `get /recordings/{recording_id}`, but is otherwise the
          * same as [RecordingServiceAsync.retrieve].
          */
-        fun retrieve(
-            recordingId: String
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> =
+        fun retrieve(recordingId: String): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             retrieve(recordingId, RecordingRetrieveParams.none())
 
         /** @see retrieve */
@@ -154,33 +149,33 @@ interface RecordingServiceAsync {
             recordingId: String,
             params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             retrieve(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             recordingId: String,
             params: RecordingRetrieveParams = RecordingRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             retrieve(recordingId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: RecordingRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: RecordingRetrieveParams
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             recordingId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
         /**
@@ -212,9 +207,7 @@ interface RecordingServiceAsync {
          * Returns a raw HTTP response for `delete /recordings/{recording_id}`, but is otherwise the
          * same as [RecordingServiceAsync.delete].
          */
-        fun delete(
-            recordingId: String
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> =
+        fun delete(recordingId: String): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             delete(recordingId, RecordingDeleteParams.none())
 
         /** @see delete */
@@ -222,33 +215,33 @@ interface RecordingServiceAsync {
             recordingId: String,
             params: RecordingDeleteParams = RecordingDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             delete(params.toBuilder().recordingId(recordingId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             recordingId: String,
             params: RecordingDeleteParams = RecordingDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             delete(recordingId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: RecordingDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>>
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>>
 
         /** @see delete */
         fun delete(
             params: RecordingDeleteParams
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             recordingId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> =
             delete(recordingId, RecordingDeleteParams.none(), requestOptions)
     }
 }

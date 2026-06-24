@@ -15,22 +15,22 @@ internal class DocumentLinkListResponseTest {
             DocumentLinkListResponse.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("document_link")
+                .updatedAt("2018-02-02T22:25:27.521Z")
                 .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .linkedRecordType("porting_order")
                 .linkedResourceId("132091b4-442b-4a2a-b87f-61e707e46d54")
-                .recordType("document_link")
-                .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
         assertThat(documentLinkListResponse.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(documentLinkListResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(documentLinkListResponse.recordType()).contains("document_link")
+        assertThat(documentLinkListResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(documentLinkListResponse.documentId())
             .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(documentLinkListResponse.linkedRecordType()).contains("porting_order")
         assertThat(documentLinkListResponse.linkedResourceId())
             .contains("132091b4-442b-4a2a-b87f-61e707e46d54")
-        assertThat(documentLinkListResponse.recordType()).contains("document_link")
-        assertThat(documentLinkListResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
     }
 
     @Test
@@ -40,11 +40,11 @@ internal class DocumentLinkListResponseTest {
             DocumentLinkListResponse.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("document_link")
+                .updatedAt("2018-02-02T22:25:27.521Z")
                 .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .linkedRecordType("porting_order")
                 .linkedResourceId("132091b4-442b-4a2a-b87f-61e707e46d54")
-                .recordType("document_link")
-                .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
         val roundtrippedDocumentLinkListResponse =

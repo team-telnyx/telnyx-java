@@ -7,9 +7,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaRenderParams
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateParams
-import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateResponse
 import java.util.function.Consumer
 
 /** Phone-number reputation monitoring (spam-score lookup and tracking). */
@@ -32,7 +32,7 @@ interface LoaService {
      * approval to `pending`; the new document must be approved before additional phone numbers can
      * be added.
      */
-    fun update(enterpriseId: String, params: LoaUpdateParams): LoaUpdateResponse =
+    fun update(enterpriseId: String, params: LoaUpdateParams): EnterpriseReputationPublicWrapped =
         update(enterpriseId, params, RequestOptions.none())
 
     /** @see update */
@@ -40,17 +40,18 @@ interface LoaService {
         enterpriseId: String,
         params: LoaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LoaUpdateResponse =
+    ): EnterpriseReputationPublicWrapped =
         update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: LoaUpdateParams): LoaUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: LoaUpdateParams): EnterpriseReputationPublicWrapped =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: LoaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LoaUpdateResponse
+    ): EnterpriseReputationPublicWrapped
 
     /**
      * Render the LOA for this enterprise as a PDF. The enterprise identity, address, and
@@ -112,7 +113,8 @@ interface LoaService {
         fun update(
             enterpriseId: String,
             params: LoaUpdateParams,
-        ): HttpResponseFor<LoaUpdateResponse> = update(enterpriseId, params, RequestOptions.none())
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
+            update(enterpriseId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -120,12 +122,12 @@ interface LoaService {
             enterpriseId: String,
             params: LoaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LoaUpdateResponse> =
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: LoaUpdateParams): HttpResponseFor<LoaUpdateResponse> =
+        fun update(params: LoaUpdateParams): HttpResponseFor<EnterpriseReputationPublicWrapped> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -133,7 +135,7 @@ interface LoaService {
         fun update(
             params: LoaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LoaUpdateResponse>
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped>
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/loa`, but

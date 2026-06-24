@@ -17,7 +17,7 @@ internal class AccountServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val accountServiceAsync = client.texml().accounts()
 
-        val responseFuture =
+        val texmlGetCallRecordingsResponseBodyFuture =
             accountServiceAsync.retrieveRecordingsJson(
                 AccountRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -27,8 +27,8 @@ internal class AccountServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val texmlGetCallRecordingsResponseBody = texmlGetCallRecordingsResponseBodyFuture.get()
+        texmlGetCallRecordingsResponseBody.validate()
     }
 
     @Disabled("Mock server tests are disabled")

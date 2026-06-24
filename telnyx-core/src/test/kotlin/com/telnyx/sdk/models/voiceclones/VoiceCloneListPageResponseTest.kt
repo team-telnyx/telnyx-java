@@ -35,7 +35,7 @@ internal class VoiceCloneListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceCloneListPageResponse.Meta.builder()
+                    VoiceDesignsPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -66,7 +66,7 @@ internal class VoiceCloneListPageResponseTest {
             )
         assertThat(voiceCloneListPageResponse.meta())
             .contains(
-                VoiceCloneListPageResponse.Meta.builder()
+                VoiceDesignsPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -100,7 +100,7 @@ internal class VoiceCloneListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceCloneListPageResponse.Meta.builder()
+                    VoiceDesignsPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

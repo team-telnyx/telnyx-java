@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.integrations.Integration
 import com.telnyx.sdk.models.ai.integrations.IntegrationListParams
 import com.telnyx.sdk.models.ai.integrations.IntegrationListResponse
 import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveParams
-import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveResponse
 import com.telnyx.sdk.services.blocking.ai.integrations.ConnectionService
 import com.telnyx.sdk.services.blocking.ai.integrations.ConnectionServiceImpl
 import java.util.function.Consumer
@@ -43,7 +43,7 @@ class IntegrationServiceImpl internal constructor(private val clientOptions: Cli
     override fun retrieve(
         params: IntegrationRetrieveParams,
         requestOptions: RequestOptions,
-    ): IntegrationRetrieveResponse =
+    ): Integration =
         // get /ai/integrations/{integration_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -73,13 +73,13 @@ class IntegrationServiceImpl internal constructor(private val clientOptions: Cli
 
         override fun connections(): ConnectionService.WithRawResponse = connections
 
-        private val retrieveHandler: Handler<IntegrationRetrieveResponse> =
-            jsonHandler<IntegrationRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<Integration> =
+            jsonHandler<Integration>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: IntegrationRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IntegrationRetrieveResponse> {
+        ): HttpResponseFor<Integration> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("integrationId", params.integrationId().getOrNull())

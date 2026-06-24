@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messagingprofilemetrics.MessagingMetricsTimeFrame
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
@@ -205,7 +206,7 @@ internal class MessagingProfileServiceAsyncTest {
             messagingProfileServiceAsync.retrieveMetrics(
                 MessagingProfileRetrieveMetricsParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame.TIME_FRAME_1_H)
+                    .timeFrame(MessagingMetricsTimeFrame.TIME_FRAME_1_H)
                     .build()
             )
 

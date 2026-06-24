@@ -17,7 +17,7 @@ internal class RoomRecordingListPageResponseTest {
         val roomRecordingListPageResponse =
             RoomRecordingListPageResponse.builder()
                 .addData(
-                    RoomRecordingListResponse.builder()
+                    RoomRecording.builder()
                         .id("6b61621f-62e0-4aad-ab11-9fd19e272e73")
                         .codec("opus")
                         .completedAt(OffsetDateTime.parse("2021-04-16T10:25:55.962200Z"))
@@ -31,8 +31,8 @@ internal class RoomRecordingListPageResponseTest {
                         .sessionId("8b61621f-5fe4-4aad-ab11-9fd19e272e73")
                         .sizeMb(5.6f)
                         .startedAt(OffsetDateTime.parse("2021-04-16T09:24:55.962200Z"))
-                        .status(RoomRecordingListResponse.Status.COMPLETED)
-                        .type(RoomRecordingListResponse.Type.AUDIO)
+                        .status(RoomRecording.Status.COMPLETED)
+                        .type(RoomRecording.Type.AUDIO)
                         .updatedAt(OffsetDateTime.parse("2021-04-16T10:24:55.962200Z"))
                         .build()
                 )
@@ -48,7 +48,7 @@ internal class RoomRecordingListPageResponseTest {
 
         assertThat(roomRecordingListPageResponse.data().getOrNull())
             .containsExactly(
-                RoomRecordingListResponse.builder()
+                RoomRecording.builder()
                     .id("6b61621f-62e0-4aad-ab11-9fd19e272e73")
                     .codec("opus")
                     .completedAt(OffsetDateTime.parse("2021-04-16T10:25:55.962200Z"))
@@ -62,8 +62,8 @@ internal class RoomRecordingListPageResponseTest {
                     .sessionId("8b61621f-5fe4-4aad-ab11-9fd19e272e73")
                     .sizeMb(5.6f)
                     .startedAt(OffsetDateTime.parse("2021-04-16T09:24:55.962200Z"))
-                    .status(RoomRecordingListResponse.Status.COMPLETED)
-                    .type(RoomRecordingListResponse.Type.AUDIO)
+                    .status(RoomRecording.Status.COMPLETED)
+                    .type(RoomRecording.Type.AUDIO)
                     .updatedAt(OffsetDateTime.parse("2021-04-16T10:24:55.962200Z"))
                     .build()
             )
@@ -84,7 +84,7 @@ internal class RoomRecordingListPageResponseTest {
         val roomRecordingListPageResponse =
             RoomRecordingListPageResponse.builder()
                 .addData(
-                    RoomRecordingListResponse.builder()
+                    RoomRecording.builder()
                         .id("6b61621f-62e0-4aad-ab11-9fd19e272e73")
                         .codec("opus")
                         .completedAt(OffsetDateTime.parse("2021-04-16T10:25:55.962200Z"))
@@ -98,8 +98,8 @@ internal class RoomRecordingListPageResponseTest {
                         .sessionId("8b61621f-5fe4-4aad-ab11-9fd19e272e73")
                         .sizeMb(5.6f)
                         .startedAt(OffsetDateTime.parse("2021-04-16T09:24:55.962200Z"))
-                        .status(RoomRecordingListResponse.Status.COMPLETED)
-                        .type(RoomRecordingListResponse.Type.AUDIO)
+                        .status(RoomRecording.Status.COMPLETED)
+                        .type(RoomRecording.Type.AUDIO)
                         .updatedAt(OffsetDateTime.parse("2021-04-16T10:24:55.962200Z"))
                         .build()
                 )

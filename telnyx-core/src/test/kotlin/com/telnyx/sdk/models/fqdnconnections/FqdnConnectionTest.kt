@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
+import com.telnyx.sdk.models.credentialconnections.ConnectionNoiseSuppression
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
@@ -68,7 +69,7 @@ internal class FqdnConnectionTest {
                         .build()
                 )
                 .microsoftTeamsSbc(true)
-                .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
@@ -175,7 +176,7 @@ internal class FqdnConnectionTest {
                     .build()
             )
         assertThat(fqdnConnection.microsoftTeamsSbc()).contains(true)
-        assertThat(fqdnConnection.noiseSuppression()).contains(FqdnConnection.NoiseSuppression.BOTH)
+        assertThat(fqdnConnection.noiseSuppression()).contains(ConnectionNoiseSuppression.BOTH)
         assertThat(fqdnConnection.noiseSuppressionDetails())
             .contains(
                 ConnectionNoiseSuppressionDetails.builder()
@@ -286,7 +287,7 @@ internal class FqdnConnectionTest {
                         .build()
                 )
                 .microsoftTeamsSbc(true)
-                .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)

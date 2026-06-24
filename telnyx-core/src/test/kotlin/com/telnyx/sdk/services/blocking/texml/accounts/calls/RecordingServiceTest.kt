@@ -15,7 +15,7 @@ internal class RecordingServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val recordingService = client.texml().accounts().calls().recordings()
 
-        val response =
+        val texmlCreateCallRecordingResponseBody =
             recordingService.recordingSidJson(
                 RecordingRecordingSidJsonParams.builder()
                     .accountSid("account_sid")
@@ -25,6 +25,6 @@ internal class RecordingServiceTest {
                     .build()
             )
 
-        response.validate()
+        texmlCreateCallRecordingResponseBody.validate()
     }
 }

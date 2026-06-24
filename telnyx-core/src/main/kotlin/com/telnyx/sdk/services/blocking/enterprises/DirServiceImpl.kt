@@ -16,10 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.dir.DirList
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
-import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPage
-import com.telnyx.sdk.models.enterprises.dir.DirListPageResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -39,10 +39,7 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirService =
         DirServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: DirCreateParams,
-        requestOptions: RequestOptions,
-    ): DirCreateResponse =
+    override fun create(params: DirCreateParams, requestOptions: RequestOptions): DirWrapped =
         // post /enterprises/{enterprise_id}/dir
         withRawResponse().create(params, requestOptions).parse()
 
@@ -63,13 +60,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<DirCreateResponse> =
-            jsonHandler<DirCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun create(
             params: DirCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DirCreateResponse> {
+        ): HttpResponseFor<DirWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -94,8 +91,7 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<DirListPageResponse> =
-            jsonHandler<DirListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DirList> = jsonHandler<DirList>(clientOptions.jsonMapper)
 
         override fun list(
             params: DirListParams,

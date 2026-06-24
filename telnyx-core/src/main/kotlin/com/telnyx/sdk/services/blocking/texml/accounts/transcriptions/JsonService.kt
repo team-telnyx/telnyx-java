@@ -9,7 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonDeleteRecordingTranscriptionSidJsonParams
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.transcriptions.json.TexmlRecordingTranscription
 import java.util.function.Consumer
 
 /** TeXML REST Commands */
@@ -63,7 +63,7 @@ interface JsonService {
     fun retrieveRecordingTranscriptionSidJson(
         recordingTranscriptionSid: String,
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
-    ): JsonRetrieveRecordingTranscriptionSidJsonResponse =
+    ): TexmlRecordingTranscription =
         retrieveRecordingTranscriptionSidJson(
             recordingTranscriptionSid,
             params,
@@ -75,7 +75,7 @@ interface JsonService {
         recordingTranscriptionSid: String,
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): JsonRetrieveRecordingTranscriptionSidJsonResponse =
+    ): TexmlRecordingTranscription =
         retrieveRecordingTranscriptionSidJson(
             params.toBuilder().recordingTranscriptionSid(recordingTranscriptionSid).build(),
             requestOptions,
@@ -84,14 +84,14 @@ interface JsonService {
     /** @see retrieveRecordingTranscriptionSidJson */
     fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams
-    ): JsonRetrieveRecordingTranscriptionSidJsonResponse =
+    ): TexmlRecordingTranscription =
         retrieveRecordingTranscriptionSidJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingTranscriptionSidJson */
     fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): JsonRetrieveRecordingTranscriptionSidJsonResponse
+    ): TexmlRecordingTranscription
 
     /** A view of [JsonService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -153,7 +153,7 @@ interface JsonService {
         fun retrieveRecordingTranscriptionSidJson(
             recordingTranscriptionSid: String,
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
-        ): HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+        ): HttpResponseFor<TexmlRecordingTranscription> =
             retrieveRecordingTranscriptionSidJson(
                 recordingTranscriptionSid,
                 params,
@@ -166,7 +166,7 @@ interface JsonService {
             recordingTranscriptionSid: String,
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+        ): HttpResponseFor<TexmlRecordingTranscription> =
             retrieveRecordingTranscriptionSidJson(
                 params.toBuilder().recordingTranscriptionSid(recordingTranscriptionSid).build(),
                 requestOptions,
@@ -176,7 +176,7 @@ interface JsonService {
         @MustBeClosed
         fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams
-        ): HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+        ): HttpResponseFor<TexmlRecordingTranscription> =
             retrieveRecordingTranscriptionSidJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingTranscriptionSidJson */
@@ -184,6 +184,6 @@ interface JsonService {
         fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>
+        ): HttpResponseFor<TexmlRecordingTranscription>
     }
 }

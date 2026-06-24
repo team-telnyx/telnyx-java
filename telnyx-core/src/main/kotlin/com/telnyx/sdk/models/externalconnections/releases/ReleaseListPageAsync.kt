@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: ReleaseListParams,
     private val response: ReleaseListPageResponse,
-) : PageAsync<ReleaseListResponse> {
+) : PageAsync<Release> {
 
     /**
      * Delegates to [ReleaseListPageResponse], but gracefully handles missing data.
      *
      * @see ReleaseListPageResponse.data
      */
-    fun data(): List<ReleaseListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Release> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [ReleaseListPageResponse], but gracefully handles missing data.
@@ -39,7 +38,7 @@ private constructor(
     fun meta(): Optional<ExternalVoiceIntegrationsPaginationMeta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<ReleaseListResponse> = data()
+    override fun items(): List<Release> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -60,8 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<ReleaseListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<ReleaseListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<Release> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): ReleaseListParams = params

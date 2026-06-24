@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.infringementclaims
 
+import com.telnyx.sdk.models.dir.Document
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,11 +17,9 @@ internal class InfringementClaimContestParamsTest {
                 "We own the trademark outright; our registration precedes the claimant by three years. See attached certificate."
             )
             .addDocument(
-                InfringementClaimContestParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        InfringementClaimContestParams.Document.DocumentType.TRADEMARK_REGISTRATION
-                    )
+                    .documentType(Document.DocumentType.TRADEMARK_REGISTRATION)
                     .description("USPTO trademark certificate.")
                     .build()
             )
@@ -51,12 +50,9 @@ internal class InfringementClaimContestParamsTest {
                     "We own the trademark outright; our registration precedes the claimant by three years. See attached certificate."
                 )
                 .addDocument(
-                    InfringementClaimContestParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(
-                            InfringementClaimContestParams.Document.DocumentType
-                                .TRADEMARK_REGISTRATION
-                        )
+                        .documentType(Document.DocumentType.TRADEMARK_REGISTRATION)
                         .description("USPTO trademark certificate.")
                         .build()
                 )
@@ -70,11 +66,9 @@ internal class InfringementClaimContestParamsTest {
             )
         assertThat(body.documents().getOrNull())
             .containsExactly(
-                InfringementClaimContestParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(
-                        InfringementClaimContestParams.Document.DocumentType.TRADEMARK_REGISTRATION
-                    )
+                    .documentType(Document.DocumentType.TRADEMARK_REGISTRATION)
                     .description("USPTO trademark certificate.")
                     .build()
             )

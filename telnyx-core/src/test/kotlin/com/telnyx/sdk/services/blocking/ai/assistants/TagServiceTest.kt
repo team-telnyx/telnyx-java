@@ -16,9 +16,9 @@ internal class TagServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val tagService = client.ai().assistants().tags()
 
-        val tags = tagService.list()
+        val tagsResponse = tagService.list()
 
-        tags.validate()
+        tagsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -27,10 +27,10 @@ internal class TagServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val tagService = client.ai().assistants().tags()
 
-        val response =
+        val tagsResponse =
             tagService.add(TagAddParams.builder().assistantId("assistant_id").tag("tag").build())
 
-        response.validate()
+        tagsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -39,11 +39,11 @@ internal class TagServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val tagService = client.ai().assistants().tags()
 
-        val tag =
+        val tagsResponse =
             tagService.remove(
                 TagRemoveParams.builder().assistantId("assistant_id").tag("tag").build()
             )
 
-        tag.validate()
+        tagsResponse.validate()
     }
 }

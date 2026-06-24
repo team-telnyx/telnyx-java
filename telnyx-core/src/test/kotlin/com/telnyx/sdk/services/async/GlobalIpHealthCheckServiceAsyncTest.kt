@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParams
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheck
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -18,14 +18,14 @@ internal class GlobalIpHealthCheckServiceAsyncTest {
 
         val globalIpHealthCheckFuture =
             globalIpHealthCheckServiceAsync.create(
-                GlobalIpHealthCheckCreateParams.builder()
+                GlobalIpHealthCheck.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                     .healthCheckParams(
-                        GlobalIpHealthCheckCreateParams.HealthCheckParams.builder()
+                        GlobalIpHealthCheck.HealthCheckParams.builder()
                             .putAdditionalProperty("path", JsonValue.from("bar"))
                             .putAdditionalProperty("port", JsonValue.from("bar"))
                             .build()

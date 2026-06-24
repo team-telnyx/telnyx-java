@@ -70,7 +70,7 @@ private constructor(
     )
 
     /**
-     * Identifier of the UAC connection.
+     * Identifier of the connection associated with the credential.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -120,7 +120,8 @@ private constructor(
     fun registered(): Optional<Boolean> = registered.getOptional("registered")
 
     /**
-     * Detailed registration information reported by the registrar.
+     * Detailed registration information reported by the registrar. The populated fields depend on
+     * `credential_type`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -262,7 +263,7 @@ private constructor(
                 sipRegistrationStatusRetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        /** Identifier of the UAC connection. */
+        /** Identifier of the connection associated with the credential. */
         fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
 
         /**
@@ -347,7 +348,10 @@ private constructor(
          */
         fun registered(registered: JsonField<Boolean>) = apply { this.registered = registered }
 
-        /** Detailed registration information reported by the registrar. */
+        /**
+         * Detailed registration information reported by the registrar. The populated fields depend
+         * on `credential_type`.
+         */
         fun sipRegistrationDetails(sipRegistrationDetails: SipRegistrationDetails) =
             sipRegistrationDetails(JsonField.of(sipRegistrationDetails))
 
@@ -484,12 +488,15 @@ private constructor(
 
             @JvmField val UAC_EXTERNAL_CREDENTIAL = of("uac_external_credential")
 
+            @JvmField val TELEPHONY_CREDENTIAL = of("telephony_credential")
+
             @JvmStatic fun of(value: String) = CredentialType(JsonField.of(value))
         }
 
         /** An enum containing [CredentialType]'s known values. */
         enum class Known {
-            UAC_EXTERNAL_CREDENTIAL
+            UAC_EXTERNAL_CREDENTIAL,
+            TELEPHONY_CREDENTIAL,
         }
 
         /**
@@ -503,6 +510,7 @@ private constructor(
          */
         enum class Value {
             UAC_EXTERNAL_CREDENTIAL,
+            TELEPHONY_CREDENTIAL,
             /**
              * An enum member indicating that [CredentialType] was instantiated with an unknown
              * value.
@@ -520,6 +528,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Value.UAC_EXTERNAL_CREDENTIAL
+                TELEPHONY_CREDENTIAL -> Value.TELEPHONY_CREDENTIAL
                 else -> Value._UNKNOWN
             }
 
@@ -535,6 +544,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Known.UAC_EXTERNAL_CREDENTIAL
+                TELEPHONY_CREDENTIAL -> Known.TELEPHONY_CREDENTIAL
                 else -> throw TelnyxInvalidDataException("Unknown CredentialType: $value")
             }
 
@@ -599,15 +609,23 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Detailed registration information reported by the registrar. */
+    /**
+     * Detailed registration information reported by the registrar. The populated fields depend on
+     * `credential_type`.
+     */
     class SipRegistrationDetails
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val authRetries: JsonField<Long>,
         private val expires: JsonField<Long>,
         private val failures: JsonField<Long>,
+        private val lastModified: JsonField<String>,
         private val nextActionAt: JsonField<Long>,
+        private val node: JsonField<String>,
         private val sipUriUserHost: JsonField<String>,
+        private val transport: JsonField<String>,
+        private val uaIp: JsonField<String>,
+        private val uaPort: JsonField<Long>,
         private val uptime: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -619,19 +637,33 @@ private constructor(
             authRetries: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("expires") @ExcludeMissing expires: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("failures") @ExcludeMissing failures: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("last_modified")
+            @ExcludeMissing
+            lastModified: JsonField<String> = JsonMissing.of(),
             @JsonProperty("next_action_at")
             @ExcludeMissing
             nextActionAt: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("node") @ExcludeMissing node: JsonField<String> = JsonMissing.of(),
             @JsonProperty("sip_uri_user_host")
             @ExcludeMissing
             sipUriUserHost: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transport")
+            @ExcludeMissing
+            transport: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ua_ip") @ExcludeMissing uaIp: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ua_port") @ExcludeMissing uaPort: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("uptime") @ExcludeMissing uptime: JsonField<Long> = JsonMissing.of(),
         ) : this(
             authRetries,
             expires,
             failures,
+            lastModified,
             nextActionAt,
+            node,
             sipUriUserHost,
+            transport,
+            uaIp,
+            uaPort,
             uptime,
             mutableMapOf(),
         )
@@ -661,6 +693,14 @@ private constructor(
         fun failures(): Optional<Long> = failures.getOptional("failures")
 
         /**
+         * Timestamp when the registration row was last modified (telephony_credential).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun lastModified(): Optional<String> = lastModified.getOptional("last_modified")
+
+        /**
          * Unix timestamp of the next scheduled registration action.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -669,12 +709,44 @@ private constructor(
         fun nextActionAt(): Optional<Long> = nextActionAt.getOptional("next_action_at")
 
         /**
+         * Registrar node handling the registration (telephony_credential).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun node(): Optional<String> = node.getOptional("node")
+
+        /**
          * SIP URI user@host of the registered contact.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun sipUriUserHost(): Optional<String> = sipUriUserHost.getOptional("sip_uri_user_host")
+
+        /**
+         * Transport used for the registration, e.g. UDP/TCP/TLS (telephony_credential).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun transport(): Optional<String> = transport.getOptional("transport")
+
+        /**
+         * IP address of the registered user agent (telephony_credential).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun uaIp(): Optional<String> = uaIp.getOptional("ua_ip")
+
+        /**
+         * Port of the registered user agent (telephony_credential).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun uaPort(): Optional<Long> = uaPort.getOptional("ua_port")
 
         /**
          * Registration uptime reported by the registrar.
@@ -708,6 +780,16 @@ private constructor(
         @JsonProperty("failures") @ExcludeMissing fun _failures(): JsonField<Long> = failures
 
         /**
+         * Returns the raw JSON value of [lastModified].
+         *
+         * Unlike [lastModified], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("last_modified")
+        @ExcludeMissing
+        fun _lastModified(): JsonField<String> = lastModified
+
+        /**
          * Returns the raw JSON value of [nextActionAt].
          *
          * Unlike [nextActionAt], this method doesn't throw if the JSON field has an unexpected
@@ -718,6 +800,13 @@ private constructor(
         fun _nextActionAt(): JsonField<Long> = nextActionAt
 
         /**
+         * Returns the raw JSON value of [node].
+         *
+         * Unlike [node], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("node") @ExcludeMissing fun _node(): JsonField<String> = node
+
+        /**
          * Returns the raw JSON value of [sipUriUserHost].
          *
          * Unlike [sipUriUserHost], this method doesn't throw if the JSON field has an unexpected
@@ -726,6 +815,27 @@ private constructor(
         @JsonProperty("sip_uri_user_host")
         @ExcludeMissing
         fun _sipUriUserHost(): JsonField<String> = sipUriUserHost
+
+        /**
+         * Returns the raw JSON value of [transport].
+         *
+         * Unlike [transport], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("transport") @ExcludeMissing fun _transport(): JsonField<String> = transport
+
+        /**
+         * Returns the raw JSON value of [uaIp].
+         *
+         * Unlike [uaIp], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("ua_ip") @ExcludeMissing fun _uaIp(): JsonField<String> = uaIp
+
+        /**
+         * Returns the raw JSON value of [uaPort].
+         *
+         * Unlike [uaPort], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("ua_port") @ExcludeMissing fun _uaPort(): JsonField<Long> = uaPort
 
         /**
          * Returns the raw JSON value of [uptime].
@@ -760,8 +870,13 @@ private constructor(
             private var authRetries: JsonField<Long> = JsonMissing.of()
             private var expires: JsonField<Long> = JsonMissing.of()
             private var failures: JsonField<Long> = JsonMissing.of()
+            private var lastModified: JsonField<String> = JsonMissing.of()
             private var nextActionAt: JsonField<Long> = JsonMissing.of()
+            private var node: JsonField<String> = JsonMissing.of()
             private var sipUriUserHost: JsonField<String> = JsonMissing.of()
+            private var transport: JsonField<String> = JsonMissing.of()
+            private var uaIp: JsonField<String> = JsonMissing.of()
+            private var uaPort: JsonField<Long> = JsonMissing.of()
             private var uptime: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -770,8 +885,13 @@ private constructor(
                 authRetries = sipRegistrationDetails.authRetries
                 expires = sipRegistrationDetails.expires
                 failures = sipRegistrationDetails.failures
+                lastModified = sipRegistrationDetails.lastModified
                 nextActionAt = sipRegistrationDetails.nextActionAt
+                node = sipRegistrationDetails.node
                 sipUriUserHost = sipRegistrationDetails.sipUriUserHost
+                transport = sipRegistrationDetails.transport
+                uaIp = sipRegistrationDetails.uaIp
+                uaPort = sipRegistrationDetails.uaPort
                 uptime = sipRegistrationDetails.uptime
                 additionalProperties = sipRegistrationDetails.additionalProperties.toMutableMap()
             }
@@ -812,6 +932,20 @@ private constructor(
              */
             fun failures(failures: JsonField<Long>) = apply { this.failures = failures }
 
+            /** Timestamp when the registration row was last modified (telephony_credential). */
+            fun lastModified(lastModified: String) = lastModified(JsonField.of(lastModified))
+
+            /**
+             * Sets [Builder.lastModified] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lastModified] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun lastModified(lastModified: JsonField<String>) = apply {
+                this.lastModified = lastModified
+            }
+
             /** Unix timestamp of the next scheduled registration action. */
             fun nextActionAt(nextActionAt: Long) = nextActionAt(JsonField.of(nextActionAt))
 
@@ -825,6 +959,18 @@ private constructor(
             fun nextActionAt(nextActionAt: JsonField<Long>) = apply {
                 this.nextActionAt = nextActionAt
             }
+
+            /** Registrar node handling the registration (telephony_credential). */
+            fun node(node: String) = node(JsonField.of(node))
+
+            /**
+             * Sets [Builder.node] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.node] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun node(node: JsonField<String>) = apply { this.node = node }
 
             /** SIP URI user@host of the registered contact. */
             fun sipUriUserHost(sipUriUserHost: String) =
@@ -840,6 +986,42 @@ private constructor(
             fun sipUriUserHost(sipUriUserHost: JsonField<String>) = apply {
                 this.sipUriUserHost = sipUriUserHost
             }
+
+            /** Transport used for the registration, e.g. UDP/TCP/TLS (telephony_credential). */
+            fun transport(transport: String) = transport(JsonField.of(transport))
+
+            /**
+             * Sets [Builder.transport] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transport] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun transport(transport: JsonField<String>) = apply { this.transport = transport }
+
+            /** IP address of the registered user agent (telephony_credential). */
+            fun uaIp(uaIp: String) = uaIp(JsonField.of(uaIp))
+
+            /**
+             * Sets [Builder.uaIp] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.uaIp] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun uaIp(uaIp: JsonField<String>) = apply { this.uaIp = uaIp }
+
+            /** Port of the registered user agent (telephony_credential). */
+            fun uaPort(uaPort: Long) = uaPort(JsonField.of(uaPort))
+
+            /**
+             * Sets [Builder.uaPort] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.uaPort] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun uaPort(uaPort: JsonField<Long>) = apply { this.uaPort = uaPort }
 
             /** Registration uptime reported by the registrar. */
             fun uptime(uptime: Long) = uptime(JsonField.of(uptime))
@@ -882,8 +1064,13 @@ private constructor(
                     authRetries,
                     expires,
                     failures,
+                    lastModified,
                     nextActionAt,
+                    node,
                     sipUriUserHost,
+                    transport,
+                    uaIp,
+                    uaPort,
                     uptime,
                     additionalProperties.toMutableMap(),
                 )
@@ -908,8 +1095,13 @@ private constructor(
             authRetries()
             expires()
             failures()
+            lastModified()
             nextActionAt()
+            node()
             sipUriUserHost()
+            transport()
+            uaIp()
+            uaPort()
             uptime()
             validated = true
         }
@@ -933,8 +1125,13 @@ private constructor(
             (if (authRetries.asKnown().isPresent) 1 else 0) +
                 (if (expires.asKnown().isPresent) 1 else 0) +
                 (if (failures.asKnown().isPresent) 1 else 0) +
+                (if (lastModified.asKnown().isPresent) 1 else 0) +
                 (if (nextActionAt.asKnown().isPresent) 1 else 0) +
+                (if (node.asKnown().isPresent) 1 else 0) +
                 (if (sipUriUserHost.asKnown().isPresent) 1 else 0) +
+                (if (transport.asKnown().isPresent) 1 else 0) +
+                (if (uaIp.asKnown().isPresent) 1 else 0) +
+                (if (uaPort.asKnown().isPresent) 1 else 0) +
                 (if (uptime.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -946,8 +1143,13 @@ private constructor(
                 authRetries == other.authRetries &&
                 expires == other.expires &&
                 failures == other.failures &&
+                lastModified == other.lastModified &&
                 nextActionAt == other.nextActionAt &&
+                node == other.node &&
                 sipUriUserHost == other.sipUriUserHost &&
+                transport == other.transport &&
+                uaIp == other.uaIp &&
+                uaPort == other.uaPort &&
                 uptime == other.uptime &&
                 additionalProperties == other.additionalProperties
         }
@@ -957,8 +1159,13 @@ private constructor(
                 authRetries,
                 expires,
                 failures,
+                lastModified,
                 nextActionAt,
+                node,
                 sipUriUserHost,
+                transport,
+                uaIp,
+                uaPort,
                 uptime,
                 additionalProperties,
             )
@@ -967,7 +1174,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SipRegistrationDetails{authRetries=$authRetries, expires=$expires, failures=$failures, nextActionAt=$nextActionAt, sipUriUserHost=$sipUriUserHost, uptime=$uptime, additionalProperties=$additionalProperties}"
+            "SipRegistrationDetails{authRetries=$authRetries, expires=$expires, failures=$failures, lastModified=$lastModified, nextActionAt=$nextActionAt, node=$node, sipUriUserHost=$sipUriUserHost, transport=$transport, uaIp=$uaIp, uaPort=$uaPort, uptime=$uptime, additionalProperties=$additionalProperties}"
     }
 
     /** Human-readable registration status derived from the registrar state. */

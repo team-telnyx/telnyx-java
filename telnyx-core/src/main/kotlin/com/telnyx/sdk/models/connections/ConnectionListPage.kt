@@ -18,15 +18,14 @@ private constructor(
     private val service: ConnectionService,
     private val params: ConnectionListParams,
     private val response: ConnectionListPageResponse,
-) : Page<ConnectionListResponse> {
+) : Page<Connection> {
 
     /**
      * Delegates to [ConnectionListPageResponse], but gracefully handles missing data.
      *
      * @see ConnectionListPageResponse.data
      */
-    fun data(): List<ConnectionListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Connection> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [ConnectionListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<ConnectionsPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ConnectionListResponse> = data()
+    override fun items(): List<Connection> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): ConnectionListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<ConnectionListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<Connection> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ConnectionListParams = params

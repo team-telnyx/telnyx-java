@@ -7,15 +7,13 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepsCreatedResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepResponse
 import java.util.function.Consumer
 
 interface PlanService {
@@ -33,7 +31,7 @@ interface PlanService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PlanService
 
     /** Create the initial plan for a run */
-    fun create(runId: String, params: PlanCreateParams): PlanCreateResponse =
+    fun create(runId: String, params: PlanCreateParams): PlanStepsCreatedResponse =
         create(runId, params, RequestOptions.none())
 
     /** @see create */
@@ -41,16 +39,17 @@ interface PlanService {
         runId: String,
         params: PlanCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanCreateResponse = create(params.toBuilder().runId(runId).build(), requestOptions)
+    ): PlanStepsCreatedResponse = create(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: PlanCreateParams): PlanCreateResponse = create(params, RequestOptions.none())
+    fun create(params: PlanCreateParams): PlanStepsCreatedResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PlanCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanCreateResponse
+    ): PlanStepsCreatedResponse
 
     /** Get the plan (all steps) for a run */
     fun retrieve(runId: String, params: PlanRetrieveParams): PlanRetrieveResponse =
@@ -74,55 +73,50 @@ interface PlanService {
     ): PlanRetrieveResponse
 
     /** Add one or more steps to an existing plan */
-    fun addStepsToPlan(
-        runId: String,
-        params: PlanAddStepsToPlanParams,
-    ): PlanAddStepsToPlanResponse = addStepsToPlan(runId, params, RequestOptions.none())
+    fun addStepsToPlan(runId: String, params: PlanAddStepsToPlanParams): PlanStepsCreatedResponse =
+        addStepsToPlan(runId, params, RequestOptions.none())
 
     /** @see addStepsToPlan */
     fun addStepsToPlan(
         runId: String,
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanAddStepsToPlanResponse =
+    ): PlanStepsCreatedResponse =
         addStepsToPlan(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see addStepsToPlan */
-    fun addStepsToPlan(params: PlanAddStepsToPlanParams): PlanAddStepsToPlanResponse =
+    fun addStepsToPlan(params: PlanAddStepsToPlanParams): PlanStepsCreatedResponse =
         addStepsToPlan(params, RequestOptions.none())
 
     /** @see addStepsToPlan */
     fun addStepsToPlan(
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanAddStepsToPlanResponse
+    ): PlanStepsCreatedResponse
 
     /** Get details of a specific plan step */
-    fun getStepDetails(
-        stepId: String,
-        params: PlanGetStepDetailsParams,
-    ): PlanGetStepDetailsResponse = getStepDetails(stepId, params, RequestOptions.none())
+    fun getStepDetails(stepId: String, params: PlanGetStepDetailsParams): PlanStepResponse =
+        getStepDetails(stepId, params, RequestOptions.none())
 
     /** @see getStepDetails */
     fun getStepDetails(
         stepId: String,
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanGetStepDetailsResponse =
-        getStepDetails(params.toBuilder().stepId(stepId).build(), requestOptions)
+    ): PlanStepResponse = getStepDetails(params.toBuilder().stepId(stepId).build(), requestOptions)
 
     /** @see getStepDetails */
-    fun getStepDetails(params: PlanGetStepDetailsParams): PlanGetStepDetailsResponse =
+    fun getStepDetails(params: PlanGetStepDetailsParams): PlanStepResponse =
         getStepDetails(params, RequestOptions.none())
 
     /** @see getStepDetails */
     fun getStepDetails(
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanGetStepDetailsResponse
+    ): PlanStepResponse
 
     /** Update the status of a plan step */
-    fun updateStep(stepId: String, params: PlanUpdateStepParams): PlanUpdateStepResponse =
+    fun updateStep(stepId: String, params: PlanUpdateStepParams): PlanStepResponse =
         updateStep(stepId, params, RequestOptions.none())
 
     /** @see updateStep */
@@ -130,18 +124,17 @@ interface PlanService {
         stepId: String,
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanUpdateStepResponse =
-        updateStep(params.toBuilder().stepId(stepId).build(), requestOptions)
+    ): PlanStepResponse = updateStep(params.toBuilder().stepId(stepId).build(), requestOptions)
 
     /** @see updateStep */
-    fun updateStep(params: PlanUpdateStepParams): PlanUpdateStepResponse =
+    fun updateStep(params: PlanUpdateStepParams): PlanStepResponse =
         updateStep(params, RequestOptions.none())
 
     /** @see updateStep */
     fun updateStep(
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PlanUpdateStepResponse
+    ): PlanStepResponse
 
     /** A view of [PlanService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -158,8 +151,10 @@ interface PlanService {
          * is otherwise the same as [PlanService.create].
          */
         @MustBeClosed
-        fun create(runId: String, params: PlanCreateParams): HttpResponseFor<PlanCreateResponse> =
-            create(runId, params, RequestOptions.none())
+        fun create(
+            runId: String,
+            params: PlanCreateParams,
+        ): HttpResponseFor<PlanStepsCreatedResponse> = create(runId, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
@@ -167,12 +162,12 @@ interface PlanService {
             runId: String,
             params: PlanCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanCreateResponse> =
+        ): HttpResponseFor<PlanStepsCreatedResponse> =
             create(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: PlanCreateParams): HttpResponseFor<PlanCreateResponse> =
+        fun create(params: PlanCreateParams): HttpResponseFor<PlanStepsCreatedResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -180,7 +175,7 @@ interface PlanService {
         fun create(
             params: PlanCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanCreateResponse>
+        ): HttpResponseFor<PlanStepsCreatedResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/{mission_id}/runs/{run_id}/plan`, but
@@ -222,7 +217,7 @@ interface PlanService {
         fun addStepsToPlan(
             runId: String,
             params: PlanAddStepsToPlanParams,
-        ): HttpResponseFor<PlanAddStepsToPlanResponse> =
+        ): HttpResponseFor<PlanStepsCreatedResponse> =
             addStepsToPlan(runId, params, RequestOptions.none())
 
         /** @see addStepsToPlan */
@@ -231,22 +226,21 @@ interface PlanService {
             runId: String,
             params: PlanAddStepsToPlanParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanAddStepsToPlanResponse> =
+        ): HttpResponseFor<PlanStepsCreatedResponse> =
             addStepsToPlan(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see addStepsToPlan */
         @MustBeClosed
         fun addStepsToPlan(
             params: PlanAddStepsToPlanParams
-        ): HttpResponseFor<PlanAddStepsToPlanResponse> =
-            addStepsToPlan(params, RequestOptions.none())
+        ): HttpResponseFor<PlanStepsCreatedResponse> = addStepsToPlan(params, RequestOptions.none())
 
         /** @see addStepsToPlan */
         @MustBeClosed
         fun addStepsToPlan(
             params: PlanAddStepsToPlanParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanAddStepsToPlanResponse>
+        ): HttpResponseFor<PlanStepsCreatedResponse>
 
         /**
          * Returns a raw HTTP response for `get
@@ -257,8 +251,7 @@ interface PlanService {
         fun getStepDetails(
             stepId: String,
             params: PlanGetStepDetailsParams,
-        ): HttpResponseFor<PlanGetStepDetailsResponse> =
-            getStepDetails(stepId, params, RequestOptions.none())
+        ): HttpResponseFor<PlanStepResponse> = getStepDetails(stepId, params, RequestOptions.none())
 
         /** @see getStepDetails */
         @MustBeClosed
@@ -266,14 +259,12 @@ interface PlanService {
             stepId: String,
             params: PlanGetStepDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanGetStepDetailsResponse> =
+        ): HttpResponseFor<PlanStepResponse> =
             getStepDetails(params.toBuilder().stepId(stepId).build(), requestOptions)
 
         /** @see getStepDetails */
         @MustBeClosed
-        fun getStepDetails(
-            params: PlanGetStepDetailsParams
-        ): HttpResponseFor<PlanGetStepDetailsResponse> =
+        fun getStepDetails(params: PlanGetStepDetailsParams): HttpResponseFor<PlanStepResponse> =
             getStepDetails(params, RequestOptions.none())
 
         /** @see getStepDetails */
@@ -281,7 +272,7 @@ interface PlanService {
         fun getStepDetails(
             params: PlanGetStepDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanGetStepDetailsResponse>
+        ): HttpResponseFor<PlanStepResponse>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -292,8 +283,7 @@ interface PlanService {
         fun updateStep(
             stepId: String,
             params: PlanUpdateStepParams,
-        ): HttpResponseFor<PlanUpdateStepResponse> =
-            updateStep(stepId, params, RequestOptions.none())
+        ): HttpResponseFor<PlanStepResponse> = updateStep(stepId, params, RequestOptions.none())
 
         /** @see updateStep */
         @MustBeClosed
@@ -301,12 +291,12 @@ interface PlanService {
             stepId: String,
             params: PlanUpdateStepParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanUpdateStepResponse> =
+        ): HttpResponseFor<PlanStepResponse> =
             updateStep(params.toBuilder().stepId(stepId).build(), requestOptions)
 
         /** @see updateStep */
         @MustBeClosed
-        fun updateStep(params: PlanUpdateStepParams): HttpResponseFor<PlanUpdateStepResponse> =
+        fun updateStep(params: PlanUpdateStepParams): HttpResponseFor<PlanStepResponse> =
             updateStep(params, RequestOptions.none())
 
         /** @see updateStep */
@@ -314,6 +304,6 @@ interface PlanService {
         fun updateStep(
             params: PlanUpdateStepParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PlanUpdateStepResponse>
+        ): HttpResponseFor<PlanStepResponse>
     }
 }

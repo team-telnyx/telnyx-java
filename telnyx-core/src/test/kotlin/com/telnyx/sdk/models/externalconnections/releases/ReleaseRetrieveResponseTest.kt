@@ -14,10 +14,10 @@ internal class ReleaseRetrieveResponseTest {
         val releaseRetrieveResponse =
             ReleaseRetrieveResponse.builder()
                 .data(
-                    ReleaseRetrieveResponse.Data.builder()
+                    Release.builder()
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .errorMessage("error_message")
-                        .status(ReleaseRetrieveResponse.Data.Status.PENDING)
+                        .status(Release.Status.PENDING)
                         .addTelephoneNumber(
                             TnReleaseEntry.builder()
                                 .numberId("number_id")
@@ -32,10 +32,10 @@ internal class ReleaseRetrieveResponseTest {
 
         assertThat(releaseRetrieveResponse.data())
             .contains(
-                ReleaseRetrieveResponse.Data.builder()
+                Release.builder()
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .errorMessage("error_message")
-                    .status(ReleaseRetrieveResponse.Data.Status.PENDING)
+                    .status(Release.Status.PENDING)
                     .addTelephoneNumber(
                         TnReleaseEntry.builder()
                             .numberId("number_id")
@@ -54,10 +54,10 @@ internal class ReleaseRetrieveResponseTest {
         val releaseRetrieveResponse =
             ReleaseRetrieveResponse.builder()
                 .data(
-                    ReleaseRetrieveResponse.Data.builder()
+                    Release.builder()
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .errorMessage("error_message")
-                        .status(ReleaseRetrieveResponse.Data.Status.PENDING)
+                        .status(Release.Status.PENDING)
                         .addTelephoneNumber(
                             TnReleaseEntry.builder()
                                 .numberId("number_id")

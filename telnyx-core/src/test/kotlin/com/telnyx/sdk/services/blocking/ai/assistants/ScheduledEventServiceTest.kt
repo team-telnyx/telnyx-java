@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ConversationChannelType
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledCallSettings
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
@@ -29,8 +30,8 @@ internal class ScheduledEventServiceTest {
                     .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
                     .telnyxEndUserTarget("telnyx_end_user_target")
                     .callSettings(
-                        ScheduledEventCreateParams.CallSettings.builder()
-                            .sipRegion(ScheduledEventCreateParams.CallSettings.SipRegion.US)
+                        ScheduledCallSettings.builder()
+                            .sipRegion(ScheduledCallSettings.SipRegion.US)
                             .build()
                     )
                     .conversationMetadata(

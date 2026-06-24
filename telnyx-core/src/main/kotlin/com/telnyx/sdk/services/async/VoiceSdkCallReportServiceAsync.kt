@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReport
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListPageAsync
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportListParams
 import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveParams
-import com.telnyx.sdk.models.voicesdkcallreports.VoiceSdkCallReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,7 +31,7 @@ interface VoiceSdkCallReportServiceAsync {
      * Returns raw call report stats JSON payloads stored for the authenticated user and `call_id`.
      * The user is derived from Telnyx authentication, not from request parameters.
      */
-    fun retrieve(callId: String): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
+    fun retrieve(callId: String): CompletableFuture<List<VoiceSdkCallReport>> =
         retrieve(callId, VoiceSdkCallReportRetrieveParams.none())
 
     /** @see retrieve */
@@ -39,33 +39,31 @@ interface VoiceSdkCallReportServiceAsync {
         callId: String,
         params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
+    ): CompletableFuture<List<VoiceSdkCallReport>> =
         retrieve(params.toBuilder().callId(callId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         callId: String,
         params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
-        retrieve(callId, params, RequestOptions.none())
+    ): CompletableFuture<List<VoiceSdkCallReport>> = retrieve(callId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VoiceSdkCallReportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>>
+    ): CompletableFuture<List<VoiceSdkCallReport>>
 
     /** @see retrieve */
     fun retrieve(
         params: VoiceSdkCallReportRetrieveParams
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
-        retrieve(params, RequestOptions.none())
+    ): CompletableFuture<List<VoiceSdkCallReport>> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         callId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<List<VoiceSdkCallReportRetrieveResponse>> =
+    ): CompletableFuture<List<VoiceSdkCallReport>> =
         retrieve(callId, VoiceSdkCallReportRetrieveParams.none(), requestOptions)
 
     /**
@@ -109,9 +107,7 @@ interface VoiceSdkCallReportServiceAsync {
          * Returns a raw HTTP response for `get /voice_sdk_call_reports/{call_id}`, but is otherwise
          * the same as [VoiceSdkCallReportServiceAsync.retrieve].
          */
-        fun retrieve(
-            callId: String
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> =
+        fun retrieve(callId: String): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> =
             retrieve(callId, VoiceSdkCallReportRetrieveParams.none())
 
         /** @see retrieve */
@@ -119,33 +115,33 @@ interface VoiceSdkCallReportServiceAsync {
             callId: String,
             params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> =
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> =
             retrieve(params.toBuilder().callId(callId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             callId: String,
             params: VoiceSdkCallReportRetrieveParams = VoiceSdkCallReportRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> =
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> =
             retrieve(callId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: VoiceSdkCallReportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>>
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>>
 
         /** @see retrieve */
         fun retrieve(
             params: VoiceSdkCallReportRetrieveParams
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> =
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             callId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReportRetrieveResponse>>> =
+        ): CompletableFuture<HttpResponseFor<List<VoiceSdkCallReport>>> =
             retrieve(callId, VoiceSdkCallReportRetrieveParams.none(), requestOptions)
 
         /**

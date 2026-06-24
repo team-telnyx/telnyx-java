@@ -16,13 +16,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.missions.EventsListResponse
 import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListPage
-import com.telnyx.sdk.models.ai.missions.runs.events.EventListPageResponse
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventLogParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventLogResponse
+import com.telnyx.sdk.models.ai.missions.runs.events.EventResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -45,11 +44,11 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun getEventDetails(
         params: EventGetEventDetailsParams,
         requestOptions: RequestOptions,
-    ): EventGetEventDetailsResponse =
+    ): EventResponse =
         // get /ai/missions/{mission_id}/runs/{run_id}/events/{event_id}
         withRawResponse().getEventDetails(params, requestOptions).parse()
 
-    override fun log(params: EventLogParams, requestOptions: RequestOptions): EventLogResponse =
+    override fun log(params: EventLogParams, requestOptions: RequestOptions): EventResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/events
         withRawResponse().log(params, requestOptions).parse()
 
@@ -66,8 +65,8 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<EventListPageResponse> =
-            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventsListResponse> =
+            jsonHandler<EventsListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EventListParams,
@@ -110,13 +109,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val getEventDetailsHandler: Handler<EventGetEventDetailsResponse> =
-            jsonHandler<EventGetEventDetailsResponse>(clientOptions.jsonMapper)
+        private val getEventDetailsHandler: Handler<EventResponse> =
+            jsonHandler<EventResponse>(clientOptions.jsonMapper)
 
         override fun getEventDetails(
             params: EventGetEventDetailsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventGetEventDetailsResponse> {
+        ): HttpResponseFor<EventResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventId", params.eventId().getOrNull())
@@ -148,13 +147,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val logHandler: Handler<EventLogResponse> =
-            jsonHandler<EventLogResponse>(clientOptions.jsonMapper)
+        private val logHandler: Handler<EventResponse> =
+            jsonHandler<EventResponse>(clientOptions.jsonMapper)
 
         override fun log(
             params: EventLogParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventLogResponse> {
+        ): HttpResponseFor<EventResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())

@@ -14,9 +14,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterface
 import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
 import java.util.Collections
 import java.util.Objects
@@ -90,14 +88,6 @@ private constructor(
     fun status(): Optional<InterfaceStatus> = body.status()
 
     /**
-     * The region the interface should be deployed to.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun regionCode(): Optional<String> = body.regionCode()
-
-    /**
      * Enable SIP traffic forwarding over VPN interface.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -120,6 +110,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun publicKey(): Optional<String> = body.publicKey()
+
+    /**
+     * The region the interface should be deployed to.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun regionCode(): Optional<String> = body.regionCode()
 
     /**
      * Returns the raw JSON value of [id].
@@ -171,13 +169,6 @@ private constructor(
     fun _status(): JsonField<InterfaceStatus> = body._status()
 
     /**
-     * Returns the raw JSON value of [regionCode].
-     *
-     * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _regionCode(): JsonField<String> = body._regionCode()
-
-    /**
      * Returns the raw JSON value of [enableSipTrunking].
      *
      * Unlike [enableSipTrunking], this method doesn't throw if the JSON field has an unexpected
@@ -198,6 +189,13 @@ private constructor(
      * Unlike [publicKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _publicKey(): JsonField<String> = body._publicKey()
+
+    /**
+     * Returns the raw JSON value of [regionCode].
+     *
+     * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _regionCode(): JsonField<String> = body._regionCode()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -330,18 +328,6 @@ private constructor(
          */
         fun status(status: JsonField<InterfaceStatus>) = apply { body.status(status) }
 
-        /** The region the interface should be deployed to. */
-        fun regionCode(regionCode: String) = apply { body.regionCode(regionCode) }
-
-        /**
-         * Sets [Builder.regionCode] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.regionCode] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun regionCode(regionCode: JsonField<String>) = apply { body.regionCode(regionCode) }
-
         /** Enable SIP traffic forwarding over VPN interface. */
         fun enableSipTrunking(enableSipTrunking: Boolean) = apply {
             body.enableSipTrunking(enableSipTrunking)
@@ -380,6 +366,18 @@ private constructor(
          * value.
          */
         fun publicKey(publicKey: JsonField<String>) = apply { body.publicKey(publicKey) }
+
+        /** The region the interface should be deployed to. */
+        fun regionCode(regionCode: String) = apply { body.regionCode(regionCode) }
+
+        /**
+         * Sets [Builder.regionCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.regionCode] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun regionCode(regionCode: JsonField<String>) = apply { body.regionCode(regionCode) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -527,10 +525,10 @@ private constructor(
         private val name: JsonField<String>,
         private val networkId: JsonField<String>,
         private val status: JsonField<InterfaceStatus>,
-        private val regionCode: JsonField<String>,
         private val enableSipTrunking: JsonField<Boolean>,
         private val endpoint: JsonField<String>,
         private val publicKey: JsonField<String>,
+        private val regionCode: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -553,9 +551,6 @@ private constructor(
             @JsonProperty("status")
             @ExcludeMissing
             status: JsonField<InterfaceStatus> = JsonMissing.of(),
-            @JsonProperty("region_code")
-            @ExcludeMissing
-            regionCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("enable_sip_trunking")
             @ExcludeMissing
             enableSipTrunking: JsonField<Boolean> = JsonMissing.of(),
@@ -565,6 +560,9 @@ private constructor(
             @JsonProperty("public_key")
             @ExcludeMissing
             publicKey: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region_code")
+            @ExcludeMissing
+            regionCode: JsonField<String> = JsonMissing.of(),
         ) : this(
             id,
             createdAt,
@@ -573,23 +571,26 @@ private constructor(
             name,
             networkId,
             status,
-            regionCode,
             enableSipTrunking,
             endpoint,
             publicKey,
+            regionCode,
             mutableMapOf(),
         )
 
-        fun toRecord(): Record =
-            Record.builder()
+        fun toWireguardInterface(): WireguardInterface =
+            WireguardInterface.builder()
                 .id(id)
                 .createdAt(createdAt)
                 .recordType(recordType)
                 .updatedAt(updatedAt)
+                .name(name)
+                .networkId(networkId)
+                .status(status)
+                .enableSipTrunking(enableSipTrunking)
+                .endpoint(endpoint)
+                .publicKey(publicKey)
                 .build()
-
-        fun toNetworkInterface(): NetworkInterface =
-            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
 
         fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
             NetworkInterfaceRegion.builder().regionCode(regionCode).build()
@@ -651,14 +652,6 @@ private constructor(
         fun status(): Optional<InterfaceStatus> = status.getOptional("status")
 
         /**
-         * The region the interface should be deployed to.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
-
-        /**
          * Enable SIP traffic forwarding over VPN interface.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -682,6 +675,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun publicKey(): Optional<String> = publicKey.getOptional("public_key")
+
+        /**
+         * The region the interface should be deployed to.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
 
         /**
          * Returns the raw JSON value of [id].
@@ -735,15 +736,6 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
 
         /**
-         * Returns the raw JSON value of [regionCode].
-         *
-         * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("region_code")
-        @ExcludeMissing
-        fun _regionCode(): JsonField<String> = regionCode
-
-        /**
          * Returns the raw JSON value of [enableSipTrunking].
          *
          * Unlike [enableSipTrunking], this method doesn't throw if the JSON field has an unexpected
@@ -766,6 +758,15 @@ private constructor(
          * Unlike [publicKey], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("public_key") @ExcludeMissing fun _publicKey(): JsonField<String> = publicKey
+
+        /**
+         * Returns the raw JSON value of [regionCode].
+         *
+         * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("region_code")
+        @ExcludeMissing
+        fun _regionCode(): JsonField<String> = regionCode
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -795,10 +796,10 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var networkId: JsonField<String> = JsonMissing.of()
             private var status: JsonField<InterfaceStatus> = JsonMissing.of()
-            private var regionCode: JsonField<String> = JsonMissing.of()
             private var enableSipTrunking: JsonField<Boolean> = JsonMissing.of()
             private var endpoint: JsonField<String> = JsonMissing.of()
             private var publicKey: JsonField<String> = JsonMissing.of()
+            private var regionCode: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -810,10 +811,10 @@ private constructor(
                 name = body.name
                 networkId = body.networkId
                 status = body.status
-                regionCode = body.regionCode
                 enableSipTrunking = body.enableSipTrunking
                 endpoint = body.endpoint
                 publicKey = body.publicKey
+                regionCode = body.regionCode
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -901,18 +902,6 @@ private constructor(
              */
             fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
 
-            /** The region the interface should be deployed to. */
-            fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
-
-            /**
-             * Sets [Builder.regionCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.regionCode] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
-
             /** Enable SIP traffic forwarding over VPN interface. */
             fun enableSipTrunking(enableSipTrunking: Boolean) =
                 enableSipTrunking(JsonField.of(enableSipTrunking))
@@ -952,6 +941,18 @@ private constructor(
              */
             fun publicKey(publicKey: JsonField<String>) = apply { this.publicKey = publicKey }
 
+            /** The region the interface should be deployed to. */
+            fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
+
+            /**
+             * Sets [Builder.regionCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.regionCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -985,10 +986,10 @@ private constructor(
                     name,
                     networkId,
                     status,
-                    regionCode,
                     enableSipTrunking,
                     endpoint,
                     publicKey,
+                    regionCode,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1016,10 +1017,10 @@ private constructor(
             name()
             networkId()
             status().ifPresent { it.validate() }
-            regionCode()
             enableSipTrunking()
             endpoint()
             publicKey()
+            regionCode()
             validated = true
         }
 
@@ -1046,10 +1047,10 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (networkId.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (regionCode.asKnown().isPresent) 1 else 0) +
                 (if (enableSipTrunking.asKnown().isPresent) 1 else 0) +
                 (if (endpoint.asKnown().isPresent) 1 else 0) +
-                (if (publicKey.asKnown().isPresent) 1 else 0)
+                (if (publicKey.asKnown().isPresent) 1 else 0) +
+                (if (regionCode.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1064,10 +1065,10 @@ private constructor(
                 name == other.name &&
                 networkId == other.networkId &&
                 status == other.status &&
-                regionCode == other.regionCode &&
                 enableSipTrunking == other.enableSipTrunking &&
                 endpoint == other.endpoint &&
                 publicKey == other.publicKey &&
+                regionCode == other.regionCode &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1080,10 +1081,10 @@ private constructor(
                 name,
                 networkId,
                 status,
-                regionCode,
                 enableSipTrunking,
                 endpoint,
                 publicKey,
+                regionCode,
                 additionalProperties,
             )
         }
@@ -1091,7 +1092,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, regionCode=$regionCode, enableSipTrunking=$enableSipTrunking, endpoint=$endpoint, publicKey=$publicKey, additionalProperties=$additionalProperties}"
+            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, enableSipTrunking=$enableSipTrunking, endpoint=$endpoint, publicKey=$publicKey, regionCode=$regionCode, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

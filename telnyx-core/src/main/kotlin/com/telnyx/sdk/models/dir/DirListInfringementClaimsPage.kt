@@ -5,6 +5,8 @@ package com.telnyx.sdk.models.dir
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
+import com.telnyx.sdk.models.infringementclaims.InfringementClaim
 import com.telnyx.sdk.services.blocking.DirService
 import java.util.Objects
 import java.util.Optional
@@ -17,14 +19,14 @@ private constructor(
     private val service: DirService,
     private val params: DirListInfringementClaimsParams,
     private val response: DirListInfringementClaimsPageResponse,
-) : Page<DirListInfringementClaimsResponse> {
+) : Page<InfringementClaim> {
 
     /**
      * Delegates to [DirListInfringementClaimsPageResponse], but gracefully handles missing data.
      *
      * @see DirListInfringementClaimsPageResponse.data
      */
-    fun data(): List<DirListInfringementClaimsResponse> =
+    fun data(): List<InfringementClaim> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -32,10 +34,9 @@ private constructor(
      *
      * @see DirListInfringementClaimsPageResponse.meta
      */
-    fun meta(): Optional<DirListInfringementClaimsPageResponse.Meta> =
-        response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<DirListInfringementClaimsResponse> = data()
+    override fun items(): List<InfringementClaim> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -56,7 +57,7 @@ private constructor(
     override fun nextPage(): DirListInfringementClaimsPage =
         service.listInfringementClaims(nextPageParams())
 
-    fun autoPager(): AutoPager<DirListInfringementClaimsResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<InfringementClaim> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): DirListInfringementClaimsParams = params

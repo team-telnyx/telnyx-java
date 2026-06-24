@@ -18,12 +18,10 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionCreateResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionDeleteParams
+import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionRetrieveResponse
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateParams
-import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -49,21 +47,21 @@ internal constructor(private val clientOptions: ClientOptions) : DialogflowConne
     override fun create(
         params: DialogflowConnectionCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DialogflowConnectionCreateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         // post /dialogflow_connections/{connection_id}
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: DialogflowConnectionRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DialogflowConnectionRetrieveResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         // get /dialogflow_connections/{connection_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: DialogflowConnectionUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DialogflowConnectionUpdateResponse> =
+    ): CompletableFuture<DialogflowConnectionResponse> =
         // put /dialogflow_connections/{connection_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -87,13 +85,13 @@ internal constructor(private val clientOptions: ClientOptions) : DialogflowConne
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<DialogflowConnectionCreateResponse> =
-            jsonHandler<DialogflowConnectionCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<DialogflowConnectionResponse> =
+            jsonHandler<DialogflowConnectionResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: DialogflowConnectionCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -121,13 +119,13 @@ internal constructor(private val clientOptions: ClientOptions) : DialogflowConne
                 }
         }
 
-        private val retrieveHandler: Handler<DialogflowConnectionRetrieveResponse> =
-            jsonHandler<DialogflowConnectionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<DialogflowConnectionResponse> =
+            jsonHandler<DialogflowConnectionResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: DialogflowConnectionRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -154,13 +152,13 @@ internal constructor(private val clientOptions: ClientOptions) : DialogflowConne
                 }
         }
 
-        private val updateHandler: Handler<DialogflowConnectionUpdateResponse> =
-            jsonHandler<DialogflowConnectionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<DialogflowConnectionResponse> =
+            jsonHandler<DialogflowConnectionResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: DialogflowConnectionUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DialogflowConnectionUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<DialogflowConnectionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())

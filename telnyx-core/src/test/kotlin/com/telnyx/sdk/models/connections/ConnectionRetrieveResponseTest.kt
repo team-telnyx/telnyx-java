@@ -15,7 +15,7 @@ internal class ConnectionRetrieveResponseTest {
         val connectionRetrieveResponse =
             ConnectionRetrieveResponse.builder()
                 .data(
-                    ConnectionRetrieveResponse.Data.builder()
+                    Connection.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -26,7 +26,7 @@ internal class ConnectionRetrieveResponseTest {
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
-                        .webhookApiVersion(ConnectionRetrieveResponse.Data.WebhookApiVersion.V1)
+                        .webhookApiVersion(Connection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .build()
@@ -35,7 +35,7 @@ internal class ConnectionRetrieveResponseTest {
 
         assertThat(connectionRetrieveResponse.data())
             .contains(
-                ConnectionRetrieveResponse.Data.builder()
+                Connection.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -46,7 +46,7 @@ internal class ConnectionRetrieveResponseTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .updatedAt("2018-02-02T22:25:27.521Z")
-                    .webhookApiVersion(ConnectionRetrieveResponse.Data.WebhookApiVersion.V1)
+                    .webhookApiVersion(Connection.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .build()
@@ -59,7 +59,7 @@ internal class ConnectionRetrieveResponseTest {
         val connectionRetrieveResponse =
             ConnectionRetrieveResponse.builder()
                 .data(
-                    ConnectionRetrieveResponse.Data.builder()
+                    Connection.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -70,7 +70,7 @@ internal class ConnectionRetrieveResponseTest {
                         .addTag("tag1")
                         .addTag("tag2")
                         .updatedAt("2018-02-02T22:25:27.521Z")
-                        .webhookApiVersion(ConnectionRetrieveResponse.Data.WebhookApiVersion.V1)
+                        .webhookApiVersion(Connection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("https://failover.example.com")
                         .webhookEventUrl("https://example.com")
                         .build()

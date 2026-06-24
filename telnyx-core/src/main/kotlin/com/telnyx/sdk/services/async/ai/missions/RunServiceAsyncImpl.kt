@@ -16,24 +16,18 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.missions.runs.MissionRunResponse
+import com.telnyx.sdk.models.ai.missions.runs.MissionRunsListResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListPageAsync
-import com.telnyx.sdk.models.ai.missions.runs.RunListPageResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListParams
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsPageAsync
-import com.telnyx.sdk.models.ai.missions.runs.RunListRunsPageResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsParams
 import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
-import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunUpdateResponse
 import com.telnyx.sdk.services.async.ai.missions.runs.EventServiceAsync
 import com.telnyx.sdk.services.async.ai.missions.runs.EventServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.missions.runs.PlanServiceAsync
@@ -73,21 +67,21 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun create(
         params: RunCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunCreateResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // post /ai/missions/{mission_id}/runs
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: RunRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunRetrieveResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // get /ai/missions/{mission_id}/runs/{run_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: RunUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunUpdateResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // patch /ai/missions/{mission_id}/runs/{run_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -101,7 +95,7 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun cancelRun(
         params: RunCancelRunParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunCancelRunResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/cancel
         withRawResponse().cancelRun(params, requestOptions).thenApply { it.parse() }
 
@@ -115,14 +109,14 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun pauseRun(
         params: RunPauseRunParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunPauseRunResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/pause
         withRawResponse().pauseRun(params, requestOptions).thenApply { it.parse() }
 
     override fun resumeRun(
         params: RunResumeRunParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunResumeRunResponse> =
+    ): CompletableFuture<MissionRunResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/resume
         withRawResponse().resumeRun(params, requestOptions).thenApply { it.parse() }
 
@@ -157,13 +151,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
 
         override fun telnyxAgents(): TelnyxAgentServiceAsync.WithRawResponse = telnyxAgents
 
-        private val createHandler: Handler<RunCreateResponse> =
-            jsonHandler<RunCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: RunCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())
@@ -191,13 +185,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val retrieveHandler: Handler<RunRetrieveResponse> =
-            jsonHandler<RunRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: RunRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -230,13 +224,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val updateHandler: Handler<RunUpdateResponse> =
-            jsonHandler<RunUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: RunUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -270,8 +264,8 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listHandler: Handler<RunListPageResponse> =
-            jsonHandler<RunListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MissionRunsListResponse> =
+            jsonHandler<MissionRunsListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RunListParams,
@@ -311,13 +305,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val cancelRunHandler: Handler<RunCancelRunResponse> =
-            jsonHandler<RunCancelRunResponse>(clientOptions.jsonMapper)
+        private val cancelRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun cancelRun(
             params: RunCancelRunParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunCancelRunResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -352,8 +346,8 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listRunsHandler: Handler<RunListRunsPageResponse> =
-            jsonHandler<RunListRunsPageResponse>(clientOptions.jsonMapper)
+        private val listRunsHandler: Handler<MissionRunsListResponse> =
+            jsonHandler<MissionRunsListResponse>(clientOptions.jsonMapper)
 
         override fun listRuns(
             params: RunListRunsParams,
@@ -390,13 +384,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val pauseRunHandler: Handler<RunPauseRunResponse> =
-            jsonHandler<RunPauseRunResponse>(clientOptions.jsonMapper)
+        private val pauseRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun pauseRun(
             params: RunPauseRunParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunPauseRunResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -431,13 +425,13 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val resumeRunHandler: Handler<RunResumeRunResponse> =
-            jsonHandler<RunResumeRunResponse>(clientOptions.jsonMapper)
+        private val resumeRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun resumeRun(
             params: RunResumeRunParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunResumeRunResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionRunResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())

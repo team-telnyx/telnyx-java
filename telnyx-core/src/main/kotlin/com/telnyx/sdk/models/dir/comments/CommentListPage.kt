@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir.comments
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.blocking.dir.CommentService
 import java.util.Objects
 import java.util.Optional
@@ -17,24 +18,23 @@ private constructor(
     private val service: CommentService,
     private val params: CommentListParams,
     private val response: CommentListPageResponse,
-) : Page<CommentListResponse> {
+) : Page<DirComment> {
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.data
      */
-    fun data(): List<CommentListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<DirComment> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.meta
      */
-    fun meta(): Optional<CommentListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CommentListResponse> = data()
+    override fun items(): List<DirComment> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +54,7 @@ private constructor(
 
     override fun nextPage(): CommentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<CommentListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<DirComment> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CommentListParams = params

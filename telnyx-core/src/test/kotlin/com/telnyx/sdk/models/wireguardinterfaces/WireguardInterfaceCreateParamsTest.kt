@@ -18,10 +18,10 @@ internal class WireguardInterfaceCreateParamsTest {
             .name("test interface")
             .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .status(InterfaceStatus.PROVISIONED)
-            .regionCode("ashburn-va")
             .enableSipTrunking(false)
             .endpoint("203.0.113.0:51871")
             .publicKey("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+            .regionCode("ashburn-va")
             .build()
     }
 
@@ -36,10 +36,10 @@ internal class WireguardInterfaceCreateParamsTest {
                 .name("test interface")
                 .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .status(InterfaceStatus.PROVISIONED)
-                .regionCode("ashburn-va")
                 .enableSipTrunking(false)
                 .endpoint("203.0.113.0:51871")
                 .publicKey("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+                .regionCode("ashburn-va")
                 .build()
 
         val body = params._body()
@@ -51,10 +51,10 @@ internal class WireguardInterfaceCreateParamsTest {
         assertThat(body.name()).contains("test interface")
         assertThat(body.networkId()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(body.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(body.regionCode()).contains("ashburn-va")
         assertThat(body.enableSipTrunking()).contains(false)
         assertThat(body.endpoint()).contains("203.0.113.0:51871")
         assertThat(body.publicKey()).contains("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+        assertThat(body.regionCode()).contains("ashburn-va")
     }
 
     @Test

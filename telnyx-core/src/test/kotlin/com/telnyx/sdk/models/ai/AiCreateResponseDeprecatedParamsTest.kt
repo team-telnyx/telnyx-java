@@ -11,8 +11,8 @@ internal class AiCreateResponseDeprecatedParamsTest {
     @Test
     fun create() {
         AiCreateResponseDeprecatedParams.builder()
-            .body(
-                AiCreateResponseDeprecatedParams.Body.builder()
+            .responseRequest(
+                AiCreateResponseDeprecatedParams.ResponseRequest.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()
@@ -24,8 +24,8 @@ internal class AiCreateResponseDeprecatedParamsTest {
     fun body() {
         val params =
             AiCreateResponseDeprecatedParams.builder()
-                .body(
-                    AiCreateResponseDeprecatedParams.Body.builder()
+                .responseRequest(
+                    AiCreateResponseDeprecatedParams.ResponseRequest.builder()
                         .putAdditionalProperty("model", JsonValue.from("bar"))
                         .putAdditionalProperty("input", JsonValue.from("bar"))
                         .build()
@@ -36,7 +36,7 @@ internal class AiCreateResponseDeprecatedParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                AiCreateResponseDeprecatedParams.Body.builder()
+                AiCreateResponseDeprecatedParams.ResponseRequest.builder()
                     .putAdditionalProperty("model", JsonValue.from("bar"))
                     .putAdditionalProperty("input", JsonValue.from("bar"))
                     .build()

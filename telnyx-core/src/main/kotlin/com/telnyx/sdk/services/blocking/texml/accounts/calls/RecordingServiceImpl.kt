@@ -17,7 +17,7 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,7 +37,7 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
     override fun recordingSidJson(
         params: RecordingRecordingSidJsonParams,
         requestOptions: RequestOptions,
-    ): RecordingRecordingSidJsonResponse =
+    ): TexmlCreateCallRecordingResponseBody =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json
         withRawResponse().recordingSidJson(params, requestOptions).parse()
 
@@ -54,13 +54,13 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val recordingSidJsonHandler: Handler<RecordingRecordingSidJsonResponse> =
-            jsonHandler<RecordingRecordingSidJsonResponse>(clientOptions.jsonMapper)
+        private val recordingSidJsonHandler: Handler<TexmlCreateCallRecordingResponseBody> =
+            jsonHandler<TexmlCreateCallRecordingResponseBody>(clientOptions.jsonMapper)
 
         override fun recordingSidJson(
             params: RecordingRecordingSidJsonParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingRecordingSidJsonResponse> {
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("recordingSid", params.recordingSid().getOrNull())

@@ -14,8 +14,8 @@ internal class NumberReputationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberReputationService = client.termsOfService().numberReputation()
 
-        val response = numberReputationService.agree()
+        val tosAgreementWrapped = numberReputationService.agree()
 
-        response.validate()
+        tosAgreementWrapped.validate()
     }
 }

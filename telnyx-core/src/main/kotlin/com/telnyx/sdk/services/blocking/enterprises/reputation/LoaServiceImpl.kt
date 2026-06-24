@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaRenderParams
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateParams
-import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,7 +37,7 @@ class LoaServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun update(
         params: LoaUpdateParams,
         requestOptions: RequestOptions,
-    ): LoaUpdateResponse =
+    ): EnterpriseReputationPublicWrapped =
         // patch /enterprises/{enterprise_id}/reputation/loa
         withRawResponse().update(params, requestOptions).parse()
 
@@ -58,13 +58,13 @@ class LoaServiceImpl internal constructor(private val clientOptions: ClientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<LoaUpdateResponse> =
-            jsonHandler<LoaUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun update(
             params: LoaUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LoaUpdateResponse> {
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())

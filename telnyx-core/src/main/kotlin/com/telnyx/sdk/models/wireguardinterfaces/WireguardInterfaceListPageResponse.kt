@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class WireguardInterfaceListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<WireguardInterfaceListResponse>>,
+    private val data: JsonField<List<WireguardInterfaceRead>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<WireguardInterfaceListResponse>> = JsonMissing.of(),
+        data: JsonField<List<WireguardInterfaceRead>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<WireguardInterfaceListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<WireguardInterfaceRead>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,7 +54,7 @@ private constructor(
      */
     @JsonProperty("data")
     @ExcludeMissing
-    fun _data(): JsonField<List<WireguardInterfaceListResponse>> = data
+    fun _data(): JsonField<List<WireguardInterfaceRead>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -87,7 +87,7 @@ private constructor(
     /** A builder for [WireguardInterfaceListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<WireguardInterfaceListResponse>>? = null
+        private var data: JsonField<MutableList<WireguardInterfaceRead>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -100,25 +100,25 @@ private constructor(
                     wireguardInterfaceListPageResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: List<WireguardInterfaceListResponse>) = data(JsonField.of(data))
+        fun data(data: List<WireguardInterfaceRead>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<WireguardInterfaceListResponse>` value instead. This method is primarily for
-         * setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<WireguardInterfaceRead>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<WireguardInterfaceListResponse>>) = apply {
+        fun data(data: JsonField<List<WireguardInterfaceRead>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [WireguardInterfaceListResponse] to [Builder.data].
+         * Adds a single [WireguardInterfaceRead] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: WireguardInterfaceListResponse) = apply {
+        fun addData(data: WireguardInterfaceRead) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

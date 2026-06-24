@@ -15,7 +15,7 @@ internal class GlobalIpRetrieveResponseTest {
         val globalIpRetrieveResponse =
             GlobalIpRetrieveResponse.builder()
                 .data(
-                    GlobalIpRetrieveResponse.Data.builder()
+                    GlobalIp.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
@@ -24,7 +24,7 @@ internal class GlobalIpRetrieveResponseTest {
                         .ipAddress("198.51.100.1")
                         .name("test interface")
                         .ports(
-                            GlobalIpRetrieveResponse.Data.Ports.builder()
+                            GlobalIp.Ports.builder()
                                 .putAdditionalProperty("tcp", JsonValue.from("bar"))
                                 .putAdditionalProperty("udp", JsonValue.from("bar"))
                                 .build()
@@ -35,7 +35,7 @@ internal class GlobalIpRetrieveResponseTest {
 
         assertThat(globalIpRetrieveResponse.data())
             .contains(
-                GlobalIpRetrieveResponse.Data.builder()
+                GlobalIp.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
@@ -44,7 +44,7 @@ internal class GlobalIpRetrieveResponseTest {
                     .ipAddress("198.51.100.1")
                     .name("test interface")
                     .ports(
-                        GlobalIpRetrieveResponse.Data.Ports.builder()
+                        GlobalIp.Ports.builder()
                             .putAdditionalProperty("tcp", JsonValue.from("bar"))
                             .putAdditionalProperty("udp", JsonValue.from("bar"))
                             .build()
@@ -59,7 +59,7 @@ internal class GlobalIpRetrieveResponseTest {
         val globalIpRetrieveResponse =
             GlobalIpRetrieveResponse.builder()
                 .data(
-                    GlobalIpRetrieveResponse.Data.builder()
+                    GlobalIp.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("sample_record_type")
@@ -68,7 +68,7 @@ internal class GlobalIpRetrieveResponseTest {
                         .ipAddress("198.51.100.1")
                         .name("test interface")
                         .ports(
-                            GlobalIpRetrieveResponse.Data.Ports.builder()
+                            GlobalIp.Ports.builder()
                                 .putAdditionalProperty("tcp", JsonValue.from("bar"))
                                 .putAdditionalProperty("udp", JsonValue.from("bar"))
                                 .build()

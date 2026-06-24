@@ -19,7 +19,7 @@ internal class ConferenceServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conferenceService = client.texml().accounts().conferences()
 
-        val conference =
+        val conferenceResource =
             conferenceService.retrieve(
                 ConferenceRetrieveParams.builder()
                     .accountSid("account_sid")
@@ -27,7 +27,7 @@ internal class ConferenceServiceTest {
                     .build()
             )
 
-        conference.validate()
+        conferenceResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,7 +36,7 @@ internal class ConferenceServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conferenceService = client.texml().accounts().conferences()
 
-        val conference =
+        val conferenceResource =
             conferenceService.update(
                 ConferenceUpdateParams.builder()
                     .accountSid("account_sid")
@@ -47,7 +47,7 @@ internal class ConferenceServiceTest {
                     .build()
             )
 
-        conference.validate()
+        conferenceResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -96,7 +96,7 @@ internal class ConferenceServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conferenceService = client.texml().accounts().conferences()
 
-        val response =
+        val texmlGetCallRecordingsResponseBody =
             conferenceService.retrieveRecordingsJson(
                 ConferenceRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
@@ -104,6 +104,6 @@ internal class ConferenceServiceTest {
                     .build()
             )
 
-        response.validate()
+        texmlGetCallRecordingsResponseBody.validate()
     }
 }

@@ -18,14 +18,14 @@ private constructor(
     private val service: PhoneNumberConfigurationService,
     private val params: PhoneNumberConfigurationListParams,
     private val response: PhoneNumberConfigurationListPageResponse,
-) : Page<PhoneNumberConfigurationListResponse> {
+) : Page<PortingPhoneNumberConfiguration> {
 
     /**
      * Delegates to [PhoneNumberConfigurationListPageResponse], but gracefully handles missing data.
      *
      * @see PhoneNumberConfigurationListPageResponse.data
      */
-    fun data(): List<PhoneNumberConfigurationListResponse> =
+    fun data(): List<PortingPhoneNumberConfiguration> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PhoneNumberConfigurationListResponse> = data()
+    override fun items(): List<PortingPhoneNumberConfiguration> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): PhoneNumberConfigurationListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<PhoneNumberConfigurationListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PortingPhoneNumberConfiguration> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PhoneNumberConfigurationListParams = params

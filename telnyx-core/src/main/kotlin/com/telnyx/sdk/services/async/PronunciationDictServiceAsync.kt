@@ -7,14 +7,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictDeleteParams
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListPageAsync
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictListParams
+import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictRetrieveResponse
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateParams
-import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -56,16 +54,16 @@ interface PronunciationDictServiceAsync {
      */
     fun create(
         params: PronunciationDictCreateParams
-    ): CompletableFuture<PronunciationDictCreateResponse> = create(params, RequestOptions.none())
+    ): CompletableFuture<PronunciationDictResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PronunciationDictCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PronunciationDictCreateResponse>
+    ): CompletableFuture<PronunciationDictResponse>
 
     /** Retrieve a single pronunciation dictionary by ID. */
-    fun retrieve(id: String): CompletableFuture<PronunciationDictRetrieveResponse> =
+    fun retrieve(id: String): CompletableFuture<PronunciationDictResponse> =
         retrieve(id, PronunciationDictRetrieveParams.none())
 
     /** @see retrieve */
@@ -73,40 +71,38 @@ interface PronunciationDictServiceAsync {
         id: String,
         params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PronunciationDictRetrieveResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
-    ): CompletableFuture<PronunciationDictRetrieveResponse> =
-        retrieve(id, params, RequestOptions.none())
+    ): CompletableFuture<PronunciationDictResponse> = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: PronunciationDictRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PronunciationDictRetrieveResponse>
+    ): CompletableFuture<PronunciationDictResponse>
 
     /** @see retrieve */
     fun retrieve(
         params: PronunciationDictRetrieveParams
-    ): CompletableFuture<PronunciationDictRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    ): CompletableFuture<PronunciationDictResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PronunciationDictRetrieveResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         retrieve(id, PronunciationDictRetrieveParams.none(), requestOptions)
 
     /**
      * Update the name and/or items of an existing pronunciation dictionary. Uses optimistic locking
      * — if the dictionary was modified concurrently, the request returns 409 Conflict.
      */
-    fun update(id: String): CompletableFuture<PronunciationDictUpdateResponse> =
+    fun update(id: String): CompletableFuture<PronunciationDictResponse> =
         update(id, PronunciationDictUpdateParams.none())
 
     /** @see update */
@@ -114,32 +110,31 @@ interface PronunciationDictServiceAsync {
         id: String,
         params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PronunciationDictUpdateResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(
         id: String,
         params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
-    ): CompletableFuture<PronunciationDictUpdateResponse> =
-        update(id, params, RequestOptions.none())
+    ): CompletableFuture<PronunciationDictResponse> = update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PronunciationDictUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PronunciationDictUpdateResponse>
+    ): CompletableFuture<PronunciationDictResponse>
 
     /** @see update */
     fun update(
         params: PronunciationDictUpdateParams
-    ): CompletableFuture<PronunciationDictUpdateResponse> = update(params, RequestOptions.none())
+    ): CompletableFuture<PronunciationDictResponse> = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PronunciationDictUpdateResponse> =
+    ): CompletableFuture<PronunciationDictResponse> =
         update(id, PronunciationDictUpdateParams.none(), requestOptions)
 
     /**
@@ -216,22 +211,20 @@ interface PronunciationDictServiceAsync {
          */
         fun create(
             params: PronunciationDictCreateParams
-        ): CompletableFuture<HttpResponseFor<PronunciationDictCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: PronunciationDictCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>>
 
         /**
          * Returns a raw HTTP response for `get /pronunciation_dicts/{id}`, but is otherwise the
          * same as [PronunciationDictServiceAsync.retrieve].
          */
-        fun retrieve(
-            id: String
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> =
+        fun retrieve(id: String): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             retrieve(id, PronunciationDictRetrieveParams.none())
 
         /** @see retrieve */
@@ -239,42 +232,40 @@ interface PronunciationDictServiceAsync {
             id: String,
             params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             params: PronunciationDictRetrieveParams = PronunciationDictRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: PronunciationDictRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: PronunciationDictRetrieveParams
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PronunciationDictRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             retrieve(id, PronunciationDictRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /pronunciation_dicts/{id}`, but is otherwise the
          * same as [PronunciationDictServiceAsync.update].
          */
-        fun update(
-            id: String
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> =
+        fun update(id: String): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             update(id, PronunciationDictUpdateParams.none())
 
         /** @see update */
@@ -282,33 +273,33 @@ interface PronunciationDictServiceAsync {
             id: String,
             params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         fun update(
             id: String,
             params: PronunciationDictUpdateParams = PronunciationDictUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             update(id, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: PronunciationDictUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>>
 
         /** @see update */
         fun update(
             params: PronunciationDictUpdateParams
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PronunciationDictUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PronunciationDictResponse>> =
             update(id, PronunciationDictUpdateParams.none(), requestOptions)
 
         /**

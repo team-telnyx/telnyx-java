@@ -8,7 +8,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.channelzones.ChannelZoneListPageAsync
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
-import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
+import com.telnyx.sdk.models.channelzones.GcbChannelZone
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,26 +35,25 @@ interface ChannelZoneServiceAsync {
     fun update(
         channelZoneId: String,
         params: ChannelZoneUpdateParams,
-    ): CompletableFuture<ChannelZoneUpdateResponse> =
-        update(channelZoneId, params, RequestOptions.none())
+    ): CompletableFuture<GcbChannelZone> = update(channelZoneId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         channelZoneId: String,
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ChannelZoneUpdateResponse> =
+    ): CompletableFuture<GcbChannelZone> =
         update(params.toBuilder().channelZoneId(channelZoneId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ChannelZoneUpdateParams): CompletableFuture<ChannelZoneUpdateResponse> =
+    fun update(params: ChannelZoneUpdateParams): CompletableFuture<GcbChannelZone> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ChannelZoneUpdateResponse>
+    ): CompletableFuture<GcbChannelZone>
 
     /**
      * Returns the non-US voice channels for your account. voice channels allow you to use Channel
@@ -101,7 +100,7 @@ interface ChannelZoneServiceAsync {
         fun update(
             channelZoneId: String,
             params: ChannelZoneUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ChannelZoneUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<GcbChannelZone>> =
             update(channelZoneId, params, RequestOptions.none())
 
         /** @see update */
@@ -109,20 +108,20 @@ interface ChannelZoneServiceAsync {
             channelZoneId: String,
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChannelZoneUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<GcbChannelZone>> =
             update(params.toBuilder().channelZoneId(channelZoneId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: ChannelZoneUpdateParams
-        ): CompletableFuture<HttpResponseFor<ChannelZoneUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<GcbChannelZone>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChannelZoneUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<GcbChannelZone>>
 
         /**
          * Returns a raw HTTP response for `get /channel_zones`, but is otherwise the same as

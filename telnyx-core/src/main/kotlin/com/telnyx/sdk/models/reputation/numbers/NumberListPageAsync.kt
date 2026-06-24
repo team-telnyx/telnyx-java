@@ -5,6 +5,9 @@ package com.telnyx.sdk.models.reputation.numbers
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.enterprises.NumberReputationPaginationMeta
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumber
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
 import com.telnyx.sdk.services.async.reputation.NumberServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -19,25 +22,25 @@ private constructor(
     private val service: NumberServiceAsync,
     private val streamHandlerExecutor: Executor,
     private val params: NumberListParams,
-    private val response: NumberListPageResponse,
-) : PageAsync<NumberListResponse> {
+    private val response: ReputationPhoneNumberList,
+) : PageAsync<ReputationPhoneNumber> {
 
     /**
-     * Delegates to [NumberListPageResponse], but gracefully handles missing data.
+     * Delegates to [ReputationPhoneNumberList], but gracefully handles missing data.
      *
-     * @see NumberListPageResponse.data
+     * @see ReputationPhoneNumberList.data
      */
-    fun data(): List<NumberListResponse> =
+    fun data(): List<ReputationPhoneNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [NumberListPageResponse], but gracefully handles missing data.
+     * Delegates to [ReputationPhoneNumberList], but gracefully handles missing data.
      *
-     * @see NumberListPageResponse.meta
+     * @see ReputationPhoneNumberList.meta
      */
-    fun meta(): Optional<NumberListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<NumberReputationPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<NumberListResponse> = data()
+    override fun items(): List<ReputationPhoneNumber> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -57,14 +60,14 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<NumberListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<NumberListResponse> =
+    fun autoPager(): AutoPagerAsync<ReputationPhoneNumber> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): NumberListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): NumberListPageResponse = response
+    fun response(): ReputationPhoneNumberList = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -90,7 +93,7 @@ private constructor(
         private var service: NumberServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
         private var params: NumberListParams? = null
-        private var response: NumberListPageResponse? = null
+        private var response: ReputationPhoneNumberList? = null
 
         @JvmSynthetic
         internal fun from(numberListPageAsync: NumberListPageAsync) = apply {
@@ -110,7 +113,7 @@ private constructor(
         fun params(params: NumberListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: NumberListPageResponse) = apply { this.response = response }
+        fun response(response: ReputationPhoneNumberList) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [NumberListPageAsync].

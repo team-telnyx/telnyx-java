@@ -18,14 +18,14 @@ private constructor(
     private val service: AdditionalDocumentService,
     private val params: AdditionalDocumentListParams,
     private val response: AdditionalDocumentListPageResponse,
-) : Page<AdditionalDocumentListResponse> {
+) : Page<PortingAdditionalDocument> {
 
     /**
      * Delegates to [AdditionalDocumentListPageResponse], but gracefully handles missing data.
      *
      * @see AdditionalDocumentListPageResponse.data
      */
-    fun data(): List<AdditionalDocumentListResponse> =
+    fun data(): List<PortingAdditionalDocument> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AdditionalDocumentListResponse> = data()
+    override fun items(): List<PortingAdditionalDocument> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): AdditionalDocumentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<AdditionalDocumentListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PortingAdditionalDocument> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AdditionalDocumentListParams = params

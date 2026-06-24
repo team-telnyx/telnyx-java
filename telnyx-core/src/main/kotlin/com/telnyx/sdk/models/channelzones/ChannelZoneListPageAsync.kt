@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: ChannelZoneListParams,
     private val response: ChannelZoneListPageResponse,
-) : PageAsync<ChannelZoneListResponse> {
+) : PageAsync<GcbChannelZone> {
 
     /**
      * Delegates to [ChannelZoneListPageResponse], but gracefully handles missing data.
      *
      * @see ChannelZoneListPageResponse.data
      */
-    fun data(): List<ChannelZoneListResponse> =
+    fun data(): List<GcbChannelZone> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ChannelZoneListResponse> = data()
+    override fun items(): List<GcbChannelZone> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<ChannelZoneListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<ChannelZoneListResponse> =
+    fun autoPager(): AutoPagerAsync<GcbChannelZone> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

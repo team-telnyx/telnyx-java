@@ -15,7 +15,7 @@ internal class UserDataUpdateResponseTest {
         val userDataUpdateResponse =
             UserDataUpdateResponse.builder()
                 .data(
-                    UserDataUpdateResponse.Data.builder()
+                    WhatsappUserData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .recordType("whatsapp_user_data")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -27,7 +27,7 @@ internal class UserDataUpdateResponseTest {
 
         assertThat(userDataUpdateResponse.data())
             .contains(
-                UserDataUpdateResponse.Data.builder()
+                WhatsappUserData.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .recordType("whatsapp_user_data")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,7 +43,7 @@ internal class UserDataUpdateResponseTest {
         val userDataUpdateResponse =
             UserDataUpdateResponse.builder()
                 .data(
-                    UserDataUpdateResponse.Data.builder()
+                    WhatsappUserData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .recordType("whatsapp_user_data")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

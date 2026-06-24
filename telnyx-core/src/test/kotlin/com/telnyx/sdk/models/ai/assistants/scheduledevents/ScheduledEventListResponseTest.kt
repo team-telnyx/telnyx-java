@@ -35,8 +35,8 @@ internal class ScheduledEventListResponseTest {
                 )
                 .callDuration(0L)
                 .callSettings(
-                    ScheduledPhoneCallEventResponse.CallSettings.builder()
-                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                    ScheduledCallSettings.builder()
+                        .sipRegion(ScheduledCallSettings.SipRegion.US)
                         .build()
                 )
                 .callStatus("call_status")
@@ -90,8 +90,8 @@ internal class ScheduledEventListResponseTest {
                     )
                     .callDuration(0L)
                     .callSettings(
-                        ScheduledPhoneCallEventResponse.CallSettings.builder()
-                            .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                        ScheduledCallSettings.builder()
+                            .sipRegion(ScheduledCallSettings.SipRegion.US)
                             .build()
                     )
                     .callStatus("call_status")

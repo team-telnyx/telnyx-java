@@ -11,11 +11,9 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.globalipassignments.Record
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -61,14 +59,6 @@ private constructor(
     fun updatedAt(): Optional<String> = body.updatedAt()
 
     /**
-     * The id of the wireguard interface associated with the peer.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun wireguardInterfaceId(): String = body.wireguardInterfaceId()
-
-    /**
      * ISO 8601 formatted date-time indicating when peer sent traffic last time.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -87,6 +77,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun privateKey(): Optional<String> = body.privateKey()
+
+    /**
+     * The id of the wireguard interface associated with the peer.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun wireguardInterfaceId(): Optional<String> = body.wireguardInterfaceId()
 
     /**
      * Returns the raw JSON value of [id].
@@ -117,14 +115,6 @@ private constructor(
     fun _updatedAt(): JsonField<String> = body._updatedAt()
 
     /**
-     * Returns the raw JSON value of [wireguardInterfaceId].
-     *
-     * Unlike [wireguardInterfaceId], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _wireguardInterfaceId(): JsonField<String> = body._wireguardInterfaceId()
-
-    /**
      * Returns the raw JSON value of [lastSeen].
      *
      * Unlike [lastSeen], this method doesn't throw if the JSON field has an unexpected type.
@@ -138,6 +128,14 @@ private constructor(
      */
     fun _privateKey(): JsonField<String> = body._privateKey()
 
+    /**
+     * Returns the raw JSON value of [wireguardInterfaceId].
+     *
+     * Unlike [wireguardInterfaceId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _wireguardInterfaceId(): JsonField<String> = body._wireguardInterfaceId()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
@@ -150,13 +148,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): WireguardPeerCreateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [WireguardPeerCreateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .wireguardInterfaceId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -184,7 +179,7 @@ private constructor(
          * - [createdAt]
          * - [recordType]
          * - [updatedAt]
-         * - [wireguardInterfaceId]
+         * - [lastSeen]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -236,22 +231,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<String>) = apply { body.updatedAt(updatedAt) }
 
-        /** The id of the wireguard interface associated with the peer. */
-        fun wireguardInterfaceId(wireguardInterfaceId: String) = apply {
-            body.wireguardInterfaceId(wireguardInterfaceId)
-        }
-
-        /**
-         * Sets [Builder.wireguardInterfaceId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.wireguardInterfaceId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun wireguardInterfaceId(wireguardInterfaceId: JsonField<String>) = apply {
-            body.wireguardInterfaceId(wireguardInterfaceId)
-        }
-
         /** ISO 8601 formatted date-time indicating when peer sent traffic last time. */
         fun lastSeen(lastSeen: String) = apply { body.lastSeen(lastSeen) }
 
@@ -280,6 +259,22 @@ private constructor(
          * value.
          */
         fun privateKey(privateKey: JsonField<String>) = apply { body.privateKey(privateKey) }
+
+        /** The id of the wireguard interface associated with the peer. */
+        fun wireguardInterfaceId(wireguardInterfaceId: String) = apply {
+            body.wireguardInterfaceId(wireguardInterfaceId)
+        }
+
+        /**
+         * Sets [Builder.wireguardInterfaceId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.wireguardInterfaceId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun wireguardInterfaceId(wireguardInterfaceId: JsonField<String>) = apply {
+            body.wireguardInterfaceId(wireguardInterfaceId)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -402,13 +397,6 @@ private constructor(
          * Returns an immutable instance of [WireguardPeerCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .wireguardInterfaceId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WireguardPeerCreateParams =
             WireguardPeerCreateParams(
@@ -431,9 +419,9 @@ private constructor(
         private val createdAt: JsonField<String>,
         private val recordType: JsonField<String>,
         private val updatedAt: JsonField<String>,
-        private val wireguardInterfaceId: JsonField<String>,
         private val lastSeen: JsonField<String>,
         private val privateKey: JsonField<String>,
+        private val wireguardInterfaceId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -449,32 +437,35 @@ private constructor(
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("wireguard_interface_id")
-            @ExcludeMissing
-            wireguardInterfaceId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("last_seen")
             @ExcludeMissing
             lastSeen: JsonField<String> = JsonMissing.of(),
             @JsonProperty("private_key")
             @ExcludeMissing
             privateKey: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("wireguard_interface_id")
+            @ExcludeMissing
+            wireguardInterfaceId: JsonField<String> = JsonMissing.of(),
         ) : this(
             id,
             createdAt,
             recordType,
             updatedAt,
-            wireguardInterfaceId,
             lastSeen,
             privateKey,
+            wireguardInterfaceId,
             mutableMapOf(),
         )
 
-        fun toRecord(): Record =
-            Record.builder()
+        fun toWireguardPeer(): WireguardPeer =
+            WireguardPeer.builder()
                 .id(id)
                 .createdAt(createdAt)
                 .recordType(recordType)
                 .updatedAt(updatedAt)
+                .lastSeen(lastSeen)
+                .privateKey(privateKey)
+                .wireguardInterfaceId(wireguardInterfaceId)
                 .build()
 
         /**
@@ -510,15 +501,6 @@ private constructor(
         fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
         /**
-         * The id of the wireguard interface associated with the peer.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun wireguardInterfaceId(): String =
-            wireguardInterfaceId.getRequired("wireguard_interface_id")
-
-        /**
          * ISO 8601 formatted date-time indicating when peer sent traffic last time.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -537,6 +519,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun privateKey(): Optional<String> = privateKey.getOptional("private_key")
+
+        /**
+         * The id of the wireguard interface associated with the peer.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun wireguardInterfaceId(): Optional<String> =
+            wireguardInterfaceId.getOptional("wireguard_interface_id")
 
         /**
          * Returns the raw JSON value of [id].
@@ -569,16 +560,6 @@ private constructor(
         @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
         /**
-         * Returns the raw JSON value of [wireguardInterfaceId].
-         *
-         * Unlike [wireguardInterfaceId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("wireguard_interface_id")
-        @ExcludeMissing
-        fun _wireguardInterfaceId(): JsonField<String> = wireguardInterfaceId
-
-        /**
          * Returns the raw JSON value of [lastSeen].
          *
          * Unlike [lastSeen], this method doesn't throw if the JSON field has an unexpected type.
@@ -594,6 +575,16 @@ private constructor(
         @ExcludeMissing
         fun _privateKey(): JsonField<String> = privateKey
 
+        /**
+         * Returns the raw JSON value of [wireguardInterfaceId].
+         *
+         * Unlike [wireguardInterfaceId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("wireguard_interface_id")
+        @ExcludeMissing
+        fun _wireguardInterfaceId(): JsonField<String> = wireguardInterfaceId
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -608,14 +599,7 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .wireguardInterfaceId()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -626,9 +610,9 @@ private constructor(
             private var createdAt: JsonField<String> = JsonMissing.of()
             private var recordType: JsonField<String> = JsonMissing.of()
             private var updatedAt: JsonField<String> = JsonMissing.of()
-            private var wireguardInterfaceId: JsonField<String>? = null
             private var lastSeen: JsonField<String> = JsonMissing.of()
             private var privateKey: JsonField<String> = JsonMissing.of()
+            private var wireguardInterfaceId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -637,9 +621,9 @@ private constructor(
                 createdAt = body.createdAt
                 recordType = body.recordType
                 updatedAt = body.updatedAt
-                wireguardInterfaceId = body.wireguardInterfaceId
                 lastSeen = body.lastSeen
                 privateKey = body.privateKey
+                wireguardInterfaceId = body.wireguardInterfaceId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -691,21 +675,6 @@ private constructor(
              */
             fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
-            /** The id of the wireguard interface associated with the peer. */
-            fun wireguardInterfaceId(wireguardInterfaceId: String) =
-                wireguardInterfaceId(JsonField.of(wireguardInterfaceId))
-
-            /**
-             * Sets [Builder.wireguardInterfaceId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.wireguardInterfaceId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun wireguardInterfaceId(wireguardInterfaceId: JsonField<String>) = apply {
-                this.wireguardInterfaceId = wireguardInterfaceId
-            }
-
             /** ISO 8601 formatted date-time indicating when peer sent traffic last time. */
             fun lastSeen(lastSeen: String) = lastSeen(JsonField.of(lastSeen))
 
@@ -736,6 +705,21 @@ private constructor(
              */
             fun privateKey(privateKey: JsonField<String>) = apply { this.privateKey = privateKey }
 
+            /** The id of the wireguard interface associated with the peer. */
+            fun wireguardInterfaceId(wireguardInterfaceId: String) =
+                wireguardInterfaceId(JsonField.of(wireguardInterfaceId))
+
+            /**
+             * Sets [Builder.wireguardInterfaceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.wireguardInterfaceId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun wireguardInterfaceId(wireguardInterfaceId: JsonField<String>) = apply {
+                this.wireguardInterfaceId = wireguardInterfaceId
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -759,13 +743,6 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .wireguardInterfaceId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
@@ -773,9 +750,9 @@ private constructor(
                     createdAt,
                     recordType,
                     updatedAt,
-                    checkRequired("wireguardInterfaceId", wireguardInterfaceId),
                     lastSeen,
                     privateKey,
+                    wireguardInterfaceId,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -800,9 +777,9 @@ private constructor(
             createdAt()
             recordType()
             updatedAt()
-            wireguardInterfaceId()
             lastSeen()
             privateKey()
+            wireguardInterfaceId()
             validated = true
         }
 
@@ -826,9 +803,9 @@ private constructor(
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
-                (if (wireguardInterfaceId.asKnown().isPresent) 1 else 0) +
                 (if (lastSeen.asKnown().isPresent) 1 else 0) +
-                (if (privateKey.asKnown().isPresent) 1 else 0)
+                (if (privateKey.asKnown().isPresent) 1 else 0) +
+                (if (wireguardInterfaceId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -840,9 +817,9 @@ private constructor(
                 createdAt == other.createdAt &&
                 recordType == other.recordType &&
                 updatedAt == other.updatedAt &&
-                wireguardInterfaceId == other.wireguardInterfaceId &&
                 lastSeen == other.lastSeen &&
                 privateKey == other.privateKey &&
+                wireguardInterfaceId == other.wireguardInterfaceId &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -852,9 +829,9 @@ private constructor(
                 createdAt,
                 recordType,
                 updatedAt,
-                wireguardInterfaceId,
                 lastSeen,
                 privateKey,
+                wireguardInterfaceId,
                 additionalProperties,
             )
         }
@@ -862,7 +839,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, wireguardInterfaceId=$wireguardInterfaceId, lastSeen=$lastSeen, privateKey=$privateKey, additionalProperties=$additionalProperties}"
+            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, lastSeen=$lastSeen, privateKey=$privateKey, wireguardInterfaceId=$wireguardInterfaceId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

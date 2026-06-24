@@ -20,21 +20,21 @@ private constructor(
     private val service: RunServiceAsync,
     private val streamHandlerExecutor: Executor,
     private val params: RunListParams,
-    private val response: RunListPageResponse,
+    private val response: MissionRunsListResponse,
 ) : PageAsync<MissionRunData> {
 
     /**
-     * Delegates to [RunListPageResponse], but gracefully handles missing data.
+     * Delegates to [MissionRunsListResponse], but gracefully handles missing data.
      *
-     * @see RunListPageResponse.data
+     * @see MissionRunsListResponse.data
      */
     fun data(): List<MissionRunData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [RunListPageResponse], but gracefully handles missing data.
+     * Delegates to [MissionRunsListResponse], but gracefully handles missing data.
      *
-     * @see RunListPageResponse.meta
+     * @see MissionRunsListResponse.meta
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
@@ -65,7 +65,7 @@ private constructor(
     fun params(): RunListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): RunListPageResponse = response
+    fun response(): MissionRunsListResponse = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,7 +91,7 @@ private constructor(
         private var service: RunServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
         private var params: RunListParams? = null
-        private var response: RunListPageResponse? = null
+        private var response: MissionRunsListResponse? = null
 
         @JvmSynthetic
         internal fun from(runListPageAsync: RunListPageAsync) = apply {
@@ -111,7 +111,7 @@ private constructor(
         fun params(params: RunListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: RunListPageResponse) = apply { this.response = response }
+        fun response(response: MissionRunsListResponse) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [RunListPageAsync].

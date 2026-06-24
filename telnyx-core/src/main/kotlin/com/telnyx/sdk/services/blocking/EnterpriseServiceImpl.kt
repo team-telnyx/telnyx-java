@@ -17,18 +17,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
+import com.telnyx.sdk.models.enterprises.EnterpriseBrandedCallingParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
 import com.telnyx.sdk.models.enterprises.EnterpriseListPage
 import com.telnyx.sdk.models.enterprises.EnterpriseListPageResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseListParams
+import com.telnyx.sdk.models.enterprises.EnterprisePublicWrapped
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
-import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.DirServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
@@ -65,21 +62,21 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
     override fun create(
         params: EnterpriseCreateParams,
         requestOptions: RequestOptions,
-    ): EnterpriseCreateResponse =
+    ): EnterprisePublicWrapped =
         // post /enterprises
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: EnterpriseRetrieveParams,
         requestOptions: RequestOptions,
-    ): EnterpriseRetrieveResponse =
+    ): EnterprisePublicWrapped =
         // get /enterprises/{enterprise_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: EnterpriseUpdateParams,
         requestOptions: RequestOptions,
-    ): EnterpriseUpdateResponse =
+    ): EnterprisePublicWrapped =
         // put /enterprises/{enterprise_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -95,12 +92,12 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams,
+    override fun brandedCalling(
+        params: EnterpriseBrandedCallingParams,
         requestOptions: RequestOptions,
-    ): EnterpriseActivateBrandedCallingResponse =
+    ): EnterprisePublicWrapped =
         // post /enterprises/{enterprise_id}/branded_calling
-        withRawResponse().activateBrandedCalling(params, requestOptions).parse()
+        withRawResponse().brandedCalling(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EnterpriseService.WithRawResponse {
@@ -132,13 +129,13 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
          */
         override fun dir(): DirService.WithRawResponse = dir
 
-        private val createHandler: Handler<EnterpriseCreateResponse> =
-            jsonHandler<EnterpriseCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun create(
             params: EnterpriseCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseCreateResponse> {
+        ): HttpResponseFor<EnterprisePublicWrapped> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -160,13 +157,13 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val retrieveHandler: Handler<EnterpriseRetrieveResponse> =
-            jsonHandler<EnterpriseRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EnterpriseRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseRetrieveResponse> {
+        ): HttpResponseFor<EnterprisePublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -190,13 +187,13 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val updateHandler: Handler<EnterpriseUpdateResponse> =
-            jsonHandler<EnterpriseUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun update(
             params: EnterpriseUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseUpdateResponse> {
+        ): HttpResponseFor<EnterprisePublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -279,14 +276,13 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val activateBrandedCallingHandler:
-            Handler<EnterpriseActivateBrandedCallingResponse> =
-            jsonHandler<EnterpriseActivateBrandedCallingResponse>(clientOptions.jsonMapper)
+        private val brandedCallingHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
-        override fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams,
+        override fun brandedCalling(
+            params: EnterpriseBrandedCallingParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnterpriseActivateBrandedCallingResponse> {
+        ): HttpResponseFor<EnterprisePublicWrapped> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -302,7 +298,7 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { activateBrandedCallingHandler.handle(it) }
+                    .use { brandedCallingHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

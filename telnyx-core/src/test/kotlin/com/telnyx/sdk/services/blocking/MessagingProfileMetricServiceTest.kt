@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.messagingprofilemetrics.MessagingMetricsTimeFrame
 import com.telnyx.sdk.models.messagingprofilemetrics.MessagingProfileMetricListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -18,7 +19,7 @@ internal class MessagingProfileMetricServiceTest {
         val messagingProfileMetrics =
             messagingProfileMetricService.list(
                 MessagingProfileMetricListParams.builder()
-                    .timeFrame(MessagingProfileMetricListParams.TimeFrame.TIME_FRAME_1_H)
+                    .timeFrame(MessagingMetricsTimeFrame.TIME_FRAME_1_H)
                     .build()
             )
 

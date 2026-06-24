@@ -16,7 +16,7 @@ internal class ChannelZoneListPageResponseTest {
         val channelZoneListPageResponse =
             ChannelZoneListPageResponse.builder()
                 .addData(
-                    ChannelZoneListResponse.builder()
+                    GcbChannelZone.builder()
                         .id("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
                         .channels(7L)
                         .countries(
@@ -51,7 +51,7 @@ internal class ChannelZoneListPageResponseTest {
                             )
                         )
                         .name("Euro channel zone")
-                        .recordType(ChannelZoneListResponse.RecordType.CHANNEL_ZONE)
+                        .recordType(GcbChannelZone.RecordType.CHANNEL_ZONE)
                         .createdAt("2019-01-23T18:10:02.574Z")
                         .updatedAt("2019-01-23T18:10:02.574Z")
                         .build()
@@ -68,7 +68,7 @@ internal class ChannelZoneListPageResponseTest {
 
         assertThat(channelZoneListPageResponse.data().getOrNull())
             .containsExactly(
-                ChannelZoneListResponse.builder()
+                GcbChannelZone.builder()
                     .id("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
                     .channels(7L)
                     .countries(
@@ -103,7 +103,7 @@ internal class ChannelZoneListPageResponseTest {
                         )
                     )
                     .name("Euro channel zone")
-                    .recordType(ChannelZoneListResponse.RecordType.CHANNEL_ZONE)
+                    .recordType(GcbChannelZone.RecordType.CHANNEL_ZONE)
                     .createdAt("2019-01-23T18:10:02.574Z")
                     .updatedAt("2019-01-23T18:10:02.574Z")
                     .build()
@@ -125,7 +125,7 @@ internal class ChannelZoneListPageResponseTest {
         val channelZoneListPageResponse =
             ChannelZoneListPageResponse.builder()
                 .addData(
-                    ChannelZoneListResponse.builder()
+                    GcbChannelZone.builder()
                         .id("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
                         .channels(7L)
                         .countries(
@@ -160,7 +160,7 @@ internal class ChannelZoneListPageResponseTest {
                             )
                         )
                         .name("Euro channel zone")
-                        .recordType(ChannelZoneListResponse.RecordType.CHANNEL_ZONE)
+                        .recordType(GcbChannelZone.RecordType.CHANNEL_ZONE)
                         .createdAt("2019-01-23T18:10:02.574Z")
                         .updatedAt("2019-01-23T18:10:02.574Z")
                         .build()

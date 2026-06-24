@@ -16,17 +16,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
-import com.telnyx.sdk.models.ai.tools.ToolCreateResponse
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPageAsync
 import com.telnyx.sdk.models.ai.tools.ToolListPageResponse
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
-import com.telnyx.sdk.models.ai.tools.ToolRetrieveResponse
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
-import com.telnyx.sdk.models.ai.tools.ToolUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,21 +45,21 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun create(
         params: ToolCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolCreateResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         // post /ai/tools
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: ToolRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolRetrieveResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         // get /ai/tools/{tool_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: ToolUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolUpdateResponse> =
+    ): CompletableFuture<SharedToolResponse> =
         // patch /ai/tools/{tool_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -92,13 +90,13 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<ToolCreateResponse> =
-            jsonHandler<ToolCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: ToolCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -123,13 +121,13 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val retrieveHandler: Handler<ToolRetrieveResponse> =
-            jsonHandler<ToolRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ToolRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())
@@ -156,13 +154,13 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val updateHandler: Handler<ToolUpdateResponse> =
-            jsonHandler<ToolUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<SharedToolResponse> =
+            jsonHandler<SharedToolResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: ToolUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<SharedToolResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())

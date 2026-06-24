@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.globalips.GlobalIp
 import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
@@ -32,22 +33,25 @@ interface GlobalIpServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpServiceAsync
 
     /** Create a Global IP. */
-    fun create(): CompletableFuture<GlobalIpCreateResponse> = create(GlobalIpCreateParams.none())
+    fun create(params: GlobalIpCreateParams): CompletableFuture<GlobalIpCreateResponse> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: GlobalIpCreateParams = GlobalIpCreateParams.none(),
+        params: GlobalIpCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<GlobalIpCreateResponse>
 
     /** @see create */
     fun create(
-        params: GlobalIpCreateParams = GlobalIpCreateParams.none()
-    ): CompletableFuture<GlobalIpCreateResponse> = create(params, RequestOptions.none())
+        globalIp: GlobalIp,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<GlobalIpCreateResponse> =
+        create(GlobalIpCreateParams.builder().globalIp(globalIp).build(), requestOptions)
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): CompletableFuture<GlobalIpCreateResponse> =
-        create(GlobalIpCreateParams.none(), requestOptions)
+    fun create(globalIp: GlobalIp): CompletableFuture<GlobalIpCreateResponse> =
+        create(globalIp, RequestOptions.none())
 
     /** Retrieve a Global IP. */
     fun retrieve(id: String): CompletableFuture<GlobalIpRetrieveResponse> =
@@ -155,26 +159,27 @@ interface GlobalIpServiceAsync {
          * Returns a raw HTTP response for `post /global_ips`, but is otherwise the same as
          * [GlobalIpServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>> =
-            create(GlobalIpCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: GlobalIpCreateParams = GlobalIpCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: GlobalIpCreateParams = GlobalIpCreateParams.none()
+            params: GlobalIpCreateParams
         ): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
+            params: GlobalIpCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>>
+
+        /** @see create */
+        fun create(
+            globalIp: GlobalIp,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>> =
-            create(GlobalIpCreateParams.none(), requestOptions)
+            create(GlobalIpCreateParams.builder().globalIp(globalIp).build(), requestOptions)
+
+        /** @see create */
+        fun create(globalIp: GlobalIp): CompletableFuture<HttpResponseFor<GlobalIpCreateResponse>> =
+            create(globalIp, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /global_ips/{id}`, but is otherwise the same as

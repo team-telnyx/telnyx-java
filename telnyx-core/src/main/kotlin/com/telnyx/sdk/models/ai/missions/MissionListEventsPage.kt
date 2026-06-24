@@ -18,20 +18,20 @@ class MissionListEventsPage
 private constructor(
     private val service: MissionService,
     private val params: MissionListEventsParams,
-    private val response: MissionListEventsPageResponse,
+    private val response: EventsListResponse,
 ) : Page<EventData> {
 
     /**
-     * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
+     * Delegates to [EventsListResponse], but gracefully handles missing data.
      *
-     * @see MissionListEventsPageResponse.data
+     * @see EventsListResponse.data
      */
     fun data(): List<EventData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
+     * Delegates to [EventsListResponse], but gracefully handles missing data.
      *
-     * @see MissionListEventsPageResponse.meta
+     * @see EventsListResponse.meta
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
@@ -61,7 +61,7 @@ private constructor(
     fun params(): MissionListEventsParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): MissionListEventsPageResponse = response
+    fun response(): EventsListResponse = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -85,7 +85,7 @@ private constructor(
 
         private var service: MissionService? = null
         private var params: MissionListEventsParams? = null
-        private var response: MissionListEventsPageResponse? = null
+        private var response: EventsListResponse? = null
 
         @JvmSynthetic
         internal fun from(missionListEventsPage: MissionListEventsPage) = apply {
@@ -100,7 +100,7 @@ private constructor(
         fun params(params: MissionListEventsParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: MissionListEventsPageResponse) = apply { this.response = response }
+        fun response(response: EventsListResponse) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [MissionListEventsPage].

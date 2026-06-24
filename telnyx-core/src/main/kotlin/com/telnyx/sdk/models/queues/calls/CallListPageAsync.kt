@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: CallListParams,
     private val response: CallListPageResponse,
-) : PageAsync<CallListResponse> {
+) : PageAsync<QueueCall> {
 
     /**
      * Delegates to [CallListPageResponse], but gracefully handles missing data.
      *
      * @see CallListPageResponse.data
      */
-    fun data(): List<CallListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<QueueCall> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CallListPageResponse], but gracefully handles missing data.
@@ -38,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CallListResponse> = data()
+    override fun items(): List<QueueCall> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,8 +57,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<CallListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<CallListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<QueueCall> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): CallListParams = params

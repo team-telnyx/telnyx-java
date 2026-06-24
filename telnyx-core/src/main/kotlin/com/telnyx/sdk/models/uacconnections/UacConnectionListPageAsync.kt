@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: UacConnectionListParams,
     private val response: UacConnectionListPageResponse,
-) : PageAsync<UacConnectionListResponse> {
+) : PageAsync<UacConnection> {
 
     /**
      * Delegates to [UacConnectionListPageResponse], but gracefully handles missing data.
      *
      * @see UacConnectionListPageResponse.data
      */
-    fun data(): List<UacConnectionListResponse> =
+    fun data(): List<UacConnection> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<ConnectionsPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<UacConnectionListResponse> = data()
+    override fun items(): List<UacConnection> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<UacConnectionListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<UacConnectionListResponse> =
+    fun autoPager(): AutoPagerAsync<UacConnection> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

@@ -16,7 +16,7 @@ internal class SiprecConnectorServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val siprecConnectorServiceAsync = client.siprecConnectors()
 
-        val siprecConnectorFuture =
+        val siprecConnectorResponseFuture =
             siprecConnectorServiceAsync.create(
                 SiprecConnectorCreateParams.builder()
                     .host("siprec.telnyx.com")
@@ -26,8 +26,8 @@ internal class SiprecConnectorServiceAsyncTest {
                     .build()
             )
 
-        val siprecConnector = siprecConnectorFuture.get()
-        siprecConnector.validate()
+        val siprecConnectorResponse = siprecConnectorResponseFuture.get()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,10 +36,10 @@ internal class SiprecConnectorServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val siprecConnectorServiceAsync = client.siprecConnectors()
 
-        val siprecConnectorFuture = siprecConnectorServiceAsync.retrieve("connector_name")
+        val siprecConnectorResponseFuture = siprecConnectorServiceAsync.retrieve("connector_name")
 
-        val siprecConnector = siprecConnectorFuture.get()
-        siprecConnector.validate()
+        val siprecConnectorResponse = siprecConnectorResponseFuture.get()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -48,7 +48,7 @@ internal class SiprecConnectorServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val siprecConnectorServiceAsync = client.siprecConnectors()
 
-        val siprecConnectorFuture =
+        val siprecConnectorResponseFuture =
             siprecConnectorServiceAsync.update(
                 SiprecConnectorUpdateParams.builder()
                     .connectorName("connector_name")
@@ -59,8 +59,8 @@ internal class SiprecConnectorServiceAsyncTest {
                     .build()
             )
 
-        val siprecConnector = siprecConnectorFuture.get()
-        siprecConnector.validate()
+        val siprecConnectorResponse = siprecConnectorResponseFuture.get()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

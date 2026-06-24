@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.ai.missions.runs.RunCreateParams
 import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunParams
 import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunParams
 import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
+import com.telnyx.sdk.models.ai.missions.runs.RunStatus
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -21,7 +22,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val runFuture =
+        val missionRunResponseFuture =
             runServiceAsync.create(
                 RunCreateParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -38,8 +39,8 @@ internal class RunServiceAsyncTest {
                     .build()
             )
 
-        val run = runFuture.get()
-        run.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -48,7 +49,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val runFuture =
+        val missionRunResponseFuture =
             runServiceAsync.retrieve(
                 RunRetrieveParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -56,8 +57,8 @@ internal class RunServiceAsyncTest {
                     .build()
             )
 
-        val run = runFuture.get()
-        run.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -66,7 +67,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val runFuture =
+        val missionRunResponseFuture =
             runServiceAsync.update(
                 RunUpdateParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -83,12 +84,12 @@ internal class RunServiceAsyncTest {
                             .build()
                     )
                     .resultSummary("result_summary")
-                    .status(RunUpdateParams.Status.PENDING)
+                    .status(RunStatus.PENDING)
                     .build()
             )
 
-        val run = runFuture.get()
-        run.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -109,7 +110,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val responseFuture =
+        val missionRunResponseFuture =
             runServiceAsync.cancelRun(
                 RunCancelRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -117,8 +118,8 @@ internal class RunServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -139,7 +140,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val responseFuture =
+        val missionRunResponseFuture =
             runServiceAsync.pauseRun(
                 RunPauseRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -147,8 +148,8 @@ internal class RunServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -157,7 +158,7 @@ internal class RunServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().missions().runs()
 
-        val responseFuture =
+        val missionRunResponseFuture =
             runServiceAsync.resumeRun(
                 RunResumeRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -165,7 +166,7 @@ internal class RunServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val missionRunResponse = missionRunResponseFuture.get()
+        missionRunResponse.validate()
     }
 }

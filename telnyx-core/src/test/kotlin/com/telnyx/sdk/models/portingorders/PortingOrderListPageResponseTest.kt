@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.PortingOrderStatus
 import com.telnyx.sdk.models.PortingOrdersExceptionType
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import com.telnyx.sdk.models.portingphonenumbers.PortingOrderActivationStatus
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumber
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -23,9 +25,7 @@ internal class PortingOrderListPageResponseTest {
                         .id("f1486bae-f067-460c-ad43-73a92848f902")
                         .activationSettings(
                             PortingOrderActivationSettings.builder()
-                                .activationStatus(
-                                    PortingOrderActivationSettings.ActivationStatus.ACTIVE
-                                )
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .fastPortEligible(true)
                                 .focDatetimeActual(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                                 .focDatetimeRequested(
@@ -102,21 +102,17 @@ internal class PortingOrderListPageResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .phoneNumber("13035550987")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
                                 .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
+                                    PortingPhoneNumber.PortingOrderStatus.IN_PROCESS
                                 )
                                 .recordType("porting_phone_number")
-                                .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                                )
+                                .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                                 .supportKey("sr_a12345")
                                 .build()
                         )
@@ -170,9 +166,7 @@ internal class PortingOrderListPageResponseTest {
                     .id("f1486bae-f067-460c-ad43-73a92848f902")
                     .activationSettings(
                         PortingOrderActivationSettings.builder()
-                            .activationStatus(
-                                PortingOrderActivationSettings.ActivationStatus.ACTIVE
-                            )
+                            .activationStatus(PortingOrderActivationStatus.ACTIVE)
                             .fastPortEligible(true)
                             .focDatetimeActual(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                             .focDatetimeRequested(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
@@ -245,19 +239,15 @@ internal class PortingOrderListPageResponseTest {
                     )
                     .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                     .addPhoneNumber(
-                        PortingOrder.PhoneNumber.builder()
-                            .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                        PortingPhoneNumber.builder()
+                            .activationStatus(PortingOrderActivationStatus.ACTIVE)
                             .phoneNumber("13035550987")
-                            .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                            .portabilityStatus(PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED)
+                            .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                            .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                             .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
-                            .portingOrderStatus(
-                                PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
-                            )
+                            .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.IN_PROCESS)
                             .recordType("porting_phone_number")
-                            .requirementsStatus(
-                                PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                            )
+                            .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                             .supportKey("sr_a12345")
                             .build()
                     )
@@ -316,9 +306,7 @@ internal class PortingOrderListPageResponseTest {
                         .id("f1486bae-f067-460c-ad43-73a92848f902")
                         .activationSettings(
                             PortingOrderActivationSettings.builder()
-                                .activationStatus(
-                                    PortingOrderActivationSettings.ActivationStatus.ACTIVE
-                                )
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .fastPortEligible(true)
                                 .focDatetimeActual(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                                 .focDatetimeRequested(
@@ -395,21 +383,17 @@ internal class PortingOrderListPageResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(PortingOrder.PhoneNumber.ActivationStatus.ACTIVE)
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVE)
                                 .phoneNumber("13035550987")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
                                 .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.IN_PROCESS
+                                    PortingPhoneNumber.PortingOrderStatus.IN_PROCESS
                                 )
                                 .recordType("porting_phone_number")
-                                .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus.APPROVED
-                                )
+                                .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                                 .supportKey("sr_a12345")
                                 .build()
                         )

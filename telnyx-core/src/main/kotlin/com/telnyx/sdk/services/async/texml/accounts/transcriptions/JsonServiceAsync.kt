@@ -8,7 +8,7 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonDeleteRecordingTranscriptionSidJsonParams
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.transcriptions.json.TexmlRecordingTranscription
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -64,7 +64,7 @@ interface JsonServiceAsync {
     fun retrieveRecordingTranscriptionSidJson(
         recordingTranscriptionSid: String,
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
-    ): CompletableFuture<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+    ): CompletableFuture<TexmlRecordingTranscription> =
         retrieveRecordingTranscriptionSidJson(
             recordingTranscriptionSid,
             params,
@@ -76,7 +76,7 @@ interface JsonServiceAsync {
         recordingTranscriptionSid: String,
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+    ): CompletableFuture<TexmlRecordingTranscription> =
         retrieveRecordingTranscriptionSidJson(
             params.toBuilder().recordingTranscriptionSid(recordingTranscriptionSid).build(),
             requestOptions,
@@ -85,14 +85,14 @@ interface JsonServiceAsync {
     /** @see retrieveRecordingTranscriptionSidJson */
     fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams
-    ): CompletableFuture<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+    ): CompletableFuture<TexmlRecordingTranscription> =
         retrieveRecordingTranscriptionSidJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingTranscriptionSidJson */
     fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<JsonRetrieveRecordingTranscriptionSidJsonResponse>
+    ): CompletableFuture<TexmlRecordingTranscription>
 
     /** A view of [JsonServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -150,7 +150,7 @@ interface JsonServiceAsync {
         fun retrieveRecordingTranscriptionSidJson(
             recordingTranscriptionSid: String,
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
-        ): CompletableFuture<HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlRecordingTranscription>> =
             retrieveRecordingTranscriptionSidJson(
                 recordingTranscriptionSid,
                 params,
@@ -162,7 +162,7 @@ interface JsonServiceAsync {
             recordingTranscriptionSid: String,
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlRecordingTranscription>> =
             retrieveRecordingTranscriptionSidJson(
                 params.toBuilder().recordingTranscriptionSid(recordingTranscriptionSid).build(),
                 requestOptions,
@@ -171,13 +171,13 @@ interface JsonServiceAsync {
         /** @see retrieveRecordingTranscriptionSidJson */
         fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams
-        ): CompletableFuture<HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>> =
+        ): CompletableFuture<HttpResponseFor<TexmlRecordingTranscription>> =
             retrieveRecordingTranscriptionSidJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingTranscriptionSidJson */
         fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>>
+        ): CompletableFuture<HttpResponseFor<TexmlRecordingTranscription>>
     }
 }

@@ -24,12 +24,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListParams
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPage
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceParticipantResource
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
-import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
 import com.telnyx.sdk.services.blocking.conferences.ActionServiceImpl
 import java.util.function.Consumer
@@ -84,14 +83,14 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
     override fun retrieveParticipant(
         params: ConferenceRetrieveParticipantParams,
         requestOptions: RequestOptions,
-    ): ConferenceRetrieveParticipantResponse =
+    ): ConferenceParticipantResource =
         // get /conferences/{id}/participants/{participant_id}
         withRawResponse().retrieveParticipant(params, requestOptions).parse()
 
     override fun updateParticipant(
         params: ConferenceUpdateParticipantParams,
         requestOptions: RequestOptions,
-    ): ConferenceUpdateParticipantResponse =
+    ): ConferenceParticipantResource =
         // patch /conferences/{id}/participants/{participant_id}
         withRawResponse().updateParticipant(params, requestOptions).parse()
 
@@ -244,13 +243,13 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val retrieveParticipantHandler: Handler<ConferenceRetrieveParticipantResponse> =
-            jsonHandler<ConferenceRetrieveParticipantResponse>(clientOptions.jsonMapper)
+        private val retrieveParticipantHandler: Handler<ConferenceParticipantResource> =
+            jsonHandler<ConferenceParticipantResource>(clientOptions.jsonMapper)
 
         override fun retrieveParticipant(
             params: ConferenceRetrieveParticipantParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConferenceRetrieveParticipantResponse> {
+        ): HttpResponseFor<ConferenceParticipantResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("participantId", params.participantId().getOrNull())
@@ -279,13 +278,13 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val updateParticipantHandler: Handler<ConferenceUpdateParticipantResponse> =
-            jsonHandler<ConferenceUpdateParticipantResponse>(clientOptions.jsonMapper)
+        private val updateParticipantHandler: Handler<ConferenceParticipantResource> =
+            jsonHandler<ConferenceParticipantResource>(clientOptions.jsonMapper)
 
         override fun updateParticipant(
             params: ConferenceUpdateParticipantParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConferenceUpdateParticipantResponse> {
+        ): HttpResponseFor<ConferenceParticipantResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("participantId", params.participantId().getOrNull())

@@ -22,16 +22,14 @@ import kotlin.jvm.optionals.getOrNull
 class ConnectionListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<ConnectionListResponse>>,
+    private val data: JsonField<List<Connection>>,
     private val meta: JsonField<ConnectionsPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data")
-        @ExcludeMissing
-        data: JsonField<List<ConnectionListResponse>> = JsonMissing.of(),
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<Connection>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<ConnectionsPaginationMeta> = JsonMissing.of(),
@@ -41,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<ConnectionListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<Connection>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,9 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<ConnectionListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Connection>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -88,7 +84,7 @@ private constructor(
     /** A builder for [ConnectionListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<ConnectionListResponse>>? = null
+        private var data: JsonField<MutableList<Connection>>? = null
         private var meta: JsonField<ConnectionsPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -99,25 +95,25 @@ private constructor(
             additionalProperties = connectionListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<ConnectionListResponse>) = data(JsonField.of(data))
+        fun data(data: List<Connection>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<ConnectionListResponse>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<Connection>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<List<ConnectionListResponse>>) = apply {
+        fun data(data: JsonField<List<Connection>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [ConnectionListResponse] to [Builder.data].
+         * Adds a single [Connection] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: ConnectionListResponse) = apply {
+        fun addData(data: Connection) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

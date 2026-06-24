@@ -14,10 +14,10 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoResponse
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusResponse
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementServiceImpl
 import com.telnyx.sdk.services.blocking.termsofservice.BrandedCallingService
@@ -58,19 +58,19 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
     /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
     override fun brandedCalling(): BrandedCallingService = brandedCalling
 
-    override fun info(
-        params: TermsOfServiceInfoParams,
+    override fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams,
         requestOptions: RequestOptions,
-    ): TermsOfServiceInfoResponse =
+    ): TermsOfServiceRetrieveInfoResponse =
         // get /terms_of_service/info
-        withRawResponse().info(params, requestOptions).parse()
+        withRawResponse().retrieveInfo(params, requestOptions).parse()
 
-    override fun status(
-        params: TermsOfServiceStatusParams,
+    override fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams,
         requestOptions: RequestOptions,
-    ): TermsOfServiceStatusResponse =
+    ): TermsOfServiceRetrieveStatusResponse =
         // get /terms_of_service/status
-        withRawResponse().status(params, requestOptions).parse()
+        withRawResponse().retrieveStatus(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TermsOfServiceService.WithRawResponse {
@@ -106,13 +106,13 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
         /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
         override fun brandedCalling(): BrandedCallingService.WithRawResponse = brandedCalling
 
-        private val infoHandler: Handler<TermsOfServiceInfoResponse> =
-            jsonHandler<TermsOfServiceInfoResponse>(clientOptions.jsonMapper)
+        private val retrieveInfoHandler: Handler<TermsOfServiceRetrieveInfoResponse> =
+            jsonHandler<TermsOfServiceRetrieveInfoResponse>(clientOptions.jsonMapper)
 
-        override fun info(
-            params: TermsOfServiceInfoParams,
+        override fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TermsOfServiceInfoResponse> {
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -124,7 +124,7 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { infoHandler.handle(it) }
+                    .use { retrieveInfoHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -133,13 +133,13 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val statusHandler: Handler<TermsOfServiceStatusResponse> =
-            jsonHandler<TermsOfServiceStatusResponse>(clientOptions.jsonMapper)
+        private val retrieveStatusHandler: Handler<TermsOfServiceRetrieveStatusResponse> =
+            jsonHandler<TermsOfServiceRetrieveStatusResponse>(clientOptions.jsonMapper)
 
-        override fun status(
-            params: TermsOfServiceStatusParams,
+        override fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TermsOfServiceStatusResponse> {
+        ): HttpResponseFor<TermsOfServiceRetrieveStatusResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -151,7 +151,7 @@ class TermsOfServiceServiceImpl internal constructor(private val clientOptions: 
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { statusHandler.handle(it) }
+                    .use { retrieveStatusHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

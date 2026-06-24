@@ -41,14 +41,14 @@ import kotlin.jvm.optionals.getOrNull
 class CallCallsParams
 private constructor(
     private val accountSid: String?,
-    private val params: Params,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun accountSid(): Optional<String> = Optional.ofNullable(accountSid)
 
-    fun params(): Params = params
+    fun body(): Body = body
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -65,7 +65,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .body()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -75,14 +75,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var accountSid: String? = null
-        private var params: Params? = null
+        private var body: Body? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(callCallsParams: CallCallsParams) = apply {
             accountSid = callCallsParams.accountSid
-            params = callCallsParams.params
+            body = callCallsParams.body
             additionalHeaders = callCallsParams.additionalHeaders.toBuilder()
             additionalQueryParams = callCallsParams.additionalQueryParams.toBuilder()
         }
@@ -92,17 +92,29 @@ private constructor(
         /** Alias for calling [Builder.accountSid] with `accountSid.orElse(null)`. */
         fun accountSid(accountSid: Optional<String>) = accountSid(accountSid.getOrNull())
 
-        fun params(params: Params) = apply { this.params = params }
+        fun body(body: Body) = apply { this.body = body }
 
-        /** Alias for calling [params] with `Params.ofWithUrl(withUrl)`. */
-        fun params(withUrl: Params.WithUrl) = params(Params.ofWithUrl(withUrl))
+        /** Alias for calling [body] with `Body.ofWithUrl(withUrl)`. */
+        fun body(withUrl: Body.WithUrl) = body(Body.ofWithUrl(withUrl))
 
-        /** Alias for calling [params] with `Params.ofWithTeXml(withTeXml)`. */
-        fun params(withTeXml: Params.WithTeXml) = params(Params.ofWithTeXml(withTeXml))
+        /** Alias for calling [body] with `Body.ofWithTeXml(withTeXml)`. */
+        fun body(withTeXml: Body.WithTeXml) = body(Body.ofWithTeXml(withTeXml))
 
-        /** Alias for calling [params] with `Params.ofApplicationDefault(applicationDefault)`. */
-        fun params(applicationDefault: Params.ApplicationDefault) =
-            params(Params.ofApplicationDefault(applicationDefault))
+        /**
+         * Alias for calling [body] with the following:
+         * ```java
+         * Body.WithTeXml.builder()
+         *     .url("Url")
+         *     .texml(texml)
+         *     .build()
+         * ```
+         */
+        fun withTeXmlBody(texml: String) =
+            body(Body.WithTeXml.builder().url("Url").texml(texml).build())
+
+        /** Alias for calling [body] with `Body.ofApplicationDefault(applicationDefault)`. */
+        fun body(applicationDefault: Body.ApplicationDefault) =
+            body(Body.ofApplicationDefault(applicationDefault))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -209,7 +221,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .body()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -217,13 +229,13 @@ private constructor(
         fun build(): CallCallsParams =
             CallCallsParams(
                 accountSid,
-                checkRequired("params", params),
+                checkRequired("body", body),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Params = params
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -235,9 +247,9 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(using = Params.Deserializer::class)
-    @JsonSerialize(using = Params.Serializer::class)
-    class Params
+    @JsonDeserialize(using = Body.Deserializer::class)
+    @JsonSerialize(using = Body.Serializer::class)
+    class Body
     private constructor(
         private val withUrl: WithUrl? = null,
         private val withTeXml: WithTeXml? = null,
@@ -277,7 +289,7 @@ private constructor(
          * import com.telnyx.sdk.core.JsonValue;
          * import java.util.Optional;
          *
-         * Optional<String> result = params.accept(new Params.Visitor<Optional<String>>() {
+         * Optional<String> result = body.accept(new Body.Visitor<Optional<String>>() {
          *     @Override
          *     public Optional<String> visitWithUrl(WithUrl withUrl) {
          *         return Optional.of(withUrl.toString());
@@ -315,7 +327,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Params = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -372,7 +384,7 @@ private constructor(
                 return true
             }
 
-            return other is Params &&
+            return other is Body &&
                 withUrl == other.withUrl &&
                 withTeXml == other.withTeXml &&
                 applicationDefault == other.applicationDefault
@@ -382,25 +394,25 @@ private constructor(
 
         override fun toString(): String =
             when {
-                withUrl != null -> "Params{withUrl=$withUrl}"
-                withTeXml != null -> "Params{withTeXml=$withTeXml}"
-                applicationDefault != null -> "Params{applicationDefault=$applicationDefault}"
-                _json != null -> "Params{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Params")
+                withUrl != null -> "Body{withUrl=$withUrl}"
+                withTeXml != null -> "Body{withTeXml=$withTeXml}"
+                applicationDefault != null -> "Body{applicationDefault=$applicationDefault}"
+                _json != null -> "Body{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Body")
             }
 
         companion object {
 
-            @JvmStatic fun ofWithUrl(withUrl: WithUrl) = Params(withUrl = withUrl)
+            @JvmStatic fun ofWithUrl(withUrl: WithUrl) = Body(withUrl = withUrl)
 
-            @JvmStatic fun ofWithTeXml(withTeXml: WithTeXml) = Params(withTeXml = withTeXml)
+            @JvmStatic fun ofWithTeXml(withTeXml: WithTeXml) = Body(withTeXml = withTeXml)
 
             @JvmStatic
             fun ofApplicationDefault(applicationDefault: ApplicationDefault) =
-                Params(applicationDefault = applicationDefault)
+                Body(applicationDefault = applicationDefault)
         }
 
-        /** An interface that defines how to map each variant of [Params] to a value of type [T]. */
+        /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
         interface Visitor<out T> {
 
             fun visitWithUrl(withUrl: WithUrl): T
@@ -410,35 +422,37 @@ private constructor(
             fun visitApplicationDefault(applicationDefault: ApplicationDefault): T
 
             /**
-             * Maps an unknown variant of [Params] to a value of type [T].
+             * Maps an unknown variant of [Body] to a value of type [T].
              *
-             * An instance of [Params] can contain an unknown variant if it was deserialized from
-             * data that doesn't match any known variant. For example, if the SDK is on an older
-             * version than the API, then the API may respond with new variants that the SDK is
-             * unaware of.
+             * An instance of [Body] can contain an unknown variant if it was deserialized from data
+             * that doesn't match any known variant. For example, if the SDK is on an older version
+             * than the API, then the API may respond with new variants that the SDK is unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Params: $json")
+                throw TelnyxInvalidDataException("Unknown Body: $json")
             }
         }
 
-        internal class Deserializer : BaseDeserializer<Params>(Params::class) {
+        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
 
-            override fun ObjectCodec.deserialize(node: JsonNode): Params {
+            override fun ObjectCodec.deserialize(node: JsonNode): Body {
                 val json = JsonValue.fromJsonNode(node)
+                val url = json.asObject().getOrNull()?.get("Url")?.asString()?.getOrNull()
+
+                when (url) {}
 
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<WithUrl>())?.let {
-                                Params(withUrl = it, _json = json)
+                                Body(withUrl = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<WithTeXml>())?.let {
-                                Params(withTeXml = it, _json = json)
+                                Body(withTeXml = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<ApplicationDefault>())?.let {
-                                Params(applicationDefault = it, _json = json)
+                                Body(applicationDefault = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -447,7 +461,7 @@ private constructor(
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
                     // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Params(_json = json)
+                    0 -> Body(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
                     // completely valid match, or simply the first match if none are completely
@@ -457,10 +471,10 @@ private constructor(
             }
         }
 
-        internal class Serializer : BaseSerializer<Params>(Params::class) {
+        internal class Serializer : BaseSerializer<Body>(Body::class) {
 
             override fun serialize(
-                value: Params,
+                value: Body,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -470,7 +484,7 @@ private constructor(
                     value.applicationDefault != null ->
                         generator.writeObject(value.applicationDefault)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Params")
+                    else -> throw IllegalStateException("Invalid Body")
                 }
             }
         }
@@ -14831,14 +14845,14 @@ private constructor(
 
         return other is CallCallsParams &&
             accountSid == other.accountSid &&
-            params == other.params &&
+            body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(accountSid, params, additionalHeaders, additionalQueryParams)
+        Objects.hash(accountSid, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CallCallsParams{accountSid=$accountSid, params=$params, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CallCallsParams{accountSid=$accountSid, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

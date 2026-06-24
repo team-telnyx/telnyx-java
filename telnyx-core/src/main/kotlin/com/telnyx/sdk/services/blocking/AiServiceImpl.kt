@@ -17,10 +17,12 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiRetrieveModelsResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AssistantServiceImpl
 import com.telnyx.sdk.services.blocking.ai.AudioService
@@ -47,7 +49,6 @@ import com.telnyx.sdk.services.blocking.ai.ToolService
 import com.telnyx.sdk.services.blocking.ai.ToolServiceImpl
 import java.util.function.Consumer
 
-/** Generate text with LLMs */
 class AiServiceImpl internal constructor(private val clientOptions: ClientOptions) : AiService {
 
     private val withRawResponse: AiService.WithRawResponse by lazy {
@@ -123,11 +124,18 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         // post /ai/responses
         withRawResponse().createResponseDeprecated(params, requestOptions).parse()
 
+    override fun retrieveConversationHistories(
+        params: AiRetrieveConversationHistoriesParams,
+        requestOptions: RequestOptions,
+    ): AiRetrieveConversationHistoriesResponse =
+        // get /ai/conversation_histories
+        withRawResponse().retrieveConversationHistories(params, requestOptions).parse()
+
     @Deprecated("deprecated")
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
         requestOptions: RequestOptions,
-    ): AiRetrieveModelsResponse =
+    ): ModelsResponse =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).parse()
 
@@ -258,14 +266,42 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             }
         }
 
-        private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
-            jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
+        private val retrieveConversationHistoriesHandler:
+            Handler<AiRetrieveConversationHistoriesResponse> =
+            jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveConversationHistories(
+            params: AiRetrieveConversationHistoriesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AiRetrieveConversationHistoriesResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "conversation_histories")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveConversationHistoriesHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val retrieveModelsHandler: Handler<ModelsResponse> =
+            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun retrieveModels(
             params: AiRetrieveModelsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AiRetrieveModelsResponse> {
+        ): HttpResponseFor<ModelsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

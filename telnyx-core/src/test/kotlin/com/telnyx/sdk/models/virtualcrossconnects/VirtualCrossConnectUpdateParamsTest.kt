@@ -11,12 +11,16 @@ internal class VirtualCrossConnectUpdateParamsTest {
     fun create() {
         VirtualCrossConnectUpdateParams.builder()
             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .primaryCloudIp("169.254.0.2")
-            .primaryEnabled(true)
-            .primaryRoutingAnnouncement(false)
-            .secondaryCloudIp("169.254.0.4")
-            .secondaryEnabled(true)
-            .secondaryRoutingAnnouncement(false)
+            .virtualCrossConnectPatch(
+                VirtualCrossConnectPatch.builder()
+                    .primaryCloudIp("169.254.0.2")
+                    .primaryEnabled(true)
+                    .primaryRoutingAnnouncement(false)
+                    .secondaryCloudIp("169.254.0.4")
+                    .secondaryEnabled(true)
+                    .secondaryRoutingAnnouncement(false)
+                    .build()
+            )
             .build()
     }
 
@@ -25,6 +29,7 @@ internal class VirtualCrossConnectUpdateParamsTest {
         val params =
             VirtualCrossConnectUpdateParams.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .virtualCrossConnectPatch(VirtualCrossConnectPatch.builder().build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -37,22 +42,31 @@ internal class VirtualCrossConnectUpdateParamsTest {
         val params =
             VirtualCrossConnectUpdateParams.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .primaryCloudIp("169.254.0.2")
-                .primaryEnabled(true)
-                .primaryRoutingAnnouncement(false)
-                .secondaryCloudIp("169.254.0.4")
-                .secondaryEnabled(true)
-                .secondaryRoutingAnnouncement(false)
+                .virtualCrossConnectPatch(
+                    VirtualCrossConnectPatch.builder()
+                        .primaryCloudIp("169.254.0.2")
+                        .primaryEnabled(true)
+                        .primaryRoutingAnnouncement(false)
+                        .secondaryCloudIp("169.254.0.4")
+                        .secondaryEnabled(true)
+                        .secondaryRoutingAnnouncement(false)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.primaryCloudIp()).contains("169.254.0.2")
-        assertThat(body.primaryEnabled()).contains(true)
-        assertThat(body.primaryRoutingAnnouncement()).contains(false)
-        assertThat(body.secondaryCloudIp()).contains("169.254.0.4")
-        assertThat(body.secondaryEnabled()).contains(true)
-        assertThat(body.secondaryRoutingAnnouncement()).contains(false)
+        assertThat(body)
+            .isEqualTo(
+                VirtualCrossConnectPatch.builder()
+                    .primaryCloudIp("169.254.0.2")
+                    .primaryEnabled(true)
+                    .primaryRoutingAnnouncement(false)
+                    .secondaryCloudIp("169.254.0.4")
+                    .secondaryEnabled(true)
+                    .secondaryRoutingAnnouncement(false)
+                    .build()
+            )
     }
 
     @Test
@@ -60,8 +74,11 @@ internal class VirtualCrossConnectUpdateParamsTest {
         val params =
             VirtualCrossConnectUpdateParams.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .virtualCrossConnectPatch(VirtualCrossConnectPatch.builder().build())
                 .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(VirtualCrossConnectPatch.builder().build())
     }
 }

@@ -14,10 +14,10 @@ internal class RecordingServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val recordingServiceAsync = client.recordings()
 
-        val recordingFuture = recordingServiceAsync.retrieve("recording_id")
+        val recordingResponseFuture = recordingServiceAsync.retrieve("recording_id")
 
-        val recording = recordingFuture.get()
-        recording.validate()
+        val recordingResponse = recordingResponseFuture.get()
+        recordingResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -38,9 +38,9 @@ internal class RecordingServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val recordingServiceAsync = client.recordings()
 
-        val recordingFuture = recordingServiceAsync.delete("recording_id")
+        val recordingResponseFuture = recordingServiceAsync.delete("recording_id")
 
-        val recording = recordingFuture.get()
-        recording.validate()
+        val recordingResponse = recordingResponseFuture.get()
+        recordingResponse.validate()
     }
 }

@@ -17,18 +17,16 @@ internal class ActionRequirementListPageResponseTest {
         val actionRequirementListPageResponse =
             ActionRequirementListPageResponse.builder()
                 .addData(
-                    ActionRequirementListResponse.builder()
+                    PortingActionRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .actionType("document_upload")
                         .actionUrl("https://example.com/action")
                         .cancelReason(null)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .portingOrderId("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .recordType(
-                            ActionRequirementListResponse.RecordType.PORTING_ACTION_REQUIREMENT
-                        )
+                        .recordType(PortingActionRequirement.RecordType.PORTING_ACTION_REQUIREMENT)
                         .requirementTypeId("53970723-fbff-4f46-a975-f62be6c1a585")
-                        .status(ActionRequirementListResponse.Status.CREATED)
+                        .status(PortingActionRequirement.Status.CREATED)
                         .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .build()
                 )
@@ -44,16 +42,16 @@ internal class ActionRequirementListPageResponseTest {
 
         assertThat(actionRequirementListPageResponse.data().getOrNull())
             .containsExactly(
-                ActionRequirementListResponse.builder()
+                PortingActionRequirement.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .actionType("document_upload")
                     .actionUrl("https://example.com/action")
                     .cancelReason(null)
                     .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .portingOrderId("12ade33a-21c0-473b-b055-b3c836e1c292")
-                    .recordType(ActionRequirementListResponse.RecordType.PORTING_ACTION_REQUIREMENT)
+                    .recordType(PortingActionRequirement.RecordType.PORTING_ACTION_REQUIREMENT)
                     .requirementTypeId("53970723-fbff-4f46-a975-f62be6c1a585")
-                    .status(ActionRequirementListResponse.Status.CREATED)
+                    .status(PortingActionRequirement.Status.CREATED)
                     .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .build()
             )
@@ -74,18 +72,16 @@ internal class ActionRequirementListPageResponseTest {
         val actionRequirementListPageResponse =
             ActionRequirementListPageResponse.builder()
                 .addData(
-                    ActionRequirementListResponse.builder()
+                    PortingActionRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .actionType("document_upload")
                         .actionUrl("https://example.com/action")
                         .cancelReason(null)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .portingOrderId("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .recordType(
-                            ActionRequirementListResponse.RecordType.PORTING_ACTION_REQUIREMENT
-                        )
+                        .recordType(PortingActionRequirement.RecordType.PORTING_ACTION_REQUIREMENT)
                         .requirementTypeId("53970723-fbff-4f46-a975-f62be6c1a585")
-                        .status(ActionRequirementListResponse.Status.CREATED)
+                        .status(PortingActionRequirement.Status.CREATED)
                         .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .build()
                 )

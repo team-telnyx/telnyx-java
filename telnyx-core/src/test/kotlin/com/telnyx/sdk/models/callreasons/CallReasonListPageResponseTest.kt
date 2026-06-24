@@ -21,7 +21,7 @@ internal class CallReasonListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    CallReasonListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -40,7 +40,7 @@ internal class CallReasonListPageResponseTest {
             )
         assertThat(callReasonListPageResponse.meta())
             .isEqualTo(
-                CallReasonListPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -62,7 +62,7 @@ internal class CallReasonListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    CallReasonListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

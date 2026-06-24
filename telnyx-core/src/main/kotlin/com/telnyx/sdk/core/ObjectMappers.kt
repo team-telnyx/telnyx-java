@@ -25,6 +25,7 @@ import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 
@@ -161,12 +162,10 @@ private class LenientOffsetDateTimeDeserializer :
                     !temporal.isSupported(ChronoField.HOUR_OF_DAY) ->
                         LocalDate.from(temporal)
                             .atStartOfDay()
-                            .atZone(context.timeZone.toZoneId())
+                            .atZone(ZoneId.of("UTC"))
                             .toOffsetDateTime()
                     !temporal.isSupported(ChronoField.OFFSET_SECONDS) ->
-                        LocalDateTime.from(temporal)
-                            .atZone(context.timeZone.toZoneId())
-                            .toOffsetDateTime()
+                        LocalDateTime.from(temporal).atZone(ZoneId.of("UTC")).toOffsetDateTime()
                     else -> OffsetDateTime.from(temporal)
                 }
             } catch (e: DateTimeException) {

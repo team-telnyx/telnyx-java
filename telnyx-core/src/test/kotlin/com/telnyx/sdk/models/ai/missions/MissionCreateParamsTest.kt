@@ -13,7 +13,7 @@ internal class MissionCreateParamsTest {
         MissionCreateParams.builder()
             .name("name")
             .description("description")
-            .executionMode(MissionCreateParams.ExecutionMode.EXTERNAL)
+            .executionMode(ExecutionMode.EXTERNAL)
             .instructions("instructions")
             .metadata(
                 MissionCreateParams.Metadata.builder()
@@ -30,7 +30,7 @@ internal class MissionCreateParamsTest {
             MissionCreateParams.builder()
                 .name("name")
                 .description("description")
-                .executionMode(MissionCreateParams.ExecutionMode.EXTERNAL)
+                .executionMode(ExecutionMode.EXTERNAL)
                 .instructions("instructions")
                 .metadata(
                     MissionCreateParams.Metadata.builder()
@@ -44,7 +44,7 @@ internal class MissionCreateParamsTest {
 
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.description()).contains("description")
-        assertThat(body.executionMode()).contains(MissionCreateParams.ExecutionMode.EXTERNAL)
+        assertThat(body.executionMode()).contains(ExecutionMode.EXTERNAL)
         assertThat(body.instructions()).contains("instructions")
         assertThat(body.metadata())
             .contains(

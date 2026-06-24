@@ -7,10 +7,10 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.InboundMessagePayload
+import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.SubNumberOrderRegulatoryRequirementWithValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
-import com.telnyx.sdk.models.messages.MessagingError
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
 import com.telnyx.sdk.models.numberorders.NumberOrderWithPhoneNumbers
 import com.telnyx.sdk.models.numberorders.PhoneNumber

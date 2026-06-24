@@ -16,7 +16,7 @@ internal class MissionDataTest {
         val missionData =
             MissionData.builder()
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .executionMode(MissionData.ExecutionMode.EXTERNAL)
+                .executionMode(ExecutionMode.EXTERNAL)
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .name("name")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -32,7 +32,7 @@ internal class MissionDataTest {
 
         assertThat(missionData.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(missionData.executionMode()).isEqualTo(MissionData.ExecutionMode.EXTERNAL)
+        assertThat(missionData.executionMode()).isEqualTo(ExecutionMode.EXTERNAL)
         assertThat(missionData.missionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(missionData.name()).isEqualTo("name")
         assertThat(missionData.updatedAt())
@@ -54,7 +54,7 @@ internal class MissionDataTest {
         val missionData =
             MissionData.builder()
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .executionMode(MissionData.ExecutionMode.EXTERNAL)
+                .executionMode(ExecutionMode.EXTERNAL)
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .name("name")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

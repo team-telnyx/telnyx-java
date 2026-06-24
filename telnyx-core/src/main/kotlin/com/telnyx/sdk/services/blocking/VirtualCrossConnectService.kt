@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreate
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
@@ -50,6 +51,23 @@ interface VirtualCrossConnectService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualCrossConnectCreateResponse
 
+    /** @see create */
+    fun create(
+        virtualCrossConnectCreate: VirtualCrossConnectCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VirtualCrossConnectCreateResponse =
+        create(
+            VirtualCrossConnectCreateParams.builder()
+                .virtualCrossConnectCreate(virtualCrossConnectCreate)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        virtualCrossConnectCreate: VirtualCrossConnectCreate
+    ): VirtualCrossConnectCreateResponse = create(virtualCrossConnectCreate, RequestOptions.none())
+
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): VirtualCrossConnectRetrieveResponse =
         retrieve(id, VirtualCrossConnectRetrieveParams.none())
@@ -90,35 +108,27 @@ interface VirtualCrossConnectService {
      * `provisioned` and you are ready to enable routing, you can toggle the routing announcements
      * to `true`.
      */
-    fun update(id: String): VirtualCrossConnectUpdateResponse =
-        update(id, VirtualCrossConnectUpdateParams.none())
-
-    /** @see update */
     fun update(
         id: String,
-        params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): VirtualCrossConnectUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see update */
-    fun update(
-        id: String,
-        params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
+        params: VirtualCrossConnectUpdateParams,
     ): VirtualCrossConnectUpdateResponse = update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: VirtualCrossConnectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VirtualCrossConnectUpdateResponse
+    ): VirtualCrossConnectUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(params: VirtualCrossConnectUpdateParams): VirtualCrossConnectUpdateResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(id: String, requestOptions: RequestOptions): VirtualCrossConnectUpdateResponse =
-        update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
+    fun update(
+        params: VirtualCrossConnectUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VirtualCrossConnectUpdateResponse
 
     /** List all Virtual Cross Connects. */
     fun list(): VirtualCrossConnectListPage = list(VirtualCrossConnectListParams.none())
@@ -201,6 +211,26 @@ interface VirtualCrossConnectService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualCrossConnectCreateResponse>
 
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            virtualCrossConnectCreate: VirtualCrossConnectCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
+            create(
+                VirtualCrossConnectCreateParams.builder()
+                    .virtualCrossConnectCreate(virtualCrossConnectCreate)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            virtualCrossConnectCreate: VirtualCrossConnectCreate
+        ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
+            create(virtualCrossConnectCreate, RequestOptions.none())
+
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
          * same as [VirtualCrossConnectService.retrieve].
@@ -253,32 +283,20 @@ interface VirtualCrossConnectService {
          * the same as [VirtualCrossConnectService.update].
          */
         @MustBeClosed
-        fun update(id: String): HttpResponseFor<VirtualCrossConnectUpdateResponse> =
-            update(id, VirtualCrossConnectUpdateParams.none())
-
-        /** @see update */
-        @MustBeClosed
         fun update(
             id: String,
-            params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            id: String,
-            params: VirtualCrossConnectUpdateParams = VirtualCrossConnectUpdateParams.none(),
+            params: VirtualCrossConnectUpdateParams,
         ): HttpResponseFor<VirtualCrossConnectUpdateResponse> =
             update(id, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
+            id: String,
             params: VirtualCrossConnectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectUpdateResponse>
+        ): HttpResponseFor<VirtualCrossConnectUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -290,10 +308,9 @@ interface VirtualCrossConnectService {
         /** @see update */
         @MustBeClosed
         fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<VirtualCrossConnectUpdateResponse> =
-            update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
+            params: VirtualCrossConnectUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VirtualCrossConnectUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects`, but is otherwise the same

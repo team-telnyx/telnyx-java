@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class EventListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EventListResponse>>,
+    private val data: JsonField<List<PortoutEvent>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<EventListResponse>> = JsonMissing.of(),
+        data: JsonField<List<PortoutEvent>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<EventListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<PortoutEvent>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EventListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<PortoutEvent>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +82,7 @@ private constructor(
     /** A builder for [EventListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EventListResponse>>? = null
+        private var data: JsonField<MutableList<PortoutEvent>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,25 +93,25 @@ private constructor(
             additionalProperties = eventListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EventListResponse>) = data(JsonField.of(data))
+        fun data(data: List<PortoutEvent>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EventListResponse>` value
+         * You should usually call [Builder.data] with a well-typed `List<PortoutEvent>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<EventListResponse>>) = apply {
+        fun data(data: JsonField<List<PortoutEvent>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EventListResponse] to [Builder.data].
+         * Adds a single [PortoutEvent] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EventListResponse) = apply {
+        fun addData(data: PortoutEvent) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -120,24 +120,24 @@ private constructor(
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged)`.
+         * `PortoutEvent.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged)`.
          */
         fun addData(webhookPortoutStatusChanged: WebhookPortoutStatusChanged) =
-            addData(EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged))
+            addData(PortoutEvent.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment)`.
+         * `PortoutEvent.ofWebhookPortoutNewComment(webhookPortoutNewComment)`.
          */
         fun addData(webhookPortoutNewComment: WebhookPortoutNewComment) =
-            addData(EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment))
+            addData(PortoutEvent.ofWebhookPortoutNewComment(webhookPortoutNewComment))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged)`.
+         * `PortoutEvent.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged)`.
          */
         fun addData(webhookPortoutFocDateChanged: WebhookPortoutFocDateChanged) =
-            addData(EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged))
+            addData(PortoutEvent.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged))
 
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
 

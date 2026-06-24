@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -27,7 +26,7 @@ private constructor(
     private val callPurpose: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val phoneNumbersCount: JsonField<Long>,
-    private val status: JsonField<Status>,
+    private val status: JsonField<RemediationStatus>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val tier1CompletedAt: JsonField<OffsetDateTime>,
     private val tier2CompletedAt: JsonField<OffsetDateTime>,
@@ -46,7 +45,9 @@ private constructor(
         @JsonProperty("phone_numbers_count")
         @ExcludeMissing
         phoneNumbersCount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        status: JsonField<RemediationStatus> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -98,7 +99,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun status(): Status = status.getRequired("status")
+    fun status(): RemediationStatus = status.getRequired("status")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -160,7 +161,7 @@ private constructor(
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<RemediationStatus> = status
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -228,7 +229,7 @@ private constructor(
         private var callPurpose: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var phoneNumbersCount: JsonField<Long>? = null
-        private var status: JsonField<Status>? = null
+        private var status: JsonField<RemediationStatus>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var tier1CompletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var tier2CompletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -294,15 +295,16 @@ private constructor(
         }
 
         /** Customer-facing status of a remediation request. */
-        fun status(status: Status) = status(JsonField.of(status))
+        fun status(status: RemediationStatus) = status(JsonField.of(status))
 
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [RemediationStatus] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<RemediationStatus>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -450,159 +452,6 @@ private constructor(
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (tier1CompletedAt.asKnown().isPresent) 1 else 0) +
             (if (tier2CompletedAt.asKnown().isPresent) 1 else 0)
-
-    /** Customer-facing status of a remediation request. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val PENDING = of("pending")
-
-            @JvmField val IN_PROGRESS = of("in_progress")
-
-            @JvmField val COMPLETED = of("completed")
-
-            @JvmField val FAILED = of("failed")
-
-            @JvmField val CANCELLED = of("cancelled")
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        /** An enum containing [Status]'s known values. */
-        enum class Known {
-            PENDING,
-            IN_PROGRESS,
-            COMPLETED,
-            FAILED,
-            CANCELLED,
-        }
-
-        /**
-         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            PENDING,
-            IN_PROGRESS,
-            COMPLETED,
-            FAILED,
-            CANCELLED,
-            /** An enum member indicating that [Status] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                IN_PROGRESS -> Value.IN_PROGRESS
-                COMPLETED -> Value.COMPLETED
-                FAILED -> Value.FAILED
-                CANCELLED -> Value.CANCELLED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                IN_PROGRESS -> Known.IN_PROGRESS
-                COMPLETED -> Known.COMPLETED
-                FAILED -> Known.FAILED
-                CANCELLED -> Known.CANCELLED
-                else -> throw TelnyxInvalidDataException("Unknown Status: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

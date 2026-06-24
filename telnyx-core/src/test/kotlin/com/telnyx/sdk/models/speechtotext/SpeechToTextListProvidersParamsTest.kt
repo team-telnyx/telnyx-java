@@ -12,7 +12,7 @@ internal class SpeechToTextListProvidersParamsTest {
     fun create() {
         SpeechToTextListProvidersParams.builder()
             .provider(SpeechToTextListProvidersParams.Provider.DEEPGRAM)
-            .serviceType(SpeechToTextListProvidersParams.ServiceType.STREAMING)
+            .serviceType(SttServiceType.STREAMING)
             .build()
     }
 
@@ -21,7 +21,7 @@ internal class SpeechToTextListProvidersParamsTest {
         val params =
             SpeechToTextListProvidersParams.builder()
                 .provider(SpeechToTextListProvidersParams.Provider.DEEPGRAM)
-                .serviceType(SpeechToTextListProvidersParams.ServiceType.STREAMING)
+                .serviceType(SttServiceType.STREAMING)
                 .build()
 
         val queryParams = params._queryParams()

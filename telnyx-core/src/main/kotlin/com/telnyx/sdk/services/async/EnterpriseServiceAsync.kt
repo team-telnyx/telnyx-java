@@ -6,17 +6,14 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
+import com.telnyx.sdk.models.enterprises.EnterpriseBrandedCallingParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
 import com.telnyx.sdk.models.enterprises.EnterpriseListPageAsync
 import com.telnyx.sdk.models.enterprises.EnterpriseListParams
+import com.telnyx.sdk.models.enterprises.EnterprisePublicWrapped
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
-import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -57,20 +54,20 @@ interface EnterpriseServiceAsync {
      *   names the field).
      * - `409` - an enterprise with the same identifying details already exists under your account.
      */
-    fun create(params: EnterpriseCreateParams): CompletableFuture<EnterpriseCreateResponse> =
+    fun create(params: EnterpriseCreateParams): CompletableFuture<EnterprisePublicWrapped> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: EnterpriseCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseCreateResponse>
+    ): CompletableFuture<EnterprisePublicWrapped>
 
     /**
      * Retrieve a single enterprise by id. Returns `404` if the id does not exist or does not belong
      * to your account.
      */
-    fun retrieve(enterpriseId: String): CompletableFuture<EnterpriseRetrieveResponse> =
+    fun retrieve(enterpriseId: String): CompletableFuture<EnterprisePublicWrapped> =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
     /** @see retrieve */
@@ -78,31 +75,31 @@ interface EnterpriseServiceAsync {
         enterpriseId: String,
         params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseRetrieveResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
-    ): CompletableFuture<EnterpriseRetrieveResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         retrieve(enterpriseId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: EnterpriseRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseRetrieveResponse>
+    ): CompletableFuture<EnterprisePublicWrapped>
 
     /** @see retrieve */
-    fun retrieve(params: EnterpriseRetrieveParams): CompletableFuture<EnterpriseRetrieveResponse> =
+    fun retrieve(params: EnterpriseRetrieveParams): CompletableFuture<EnterprisePublicWrapped> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         enterpriseId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseRetrieveResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
     /**
@@ -111,7 +108,7 @@ interface EnterpriseServiceAsync {
      * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in
      * the body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
      */
-    fun update(enterpriseId: String): CompletableFuture<EnterpriseUpdateResponse> =
+    fun update(enterpriseId: String): CompletableFuture<EnterprisePublicWrapped> =
         update(enterpriseId, EnterpriseUpdateParams.none())
 
     /** @see update */
@@ -119,31 +116,31 @@ interface EnterpriseServiceAsync {
         enterpriseId: String,
         params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseUpdateResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see update */
     fun update(
         enterpriseId: String,
         params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
-    ): CompletableFuture<EnterpriseUpdateResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         update(enterpriseId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: EnterpriseUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseUpdateResponse>
+    ): CompletableFuture<EnterprisePublicWrapped>
 
     /** @see update */
-    fun update(params: EnterpriseUpdateParams): CompletableFuture<EnterpriseUpdateResponse> =
+    fun update(params: EnterpriseUpdateParams): CompletableFuture<EnterprisePublicWrapped> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         enterpriseId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseUpdateResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
     /**
@@ -226,53 +223,41 @@ interface EnterpriseServiceAsync {
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.
      */
-    fun activateBrandedCalling(
-        enterpriseId: String
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
-        activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+    fun brandedCalling(enterpriseId: String): CompletableFuture<EnterprisePublicWrapped> =
+        brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
-        params: EnterpriseActivateBrandedCallingParams =
-            EnterpriseActivateBrandedCallingParams.none(),
+        params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
-        activateBrandedCalling(
-            params.toBuilder().enterpriseId(enterpriseId).build(),
-            requestOptions,
-        )
+    ): CompletableFuture<EnterprisePublicWrapped> =
+        brandedCalling(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
-        params: EnterpriseActivateBrandedCallingParams =
-            EnterpriseActivateBrandedCallingParams.none(),
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
-        activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+        params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
+    ): CompletableFuture<EnterprisePublicWrapped> =
+        brandedCalling(enterpriseId, params, RequestOptions.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams,
+    /** @see brandedCalling */
+    fun brandedCalling(
+        params: EnterpriseBrandedCallingParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse>
+    ): CompletableFuture<EnterprisePublicWrapped>
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
-        activateBrandedCalling(params, RequestOptions.none())
+    /** @see brandedCalling */
+    fun brandedCalling(
+        params: EnterpriseBrandedCallingParams
+    ): CompletableFuture<EnterprisePublicWrapped> = brandedCalling(params, RequestOptions.none())
 
-    /** @see activateBrandedCalling */
-    fun activateBrandedCalling(
+    /** @see brandedCalling */
+    fun brandedCalling(
         enterpriseId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
-        activateBrandedCalling(
-            enterpriseId,
-            EnterpriseActivateBrandedCallingParams.none(),
-            requestOptions,
-        )
+    ): CompletableFuture<EnterprisePublicWrapped> =
+        brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none(), requestOptions)
 
     /**
      * A view of [EnterpriseServiceAsync] that provides access to raw HTTP responses for each
@@ -304,14 +289,14 @@ interface EnterpriseServiceAsync {
          */
         fun create(
             params: EnterpriseCreateParams
-        ): CompletableFuture<HttpResponseFor<EnterpriseCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: EnterpriseCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}`, but is otherwise the
@@ -319,7 +304,7 @@ interface EnterpriseServiceAsync {
          */
         fun retrieve(
             enterpriseId: String
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             retrieve(enterpriseId, EnterpriseRetrieveParams.none())
 
         /** @see retrieve */
@@ -327,33 +312,33 @@ interface EnterpriseServiceAsync {
             enterpriseId: String,
             params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             enterpriseId: String,
             params: EnterpriseRetrieveParams = EnterpriseRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             retrieve(enterpriseId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: EnterpriseRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>>
 
         /** @see retrieve */
         fun retrieve(
             params: EnterpriseRetrieveParams
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             retrieve(enterpriseId, EnterpriseRetrieveParams.none(), requestOptions)
 
         /**
@@ -362,7 +347,7 @@ interface EnterpriseServiceAsync {
          */
         fun update(
             enterpriseId: String
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             update(enterpriseId, EnterpriseUpdateParams.none())
 
         /** @see update */
@@ -370,33 +355,33 @@ interface EnterpriseServiceAsync {
             enterpriseId: String,
             params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             update(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see update */
         fun update(
             enterpriseId: String,
             params: EnterpriseUpdateParams = EnterpriseUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             update(enterpriseId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: EnterpriseUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>>
 
         /** @see update */
         fun update(
             params: EnterpriseUpdateParams
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
             update(enterpriseId, EnterpriseUpdateParams.none(), requestOptions)
 
         /**
@@ -464,54 +449,45 @@ interface EnterpriseServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/branded_calling`, but
-         * is otherwise the same as [EnterpriseServiceAsync.activateBrandedCalling].
+         * is otherwise the same as [EnterpriseServiceAsync.brandedCalling].
          */
-        fun activateBrandedCalling(
+        fun brandedCalling(
             enterpriseId: String
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
-            activateBrandedCalling(enterpriseId, EnterpriseActivateBrandedCallingParams.none())
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
+            brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none())
 
-        /** @see activateBrandedCalling */
-        fun activateBrandedCalling(
+        /** @see brandedCalling */
+        fun brandedCalling(
             enterpriseId: String,
-            params: EnterpriseActivateBrandedCallingParams =
-                EnterpriseActivateBrandedCallingParams.none(),
+            params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
-            activateBrandedCalling(
-                params.toBuilder().enterpriseId(enterpriseId).build(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
+            brandedCalling(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see activateBrandedCalling */
-        fun activateBrandedCalling(
+        /** @see brandedCalling */
+        fun brandedCalling(
             enterpriseId: String,
-            params: EnterpriseActivateBrandedCallingParams =
-                EnterpriseActivateBrandedCallingParams.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
-            activateBrandedCalling(enterpriseId, params, RequestOptions.none())
+            params: EnterpriseBrandedCallingParams = EnterpriseBrandedCallingParams.none(),
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
+            brandedCalling(enterpriseId, params, RequestOptions.none())
 
-        /** @see activateBrandedCalling */
-        fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams,
+        /** @see brandedCalling */
+        fun brandedCalling(
+            params: EnterpriseBrandedCallingParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>>
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>>
 
-        /** @see activateBrandedCalling */
-        fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
-            activateBrandedCalling(params, RequestOptions.none())
+        /** @see brandedCalling */
+        fun brandedCalling(
+            params: EnterpriseBrandedCallingParams
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
+            brandedCalling(params, RequestOptions.none())
 
-        /** @see activateBrandedCalling */
-        fun activateBrandedCalling(
+        /** @see brandedCalling */
+        fun brandedCalling(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> =
-            activateBrandedCalling(
-                enterpriseId,
-                EnterpriseActivateBrandedCallingParams.none(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> =
+            brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none(), requestOptions)
     }
 }

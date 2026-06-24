@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.integrations.Integration
 import com.telnyx.sdk.models.ai.integrations.IntegrationListParams
 import com.telnyx.sdk.models.ai.integrations.IntegrationListResponse
 import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveParams
-import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveResponse
 import com.telnyx.sdk.services.blocking.ai.integrations.ConnectionService
 import java.util.function.Consumer
 
@@ -30,7 +30,7 @@ interface IntegrationService {
     fun connections(): ConnectionService
 
     /** Retrieve integration details */
-    fun retrieve(integrationId: String): IntegrationRetrieveResponse =
+    fun retrieve(integrationId: String): Integration =
         retrieve(integrationId, IntegrationRetrieveParams.none())
 
     /** @see retrieve */
@@ -38,30 +38,27 @@ interface IntegrationService {
         integrationId: String,
         params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntegrationRetrieveResponse =
+    ): Integration =
         retrieve(params.toBuilder().integrationId(integrationId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         integrationId: String,
         params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
-    ): IntegrationRetrieveResponse = retrieve(integrationId, params, RequestOptions.none())
+    ): Integration = retrieve(integrationId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: IntegrationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntegrationRetrieveResponse
+    ): Integration
 
     /** @see retrieve */
-    fun retrieve(params: IntegrationRetrieveParams): IntegrationRetrieveResponse =
+    fun retrieve(params: IntegrationRetrieveParams): Integration =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(
-        integrationId: String,
-        requestOptions: RequestOptions,
-    ): IntegrationRetrieveResponse =
+    fun retrieve(integrationId: String, requestOptions: RequestOptions): Integration =
         retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
     /** List all available integrations. */
@@ -103,7 +100,7 @@ interface IntegrationService {
          * the same as [IntegrationService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(integrationId: String): HttpResponseFor<IntegrationRetrieveResponse> =
+        fun retrieve(integrationId: String): HttpResponseFor<Integration> =
             retrieve(integrationId, IntegrationRetrieveParams.none())
 
         /** @see retrieve */
@@ -112,7 +109,7 @@ interface IntegrationService {
             integrationId: String,
             params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntegrationRetrieveResponse> =
+        ): HttpResponseFor<Integration> =
             retrieve(params.toBuilder().integrationId(integrationId).build(), requestOptions)
 
         /** @see retrieve */
@@ -120,28 +117,26 @@ interface IntegrationService {
         fun retrieve(
             integrationId: String,
             params: IntegrationRetrieveParams = IntegrationRetrieveParams.none(),
-        ): HttpResponseFor<IntegrationRetrieveResponse> =
-            retrieve(integrationId, params, RequestOptions.none())
+        ): HttpResponseFor<Integration> = retrieve(integrationId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: IntegrationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntegrationRetrieveResponse>
+        ): HttpResponseFor<Integration>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: IntegrationRetrieveParams
-        ): HttpResponseFor<IntegrationRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: IntegrationRetrieveParams): HttpResponseFor<Integration> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             integrationId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IntegrationRetrieveResponse> =
+        ): HttpResponseFor<Integration> =
             retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
         /**

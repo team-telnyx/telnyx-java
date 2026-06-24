@@ -3,7 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.advancedorders.AdvancedOrder
+import com.telnyx.sdk.models.advancedorders.AdvancedOrderRequest
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -18,13 +18,13 @@ internal class AdvancedOrderServiceAsyncTest {
 
         val advancedOrderFuture =
             advancedOrderServiceAsync.create(
-                AdvancedOrder.builder()
+                AdvancedOrderRequest.builder()
                     .areaCode("xxx")
                     .comments("comments")
                     .countryCode("xx")
                     .customerReference("customer_reference")
-                    .addFeature(AdvancedOrder.Feature.SMS)
-                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                    .addFeature(AdvancedOrderRequest.Feature.SMS)
+                    .phoneNumberType(AdvancedOrderRequest.PhoneNumberType.LOCAL)
                     .quantity(1L)
                     .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .build()
@@ -65,18 +65,18 @@ internal class AdvancedOrderServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val advancedOrderServiceAsync = client.advancedOrders()
 
-        val responseFuture =
+        val advancedOrderFuture =
             advancedOrderServiceAsync.updateRequirementGroup(
                 AdvancedOrderUpdateRequirementGroupParams.builder()
                     .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .advancedOrder(
-                        AdvancedOrder.builder()
+                    .advancedOrderRequest(
+                        AdvancedOrderRequest.builder()
                             .areaCode("xxx")
                             .comments("comments")
                             .countryCode("xx")
                             .customerReference("customer_reference")
-                            .addFeature(AdvancedOrder.Feature.SMS)
-                            .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                            .addFeature(AdvancedOrderRequest.Feature.SMS)
+                            .phoneNumberType(AdvancedOrderRequest.PhoneNumberType.LOCAL)
                             .quantity(1L)
                             .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                             .build()
@@ -84,7 +84,7 @@ internal class AdvancedOrderServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val advancedOrder = advancedOrderFuture.get()
+        advancedOrder.validate()
     }
 }

@@ -5,6 +5,8 @@ package com.telnyx.sdk.models.dir
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
+import com.telnyx.sdk.models.infringementclaims.InfringementClaim
 import com.telnyx.sdk.services.async.DirServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -20,14 +22,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: DirListInfringementClaimsParams,
     private val response: DirListInfringementClaimsPageResponse,
-) : PageAsync<DirListInfringementClaimsResponse> {
+) : PageAsync<InfringementClaim> {
 
     /**
      * Delegates to [DirListInfringementClaimsPageResponse], but gracefully handles missing data.
      *
      * @see DirListInfringementClaimsPageResponse.data
      */
-    fun data(): List<DirListInfringementClaimsResponse> =
+    fun data(): List<InfringementClaim> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,10 +37,9 @@ private constructor(
      *
      * @see DirListInfringementClaimsPageResponse.meta
      */
-    fun meta(): Optional<DirListInfringementClaimsPageResponse.Meta> =
-        response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<DirListInfringementClaimsResponse> = data()
+    override fun items(): List<InfringementClaim> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +60,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<DirListInfringementClaimsPageAsync> =
         service.listInfringementClaims(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<DirListInfringementClaimsResponse> =
+    fun autoPager(): AutoPagerAsync<InfringementClaim> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
