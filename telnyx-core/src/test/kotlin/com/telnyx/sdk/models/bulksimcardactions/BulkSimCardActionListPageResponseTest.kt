@@ -16,12 +16,12 @@ internal class BulkSimCardActionListPageResponseTest {
         val bulkSimCardActionListPageResponse =
             BulkSimCardActionListPageResponse.builder()
                 .addData(
-                    BulkSimCardActionListResponse.builder()
+                    BulkSimCardActionDetailed.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .actionType(BulkSimCardActionListResponse.ActionType.BULK_SET_PUBLIC_IPS)
+                        .actionType(BulkSimCardActionDetailed.ActionType.BULK_SET_PUBLIC_IPS)
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("bulk_sim_card_action")
-                        .settings(BulkSimCardActionListResponse.Settings.builder().build())
+                        .settings(BulkSimCardActionDetailed.Settings.builder().build())
                         .addSimCardActionsSummary(
                             SimCardActionsSummary.builder()
                                 .count(0L)
@@ -43,12 +43,12 @@ internal class BulkSimCardActionListPageResponseTest {
 
         assertThat(bulkSimCardActionListPageResponse.data().getOrNull())
             .containsExactly(
-                BulkSimCardActionListResponse.builder()
+                BulkSimCardActionDetailed.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .actionType(BulkSimCardActionListResponse.ActionType.BULK_SET_PUBLIC_IPS)
+                    .actionType(BulkSimCardActionDetailed.ActionType.BULK_SET_PUBLIC_IPS)
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("bulk_sim_card_action")
-                    .settings(BulkSimCardActionListResponse.Settings.builder().build())
+                    .settings(BulkSimCardActionDetailed.Settings.builder().build())
                     .addSimCardActionsSummary(
                         SimCardActionsSummary.builder()
                             .count(0L)
@@ -75,12 +75,12 @@ internal class BulkSimCardActionListPageResponseTest {
         val bulkSimCardActionListPageResponse =
             BulkSimCardActionListPageResponse.builder()
                 .addData(
-                    BulkSimCardActionListResponse.builder()
+                    BulkSimCardActionDetailed.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .actionType(BulkSimCardActionListResponse.ActionType.BULK_SET_PUBLIC_IPS)
+                        .actionType(BulkSimCardActionDetailed.ActionType.BULK_SET_PUBLIC_IPS)
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("bulk_sim_card_action")
-                        .settings(BulkSimCardActionListResponse.Settings.builder().build())
+                        .settings(BulkSimCardActionDetailed.Settings.builder().build())
                         .addSimCardActionsSummary(
                             SimCardActionsSummary.builder()
                                 .count(0L)

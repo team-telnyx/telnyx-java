@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.reports.cdrusagereports
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class CdrUsageReportFetchSyncParamsTest {
@@ -22,7 +21,6 @@ internal class CdrUsageReportFetchSyncParamsTest {
     }
 
     @Test
-    @Disabled("disabled for now due to connections round tripping issue")
     fun queryParams() {
         val params =
             CdrUsageReportFetchSyncParams.builder()
@@ -40,7 +38,7 @@ internal class CdrUsageReportFetchSyncParamsTest {
                 QueryParams.builder()
                     .put("aggregation_type", "NO_AGGREGATION")
                     .put("product_breakdown", "NO_BREAKDOWN")
-                    .put("connections", listOf("1234567890123.0").joinToString(","))
+                    .put("connections", listOf("1.234567890123E12").joinToString(","))
                     .put("end_date", "2020-07-01T00:00:00-06:00")
                     .put("start_date", "2020-07-01T00:00:00-06:00")
                     .build()

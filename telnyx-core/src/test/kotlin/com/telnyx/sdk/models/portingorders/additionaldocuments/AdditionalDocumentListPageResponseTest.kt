@@ -17,12 +17,12 @@ internal class AdditionalDocumentListPageResponseTest {
         val additionalDocumentListPageResponse =
             AdditionalDocumentListPageResponse.builder()
                 .addData(
-                    AdditionalDocumentListResponse.builder()
+                    PortingAdditionalDocument.builder()
                         .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
                         .contentType("text/plain")
                         .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
                         .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                        .documentType(AdditionalDocumentListResponse.DocumentType.LOA)
+                        .documentType(PortingAdditionalDocument.DocumentType.LOA)
                         .filename("file.txt")
                         .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
                         .recordType("porting_additional_document")
@@ -41,12 +41,12 @@ internal class AdditionalDocumentListPageResponseTest {
 
         assertThat(additionalDocumentListPageResponse.data().getOrNull())
             .containsExactly(
-                AdditionalDocumentListResponse.builder()
+                PortingAdditionalDocument.builder()
                     .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
                     .contentType("text/plain")
                     .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
                     .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                    .documentType(AdditionalDocumentListResponse.DocumentType.LOA)
+                    .documentType(PortingAdditionalDocument.DocumentType.LOA)
                     .filename("file.txt")
                     .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
                     .recordType("porting_additional_document")
@@ -70,12 +70,12 @@ internal class AdditionalDocumentListPageResponseTest {
         val additionalDocumentListPageResponse =
             AdditionalDocumentListPageResponse.builder()
                 .addData(
-                    AdditionalDocumentListResponse.builder()
+                    PortingAdditionalDocument.builder()
                         .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
                         .contentType("text/plain")
                         .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
                         .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                        .documentType(AdditionalDocumentListResponse.DocumentType.LOA)
+                        .documentType(PortingAdditionalDocument.DocumentType.LOA)
                         .filename("file.txt")
                         .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
                         .recordType("porting_additional_document")

@@ -21,12 +21,12 @@ internal class CallServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
-        val call =
+        val callResource =
             callService.retrieve(
                 CallRetrieveParams.builder().accountSid("account_sid").callSid("call_sid").build()
             )
 
-        call.validate()
+        callResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -35,7 +35,7 @@ internal class CallServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
-        val call =
+        val callResource =
             callService.update(
                 CallUpdateParams.builder()
                     .accountSid("account_sid")
@@ -57,7 +57,7 @@ internal class CallServiceTest {
                     .build()
             )
 
-        call.validate()
+        callResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -70,82 +70,76 @@ internal class CallServiceTest {
             callService.calls(
                 CallCallsParams.builder()
                     .accountSid("account_sid")
-                    .params(
-                        CallCallsParams.Params.WithUrl.builder()
+                    .body(
+                        CallCallsParams.Body.WithUrl.builder()
                             .url("https://www.example.com/texml.xml")
                             .applicationSid("example-app-sid")
                             .asyncAmd(true)
                             .asyncAmdStatusCallback("https://www.example.com/callback")
                             .asyncAmdStatusCallbackMethod(
-                                CallCallsParams.Params.WithUrl.AsyncAmdStatusCallbackMethod.GET
+                                CallCallsParams.Body.WithUrl.AsyncAmdStatusCallbackMethod.GET
                             )
                             .callerId("Info")
                             .cancelPlaybackOnDetectMessageEnd(false)
                             .cancelPlaybackOnMachineDetection(false)
                             .addCustomHeader(
-                                CallCallsParams.Params.WithUrl.CustomHeader.builder()
+                                CallCallsParams.Body.WithUrl.CustomHeader.builder()
                                     .name("X-Custom-Header")
                                     .value("custom-value")
                                     .build()
                             )
                             .deepfakeDetection(
-                                CallCallsParams.Params.WithUrl.DeepfakeDetection.ENABLE
+                                CallCallsParams.Body.WithUrl.DeepfakeDetection.ENABLE
                             )
                             .deepfakeDetectionCallbackMethod(
-                                CallCallsParams.Params.WithUrl.DeepfakeDetectionCallbackMethod.GET
+                                CallCallsParams.Body.WithUrl.DeepfakeDetectionCallbackMethod.GET
                             )
                             .deepfakeDetectionCallbackUrl(
                                 "https://www.example.com/deepfake-callback"
                             )
-                            .detectionMode(CallCallsParams.Params.WithUrl.DetectionMode.PREMIUM)
+                            .detectionMode(CallCallsParams.Body.WithUrl.DetectionMode.PREMIUM)
                             .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                             .from("+13120001234")
-                            .machineDetection(
-                                CallCallsParams.Params.WithUrl.MachineDetection.ENABLE
-                            )
+                            .machineDetection(CallCallsParams.Body.WithUrl.MachineDetection.ENABLE)
                             .machineDetectionPromptEndTimeout(5000L)
                             .machineDetectionSilenceTimeout(2000L)
                             .machineDetectionSpeechEndThreshold(2000L)
                             .machineDetectionSpeechThreshold(2000L)
                             .machineDetectionTimeout(5000L)
-                            .mediaEncryption(
-                                CallCallsParams.Params.WithUrl.MediaEncryption.DISABLED
-                            )
+                            .mediaEncryption(CallCallsParams.Body.WithUrl.MediaEncryption.DISABLED)
                             .preferredCodecs("PCMA,PCMU")
                             .record(false)
-                            .recordingChannels(
-                                CallCallsParams.Params.WithUrl.RecordingChannels.DUAL
-                            )
+                            .recordingChannels(CallCallsParams.Body.WithUrl.RecordingChannels.DUAL)
                             .recordingStatusCallback(
                                 "https://example.com/recording_status_callback"
                             )
                             .recordingStatusCallbackEvent("in-progress completed absent")
                             .recordingStatusCallbackMethod(
-                                CallCallsParams.Params.WithUrl.RecordingStatusCallbackMethod.GET
+                                CallCallsParams.Body.WithUrl.RecordingStatusCallbackMethod.GET
                             )
                             .recordingTimeout(5L)
-                            .recordingTrack(CallCallsParams.Params.WithUrl.RecordingTrack.INBOUND)
+                            .recordingTrack(CallCallsParams.Body.WithUrl.RecordingTrack.INBOUND)
                             .sendRecordingUrl(false)
                             .sipAuthPassword("1234")
                             .sipAuthUsername("user")
-                            .sipRegion(CallCallsParams.Params.WithUrl.SipRegion.CANADA)
+                            .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
                             .statusCallback("https://www.example.com/statuscallback-listener")
                             .statusCallbackEvent(
-                                CallCallsParams.Params.WithUrl.StatusCallbackEvent.INITIATED
+                                CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED
                             )
                             .statusCallbackMethod(
-                                CallCallsParams.Params.WithUrl.StatusCallbackMethod.GET
+                                CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET
                             )
                             .superviseCallSid(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
-                            .supervisingRole(CallCallsParams.Params.WithUrl.SupervisingRole.MONITOR)
+                            .supervisingRole(CallCallsParams.Body.WithUrl.SupervisingRole.MONITOR)
                             .texml("Texml")
                             .timeLimit(3600L)
                             .timeout(60L)
                             .to("+13121230000")
-                            .trim(CallCallsParams.Params.WithUrl.Trim.TRIM_SILENCE)
-                            .urlMethod(CallCallsParams.Params.WithUrl.UrlMethod.GET)
+                            .trim(CallCallsParams.Body.WithUrl.Trim.TRIM_SILENCE)
+                            .urlMethod(CallCallsParams.Body.WithUrl.UrlMethod.GET)
                             .build()
                     )
                     .build()

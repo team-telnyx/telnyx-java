@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
+import com.telnyx.sdk.models.credentialconnections.ConnectionNoiseSuppression
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
@@ -71,7 +72,7 @@ internal class FqdnConnectionServiceTest {
                             .build()
                     )
                     .microsoftTeamsSbc(true)
-                    .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
@@ -182,7 +183,7 @@ internal class FqdnConnectionServiceTest {
                             .jitterbufferMsecMin(60L)
                             .build()
                     )
-                    .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)

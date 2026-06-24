@@ -19,7 +19,7 @@ internal class PlanUpdateStepParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-            .status(PlanUpdateStepParams.Status.PENDING)
+            .status(StepStatus.PENDING)
             .build()
     }
 
@@ -51,7 +51,7 @@ internal class PlanUpdateStepParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .status(PlanUpdateStepParams.Status.PENDING)
+                .status(StepStatus.PENDING)
                 .build()
 
         val body = params._body()
@@ -62,7 +62,7 @@ internal class PlanUpdateStepParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.status()).contains(PlanUpdateStepParams.Status.PENDING)
+        assertThat(body.status()).contains(StepStatus.PENDING)
     }
 
     @Test

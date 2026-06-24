@@ -18,15 +18,14 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageAsync
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +46,7 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberRetrieveResponse> =
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         // get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -61,7 +60,7 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun associate(
         params: NumberAssociateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberAssociateResponse> =
+    ): CompletableFuture<ReputationPhoneNumberList> =
         // post /enterprises/{enterprise_id}/reputation/numbers
         withRawResponse().associate(params, requestOptions).thenApply { it.parse() }
 
@@ -92,13 +91,13 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<NumberRetrieveResponse> =
-            jsonHandler<NumberRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ReputationPhoneNumberWithReputation> =
+            jsonHandler<ReputationPhoneNumberWithReputation>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: NumberRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("phoneNumber", params.phoneNumber().getOrNull())
@@ -131,8 +130,8 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<NumberListPageResponse> =
-            jsonHandler<NumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ReputationPhoneNumberList> =
+            jsonHandler<ReputationPhoneNumberList>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberListParams,
@@ -172,13 +171,13 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val associateHandler: Handler<NumberAssociateResponse> =
-            jsonHandler<NumberAssociateResponse>(clientOptions.jsonMapper)
+        private val associateHandler: Handler<ReputationPhoneNumberList> =
+            jsonHandler<ReputationPhoneNumberList>(clientOptions.jsonMapper)
 
         override fun associate(
             params: NumberAssociateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> {
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberList>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())

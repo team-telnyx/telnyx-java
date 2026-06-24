@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.termsofservice.agreements
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,17 +16,17 @@ internal class AgreementListPageResponseTest {
         val agreementListPageResponse =
             AgreementListPageResponse.builder()
                 .addData(
-                    AgreementListResponse.builder()
+                    TosAgreement.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .agreedAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
                         .createdAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
-                        .productType(AgreementListResponse.ProductType.BRANDED_CALLING)
+                        .productType(TosProductType.BRANDED_CALLING)
                         .termsVersion("v1.0.0")
                         .version("v1.0.0")
                         .build()
                 )
                 .meta(
-                    AgreementListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -36,18 +37,18 @@ internal class AgreementListPageResponseTest {
 
         assertThat(agreementListPageResponse.data())
             .containsExactly(
-                AgreementListResponse.builder()
+                TosAgreement.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .agreedAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
                     .createdAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
-                    .productType(AgreementListResponse.ProductType.BRANDED_CALLING)
+                    .productType(TosProductType.BRANDED_CALLING)
                     .termsVersion("v1.0.0")
                     .version("v1.0.0")
                     .build()
             )
         assertThat(agreementListPageResponse.meta())
             .isEqualTo(
-                AgreementListPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -62,17 +63,17 @@ internal class AgreementListPageResponseTest {
         val agreementListPageResponse =
             AgreementListPageResponse.builder()
                 .addData(
-                    AgreementListResponse.builder()
+                    TosAgreement.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .agreedAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
                         .createdAt(OffsetDateTime.parse("2025-07-10T10:30:00Z"))
-                        .productType(AgreementListResponse.ProductType.BRANDED_CALLING)
+                        .productType(TosProductType.BRANDED_CALLING)
                         .termsVersion("v1.0.0")
                         .version("v1.0.0")
                         .build()
                 )
                 .meta(
-                    AgreementListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

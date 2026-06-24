@@ -49,7 +49,7 @@ internal class CredentialConnectionCreateParamsTest {
                     .jitterbufferMsecMin(60L)
                     .build()
             )
-            .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+            .noiseSuppression(ConnectionNoiseSuppression.BOTH)
             .noiseSuppressionDetails(
                 ConnectionNoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
@@ -129,7 +129,7 @@ internal class CredentialConnectionCreateParamsTest {
                         .jitterbufferMsecMin(60L)
                         .build()
                 )
-                .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
@@ -208,8 +208,7 @@ internal class CredentialConnectionCreateParamsTest {
                     .jitterbufferMsecMin(60L)
                     .build()
             )
-        assertThat(body.noiseSuppression())
-            .contains(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppression()).contains(ConnectionNoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
                 ConnectionNoiseSuppressionDetails.builder()

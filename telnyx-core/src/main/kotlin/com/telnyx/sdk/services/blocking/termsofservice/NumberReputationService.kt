@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.termsofservice.agreements.TosAgreementWrapped
 import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeParams
-import com.telnyx.sdk.models.termsofservice.numberreputation.NumberReputationAgreeResponse
 import java.util.function.Consumer
 
 /** Accept and review the Branded Calling and Phone Number Reputation terms of service. */
@@ -31,21 +31,21 @@ interface NumberReputationService {
      *
      * Prerequisite for using any of the `/v2/.../reputation&#47;*` endpoints.
      */
-    fun agree(): NumberReputationAgreeResponse = agree(NumberReputationAgreeParams.none())
+    fun agree(): TosAgreementWrapped = agree(NumberReputationAgreeParams.none())
 
     /** @see agree */
     fun agree(
         params: NumberReputationAgreeParams = NumberReputationAgreeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberReputationAgreeResponse
+    ): TosAgreementWrapped
 
     /** @see agree */
     fun agree(
         params: NumberReputationAgreeParams = NumberReputationAgreeParams.none()
-    ): NumberReputationAgreeResponse = agree(params, RequestOptions.none())
+    ): TosAgreementWrapped = agree(params, RequestOptions.none())
 
     /** @see agree */
-    fun agree(requestOptions: RequestOptions): NumberReputationAgreeResponse =
+    fun agree(requestOptions: RequestOptions): TosAgreementWrapped =
         agree(NumberReputationAgreeParams.none(), requestOptions)
 
     /**
@@ -68,7 +68,7 @@ interface NumberReputationService {
          * otherwise the same as [NumberReputationService.agree].
          */
         @MustBeClosed
-        fun agree(): HttpResponseFor<NumberReputationAgreeResponse> =
+        fun agree(): HttpResponseFor<TosAgreementWrapped> =
             agree(NumberReputationAgreeParams.none())
 
         /** @see agree */
@@ -76,17 +76,17 @@ interface NumberReputationService {
         fun agree(
             params: NumberReputationAgreeParams = NumberReputationAgreeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberReputationAgreeResponse>
+        ): HttpResponseFor<TosAgreementWrapped>
 
         /** @see agree */
         @MustBeClosed
         fun agree(
             params: NumberReputationAgreeParams = NumberReputationAgreeParams.none()
-        ): HttpResponseFor<NumberReputationAgreeResponse> = agree(params, RequestOptions.none())
+        ): HttpResponseFor<TosAgreementWrapped> = agree(params, RequestOptions.none())
 
         /** @see agree */
         @MustBeClosed
-        fun agree(requestOptions: RequestOptions): HttpResponseFor<NumberReputationAgreeResponse> =
+        fun agree(requestOptions: RequestOptions): HttpResponseFor<TosAgreementWrapped> =
             agree(NumberReputationAgreeParams.none(), requestOptions)
     }
 }

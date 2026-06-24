@@ -7,11 +7,10 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListPage
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventLogParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventLogResponse
+import com.telnyx.sdk.models.ai.missions.runs.events.EventResponse
 import java.util.function.Consumer
 
 interface EventService {
@@ -49,31 +48,28 @@ interface EventService {
     ): EventListPage
 
     /** Get details of a specific event */
-    fun getEventDetails(
-        eventId: String,
-        params: EventGetEventDetailsParams,
-    ): EventGetEventDetailsResponse = getEventDetails(eventId, params, RequestOptions.none())
+    fun getEventDetails(eventId: String, params: EventGetEventDetailsParams): EventResponse =
+        getEventDetails(eventId, params, RequestOptions.none())
 
     /** @see getEventDetails */
     fun getEventDetails(
         eventId: String,
         params: EventGetEventDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventGetEventDetailsResponse =
-        getEventDetails(params.toBuilder().eventId(eventId).build(), requestOptions)
+    ): EventResponse = getEventDetails(params.toBuilder().eventId(eventId).build(), requestOptions)
 
     /** @see getEventDetails */
-    fun getEventDetails(params: EventGetEventDetailsParams): EventGetEventDetailsResponse =
+    fun getEventDetails(params: EventGetEventDetailsParams): EventResponse =
         getEventDetails(params, RequestOptions.none())
 
     /** @see getEventDetails */
     fun getEventDetails(
         params: EventGetEventDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventGetEventDetailsResponse
+    ): EventResponse
 
     /** Log an event for a run */
-    fun log(runId: String, params: EventLogParams): EventLogResponse =
+    fun log(runId: String, params: EventLogParams): EventResponse =
         log(runId, params, RequestOptions.none())
 
     /** @see log */
@@ -81,16 +77,16 @@ interface EventService {
         runId: String,
         params: EventLogParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventLogResponse = log(params.toBuilder().runId(runId).build(), requestOptions)
+    ): EventResponse = log(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see log */
-    fun log(params: EventLogParams): EventLogResponse = log(params, RequestOptions.none())
+    fun log(params: EventLogParams): EventResponse = log(params, RequestOptions.none())
 
     /** @see log */
     fun log(
         params: EventLogParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventLogResponse
+    ): EventResponse
 
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -140,8 +136,7 @@ interface EventService {
         fun getEventDetails(
             eventId: String,
             params: EventGetEventDetailsParams,
-        ): HttpResponseFor<EventGetEventDetailsResponse> =
-            getEventDetails(eventId, params, RequestOptions.none())
+        ): HttpResponseFor<EventResponse> = getEventDetails(eventId, params, RequestOptions.none())
 
         /** @see getEventDetails */
         @MustBeClosed
@@ -149,14 +144,12 @@ interface EventService {
             eventId: String,
             params: EventGetEventDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventGetEventDetailsResponse> =
+        ): HttpResponseFor<EventResponse> =
             getEventDetails(params.toBuilder().eventId(eventId).build(), requestOptions)
 
         /** @see getEventDetails */
         @MustBeClosed
-        fun getEventDetails(
-            params: EventGetEventDetailsParams
-        ): HttpResponseFor<EventGetEventDetailsResponse> =
+        fun getEventDetails(params: EventGetEventDetailsParams): HttpResponseFor<EventResponse> =
             getEventDetails(params, RequestOptions.none())
 
         /** @see getEventDetails */
@@ -164,14 +157,14 @@ interface EventService {
         fun getEventDetails(
             params: EventGetEventDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventGetEventDetailsResponse>
+        ): HttpResponseFor<EventResponse>
 
         /**
          * Returns a raw HTTP response for `post /ai/missions/{mission_id}/runs/{run_id}/events`,
          * but is otherwise the same as [EventService.log].
          */
         @MustBeClosed
-        fun log(runId: String, params: EventLogParams): HttpResponseFor<EventLogResponse> =
+        fun log(runId: String, params: EventLogParams): HttpResponseFor<EventResponse> =
             log(runId, params, RequestOptions.none())
 
         /** @see log */
@@ -180,12 +173,12 @@ interface EventService {
             runId: String,
             params: EventLogParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventLogResponse> =
+        ): HttpResponseFor<EventResponse> =
             log(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see log */
         @MustBeClosed
-        fun log(params: EventLogParams): HttpResponseFor<EventLogResponse> =
+        fun log(params: EventLogParams): HttpResponseFor<EventResponse> =
             log(params, RequestOptions.none())
 
         /** @see log */
@@ -193,6 +186,6 @@ interface EventService {
         fun log(
             params: EventLogParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventLogResponse>
+        ): HttpResponseFor<EventResponse>
     }
 }

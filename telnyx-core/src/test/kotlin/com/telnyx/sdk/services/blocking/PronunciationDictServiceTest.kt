@@ -17,7 +17,7 @@ internal class PronunciationDictServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val pronunciationDictService = client.pronunciationDicts()
 
-        val pronunciationDict =
+        val pronunciationDictResponse =
             pronunciationDictService.create(
                 PronunciationDictCreateParams.builder()
                     .addItem(
@@ -31,7 +31,7 @@ internal class PronunciationDictServiceTest {
                     .build()
             )
 
-        pronunciationDict.validate()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -40,10 +40,10 @@ internal class PronunciationDictServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val pronunciationDictService = client.pronunciationDicts()
 
-        val pronunciationDict =
+        val pronunciationDictResponse =
             pronunciationDictService.retrieve("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
 
-        pronunciationDict.validate()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -52,7 +52,7 @@ internal class PronunciationDictServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val pronunciationDictService = client.pronunciationDicts()
 
-        val pronunciationDict =
+        val pronunciationDictResponse =
             pronunciationDictService.update(
                 PronunciationDictUpdateParams.builder()
                     .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
@@ -67,7 +67,7 @@ internal class PronunciationDictServiceTest {
                     .build()
             )
 
-        pronunciationDict.validate()
+        pronunciationDictResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

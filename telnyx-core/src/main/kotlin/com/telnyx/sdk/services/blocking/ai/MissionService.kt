@@ -10,16 +10,14 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionCreateParams
-import com.telnyx.sdk.models.ai.missions.MissionCreateResponse
 import com.telnyx.sdk.models.ai.missions.MissionDeleteMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionListEventsPage
 import com.telnyx.sdk.models.ai.missions.MissionListEventsParams
 import com.telnyx.sdk.models.ai.missions.MissionListPage
 import com.telnyx.sdk.models.ai.missions.MissionListParams
+import com.telnyx.sdk.models.ai.missions.MissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionRetrieveParams
-import com.telnyx.sdk.models.ai.missions.MissionRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionParams
-import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionResponse
 import com.telnyx.sdk.services.blocking.ai.missions.KnowledgeBaseService
 import com.telnyx.sdk.services.blocking.ai.missions.McpServerService
 import com.telnyx.sdk.services.blocking.ai.missions.RunService
@@ -49,17 +47,16 @@ interface MissionService {
     fun tools(): ToolService
 
     /** Create a new mission definition */
-    fun create(params: MissionCreateParams): MissionCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(params: MissionCreateParams): MissionResponse = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: MissionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MissionCreateResponse
+    ): MissionResponse
 
     /** Get a mission by ID (includes tools, knowledge_bases, mcp_servers) */
-    fun retrieve(missionId: String): MissionRetrieveResponse =
+    fun retrieve(missionId: String): MissionResponse =
         retrieve(missionId, MissionRetrieveParams.none())
 
     /** @see retrieve */
@@ -67,27 +64,26 @@ interface MissionService {
         missionId: String,
         params: MissionRetrieveParams = MissionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MissionRetrieveResponse =
-        retrieve(params.toBuilder().missionId(missionId).build(), requestOptions)
+    ): MissionResponse = retrieve(params.toBuilder().missionId(missionId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         missionId: String,
         params: MissionRetrieveParams = MissionRetrieveParams.none(),
-    ): MissionRetrieveResponse = retrieve(missionId, params, RequestOptions.none())
+    ): MissionResponse = retrieve(missionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: MissionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MissionRetrieveResponse
+    ): MissionResponse
 
     /** @see retrieve */
-    fun retrieve(params: MissionRetrieveParams): MissionRetrieveResponse =
+    fun retrieve(params: MissionRetrieveParams): MissionResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(missionId: String, requestOptions: RequestOptions): MissionRetrieveResponse =
+    fun retrieve(missionId: String, requestOptions: RequestOptions): MissionResponse =
         retrieve(missionId, MissionRetrieveParams.none(), requestOptions)
 
     /** List all missions for the organization */
@@ -192,7 +188,7 @@ interface MissionService {
         listEvents(MissionListEventsParams.none(), requestOptions)
 
     /** Update a mission definition */
-    fun updateMission(missionId: String): MissionUpdateMissionResponse =
+    fun updateMission(missionId: String): MissionResponse =
         updateMission(missionId, MissionUpdateMissionParams.none())
 
     /** @see updateMission */
@@ -200,30 +196,27 @@ interface MissionService {
         missionId: String,
         params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MissionUpdateMissionResponse =
+    ): MissionResponse =
         updateMission(params.toBuilder().missionId(missionId).build(), requestOptions)
 
     /** @see updateMission */
     fun updateMission(
         missionId: String,
         params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
-    ): MissionUpdateMissionResponse = updateMission(missionId, params, RequestOptions.none())
+    ): MissionResponse = updateMission(missionId, params, RequestOptions.none())
 
     /** @see updateMission */
     fun updateMission(
         params: MissionUpdateMissionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MissionUpdateMissionResponse
+    ): MissionResponse
 
     /** @see updateMission */
-    fun updateMission(params: MissionUpdateMissionParams): MissionUpdateMissionResponse =
+    fun updateMission(params: MissionUpdateMissionParams): MissionResponse =
         updateMission(params, RequestOptions.none())
 
     /** @see updateMission */
-    fun updateMission(
-        missionId: String,
-        requestOptions: RequestOptions,
-    ): MissionUpdateMissionResponse =
+    fun updateMission(missionId: String, requestOptions: RequestOptions): MissionResponse =
         updateMission(missionId, MissionUpdateMissionParams.none(), requestOptions)
 
     /** A view of [MissionService] that provides access to raw HTTP responses for each method. */
@@ -249,7 +242,7 @@ interface MissionService {
          * [MissionService.create].
          */
         @MustBeClosed
-        fun create(params: MissionCreateParams): HttpResponseFor<MissionCreateResponse> =
+        fun create(params: MissionCreateParams): HttpResponseFor<MissionResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -257,14 +250,14 @@ interface MissionService {
         fun create(
             params: MissionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MissionCreateResponse>
+        ): HttpResponseFor<MissionResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/missions/{mission_id}`, but is otherwise the
          * same as [MissionService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(missionId: String): HttpResponseFor<MissionRetrieveResponse> =
+        fun retrieve(missionId: String): HttpResponseFor<MissionResponse> =
             retrieve(missionId, MissionRetrieveParams.none())
 
         /** @see retrieve */
@@ -273,7 +266,7 @@ interface MissionService {
             missionId: String,
             params: MissionRetrieveParams = MissionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MissionRetrieveResponse> =
+        ): HttpResponseFor<MissionResponse> =
             retrieve(params.toBuilder().missionId(missionId).build(), requestOptions)
 
         /** @see retrieve */
@@ -281,19 +274,18 @@ interface MissionService {
         fun retrieve(
             missionId: String,
             params: MissionRetrieveParams = MissionRetrieveParams.none(),
-        ): HttpResponseFor<MissionRetrieveResponse> =
-            retrieve(missionId, params, RequestOptions.none())
+        ): HttpResponseFor<MissionResponse> = retrieve(missionId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: MissionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MissionRetrieveResponse>
+        ): HttpResponseFor<MissionResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: MissionRetrieveParams): HttpResponseFor<MissionRetrieveResponse> =
+        fun retrieve(params: MissionRetrieveParams): HttpResponseFor<MissionResponse> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -301,7 +293,7 @@ interface MissionService {
         fun retrieve(
             missionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MissionRetrieveResponse> =
+        ): HttpResponseFor<MissionResponse> =
             retrieve(missionId, MissionRetrieveParams.none(), requestOptions)
 
         /**
@@ -447,7 +439,7 @@ interface MissionService {
          * same as [MissionService.updateMission].
          */
         @MustBeClosed
-        fun updateMission(missionId: String): HttpResponseFor<MissionUpdateMissionResponse> =
+        fun updateMission(missionId: String): HttpResponseFor<MissionResponse> =
             updateMission(missionId, MissionUpdateMissionParams.none())
 
         /** @see updateMission */
@@ -456,7 +448,7 @@ interface MissionService {
             missionId: String,
             params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MissionUpdateMissionResponse> =
+        ): HttpResponseFor<MissionResponse> =
             updateMission(params.toBuilder().missionId(missionId).build(), requestOptions)
 
         /** @see updateMission */
@@ -464,7 +456,7 @@ interface MissionService {
         fun updateMission(
             missionId: String,
             params: MissionUpdateMissionParams = MissionUpdateMissionParams.none(),
-        ): HttpResponseFor<MissionUpdateMissionResponse> =
+        ): HttpResponseFor<MissionResponse> =
             updateMission(missionId, params, RequestOptions.none())
 
         /** @see updateMission */
@@ -472,13 +464,11 @@ interface MissionService {
         fun updateMission(
             params: MissionUpdateMissionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MissionUpdateMissionResponse>
+        ): HttpResponseFor<MissionResponse>
 
         /** @see updateMission */
         @MustBeClosed
-        fun updateMission(
-            params: MissionUpdateMissionParams
-        ): HttpResponseFor<MissionUpdateMissionResponse> =
+        fun updateMission(params: MissionUpdateMissionParams): HttpResponseFor<MissionResponse> =
             updateMission(params, RequestOptions.none())
 
         /** @see updateMission */
@@ -486,7 +476,7 @@ interface MissionService {
         fun updateMission(
             missionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MissionUpdateMissionResponse> =
+        ): HttpResponseFor<MissionResponse> =
             updateMission(missionId, MissionUpdateMissionParams.none(), requestOptions)
     }
 }

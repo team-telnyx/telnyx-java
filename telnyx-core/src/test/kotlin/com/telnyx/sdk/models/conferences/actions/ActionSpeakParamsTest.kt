@@ -19,7 +19,7 @@ internal class ActionSpeakParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .language(ActionSpeakParams.Language.EN_US)
             .payloadType(ActionSpeakParams.PayloadType.TEXT)
-            .region(ActionSpeakParams.Region.US)
+            .region(ConferenceRegion.US)
             .voiceSettings(
                 ElevenLabsVoiceSettings.builder()
                     .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
@@ -54,7 +54,7 @@ internal class ActionSpeakParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .language(ActionSpeakParams.Language.EN_US)
                 .payloadType(ActionSpeakParams.PayloadType.TEXT)
-                .region(ActionSpeakParams.Region.US)
+                .region(ConferenceRegion.US)
                 .voiceSettings(
                     ElevenLabsVoiceSettings.builder()
                         .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
@@ -72,7 +72,7 @@ internal class ActionSpeakParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.language()).contains(ActionSpeakParams.Language.EN_US)
         assertThat(body.payloadType()).contains(ActionSpeakParams.PayloadType.TEXT)
-        assertThat(body.region()).contains(ActionSpeakParams.Region.US)
+        assertThat(body.region()).contains(ConferenceRegion.US)
         assertThat(body.voiceSettings())
             .contains(
                 ActionSpeakParams.VoiceSettings.ofElevenlabs(

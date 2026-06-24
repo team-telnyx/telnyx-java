@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -18,6 +17,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
+import com.telnyx.sdk.models.credentialconnections.ConnectionNoiseSuppression
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
@@ -48,7 +48,7 @@ private constructor(
     private val iosPushCredentialId: JsonField<String>,
     private val jitterBuffer: JsonField<ConnectionJitterBuffer>,
     private val microsoftTeamsSbc: JsonField<Boolean>,
-    private val noiseSuppression: JsonField<NoiseSuppression>,
+    private val noiseSuppression: JsonField<ConnectionNoiseSuppression>,
     private val noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails>,
     private val onnetT38PassthroughEnabled: JsonField<Boolean>,
     private val outbound: JsonField<OutboundFqdn>,
@@ -123,7 +123,7 @@ private constructor(
         microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("noise_suppression")
         @ExcludeMissing
-        noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of(),
+        noiseSuppression: JsonField<ConnectionNoiseSuppression> = JsonMissing.of(),
         @JsonProperty("noise_suppression_details")
         @ExcludeMissing
         noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails> = JsonMissing.of(),
@@ -389,7 +389,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun noiseSuppression(): Optional<NoiseSuppression> =
+    fun noiseSuppression(): Optional<ConnectionNoiseSuppression> =
         noiseSuppression.getOptional("noise_suppression")
 
     /**
@@ -743,7 +743,7 @@ private constructor(
      */
     @JsonProperty("noise_suppression")
     @ExcludeMissing
-    fun _noiseSuppression(): JsonField<NoiseSuppression> = noiseSuppression
+    fun _noiseSuppression(): JsonField<ConnectionNoiseSuppression> = noiseSuppression
 
     /**
      * Returns the raw JSON value of [noiseSuppressionDetails].
@@ -964,7 +964,7 @@ private constructor(
         private var iosPushCredentialId: JsonField<String> = JsonMissing.of()
         private var jitterBuffer: JsonField<ConnectionJitterBuffer> = JsonMissing.of()
         private var microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of()
-        private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
+        private var noiseSuppression: JsonField<ConnectionNoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails> =
             JsonMissing.of()
         private var onnetT38PassthroughEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -1340,17 +1340,17 @@ private constructor(
          * outgoing audio. When set to 'both', it's applied in both directions. When set to
          * 'disabled', noise suppression is turned off.
          */
-        fun noiseSuppression(noiseSuppression: NoiseSuppression) =
+        fun noiseSuppression(noiseSuppression: ConnectionNoiseSuppression) =
             noiseSuppression(JsonField.of(noiseSuppression))
 
         /**
          * Sets [Builder.noiseSuppression] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.noiseSuppression] with a well-typed [NoiseSuppression]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.noiseSuppression] with a well-typed
+         * [ConnectionNoiseSuppression] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun noiseSuppression(noiseSuppression: JsonField<NoiseSuppression>) = apply {
+        fun noiseSuppression(noiseSuppression: JsonField<ConnectionNoiseSuppression>) = apply {
             this.noiseSuppression = noiseSuppression
         }
 
@@ -1860,162 +1860,6 @@ private constructor(
             (if (webhookEventFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookEventUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookTimeoutSecs.asKnown().isPresent) 1 else 0)
-
-    /**
-     * Controls when noise suppression is applied to calls. When set to 'inbound', noise suppression
-     * is applied to incoming audio. When set to 'outbound', it's applied to outgoing audio. When
-     * set to 'both', it's applied in both directions. When set to 'disabled', noise suppression is
-     * turned off.
-     */
-    class NoiseSuppression @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val INBOUND = of("inbound")
-
-            @JvmField val OUTBOUND = of("outbound")
-
-            @JvmField val BOTH = of("both")
-
-            @JvmField val DISABLED = of("disabled")
-
-            @JvmStatic fun of(value: String) = NoiseSuppression(JsonField.of(value))
-        }
-
-        /** An enum containing [NoiseSuppression]'s known values. */
-        enum class Known {
-            INBOUND,
-            OUTBOUND,
-            BOTH,
-            DISABLED,
-        }
-
-        /**
-         * An enum containing [NoiseSuppression]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [NoiseSuppression] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            INBOUND,
-            OUTBOUND,
-            BOTH,
-            DISABLED,
-            /**
-             * An enum member indicating that [NoiseSuppression] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                INBOUND -> Value.INBOUND
-                OUTBOUND -> Value.OUTBOUND
-                BOTH -> Value.BOTH
-                DISABLED -> Value.DISABLED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                INBOUND -> Known.INBOUND
-                OUTBOUND -> Known.OUTBOUND
-                BOTH -> Known.BOTH
-                DISABLED -> Known.DISABLED
-                else -> throw TelnyxInvalidDataException("Unknown NoiseSuppression: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): NoiseSuppression = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NoiseSuppression && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

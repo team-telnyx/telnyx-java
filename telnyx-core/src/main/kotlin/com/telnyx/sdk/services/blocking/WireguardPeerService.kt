@@ -35,14 +35,22 @@ interface WireguardPeerService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WireguardPeerService
 
     /** Create a new WireGuard Peer. Current limitation of 5 peers per interface can be created. */
-    fun create(params: WireguardPeerCreateParams): WireguardPeerCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(): WireguardPeerCreateResponse = create(WireguardPeerCreateParams.none())
 
     /** @see create */
     fun create(
-        params: WireguardPeerCreateParams,
+        params: WireguardPeerCreateParams = WireguardPeerCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireguardPeerCreateResponse
+
+    /** @see create */
+    fun create(
+        params: WireguardPeerCreateParams = WireguardPeerCreateParams.none()
+    ): WireguardPeerCreateResponse = create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(requestOptions: RequestOptions): WireguardPeerCreateResponse =
+        create(WireguardPeerCreateParams.none(), requestOptions)
 
     /** Retrieve the WireGuard peer. */
     fun retrieve(id: String): WireguardPeerRetrieveResponse =
@@ -195,16 +203,26 @@ interface WireguardPeerService {
          * [WireguardPeerService.create].
          */
         @MustBeClosed
-        fun create(
-            params: WireguardPeerCreateParams
-        ): HttpResponseFor<WireguardPeerCreateResponse> = create(params, RequestOptions.none())
+        fun create(): HttpResponseFor<WireguardPeerCreateResponse> =
+            create(WireguardPeerCreateParams.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            params: WireguardPeerCreateParams,
+            params: WireguardPeerCreateParams = WireguardPeerCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireguardPeerCreateResponse>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: WireguardPeerCreateParams = WireguardPeerCreateParams.none()
+        ): HttpResponseFor<WireguardPeerCreateResponse> = create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(requestOptions: RequestOptions): HttpResponseFor<WireguardPeerCreateResponse> =
+            create(WireguardPeerCreateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wireguard_peers/{id}`, but is otherwise the same as

@@ -20,7 +20,7 @@ internal class EnterpriseServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val enterpriseServiceAsync = client.enterprises()
 
-        val enterpriseFuture =
+        val enterprisePublicWrappedFuture =
             enterpriseServiceAsync.create(
                 EnterpriseCreateParams.builder()
                     .billingAddress(
@@ -81,8 +81,8 @@ internal class EnterpriseServiceAsyncTest {
                     .build()
             )
 
-        val enterprise = enterpriseFuture.get()
-        enterprise.validate()
+        val enterprisePublicWrapped = enterprisePublicWrappedFuture.get()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -91,11 +91,11 @@ internal class EnterpriseServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val enterpriseServiceAsync = client.enterprises()
 
-        val enterpriseFuture =
+        val enterprisePublicWrappedFuture =
             enterpriseServiceAsync.retrieve("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
-        val enterprise = enterpriseFuture.get()
-        enterprise.validate()
+        val enterprisePublicWrapped = enterprisePublicWrappedFuture.get()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -104,7 +104,7 @@ internal class EnterpriseServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val enterpriseServiceAsync = client.enterprises()
 
-        val enterpriseFuture =
+        val enterprisePublicWrappedFuture =
             enterpriseServiceAsync.update(
                 EnterpriseUpdateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -161,8 +161,8 @@ internal class EnterpriseServiceAsyncTest {
                     .build()
             )
 
-        val enterprise = enterpriseFuture.get()
-        enterprise.validate()
+        val enterprisePublicWrapped = enterprisePublicWrappedFuture.get()
+        enterprisePublicWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -190,14 +190,14 @@ internal class EnterpriseServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun activateBrandedCalling() {
+    fun brandedCalling() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val enterpriseServiceAsync = client.enterprises()
 
-        val responseFuture =
-            enterpriseServiceAsync.activateBrandedCalling("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        val enterprisePublicWrappedFuture =
+            enterpriseServiceAsync.brandedCalling("4a6192a4-573d-446d-b3ce-aff9117272a6")
 
-        val response = responseFuture.get()
-        response.validate()
+        val enterprisePublicWrapped = enterprisePublicWrappedFuture.get()
+        enterprisePublicWrapped.validate()
     }
 }

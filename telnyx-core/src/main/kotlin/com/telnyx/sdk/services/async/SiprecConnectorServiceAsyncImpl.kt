@@ -18,12 +18,10 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorDeleteParams
+import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -46,21 +44,21 @@ internal constructor(private val clientOptions: ClientOptions) : SiprecConnector
     override fun create(
         params: SiprecConnectorCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SiprecConnectorCreateResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         // post /siprec_connectors
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: SiprecConnectorRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SiprecConnectorRetrieveResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         // get /siprec_connectors/{connector_name}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: SiprecConnectorUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SiprecConnectorUpdateResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         // put /siprec_connectors/{connector_name}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -84,13 +82,13 @@ internal constructor(private val clientOptions: ClientOptions) : SiprecConnector
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<SiprecConnectorCreateResponse> =
-            jsonHandler<SiprecConnectorCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<SiprecConnectorResponse> =
+            jsonHandler<SiprecConnectorResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: SiprecConnectorCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -115,13 +113,13 @@ internal constructor(private val clientOptions: ClientOptions) : SiprecConnector
                 }
         }
 
-        private val retrieveHandler: Handler<SiprecConnectorRetrieveResponse> =
-            jsonHandler<SiprecConnectorRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<SiprecConnectorResponse> =
+            jsonHandler<SiprecConnectorResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: SiprecConnectorRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectorName", params.connectorName().getOrNull())
@@ -148,13 +146,13 @@ internal constructor(private val clientOptions: ClientOptions) : SiprecConnector
                 }
         }
 
-        private val updateHandler: Handler<SiprecConnectorUpdateResponse> =
-            jsonHandler<SiprecConnectorUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<SiprecConnectorResponse> =
+            jsonHandler<SiprecConnectorResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: SiprecConnectorUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectorName", params.connectorName().getOrNull())

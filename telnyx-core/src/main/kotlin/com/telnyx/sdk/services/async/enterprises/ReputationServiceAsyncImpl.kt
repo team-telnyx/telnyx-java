@@ -17,13 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
@@ -67,7 +65,7 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun retrieve(
         params: ReputationRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationRetrieveResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // get /enterprises/{enterprise_id}/reputation
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -81,14 +79,14 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun enable(
         params: ReputationEnableParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationEnableResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // post /enterprises/{enterprise_id}/reputation
         withRawResponse().enable(params, requestOptions).thenApply { it.parse() }
 
     override fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationUpdateFrequencyResponse> =
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // patch /enterprises/{enterprise_id}/reputation/frequency
         withRawResponse().updateFrequency(params, requestOptions).thenApply { it.parse() }
 
@@ -126,13 +124,13 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun remediation(): RemediationServiceAsync.WithRawResponse = remediation
 
-        private val retrieveHandler: Handler<ReputationRetrieveResponse> =
-            jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ReputationRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -186,13 +184,13 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val enableHandler: Handler<ReputationEnableResponse> =
-            jsonHandler<ReputationEnableResponse>(clientOptions.jsonMapper)
+        private val enableHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun enable(
             params: ReputationEnableParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -220,13 +218,13 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val updateFrequencyHandler: Handler<ReputationUpdateFrequencyResponse> =
-            jsonHandler<ReputationUpdateFrequencyResponse>(clientOptions.jsonMapper)
+        private val updateFrequencyHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
 
         override fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationUpdateFrequencyResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())

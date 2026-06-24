@@ -14,12 +14,12 @@ internal class PlanCreateParamsTest {
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .addStep(
-                PlanCreateParams.Step.builder()
+                CreatePlanStepRequest.builder()
                     .description("description")
                     .sequence(0L)
                     .stepId("step_id")
                     .metadata(
-                        PlanCreateParams.Step.Metadata.builder()
+                        CreatePlanStepRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -36,7 +36,7 @@ internal class PlanCreateParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addStep(
-                    PlanCreateParams.Step.builder()
+                    CreatePlanStepRequest.builder()
                         .description("description")
                         .sequence(0L)
                         .stepId("step_id")
@@ -57,12 +57,12 @@ internal class PlanCreateParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addStep(
-                    PlanCreateParams.Step.builder()
+                    CreatePlanStepRequest.builder()
                         .description("description")
                         .sequence(0L)
                         .stepId("step_id")
                         .metadata(
-                            PlanCreateParams.Step.Metadata.builder()
+                            CreatePlanStepRequest.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -75,12 +75,12 @@ internal class PlanCreateParamsTest {
 
         assertThat(body.steps())
             .containsExactly(
-                PlanCreateParams.Step.builder()
+                CreatePlanStepRequest.builder()
                     .description("description")
                     .sequence(0L)
                     .stepId("step_id")
                     .metadata(
-                        PlanCreateParams.Step.Metadata.builder()
+                        CreatePlanStepRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -96,7 +96,7 @@ internal class PlanCreateParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addStep(
-                    PlanCreateParams.Step.builder()
+                    CreatePlanStepRequest.builder()
                         .description("description")
                         .sequence(0L)
                         .stepId("step_id")
@@ -108,7 +108,7 @@ internal class PlanCreateParamsTest {
 
         assertThat(body.steps())
             .containsExactly(
-                PlanCreateParams.Step.builder()
+                CreatePlanStepRequest.builder()
                     .description("description")
                     .sequence(0L)
                     .stepId("step_id")

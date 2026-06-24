@@ -17,21 +17,19 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.missions.EventsListResponse
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionCreateParams
-import com.telnyx.sdk.models.ai.missions.MissionCreateResponse
 import com.telnyx.sdk.models.ai.missions.MissionDeleteMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionListEventsPage
-import com.telnyx.sdk.models.ai.missions.MissionListEventsPageResponse
 import com.telnyx.sdk.models.ai.missions.MissionListEventsParams
 import com.telnyx.sdk.models.ai.missions.MissionListPage
 import com.telnyx.sdk.models.ai.missions.MissionListPageResponse
 import com.telnyx.sdk.models.ai.missions.MissionListParams
+import com.telnyx.sdk.models.ai.missions.MissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionRetrieveParams
-import com.telnyx.sdk.models.ai.missions.MissionRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionParams
-import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionResponse
 import com.telnyx.sdk.services.blocking.ai.missions.KnowledgeBaseService
 import com.telnyx.sdk.services.blocking.ai.missions.KnowledgeBaseServiceImpl
 import com.telnyx.sdk.services.blocking.ai.missions.McpServerService
@@ -76,14 +74,14 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
     override fun create(
         params: MissionCreateParams,
         requestOptions: RequestOptions,
-    ): MissionCreateResponse =
+    ): MissionResponse =
         // post /ai/missions
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: MissionRetrieveParams,
         requestOptions: RequestOptions,
-    ): MissionRetrieveResponse =
+    ): MissionResponse =
         // get /ai/missions/{mission_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -113,7 +111,7 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
     override fun updateMission(
         params: MissionUpdateMissionParams,
         requestOptions: RequestOptions,
-    ): MissionUpdateMissionResponse =
+    ): MissionResponse =
         // put /ai/missions/{mission_id}
         withRawResponse().updateMission(params, requestOptions).parse()
 
@@ -154,13 +152,13 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
 
         override fun tools(): ToolService.WithRawResponse = tools
 
-        private val createHandler: Handler<MissionCreateResponse> =
-            jsonHandler<MissionCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: MissionCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MissionCreateResponse> {
+        ): HttpResponseFor<MissionResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -182,13 +180,13 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val retrieveHandler: Handler<MissionRetrieveResponse> =
-            jsonHandler<MissionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: MissionRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MissionRetrieveResponse> {
+        ): HttpResponseFor<MissionResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())
@@ -301,8 +299,8 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listEventsHandler: Handler<MissionListEventsPageResponse> =
-            jsonHandler<MissionListEventsPageResponse>(clientOptions.jsonMapper)
+        private val listEventsHandler: Handler<EventsListResponse> =
+            jsonHandler<EventsListResponse>(clientOptions.jsonMapper)
 
         override fun listEvents(
             params: MissionListEventsParams,
@@ -335,13 +333,13 @@ class MissionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateMissionHandler: Handler<MissionUpdateMissionResponse> =
-            jsonHandler<MissionUpdateMissionResponse>(clientOptions.jsonMapper)
+        private val updateMissionHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun updateMission(
             params: MissionUpdateMissionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MissionUpdateMissionResponse> {
+        ): HttpResponseFor<MissionResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())

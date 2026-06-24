@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.openai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.chat.ChatCompletionRequest
 import com.telnyx.sdk.models.ai.openai.chat.ChatCreateCompletionParams
 import com.telnyx.sdk.models.ai.openai.chat.ChatCreateCompletionResponse
 import java.util.concurrent.CompletableFuture
@@ -41,6 +42,24 @@ interface ChatServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ChatCreateCompletionResponse>
 
+    /** @see createCompletion */
+    fun createCompletion(
+        chatCompletionRequest: ChatCompletionRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ChatCreateCompletionResponse> =
+        createCompletion(
+            ChatCreateCompletionParams.builder()
+                .chatCompletionRequest(chatCompletionRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see createCompletion */
+    fun createCompletion(
+        chatCompletionRequest: ChatCompletionRequest
+    ): CompletableFuture<ChatCreateCompletionResponse> =
+        createCompletion(chatCompletionRequest, RequestOptions.none())
+
     /** A view of [ChatServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -65,5 +84,23 @@ interface ChatServiceAsync {
             params: ChatCreateCompletionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ChatCreateCompletionResponse>>
+
+        /** @see createCompletion */
+        fun createCompletion(
+            chatCompletionRequest: ChatCompletionRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ChatCreateCompletionResponse>> =
+            createCompletion(
+                ChatCreateCompletionParams.builder()
+                    .chatCompletionRequest(chatCompletionRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createCompletion */
+        fun createCompletion(
+            chatCompletionRequest: ChatCompletionRequest
+        ): CompletableFuture<HttpResponseFor<ChatCreateCompletionResponse>> =
+            createCompletion(chatCompletionRequest, RequestOptions.none())
     }
 }

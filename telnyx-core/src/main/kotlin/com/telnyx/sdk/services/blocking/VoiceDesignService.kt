@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
@@ -16,8 +15,8 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPage
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
 import java.util.function.Consumer
 
 /** Create and manage AI-generated voice designs using natural language prompts. */
@@ -40,47 +39,46 @@ interface VoiceDesignService {
      * `voice_design_id` is provided, adds a new version to the existing design instead. A design
      * can have at most 50 versions.
      */
-    fun create(params: VoiceDesignCreateParams): VoiceDesignCreateResponse =
+    fun create(params: VoiceDesignCreateParams): VoiceDesignResponse =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: VoiceDesignCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceDesignCreateResponse
+    ): VoiceDesignResponse
 
     /**
      * Returns the latest version of a voice design, or a specific version when `?version=N` is
      * provided. The `id` parameter accepts either a UUID or the design name.
      */
-    fun retrieve(id: String): VoiceDesignRetrieveResponse =
-        retrieve(id, VoiceDesignRetrieveParams.none())
+    fun retrieve(id: String): VoiceDesignResponse = retrieve(id, VoiceDesignRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceDesignRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): VoiceDesignResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
-    ): VoiceDesignRetrieveResponse = retrieve(id, params, RequestOptions.none())
+    ): VoiceDesignResponse = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VoiceDesignRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceDesignRetrieveResponse
+    ): VoiceDesignResponse
 
     /** @see retrieve */
-    fun retrieve(params: VoiceDesignRetrieveParams): VoiceDesignRetrieveResponse =
+    fun retrieve(params: VoiceDesignRetrieveParams): VoiceDesignResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): VoiceDesignRetrieveResponse =
+    fun retrieve(id: String, requestOptions: RequestOptions): VoiceDesignResponse =
         retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
 
     /** Returns a paginated list of voice designs belonging to the authenticated account. */
@@ -232,7 +230,7 @@ interface VoiceDesignService {
          * [VoiceDesignService.create].
          */
         @MustBeClosed
-        fun create(params: VoiceDesignCreateParams): HttpResponseFor<VoiceDesignCreateResponse> =
+        fun create(params: VoiceDesignCreateParams): HttpResponseFor<VoiceDesignResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -240,14 +238,14 @@ interface VoiceDesignService {
         fun create(
             params: VoiceDesignCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceDesignCreateResponse>
+        ): HttpResponseFor<VoiceDesignResponse>
 
         /**
          * Returns a raw HTTP response for `get /voice_designs/{id}`, but is otherwise the same as
          * [VoiceDesignService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponseFor<VoiceDesignRetrieveResponse> =
+        fun retrieve(id: String): HttpResponseFor<VoiceDesignResponse> =
             retrieve(id, VoiceDesignRetrieveParams.none())
 
         /** @see retrieve */
@@ -256,7 +254,7 @@ interface VoiceDesignService {
             id: String,
             params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceDesignRetrieveResponse> =
+        ): HttpResponseFor<VoiceDesignResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -264,28 +262,26 @@ interface VoiceDesignService {
         fun retrieve(
             id: String,
             params: VoiceDesignRetrieveParams = VoiceDesignRetrieveParams.none(),
-        ): HttpResponseFor<VoiceDesignRetrieveResponse> =
-            retrieve(id, params, RequestOptions.none())
+        ): HttpResponseFor<VoiceDesignResponse> = retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: VoiceDesignRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceDesignRetrieveResponse>
+        ): HttpResponseFor<VoiceDesignResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: VoiceDesignRetrieveParams
-        ): HttpResponseFor<VoiceDesignRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: VoiceDesignRetrieveParams): HttpResponseFor<VoiceDesignResponse> =
+            retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceDesignRetrieveResponse> =
+        ): HttpResponseFor<VoiceDesignResponse> =
             retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
 
         /**

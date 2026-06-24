@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
+import com.telnyx.sdk.models.globalips.GlobalIp
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -18,7 +18,7 @@ internal class GlobalIpServiceTest {
 
         val globalIp =
             globalIpService.create(
-                GlobalIpCreateParams.builder()
+                GlobalIp.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")
@@ -27,7 +27,7 @@ internal class GlobalIpServiceTest {
                     .ipAddress("198.51.100.1")
                     .name("test interface")
                     .ports(
-                        GlobalIpCreateParams.Ports.builder()
+                        GlobalIp.Ports.builder()
                             .putAdditionalProperty("tcp", JsonValue.from("bar"))
                             .putAdditionalProperty("udp", JsonValue.from("bar"))
                             .build()

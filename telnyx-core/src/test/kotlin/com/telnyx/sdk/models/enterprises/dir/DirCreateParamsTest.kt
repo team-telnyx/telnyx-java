@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.enterprises.dir
 
+import com.telnyx.sdk.models.dir.Document
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,9 +22,9 @@ internal class DirCreateParamsTest {
             .addCallReason("Appointment reminders")
             .addCallReason("Billing inquiries")
             .addDocument(
-                DirCreateParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(DirCreateParams.Document.DocumentType.BUSINESS_REGISTRATION)
+                    .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                     .description("Certificate of incorporation.")
                     .build()
             )
@@ -64,9 +65,9 @@ internal class DirCreateParamsTest {
                 .addCallReason("Appointment reminders")
                 .addCallReason("Billing inquiries")
                 .addDocument(
-                    DirCreateParams.Document.builder()
+                    Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                        .documentType(DirCreateParams.Document.DocumentType.BUSINESS_REGISTRATION)
+                        .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                         .description("Certificate of incorporation.")
                         .build()
                 )
@@ -88,9 +89,9 @@ internal class DirCreateParamsTest {
             .containsExactly("Appointment reminders", "Billing inquiries")
         assertThat(body.documents().getOrNull())
             .containsExactly(
-                DirCreateParams.Document.builder()
+                Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                    .documentType(DirCreateParams.Document.DocumentType.BUSINESS_REGISTRATION)
+                    .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                     .description("Certificate of incorporation.")
                     .build()
             )

@@ -6,11 +6,10 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListPageAsync
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventLogParams
-import com.telnyx.sdk.models.ai.missions.runs.events.EventLogResponse
+import com.telnyx.sdk.models.ai.missions.runs.events.EventResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -54,31 +53,28 @@ interface EventServiceAsync {
     fun getEventDetails(
         eventId: String,
         params: EventGetEventDetailsParams,
-    ): CompletableFuture<EventGetEventDetailsResponse> =
-        getEventDetails(eventId, params, RequestOptions.none())
+    ): CompletableFuture<EventResponse> = getEventDetails(eventId, params, RequestOptions.none())
 
     /** @see getEventDetails */
     fun getEventDetails(
         eventId: String,
         params: EventGetEventDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventGetEventDetailsResponse> =
+    ): CompletableFuture<EventResponse> =
         getEventDetails(params.toBuilder().eventId(eventId).build(), requestOptions)
 
     /** @see getEventDetails */
-    fun getEventDetails(
-        params: EventGetEventDetailsParams
-    ): CompletableFuture<EventGetEventDetailsResponse> =
+    fun getEventDetails(params: EventGetEventDetailsParams): CompletableFuture<EventResponse> =
         getEventDetails(params, RequestOptions.none())
 
     /** @see getEventDetails */
     fun getEventDetails(
         params: EventGetEventDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventGetEventDetailsResponse>
+    ): CompletableFuture<EventResponse>
 
     /** Log an event for a run */
-    fun log(runId: String, params: EventLogParams): CompletableFuture<EventLogResponse> =
+    fun log(runId: String, params: EventLogParams): CompletableFuture<EventResponse> =
         log(runId, params, RequestOptions.none())
 
     /** @see log */
@@ -86,18 +82,18 @@ interface EventServiceAsync {
         runId: String,
         params: EventLogParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventLogResponse> =
+    ): CompletableFuture<EventResponse> =
         log(params.toBuilder().runId(runId).build(), requestOptions)
 
     /** @see log */
-    fun log(params: EventLogParams): CompletableFuture<EventLogResponse> =
+    fun log(params: EventLogParams): CompletableFuture<EventResponse> =
         log(params, RequestOptions.none())
 
     /** @see log */
     fun log(
         params: EventLogParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventLogResponse>
+    ): CompletableFuture<EventResponse>
 
     /** A view of [EventServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -147,7 +143,7 @@ interface EventServiceAsync {
         fun getEventDetails(
             eventId: String,
             params: EventGetEventDetailsParams,
-        ): CompletableFuture<HttpResponseFor<EventGetEventDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventResponse>> =
             getEventDetails(eventId, params, RequestOptions.none())
 
         /** @see getEventDetails */
@@ -155,20 +151,20 @@ interface EventServiceAsync {
             eventId: String,
             params: EventGetEventDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventGetEventDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventResponse>> =
             getEventDetails(params.toBuilder().eventId(eventId).build(), requestOptions)
 
         /** @see getEventDetails */
         fun getEventDetails(
             params: EventGetEventDetailsParams
-        ): CompletableFuture<HttpResponseFor<EventGetEventDetailsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventResponse>> =
             getEventDetails(params, RequestOptions.none())
 
         /** @see getEventDetails */
         fun getEventDetails(
             params: EventGetEventDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventGetEventDetailsResponse>>
+        ): CompletableFuture<HttpResponseFor<EventResponse>>
 
         /**
          * Returns a raw HTTP response for `post /ai/missions/{mission_id}/runs/{run_id}/events`,
@@ -177,7 +173,7 @@ interface EventServiceAsync {
         fun log(
             runId: String,
             params: EventLogParams,
-        ): CompletableFuture<HttpResponseFor<EventLogResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventResponse>> =
             log(runId, params, RequestOptions.none())
 
         /** @see log */
@@ -185,17 +181,17 @@ interface EventServiceAsync {
             runId: String,
             params: EventLogParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventLogResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventResponse>> =
             log(params.toBuilder().runId(runId).build(), requestOptions)
 
         /** @see log */
-        fun log(params: EventLogParams): CompletableFuture<HttpResponseFor<EventLogResponse>> =
+        fun log(params: EventLogParams): CompletableFuture<HttpResponseFor<EventResponse>> =
             log(params, RequestOptions.none())
 
         /** @see log */
         fun log(
             params: EventLogParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventLogResponse>>
+        ): CompletableFuture<HttpResponseFor<EventResponse>>
     }
 }

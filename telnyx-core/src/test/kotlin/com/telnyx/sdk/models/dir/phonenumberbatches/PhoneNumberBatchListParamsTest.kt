@@ -12,7 +12,7 @@ internal class PhoneNumberBatchListParamsTest {
     fun create() {
         PhoneNumberBatchListParams.builder()
             .dirId("16635d38-75a6-4481-82e8-69af60e05011")
-            .filterStatus(PhoneNumberBatchListParams.FilterStatus.SUBMITTED)
+            .filterStatus(DirPhoneNumberStatus.SUBMITTED)
             .pageNumber(1L)
             .pageSize(20L)
             .build()
@@ -35,7 +35,7 @@ internal class PhoneNumberBatchListParamsTest {
         val params =
             PhoneNumberBatchListParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
-                .filterStatus(PhoneNumberBatchListParams.FilterStatus.SUBMITTED)
+                .filterStatus(DirPhoneNumberStatus.SUBMITTED)
                 .pageNumber(1L)
                 .pageSize(20L)
                 .build()

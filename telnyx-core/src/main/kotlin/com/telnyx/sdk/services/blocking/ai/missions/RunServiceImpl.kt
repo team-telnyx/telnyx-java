@@ -16,24 +16,18 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.missions.runs.MissionRunResponse
+import com.telnyx.sdk.models.ai.missions.runs.MissionRunsListResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListPage
-import com.telnyx.sdk.models.ai.missions.runs.RunListPageResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListParams
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsPage
-import com.telnyx.sdk.models.ai.missions.runs.RunListRunsPageResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunListRunsParams
 import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunParams
-import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
-import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
-import com.telnyx.sdk.models.ai.missions.runs.RunUpdateResponse
 import com.telnyx.sdk.services.blocking.ai.missions.runs.EventService
 import com.telnyx.sdk.services.blocking.ai.missions.runs.EventServiceImpl
 import com.telnyx.sdk.services.blocking.ai.missions.runs.PlanService
@@ -69,21 +63,21 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun create(
         params: RunCreateParams,
         requestOptions: RequestOptions,
-    ): RunCreateResponse =
+    ): MissionRunResponse =
         // post /ai/missions/{mission_id}/runs
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: RunRetrieveParams,
         requestOptions: RequestOptions,
-    ): RunRetrieveResponse =
+    ): MissionRunResponse =
         // get /ai/missions/{mission_id}/runs/{run_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: RunUpdateParams,
         requestOptions: RequestOptions,
-    ): RunUpdateResponse =
+    ): MissionRunResponse =
         // patch /ai/missions/{mission_id}/runs/{run_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -94,7 +88,7 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun cancelRun(
         params: RunCancelRunParams,
         requestOptions: RequestOptions,
-    ): RunCancelRunResponse =
+    ): MissionRunResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/cancel
         withRawResponse().cancelRun(params, requestOptions).parse()
 
@@ -108,14 +102,14 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun pauseRun(
         params: RunPauseRunParams,
         requestOptions: RequestOptions,
-    ): RunPauseRunResponse =
+    ): MissionRunResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/pause
         withRawResponse().pauseRun(params, requestOptions).parse()
 
     override fun resumeRun(
         params: RunResumeRunParams,
         requestOptions: RequestOptions,
-    ): RunResumeRunResponse =
+    ): MissionRunResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/resume
         withRawResponse().resumeRun(params, requestOptions).parse()
 
@@ -150,13 +144,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
 
         override fun telnyxAgents(): TelnyxAgentService.WithRawResponse = telnyxAgents
 
-        private val createHandler: Handler<RunCreateResponse> =
-            jsonHandler<RunCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: RunCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunCreateResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())
@@ -181,13 +175,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val retrieveHandler: Handler<RunRetrieveResponse> =
-            jsonHandler<RunRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: RunRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunRetrieveResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -217,13 +211,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val updateHandler: Handler<RunUpdateResponse> =
-            jsonHandler<RunUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: RunUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunUpdateResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -254,8 +248,8 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<RunListPageResponse> =
-            jsonHandler<RunListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MissionRunsListResponse> =
+            jsonHandler<MissionRunsListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RunListParams,
@@ -291,13 +285,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val cancelRunHandler: Handler<RunCancelRunResponse> =
-            jsonHandler<RunCancelRunResponse>(clientOptions.jsonMapper)
+        private val cancelRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun cancelRun(
             params: RunCancelRunParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunCancelRunResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -329,8 +323,8 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listRunsHandler: Handler<RunListRunsPageResponse> =
-            jsonHandler<RunListRunsPageResponse>(clientOptions.jsonMapper)
+        private val listRunsHandler: Handler<MissionRunsListResponse> =
+            jsonHandler<MissionRunsListResponse>(clientOptions.jsonMapper)
 
         override fun listRuns(
             params: RunListRunsParams,
@@ -363,13 +357,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val pauseRunHandler: Handler<RunPauseRunResponse> =
-            jsonHandler<RunPauseRunResponse>(clientOptions.jsonMapper)
+        private val pauseRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun pauseRun(
             params: RunPauseRunParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunPauseRunResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -401,13 +395,13 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val resumeRunHandler: Handler<RunResumeRunResponse> =
-            jsonHandler<RunResumeRunResponse>(clientOptions.jsonMapper)
+        private val resumeRunHandler: Handler<MissionRunResponse> =
+            jsonHandler<MissionRunResponse>(clientOptions.jsonMapper)
 
         override fun resumeRun(
             params: RunResumeRunParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunResumeRunResponse> {
+        ): HttpResponseFor<MissionRunResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())

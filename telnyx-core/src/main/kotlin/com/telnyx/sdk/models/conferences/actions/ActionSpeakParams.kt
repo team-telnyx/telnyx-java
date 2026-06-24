@@ -29,9 +29,11 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.AzureVoiceSettings
+import com.telnyx.sdk.models.InworldVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.RimeVoiceSettings
+import com.telnyx.sdk.models.XaiVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -64,7 +66,7 @@ private constructor(
      * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider
      *   will give default values for voice_id and model_id.
      *
-     *   **Supported Providers:**
+     * **Supported Providers:**
      * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
      *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
      *   `AWS.Polly.Joanna-Neural`). Check the
@@ -148,7 +150,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun region(): Optional<Region> = body.region()
+    fun region(): Optional<ConferenceRegion> = body.region()
 
     /**
      * The settings associated with the voice selected
@@ -205,7 +207,7 @@ private constructor(
      *
      * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _region(): JsonField<Region> = body._region()
+    fun _region(): JsonField<ConferenceRegion> = body._region()
 
     /**
      * Returns the raw JSON value of [voiceSettings].
@@ -289,7 +291,7 @@ private constructor(
          * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
          *   provider will give default values for voice_id and model_id.
          *
-         *   **Supported Providers:**
+         * **Supported Providers:**
          * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
          *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
          *   `AWS.Polly.Joanna-Neural`). Check the
@@ -415,15 +417,16 @@ private constructor(
          * Region where the conference data is located. Defaults to the region defined in user's
          * data locality settings (Europe or US).
          */
-        fun region(region: Region) = apply { body.region(region) }
+        fun region(region: ConferenceRegion) = apply { body.region(region) }
 
         /**
          * Sets [Builder.region] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.region] with a well-typed [Region] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.region] with a well-typed [ConferenceRegion] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun region(region: JsonField<Region>) = apply { body.region(region) }
+        fun region(region: JsonField<ConferenceRegion>) = apply { body.region(region) }
 
         /** The settings associated with the voice selected */
         fun voiceSettings(voiceSettings: VoiceSettings) = apply {
@@ -465,10 +468,10 @@ private constructor(
         fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
-        fun voiceSettings(inworld: VoiceSettings.Inworld) = apply { body.voiceSettings(inworld) }
+        fun voiceSettings(inworld: InworldVoiceSettings) = apply { body.voiceSettings(inworld) }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-        fun voiceSettings(xai: VoiceSettings.Xai) = apply { body.voiceSettings(xai) }
+        fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -630,7 +633,7 @@ private constructor(
         private val commandId: JsonField<String>,
         private val language: JsonField<Language>,
         private val payloadType: JsonField<PayloadType>,
-        private val region: JsonField<Region>,
+        private val region: JsonField<ConferenceRegion>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -651,7 +654,9 @@ private constructor(
             @JsonProperty("payload_type")
             @ExcludeMissing
             payloadType: JsonField<PayloadType> = JsonMissing.of(),
-            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
+            @JsonProperty("region")
+            @ExcludeMissing
+            region: JsonField<ConferenceRegion> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -680,7 +685,7 @@ private constructor(
          * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
          *   provider will give default values for voice_id and model_id.
          *
-         *   **Supported Providers:**
+         * **Supported Providers:**
          * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
          *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
          *   `AWS.Polly.Joanna-Neural`). Check the
@@ -768,7 +773,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun region(): Optional<Region> = region.getOptional("region")
+        fun region(): Optional<ConferenceRegion> = region.getOptional("region")
 
         /**
          * The settings associated with the voice selected
@@ -830,7 +835,7 @@ private constructor(
          *
          * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<ConferenceRegion> = region
 
         /**
          * Returns the raw JSON value of [voiceSettings].
@@ -877,7 +882,7 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
             private var payloadType: JsonField<PayloadType> = JsonMissing.of()
-            private var region: JsonField<Region> = JsonMissing.of()
+            private var region: JsonField<ConferenceRegion> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -911,7 +916,7 @@ private constructor(
              * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
              *   provider will give default values for voice_id and model_id.
              *
-             *   **Supported Providers:**
+             * **Supported Providers:**
              * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices,
              *   which provide more realistic, human-like speech, append `-Neural` to the `VoiceId`
              *   (e.g., `AWS.Polly.Joanna-Neural`). Check the
@@ -1043,16 +1048,16 @@ private constructor(
              * Region where the conference data is located. Defaults to the region defined in user's
              * data locality settings (Europe or US).
              */
-            fun region(region: Region) = region(JsonField.of(region))
+            fun region(region: ConferenceRegion) = region(JsonField.of(region))
 
             /**
              * Sets [Builder.region] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.region] with a well-typed [Region] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.region] with a well-typed [ConferenceRegion] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun region(region: JsonField<Region>) = apply { this.region = region }
+            fun region(region: JsonField<ConferenceRegion>) = apply { this.region = region }
 
             /** The settings associated with the voice selected */
             fun voiceSettings(voiceSettings: VoiceSettings) =
@@ -1096,11 +1101,11 @@ private constructor(
                 voiceSettings(VoiceSettings.ofResemble(resemble))
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
-            fun voiceSettings(inworld: VoiceSettings.Inworld) =
+            fun voiceSettings(inworld: InworldVoiceSettings) =
                 voiceSettings(VoiceSettings.ofInworld(inworld))
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
-            fun voiceSettings(xai: VoiceSettings.Xai) = voiceSettings(VoiceSettings.ofXai(xai))
+            fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1677,156 +1682,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * Region where the conference data is located. Defaults to the region defined in user's data
-     * locality settings (Europe or US).
-     */
-    class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val AUSTRALIA = of("Australia")
-
-            @JvmField val EUROPE = of("Europe")
-
-            @JvmField val MIDDLE_EAST = of("Middle East")
-
-            @JvmField val US = of("US")
-
-            @JvmStatic fun of(value: String) = Region(JsonField.of(value))
-        }
-
-        /** An enum containing [Region]'s known values. */
-        enum class Known {
-            AUSTRALIA,
-            EUROPE,
-            MIDDLE_EAST,
-            US,
-        }
-
-        /**
-         * An enum containing [Region]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Region] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            AUSTRALIA,
-            EUROPE,
-            MIDDLE_EAST,
-            US,
-            /** An enum member indicating that [Region] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                AUSTRALIA -> Value.AUSTRALIA
-                EUROPE -> Value.EUROPE
-                MIDDLE_EAST -> Value.MIDDLE_EAST
-                US -> Value.US
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                AUSTRALIA -> Known.AUSTRALIA
-                EUROPE -> Known.EUROPE
-                MIDDLE_EAST -> Known.MIDDLE_EAST
-                US -> Known.US
-                else -> throw TelnyxInvalidDataException("Unknown Region: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Region = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Region && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     /** The settings associated with the voice selected */
     @JsonDeserialize(using = VoiceSettings.Deserializer::class)
     @JsonSerialize(using = VoiceSettings.Serializer::class)
@@ -1839,8 +1694,8 @@ private constructor(
         private val azure: AzureVoiceSettings? = null,
         private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
-        private val inworld: Inworld? = null,
-        private val xai: Xai? = null,
+        private val inworld: InworldVoiceSettings? = null,
+        private val xai: XaiVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1858,9 +1713,9 @@ private constructor(
 
         fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
 
-        fun inworld(): Optional<Inworld> = Optional.ofNullable(inworld)
+        fun inworld(): Optional<InworldVoiceSettings> = Optional.ofNullable(inworld)
 
-        fun xai(): Optional<Xai> = Optional.ofNullable(xai)
+        fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
 
         fun isElevenlabs(): Boolean = elevenlabs != null
 
@@ -1894,9 +1749,9 @@ private constructor(
 
         fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
-        fun asInworld(): Inworld = inworld.getOrThrow("inworld")
+        fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
 
-        fun asXai(): Xai = xai.getOrThrow("xai")
+        fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1989,11 +1844,11 @@ private constructor(
                         resemble.validate()
                     }
 
-                    override fun visitInworld(inworld: Inworld) {
+                    override fun visitInworld(inworld: InworldVoiceSettings) {
                         inworld.validate()
                     }
 
-                    override fun visitXai(xai: Xai) {
+                    override fun visitXai(xai: XaiVoiceSettings) {
                         xai.validate()
                     }
                 }
@@ -2035,9 +1890,9 @@ private constructor(
                     override fun visitResemble(resemble: ResembleVoiceSettings) =
                         resemble.validity()
 
-                    override fun visitInworld(inworld: Inworld) = inworld.validity()
+                    override fun visitInworld(inworld: InworldVoiceSettings) = inworld.validity()
 
-                    override fun visitXai(xai: Xai) = xai.validity()
+                    override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -2098,9 +1953,10 @@ private constructor(
             @JvmStatic
             fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
 
-            @JvmStatic fun ofInworld(inworld: Inworld) = VoiceSettings(inworld = inworld)
+            @JvmStatic
+            fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
 
-            @JvmStatic fun ofXai(xai: Xai) = VoiceSettings(xai = xai)
+            @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
         }
 
         /**
@@ -2123,9 +1979,9 @@ private constructor(
 
             fun visitResemble(resemble: ResembleVoiceSettings): T
 
-            fun visitInworld(inworld: Inworld): T
+            fun visitInworld(inworld: InworldVoiceSettings): T
 
-            fun visitXai(xai: Xai): T
+            fun visitXai(xai: XaiVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2185,12 +2041,12 @@ private constructor(
                         } ?: VoiceSettings(_json = json)
                     }
                     "inworld" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Inworld>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<InworldVoiceSettings>())?.let {
                             VoiceSettings(inworld = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
                     "xai" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Xai>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {
                             VoiceSettings(xai = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
@@ -2221,571 +2077,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
-        }
-
-        class Inworld
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val type: JsonValue,
-            private val deliveryMode: JsonField<DeliveryMode>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                @JsonProperty("delivery_mode")
-                @ExcludeMissing
-                deliveryMode: JsonField<DeliveryMode> = JsonMissing.of(),
-            ) : this(type, deliveryMode, mutableMapOf())
-
-            /**
-             * Voice settings provider type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("inworld")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-             * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows more
-             * expressive variation, and `BALANCED` sits in between. Optional and only supported by
-             * `TTS2`; when omitted, the provider default applies.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun deliveryMode(): Optional<DeliveryMode> = deliveryMode.getOptional("delivery_mode")
-
-            /**
-             * Returns the raw JSON value of [deliveryMode].
-             *
-             * Unlike [deliveryMode], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("delivery_mode")
-            @ExcludeMissing
-            fun _deliveryMode(): JsonField<DeliveryMode> = deliveryMode
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Inworld]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Inworld]. */
-            class Builder internal constructor() {
-
-                private var type: JsonValue = JsonValue.from("inworld")
-                private var deliveryMode: JsonField<DeliveryMode> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(inworld: Inworld) = apply {
-                    type = inworld.type
-                    deliveryMode = inworld.deliveryMode
-                    additionalProperties = inworld.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("inworld")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                /**
-                 * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-                 * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows more
-                 * expressive variation, and `BALANCED` sits in between. Optional and only supported
-                 * by `TTS2`; when omitted, the provider default applies.
-                 */
-                fun deliveryMode(deliveryMode: DeliveryMode) =
-                    deliveryMode(JsonField.of(deliveryMode))
-
-                /**
-                 * Sets [Builder.deliveryMode] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.deliveryMode] with a well-typed [DeliveryMode]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun deliveryMode(deliveryMode: JsonField<DeliveryMode>) = apply {
-                    this.deliveryMode = deliveryMode
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Inworld].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Inworld =
-                    Inworld(type, deliveryMode, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Inworld = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                _type().let {
-                    if (it != JsonValue.from("inworld")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                deliveryMode().ifPresent { it.validate() }
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                type.let { if (it == JsonValue.from("inworld")) 1 else 0 } +
-                    (deliveryMode.asKnown().getOrNull()?.validity() ?: 0)
-
-            /**
-             * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-             * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows more
-             * expressive variation, and `BALANCED` sits in between. Optional and only supported by
-             * `TTS2`; when omitted, the provider default applies.
-             */
-            class DeliveryMode
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val STABLE = of("STABLE")
-
-                    @JvmField val BALANCED = of("BALANCED")
-
-                    @JvmField val CREATIVE = of("CREATIVE")
-
-                    @JvmStatic fun of(value: String) = DeliveryMode(JsonField.of(value))
-                }
-
-                /** An enum containing [DeliveryMode]'s known values. */
-                enum class Known {
-                    STABLE,
-                    BALANCED,
-                    CREATIVE,
-                }
-
-                /**
-                 * An enum containing [DeliveryMode]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [DeliveryMode] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    STABLE,
-                    BALANCED,
-                    CREATIVE,
-                    /**
-                     * An enum member indicating that [DeliveryMode] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        STABLE -> Value.STABLE
-                        BALANCED -> Value.BALANCED
-                        CREATIVE -> Value.CREATIVE
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        STABLE -> Known.STABLE
-                        BALANCED -> Known.BALANCED
-                        CREATIVE -> Known.CREATIVE
-                        else -> throw TelnyxInvalidDataException("Unknown DeliveryMode: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): DeliveryMode = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is DeliveryMode && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Inworld &&
-                    type == other.type &&
-                    deliveryMode == other.deliveryMode &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(type, deliveryMode, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Inworld{type=$type, deliveryMode=$deliveryMode, additionalProperties=$additionalProperties}"
-        }
-
-        class Xai
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val type: JsonValue,
-            private val language: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                @JsonProperty("language")
-                @ExcludeMissing
-                language: JsonField<String> = JsonMissing.of(),
-            ) : this(type, language, mutableMapOf())
-
-            /**
-             * Voice settings provider type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("xai")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Language code, or `auto` to detect automatically.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun language(): Optional<String> = language.getOptional("language")
-
-            /**
-             * Returns the raw JSON value of [language].
-             *
-             * Unlike [language], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Xai]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Xai]. */
-            class Builder internal constructor() {
-
-                private var type: JsonValue = JsonValue.from("xai")
-                private var language: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(xai: Xai) = apply {
-                    type = xai.type
-                    language = xai.language
-                    additionalProperties = xai.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("xai")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                /** Language code, or `auto` to detect automatically. */
-                fun language(language: String) = language(JsonField.of(language))
-
-                /**
-                 * Sets [Builder.language] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.language] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun language(language: JsonField<String>) = apply { this.language = language }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Xai].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Xai = Xai(type, language, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): Xai = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                _type().let {
-                    if (it != JsonValue.from("xai")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                language()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                type.let { if (it == JsonValue.from("xai")) 1 else 0 } +
-                    (if (language.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Xai &&
-                    type == other.type &&
-                    language == other.language &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(type, language, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Xai{type=$type, language=$language, additionalProperties=$additionalProperties}"
         }
     }
 

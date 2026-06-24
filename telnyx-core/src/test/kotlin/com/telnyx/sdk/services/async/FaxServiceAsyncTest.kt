@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.faxes.FaxCreateParams
+import com.telnyx.sdk.models.faxes.Quality
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -30,7 +31,7 @@ internal class FaxServiceAsyncTest {
                     )
                     .monochrome(true)
                     .previewFormat(FaxCreateParams.PreviewFormat.PDF)
-                    .quality(FaxCreateParams.Quality.HIGH)
+                    .quality(Quality.HIGH)
                     .storeMedia(true)
                     .storePreview(true)
                     .t38Enabled(true)

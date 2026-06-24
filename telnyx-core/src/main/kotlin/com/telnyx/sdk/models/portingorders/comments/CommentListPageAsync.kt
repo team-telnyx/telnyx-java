@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: CommentListParams,
     private val response: CommentListPageResponse,
-) : PageAsync<CommentListResponse> {
+) : PageAsync<PortingOrdersComment> {
 
     /**
      * Delegates to [CommentListPageResponse], but gracefully handles missing data.
      *
      * @see CommentListPageResponse.data
      */
-    fun data(): List<CommentListResponse> =
+    fun data(): List<PortingOrdersComment> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CommentListResponse> = data()
+    override fun items(): List<PortingOrdersComment> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<CommentListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<CommentListResponse> =
+    fun autoPager(): AutoPagerAsync<PortingOrdersComment> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

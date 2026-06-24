@@ -4,6 +4,10 @@ package com.telnyx.sdk.models.dir.phonenumberbatches
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
+import com.telnyx.sdk.models.dir.Document
+import com.telnyx.sdk.models.dir.phonenumbers.DirPhoneNumber
+import com.telnyx.sdk.models.dir.phonenumbers.RejectionReason
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,23 +19,20 @@ internal class PhoneNumberBatchListPageResponseTest {
         val phoneNumberBatchListPageResponse =
             PhoneNumberBatchListPageResponse.builder()
                 .addData(
-                    PhoneNumberBatchListResponse.builder()
+                    PhoneNumberBatch.builder()
                         .batchId("ba74cfc6-d32b-467a-9b08-86fd154c23f7")
                         .dirDisplayName("Acme Plumbing")
                         .dirId("74e1d8ed-fbdb-45a7-bbb0-a09c1184eb3d")
                         .addDocument(
-                            PhoneNumberBatchListResponse.Document.builder()
+                            Document.builder()
                                 .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                                .documentType(
-                                    PhoneNumberBatchListResponse.Document.DocumentType
-                                        .BUSINESS_REGISTRATION
-                                )
+                                .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                                 .description("Certificate of incorporation.")
                                 .build()
                         )
                         .enterpriseId("5c987b82-2e3b-442a-afbc-0ba3c515f561")
                         .addPhoneNumber(
-                            PhoneNumberBatchListResponse.PhoneNumber.builder()
+                            DirPhoneNumber.builder()
                                 .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                                 .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                                 .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -40,8 +41,7 @@ internal class PhoneNumberBatchListPageResponseTest {
                                 .loaDocumentId(null)
                                 .phoneNumber("+19493253498")
                                 .rejectionReason(
-                                    PhoneNumberBatchListResponse.PhoneNumber.RejectionReason
-                                        .builder()
+                                    RejectionReason.builder()
                                         .code("documentation_incomplete")
                                         .detail(
                                             "Provided documents do not establish business identity."
@@ -52,18 +52,18 @@ internal class PhoneNumberBatchListPageResponseTest {
                                         .title("Documentation incomplete")
                                         .build()
                                 )
-                                .status(PhoneNumberBatchListResponse.PhoneNumber.Status.SUBMITTED)
+                                .status(DirPhoneNumberStatus.SUBMITTED)
                                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                                 .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                                 .build()
                         )
-                        .status(PhoneNumberBatchListResponse.Status.SUBMITTED)
+                        .status(DirPhoneNumberStatus.SUBMITTED)
                         .submittedAt(OffsetDateTime.parse("2026-04-26T18:14:37.065870Z"))
                         .totalCount(1L)
                         .build()
                 )
                 .meta(
-                    PhoneNumberBatchListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -74,23 +74,20 @@ internal class PhoneNumberBatchListPageResponseTest {
 
         assertThat(phoneNumberBatchListPageResponse.data())
             .containsExactly(
-                PhoneNumberBatchListResponse.builder()
+                PhoneNumberBatch.builder()
                     .batchId("ba74cfc6-d32b-467a-9b08-86fd154c23f7")
                     .dirDisplayName("Acme Plumbing")
                     .dirId("74e1d8ed-fbdb-45a7-bbb0-a09c1184eb3d")
                     .addDocument(
-                        PhoneNumberBatchListResponse.Document.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                PhoneNumberBatchListResponse.Document.DocumentType
-                                    .BUSINESS_REGISTRATION
-                            )
+                            .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                             .description("Certificate of incorporation.")
                             .build()
                     )
                     .enterpriseId("5c987b82-2e3b-442a-afbc-0ba3c515f561")
                     .addPhoneNumber(
-                        PhoneNumberBatchListResponse.PhoneNumber.builder()
+                        DirPhoneNumber.builder()
                             .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                             .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                             .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -99,7 +96,7 @@ internal class PhoneNumberBatchListPageResponseTest {
                             .loaDocumentId(null)
                             .phoneNumber("+19493253498")
                             .rejectionReason(
-                                PhoneNumberBatchListResponse.PhoneNumber.RejectionReason.builder()
+                                RejectionReason.builder()
                                     .code("documentation_incomplete")
                                     .detail(
                                         "Provided documents do not establish business identity."
@@ -108,19 +105,19 @@ internal class PhoneNumberBatchListPageResponseTest {
                                     .title("Documentation incomplete")
                                     .build()
                             )
-                            .status(PhoneNumberBatchListResponse.PhoneNumber.Status.SUBMITTED)
+                            .status(DirPhoneNumberStatus.SUBMITTED)
                             .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                             .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                             .build()
                     )
-                    .status(PhoneNumberBatchListResponse.Status.SUBMITTED)
+                    .status(DirPhoneNumberStatus.SUBMITTED)
                     .submittedAt(OffsetDateTime.parse("2026-04-26T18:14:37.065870Z"))
                     .totalCount(1L)
                     .build()
             )
         assertThat(phoneNumberBatchListPageResponse.meta())
             .isEqualTo(
-                PhoneNumberBatchListPageResponse.Meta.builder()
+                BrandedCallingPaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -135,23 +132,20 @@ internal class PhoneNumberBatchListPageResponseTest {
         val phoneNumberBatchListPageResponse =
             PhoneNumberBatchListPageResponse.builder()
                 .addData(
-                    PhoneNumberBatchListResponse.builder()
+                    PhoneNumberBatch.builder()
                         .batchId("ba74cfc6-d32b-467a-9b08-86fd154c23f7")
                         .dirDisplayName("Acme Plumbing")
                         .dirId("74e1d8ed-fbdb-45a7-bbb0-a09c1184eb3d")
                         .addDocument(
-                            PhoneNumberBatchListResponse.Document.builder()
+                            Document.builder()
                                 .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                                .documentType(
-                                    PhoneNumberBatchListResponse.Document.DocumentType
-                                        .BUSINESS_REGISTRATION
-                                )
+                                .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                                 .description("Certificate of incorporation.")
                                 .build()
                         )
                         .enterpriseId("5c987b82-2e3b-442a-afbc-0ba3c515f561")
                         .addPhoneNumber(
-                            PhoneNumberBatchListResponse.PhoneNumber.builder()
+                            DirPhoneNumber.builder()
                                 .id("1f56eb76-4078-4af7-ad4d-564b027256ee")
                                 .batchId("0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62")
                                 .createdAt(OffsetDateTime.parse("2026-04-26T18:11:42.850928Z"))
@@ -160,8 +154,7 @@ internal class PhoneNumberBatchListPageResponseTest {
                                 .loaDocumentId(null)
                                 .phoneNumber("+19493253498")
                                 .rejectionReason(
-                                    PhoneNumberBatchListResponse.PhoneNumber.RejectionReason
-                                        .builder()
+                                    RejectionReason.builder()
                                         .code("documentation_incomplete")
                                         .detail(
                                             "Provided documents do not establish business identity."
@@ -172,18 +165,18 @@ internal class PhoneNumberBatchListPageResponseTest {
                                         .title("Documentation incomplete")
                                         .build()
                                 )
-                                .status(PhoneNumberBatchListResponse.PhoneNumber.Status.SUBMITTED)
+                                .status(DirPhoneNumberStatus.SUBMITTED)
                                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                                 .verifiedAt(OffsetDateTime.parse("2026-04-26T18:12:11.123456Z"))
                                 .build()
                         )
-                        .status(PhoneNumberBatchListResponse.Status.SUBMITTED)
+                        .status(DirPhoneNumberStatus.SUBMITTED)
                         .submittedAt(OffsetDateTime.parse("2026-04-26T18:14:37.065870Z"))
                         .totalCount(1L)
                         .build()
                 )
                 .meta(
-                    PhoneNumberBatchListPageResponse.Meta.builder()
+                    BrandedCallingPaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

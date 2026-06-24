@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -46,7 +45,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun type(): Type = body.type()
+    fun type(): EventType = body.type()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -86,7 +85,7 @@ private constructor(
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _type(): JsonField<Type> = body._type()
+    fun _type(): JsonField<EventType> = body._type()
 
     /**
      * Returns the raw JSON value of [agentId].
@@ -190,15 +189,15 @@ private constructor(
          */
         fun summary(summary: JsonField<String>) = apply { body.summary(summary) }
 
-        fun type(type: Type) = apply { body.type(type) }
+        fun type(type: EventType) = apply { body.type(type) }
 
         /**
          * Sets [Builder.type] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * You should usually call [Builder.type] with a well-typed [EventType] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun type(type: JsonField<Type>) = apply { body.type(type) }
+        fun type(type: JsonField<EventType>) = apply { body.type(type) }
 
         fun agentId(agentId: String) = apply { body.agentId(agentId) }
 
@@ -402,7 +401,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val summary: JsonField<String>,
-        private val type: JsonField<Type>,
+        private val type: JsonField<EventType>,
         private val agentId: JsonField<String>,
         private val idempotencyKey: JsonField<String>,
         private val payload: JsonField<Payload>,
@@ -413,7 +412,7 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("summary") @ExcludeMissing summary: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<EventType> = JsonMissing.of(),
             @JsonProperty("agent_id") @ExcludeMissing agentId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idempotency_key")
             @ExcludeMissing
@@ -432,7 +431,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun type(): Type = type.getRequired("type")
+        fun type(): EventType = type.getRequired("type")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -472,7 +471,7 @@ private constructor(
          *
          * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<EventType> = type
 
         /**
          * Returns the raw JSON value of [agentId].
@@ -535,7 +534,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var summary: JsonField<String>? = null
-            private var type: JsonField<Type>? = null
+            private var type: JsonField<EventType>? = null
             private var agentId: JsonField<String> = JsonMissing.of()
             private var idempotencyKey: JsonField<String> = JsonMissing.of()
             private var payload: JsonField<Payload> = JsonMissing.of()
@@ -564,16 +563,16 @@ private constructor(
              */
             fun summary(summary: JsonField<String>) = apply { this.summary = summary }
 
-            fun type(type: Type) = type(JsonField.of(type))
+            fun type(type: EventType) = type(JsonField.of(type))
 
             /**
              * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.type] with a well-typed [EventType] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
+            fun type(type: JsonField<EventType>) = apply { this.type = type }
 
             fun agentId(agentId: String) = agentId(JsonField.of(agentId))
 
@@ -746,182 +745,6 @@ private constructor(
 
         override fun toString() =
             "Body{summary=$summary, type=$type, agentId=$agentId, idempotencyKey=$idempotencyKey, payload=$payload, stepId=$stepId, additionalProperties=$additionalProperties}"
-    }
-
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val STATUS_CHANGE = of("status_change")
-
-            @JvmField val STEP_STARTED = of("step_started")
-
-            @JvmField val STEP_COMPLETED = of("step_completed")
-
-            @JvmField val STEP_FAILED = of("step_failed")
-
-            @JvmField val TOOL_CALL = of("tool_call")
-
-            @JvmField val TOOL_RESULT = of("tool_result")
-
-            @JvmField val MESSAGE = of("message")
-
-            @JvmField val ERROR = of("error")
-
-            @JvmField val CUSTOM = of("custom")
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        /** An enum containing [Type]'s known values. */
-        enum class Known {
-            STATUS_CHANGE,
-            STEP_STARTED,
-            STEP_COMPLETED,
-            STEP_FAILED,
-            TOOL_CALL,
-            TOOL_RESULT,
-            MESSAGE,
-            ERROR,
-            CUSTOM,
-        }
-
-        /**
-         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            STATUS_CHANGE,
-            STEP_STARTED,
-            STEP_COMPLETED,
-            STEP_FAILED,
-            TOOL_CALL,
-            TOOL_RESULT,
-            MESSAGE,
-            ERROR,
-            CUSTOM,
-            /** An enum member indicating that [Type] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                STATUS_CHANGE -> Value.STATUS_CHANGE
-                STEP_STARTED -> Value.STEP_STARTED
-                STEP_COMPLETED -> Value.STEP_COMPLETED
-                STEP_FAILED -> Value.STEP_FAILED
-                TOOL_CALL -> Value.TOOL_CALL
-                TOOL_RESULT -> Value.TOOL_RESULT
-                MESSAGE -> Value.MESSAGE
-                ERROR -> Value.ERROR
-                CUSTOM -> Value.CUSTOM
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                STATUS_CHANGE -> Known.STATUS_CHANGE
-                STEP_STARTED -> Known.STEP_STARTED
-                STEP_COMPLETED -> Known.STEP_COMPLETED
-                STEP_FAILED -> Known.STEP_FAILED
-                TOOL_CALL -> Known.TOOL_CALL
-                TOOL_RESULT -> Known.TOOL_RESULT
-                MESSAGE -> Known.MESSAGE
-                ERROR -> Known.ERROR
-                CUSTOM -> Known.CUSTOM
-                else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Type = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
     }
 
     class Payload

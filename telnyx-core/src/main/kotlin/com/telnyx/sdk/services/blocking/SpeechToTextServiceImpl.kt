@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -16,9 +17,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.speechtotext.SpeechToTextListProvidersParams
 import com.telnyx.sdk.models.speechtotext.SpeechToTextListProvidersResponse
+import com.telnyx.sdk.models.speechtotext.SpeechToTextRetrieveTranscriptionParams
 import java.util.function.Consumer
 
-/** Discover available speech-to-text providers, models, and supported languages. */
 class SpeechToTextServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SpeechToTextService {
 
@@ -37,6 +38,14 @@ class SpeechToTextServiceImpl internal constructor(private val clientOptions: Cl
     ): SpeechToTextListProvidersResponse =
         // get /speech-to-text/providers
         withRawResponse().listProviders(params, requestOptions).parse()
+
+    override fun retrieveTranscription(
+        params: SpeechToTextRetrieveTranscriptionParams,
+        requestOptions: RequestOptions,
+    ) {
+        // get /speech-to-text/transcription
+        withRawResponse().retrieveTranscription(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SpeechToTextService.WithRawResponse {
@@ -78,6 +87,29 @@ class SpeechToTextServiceImpl internal constructor(private val clientOptions: Cl
                             it.validate()
                         }
                     }
+            }
+        }
+
+        private val retrieveTranscriptionHandler: Handler<Void?> = emptyHandler()
+
+        override fun retrieveTranscription(
+            params: SpeechToTextRetrieveTranscriptionParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(
+                        if (clientOptions.baseUrlOverridden()) clientOptions.baseUrl()
+                        else "wss://api.telnyx.com/v2"
+                    )
+                    .addPathSegments("speech-to-text", "transcription")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { retrieveTranscriptionHandler.handle(it) }
             }
         }
     }

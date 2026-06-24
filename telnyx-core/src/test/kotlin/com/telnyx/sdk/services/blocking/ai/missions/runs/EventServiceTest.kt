@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventListParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventLogParams
+import com.telnyx.sdk.models.ai.missions.runs.events.EventType
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -35,7 +36,7 @@ internal class EventServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val eventService = client.ai().missions().runs().events()
 
-        val response =
+        val eventResponse =
             eventService.getEventDetails(
                 EventGetEventDetailsParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -44,7 +45,7 @@ internal class EventServiceTest {
                     .build()
             )
 
-        response.validate()
+        eventResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -53,13 +54,13 @@ internal class EventServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val eventService = client.ai().missions().runs().events()
 
-        val response =
+        val eventResponse =
             eventService.log(
                 EventLogParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .summary("summary")
-                    .type(EventLogParams.Type.STATUS_CHANGE)
+                    .type(EventType.STATUS_CHANGE)
                     .agentId("agent_id")
                     .idempotencyKey("idempotency_key")
                     .payload(
@@ -71,6 +72,6 @@ internal class EventServiceTest {
                     .build()
             )
 
-        response.validate()
+        eventResponse.validate()
     }
 }

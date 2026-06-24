@@ -17,7 +17,7 @@ internal class DialogflowConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dialogflowConnectionServiceAsync = client.dialogflowConnections()
 
-        val dialogflowConnectionFuture =
+        val dialogflowConnectionResponseFuture =
             dialogflowConnectionServiceAsync.create(
                 DialogflowConnectionCreateParams.builder()
                     .connectionId("connection_id")
@@ -45,8 +45,8 @@ internal class DialogflowConnectionServiceAsyncTest {
                     .build()
             )
 
-        val dialogflowConnection = dialogflowConnectionFuture.get()
-        dialogflowConnection.validate()
+        val dialogflowConnectionResponse = dialogflowConnectionResponseFuture.get()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -55,10 +55,11 @@ internal class DialogflowConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dialogflowConnectionServiceAsync = client.dialogflowConnections()
 
-        val dialogflowConnectionFuture = dialogflowConnectionServiceAsync.retrieve("connection_id")
+        val dialogflowConnectionResponseFuture =
+            dialogflowConnectionServiceAsync.retrieve("connection_id")
 
-        val dialogflowConnection = dialogflowConnectionFuture.get()
-        dialogflowConnection.validate()
+        val dialogflowConnectionResponse = dialogflowConnectionResponseFuture.get()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -67,7 +68,7 @@ internal class DialogflowConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dialogflowConnectionServiceAsync = client.dialogflowConnections()
 
-        val dialogflowConnectionFuture =
+        val dialogflowConnectionResponseFuture =
             dialogflowConnectionServiceAsync.update(
                 DialogflowConnectionUpdateParams.builder()
                     .connectionId("connection_id")
@@ -95,8 +96,8 @@ internal class DialogflowConnectionServiceAsyncTest {
                     .build()
             )
 
-        val dialogflowConnection = dialogflowConnectionFuture.get()
-        dialogflowConnection.validate()
+        val dialogflowConnectionResponse = dialogflowConnectionResponseFuture.get()
+        dialogflowConnectionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

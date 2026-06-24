@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.dir.phonenumbers
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.callreasons.BrandedCallingPaginationMeta
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberService
 import java.util.Objects
 import java.util.Optional
@@ -17,14 +18,14 @@ private constructor(
     private val service: PhoneNumberService,
     private val params: PhoneNumberListParams,
     private val response: PhoneNumberListPageResponse,
-) : Page<PhoneNumberListResponse> {
+) : Page<DirPhoneNumber> {
 
     /**
      * Delegates to [PhoneNumberListPageResponse], but gracefully handles missing data.
      *
      * @see PhoneNumberListPageResponse.data
      */
-    fun data(): List<PhoneNumberListResponse> =
+    fun data(): List<DirPhoneNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -32,9 +33,9 @@ private constructor(
      *
      * @see PhoneNumberListPageResponse.meta
      */
-    fun meta(): Optional<PhoneNumberListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<BrandedCallingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PhoneNumberListResponse> = data()
+    override fun items(): List<DirPhoneNumber> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +55,7 @@ private constructor(
 
     override fun nextPage(): PhoneNumberListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<PhoneNumberListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<DirPhoneNumber> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PhoneNumberListParams = params

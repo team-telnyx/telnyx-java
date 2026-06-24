@@ -20,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: VoiceSdkCallReportListParams,
     private val response: VoiceSdkCallReportListPageResponse,
-) : PageAsync<VoiceSdkCallReportListResponse> {
+) : PageAsync<VoiceSdkCallReport> {
 
     /**
      * Delegates to [VoiceSdkCallReportListPageResponse], but gracefully handles missing data.
      *
      * @see VoiceSdkCallReportListPageResponse.data
      */
-    fun data(): List<VoiceSdkCallReportListResponse> =
+    fun data(): List<VoiceSdkCallReport> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
     fun meta(): Optional<VoiceSdkCallReportListPageResponse.Meta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<VoiceSdkCallReportListResponse> = data()
+    override fun items(): List<VoiceSdkCallReport> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<VoiceSdkCallReportListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<VoiceSdkCallReportListResponse> =
+    fun autoPager(): AutoPagerAsync<VoiceSdkCallReport> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

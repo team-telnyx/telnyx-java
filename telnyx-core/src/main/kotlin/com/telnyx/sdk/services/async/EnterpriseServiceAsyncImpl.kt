@@ -17,18 +17,15 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingParams
-import com.telnyx.sdk.models.enterprises.EnterpriseActivateBrandedCallingResponse
+import com.telnyx.sdk.models.enterprises.EnterpriseBrandedCallingParams
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseCreateResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseDeleteParams
 import com.telnyx.sdk.models.enterprises.EnterpriseListPageAsync
 import com.telnyx.sdk.models.enterprises.EnterpriseListPageResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseListParams
+import com.telnyx.sdk.models.enterprises.EnterprisePublicWrapped
 import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
-import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveResponse
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
-import com.telnyx.sdk.models.enterprises.EnterpriseUpdateResponse
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
@@ -68,21 +65,21 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
     override fun create(
         params: EnterpriseCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseCreateResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         // post /enterprises
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: EnterpriseRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseRetrieveResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         // get /enterprises/{enterprise_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: EnterpriseUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseUpdateResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         // put /enterprises/{enterprise_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -100,12 +97,12 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
         // delete /enterprises/{enterprise_id}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun activateBrandedCalling(
-        params: EnterpriseActivateBrandedCallingParams,
+    override fun brandedCalling(
+        params: EnterpriseBrandedCallingParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnterpriseActivateBrandedCallingResponse> =
+    ): CompletableFuture<EnterprisePublicWrapped> =
         // post /enterprises/{enterprise_id}/branded_calling
-        withRawResponse().activateBrandedCalling(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().brandedCalling(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EnterpriseServiceAsync.WithRawResponse {
@@ -137,13 +134,13 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
          */
         override fun dir(): DirServiceAsync.WithRawResponse = dir
 
-        private val createHandler: Handler<EnterpriseCreateResponse> =
-            jsonHandler<EnterpriseCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun create(
             params: EnterpriseCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -168,13 +165,13 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val retrieveHandler: Handler<EnterpriseRetrieveResponse> =
-            jsonHandler<EnterpriseRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EnterpriseRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -201,13 +198,13 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val updateHandler: Handler<EnterpriseUpdateResponse> =
-            jsonHandler<EnterpriseUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
         override fun update(
             params: EnterpriseUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -300,14 +297,13 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val activateBrandedCallingHandler:
-            Handler<EnterpriseActivateBrandedCallingResponse> =
-            jsonHandler<EnterpriseActivateBrandedCallingResponse>(clientOptions.jsonMapper)
+        private val brandedCallingHandler: Handler<EnterprisePublicWrapped> =
+            jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)
 
-        override fun activateBrandedCalling(
-            params: EnterpriseActivateBrandedCallingParams,
+        override fun brandedCalling(
+            params: EnterpriseBrandedCallingParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnterpriseActivateBrandedCallingResponse>> {
+        ): CompletableFuture<HttpResponseFor<EnterprisePublicWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -325,7 +321,7 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { activateBrandedCallingHandler.handle(it) }
+                            .use { brandedCallingHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

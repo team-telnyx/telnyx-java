@@ -67,36 +67,28 @@ interface MessagingHostedNumberService {
         retrieve(id, MessagingHostedNumberRetrieveParams.none(), requestOptions)
 
     /** Update the messaging settings for a hosted number. */
-    fun update(id: String): MessagingHostedNumberUpdateResponse =
-        update(id, MessagingHostedNumberUpdateParams.none())
-
-    /** @see update */
     fun update(
         id: String,
-        params: MessagingHostedNumberUpdateParams = MessagingHostedNumberUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingHostedNumberUpdateResponse =
-        update(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see update */
-    fun update(
-        id: String,
-        params: MessagingHostedNumberUpdateParams = MessagingHostedNumberUpdateParams.none(),
+        params: MessagingHostedNumberUpdateParams,
     ): MessagingHostedNumberUpdateResponse = update(id, params, RequestOptions.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: MessagingHostedNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingHostedNumberUpdateResponse
+    ): MessagingHostedNumberUpdateResponse =
+        update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(params: MessagingHostedNumberUpdateParams): MessagingHostedNumberUpdateResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(id: String, requestOptions: RequestOptions): MessagingHostedNumberUpdateResponse =
-        update(id, MessagingHostedNumberUpdateParams.none(), requestOptions)
+    fun update(
+        params: MessagingHostedNumberUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingHostedNumberUpdateResponse
 
     /** List all hosted numbers associated with the authenticated user. */
     fun list(): MessagingHostedNumberListPage = list(MessagingHostedNumberListParams.none())
@@ -216,32 +208,20 @@ interface MessagingHostedNumberService {
          * the same as [MessagingHostedNumberService.update].
          */
         @MustBeClosed
-        fun update(id: String): HttpResponseFor<MessagingHostedNumberUpdateResponse> =
-            update(id, MessagingHostedNumberUpdateParams.none())
-
-        /** @see update */
-        @MustBeClosed
         fun update(
             id: String,
-            params: MessagingHostedNumberUpdateParams = MessagingHostedNumberUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingHostedNumberUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            id: String,
-            params: MessagingHostedNumberUpdateParams = MessagingHostedNumberUpdateParams.none(),
+            params: MessagingHostedNumberUpdateParams,
         ): HttpResponseFor<MessagingHostedNumberUpdateResponse> =
             update(id, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
+            id: String,
             params: MessagingHostedNumberUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingHostedNumberUpdateResponse>
+        ): HttpResponseFor<MessagingHostedNumberUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -253,10 +233,9 @@ interface MessagingHostedNumberService {
         /** @see update */
         @MustBeClosed
         fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingHostedNumberUpdateResponse> =
-            update(id, MessagingHostedNumberUpdateParams.none(), requestOptions)
+            params: MessagingHostedNumberUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingHostedNumberUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /messaging_hosted_numbers`, but is otherwise the

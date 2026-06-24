@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.webhooks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.messages.MessagingError
+import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat

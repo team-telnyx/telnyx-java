@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.integrations.Integration
 import com.telnyx.sdk.models.ai.integrations.IntegrationListParams
 import com.telnyx.sdk.models.ai.integrations.IntegrationListResponse
 import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveParams
-import com.telnyx.sdk.models.ai.integrations.IntegrationRetrieveResponse
 import com.telnyx.sdk.services.async.ai.integrations.ConnectionServiceAsync
 import com.telnyx.sdk.services.async.ai.integrations.ConnectionServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -46,7 +46,7 @@ class IntegrationServiceAsyncImpl internal constructor(private val clientOptions
     override fun retrieve(
         params: IntegrationRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegrationRetrieveResponse> =
+    ): CompletableFuture<Integration> =
         // get /ai/integrations/{integration_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -76,13 +76,13 @@ class IntegrationServiceAsyncImpl internal constructor(private val clientOptions
 
         override fun connections(): ConnectionServiceAsync.WithRawResponse = connections
 
-        private val retrieveHandler: Handler<IntegrationRetrieveResponse> =
-            jsonHandler<IntegrationRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<Integration> =
+            jsonHandler<Integration>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: IntegrationRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegrationRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<Integration>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("integrationId", params.integrationId().getOrNull())

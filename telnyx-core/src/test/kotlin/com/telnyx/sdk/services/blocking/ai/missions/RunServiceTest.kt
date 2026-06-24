@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.ai.missions.runs.RunCreateParams
 import com.telnyx.sdk.models.ai.missions.runs.RunPauseRunParams
 import com.telnyx.sdk.models.ai.missions.runs.RunResumeRunParams
 import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
+import com.telnyx.sdk.models.ai.missions.runs.RunStatus
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -21,7 +22,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val run =
+        val missionRunResponse =
             runService.create(
                 RunCreateParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -38,7 +39,7 @@ internal class RunServiceTest {
                     .build()
             )
 
-        run.validate()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -47,7 +48,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val run =
+        val missionRunResponse =
             runService.retrieve(
                 RunRetrieveParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -55,7 +56,7 @@ internal class RunServiceTest {
                     .build()
             )
 
-        run.validate()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -64,7 +65,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val run =
+        val missionRunResponse =
             runService.update(
                 RunUpdateParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -81,11 +82,11 @@ internal class RunServiceTest {
                             .build()
                     )
                     .resultSummary("result_summary")
-                    .status(RunUpdateParams.Status.PENDING)
+                    .status(RunStatus.PENDING)
                     .build()
             )
 
-        run.validate()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -105,7 +106,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val response =
+        val missionRunResponse =
             runService.cancelRun(
                 RunCancelRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -113,7 +114,7 @@ internal class RunServiceTest {
                     .build()
             )
 
-        response.validate()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -133,7 +134,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val response =
+        val missionRunResponse =
             runService.pauseRun(
                 RunPauseRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -141,7 +142,7 @@ internal class RunServiceTest {
                     .build()
             )
 
-        response.validate()
+        missionRunResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -150,7 +151,7 @@ internal class RunServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
-        val response =
+        val missionRunResponse =
             runService.resumeRun(
                 RunResumeRunParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -158,6 +159,6 @@ internal class RunServiceTest {
                     .build()
             )
 
-        response.validate()
+        missionRunResponse.validate()
     }
 }

@@ -16,21 +16,15 @@ internal class PortingPhoneNumberListPageResponseTest {
         val portingPhoneNumberListPageResponse =
             PortingPhoneNumberListPageResponse.builder()
                 .addData(
-                    PortingPhoneNumberListResponse.builder()
-                        .activationStatus(PortingPhoneNumberListResponse.ActivationStatus.ACTIVE)
+                    PortingPhoneNumber.builder()
+                        .activationStatus(PortingOrderActivationStatus.ACTIVE)
                         .phoneNumber("13035550987")
-                        .phoneNumberType(PortingPhoneNumberListResponse.PhoneNumberType.LOCAL)
-                        .portabilityStatus(
-                            PortingPhoneNumberListResponse.PortabilityStatus.CONFIRMED
-                        )
+                        .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                        .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                         .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
-                        .portingOrderStatus(
-                            PortingPhoneNumberListResponse.PortingOrderStatus.IN_PROCESS
-                        )
+                        .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.IN_PROCESS)
                         .recordType("porting_phone_number")
-                        .requirementsStatus(
-                            PortingPhoneNumberListResponse.RequirementsStatus.APPROVED
-                        )
+                        .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                         .supportKey("sr_a12345")
                         .build()
                 )
@@ -46,17 +40,15 @@ internal class PortingPhoneNumberListPageResponseTest {
 
         assertThat(portingPhoneNumberListPageResponse.data().getOrNull())
             .containsExactly(
-                PortingPhoneNumberListResponse.builder()
-                    .activationStatus(PortingPhoneNumberListResponse.ActivationStatus.ACTIVE)
+                PortingPhoneNumber.builder()
+                    .activationStatus(PortingOrderActivationStatus.ACTIVE)
                     .phoneNumber("13035550987")
-                    .phoneNumberType(PortingPhoneNumberListResponse.PhoneNumberType.LOCAL)
-                    .portabilityStatus(PortingPhoneNumberListResponse.PortabilityStatus.CONFIRMED)
+                    .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                    .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                     .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
-                    .portingOrderStatus(
-                        PortingPhoneNumberListResponse.PortingOrderStatus.IN_PROCESS
-                    )
+                    .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.IN_PROCESS)
                     .recordType("porting_phone_number")
-                    .requirementsStatus(PortingPhoneNumberListResponse.RequirementsStatus.APPROVED)
+                    .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                     .supportKey("sr_a12345")
                     .build()
             )
@@ -77,21 +69,15 @@ internal class PortingPhoneNumberListPageResponseTest {
         val portingPhoneNumberListPageResponse =
             PortingPhoneNumberListPageResponse.builder()
                 .addData(
-                    PortingPhoneNumberListResponse.builder()
-                        .activationStatus(PortingPhoneNumberListResponse.ActivationStatus.ACTIVE)
+                    PortingPhoneNumber.builder()
+                        .activationStatus(PortingOrderActivationStatus.ACTIVE)
                         .phoneNumber("13035550987")
-                        .phoneNumberType(PortingPhoneNumberListResponse.PhoneNumberType.LOCAL)
-                        .portabilityStatus(
-                            PortingPhoneNumberListResponse.PortabilityStatus.CONFIRMED
-                        )
+                        .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                        .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                         .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
-                        .portingOrderStatus(
-                            PortingPhoneNumberListResponse.PortingOrderStatus.IN_PROCESS
-                        )
+                        .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.IN_PROCESS)
                         .recordType("porting_phone_number")
-                        .requirementsStatus(
-                            PortingPhoneNumberListResponse.RequirementsStatus.APPROVED
-                        )
+                        .requirementsStatus(PortingPhoneNumber.RequirementsStatus.APPROVED)
                         .supportKey("sr_a12345")
                         .build()
                 )

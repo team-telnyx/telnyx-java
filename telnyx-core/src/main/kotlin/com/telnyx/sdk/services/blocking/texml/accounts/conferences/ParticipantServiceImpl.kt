@@ -20,12 +20,11 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantDeleteParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsResponse
+import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantResource
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveParticipantsResponse
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateParams
-import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -45,7 +44,7 @@ class ParticipantServiceImpl internal constructor(private val clientOptions: Cli
     override fun retrieve(
         params: ParticipantRetrieveParams,
         requestOptions: RequestOptions,
-    ): ParticipantRetrieveResponse =
+    ): ParticipantResource =
         // get
         // /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}
         withRawResponse().retrieve(params, requestOptions).parse()
@@ -53,7 +52,7 @@ class ParticipantServiceImpl internal constructor(private val clientOptions: Cli
     override fun update(
         params: ParticipantUpdateParams,
         requestOptions: RequestOptions,
-    ): ParticipantUpdateResponse =
+    ): ParticipantResource =
         // post
         // /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}
         withRawResponse().update(params, requestOptions).parse()
@@ -91,13 +90,13 @@ class ParticipantServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<ParticipantRetrieveResponse> =
-            jsonHandler<ParticipantRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ParticipantResource> =
+            jsonHandler<ParticipantResource>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ParticipantRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ParticipantRetrieveResponse> {
+        ): HttpResponseFor<ParticipantResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired(
@@ -132,13 +131,13 @@ class ParticipantServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateHandler: Handler<ParticipantUpdateResponse> =
-            jsonHandler<ParticipantUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ParticipantResource> =
+            jsonHandler<ParticipantResource>(clientOptions.jsonMapper)
 
         override fun update(
             params: ParticipantUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ParticipantUpdateResponse> {
+        ): HttpResponseFor<ParticipantResource> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired(

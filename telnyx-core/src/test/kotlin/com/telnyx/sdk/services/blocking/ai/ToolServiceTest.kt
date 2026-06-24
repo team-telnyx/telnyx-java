@@ -17,7 +17,7 @@ internal class ToolServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val toolService = client.ai().tools()
 
-        val tool =
+        val sharedToolResponse =
             toolService.create(
                 ToolCreateParams.builder()
                     .displayName("display_name")
@@ -51,7 +51,7 @@ internal class ToolServiceTest {
                     .build()
             )
 
-        tool.validate()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -60,9 +60,9 @@ internal class ToolServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val toolService = client.ai().tools()
 
-        val tool = toolService.retrieve("tool_id")
+        val sharedToolResponse = toolService.retrieve("tool_id")
 
-        tool.validate()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -71,7 +71,7 @@ internal class ToolServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val toolService = client.ai().tools()
 
-        val tool =
+        val sharedToolResponse =
             toolService.update(
                 ToolUpdateParams.builder()
                     .toolId("tool_id")
@@ -106,7 +106,7 @@ internal class ToolServiceTest {
                     .build()
             )
 
-        tool.validate()
+        sharedToolResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -18,15 +18,14 @@ private constructor(
     private val service: NetworkService,
     private val params: NetworkListParams,
     private val response: NetworkListPageResponse,
-) : Page<NetworkListResponse> {
+) : Page<Network> {
 
     /**
      * Delegates to [NetworkListPageResponse], but gracefully handles missing data.
      *
      * @see NetworkListPageResponse.data
      */
-    fun data(): List<NetworkListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Network> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [NetworkListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<NetworkListResponse> = data()
+    override fun items(): List<Network> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): NetworkListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<NetworkListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<Network> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): NetworkListParams = params

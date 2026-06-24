@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -45,14 +44,14 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun checkFrequency(): CheckFrequency = body.checkFrequency()
+    fun checkFrequency(): ReputationCheckFrequency = body.checkFrequency()
 
     /**
      * Returns the raw JSON value of [checkFrequency].
      *
      * Unlike [checkFrequency], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _checkFrequency(): JsonField<CheckFrequency> = body._checkFrequency()
+    fun _checkFrequency(): JsonField<ReputationCheckFrequency> = body._checkFrequency()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -114,18 +113,18 @@ private constructor(
          * How often Telnyx refreshes the stored reputation data for this enterprise's registered
          * numbers.
          */
-        fun checkFrequency(checkFrequency: CheckFrequency) = apply {
+        fun checkFrequency(checkFrequency: ReputationCheckFrequency) = apply {
             body.checkFrequency(checkFrequency)
         }
 
         /**
          * Sets [Builder.checkFrequency] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.checkFrequency] with a well-typed [CheckFrequency] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.checkFrequency] with a well-typed
+         * [ReputationCheckFrequency] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
-        fun checkFrequency(checkFrequency: JsonField<CheckFrequency>) = apply {
+        fun checkFrequency(checkFrequency: JsonField<ReputationCheckFrequency>) = apply {
             body.checkFrequency(checkFrequency)
         }
 
@@ -282,7 +281,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val checkFrequency: JsonField<CheckFrequency>,
+        private val checkFrequency: JsonField<ReputationCheckFrequency>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -290,7 +289,7 @@ private constructor(
         private constructor(
             @JsonProperty("check_frequency")
             @ExcludeMissing
-            checkFrequency: JsonField<CheckFrequency> = JsonMissing.of()
+            checkFrequency: JsonField<ReputationCheckFrequency> = JsonMissing.of()
         ) : this(checkFrequency, mutableMapOf())
 
         /**
@@ -300,7 +299,8 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun checkFrequency(): CheckFrequency = checkFrequency.getRequired("check_frequency")
+        fun checkFrequency(): ReputationCheckFrequency =
+            checkFrequency.getRequired("check_frequency")
 
         /**
          * Returns the raw JSON value of [checkFrequency].
@@ -310,7 +310,7 @@ private constructor(
          */
         @JsonProperty("check_frequency")
         @ExcludeMissing
-        fun _checkFrequency(): JsonField<CheckFrequency> = checkFrequency
+        fun _checkFrequency(): JsonField<ReputationCheckFrequency> = checkFrequency
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -340,7 +340,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var checkFrequency: JsonField<CheckFrequency>? = null
+            private var checkFrequency: JsonField<ReputationCheckFrequency>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -353,17 +353,17 @@ private constructor(
              * How often Telnyx refreshes the stored reputation data for this enterprise's
              * registered numbers.
              */
-            fun checkFrequency(checkFrequency: CheckFrequency) =
+            fun checkFrequency(checkFrequency: ReputationCheckFrequency) =
                 checkFrequency(JsonField.of(checkFrequency))
 
             /**
              * Sets [Builder.checkFrequency] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.checkFrequency] with a well-typed [CheckFrequency]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.checkFrequency] with a well-typed
+             * [ReputationCheckFrequency] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun checkFrequency(checkFrequency: JsonField<CheckFrequency>) = apply {
+            fun checkFrequency(checkFrequency: JsonField<ReputationCheckFrequency>) = apply {
                 this.checkFrequency = checkFrequency
             }
 
@@ -458,172 +458,6 @@ private constructor(
 
         override fun toString() =
             "Body{checkFrequency=$checkFrequency, additionalProperties=$additionalProperties}"
-    }
-
-    /**
-     * How often Telnyx refreshes the stored reputation data for this enterprise's registered
-     * numbers.
-     */
-    class CheckFrequency @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val BUSINESS_DAILY = of("business_daily")
-
-            @JvmField val DAILY = of("daily")
-
-            @JvmField val WEEKLY = of("weekly")
-
-            @JvmField val BIWEEKLY = of("biweekly")
-
-            @JvmField val MONTHLY = of("monthly")
-
-            @JvmField val NEVER = of("never")
-
-            @JvmStatic fun of(value: String) = CheckFrequency(JsonField.of(value))
-        }
-
-        /** An enum containing [CheckFrequency]'s known values. */
-        enum class Known {
-            BUSINESS_DAILY,
-            DAILY,
-            WEEKLY,
-            BIWEEKLY,
-            MONTHLY,
-            NEVER,
-        }
-
-        /**
-         * An enum containing [CheckFrequency]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [CheckFrequency] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            BUSINESS_DAILY,
-            DAILY,
-            WEEKLY,
-            BIWEEKLY,
-            MONTHLY,
-            NEVER,
-            /**
-             * An enum member indicating that [CheckFrequency] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                BUSINESS_DAILY -> Value.BUSINESS_DAILY
-                DAILY -> Value.DAILY
-                WEEKLY -> Value.WEEKLY
-                BIWEEKLY -> Value.BIWEEKLY
-                MONTHLY -> Value.MONTHLY
-                NEVER -> Value.NEVER
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                BUSINESS_DAILY -> Known.BUSINESS_DAILY
-                DAILY -> Known.DAILY
-                WEEKLY -> Known.WEEKLY
-                BIWEEKLY -> Known.BIWEEKLY
-                MONTHLY -> Known.MONTHLY
-                NEVER -> Known.NEVER
-                else -> throw TelnyxInvalidDataException("Unknown CheckFrequency: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): CheckFrequency = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CheckFrequency && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

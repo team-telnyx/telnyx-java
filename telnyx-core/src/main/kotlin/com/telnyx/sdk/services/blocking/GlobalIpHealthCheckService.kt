@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheck
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteParams
@@ -32,22 +33,30 @@ interface GlobalIpHealthCheckService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpHealthCheckService
 
     /** Create a Global IP health check. */
-    fun create(): GlobalIpHealthCheckCreateResponse = create(GlobalIpHealthCheckCreateParams.none())
+    fun create(params: GlobalIpHealthCheckCreateParams): GlobalIpHealthCheckCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none(),
+        params: GlobalIpHealthCheckCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): GlobalIpHealthCheckCreateResponse
 
     /** @see create */
     fun create(
-        params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none()
-    ): GlobalIpHealthCheckCreateResponse = create(params, RequestOptions.none())
+        globalIpHealthCheck: GlobalIpHealthCheck,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): GlobalIpHealthCheckCreateResponse =
+        create(
+            GlobalIpHealthCheckCreateParams.builder()
+                .globalIpHealthCheck(globalIpHealthCheck)
+                .build(),
+            requestOptions,
+        )
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): GlobalIpHealthCheckCreateResponse =
-        create(GlobalIpHealthCheckCreateParams.none(), requestOptions)
+    fun create(globalIpHealthCheck: GlobalIpHealthCheck): GlobalIpHealthCheckCreateResponse =
+        create(globalIpHealthCheck, RequestOptions.none())
 
     /** Retrieve a Global IP health check. */
     fun retrieve(id: String): GlobalIpHealthCheckRetrieveResponse =
@@ -150,29 +159,37 @@ interface GlobalIpHealthCheckService {
          * same as [GlobalIpHealthCheckService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<GlobalIpHealthCheckCreateResponse> =
-            create(GlobalIpHealthCheckCreateParams.none())
-
-        /** @see create */
-        @MustBeClosed
         fun create(
-            params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GlobalIpHealthCheckCreateResponse>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: GlobalIpHealthCheckCreateParams = GlobalIpHealthCheckCreateParams.none()
+            params: GlobalIpHealthCheckCreateParams
         ): HttpResponseFor<GlobalIpHealthCheckCreateResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            requestOptions: RequestOptions
+            params: GlobalIpHealthCheckCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<GlobalIpHealthCheckCreateResponse>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            globalIpHealthCheck: GlobalIpHealthCheck,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<GlobalIpHealthCheckCreateResponse> =
-            create(GlobalIpHealthCheckCreateParams.none(), requestOptions)
+            create(
+                GlobalIpHealthCheckCreateParams.builder()
+                    .globalIpHealthCheck(globalIpHealthCheck)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            globalIpHealthCheck: GlobalIpHealthCheck
+        ): HttpResponseFor<GlobalIpHealthCheckCreateResponse> =
+            create(globalIpHealthCheck, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /global_ip_health_checks/{id}`, but is otherwise the
