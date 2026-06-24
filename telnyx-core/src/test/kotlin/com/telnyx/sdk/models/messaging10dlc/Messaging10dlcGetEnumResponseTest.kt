@@ -167,9 +167,9 @@ internal class Messaging10dlcGetEnumResponseTest {
     @Test
     @Disabled(
         "oneOf deserialization is ambiguous when EnumObjectToStringResponse and " +
-        "EnumObjecToObjecttResponse have structurally identical schemas (both additionalProperties: true). " +
-        "The deserializer always picks EnumObjectToStringResponse first. " +
-        "Fix: spec updated to use typed additionalProperties — will be resolved on next STLC regeneration.",
+            "EnumObjecToObjecttResponse have structurally identical schemas (both additionalProperties: true). " +
+            "The deserializer always picks EnumObjectToStringResponse first. " +
+            "Fix: spec updated to use typed additionalProperties — will be resolved on next STLC regeneration."
     )
     fun ofEnumObjecToObjecttRoundtrip() {
         val jsonMapper = jsonMapper()
