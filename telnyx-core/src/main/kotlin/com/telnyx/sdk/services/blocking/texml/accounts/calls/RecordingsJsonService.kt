@@ -7,9 +7,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonParams
-import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonResponse
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlCreateCallRecordingResponseBody
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import java.util.function.Consumer
 
 /** TeXML REST Commands */
@@ -31,32 +31,32 @@ interface RecordingsJsonService {
     fun recordingsJson(
         callSid: String,
         params: RecordingsJsonRecordingsJsonParams,
-    ): RecordingsJsonRecordingsJsonResponse = recordingsJson(callSid, params, RequestOptions.none())
+    ): TexmlCreateCallRecordingResponseBody = recordingsJson(callSid, params, RequestOptions.none())
 
     /** @see recordingsJson */
     fun recordingsJson(
         callSid: String,
         params: RecordingsJsonRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingsJsonRecordingsJsonResponse =
+    ): TexmlCreateCallRecordingResponseBody =
         recordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see recordingsJson */
     fun recordingsJson(
         params: RecordingsJsonRecordingsJsonParams
-    ): RecordingsJsonRecordingsJsonResponse = recordingsJson(params, RequestOptions.none())
+    ): TexmlCreateCallRecordingResponseBody = recordingsJson(params, RequestOptions.none())
 
     /** @see recordingsJson */
     fun recordingsJson(
         params: RecordingsJsonRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingsJsonRecordingsJsonResponse
+    ): TexmlCreateCallRecordingResponseBody
 
     /** Returns recordings for a call identified by call_sid. */
     fun retrieveRecordingsJson(
         callSid: String,
         params: RecordingsJsonRetrieveRecordingsJsonParams,
-    ): RecordingsJsonRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(callSid, params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
@@ -64,20 +64,19 @@ interface RecordingsJsonService {
         callSid: String,
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingsJsonRetrieveRecordingsJsonResponse =
+    ): TexmlGetCallRecordingsResponseBody =
         retrieveRecordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams
-    ): RecordingsJsonRetrieveRecordingsJsonResponse =
-        retrieveRecordingsJson(params, RequestOptions.none())
+    ): TexmlGetCallRecordingsResponseBody = retrieveRecordingsJson(params, RequestOptions.none())
 
     /** @see retrieveRecordingsJson */
     fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingsJsonRetrieveRecordingsJsonResponse
+    ): TexmlGetCallRecordingsResponseBody
 
     /**
      * A view of [RecordingsJsonService] that provides access to raw HTTP responses for each method.
@@ -102,7 +101,7 @@ interface RecordingsJsonService {
         fun recordingsJson(
             callSid: String,
             params: RecordingsJsonRecordingsJsonParams,
-        ): HttpResponseFor<RecordingsJsonRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody> =
             recordingsJson(callSid, params, RequestOptions.none())
 
         /** @see recordingsJson */
@@ -111,14 +110,14 @@ interface RecordingsJsonService {
             callSid: String,
             params: RecordingsJsonRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingsJsonRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody> =
             recordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see recordingsJson */
         @MustBeClosed
         fun recordingsJson(
             params: RecordingsJsonRecordingsJsonParams
-        ): HttpResponseFor<RecordingsJsonRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody> =
             recordingsJson(params, RequestOptions.none())
 
         /** @see recordingsJson */
@@ -126,7 +125,7 @@ interface RecordingsJsonService {
         fun recordingsJson(
             params: RecordingsJsonRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingsJsonRecordingsJsonResponse>
+        ): HttpResponseFor<TexmlCreateCallRecordingResponseBody>
 
         /**
          * Returns a raw HTTP response for `get
@@ -137,7 +136,7 @@ interface RecordingsJsonService {
         fun retrieveRecordingsJson(
             callSid: String,
             params: RecordingsJsonRetrieveRecordingsJsonParams,
-        ): HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(callSid, params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -146,14 +145,14 @@ interface RecordingsJsonService {
             callSid: String,
             params: RecordingsJsonRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see retrieveRecordingsJson */
         @MustBeClosed
         fun retrieveRecordingsJson(
             params: RecordingsJsonRetrieveRecordingsJsonParams
-        ): HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse> =
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody> =
             retrieveRecordingsJson(params, RequestOptions.none())
 
         /** @see retrieveRecordingsJson */
@@ -161,6 +160,6 @@ interface RecordingsJsonService {
         fun retrieveRecordingsJson(
             params: RecordingsJsonRetrieveRecordingsJsonParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingsJsonRetrieveRecordingsJsonResponse>
+        ): HttpResponseFor<TexmlGetCallRecordingsResponseBody>
     }
 }

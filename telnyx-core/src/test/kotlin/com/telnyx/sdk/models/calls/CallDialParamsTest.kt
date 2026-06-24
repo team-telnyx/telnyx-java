@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.calls
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
+import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -135,52 +136,35 @@ internal class CallDialParamsTest {
                     .build()
             )
             .conversationRelayConfig(
-                CallDialParams.ConversationRelayConfig.builder()
+                ConversationRelayEmbeddedConfig.builder()
                     .url("wss://example.com/conversation-relay")
                     .customParameters(
-                        CallDialParams.ConversationRelayConfig.CustomParameters.builder()
+                        ConversationRelayEmbeddedConfig.CustomParameters.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                             .build()
                     )
                     .dtmfDetection(true)
                     .greeting("Hi! Ask me anything!")
-                    .interruptible(CallDialParams.ConversationRelayConfig.Interruptible.SPEECH)
-                    .interruptibleGreeting(
-                        CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                    )
+                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                    .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                     .interruptionSettings(
-                        CallDialParams.ConversationRelayConfig.InterruptionSettings.builder()
+                        ConversationRelayInterruptionSettings.builder()
                             .enable(true)
-                            .interruptible(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .InterruptibleGreeting
-                                    .SPEECH
-                            )
-                            .welcomeGreetingInterruptible(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .WelcomeGreetingInterruptible
-                                    .SPEECH
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                            .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        CallDialParams.ConversationRelayConfig.Language.builder()
+                        ConversationRelayLanguage.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                CallDialParams.ConversationRelayConfig.Language.TranscriptionEngine
-                                    .DEEPGRAM
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                CallDialParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),
@@ -200,16 +184,14 @@ internal class CallDialParamsTest {
                     )
                     .provider("elevenlabs")
                     .structuredProvider(
-                        CallDialParams.ConversationRelayConfig.StructuredProvider.builder()
+                        ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                             .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                             .putAdditionalProperty("model_id", JsonValue.from("bar"))
                             .build()
                     )
-                    .transcriptionEngine(
-                        CallDialParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
-                    )
+                    .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        CallDialParams.ConversationRelayConfig.TranscriptionEngineConfig.builder()
+                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                             .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                             .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                             .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
@@ -465,53 +447,35 @@ internal class CallDialParamsTest {
                         .build()
                 )
                 .conversationRelayConfig(
-                    CallDialParams.ConversationRelayConfig.builder()
+                    ConversationRelayEmbeddedConfig.builder()
                         .url("wss://example.com/conversation-relay")
                         .customParameters(
-                            CallDialParams.ConversationRelayConfig.CustomParameters.builder()
+                            ConversationRelayEmbeddedConfig.CustomParameters.builder()
                                 .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                                 .build()
                         )
                         .dtmfDetection(true)
                         .greeting("Hi! Ask me anything!")
-                        .interruptible(CallDialParams.ConversationRelayConfig.Interruptible.SPEECH)
-                        .interruptibleGreeting(
-                            CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                        )
+                        .interruptible(ConversationRelayInterruptible.SPEECH)
+                        .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                         .interruptionSettings(
-                            CallDialParams.ConversationRelayConfig.InterruptionSettings.builder()
+                            ConversationRelayInterruptionSettings.builder()
                                 .enable(true)
-                                .interruptible(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                        .Interruptible
-                                        .SPEECH
-                                )
-                                .interruptibleGreeting(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                        .InterruptibleGreeting
-                                        .SPEECH
-                                )
-                                .welcomeGreetingInterruptible(
-                                    CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                        .WelcomeGreetingInterruptible
-                                        .SPEECH
-                                )
+                                .interruptible(ConversationRelayInterruptible.SPEECH)
+                                .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                                .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                                 .build()
                         )
                         .language("en-US")
                         .addLanguage(
-                            CallDialParams.ConversationRelayConfig.Language.builder()
+                            ConversationRelayLanguage.builder()
                                 .language("en-US")
                                 .speechModel("nova-3")
                                 .transcriptionEngine(
-                                    CallDialParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngine
-                                        .DEEPGRAM
+                                    ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                 )
                                 .transcriptionEngineConfig(
-                                    CallDialParams.ConversationRelayConfig.Language
-                                        .TranscriptionEngineConfig
-                                        .builder()
+                                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                         .putAdditionalProperty(
                                             "transcription_model",
                                             JsonValue.from("bar"),
@@ -531,17 +495,16 @@ internal class CallDialParamsTest {
                         )
                         .provider("elevenlabs")
                         .structuredProvider(
-                            CallDialParams.ConversationRelayConfig.StructuredProvider.builder()
+                            ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                                 .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                                 .putAdditionalProperty("model_id", JsonValue.from("bar"))
                                 .build()
                         )
                         .transcriptionEngine(
-                            CallDialParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
+                            ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                         )
                         .transcriptionEngineConfig(
-                            CallDialParams.ConversationRelayConfig.TranscriptionEngineConfig
-                                .builder()
+                            ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                                 .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                                 .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                                 .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
@@ -804,52 +767,35 @@ internal class CallDialParamsTest {
             )
         assertThat(body.conversationRelayConfig())
             .contains(
-                CallDialParams.ConversationRelayConfig.builder()
+                ConversationRelayEmbeddedConfig.builder()
                     .url("wss://example.com/conversation-relay")
                     .customParameters(
-                        CallDialParams.ConversationRelayConfig.CustomParameters.builder()
+                        ConversationRelayEmbeddedConfig.CustomParameters.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("bar"))
                             .build()
                     )
                     .dtmfDetection(true)
                     .greeting("Hi! Ask me anything!")
-                    .interruptible(CallDialParams.ConversationRelayConfig.Interruptible.SPEECH)
-                    .interruptibleGreeting(
-                        CallDialParams.ConversationRelayConfig.InterruptibleGreeting.DTMF
-                    )
+                    .interruptible(ConversationRelayInterruptible.SPEECH)
+                    .interruptibleGreeting(ConversationRelayInterruptible.DTMF)
                     .interruptionSettings(
-                        CallDialParams.ConversationRelayConfig.InterruptionSettings.builder()
+                        ConversationRelayInterruptionSettings.builder()
                             .enable(true)
-                            .interruptible(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .Interruptible
-                                    .SPEECH
-                            )
-                            .interruptibleGreeting(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .InterruptibleGreeting
-                                    .SPEECH
-                            )
-                            .welcomeGreetingInterruptible(
-                                CallDialParams.ConversationRelayConfig.InterruptionSettings
-                                    .WelcomeGreetingInterruptible
-                                    .SPEECH
-                            )
+                            .interruptible(ConversationRelayInterruptible.SPEECH)
+                            .interruptibleGreeting(ConversationRelayInterruptible.SPEECH)
+                            .welcomeGreetingInterruptible(ConversationRelayInterruptible.SPEECH)
                             .build()
                     )
                     .language("en-US")
                     .addLanguage(
-                        CallDialParams.ConversationRelayConfig.Language.builder()
+                        ConversationRelayLanguage.builder()
                             .language("en-US")
                             .speechModel("nova-3")
                             .transcriptionEngine(
-                                CallDialParams.ConversationRelayConfig.Language.TranscriptionEngine
-                                    .DEEPGRAM
+                                ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                CallDialParams.ConversationRelayConfig.Language
-                                    .TranscriptionEngineConfig
-                                    .builder()
+                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
                                     .putAdditionalProperty(
                                         "transcription_model",
                                         JsonValue.from("bar"),
@@ -869,16 +815,14 @@ internal class CallDialParamsTest {
                     )
                     .provider("elevenlabs")
                     .structuredProvider(
-                        CallDialParams.ConversationRelayConfig.StructuredProvider.builder()
+                        ConversationRelayEmbeddedConfig.StructuredProvider.builder()
                             .putAdditionalProperty("voice_id", JsonValue.from("bar"))
                             .putAdditionalProperty("model_id", JsonValue.from("bar"))
                             .build()
                     )
-                    .transcriptionEngine(
-                        CallDialParams.ConversationRelayConfig.TranscriptionEngine.GOOGLE
-                    )
+                    .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        CallDialParams.ConversationRelayConfig.TranscriptionEngineConfig.builder()
+                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
                             .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
                             .putAdditionalProperty("interim_results", JsonValue.from("bar"))
                             .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))

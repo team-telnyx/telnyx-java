@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateParams
+import com.telnyx.sdk.models.whatsapp.templates.WhatsappTemplateHeaderComponent
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -20,10 +21,11 @@ internal class TemplateServiceTest {
                 TemplateCreateParams.builder()
                     .category(TemplateCreateParams.Category.MARKETING)
                     .addComponent(
-                        TemplateCreateParams.Component.Header.builder()
-                            .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                        WhatsappTemplateHeaderComponent.builder()
+                            .format(WhatsappTemplateHeaderComponent.Format.TEXT)
+                            .type(WhatsappTemplateHeaderComponent.Type.HEADER)
                             .example(
-                                TemplateCreateParams.Component.Header.Example.builder()
+                                WhatsappTemplateHeaderComponent.Example.builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")
                                     .build()

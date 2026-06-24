@@ -15,13 +15,13 @@ internal class RequirementRetrieveResponseTest {
         val requirementRetrieveResponse =
             RequirementRetrieveResponse.builder()
                 .data(
-                    RequirementRetrieveResponse.Data.builder()
+                    DocReqsRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementRetrieveResponse.Data.Action.ORDERING)
+                        .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
                         .locality("Nice")
-                        .phoneNumberType(RequirementRetrieveResponse.Data.PhoneNumberType.LOCAL)
+                        .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
                         .addRequirementsType(
                             DocReqsRequirementType.builder()
@@ -56,13 +56,13 @@ internal class RequirementRetrieveResponseTest {
 
         assertThat(requirementRetrieveResponse.data())
             .contains(
-                RequirementRetrieveResponse.Data.builder()
+                DocReqsRequirement.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .action(RequirementRetrieveResponse.Data.Action.ORDERING)
+                    .action(DocReqsRequirement.Action.ORDERING)
                     .countryCode("FR")
                     .createdAt("2021-04-09T22:25:27.521Z")
                     .locality("Nice")
-                    .phoneNumberType(RequirementRetrieveResponse.Data.PhoneNumberType.LOCAL)
+                    .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                     .recordType("requirement")
                     .addRequirementsType(
                         DocReqsRequirementType.builder()
@@ -101,13 +101,13 @@ internal class RequirementRetrieveResponseTest {
         val requirementRetrieveResponse =
             RequirementRetrieveResponse.builder()
                 .data(
-                    RequirementRetrieveResponse.Data.builder()
+                    DocReqsRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementRetrieveResponse.Data.Action.ORDERING)
+                        .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
                         .locality("Nice")
-                        .phoneNumberType(RequirementRetrieveResponse.Data.PhoneNumberType.LOCAL)
+                        .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
                         .addRequirementsType(
                             DocReqsRequirementType.builder()

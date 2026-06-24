@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.chat.ChatCompletionRequest
 import com.telnyx.sdk.models.ai.openai.chat.ChatCreateCompletionParams
 import com.telnyx.sdk.models.ai.openai.chat.ChatCreateCompletionResponse
 import java.util.function.Consumer
@@ -39,6 +40,23 @@ interface ChatService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChatCreateCompletionResponse
 
+    /** @see createCompletion */
+    fun createCompletion(
+        chatCompletionRequest: ChatCompletionRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ChatCreateCompletionResponse =
+        createCompletion(
+            ChatCreateCompletionParams.builder()
+                .chatCompletionRequest(chatCompletionRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see createCompletion */
+    fun createCompletion(
+        chatCompletionRequest: ChatCompletionRequest
+    ): ChatCreateCompletionResponse = createCompletion(chatCompletionRequest, RequestOptions.none())
+
     /** A view of [ChatService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -65,5 +83,25 @@ interface ChatService {
             params: ChatCreateCompletionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ChatCreateCompletionResponse>
+
+        /** @see createCompletion */
+        @MustBeClosed
+        fun createCompletion(
+            chatCompletionRequest: ChatCompletionRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ChatCreateCompletionResponse> =
+            createCompletion(
+                ChatCreateCompletionParams.builder()
+                    .chatCompletionRequest(chatCompletionRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createCompletion */
+        @MustBeClosed
+        fun createCompletion(
+            chatCompletionRequest: ChatCompletionRequest
+        ): HttpResponseFor<ChatCreateCompletionResponse> =
+            createCompletion(chatCompletionRequest, RequestOptions.none())
     }
 }

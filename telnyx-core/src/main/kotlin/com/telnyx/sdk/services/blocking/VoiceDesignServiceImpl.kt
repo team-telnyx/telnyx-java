@@ -18,7 +18,6 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
@@ -27,8 +26,8 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,14 +47,14 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
     override fun create(
         params: VoiceDesignCreateParams,
         requestOptions: RequestOptions,
-    ): VoiceDesignCreateResponse =
+    ): VoiceDesignResponse =
         // post /voice_designs
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: VoiceDesignRetrieveParams,
         requestOptions: RequestOptions,
-    ): VoiceDesignRetrieveResponse =
+    ): VoiceDesignResponse =
         // get /voice_designs/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -106,13 +105,13 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<VoiceDesignCreateResponse> =
-            jsonHandler<VoiceDesignCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<VoiceDesignResponse> =
+            jsonHandler<VoiceDesignResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: VoiceDesignCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceDesignCreateResponse> {
+        ): HttpResponseFor<VoiceDesignResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -134,13 +133,13 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val retrieveHandler: Handler<VoiceDesignRetrieveResponse> =
-            jsonHandler<VoiceDesignRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<VoiceDesignResponse> =
+            jsonHandler<VoiceDesignResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: VoiceDesignRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceDesignRetrieveResponse> {
+        ): HttpResponseFor<VoiceDesignResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())

@@ -16,7 +16,7 @@ internal class ConferenceRetrieveConferencesResponseTest {
         val conferenceRetrieveConferencesResponse =
             ConferenceRetrieveConferencesResponse.builder()
                 .addConference(
-                    ConferenceRetrieveConferencesResponse.Conference.builder()
+                    ConferenceResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .apiVersion("v2/texml")
                         .callSidEndingConference(
@@ -26,15 +26,13 @@ internal class ConferenceRetrieveConferencesResponseTest {
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .friendlyName("weekly_review_call")
                         .reasonConferenceEnded(
-                            ConferenceRetrieveConferencesResponse.Conference.ReasonConferenceEnded
-                                .TIME_EXCEEDED
+                            ConferenceResource.ReasonConferenceEnded.TIME_EXCEEDED
                         )
                         .region("dc2")
                         .sid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                        .status(ConferenceRetrieveConferencesResponse.Conference.Status.IN_PROGRESS)
+                        .status(ConferenceResource.Status.IN_PROGRESS)
                         .subresourceUris(
-                            ConferenceRetrieveConferencesResponse.Conference.SubresourceUris
-                                .builder()
+                            ConferenceResource.SubresourceUris.builder()
                                 .putAdditionalProperty("participants", JsonValue.from("bar"))
                                 .putAdditionalProperty("recordings", JsonValue.from("bar"))
                                 .build()
@@ -61,7 +59,7 @@ internal class ConferenceRetrieveConferencesResponseTest {
 
         assertThat(conferenceRetrieveConferencesResponse.conferences().getOrNull())
             .containsExactly(
-                ConferenceRetrieveConferencesResponse.Conference.builder()
+                ConferenceResource.builder()
                     .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                     .apiVersion("v2/texml")
                     .callSidEndingConference(
@@ -70,15 +68,12 @@ internal class ConferenceRetrieveConferencesResponseTest {
                     .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .friendlyName("weekly_review_call")
-                    .reasonConferenceEnded(
-                        ConferenceRetrieveConferencesResponse.Conference.ReasonConferenceEnded
-                            .TIME_EXCEEDED
-                    )
+                    .reasonConferenceEnded(ConferenceResource.ReasonConferenceEnded.TIME_EXCEEDED)
                     .region("dc2")
                     .sid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                    .status(ConferenceRetrieveConferencesResponse.Conference.Status.IN_PROGRESS)
+                    .status(ConferenceResource.Status.IN_PROGRESS)
                     .subresourceUris(
-                        ConferenceRetrieveConferencesResponse.Conference.SubresourceUris.builder()
+                        ConferenceResource.SubresourceUris.builder()
                             .putAdditionalProperty("participants", JsonValue.from("bar"))
                             .putAdditionalProperty("recordings", JsonValue.from("bar"))
                             .build()
@@ -112,7 +107,7 @@ internal class ConferenceRetrieveConferencesResponseTest {
         val conferenceRetrieveConferencesResponse =
             ConferenceRetrieveConferencesResponse.builder()
                 .addConference(
-                    ConferenceRetrieveConferencesResponse.Conference.builder()
+                    ConferenceResource.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
                         .apiVersion("v2/texml")
                         .callSidEndingConference(
@@ -122,15 +117,13 @@ internal class ConferenceRetrieveConferencesResponseTest {
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .friendlyName("weekly_review_call")
                         .reasonConferenceEnded(
-                            ConferenceRetrieveConferencesResponse.Conference.ReasonConferenceEnded
-                                .TIME_EXCEEDED
+                            ConferenceResource.ReasonConferenceEnded.TIME_EXCEEDED
                         )
                         .region("dc2")
                         .sid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                        .status(ConferenceRetrieveConferencesResponse.Conference.Status.IN_PROGRESS)
+                        .status(ConferenceResource.Status.IN_PROGRESS)
                         .subresourceUris(
-                            ConferenceRetrieveConferencesResponse.Conference.SubresourceUris
-                                .builder()
+                            ConferenceResource.SubresourceUris.builder()
                                 .putAdditionalProperty("participants", JsonValue.from("bar"))
                                 .putAdditionalProperty("recordings", JsonValue.from("bar"))
                                 .build()

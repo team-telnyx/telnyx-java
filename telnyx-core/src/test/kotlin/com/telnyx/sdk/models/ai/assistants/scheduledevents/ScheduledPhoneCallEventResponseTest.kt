@@ -32,8 +32,8 @@ internal class ScheduledPhoneCallEventResponseTest {
                 )
                 .callDuration(0L)
                 .callSettings(
-                    ScheduledPhoneCallEventResponse.CallSettings.builder()
-                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                    ScheduledCallSettings.builder()
+                        .sipRegion(ScheduledCallSettings.SipRegion.US)
                         .build()
                 )
                 .callStatus("call_status")
@@ -81,8 +81,8 @@ internal class ScheduledPhoneCallEventResponseTest {
         assertThat(scheduledPhoneCallEventResponse.callDuration()).contains(0L)
         assertThat(scheduledPhoneCallEventResponse.callSettings())
             .contains(
-                ScheduledPhoneCallEventResponse.CallSettings.builder()
-                    .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                ScheduledCallSettings.builder()
+                    .sipRegion(ScheduledCallSettings.SipRegion.US)
                     .build()
             )
         assertThat(scheduledPhoneCallEventResponse.callStatus()).contains("call_status")
@@ -134,8 +134,8 @@ internal class ScheduledPhoneCallEventResponseTest {
                 )
                 .callDuration(0L)
                 .callSettings(
-                    ScheduledPhoneCallEventResponse.CallSettings.builder()
-                        .sipRegion(ScheduledPhoneCallEventResponse.CallSettings.SipRegion.US)
+                    ScheduledCallSettings.builder()
+                        .sipRegion(ScheduledCallSettings.SipRegion.US)
                         .build()
                 )
                 .callStatus("call_status")

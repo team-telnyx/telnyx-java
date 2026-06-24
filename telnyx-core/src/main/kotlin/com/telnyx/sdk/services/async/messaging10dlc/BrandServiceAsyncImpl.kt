@@ -22,7 +22,6 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListParams
@@ -30,8 +29,8 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.messaging10dlc.brand.BrandSmsOtpStatus
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandUpdateParams
@@ -108,7 +107,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun getSmsOtpByReference(
         params: BrandGetSmsOtpByReferenceParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         // get /10dlc/brand/smsOtp/{referenceId}
         withRawResponse().getSmsOtpByReference(params, requestOptions).thenApply { it.parse() }
 
@@ -122,7 +121,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun retrieveSmsOtpStatus(
         params: BrandRetrieveSmsOtpStatusParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+    ): CompletableFuture<BrandSmsOtpStatus> =
         // get /10dlc/brand/{brandId}/smsOtp
         withRawResponse().retrieveSmsOtpStatus(params, requestOptions).thenApply { it.parse() }
 
@@ -364,13 +363,13 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val getSmsOtpByReferenceHandler: Handler<BrandGetSmsOtpByReferenceResponse> =
-            jsonHandler<BrandGetSmsOtpByReferenceResponse>(clientOptions.jsonMapper)
+        private val getSmsOtpByReferenceHandler: Handler<BrandSmsOtpStatus> =
+            jsonHandler<BrandSmsOtpStatus>(clientOptions.jsonMapper)
 
         override fun getSmsOtpByReference(
             params: BrandGetSmsOtpByReferenceParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> {
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("referenceId", params.referenceId().getOrNull())
@@ -424,13 +423,13 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val retrieveSmsOtpStatusHandler: Handler<BrandRetrieveSmsOtpStatusResponse> =
-            jsonHandler<BrandRetrieveSmsOtpStatusResponse>(clientOptions.jsonMapper)
+        private val retrieveSmsOtpStatusHandler: Handler<BrandSmsOtpStatus> =
+            jsonHandler<BrandSmsOtpStatus>(clientOptions.jsonMapper)
 
         override fun retrieveSmsOtpStatus(
             params: BrandRetrieveSmsOtpStatusParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> {
+        ): CompletableFuture<HttpResponseFor<BrandSmsOtpStatus>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())

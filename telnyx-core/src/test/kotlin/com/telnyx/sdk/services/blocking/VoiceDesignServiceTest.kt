@@ -29,7 +29,7 @@ internal class VoiceDesignServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceDesignService = client.voiceDesigns()
 
-        val voiceDesign =
+        val voiceDesignResponse =
             voiceDesignService.create(
                 VoiceDesignCreateParams.builder()
                     .prompt("Speak in a warm, friendly tone")
@@ -46,7 +46,7 @@ internal class VoiceDesignServiceTest {
                     .build()
             )
 
-        voiceDesign.validate()
+        voiceDesignResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -55,12 +55,12 @@ internal class VoiceDesignServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceDesignService = client.voiceDesigns()
 
-        val voiceDesign =
+        val voiceDesignResponse =
             voiceDesignService.retrieve(
                 VoiceDesignRetrieveParams.builder().id("id").version(1L).build()
             )
 
-        voiceDesign.validate()
+        voiceDesignResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

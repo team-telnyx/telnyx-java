@@ -11,33 +11,13 @@ internal class NetworkCreateTest {
 
     @Test
     fun create() {
-        val networkCreate =
-            NetworkCreate.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .createdAt("2018-02-02T22:25:27.521Z")
-                .recordType("sample_record_type")
-                .updatedAt("2018-02-02T22:25:27.521Z")
-                .name("test network")
-                .build()
-
-        assertThat(networkCreate.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(networkCreate.createdAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(networkCreate.recordType()).contains("sample_record_type")
-        assertThat(networkCreate.updatedAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(networkCreate.name()).isEqualTo("test network")
+        val networkCreate = NetworkCreate.builder().build()
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val networkCreate =
-            NetworkCreate.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .createdAt("2018-02-02T22:25:27.521Z")
-                .recordType("sample_record_type")
-                .updatedAt("2018-02-02T22:25:27.521Z")
-                .name("test network")
-                .build()
+        val networkCreate = NetworkCreate.builder().build()
 
         val roundtrippedNetworkCreate =
             jsonMapper.readValue(

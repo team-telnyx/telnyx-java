@@ -4,11 +4,13 @@ package com.telnyx.sdk.services.async.ai.missions.runs
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.missions.runs.plan.CreatePlanStepRequest
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepParams
+import com.telnyx.sdk.models.ai.missions.runs.plan.StepStatus
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -20,18 +22,18 @@ internal class PlanServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val planServiceAsync = client.ai().missions().runs().plan()
 
-        val planFuture =
+        val planStepsCreatedResponseFuture =
             planServiceAsync.create(
                 PlanCreateParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addStep(
-                        PlanCreateParams.Step.builder()
+                        CreatePlanStepRequest.builder()
                             .description("description")
                             .sequence(0L)
                             .stepId("step_id")
                             .metadata(
-                                PlanCreateParams.Step.Metadata.builder()
+                                CreatePlanStepRequest.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -41,8 +43,8 @@ internal class PlanServiceAsyncTest {
                     .build()
             )
 
-        val plan = planFuture.get()
-        plan.validate()
+        val planStepsCreatedResponse = planStepsCreatedResponseFuture.get()
+        planStepsCreatedResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -69,18 +71,18 @@ internal class PlanServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val planServiceAsync = client.ai().missions().runs().plan()
 
-        val responseFuture =
+        val planStepsCreatedResponseFuture =
             planServiceAsync.addStepsToPlan(
                 PlanAddStepsToPlanParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addStep(
-                        PlanAddStepsToPlanParams.Step.builder()
+                        CreatePlanStepRequest.builder()
                             .description("description")
                             .sequence(0L)
                             .stepId("step_id")
                             .metadata(
-                                PlanAddStepsToPlanParams.Step.Metadata.builder()
+                                CreatePlanStepRequest.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -90,8 +92,8 @@ internal class PlanServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val planStepsCreatedResponse = planStepsCreatedResponseFuture.get()
+        planStepsCreatedResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -100,7 +102,7 @@ internal class PlanServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val planServiceAsync = client.ai().missions().runs().plan()
 
-        val responseFuture =
+        val planStepResponseFuture =
             planServiceAsync.getStepDetails(
                 PlanGetStepDetailsParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -109,8 +111,8 @@ internal class PlanServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val planStepResponse = planStepResponseFuture.get()
+        planStepResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -119,7 +121,7 @@ internal class PlanServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val planServiceAsync = client.ai().missions().runs().plan()
 
-        val responseFuture =
+        val planStepResponseFuture =
             planServiceAsync.updateStep(
                 PlanUpdateStepParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -130,11 +132,11 @@ internal class PlanServiceAsyncTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .status(PlanUpdateStepParams.Status.PENDING)
+                    .status(StepStatus.PENDING)
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val planStepResponse = planStepResponseFuture.get()
+        planStepResponse.validate()
     }
 }

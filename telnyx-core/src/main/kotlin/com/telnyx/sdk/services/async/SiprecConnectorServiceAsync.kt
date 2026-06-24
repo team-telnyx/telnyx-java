@@ -7,12 +7,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorCreateResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorDeleteParams
+import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorRetrieveResponse
 import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateParams
-import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -32,18 +30,17 @@ interface SiprecConnectorServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SiprecConnectorServiceAsync
 
     /** Creates a new SIPREC connector configuration. */
-    fun create(
-        params: SiprecConnectorCreateParams
-    ): CompletableFuture<SiprecConnectorCreateResponse> = create(params, RequestOptions.none())
+    fun create(params: SiprecConnectorCreateParams): CompletableFuture<SiprecConnectorResponse> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: SiprecConnectorCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiprecConnectorCreateResponse>
+    ): CompletableFuture<SiprecConnectorResponse>
 
     /** Returns details of a stored SIPREC connector. */
-    fun retrieve(connectorName: String): CompletableFuture<SiprecConnectorRetrieveResponse> =
+    fun retrieve(connectorName: String): CompletableFuture<SiprecConnectorResponse> =
         retrieve(connectorName, SiprecConnectorRetrieveParams.none())
 
     /** @see retrieve */
@@ -51,39 +48,39 @@ interface SiprecConnectorServiceAsync {
         connectorName: String,
         params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiprecConnectorRetrieveResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         retrieve(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         connectorName: String,
         params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
-    ): CompletableFuture<SiprecConnectorRetrieveResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         retrieve(connectorName, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: SiprecConnectorRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiprecConnectorRetrieveResponse>
+    ): CompletableFuture<SiprecConnectorResponse>
 
     /** @see retrieve */
     fun retrieve(
         params: SiprecConnectorRetrieveParams
-    ): CompletableFuture<SiprecConnectorRetrieveResponse> = retrieve(params, RequestOptions.none())
+    ): CompletableFuture<SiprecConnectorResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         connectorName: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SiprecConnectorRetrieveResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         retrieve(connectorName, SiprecConnectorRetrieveParams.none(), requestOptions)
 
     /** Updates a stored SIPREC connector configuration. */
     fun update(
         connectorName: String,
         params: SiprecConnectorUpdateParams,
-    ): CompletableFuture<SiprecConnectorUpdateResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         update(connectorName, params, RequestOptions.none())
 
     /** @see update */
@@ -91,19 +88,18 @@ interface SiprecConnectorServiceAsync {
         connectorName: String,
         params: SiprecConnectorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiprecConnectorUpdateResponse> =
+    ): CompletableFuture<SiprecConnectorResponse> =
         update(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
     /** @see update */
-    fun update(
-        params: SiprecConnectorUpdateParams
-    ): CompletableFuture<SiprecConnectorUpdateResponse> = update(params, RequestOptions.none())
+    fun update(params: SiprecConnectorUpdateParams): CompletableFuture<SiprecConnectorResponse> =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: SiprecConnectorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiprecConnectorUpdateResponse>
+    ): CompletableFuture<SiprecConnectorResponse>
 
     /** Deletes a stored SIPREC connector. */
     fun delete(connectorName: String): CompletableFuture<Void?> =
@@ -158,14 +154,14 @@ interface SiprecConnectorServiceAsync {
          */
         fun create(
             params: SiprecConnectorCreateParams
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: SiprecConnectorCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>>
 
         /**
          * Returns a raw HTTP response for `get /siprec_connectors/{connector_name}`, but is
@@ -173,7 +169,7 @@ interface SiprecConnectorServiceAsync {
          */
         fun retrieve(
             connectorName: String
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             retrieve(connectorName, SiprecConnectorRetrieveParams.none())
 
         /** @see retrieve */
@@ -181,33 +177,33 @@ interface SiprecConnectorServiceAsync {
             connectorName: String,
             params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             retrieve(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             connectorName: String,
             params: SiprecConnectorRetrieveParams = SiprecConnectorRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             retrieve(connectorName, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: SiprecConnectorRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: SiprecConnectorRetrieveParams
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             connectorName: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             retrieve(connectorName, SiprecConnectorRetrieveParams.none(), requestOptions)
 
         /**
@@ -217,7 +213,7 @@ interface SiprecConnectorServiceAsync {
         fun update(
             connectorName: String,
             params: SiprecConnectorUpdateParams,
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             update(connectorName, params, RequestOptions.none())
 
         /** @see update */
@@ -225,20 +221,20 @@ interface SiprecConnectorServiceAsync {
             connectorName: String,
             params: SiprecConnectorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             update(params.toBuilder().connectorName(connectorName).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: SiprecConnectorUpdateParams
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: SiprecConnectorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiprecConnectorUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<SiprecConnectorResponse>>
 
         /**
          * Returns a raw HTTP response for `delete /siprec_connectors/{connector_name}`, but is

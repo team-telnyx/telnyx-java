@@ -16,7 +16,7 @@ internal class SiprecConnectorServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val siprecConnectorService = client.siprecConnectors()
 
-        val siprecConnector =
+        val siprecConnectorResponse =
             siprecConnectorService.create(
                 SiprecConnectorCreateParams.builder()
                     .host("siprec.telnyx.com")
@@ -26,7 +26,7 @@ internal class SiprecConnectorServiceTest {
                     .build()
             )
 
-        siprecConnector.validate()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -35,9 +35,9 @@ internal class SiprecConnectorServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val siprecConnectorService = client.siprecConnectors()
 
-        val siprecConnector = siprecConnectorService.retrieve("connector_name")
+        val siprecConnectorResponse = siprecConnectorService.retrieve("connector_name")
 
-        siprecConnector.validate()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -46,7 +46,7 @@ internal class SiprecConnectorServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val siprecConnectorService = client.siprecConnectors()
 
-        val siprecConnector =
+        val siprecConnectorResponse =
             siprecConnectorService.update(
                 SiprecConnectorUpdateParams.builder()
                     .connectorName("connector_name")
@@ -57,7 +57,7 @@ internal class SiprecConnectorServiceTest {
                     .build()
             )
 
-        siprecConnector.validate()
+        siprecConnectorResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

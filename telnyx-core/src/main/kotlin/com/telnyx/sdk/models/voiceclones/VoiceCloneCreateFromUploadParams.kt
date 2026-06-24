@@ -38,7 +38,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 class VoiceCloneCreateFromUploadParams
 private constructor(
-    private val params: MultipartField<Params>,
+    private val voiceCloneUploadRequest: MultipartField<VoiceCloneUploadRequest>,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -50,14 +50,19 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun params(): Params = params.value.getRequired("params")
+    fun voiceCloneUploadRequest(): VoiceCloneUploadRequest =
+        voiceCloneUploadRequest.value.getRequired("voice_clone_upload_request")
 
     /**
-     * Returns the raw multipart value of [params].
+     * Returns the raw multipart value of [voiceCloneUploadRequest].
      *
-     * Unlike [params], this method doesn't throw if the multipart field has an unexpected type.
+     * Unlike [voiceCloneUploadRequest], this method doesn't throw if the multipart field has an
+     * unexpected type.
      */
-    @JsonProperty("params") @ExcludeMissing fun _params(): MultipartField<Params> = params
+    @JsonProperty("voice_clone_upload_request")
+    @ExcludeMissing
+    fun _voiceCloneUploadRequest(): MultipartField<VoiceCloneUploadRequest> =
+        voiceCloneUploadRequest
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -75,7 +80,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .voiceCloneUploadRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -84,14 +89,14 @@ private constructor(
     /** A builder for [VoiceCloneCreateFromUploadParams]. */
     class Builder internal constructor() {
 
-        private var params: MultipartField<Params>? = null
+        private var voiceCloneUploadRequest: MultipartField<VoiceCloneUploadRequest>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(voiceCloneCreateFromUploadParams: VoiceCloneCreateFromUploadParams) =
             apply {
-                params = voiceCloneCreateFromUploadParams.params
+                voiceCloneUploadRequest = voiceCloneCreateFromUploadParams.voiceCloneUploadRequest
                 additionalHeaders = voiceCloneCreateFromUploadParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     voiceCloneCreateFromUploadParams.additionalQueryParams.toBuilder()
@@ -101,32 +106,49 @@ private constructor(
          * Multipart form data for creating a voice clone from a direct audio upload. Maximum file
          * size: 5MB for Telnyx, 20MB for Minimax.
          */
-        fun params(params: Params) =
-            params(
-                MultipartField.builder<Params>()
-                    .value(params)
+        fun voiceCloneUploadRequest(voiceCloneUploadRequest: VoiceCloneUploadRequest) =
+            voiceCloneUploadRequest(
+                MultipartField.builder<VoiceCloneUploadRequest>()
+                    .value(voiceCloneUploadRequest)
                     .contentType("application/octet-stream")
                     .build()
             )
 
         /**
-         * Sets [Builder.params] to an arbitrary multipart value.
+         * Sets [Builder.voiceCloneUploadRequest] to an arbitrary multipart value.
          *
-         * You should usually call [Builder.params] with a well-typed [Params] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.voiceCloneUploadRequest] with a well-typed
+         * [VoiceCloneUploadRequest] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
-        fun params(params: MultipartField<Params>) = apply { this.params = params }
+        fun voiceCloneUploadRequest(
+            voiceCloneUploadRequest: MultipartField<VoiceCloneUploadRequest>
+        ) = apply { this.voiceCloneUploadRequest = voiceCloneUploadRequest }
 
-        /** Alias for calling [params] with `Params.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone)`. */
-        fun params(telnyxQwen3TtsClone: Params.TelnyxQwen3TtsClone) =
-            params(Params.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone))
+        /**
+         * Alias for calling [voiceCloneUploadRequest] with
+         * `VoiceCloneUploadRequest.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone)`.
+         */
+        fun voiceCloneUploadRequest(
+            telnyxQwen3TtsClone: VoiceCloneUploadRequest.TelnyxQwen3TtsClone
+        ) =
+            voiceCloneUploadRequest(
+                VoiceCloneUploadRequest.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone)
+            )
 
-        /** Alias for calling [params] with `Params.ofTelnyxUltraClone(telnyxUltraClone)`. */
-        fun params(telnyxUltraClone: Params.TelnyxUltraClone) =
-            params(Params.ofTelnyxUltraClone(telnyxUltraClone))
+        /**
+         * Alias for calling [voiceCloneUploadRequest] with
+         * `VoiceCloneUploadRequest.ofTelnyxUltraClone(telnyxUltraClone)`.
+         */
+        fun voiceCloneUploadRequest(telnyxUltraClone: VoiceCloneUploadRequest.TelnyxUltraClone) =
+            voiceCloneUploadRequest(VoiceCloneUploadRequest.ofTelnyxUltraClone(telnyxUltraClone))
 
-        /** Alias for calling [params] with `Params.ofMinimaxClone(minimaxClone)`. */
-        fun params(minimaxClone: Params.MinimaxClone) = params(Params.ofMinimaxClone(minimaxClone))
+        /**
+         * Alias for calling [voiceCloneUploadRequest] with
+         * `VoiceCloneUploadRequest.ofMinimaxClone(minimaxClone)`.
+         */
+        fun voiceCloneUploadRequest(minimaxClone: VoiceCloneUploadRequest.MinimaxClone) =
+            voiceCloneUploadRequest(VoiceCloneUploadRequest.ofMinimaxClone(minimaxClone))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -233,20 +255,21 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .params()
+         * .voiceCloneUploadRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): VoiceCloneCreateFromUploadParams =
             VoiceCloneCreateFromUploadParams(
-                checkRequired("params", params),
+                checkRequired("voiceCloneUploadRequest", voiceCloneUploadRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Map<String, MultipartField<*>> = mapOf("params" to _params()).toImmutable()
+    fun _body(): Map<String, MultipartField<*>> =
+        mapOf("voice_clone_upload_request" to _voiceCloneUploadRequest()).toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -256,8 +279,8 @@ private constructor(
      * Multipart form data for creating a voice clone from a direct audio upload. Maximum file size:
      * 5MB for Telnyx, 20MB for Minimax.
      */
-    @JsonSerialize(using = Params.Serializer::class)
-    class Params
+    @JsonSerialize(using = VoiceCloneUploadRequest.Serializer::class)
+    class VoiceCloneUploadRequest
     private constructor(
         private val telnyxQwen3TtsClone: TelnyxQwen3TtsClone? = null,
         private val telnyxUltraClone: TelnyxUltraClone? = null,
@@ -303,7 +326,7 @@ private constructor(
          * import com.telnyx.sdk.core.JsonValue;
          * import java.util.Optional;
          *
-         * Optional<String> result = params.accept(new Params.Visitor<Optional<String>>() {
+         * Optional<String> result = voiceCloneUploadRequest.accept(new VoiceCloneUploadRequest.Visitor<Optional<String>>() {
          *     @Override
          *     public Optional<String> visitTelnyxQwen3TtsClone(TelnyxQwen3TtsClone telnyxQwen3TtsClone) {
          *         return Optional.of(telnyxQwen3TtsClone.toString());
@@ -341,7 +364,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Params = apply {
+        fun validate(): VoiceCloneUploadRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -379,7 +402,7 @@ private constructor(
                 return true
             }
 
-            return other is Params &&
+            return other is VoiceCloneUploadRequest &&
                 telnyxQwen3TtsClone == other.telnyxQwen3TtsClone &&
                 telnyxUltraClone == other.telnyxUltraClone &&
                 minimaxClone == other.minimaxClone
@@ -390,11 +413,13 @@ private constructor(
 
         override fun toString(): String =
             when {
-                telnyxQwen3TtsClone != null -> "Params{telnyxQwen3TtsClone=$telnyxQwen3TtsClone}"
-                telnyxUltraClone != null -> "Params{telnyxUltraClone=$telnyxUltraClone}"
-                minimaxClone != null -> "Params{minimaxClone=$minimaxClone}"
-                _json != null -> "Params{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Params")
+                telnyxQwen3TtsClone != null ->
+                    "VoiceCloneUploadRequest{telnyxQwen3TtsClone=$telnyxQwen3TtsClone}"
+                telnyxUltraClone != null ->
+                    "VoiceCloneUploadRequest{telnyxUltraClone=$telnyxUltraClone}"
+                minimaxClone != null -> "VoiceCloneUploadRequest{minimaxClone=$minimaxClone}"
+                _json != null -> "VoiceCloneUploadRequest{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid VoiceCloneUploadRequest")
             }
 
         companion object {
@@ -402,19 +427,23 @@ private constructor(
             /** Upload-based voice clone using the Telnyx Qwen3TTS model (default). */
             @JvmStatic
             fun ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone: TelnyxQwen3TtsClone) =
-                Params(telnyxQwen3TtsClone = telnyxQwen3TtsClone)
+                VoiceCloneUploadRequest(telnyxQwen3TtsClone = telnyxQwen3TtsClone)
 
             /** Upload-based voice clone using the Telnyx Ultra model. */
             @JvmStatic
             fun ofTelnyxUltraClone(telnyxUltraClone: TelnyxUltraClone) =
-                Params(telnyxUltraClone = telnyxUltraClone)
+                VoiceCloneUploadRequest(telnyxUltraClone = telnyxUltraClone)
 
             /** Upload-based voice clone using the Minimax provider. */
             @JvmStatic
-            fun ofMinimaxClone(minimaxClone: MinimaxClone) = Params(minimaxClone = minimaxClone)
+            fun ofMinimaxClone(minimaxClone: MinimaxClone) =
+                VoiceCloneUploadRequest(minimaxClone = minimaxClone)
         }
 
-        /** An interface that defines how to map each variant of [Params] to a value of type [T]. */
+        /**
+         * An interface that defines how to map each variant of [VoiceCloneUploadRequest] to a value
+         * of type [T].
+         */
         interface Visitor<out T> {
 
             /** Upload-based voice clone using the Telnyx Qwen3TTS model (default). */
@@ -427,24 +456,25 @@ private constructor(
             fun visitMinimaxClone(minimaxClone: MinimaxClone): T
 
             /**
-             * Maps an unknown variant of [Params] to a value of type [T].
+             * Maps an unknown variant of [VoiceCloneUploadRequest] to a value of type [T].
              *
-             * An instance of [Params] can contain an unknown variant if it was deserialized from
-             * data that doesn't match any known variant. For example, if the SDK is on an older
-             * version than the API, then the API may respond with new variants that the SDK is
-             * unaware of.
+             * An instance of [VoiceCloneUploadRequest] can contain an unknown variant if it was
+             * deserialized from data that doesn't match any known variant. For example, if the SDK
+             * is on an older version than the API, then the API may respond with new variants that
+             * the SDK is unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Params: $json")
+                throw TelnyxInvalidDataException("Unknown VoiceCloneUploadRequest: $json")
             }
         }
 
-        internal class Serializer : BaseSerializer<Params>(Params::class) {
+        internal class Serializer :
+            BaseSerializer<VoiceCloneUploadRequest>(VoiceCloneUploadRequest::class) {
 
             override fun serialize(
-                value: Params,
+                value: VoiceCloneUploadRequest,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -454,7 +484,7 @@ private constructor(
                     value.telnyxUltraClone != null -> generator.writeObject(value.telnyxUltraClone)
                     value.minimaxClone != null -> generator.writeObject(value.minimaxClone)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Params")
+                    else -> throw IllegalStateException("Invalid VoiceCloneUploadRequest")
                 }
             }
         }
@@ -3140,13 +3170,14 @@ private constructor(
         }
 
         return other is VoiceCloneCreateFromUploadParams &&
-            params == other.params &&
+            voiceCloneUploadRequest == other.voiceCloneUploadRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(params, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(voiceCloneUploadRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "VoiceCloneCreateFromUploadParams{params=$params, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneCreateFromUploadParams{voiceCloneUploadRequest=$voiceCloneUploadRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -22,16 +22,14 @@ import kotlin.jvm.optionals.getOrNull
 class GlobalIpListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<GlobalIpListResponse>>,
+    private val data: JsonField<List<GlobalIp>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data")
-        @ExcludeMissing
-        data: JsonField<List<GlobalIpListResponse>> = JsonMissing.of(),
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<GlobalIp>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +37,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<GlobalIpListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<GlobalIp>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +50,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<GlobalIpListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<GlobalIp>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +80,7 @@ private constructor(
     /** A builder for [GlobalIpListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<GlobalIpListResponse>>? = null
+        private var data: JsonField<MutableList<GlobalIp>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,25 +91,25 @@ private constructor(
             additionalProperties = globalIpListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<GlobalIpListResponse>) = data(JsonField.of(data))
+        fun data(data: List<GlobalIp>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<GlobalIpListResponse>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<GlobalIp>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun data(data: JsonField<List<GlobalIpListResponse>>) = apply {
+        fun data(data: JsonField<List<GlobalIp>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [GlobalIpListResponse] to [Builder.data].
+         * Adds a single [GlobalIp] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: GlobalIpListResponse) = apply {
+        fun addData(data: GlobalIp) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

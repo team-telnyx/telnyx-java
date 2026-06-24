@@ -17,21 +17,19 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.missions.EventsListResponse
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionCreateParams
-import com.telnyx.sdk.models.ai.missions.MissionCreateResponse
 import com.telnyx.sdk.models.ai.missions.MissionDeleteMissionParams
 import com.telnyx.sdk.models.ai.missions.MissionListEventsPageAsync
-import com.telnyx.sdk.models.ai.missions.MissionListEventsPageResponse
 import com.telnyx.sdk.models.ai.missions.MissionListEventsParams
 import com.telnyx.sdk.models.ai.missions.MissionListPageAsync
 import com.telnyx.sdk.models.ai.missions.MissionListPageResponse
 import com.telnyx.sdk.models.ai.missions.MissionListParams
+import com.telnyx.sdk.models.ai.missions.MissionResponse
 import com.telnyx.sdk.models.ai.missions.MissionRetrieveParams
-import com.telnyx.sdk.models.ai.missions.MissionRetrieveResponse
 import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionParams
-import com.telnyx.sdk.models.ai.missions.MissionUpdateMissionResponse
 import com.telnyx.sdk.services.async.ai.missions.KnowledgeBaseServiceAsync
 import com.telnyx.sdk.services.async.ai.missions.KnowledgeBaseServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.missions.McpServerServiceAsync
@@ -79,14 +77,14 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun create(
         params: MissionCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MissionCreateResponse> =
+    ): CompletableFuture<MissionResponse> =
         // post /ai/missions
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: MissionRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MissionRetrieveResponse> =
+    ): CompletableFuture<MissionResponse> =
         // get /ai/missions/{mission_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -121,7 +119,7 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun updateMission(
         params: MissionUpdateMissionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MissionUpdateMissionResponse> =
+    ): CompletableFuture<MissionResponse> =
         // put /ai/missions/{mission_id}
         withRawResponse().updateMission(params, requestOptions).thenApply { it.parse() }
 
@@ -162,13 +160,13 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
         override fun tools(): ToolServiceAsync.WithRawResponse = tools
 
-        private val createHandler: Handler<MissionCreateResponse> =
-            jsonHandler<MissionCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: MissionCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MissionCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -193,13 +191,13 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val retrieveHandler: Handler<MissionRetrieveResponse> =
-            jsonHandler<MissionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: MissionRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MissionRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())
@@ -325,8 +323,8 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listEventsHandler: Handler<MissionListEventsPageResponse> =
-            jsonHandler<MissionListEventsPageResponse>(clientOptions.jsonMapper)
+        private val listEventsHandler: Handler<EventsListResponse> =
+            jsonHandler<EventsListResponse>(clientOptions.jsonMapper)
 
         override fun listEvents(
             params: MissionListEventsParams,
@@ -363,13 +361,13 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val updateMissionHandler: Handler<MissionUpdateMissionResponse> =
-            jsonHandler<MissionUpdateMissionResponse>(clientOptions.jsonMapper)
+        private val updateMissionHandler: Handler<MissionResponse> =
+            jsonHandler<MissionResponse>(clientOptions.jsonMapper)
 
         override fun updateMission(
             params: MissionUpdateMissionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MissionUpdateMissionResponse>> {
+        ): CompletableFuture<HttpResponseFor<MissionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("missionId", params.missionId().getOrNull())

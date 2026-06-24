@@ -11,10 +11,11 @@ internal class SipRegistrationStatusRetrieveParamsTest {
     @Test
     fun create() {
         SipRegistrationStatusRetrieveParams.builder()
-            .connectionId("connection_id")
             .credentialType(
                 SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
             )
+            .connectionId("connection_id")
+            .username("username")
             .build()
     }
 
@@ -22,7 +23,29 @@ internal class SipRegistrationStatusRetrieveParamsTest {
     fun queryParams() {
         val params =
             SipRegistrationStatusRetrieveParams.builder()
+                .credentialType(
+                    SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
+                )
                 .connectionId("connection_id")
+                .username("username")
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("credential_type", "uac_external_credential")
+                    .put("connection_id", "connection_id")
+                    .put("username", "username")
+                    .build()
+            )
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params =
+            SipRegistrationStatusRetrieveParams.builder()
                 .credentialType(
                     SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
                 )
@@ -32,10 +55,7 @@ internal class SipRegistrationStatusRetrieveParamsTest {
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder()
-                    .put("connection_id", "connection_id")
-                    .put("credential_type", "uac_external_credential")
-                    .build()
+                QueryParams.builder().put("credential_type", "uac_external_credential").build()
             )
     }
 }

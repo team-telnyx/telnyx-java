@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.texml.accounts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.texml.accounts.transcriptions.json.TexmlRecordingTranscription
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -25,7 +26,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                 .previousPageUri("https://example.com")
                 .start(0L)
                 .addTranscription(
-                    AccountRetrieveTranscriptionsJsonResponse.Transcription.builder()
+                    TexmlRecordingTranscription.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .apiVersion("2010-04-01")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
@@ -34,9 +35,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                         .duration("12")
                         .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
-                        .status(
-                            AccountRetrieveTranscriptionsJsonResponse.Transcription.Status.COMPLETED
-                        )
+                        .status(TexmlRecordingTranscription.Status.COMPLETED)
                         .transcriptionText("Good morning, how may I help you?")
                         .uri(
                             "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"
@@ -62,7 +61,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
         assertThat(accountRetrieveTranscriptionsJsonResponse.start()).contains(0L)
         assertThat(accountRetrieveTranscriptionsJsonResponse.transcriptions().getOrNull())
             .containsExactly(
-                AccountRetrieveTranscriptionsJsonResponse.Transcription.builder()
+                TexmlRecordingTranscription.builder()
                     .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                     .apiVersion("2010-04-01")
                     .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
@@ -71,9 +70,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                     .duration("12")
                     .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                     .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
-                    .status(
-                        AccountRetrieveTranscriptionsJsonResponse.Transcription.Status.COMPLETED
-                    )
+                    .status(TexmlRecordingTranscription.Status.COMPLETED)
                     .transcriptionText("Good morning, how may I help you?")
                     .uri(
                         "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"
@@ -101,7 +98,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                 .previousPageUri("https://example.com")
                 .start(0L)
                 .addTranscription(
-                    AccountRetrieveTranscriptionsJsonResponse.Transcription.builder()
+                    TexmlRecordingTranscription.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .apiVersion("2010-04-01")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
@@ -110,9 +107,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                         .duration("12")
                         .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
-                        .status(
-                            AccountRetrieveTranscriptionsJsonResponse.Transcription.Status.COMPLETED
-                        )
+                        .status(TexmlRecordingTranscription.Status.COMPLETED)
                         .transcriptionText("Good morning, how may I help you?")
                         .uri(
                             "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"

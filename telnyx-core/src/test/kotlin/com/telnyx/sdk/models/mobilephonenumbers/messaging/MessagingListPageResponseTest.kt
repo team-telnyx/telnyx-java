@@ -18,12 +18,12 @@ internal class MessagingListPageResponseTest {
         val messagingListPageResponse =
             MessagingListPageResponse.builder()
                 .addData(
-                    MessagingListResponse.builder()
+                    MobilePhoneNumberWithMessagingSettings.builder()
                         .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .features(
-                            MessagingListResponse.Features.builder()
+                            MobilePhoneNumberWithMessagingSettings.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -37,10 +37,12 @@ internal class MessagingListPageResponseTest {
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .organizationId("organization_id")
                         .phoneNumber("++13127367407")
-                        .recordType(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+                        .recordType(
+                            MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                        )
                         .addTag("string")
                         .trafficType("P2P")
-                        .type(MessagingListResponse.Type.LONGCODE)
+                        .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )
@@ -56,12 +58,12 @@ internal class MessagingListPageResponseTest {
 
         assertThat(messagingListPageResponse.data().getOrNull())
             .containsExactly(
-                MessagingListResponse.builder()
+                MobilePhoneNumberWithMessagingSettings.builder()
                     .id("2126210528794641864")
                     .countryCode("US")
                     .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .features(
-                        MessagingListResponse.Features.builder()
+                        MobilePhoneNumberWithMessagingSettings.Features.builder()
                             .sms(
                                 MessagingFeatureSet.builder()
                                     .domesticTwoWay(true)
@@ -75,10 +77,12 @@ internal class MessagingListPageResponseTest {
                     .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .organizationId("organization_id")
                     .phoneNumber("++13127367407")
-                    .recordType(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+                    .recordType(
+                        MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                    )
                     .addTag("string")
                     .trafficType("P2P")
-                    .type(MessagingListResponse.Type.LONGCODE)
+                    .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                     .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .build()
             )
@@ -99,12 +103,12 @@ internal class MessagingListPageResponseTest {
         val messagingListPageResponse =
             MessagingListPageResponse.builder()
                 .addData(
-                    MessagingListResponse.builder()
+                    MobilePhoneNumberWithMessagingSettings.builder()
                         .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .features(
-                            MessagingListResponse.Features.builder()
+                            MobilePhoneNumberWithMessagingSettings.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -118,10 +122,12 @@ internal class MessagingListPageResponseTest {
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .organizationId("organization_id")
                         .phoneNumber("++13127367407")
-                        .recordType(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+                        .recordType(
+                            MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                        )
                         .addTag("string")
                         .trafficType("P2P")
-                        .type(MessagingListResponse.Type.LONGCODE)
+                        .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )

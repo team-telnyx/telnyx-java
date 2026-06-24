@@ -23,14 +23,15 @@ import java.util.Objects
 @Deprecated("deprecated")
 class AiCreateResponseDeprecatedParams
 private constructor(
-    private val body: Body,
+    private val responseRequest: ResponseRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun body(): Body = body
+    fun responseRequest(): ResponseRequest = responseRequest
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        responseRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -48,7 +49,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .responseRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -57,20 +58,22 @@ private constructor(
     /** A builder for [AiCreateResponseDeprecatedParams]. */
     class Builder internal constructor() {
 
-        private var body: Body? = null
+        private var responseRequest: ResponseRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(aiCreateResponseDeprecatedParams: AiCreateResponseDeprecatedParams) =
             apply {
-                body = aiCreateResponseDeprecatedParams.body
+                responseRequest = aiCreateResponseDeprecatedParams.responseRequest
                 additionalHeaders = aiCreateResponseDeprecatedParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     aiCreateResponseDeprecatedParams.additionalQueryParams.toBuilder()
             }
 
-        fun body(body: Body) = apply { this.body = body }
+        fun responseRequest(responseRequest: ResponseRequest) = apply {
+            this.responseRequest = responseRequest
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -177,26 +180,26 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .responseRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AiCreateResponseDeprecatedParams =
             AiCreateResponseDeprecatedParams(
-                checkRequired("body", body),
+                checkRequired("responseRequest", responseRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): ResponseRequest = responseRequest
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
+    class ResponseRequest
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -211,18 +214,18 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /** Returns a mutable builder for constructing an instance of [ResponseRequest]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Body]. */
+        /** A builder for [ResponseRequest]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                additionalProperties = body.additionalProperties.toMutableMap()
+            internal fun from(responseRequest: ResponseRequest) = apply {
+                additionalProperties = responseRequest.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -245,11 +248,11 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Body].
+             * Returns an immutable instance of [ResponseRequest].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(additionalProperties.toImmutable())
+            fun build(): ResponseRequest = ResponseRequest(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -263,7 +266,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Body = apply {
+        fun validate(): ResponseRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -294,14 +297,14 @@ private constructor(
                 return true
             }
 
-            return other is Body && additionalProperties == other.additionalProperties
+            return other is ResponseRequest && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{additionalProperties=$additionalProperties}"
+        override fun toString() = "ResponseRequest{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -310,13 +313,14 @@ private constructor(
         }
 
         return other is AiCreateResponseDeprecatedParams &&
-            body == other.body &&
+            responseRequest == other.responseRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(responseRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AiCreateResponseDeprecatedParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiCreateResponseDeprecatedParams{responseRequest=$responseRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

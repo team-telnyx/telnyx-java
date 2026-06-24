@@ -16,10 +16,10 @@ internal class ToolListPageResponseTest {
         val toolListPageResponse =
             ToolListPageResponse.builder()
                 .addData(
-                    ToolListResponse.builder()
+                    SharedToolResponse.builder()
                         .id("id")
                         .toolDefinition(
-                            ToolListResponse.ToolDefinition.builder()
+                            SharedToolResponse.ToolDefinition.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -41,10 +41,10 @@ internal class ToolListPageResponseTest {
 
         assertThat(toolListPageResponse.data())
             .containsExactly(
-                ToolListResponse.builder()
+                SharedToolResponse.builder()
                     .id("id")
                     .toolDefinition(
-                        ToolListResponse.ToolDefinition.builder()
+                        SharedToolResponse.ToolDefinition.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -66,10 +66,10 @@ internal class ToolListPageResponseTest {
         val toolListPageResponse =
             ToolListPageResponse.builder()
                 .addData(
-                    ToolListResponse.builder()
+                    SharedToolResponse.builder()
                         .id("id")
                         .toolDefinition(
-                            ToolListResponse.ToolDefinition.builder()
+                            SharedToolResponse.ToolDefinition.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

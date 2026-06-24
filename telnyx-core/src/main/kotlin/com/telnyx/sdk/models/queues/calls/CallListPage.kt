@@ -18,15 +18,14 @@ private constructor(
     private val service: CallService,
     private val params: CallListParams,
     private val response: CallListPageResponse,
-) : Page<CallListResponse> {
+) : Page<QueueCall> {
 
     /**
      * Delegates to [CallListPageResponse], but gracefully handles missing data.
      *
      * @see CallListPageResponse.data
      */
-    fun data(): List<CallListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<QueueCall> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CallListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<CallListResponse> = data()
+    override fun items(): List<QueueCall> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): CallListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<CallListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<QueueCall> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CallListParams = params

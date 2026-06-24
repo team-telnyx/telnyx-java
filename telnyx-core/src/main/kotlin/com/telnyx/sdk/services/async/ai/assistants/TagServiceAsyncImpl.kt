@@ -17,11 +17,9 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagAddResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagListResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagsResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -42,21 +40,21 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: TagListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TagListResponse> =
+    ): CompletableFuture<TagsResponse> =
         // get /ai/assistants/tags
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun add(
         params: TagAddParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TagAddResponse> =
+    ): CompletableFuture<TagsResponse> =
         // post /ai/assistants/{assistant_id}/tags
         withRawResponse().add(params, requestOptions).thenApply { it.parse() }
 
     override fun remove(
         params: TagRemoveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TagRemoveResponse> =
+    ): CompletableFuture<TagsResponse> =
         // delete /ai/assistants/{assistant_id}/tags/{tag}
         withRawResponse().remove(params, requestOptions).thenApply { it.parse() }
 
@@ -73,13 +71,13 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<TagListResponse> =
-            jsonHandler<TagListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TagsResponse> =
+            jsonHandler<TagsResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TagListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TagListResponse>> {
+        ): CompletableFuture<HttpResponseFor<TagsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -103,13 +101,13 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val addHandler: Handler<TagAddResponse> =
-            jsonHandler<TagAddResponse>(clientOptions.jsonMapper)
+        private val addHandler: Handler<TagsResponse> =
+            jsonHandler<TagsResponse>(clientOptions.jsonMapper)
 
         override fun add(
             params: TagAddParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TagAddResponse>> {
+        ): CompletableFuture<HttpResponseFor<TagsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())
@@ -137,13 +135,13 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val removeHandler: Handler<TagRemoveResponse> =
-            jsonHandler<TagRemoveResponse>(clientOptions.jsonMapper)
+        private val removeHandler: Handler<TagsResponse> =
+            jsonHandler<TagsResponse>(clientOptions.jsonMapper)
 
         override fun remove(
             params: TagRemoveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TagRemoveResponse>> {
+        ): CompletableFuture<HttpResponseFor<TagsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tag", params.tag().getOrNull())

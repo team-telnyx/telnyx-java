@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.texml.accounts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingSource
+import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TwimlRecordingChannels
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,7 +18,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
             TexmlGetCallRecordingResponseBody.builder()
                 .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
+                .channels(TwimlRecordingChannels.CHANNEL_1)
                 .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
                 .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
@@ -24,7 +26,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
                 .errorCode(null)
                 .mediaUrl("http://recordings.com/mp3/filename.mp3")
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
-                .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
+                .source(RecordingSource.START_CALL_RECORDING_API)
                 .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                 .subresourcesUris(
@@ -42,7 +44,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
         assertThat(texmlGetCallRecordingResponseBody.callSid())
             .contains("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
         assertThat(texmlGetCallRecordingResponseBody.channels())
-            .contains(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
+            .contains(TwimlRecordingChannels.CHANNEL_1)
         assertThat(texmlGetCallRecordingResponseBody.conferenceSid())
             .contains("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
         assertThat(texmlGetCallRecordingResponseBody.dateCreated())
@@ -56,7 +58,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
         assertThat(texmlGetCallRecordingResponseBody.sid())
             .contains("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
         assertThat(texmlGetCallRecordingResponseBody.source())
-            .contains(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
+            .contains(RecordingSource.START_CALL_RECORDING_API)
         assertThat(texmlGetCallRecordingResponseBody.startTime())
             .contains(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
         assertThat(texmlGetCallRecordingResponseBody.status())
@@ -80,7 +82,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
             TexmlGetCallRecordingResponseBody.builder()
                 .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
+                .channels(TwimlRecordingChannels.CHANNEL_1)
                 .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
                 .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
@@ -88,7 +90,7 @@ internal class TexmlGetCallRecordingResponseBodyTest {
                 .errorCode(null)
                 .mediaUrl("http://recordings.com/mp3/filename.mp3")
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
-                .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
+                .source(RecordingSource.START_CALL_RECORDING_API)
                 .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                 .subresourcesUris(

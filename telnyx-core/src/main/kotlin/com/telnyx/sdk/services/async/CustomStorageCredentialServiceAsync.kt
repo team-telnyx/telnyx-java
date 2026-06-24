@@ -6,13 +6,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.customstoragecredentials.CredentialsResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialCreateResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialDeleteParams
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialRetrieveResponse
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateParams
-import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,31 +33,29 @@ interface CustomStorageCredentialServiceAsync {
     fun create(
         connectionId: String,
         params: CustomStorageCredentialCreateParams,
-    ): CompletableFuture<CustomStorageCredentialCreateResponse> =
-        create(connectionId, params, RequestOptions.none())
+    ): CompletableFuture<CredentialsResponse> = create(connectionId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         connectionId: String,
         params: CustomStorageCredentialCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialCreateResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see create */
     fun create(
         params: CustomStorageCredentialCreateParams
-    ): CompletableFuture<CustomStorageCredentialCreateResponse> =
-        create(params, RequestOptions.none())
+    ): CompletableFuture<CredentialsResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CustomStorageCredentialCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialCreateResponse>
+    ): CompletableFuture<CredentialsResponse>
 
     /** Returns the information about custom storage credentials. */
-    fun retrieve(connectionId: String): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
+    fun retrieve(connectionId: String): CompletableFuture<CredentialsResponse> =
         retrieve(connectionId, CustomStorageCredentialRetrieveParams.none())
 
     /** @see retrieve */
@@ -68,61 +64,58 @@ interface CustomStorageCredentialServiceAsync {
         params: CustomStorageCredentialRetrieveParams =
             CustomStorageCredentialRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         params: CustomStorageCredentialRetrieveParams = CustomStorageCredentialRetrieveParams.none(),
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         retrieve(connectionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: CustomStorageCredentialRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse>
+    ): CompletableFuture<CredentialsResponse>
 
     /** @see retrieve */
     fun retrieve(
         params: CustomStorageCredentialRetrieveParams
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    ): CompletableFuture<CredentialsResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         connectionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomStorageCredentialRetrieveResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         retrieve(connectionId, CustomStorageCredentialRetrieveParams.none(), requestOptions)
 
     /** Updates a stored custom credentials configuration. */
     fun update(
         connectionId: String,
         params: CustomStorageCredentialUpdateParams,
-    ): CompletableFuture<CustomStorageCredentialUpdateResponse> =
-        update(connectionId, params, RequestOptions.none())
+    ): CompletableFuture<CredentialsResponse> = update(connectionId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         connectionId: String,
         params: CustomStorageCredentialUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialUpdateResponse> =
+    ): CompletableFuture<CredentialsResponse> =
         update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see update */
     fun update(
         params: CustomStorageCredentialUpdateParams
-    ): CompletableFuture<CustomStorageCredentialUpdateResponse> =
-        update(params, RequestOptions.none())
+    ): CompletableFuture<CredentialsResponse> = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CustomStorageCredentialUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomStorageCredentialUpdateResponse>
+    ): CompletableFuture<CredentialsResponse>
 
     /** Deletes a stored custom credentials configuration. */
     fun delete(connectionId: String): CompletableFuture<Void?> =
@@ -178,7 +171,7 @@ interface CustomStorageCredentialServiceAsync {
         fun create(
             connectionId: String,
             params: CustomStorageCredentialCreateParams,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             create(connectionId, params, RequestOptions.none())
 
         /** @see create */
@@ -186,20 +179,20 @@ interface CustomStorageCredentialServiceAsync {
             connectionId: String,
             params: CustomStorageCredentialCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             create(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: CustomStorageCredentialCreateParams
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: CustomStorageCredentialCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>>
 
         /**
          * Returns a raw HTTP response for `get /custom_storage_credentials/{connection_id}`, but is
@@ -207,7 +200,7 @@ interface CustomStorageCredentialServiceAsync {
          */
         fun retrieve(
             connectionId: String
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             retrieve(connectionId, CustomStorageCredentialRetrieveParams.none())
 
         /** @see retrieve */
@@ -216,7 +209,7 @@ interface CustomStorageCredentialServiceAsync {
             params: CustomStorageCredentialRetrieveParams =
                 CustomStorageCredentialRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             retrieve(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see retrieve */
@@ -224,26 +217,26 @@ interface CustomStorageCredentialServiceAsync {
             connectionId: String,
             params: CustomStorageCredentialRetrieveParams =
                 CustomStorageCredentialRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             retrieve(connectionId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: CustomStorageCredentialRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: CustomStorageCredentialRetrieveParams
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             connectionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             retrieve(connectionId, CustomStorageCredentialRetrieveParams.none(), requestOptions)
 
         /**
@@ -253,7 +246,7 @@ interface CustomStorageCredentialServiceAsync {
         fun update(
             connectionId: String,
             params: CustomStorageCredentialUpdateParams,
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             update(connectionId, params, RequestOptions.none())
 
         /** @see update */
@@ -261,20 +254,20 @@ interface CustomStorageCredentialServiceAsync {
             connectionId: String,
             params: CustomStorageCredentialUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             update(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: CustomStorageCredentialUpdateParams
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: CustomStorageCredentialUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomStorageCredentialUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<CredentialsResponse>>
 
         /**
          * Returns a raw HTTP response for `delete /custom_storage_credentials/{connection_id}`, but

@@ -19,7 +19,7 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonDeleteRecordingTranscriptionSidJsonParams
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonParams
-import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonResponse
+import com.telnyx.sdk.models.texml.accounts.transcriptions.json.TexmlRecordingTranscription
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +47,7 @@ class JsonServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun retrieveRecordingTranscriptionSidJson(
         params: JsonRetrieveRecordingTranscriptionSidJsonParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
+    ): CompletableFuture<TexmlRecordingTranscription> =
         // get /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json
         withRawResponse().retrieveRecordingTranscriptionSidJson(params, requestOptions).thenApply {
             it.parse()
@@ -103,13 +103,13 @@ class JsonServiceAsyncImpl internal constructor(private val clientOptions: Clien
         }
 
         private val retrieveRecordingTranscriptionSidJsonHandler:
-            Handler<JsonRetrieveRecordingTranscriptionSidJsonResponse> =
-            jsonHandler<JsonRetrieveRecordingTranscriptionSidJsonResponse>(clientOptions.jsonMapper)
+            Handler<TexmlRecordingTranscription> =
+            jsonHandler<TexmlRecordingTranscription>(clientOptions.jsonMapper)
 
         override fun retrieveRecordingTranscriptionSidJson(
             params: JsonRetrieveRecordingTranscriptionSidJsonParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<JsonRetrieveRecordingTranscriptionSidJsonResponse>> {
+        ): CompletableFuture<HttpResponseFor<TexmlRecordingTranscription>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired(

@@ -17,15 +17,13 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanGetStepDetailsResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanRetrieveResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepResponse
+import com.telnyx.sdk.models.ai.missions.runs.plan.PlanStepsCreatedResponse
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepParams
-import com.telnyx.sdk.models.ai.missions.runs.plan.PlanUpdateStepResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -43,7 +41,7 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun create(
         params: PlanCreateParams,
         requestOptions: RequestOptions,
-    ): PlanCreateResponse =
+    ): PlanStepsCreatedResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/plan
         withRawResponse().create(params, requestOptions).parse()
 
@@ -57,21 +55,21 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun addStepsToPlan(
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions,
-    ): PlanAddStepsToPlanResponse =
+    ): PlanStepsCreatedResponse =
         // post /ai/missions/{mission_id}/runs/{run_id}/plan/steps
         withRawResponse().addStepsToPlan(params, requestOptions).parse()
 
     override fun getStepDetails(
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions,
-    ): PlanGetStepDetailsResponse =
+    ): PlanStepResponse =
         // get /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}
         withRawResponse().getStepDetails(params, requestOptions).parse()
 
     override fun updateStep(
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions,
-    ): PlanUpdateStepResponse =
+    ): PlanStepResponse =
         // patch /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}
         withRawResponse().updateStep(params, requestOptions).parse()
 
@@ -88,13 +86,13 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<PlanCreateResponse> =
-            jsonHandler<PlanCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PlanStepsCreatedResponse> =
+            jsonHandler<PlanStepsCreatedResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: PlanCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PlanCreateResponse> {
+        ): HttpResponseFor<PlanStepsCreatedResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -163,13 +161,13 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val addStepsToPlanHandler: Handler<PlanAddStepsToPlanResponse> =
-            jsonHandler<PlanAddStepsToPlanResponse>(clientOptions.jsonMapper)
+        private val addStepsToPlanHandler: Handler<PlanStepsCreatedResponse> =
+            jsonHandler<PlanStepsCreatedResponse>(clientOptions.jsonMapper)
 
         override fun addStepsToPlan(
             params: PlanAddStepsToPlanParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PlanAddStepsToPlanResponse> {
+        ): HttpResponseFor<PlanStepsCreatedResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("runId", params.runId().getOrNull())
@@ -202,13 +200,13 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val getStepDetailsHandler: Handler<PlanGetStepDetailsResponse> =
-            jsonHandler<PlanGetStepDetailsResponse>(clientOptions.jsonMapper)
+        private val getStepDetailsHandler: Handler<PlanStepResponse> =
+            jsonHandler<PlanStepResponse>(clientOptions.jsonMapper)
 
         override fun getStepDetails(
             params: PlanGetStepDetailsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PlanGetStepDetailsResponse> {
+        ): HttpResponseFor<PlanStepResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("stepId", params.stepId().getOrNull())
@@ -241,13 +239,13 @@ class PlanServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val updateStepHandler: Handler<PlanUpdateStepResponse> =
-            jsonHandler<PlanUpdateStepResponse>(clientOptions.jsonMapper)
+        private val updateStepHandler: Handler<PlanStepResponse> =
+            jsonHandler<PlanStepResponse>(clientOptions.jsonMapper)
 
         override fun updateStep(
             params: PlanUpdateStepParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PlanUpdateStepResponse> {
+        ): HttpResponseFor<PlanStepResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("stepId", params.stepId().getOrNull())

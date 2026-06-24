@@ -7,16 +7,15 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsResponse
+import com.telnyx.sdk.models.texml.accounts.calls.CallResource
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallSiprecJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallStreamsJsonResponse
 import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateParams
-import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateResponse
 import com.telnyx.sdk.services.async.texml.accounts.calls.RecordingServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.calls.RecordingsJsonServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.calls.SiprecServiceAsync
@@ -54,34 +53,32 @@ interface CallServiceAsync {
     /**
      * Returns an individual call identified by its CallSid. This endpoint is eventually consistent.
      */
-    fun retrieve(
-        callSid: String,
-        params: CallRetrieveParams,
-    ): CompletableFuture<CallRetrieveResponse> = retrieve(callSid, params, RequestOptions.none())
+    fun retrieve(callSid: String, params: CallRetrieveParams): CompletableFuture<CallResource> =
+        retrieve(callSid, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         callSid: String,
         params: CallRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallRetrieveResponse> =
+    ): CompletableFuture<CallResource> =
         retrieve(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: CallRetrieveParams): CompletableFuture<CallRetrieveResponse> =
+    fun retrieve(params: CallRetrieveParams): CompletableFuture<CallResource> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: CallRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallRetrieveResponse>
+    ): CompletableFuture<CallResource>
 
     /**
      * Update TeXML call. Please note that the keys present in the payload MUST BE formatted in
      * CamelCase as specified in the example.
      */
-    fun update(callSid: String, params: CallUpdateParams): CompletableFuture<CallUpdateResponse> =
+    fun update(callSid: String, params: CallUpdateParams): CompletableFuture<CallResource> =
         update(callSid, params, RequestOptions.none())
 
     /** @see update */
@@ -89,18 +86,18 @@ interface CallServiceAsync {
         callSid: String,
         params: CallUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallUpdateResponse> =
+    ): CompletableFuture<CallResource> =
         update(params.toBuilder().callSid(callSid).build(), requestOptions)
 
     /** @see update */
-    fun update(params: CallUpdateParams): CompletableFuture<CallUpdateResponse> =
+    fun update(params: CallUpdateParams): CompletableFuture<CallResource> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CallUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallUpdateResponse>
+    ): CompletableFuture<CallResource>
 
     /**
      * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL
@@ -243,7 +240,7 @@ interface CallServiceAsync {
         fun retrieve(
             callSid: String,
             params: CallRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<CallRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallResource>> =
             retrieve(callSid, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -251,20 +248,18 @@ interface CallServiceAsync {
             callSid: String,
             params: CallRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallResource>> =
             retrieve(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see retrieve */
-        fun retrieve(
-            params: CallRetrieveParams
-        ): CompletableFuture<HttpResponseFor<CallRetrieveResponse>> =
+        fun retrieve(params: CallRetrieveParams): CompletableFuture<HttpResponseFor<CallResource>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: CallRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<CallResource>>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Calls/{call_sid}`,
@@ -273,7 +268,7 @@ interface CallServiceAsync {
         fun update(
             callSid: String,
             params: CallUpdateParams,
-        ): CompletableFuture<HttpResponseFor<CallUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallResource>> =
             update(callSid, params, RequestOptions.none())
 
         /** @see update */
@@ -281,20 +276,18 @@ interface CallServiceAsync {
             callSid: String,
             params: CallUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallResource>> =
             update(params.toBuilder().callSid(callSid).build(), requestOptions)
 
         /** @see update */
-        fun update(
-            params: CallUpdateParams
-        ): CompletableFuture<HttpResponseFor<CallUpdateResponse>> =
+        fun update(params: CallUpdateParams): CompletableFuture<HttpResponseFor<CallResource>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: CallUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<CallResource>>
 
         /**
          * Returns a raw HTTP response for `post /texml/Accounts/{account_sid}/Calls`, but is

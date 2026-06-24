@@ -26,7 +26,7 @@ private constructor(
     private val nextPageUri: JsonField<String>,
     private val page: JsonField<Long>,
     private val pageSize: JsonField<Long>,
-    private val queues: JsonField<List<QueueListResponse>>,
+    private val queues: JsonField<List<QueueResource>>,
     private val start: JsonField<Long>,
     private val uri: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -45,7 +45,7 @@ private constructor(
         @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("queues")
         @ExcludeMissing
-        queues: JsonField<List<QueueListResponse>> = JsonMissing.of(),
+        queues: JsonField<List<QueueResource>> = JsonMissing.of(),
         @JsonProperty("start") @ExcludeMissing start: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
     ) : this(end, firstPageUri, nextPageUri, page, pageSize, queues, start, uri, mutableMapOf())
@@ -94,7 +94,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun queues(): Optional<List<QueueListResponse>> = queues.getOptional("queues")
+    fun queues(): Optional<List<QueueResource>> = queues.getOptional("queues")
 
     /**
      * The number of the first element on the page, zero-indexed.
@@ -156,9 +156,7 @@ private constructor(
      *
      * Unlike [queues], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("queues")
-    @ExcludeMissing
-    fun _queues(): JsonField<List<QueueListResponse>> = queues
+    @JsonProperty("queues") @ExcludeMissing fun _queues(): JsonField<List<QueueResource>> = queues
 
     /**
      * Returns the raw JSON value of [start].
@@ -200,7 +198,7 @@ private constructor(
         private var nextPageUri: JsonField<String> = JsonMissing.of()
         private var page: JsonField<Long> = JsonMissing.of()
         private var pageSize: JsonField<Long> = JsonMissing.of()
-        private var queues: JsonField<MutableList<QueueListResponse>>? = null
+        private var queues: JsonField<MutableList<QueueResource>>? = null
         private var start: JsonField<Long> = JsonMissing.of()
         private var uri: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -279,25 +277,25 @@ private constructor(
          */
         fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
 
-        fun queues(queues: List<QueueListResponse>) = queues(JsonField.of(queues))
+        fun queues(queues: List<QueueResource>) = queues(JsonField.of(queues))
 
         /**
          * Sets [Builder.queues] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.queues] with a well-typed `List<QueueListResponse>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.queues] with a well-typed `List<QueueResource>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun queues(queues: JsonField<List<QueueListResponse>>) = apply {
+        fun queues(queues: JsonField<List<QueueResource>>) = apply {
             this.queues = queues.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [QueueListResponse] to [queues].
+         * Adds a single [QueueResource] to [queues].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addQueue(queue: QueueListResponse) = apply {
+        fun addQueue(queue: QueueResource) = apply {
             queues =
                 (queues ?: JsonField.of(mutableListOf())).also {
                     checkKnown("queues", it).add(queue)

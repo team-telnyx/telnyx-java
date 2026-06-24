@@ -18,7 +18,7 @@ internal class PlanStepDataTest {
                 .description("description")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .sequence(0L)
-                .status(PlanStepData.Status.PENDING)
+                .status(StepStatus.PENDING)
                 .stepId("step_id")
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .metadata(
@@ -33,7 +33,7 @@ internal class PlanStepDataTest {
         assertThat(planStepData.description()).isEqualTo("description")
         assertThat(planStepData.runId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(planStepData.sequence()).isEqualTo(0L)
-        assertThat(planStepData.status()).isEqualTo(PlanStepData.Status.PENDING)
+        assertThat(planStepData.status()).isEqualTo(StepStatus.PENDING)
         assertThat(planStepData.stepId()).isEqualTo("step_id")
         assertThat(planStepData.completedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -56,7 +56,7 @@ internal class PlanStepDataTest {
                 .description("description")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .sequence(0L)
-                .status(PlanStepData.Status.PENDING)
+                .status(StepStatus.PENDING)
                 .stepId("step_id")
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .metadata(

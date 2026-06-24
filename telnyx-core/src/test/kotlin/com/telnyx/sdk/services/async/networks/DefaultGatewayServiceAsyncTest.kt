@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.networks
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.networks.InterfaceStatus
+import com.telnyx.sdk.models.networks.defaultgateway.DefaultGateway
 import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -20,13 +21,17 @@ internal class DefaultGatewayServiceAsyncTest {
             defaultGatewayServiceAsync.create(
                 DefaultGatewayCreateParams.builder()
                     .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("sample_record_type")
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
-                    .status(InterfaceStatus.PROVISIONED)
-                    .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                    .defaultGateway(
+                        DefaultGateway.builder()
+                            .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                            .createdAt("2018-02-02T22:25:27.521Z")
+                            .recordType("sample_record_type")
+                            .updatedAt("2018-02-02T22:25:27.521Z")
+                            .networkId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                            .status(InterfaceStatus.PROVISIONED)
+                            .wireguardPeerId("e66c496d-4a85-423b-8b2a-8e63fac20320")
+                            .build()
+                    )
                     .build()
             )
 

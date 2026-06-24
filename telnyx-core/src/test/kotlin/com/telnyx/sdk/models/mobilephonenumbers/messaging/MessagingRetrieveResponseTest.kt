@@ -16,12 +16,12 @@ internal class MessagingRetrieveResponseTest {
         val messagingRetrieveResponse =
             MessagingRetrieveResponse.builder()
                 .data(
-                    MessagingRetrieveResponse.Data.builder()
+                    MobilePhoneNumberWithMessagingSettings.builder()
                         .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .features(
-                            MessagingRetrieveResponse.Data.Features.builder()
+                            MobilePhoneNumberWithMessagingSettings.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -35,10 +35,12 @@ internal class MessagingRetrieveResponseTest {
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .organizationId("organization_id")
                         .phoneNumber("++13127367407")
-                        .recordType(MessagingRetrieveResponse.Data.RecordType.MESSAGING_SETTINGS)
+                        .recordType(
+                            MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                        )
                         .addTag("string")
                         .trafficType("P2P")
-                        .type(MessagingRetrieveResponse.Data.Type.LONGCODE)
+                        .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )
@@ -46,12 +48,12 @@ internal class MessagingRetrieveResponseTest {
 
         assertThat(messagingRetrieveResponse.data())
             .contains(
-                MessagingRetrieveResponse.Data.builder()
+                MobilePhoneNumberWithMessagingSettings.builder()
                     .id("2126210528794641864")
                     .countryCode("US")
                     .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .features(
-                        MessagingRetrieveResponse.Data.Features.builder()
+                        MobilePhoneNumberWithMessagingSettings.Features.builder()
                             .sms(
                                 MessagingFeatureSet.builder()
                                     .domesticTwoWay(true)
@@ -65,10 +67,12 @@ internal class MessagingRetrieveResponseTest {
                     .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .organizationId("organization_id")
                     .phoneNumber("++13127367407")
-                    .recordType(MessagingRetrieveResponse.Data.RecordType.MESSAGING_SETTINGS)
+                    .recordType(
+                        MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                    )
                     .addTag("string")
                     .trafficType("P2P")
-                    .type(MessagingRetrieveResponse.Data.Type.LONGCODE)
+                    .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                     .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .build()
             )
@@ -80,12 +84,12 @@ internal class MessagingRetrieveResponseTest {
         val messagingRetrieveResponse =
             MessagingRetrieveResponse.builder()
                 .data(
-                    MessagingRetrieveResponse.Data.builder()
+                    MobilePhoneNumberWithMessagingSettings.builder()
                         .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .features(
-                            MessagingRetrieveResponse.Data.Features.builder()
+                            MobilePhoneNumberWithMessagingSettings.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -99,10 +103,12 @@ internal class MessagingRetrieveResponseTest {
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .organizationId("organization_id")
                         .phoneNumber("++13127367407")
-                        .recordType(MessagingRetrieveResponse.Data.RecordType.MESSAGING_SETTINGS)
+                        .recordType(
+                            MobilePhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS
+                        )
                         .addTag("string")
                         .trafficType("P2P")
-                        .type(MessagingRetrieveResponse.Data.Type.LONGCODE)
+                        .type(MobilePhoneNumberWithMessagingSettings.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )

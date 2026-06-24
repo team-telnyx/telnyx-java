@@ -26,7 +26,7 @@ internal class FaxTest {
                 .previewUrl(
                     "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b_preview.tiff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
                 )
-                .quality(Fax.Quality.HIGH)
+                .quality(Quality.HIGH)
                 .recordType(Fax.RecordType.FAX)
                 .status(Fax.Status.QUEUED)
                 .storeMedia(true)
@@ -52,7 +52,7 @@ internal class FaxTest {
             .contains(
                 "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b_preview.tiff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
             )
-        assertThat(fax.quality()).contains(Fax.Quality.HIGH)
+        assertThat(fax.quality()).contains(Quality.HIGH)
         assertThat(fax.recordType()).contains(Fax.RecordType.FAX)
         assertThat(fax.status()).contains(Fax.Status.QUEUED)
         assertThat(fax.storeMedia()).contains(true)
@@ -83,7 +83,7 @@ internal class FaxTest {
                 .previewUrl(
                     "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b_preview.tiff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
                 )
-                .quality(Fax.Quality.HIGH)
+                .quality(Quality.HIGH)
                 .recordType(Fax.RecordType.FAX)
                 .status(Fax.Status.QUEUED)
                 .storeMedia(true)

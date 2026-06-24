@@ -15,12 +15,12 @@ internal class NumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.reputation().numbers()
 
-        val number =
+        val reputationPhoneNumberWithReputation =
             numberService.retrieve(
                 NumberRetrieveParams.builder().phoneNumber("+19493253498").fresh(true).build()
             )
 
-        number.validate()
+        reputationPhoneNumberWithReputation.validate()
     }
 
     @Disabled("Mock server tests are disabled")

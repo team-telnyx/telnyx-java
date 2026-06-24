@@ -18,7 +18,7 @@ internal class CustomStorageCredentialServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val customStorageCredentialServiceAsync = client.customStorageCredentials()
 
-        val customStorageCredentialFuture =
+        val credentialsResponseFuture =
             customStorageCredentialServiceAsync.create(
                 CustomStorageCredentialCreateParams.builder()
                     .connectionId("connection_id")
@@ -37,8 +37,8 @@ internal class CustomStorageCredentialServiceAsyncTest {
                     .build()
             )
 
-        val customStorageCredential = customStorageCredentialFuture.get()
-        customStorageCredential.validate()
+        val credentialsResponse = credentialsResponseFuture.get()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -47,11 +47,11 @@ internal class CustomStorageCredentialServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val customStorageCredentialServiceAsync = client.customStorageCredentials()
 
-        val customStorageCredentialFuture =
+        val credentialsResponseFuture =
             customStorageCredentialServiceAsync.retrieve("connection_id")
 
-        val customStorageCredential = customStorageCredentialFuture.get()
-        customStorageCredential.validate()
+        val credentialsResponse = credentialsResponseFuture.get()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -60,7 +60,7 @@ internal class CustomStorageCredentialServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val customStorageCredentialServiceAsync = client.customStorageCredentials()
 
-        val customStorageCredentialFuture =
+        val credentialsResponseFuture =
             customStorageCredentialServiceAsync.update(
                 CustomStorageCredentialUpdateParams.builder()
                     .connectionId("connection_id")
@@ -79,8 +79,8 @@ internal class CustomStorageCredentialServiceAsyncTest {
                     .build()
             )
 
-        val customStorageCredential = customStorageCredentialFuture.get()
-        customStorageCredential.validate()
+        val credentialsResponse = credentialsResponseFuture.get()
+        credentialsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

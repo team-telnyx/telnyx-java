@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: VerificationCodeListParams,
     private val response: VerificationCodeListPageResponse,
-) : PageAsync<VerificationCodeListResponse> {
+) : PageAsync<PortingVerificationCode> {
 
     /**
      * Delegates to [VerificationCodeListPageResponse], but gracefully handles missing data.
      *
      * @see VerificationCodeListPageResponse.data
      */
-    fun data(): List<VerificationCodeListResponse> =
+    fun data(): List<PortingVerificationCode> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VerificationCodeListResponse> = data()
+    override fun items(): List<PortingVerificationCode> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<VerificationCodeListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<VerificationCodeListResponse> =
+    fun autoPager(): AutoPagerAsync<PortingVerificationCode> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

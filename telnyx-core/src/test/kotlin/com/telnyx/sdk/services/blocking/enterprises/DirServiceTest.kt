@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking.enterprises
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.dir.Document
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -15,7 +16,7 @@ internal class DirServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val dirService = client.enterprises().dir()
 
-        val dir =
+        val dirWrapped =
             dirService.create(
                 DirCreateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -28,11 +29,9 @@ internal class DirServiceTest {
                     .addCallReason("Appointment reminders")
                     .addCallReason("Billing inquiries")
                     .addDocument(
-                        DirCreateParams.Document.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                DirCreateParams.Document.DocumentType.BUSINESS_REGISTRATION
-                            )
+                            .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                             .description("Certificate of incorporation.")
                             .build()
                     )
@@ -41,7 +40,7 @@ internal class DirServiceTest {
                     .build()
             )
 
-        dir.validate()
+        dirWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -16,10 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.dir.DirList
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
-import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPageAsync
-import com.telnyx.sdk.models.enterprises.dir.DirListPageResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -44,7 +44,7 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun create(
         params: DirCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DirCreateResponse> =
+    ): CompletableFuture<DirWrapped> =
         // post /enterprises/{enterprise_id}/dir
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
@@ -68,13 +68,13 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<DirCreateResponse> =
-            jsonHandler<DirCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<DirWrapped> =
+            jsonHandler<DirWrapped>(clientOptions.jsonMapper)
 
         override fun create(
             params: DirCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DirCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<DirWrapped>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -102,8 +102,7 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listHandler: Handler<DirListPageResponse> =
-            jsonHandler<DirListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DirList> = jsonHandler<DirList>(clientOptions.jsonMapper)
 
         override fun list(
             params: DirListParams,

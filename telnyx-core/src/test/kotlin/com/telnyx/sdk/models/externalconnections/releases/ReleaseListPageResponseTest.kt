@@ -16,10 +16,10 @@ internal class ReleaseListPageResponseTest {
         val releaseListPageResponse =
             ReleaseListPageResponse.builder()
                 .addData(
-                    ReleaseListResponse.builder()
+                    Release.builder()
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .errorMessage("error_message")
-                        .status(ReleaseListResponse.Status.PENDING)
+                        .status(Release.Status.PENDING)
                         .addTelephoneNumber(
                             TnReleaseEntry.builder()
                                 .numberId("number_id")
@@ -42,10 +42,10 @@ internal class ReleaseListPageResponseTest {
 
         assertThat(releaseListPageResponse.data().getOrNull())
             .containsExactly(
-                ReleaseListResponse.builder()
+                Release.builder()
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .errorMessage("error_message")
-                    .status(ReleaseListResponse.Status.PENDING)
+                    .status(Release.Status.PENDING)
                     .addTelephoneNumber(
                         TnReleaseEntry.builder()
                             .numberId("number_id")
@@ -73,10 +73,10 @@ internal class ReleaseListPageResponseTest {
         val releaseListPageResponse =
             ReleaseListPageResponse.builder()
                 .addData(
-                    ReleaseListResponse.builder()
+                    Release.builder()
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .errorMessage("error_message")
-                        .status(ReleaseListResponse.Status.PENDING)
+                        .status(Release.Status.PENDING)
                         .addTelephoneNumber(
                             TnReleaseEntry.builder()
                                 .numberId("number_id")

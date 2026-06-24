@@ -18,7 +18,7 @@ internal class NumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.enterprises().reputation().numbers()
 
-        val number =
+        val reputationPhoneNumberWithReputation =
             numberService.retrieve(
                 NumberRetrieveParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -27,7 +27,7 @@ internal class NumberServiceTest {
                     .build()
             )
 
-        number.validate()
+        reputationPhoneNumberWithReputation.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -47,7 +47,7 @@ internal class NumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.enterprises().reputation().numbers()
 
-        val response =
+        val reputationPhoneNumberList =
             numberService.associate(
                 NumberAssociateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
@@ -56,7 +56,7 @@ internal class NumberServiceTest {
                     .build()
             )
 
-        response.validate()
+        reputationPhoneNumberList.validate()
     }
 
     @Disabled("Mock server tests are disabled")

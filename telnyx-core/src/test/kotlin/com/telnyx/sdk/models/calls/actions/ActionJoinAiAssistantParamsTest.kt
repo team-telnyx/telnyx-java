@@ -13,13 +13,11 @@ internal class ActionJoinAiAssistantParamsTest {
             .callControlId("call_control_id")
             .conversationId("v3:abc123")
             .participant(
-                ActionJoinAiAssistantParams.Participant.builder()
+                AiAssistantJoinParticipant.builder()
                     .id("v3:abc123def456")
-                    .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                    .role(AiAssistantJoinParticipant.Role.USER)
                     .name("John Doe")
-                    .onHangup(
-                        ActionJoinAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                    )
+                    .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                     .build()
             )
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -34,9 +32,9 @@ internal class ActionJoinAiAssistantParamsTest {
                 .callControlId("call_control_id")
                 .conversationId("v3:abc123")
                 .participant(
-                    ActionJoinAiAssistantParams.Participant.builder()
+                    AiAssistantJoinParticipant.builder()
                         .id("v3:abc123def456")
-                        .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                        .role(AiAssistantJoinParticipant.Role.USER)
                         .build()
                 )
                 .build()
@@ -53,13 +51,11 @@ internal class ActionJoinAiAssistantParamsTest {
                 .callControlId("call_control_id")
                 .conversationId("v3:abc123")
                 .participant(
-                    ActionJoinAiAssistantParams.Participant.builder()
+                    AiAssistantJoinParticipant.builder()
                         .id("v3:abc123def456")
-                        .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                        .role(AiAssistantJoinParticipant.Role.USER)
                         .name("John Doe")
-                        .onHangup(
-                            ActionJoinAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                        )
+                        .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                         .build()
                 )
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -71,13 +67,11 @@ internal class ActionJoinAiAssistantParamsTest {
         assertThat(body.conversationId()).isEqualTo("v3:abc123")
         assertThat(body.participant())
             .isEqualTo(
-                ActionJoinAiAssistantParams.Participant.builder()
+                AiAssistantJoinParticipant.builder()
                     .id("v3:abc123def456")
-                    .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                    .role(AiAssistantJoinParticipant.Role.USER)
                     .name("John Doe")
-                    .onHangup(
-                        ActionJoinAiAssistantParams.Participant.OnHangup.CONTINUE_CONVERSATION
-                    )
+                    .onHangup(AiAssistantJoinParticipant.OnHangup.CONTINUE_CONVERSATION)
                     .build()
             )
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -91,9 +85,9 @@ internal class ActionJoinAiAssistantParamsTest {
                 .callControlId("call_control_id")
                 .conversationId("v3:abc123")
                 .participant(
-                    ActionJoinAiAssistantParams.Participant.builder()
+                    AiAssistantJoinParticipant.builder()
                         .id("v3:abc123def456")
-                        .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                        .role(AiAssistantJoinParticipant.Role.USER)
                         .build()
                 )
                 .build()
@@ -103,9 +97,9 @@ internal class ActionJoinAiAssistantParamsTest {
         assertThat(body.conversationId()).isEqualTo("v3:abc123")
         assertThat(body.participant())
             .isEqualTo(
-                ActionJoinAiAssistantParams.Participant.builder()
+                AiAssistantJoinParticipant.builder()
                     .id("v3:abc123def456")
-                    .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                    .role(AiAssistantJoinParticipant.Role.USER)
                     .build()
             )
     }

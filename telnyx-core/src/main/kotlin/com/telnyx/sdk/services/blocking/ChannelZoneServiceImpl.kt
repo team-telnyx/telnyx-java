@@ -20,7 +20,7 @@ import com.telnyx.sdk.models.channelzones.ChannelZoneListPage
 import com.telnyx.sdk.models.channelzones.ChannelZoneListPageResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
-import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
+import com.telnyx.sdk.models.channelzones.GcbChannelZone
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -40,7 +40,7 @@ class ChannelZoneServiceImpl internal constructor(private val clientOptions: Cli
     override fun update(
         params: ChannelZoneUpdateParams,
         requestOptions: RequestOptions,
-    ): ChannelZoneUpdateResponse =
+    ): GcbChannelZone =
         // put /channel_zones/{channel_zone_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -64,13 +64,13 @@ class ChannelZoneServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<ChannelZoneUpdateResponse> =
-            jsonHandler<ChannelZoneUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<GcbChannelZone> =
+            jsonHandler<GcbChannelZone>(clientOptions.jsonMapper)
 
         override fun update(
             params: ChannelZoneUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ChannelZoneUpdateResponse> {
+        ): HttpResponseFor<GcbChannelZone> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelZoneId", params.channelZoneId().getOrNull())

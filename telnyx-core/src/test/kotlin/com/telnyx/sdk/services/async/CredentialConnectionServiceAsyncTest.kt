@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
+import com.telnyx.sdk.models.credentialconnections.ConnectionNoiseSuppression
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
@@ -63,7 +64,7 @@ internal class CredentialConnectionServiceAsyncTest {
                             .jitterbufferMsecMin(60L)
                             .build()
                     )
-                    .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
@@ -163,7 +164,7 @@ internal class CredentialConnectionServiceAsyncTest {
                             .jitterbufferMsecMin(60L)
                             .build()
                     )
-                    .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)

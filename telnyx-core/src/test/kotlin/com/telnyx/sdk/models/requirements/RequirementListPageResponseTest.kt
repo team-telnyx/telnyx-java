@@ -17,13 +17,13 @@ internal class RequirementListPageResponseTest {
         val requirementListPageResponse =
             RequirementListPageResponse.builder()
                 .addData(
-                    RequirementListResponse.builder()
+                    DocReqsRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementListResponse.Action.ORDERING)
+                        .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
                         .locality("Nice")
-                        .phoneNumberType(RequirementListResponse.PhoneNumberType.LOCAL)
+                        .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
                         .addRequirementsType(
                             DocReqsRequirementType.builder()
@@ -66,13 +66,13 @@ internal class RequirementListPageResponseTest {
 
         assertThat(requirementListPageResponse.data().getOrNull())
             .containsExactly(
-                RequirementListResponse.builder()
+                DocReqsRequirement.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .action(RequirementListResponse.Action.ORDERING)
+                    .action(DocReqsRequirement.Action.ORDERING)
                     .countryCode("FR")
                     .createdAt("2021-04-09T22:25:27.521Z")
                     .locality("Nice")
-                    .phoneNumberType(RequirementListResponse.PhoneNumberType.LOCAL)
+                    .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                     .recordType("requirement")
                     .addRequirementsType(
                         DocReqsRequirementType.builder()
@@ -120,13 +120,13 @@ internal class RequirementListPageResponseTest {
         val requirementListPageResponse =
             RequirementListPageResponse.builder()
                 .addData(
-                    RequirementListResponse.builder()
+                    DocReqsRequirement.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementListResponse.Action.ORDERING)
+                        .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
                         .locality("Nice")
-                        .phoneNumberType(RequirementListResponse.PhoneNumberType.LOCAL)
+                        .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
                         .addRequirementsType(
                             DocReqsRequirementType.builder()

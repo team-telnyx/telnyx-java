@@ -52,7 +52,7 @@ internal class CredentialConnectionTest {
                         .jitterbufferMsecMin(60L)
                         .build()
                 )
-                .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
@@ -134,7 +134,7 @@ internal class CredentialConnectionTest {
                     .build()
             )
         assertThat(credentialConnection.noiseSuppression())
-            .contains(CredentialConnection.NoiseSuppression.BOTH)
+            .contains(ConnectionNoiseSuppression.BOTH)
         assertThat(credentialConnection.noiseSuppressionDetails())
             .contains(
                 ConnectionNoiseSuppressionDetails.builder()
@@ -221,7 +221,7 @@ internal class CredentialConnectionTest {
                         .jitterbufferMsecMin(60L)
                         .build()
                 )
-                .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                .noiseSuppression(ConnectionNoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)

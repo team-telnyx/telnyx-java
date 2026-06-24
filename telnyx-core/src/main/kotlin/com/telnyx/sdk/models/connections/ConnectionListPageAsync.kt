@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: ConnectionListParams,
     private val response: ConnectionListPageResponse,
-) : PageAsync<ConnectionListResponse> {
+) : PageAsync<Connection> {
 
     /**
      * Delegates to [ConnectionListPageResponse], but gracefully handles missing data.
      *
      * @see ConnectionListPageResponse.data
      */
-    fun data(): List<ConnectionListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Connection> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [ConnectionListPageResponse], but gracefully handles missing data.
@@ -38,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<ConnectionsPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ConnectionListResponse> = data()
+    override fun items(): List<Connection> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,8 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<ConnectionListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<ConnectionListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<Connection> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): ConnectionListParams = params

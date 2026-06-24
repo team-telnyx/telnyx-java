@@ -18,14 +18,14 @@ private constructor(
     private val service: RoomRecordingService,
     private val params: RoomRecordingListParams,
     private val response: RoomRecordingListPageResponse,
-) : Page<RoomRecordingListResponse> {
+) : Page<RoomRecording> {
 
     /**
      * Delegates to [RoomRecordingListPageResponse], but gracefully handles missing data.
      *
      * @see RoomRecordingListPageResponse.data
      */
-    fun data(): List<RoomRecordingListResponse> =
+    fun data(): List<RoomRecording> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<RoomRecordingListResponse> = data()
+    override fun items(): List<RoomRecording> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): RoomRecordingListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<RoomRecordingListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<RoomRecording> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): RoomRecordingListParams = params

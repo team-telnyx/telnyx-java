@@ -4,8 +4,9 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechRetrieveSpeechParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -13,24 +14,24 @@ internal class TextToSpeechServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun generate() {
+    fun generateSpeech() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val textToSpeechServiceAsync = client.textToSpeech()
 
         val responseFuture =
-            textToSpeechServiceAsync.generate(
-                TextToSpeechGenerateParams.builder()
+            textToSpeechServiceAsync.generateSpeech(
+                TextToSpeechGenerateSpeechParams.builder()
                     .aws(
-                        TextToSpeechGenerateParams.Aws.builder()
+                        TextToSpeechGenerateSpeechParams.Aws.builder()
                             .languageCode("language_code")
                             .addLexiconName("string")
                             .outputFormat("output_format")
                             .sampleRate("sample_rate")
-                            .textType(TextToSpeechGenerateParams.Aws.TextType.TEXT)
+                            .textType(TextToSpeechGenerateSpeechParams.Aws.TextType.TEXT)
                             .build()
                     )
                     .azure(
-                        TextToSpeechGenerateParams.Azure.builder()
+                        TextToSpeechGenerateSpeechParams.Azure.builder()
                             .apiKey("api_key")
                             .deploymentId("deployment_id")
                             .effect("effect")
@@ -38,16 +39,16 @@ internal class TextToSpeechServiceAsyncTest {
                             .languageCode("language_code")
                             .outputFormat("output_format")
                             .region("region")
-                            .textType(TextToSpeechGenerateParams.Azure.TextType.TEXT)
+                            .textType(TextToSpeechGenerateSpeechParams.Azure.TextType.TEXT)
                             .build()
                     )
                     .disableCache(true)
                     .elevenlabs(
-                        TextToSpeechGenerateParams.Elevenlabs.builder()
+                        TextToSpeechGenerateSpeechParams.Elevenlabs.builder()
                             .apiKey("api_key")
                             .languageCode("language_code")
                             .voiceSettings(
-                                TextToSpeechGenerateParams.Elevenlabs.VoiceSettings.builder()
+                                TextToSpeechGenerateSpeechParams.Elevenlabs.VoiceSettings.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -55,7 +56,7 @@ internal class TextToSpeechServiceAsyncTest {
                     )
                     .language("language")
                     .minimax(
-                        TextToSpeechGenerateParams.Minimax.builder()
+                        TextToSpeechGenerateSpeechParams.Minimax.builder()
                             .languageBoost("language_boost")
                             .pitch(0L)
                             .responseFormat("response_format")
@@ -63,10 +64,10 @@ internal class TextToSpeechServiceAsyncTest {
                             .vol(0.0f)
                             .build()
                     )
-                    .outputType(TextToSpeechGenerateParams.OutputType.BINARY_OUTPUT)
-                    .provider(TextToSpeechGenerateParams.Provider.AWS)
+                    .outputType(TextToSpeechGenerateSpeechParams.OutputType.BINARY_OUTPUT)
+                    .provider(TextToSpeechGenerateSpeechParams.Provider.AWS)
                     .resemble(
-                        TextToSpeechGenerateParams.Resemble.builder()
+                        TextToSpeechGenerateSpeechParams.Resemble.builder()
                             .apiKey("api_key")
                             .format("format")
                             .precision("precision")
@@ -74,15 +75,15 @@ internal class TextToSpeechServiceAsyncTest {
                             .build()
                     )
                     .rime(
-                        TextToSpeechGenerateParams.Rime.builder()
+                        TextToSpeechGenerateSpeechParams.Rime.builder()
                             .responseFormat("response_format")
                             .samplingRate(0L)
                             .voiceSpeed(0.0f)
                             .build()
                     )
                     .telnyx(
-                        TextToSpeechGenerateParams.Telnyx.builder()
-                            .emotion(TextToSpeechGenerateParams.Telnyx.Emotion.NEUTRAL)
+                        TextToSpeechGenerateSpeechParams.Telnyx.builder()
+                            .emotion(TextToSpeechGenerateSpeechParams.Telnyx.Emotion.NEUTRAL)
                             .responseFormat("response_format")
                             .samplingRate(0L)
                             .temperature(0.0f)
@@ -91,19 +92,19 @@ internal class TextToSpeechServiceAsyncTest {
                             .build()
                     )
                     .text("text")
-                    .textType(TextToSpeechGenerateParams.TextType.TEXT)
+                    .textType(TextToSpeechGenerateSpeechParams.TextType.TEXT)
                     .voice("voice")
                     .voiceSettings(
-                        TextToSpeechGenerateParams.VoiceSettings.builder()
+                        TextToSpeechGenerateSpeechParams.VoiceSettings.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
                     .xai(
-                        TextToSpeechGenerateParams.Xai.builder()
-                            .voiceId(TextToSpeechGenerateParams.Xai.VoiceId.EVE)
+                        TextToSpeechGenerateSpeechParams.Xai.builder()
+                            .voiceId(TextToSpeechGenerateSpeechParams.Xai.VoiceId.EVE)
                             .language("language")
-                            .outputFormat(TextToSpeechGenerateParams.Xai.OutputFormat.MP3)
-                            .sampleRate(TextToSpeechGenerateParams.Xai.SampleRate._8000)
+                            .outputFormat(TextToSpeechGenerateSpeechParams.Xai.OutputFormat.MP3)
+                            .sampleRate(TextToSpeechGenerateSpeechParams.Xai.SampleRate.RATE_8000)
                             .build()
                     )
                     .build()
@@ -129,5 +130,27 @@ internal class TextToSpeechServiceAsyncTest {
 
         val response = responseFuture.get()
         response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveSpeech() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val textToSpeechServiceAsync = client.textToSpeech()
+
+        val future =
+            textToSpeechServiceAsync.retrieveSpeech(
+                TextToSpeechRetrieveSpeechParams.builder()
+                    .audioFormat(TextToSpeechRetrieveSpeechParams.AudioFormat.PCM)
+                    .disableCache(true)
+                    .modelId("model_id")
+                    .provider(TextToSpeechRetrieveSpeechParams.Provider.AWS)
+                    .socketId("socket_id")
+                    .voice("voice")
+                    .voiceId("voice_id")
+                    .build()
+            )
+
+        val response = future.get()
     }
 }

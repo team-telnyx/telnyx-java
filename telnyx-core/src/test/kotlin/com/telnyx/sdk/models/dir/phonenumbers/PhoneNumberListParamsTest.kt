@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.dir.phonenumbers
 
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.models.dir.phonenumberbatches.DirPhoneNumberStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,7 +15,7 @@ internal class PhoneNumberListParamsTest {
             .dirId("16635d38-75a6-4481-82e8-69af60e05011")
             .pageNumber(1L)
             .pageSize(20L)
-            .status(PhoneNumberListParams.Status.SUBMITTED)
+            .status(DirPhoneNumberStatus.SUBMITTED)
             .build()
     }
 
@@ -35,7 +36,7 @@ internal class PhoneNumberListParamsTest {
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .pageNumber(1L)
                 .pageSize(20L)
-                .status(PhoneNumberListParams.Status.SUBMITTED)
+                .status(DirPhoneNumberStatus.SUBMITTED)
                 .build()
 
         val queryParams = params._queryParams()

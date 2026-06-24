@@ -6,12 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVetting
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingListParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingListResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderParams
-import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderResponse
 import java.util.function.Consumer
 
 /** Brand operations */
@@ -30,7 +28,7 @@ interface ExternalVettingService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalVettingService
 
     /** Get list of valid external vetting record for a given brand */
-    fun list(brandId: String): List<ExternalVettingListResponse> =
+    fun list(brandId: String): List<ExternalVetting> =
         list(brandId, ExternalVettingListParams.none())
 
     /** @see list */
@@ -38,27 +36,26 @@ interface ExternalVettingService {
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<ExternalVettingListResponse> =
-        list(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): List<ExternalVetting> = list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see list */
     fun list(
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
-    ): List<ExternalVettingListResponse> = list(brandId, params, RequestOptions.none())
+    ): List<ExternalVetting> = list(brandId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ExternalVettingListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<ExternalVettingListResponse>
+    ): List<ExternalVetting>
 
     /** @see list */
-    fun list(params: ExternalVettingListParams): List<ExternalVettingListResponse> =
+    fun list(params: ExternalVettingListParams): List<ExternalVetting> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(brandId: String, requestOptions: RequestOptions): List<ExternalVettingListResponse> =
+    fun list(brandId: String, requestOptions: RequestOptions): List<ExternalVetting> =
         list(brandId, ExternalVettingListParams.none(), requestOptions)
 
     /**
@@ -66,28 +63,25 @@ interface ExternalVettingService {
      * provider. If the vetting provider confirms validity of the record, it will be saved with the
      * brand and will be considered for future campaign qualification.
      */
-    fun imports(
-        brandId: String,
-        params: ExternalVettingImportsParams,
-    ): ExternalVettingImportsResponse = imports(brandId, params, RequestOptions.none())
+    fun imports(brandId: String, params: ExternalVettingImportsParams): ExternalVetting =
+        imports(brandId, params, RequestOptions.none())
 
     /** @see imports */
     fun imports(
         brandId: String,
         params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingImportsResponse =
-        imports(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): ExternalVetting = imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see imports */
-    fun imports(params: ExternalVettingImportsParams): ExternalVettingImportsResponse =
+    fun imports(params: ExternalVettingImportsParams): ExternalVetting =
         imports(params, RequestOptions.none())
 
     /** @see imports */
     fun imports(
         params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingImportsResponse
+    ): ExternalVetting
 
     /**
      * Order new external vetting for a brand.
@@ -96,7 +90,7 @@ interface ExternalVettingService {
      * successful vetting exists within the last 180 days, or one is currently being processed.
      * Failed vettings can be retried immediately.
      */
-    fun order(brandId: String, params: ExternalVettingOrderParams): ExternalVettingOrderResponse =
+    fun order(brandId: String, params: ExternalVettingOrderParams): ExternalVetting =
         order(brandId, params, RequestOptions.none())
 
     /** @see order */
@@ -104,18 +98,17 @@ interface ExternalVettingService {
         brandId: String,
         params: ExternalVettingOrderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingOrderResponse =
-        order(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): ExternalVetting = order(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see order */
-    fun order(params: ExternalVettingOrderParams): ExternalVettingOrderResponse =
+    fun order(params: ExternalVettingOrderParams): ExternalVetting =
         order(params, RequestOptions.none())
 
     /** @see order */
     fun order(
         params: ExternalVettingOrderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingOrderResponse
+    ): ExternalVetting
 
     /**
      * A view of [ExternalVettingService] that provides access to raw HTTP responses for each
@@ -137,7 +130,7 @@ interface ExternalVettingService {
          * otherwise the same as [ExternalVettingService.list].
          */
         @MustBeClosed
-        fun list(brandId: String): HttpResponseFor<List<ExternalVettingListResponse>> =
+        fun list(brandId: String): HttpResponseFor<List<ExternalVetting>> =
             list(brandId, ExternalVettingListParams.none())
 
         /** @see list */
@@ -146,7 +139,7 @@ interface ExternalVettingService {
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<ExternalVettingListResponse>> =
+        ): HttpResponseFor<List<ExternalVetting>> =
             list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see list */
@@ -154,28 +147,26 @@ interface ExternalVettingService {
         fun list(
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
-        ): HttpResponseFor<List<ExternalVettingListResponse>> =
-            list(brandId, params, RequestOptions.none())
+        ): HttpResponseFor<List<ExternalVetting>> = list(brandId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ExternalVettingListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<ExternalVettingListResponse>>
+        ): HttpResponseFor<List<ExternalVetting>>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: ExternalVettingListParams
-        ): HttpResponseFor<List<ExternalVettingListResponse>> = list(params, RequestOptions.none())
+        fun list(params: ExternalVettingListParams): HttpResponseFor<List<ExternalVetting>> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             brandId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<ExternalVettingListResponse>> =
+        ): HttpResponseFor<List<ExternalVetting>> =
             list(brandId, ExternalVettingListParams.none(), requestOptions)
 
         /**
@@ -186,8 +177,7 @@ interface ExternalVettingService {
         fun imports(
             brandId: String,
             params: ExternalVettingImportsParams,
-        ): HttpResponseFor<ExternalVettingImportsResponse> =
-            imports(brandId, params, RequestOptions.none())
+        ): HttpResponseFor<ExternalVetting> = imports(brandId, params, RequestOptions.none())
 
         /** @see imports */
         @MustBeClosed
@@ -195,21 +185,20 @@ interface ExternalVettingService {
             brandId: String,
             params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingImportsResponse> =
+        ): HttpResponseFor<ExternalVetting> =
             imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see imports */
         @MustBeClosed
-        fun imports(
-            params: ExternalVettingImportsParams
-        ): HttpResponseFor<ExternalVettingImportsResponse> = imports(params, RequestOptions.none())
+        fun imports(params: ExternalVettingImportsParams): HttpResponseFor<ExternalVetting> =
+            imports(params, RequestOptions.none())
 
         /** @see imports */
         @MustBeClosed
         fun imports(
             params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingImportsResponse>
+        ): HttpResponseFor<ExternalVetting>
 
         /**
          * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/externalVetting`, but is
@@ -219,8 +208,7 @@ interface ExternalVettingService {
         fun order(
             brandId: String,
             params: ExternalVettingOrderParams,
-        ): HttpResponseFor<ExternalVettingOrderResponse> =
-            order(brandId, params, RequestOptions.none())
+        ): HttpResponseFor<ExternalVetting> = order(brandId, params, RequestOptions.none())
 
         /** @see order */
         @MustBeClosed
@@ -228,20 +216,19 @@ interface ExternalVettingService {
             brandId: String,
             params: ExternalVettingOrderParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingOrderResponse> =
+        ): HttpResponseFor<ExternalVetting> =
             order(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see order */
         @MustBeClosed
-        fun order(
-            params: ExternalVettingOrderParams
-        ): HttpResponseFor<ExternalVettingOrderResponse> = order(params, RequestOptions.none())
+        fun order(params: ExternalVettingOrderParams): HttpResponseFor<ExternalVetting> =
+            order(params, RequestOptions.none())
 
         /** @see order */
         @MustBeClosed
         fun order(
             params: ExternalVettingOrderParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingOrderResponse>
+        ): HttpResponseFor<ExternalVetting>
     }
 }

@@ -26,10 +26,10 @@ internal class WireguardInterfaceServiceAsyncTest {
                     .name("test interface")
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(InterfaceStatus.PROVISIONED)
-                    .regionCode("ashburn-va")
                     .enableSipTrunking(false)
                     .endpoint("203.0.113.0:51871")
                     .publicKey("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
+                    .regionCode("ashburn-va")
                     .build()
             )
 

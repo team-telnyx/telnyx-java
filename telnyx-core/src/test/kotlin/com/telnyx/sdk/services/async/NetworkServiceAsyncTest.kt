@@ -16,16 +16,7 @@ internal class NetworkServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val networkServiceAsync = client.networks()
 
-        val networkFuture =
-            networkServiceAsync.create(
-                NetworkCreate.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("sample_record_type")
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .name("test network")
-                    .build()
-            )
+        val networkFuture = networkServiceAsync.create(NetworkCreate.builder().build())
 
         val network = networkFuture.get()
         network.validate()
@@ -53,15 +44,7 @@ internal class NetworkServiceAsyncTest {
             networkServiceAsync.update(
                 NetworkUpdateParams.builder()
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .networkCreate(
-                        NetworkCreate.builder()
-                            .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                            .createdAt("2018-02-02T22:25:27.521Z")
-                            .recordType("sample_record_type")
-                            .updatedAt("2018-02-02T22:25:27.521Z")
-                            .name("test network")
-                            .build()
-                    )
+                    .networkCreate(NetworkCreate.builder().build())
                     .build()
             )
 

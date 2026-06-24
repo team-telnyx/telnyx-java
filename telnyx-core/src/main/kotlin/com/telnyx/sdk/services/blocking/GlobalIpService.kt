@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.globalips.GlobalIp
 import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
@@ -32,21 +33,24 @@ interface GlobalIpService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpService
 
     /** Create a Global IP. */
-    fun create(): GlobalIpCreateResponse = create(GlobalIpCreateParams.none())
+    fun create(params: GlobalIpCreateParams): GlobalIpCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: GlobalIpCreateParams = GlobalIpCreateParams.none(),
+        params: GlobalIpCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): GlobalIpCreateResponse
 
     /** @see create */
-    fun create(params: GlobalIpCreateParams = GlobalIpCreateParams.none()): GlobalIpCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(
+        globalIp: GlobalIp,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): GlobalIpCreateResponse =
+        create(GlobalIpCreateParams.builder().globalIp(globalIp).build(), requestOptions)
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): GlobalIpCreateResponse =
-        create(GlobalIpCreateParams.none(), requestOptions)
+    fun create(globalIp: GlobalIp): GlobalIpCreateResponse = create(globalIp, RequestOptions.none())
 
     /** Retrieve a Global IP. */
     fun retrieve(id: String): GlobalIpRetrieveResponse = retrieve(id, GlobalIpRetrieveParams.none())
@@ -140,25 +144,28 @@ interface GlobalIpService {
          * [GlobalIpService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<GlobalIpCreateResponse> = create(GlobalIpCreateParams.none())
+        fun create(params: GlobalIpCreateParams): HttpResponseFor<GlobalIpCreateResponse> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            params: GlobalIpCreateParams = GlobalIpCreateParams.none(),
+            params: GlobalIpCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<GlobalIpCreateResponse>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            params: GlobalIpCreateParams = GlobalIpCreateParams.none()
-        ): HttpResponseFor<GlobalIpCreateResponse> = create(params, RequestOptions.none())
+            globalIp: GlobalIp,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<GlobalIpCreateResponse> =
+            create(GlobalIpCreateParams.builder().globalIp(globalIp).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(requestOptions: RequestOptions): HttpResponseFor<GlobalIpCreateResponse> =
-            create(GlobalIpCreateParams.none(), requestOptions)
+        fun create(globalIp: GlobalIp): HttpResponseFor<GlobalIpCreateResponse> =
+            create(globalIp, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /global_ips/{id}`, but is otherwise the same as

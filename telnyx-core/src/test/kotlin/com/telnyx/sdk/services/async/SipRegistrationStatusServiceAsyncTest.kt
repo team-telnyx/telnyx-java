@@ -18,10 +18,11 @@ internal class SipRegistrationStatusServiceAsyncTest {
         val sipRegistrationStatusFuture =
             sipRegistrationStatusServiceAsync.retrieve(
                 SipRegistrationStatusRetrieveParams.builder()
-                    .connectionId("connection_id")
                     .credentialType(
                         SipRegistrationStatusRetrieveParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
                     )
+                    .connectionId("connection_id")
+                    .username("username")
                     .build()
             )
 

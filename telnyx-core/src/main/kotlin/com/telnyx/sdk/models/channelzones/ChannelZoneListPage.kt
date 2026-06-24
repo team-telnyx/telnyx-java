@@ -18,14 +18,14 @@ private constructor(
     private val service: ChannelZoneService,
     private val params: ChannelZoneListParams,
     private val response: ChannelZoneListPageResponse,
-) : Page<ChannelZoneListResponse> {
+) : Page<GcbChannelZone> {
 
     /**
      * Delegates to [ChannelZoneListPageResponse], but gracefully handles missing data.
      *
      * @see ChannelZoneListPageResponse.data
      */
-    fun data(): List<ChannelZoneListResponse> =
+    fun data(): List<GcbChannelZone> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ChannelZoneListResponse> = data()
+    override fun items(): List<GcbChannelZone> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): ChannelZoneListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<ChannelZoneListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<GcbChannelZone> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ChannelZoneListParams = params

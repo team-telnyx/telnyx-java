@@ -3,9 +3,9 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.verifications.CreateVerificationRequestSms
 import com.telnyx.sdk.models.verifications.VerificationTriggerCallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerFlashcallParams
-import com.telnyx.sdk.models.verifications.VerificationTriggerSmsParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerWhatsappVerificationParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -73,7 +73,7 @@ internal class VerificationServiceAsyncTest {
 
         val createVerificationResponseFuture =
             verificationServiceAsync.triggerSms(
-                VerificationTriggerSmsParams.builder()
+                CreateVerificationRequestSms.builder()
                     .phoneNumber("+13035551234")
                     .verifyProfileId("12ade33a-21c0-473b-b055-b3c836e1c292")
                     .customCode("43612")

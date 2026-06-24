@@ -13,15 +13,9 @@ internal class OpenAICreateResponseParamsTest {
         OpenAICreateResponseParams.builder()
             .conversation("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .input(
-                JsonValue.from(
-                    listOf(
-                        mapOf(
-                            "role" to "user",
-                            "content" to
-                                listOf(mapOf("type" to "input_text", "text" to "Hello, world!")),
-                        )
-                    )
-                )
+                OpenAICreateResponseParams.Input.builder()
+                    .putAdditionalProperty("0", JsonValue.from("bar"))
+                    .build()
             )
             .instructions("You are a friendly chatbot.")
             .model("zai-org/GLM-5.1-FP8")
@@ -35,15 +29,9 @@ internal class OpenAICreateResponseParamsTest {
             OpenAICreateResponseParams.builder()
                 .conversation("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .input(
-                    JsonValue.from(
-                        listOf(
-                            mapOf(
-                                "role" to "user",
-                                "content" to
-                                    listOf(mapOf("type" to "input_text", "text" to "Hello, world!")),
-                            )
-                        )
-                    )
+                    OpenAICreateResponseParams.Input.builder()
+                        .putAdditionalProperty("0", JsonValue.from("bar"))
+                        .build()
                 )
                 .instructions("You are a friendly chatbot.")
                 .model("zai-org/GLM-5.1-FP8")
@@ -53,17 +41,11 @@ internal class OpenAICreateResponseParamsTest {
         val body = params._body()
 
         assertThat(body.conversation()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(body._input())
-            .isEqualTo(
-                JsonValue.from(
-                    listOf(
-                        mapOf(
-                            "role" to "user",
-                            "content" to
-                                listOf(mapOf("type" to "input_text", "text" to "Hello, world!")),
-                        )
-                    )
-                )
+        assertThat(body.input())
+            .contains(
+                OpenAICreateResponseParams.Input.builder()
+                    .putAdditionalProperty("0", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(body.instructions()).contains("You are a friendly chatbot.")
         assertThat(body.model()).contains("zai-org/GLM-5.1-FP8")

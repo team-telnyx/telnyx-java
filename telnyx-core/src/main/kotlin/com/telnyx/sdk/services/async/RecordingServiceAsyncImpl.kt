@@ -17,12 +17,11 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
-import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
 import com.telnyx.sdk.models.recordings.RecordingListPageAsync
 import com.telnyx.sdk.models.recordings.RecordingListPageResponse
 import com.telnyx.sdk.models.recordings.RecordingListParams
+import com.telnyx.sdk.models.recordings.RecordingResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
-import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.async.recordings.ActionServiceAsync
 import com.telnyx.sdk.services.async.recordings.ActionServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -50,7 +49,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun retrieve(
         params: RecordingRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingRetrieveResponse> =
+    ): CompletableFuture<RecordingResponse> =
         // get /recordings/{recording_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -64,7 +63,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun delete(
         params: RecordingDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingDeleteResponse> =
+    ): CompletableFuture<RecordingResponse> =
         // delete /recordings/{recording_id}
         withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
@@ -88,13 +87,13 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
         /** Call Recordings operations. */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
-        private val retrieveHandler: Handler<RecordingRetrieveResponse> =
-            jsonHandler<RecordingRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<RecordingResponse> =
+            jsonHandler<RecordingResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: RecordingRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("recordingId", params.recordingId().getOrNull())
@@ -159,13 +158,13 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val deleteHandler: Handler<RecordingDeleteResponse> =
-            jsonHandler<RecordingDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<RecordingResponse> =
+            jsonHandler<RecordingResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: RecordingDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingDeleteResponse>> {
+        ): CompletableFuture<HttpResponseFor<RecordingResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("recordingId", params.recordingId().getOrNull())

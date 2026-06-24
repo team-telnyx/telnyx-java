@@ -18,7 +18,7 @@ internal class QueueServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val queueServiceAsync = client.texml().accounts().queues()
 
-        val queueFuture =
+        val queueResourceFuture =
             queueServiceAsync.create(
                 QueueCreateParams.builder()
                     .accountSid("account_sid")
@@ -27,8 +27,8 @@ internal class QueueServiceAsyncTest {
                     .build()
             )
 
-        val queue = queueFuture.get()
-        queue.validate()
+        val queueResource = queueResourceFuture.get()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -37,7 +37,7 @@ internal class QueueServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val queueServiceAsync = client.texml().accounts().queues()
 
-        val queueFuture =
+        val queueResourceFuture =
             queueServiceAsync.retrieve(
                 QueueRetrieveParams.builder()
                     .accountSid("account_sid")
@@ -45,8 +45,8 @@ internal class QueueServiceAsyncTest {
                     .build()
             )
 
-        val queue = queueFuture.get()
-        queue.validate()
+        val queueResource = queueResourceFuture.get()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -55,7 +55,7 @@ internal class QueueServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val queueServiceAsync = client.texml().accounts().queues()
 
-        val queueFuture =
+        val queueResourceFuture =
             queueServiceAsync.update(
                 QueueUpdateParams.builder()
                     .accountSid("account_sid")
@@ -64,8 +64,8 @@ internal class QueueServiceAsyncTest {
                     .build()
             )
 
-        val queue = queueFuture.get()
-        queue.validate()
+        val queueResource = queueResourceFuture.get()
+        queueResource.validate()
     }
 
     @Disabled("Mock server tests are disabled")

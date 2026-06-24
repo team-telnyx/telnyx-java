@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceInfoResponse
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusParams
-import com.telnyx.sdk.models.termsofservice.TermsOfServiceStatusResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveInfoResponse
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusParams
+import com.telnyx.sdk.models.termsofservice.TermsOfServiceRetrieveStatusResponse
 import com.telnyx.sdk.services.blocking.termsofservice.AgreementService
 import com.telnyx.sdk.services.blocking.termsofservice.BrandedCallingService
 import com.telnyx.sdk.services.blocking.termsofservice.NumberReputationService
@@ -43,22 +43,23 @@ interface TermsOfServiceService {
      * Returns the available Terms of Service agreements (product, current version, terms URL,
      * effective date). Omit `product_type` to return all products; pass it to scope to one.
      */
-    fun info(): TermsOfServiceInfoResponse = info(TermsOfServiceInfoParams.none())
+    fun retrieveInfo(): TermsOfServiceRetrieveInfoResponse =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
 
-    /** @see info */
-    fun info(
-        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TermsOfServiceInfoResponse
+    ): TermsOfServiceRetrieveInfoResponse
 
-    /** @see info */
-    fun info(
-        params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
-    ): TermsOfServiceInfoResponse = info(params, RequestOptions.none())
+    /** @see retrieveInfo */
+    fun retrieveInfo(
+        params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+    ): TermsOfServiceRetrieveInfoResponse = retrieveInfo(params, RequestOptions.none())
 
-    /** @see info */
-    fun info(requestOptions: RequestOptions): TermsOfServiceInfoResponse =
-        info(TermsOfServiceInfoParams.none(), requestOptions)
+    /** @see retrieveInfo */
+    fun retrieveInfo(requestOptions: RequestOptions): TermsOfServiceRetrieveInfoResponse =
+        retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
     /**
      * Returns whether the authenticated user has agreed to the current Terms of Service for the
@@ -68,22 +69,23 @@ interface TermsOfServiceService {
      * `agreement_required: true` means the user has not yet agreed (or has agreed to an outdated
      * version) and must agree before using that product's endpoints.
      */
-    fun status(): TermsOfServiceStatusResponse = status(TermsOfServiceStatusParams.none())
+    fun retrieveStatus(): TermsOfServiceRetrieveStatusResponse =
+        retrieveStatus(TermsOfServiceRetrieveStatusParams.none())
 
-    /** @see status */
-    fun status(
-        params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none(),
+    /** @see retrieveStatus */
+    fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TermsOfServiceStatusResponse
+    ): TermsOfServiceRetrieveStatusResponse
 
-    /** @see status */
-    fun status(
-        params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none()
-    ): TermsOfServiceStatusResponse = status(params, RequestOptions.none())
+    /** @see retrieveStatus */
+    fun retrieveStatus(
+        params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none()
+    ): TermsOfServiceRetrieveStatusResponse = retrieveStatus(params, RequestOptions.none())
 
-    /** @see status */
-    fun status(requestOptions: RequestOptions): TermsOfServiceStatusResponse =
-        status(TermsOfServiceStatusParams.none(), requestOptions)
+    /** @see retrieveStatus */
+    fun retrieveStatus(requestOptions: RequestOptions): TermsOfServiceRetrieveStatusResponse =
+        retrieveStatus(TermsOfServiceRetrieveStatusParams.none(), requestOptions)
 
     /**
      * A view of [TermsOfServiceService] that provides access to raw HTTP responses for each method.
@@ -110,54 +112,60 @@ interface TermsOfServiceService {
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/info`, but is otherwise the same
-         * as [TermsOfServiceService.info].
+         * as [TermsOfServiceService.retrieveInfo].
          */
         @MustBeClosed
-        fun info(): HttpResponseFor<TermsOfServiceInfoResponse> =
-            info(TermsOfServiceInfoParams.none())
+        fun retrieveInfo(): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none())
 
-        /** @see info */
+        /** @see retrieveInfo */
         @MustBeClosed
-        fun info(
-            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none(),
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TermsOfServiceInfoResponse>
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse>
 
-        /** @see info */
+        /** @see retrieveInfo */
         @MustBeClosed
-        fun info(
-            params: TermsOfServiceInfoParams = TermsOfServiceInfoParams.none()
-        ): HttpResponseFor<TermsOfServiceInfoResponse> = info(params, RequestOptions.none())
+        fun retrieveInfo(
+            params: TermsOfServiceRetrieveInfoParams = TermsOfServiceRetrieveInfoParams.none()
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(params, RequestOptions.none())
 
-        /** @see info */
+        /** @see retrieveInfo */
         @MustBeClosed
-        fun info(requestOptions: RequestOptions): HttpResponseFor<TermsOfServiceInfoResponse> =
-            info(TermsOfServiceInfoParams.none(), requestOptions)
+        fun retrieveInfo(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<TermsOfServiceRetrieveInfoResponse> =
+            retrieveInfo(TermsOfServiceRetrieveInfoParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /terms_of_service/status`, but is otherwise the same
-         * as [TermsOfServiceService.status].
+         * as [TermsOfServiceService.retrieveStatus].
          */
         @MustBeClosed
-        fun status(): HttpResponseFor<TermsOfServiceStatusResponse> =
-            status(TermsOfServiceStatusParams.none())
+        fun retrieveStatus(): HttpResponseFor<TermsOfServiceRetrieveStatusResponse> =
+            retrieveStatus(TermsOfServiceRetrieveStatusParams.none())
 
-        /** @see status */
+        /** @see retrieveStatus */
         @MustBeClosed
-        fun status(
-            params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none(),
+        fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TermsOfServiceStatusResponse>
+        ): HttpResponseFor<TermsOfServiceRetrieveStatusResponse>
 
-        /** @see status */
+        /** @see retrieveStatus */
         @MustBeClosed
-        fun status(
-            params: TermsOfServiceStatusParams = TermsOfServiceStatusParams.none()
-        ): HttpResponseFor<TermsOfServiceStatusResponse> = status(params, RequestOptions.none())
+        fun retrieveStatus(
+            params: TermsOfServiceRetrieveStatusParams = TermsOfServiceRetrieveStatusParams.none()
+        ): HttpResponseFor<TermsOfServiceRetrieveStatusResponse> =
+            retrieveStatus(params, RequestOptions.none())
 
-        /** @see status */
+        /** @see retrieveStatus */
         @MustBeClosed
-        fun status(requestOptions: RequestOptions): HttpResponseFor<TermsOfServiceStatusResponse> =
-            status(TermsOfServiceStatusParams.none(), requestOptions)
+        fun retrieveStatus(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<TermsOfServiceRetrieveStatusResponse> =
+            retrieveStatus(TermsOfServiceRetrieveStatusParams.none(), requestOptions)
     }
 }

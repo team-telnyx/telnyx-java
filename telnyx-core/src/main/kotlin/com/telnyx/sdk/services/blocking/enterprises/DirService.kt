@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
-import com.telnyx.sdk.models.enterprises.dir.DirCreateResponse
 import com.telnyx.sdk.models.enterprises.dir.DirListPage
 import com.telnyx.sdk.models.enterprises.dir.DirListParams
 import java.util.function.Consumer
@@ -53,7 +53,7 @@ interface DirService {
      *   /enterprises/{id}/branded_calling`).
      * - `404` - enterprise does not exist or does not belong to your account.
      */
-    fun create(enterpriseId: String, params: DirCreateParams): DirCreateResponse =
+    fun create(enterpriseId: String, params: DirCreateParams): DirWrapped =
         create(enterpriseId, params, RequestOptions.none())
 
     /** @see create */
@@ -61,17 +61,16 @@ interface DirService {
         enterpriseId: String,
         params: DirCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirCreateResponse =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+    ): DirWrapped = create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: DirCreateParams): DirCreateResponse = create(params, RequestOptions.none())
+    fun create(params: DirCreateParams): DirWrapped = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: DirCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DirCreateResponse
+    ): DirWrapped
 
     /**
      * Return the DIRs (Display Identity Records) belonging to a single enterprise. Pagination is
@@ -123,10 +122,8 @@ interface DirService {
          * the same as [DirService.create].
          */
         @MustBeClosed
-        fun create(
-            enterpriseId: String,
-            params: DirCreateParams,
-        ): HttpResponseFor<DirCreateResponse> = create(enterpriseId, params, RequestOptions.none())
+        fun create(enterpriseId: String, params: DirCreateParams): HttpResponseFor<DirWrapped> =
+            create(enterpriseId, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
@@ -134,12 +131,12 @@ interface DirService {
             enterpriseId: String,
             params: DirCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirCreateResponse> =
+        ): HttpResponseFor<DirWrapped> =
             create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: DirCreateParams): HttpResponseFor<DirCreateResponse> =
+        fun create(params: DirCreateParams): HttpResponseFor<DirWrapped> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -147,7 +144,7 @@ interface DirService {
         fun create(
             params: DirCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DirCreateResponse>
+        ): HttpResponseFor<DirWrapped>
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/dir`, but is otherwise

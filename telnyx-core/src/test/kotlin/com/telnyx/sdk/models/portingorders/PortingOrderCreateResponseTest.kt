@@ -6,6 +6,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.PortingOrderStatus
 import com.telnyx.sdk.models.PortingOrdersExceptionType
+import com.telnyx.sdk.models.portingphonenumbers.PortingOrderActivationStatus
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumber
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -91,23 +93,16 @@ internal class PortingOrderCreateResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(
-                                    PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
-                                )
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVATE_RDY)
                                 .phoneNumber("{e.164 TN}")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
-                                .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT
-                                )
+                                .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.DRAFT)
                                 .recordType("porting_phone_number")
                                 .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus
-                                        .REQUIREMENT_INFO_PENDING
+                                    PortingPhoneNumber.RequirementsStatus.REQUIREMENT_INFO_PENDING
                                 )
                                 .supportKey("sr_10b316")
                                 .build()
@@ -223,18 +218,16 @@ internal class PortingOrderCreateResponseTest {
                     )
                     .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                     .addPhoneNumber(
-                        PortingOrder.PhoneNumber.builder()
-                            .activationStatus(
-                                PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
-                            )
+                        PortingPhoneNumber.builder()
+                            .activationStatus(PortingOrderActivationStatus.ACTIVATE_RDY)
                             .phoneNumber("{e.164 TN}")
-                            .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                            .portabilityStatus(PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED)
+                            .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                            .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                             .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
-                            .portingOrderStatus(PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT)
+                            .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.DRAFT)
                             .recordType("porting_phone_number")
                             .requirementsStatus(
-                                PortingOrder.PhoneNumber.RequirementsStatus.REQUIREMENT_INFO_PENDING
+                                PortingPhoneNumber.RequirementsStatus.REQUIREMENT_INFO_PENDING
                             )
                             .supportKey("sr_10b316")
                             .build()
@@ -354,23 +347,16 @@ internal class PortingOrderCreateResponseTest {
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
                         .addPhoneNumber(
-                            PortingOrder.PhoneNumber.builder()
-                                .activationStatus(
-                                    PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
-                                )
+                            PortingPhoneNumber.builder()
+                                .activationStatus(PortingOrderActivationStatus.ACTIVATE_RDY)
                                 .phoneNumber("{e.164 TN}")
-                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
-                                .portabilityStatus(
-                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
-                                )
+                                .phoneNumberType(PortingPhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(PortingPhoneNumber.PortabilityStatus.CONFIRMED)
                                 .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
-                                .portingOrderStatus(
-                                    PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT
-                                )
+                                .portingOrderStatus(PortingPhoneNumber.PortingOrderStatus.DRAFT)
                                 .recordType("porting_phone_number")
                                 .requirementsStatus(
-                                    PortingOrder.PhoneNumber.RequirementsStatus
-                                        .REQUIREMENT_INFO_PENDING
+                                    PortingPhoneNumber.RequirementsStatus.REQUIREMENT_INFO_PENDING
                                 )
                                 .supportKey("sr_10b316")
                                 .build()

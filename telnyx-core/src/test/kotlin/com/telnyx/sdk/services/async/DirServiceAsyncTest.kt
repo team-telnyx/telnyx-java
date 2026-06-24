@@ -9,9 +9,11 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.dir.DirCreateLoaParams
+import com.telnyx.sdk.models.dir.DirNewLoaParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
 import com.telnyx.sdk.models.dir.DirUpdateParams
+import com.telnyx.sdk.models.dir.Document
+import com.telnyx.sdk.models.enterprises.reputation.loa.AgentInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -27,10 +29,10 @@ internal class DirServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dirServiceAsync = client.dir()
 
-        val dirFuture = dirServiceAsync.retrieve("16635d38-75a6-4481-82e8-69af60e05011")
+        val dirWrappedFuture = dirServiceAsync.retrieve("16635d38-75a6-4481-82e8-69af60e05011")
 
-        val dir = dirFuture.get()
-        dir.validate()
+        val dirWrapped = dirWrappedFuture.get()
+        dirWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -39,7 +41,7 @@ internal class DirServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dirServiceAsync = client.dir()
 
-        val dirFuture =
+        val dirWrappedFuture =
             dirServiceAsync.update(
                 DirUpdateParams.builder()
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
@@ -53,11 +55,9 @@ internal class DirServiceAsyncTest {
                     .certifyNoShaftContent(true)
                     .displayName("Acme Plumbing & Wellness")
                     .addDocument(
-                        DirUpdateParams.Document.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                DirUpdateParams.Document.DocumentType.BUSINESS_REGISTRATION
-                            )
+                            .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                             .description("Certificate of incorporation.")
                             .build()
                     )
@@ -66,8 +66,8 @@ internal class DirServiceAsyncTest {
                     .build()
             )
 
-        val dir = dirFuture.get()
-        dir.validate()
+        val dirWrapped = dirWrappedFuture.get()
+        dirWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -91,50 +91,6 @@ internal class DirServiceAsyncTest {
         val future = dirServiceAsync.delete("16635d38-75a6-4481-82e8-69af60e05011")
 
         val response = future.get()
-    }
-
-    @Test
-    fun createLoa(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .apiKey("My API Key")
-                .build()
-        val dirServiceAsync = client.dir()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            dirServiceAsync.createLoa(
-                DirCreateLoaParams.builder()
-                    .dirId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .addPhoneNumber("+13125550000")
-                    .agent(
-                        DirCreateLoaParams.Agent.builder()
-                            .administrativeArea("administrative_area")
-                            .city("city")
-                            .contactEmail("dev@stainless.com")
-                            .contactName("contact_name")
-                            .contactPhone("+13125550000")
-                            .contactTitle("contact_title")
-                            .country("US")
-                            .legalName("legal_name")
-                            .postalCode("postal_code")
-                            .streetAddress("street_address")
-                            .dba("dba")
-                            .extendedAddress("extended_address")
-                            .build()
-                    )
-                    .signature(
-                        DirCreateLoaParams.Signature.builder()
-                            .imageBase64("x")
-                            .signerName("signer_name")
-                            .build()
-                    )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -162,16 +118,60 @@ internal class DirServiceAsyncTest {
         page.response().validate()
     }
 
+    @Test
+    fun newLoa(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .apiKey("My API Key")
+                .build()
+        val dirServiceAsync = client.dir()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            dirServiceAsync.newLoa(
+                DirNewLoaParams.builder()
+                    .dirId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addPhoneNumber("+13125550000")
+                    .agent(
+                        AgentInput.builder()
+                            .administrativeArea("administrative_area")
+                            .city("city")
+                            .contactEmail("dev@stainless.com")
+                            .contactName("contact_name")
+                            .contactPhone("+13125550000")
+                            .contactTitle("contact_title")
+                            .country("US")
+                            .legalName("legal_name")
+                            .postalCode("postal_code")
+                            .streetAddress("street_address")
+                            .dba("dba")
+                            .extendedAddress("extended_address")
+                            .build()
+                    )
+                    .signature(
+                        DirNewLoaParams.Signature.builder()
+                            .imageBase64("x")
+                            .signerName("signer_name")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
     @Disabled("Mock server tests are disabled")
     @Test
     fun submit() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dirServiceAsync = client.dir()
 
-        val responseFuture = dirServiceAsync.submit("16635d38-75a6-4481-82e8-69af60e05011")
+        val dirWrappedFuture = dirServiceAsync.submit("16635d38-75a6-4481-82e8-69af60e05011")
 
-        val response = responseFuture.get()
-        response.validate()
+        val dirWrapped = dirWrappedFuture.get()
+        dirWrapped.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -180,7 +180,7 @@ internal class DirServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dirServiceAsync = client.dir()
 
-        val responseFuture =
+        val dirWrappedFuture =
             dirServiceAsync.updateInfringement(
                 DirUpdateInfringementParams.builder()
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
@@ -194,12 +194,9 @@ internal class DirServiceAsyncTest {
                     .addCallReason("string")
                     .displayName("x")
                     .addDocument(
-                        DirUpdateInfringementParams.Document.builder()
+                        Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
-                            .documentType(
-                                DirUpdateInfringementParams.Document.DocumentType
-                                    .BUSINESS_REGISTRATION
-                            )
+                            .documentType(Document.DocumentType.BUSINESS_REGISTRATION)
                             .description("Certificate of incorporation.")
                             .build()
                     )
@@ -207,7 +204,7 @@ internal class DirServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val dirWrapped = dirWrappedFuture.get()
+        dirWrapped.validate()
     }
 }

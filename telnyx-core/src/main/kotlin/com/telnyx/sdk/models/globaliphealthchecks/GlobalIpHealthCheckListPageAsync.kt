@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: GlobalIpHealthCheckListParams,
     private val response: GlobalIpHealthCheckListPageResponse,
-) : PageAsync<GlobalIpHealthCheckListResponse> {
+) : PageAsync<GlobalIpHealthCheck> {
 
     /**
      * Delegates to [GlobalIpHealthCheckListPageResponse], but gracefully handles missing data.
      *
      * @see GlobalIpHealthCheckListPageResponse.data
      */
-    fun data(): List<GlobalIpHealthCheckListResponse> =
+    fun data(): List<GlobalIpHealthCheck> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<GlobalIpHealthCheckListResponse> = data()
+    override fun items(): List<GlobalIpHealthCheck> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<GlobalIpHealthCheckListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<GlobalIpHealthCheckListResponse> =
+    fun autoPager(): AutoPagerAsync<GlobalIpHealthCheck> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
