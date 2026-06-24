@@ -34,7 +34,18 @@
 # Keep model classes entirely so R8 preserves Kotlin metadata needed for default parameter values.
 -keep class com.telnyx.sdk.models.** { *; }
 
-# Jackson uses the IsMissing class as a valueFilter in @JsonInclude annotations via @ExcludeMissing.
-# The @ExcludeMissing annotation must be kept so Jackson can read the @JsonInclude meta-annotation inside it.
--keep class com.telnyx.sdk.core.JsonField$IsMissing { *; }
+# The @ExcludeMissing annotation uses @JsonInclude(CUSTOM, valueFilter = JsonField.IsMissing::class)
+# to skip missing fields. The annotation must be kept so Jackson can read the @JsonInclude meta-annotation.
 -keep @interface com.telnyx.sdk.core.ExcludeMissing
+
+# Keep core JSON value classes and their inner classes (used by Jackson at runtime).
+# Under ProGuard, these are not reachable from @JsonSerialize/@JsonDeserialize classes,
+# so they get stripped, causing "JsonMissing cannot be serialized" at runtime.
+-keep class com.telnyx.sdk.core.JsonField { *; }
+-keep class com.telnyx.sdk.core.JsonField$* { *; }
+-keep class com.telnyx.sdk.core.JsonValue { *; }
+-keep class com.telnyx.sdk.core.JsonValue$* { *; }
+-keep class com.telnyx.sdk.core.JsonMissing { *; }
+-keep class com.telnyx.sdk.core.JsonMissing$* { *; }
+-keep class com.telnyx.sdk.core.JsonNull { *; }
+-keep class com.telnyx.sdk.core.JsonNull$* { *; }
