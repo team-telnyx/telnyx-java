@@ -234,12 +234,10 @@ private constructor(
         private val id: JsonField<String>,
         private val chunkIndex: JsonField<Long>,
         private val chunkTotal: JsonField<Long>,
-        private val documentId: JsonField<String>,
         private val ingestedAt: JsonField<OffsetDateTime>,
         private val organizationId: JsonField<String>,
         private val recordCreatedAt: JsonField<OffsetDateTime>,
         private val recordId: JsonField<String>,
-        private val recordType: JsonField<RecordType>,
         private val region: JsonField<Region>,
         private val score: JsonField<Float>,
         private val text: JsonField<String>,
@@ -257,9 +255,6 @@ private constructor(
             @JsonProperty("chunk_total")
             @ExcludeMissing
             chunkTotal: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("document_id")
-            @ExcludeMissing
-            documentId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ingested_at")
             @ExcludeMissing
             ingestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -272,9 +267,6 @@ private constructor(
             @JsonProperty("record_id")
             @ExcludeMissing
             recordId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("record_type")
-            @ExcludeMissing
-            recordType: JsonField<RecordType> = JsonMissing.of(),
             @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("score") @ExcludeMissing score: JsonField<Float> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
@@ -286,12 +278,10 @@ private constructor(
             id,
             chunkIndex,
             chunkTotal,
-            documentId,
             ingestedAt,
             organizationId,
             recordCreatedAt,
             recordId,
-            recordType,
             region,
             score,
             text,
@@ -325,15 +315,6 @@ private constructor(
         fun chunkTotal(): Long = chunkTotal.getRequired("chunk_total")
 
         /**
-         * Document identifier. Present only for knowledge_base records; null for all other record
-         * types.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun documentId(): Optional<String> = documentId.getOptional("document_id")
-
-        /**
          * When the record was chunked, embedded, and indexed (ISO 8601).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -364,14 +345,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun recordId(): String = recordId.getRequired("record_id")
-
-        /**
-         * Type of the record.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun recordType(): RecordType = recordType.getRequired("record_type")
 
         /**
          * The region where this record is stored.
@@ -407,8 +380,8 @@ private constructor(
         fun userId(): String = userId.getRequired("user_id")
 
         /**
-         * Arbitrary metadata attached to the record at ingestion time. Stored as a flat_object in
-         * OpenSearch and filterable via filter[field]=value query parameters.
+         * Arbitrary metadata attached to the record at ingestion time. Filterable via
+         * filter[field]=value query parameters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -435,15 +408,6 @@ private constructor(
          * Unlike [chunkTotal], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("chunk_total") @ExcludeMissing fun _chunkTotal(): JsonField<Long> = chunkTotal
-
-        /**
-         * Returns the raw JSON value of [documentId].
-         *
-         * Unlike [documentId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("document_id")
-        @ExcludeMissing
-        fun _documentId(): JsonField<String> = documentId
 
         /**
          * Returns the raw JSON value of [ingestedAt].
@@ -480,15 +444,6 @@ private constructor(
          * Unlike [recordId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("record_id") @ExcludeMissing fun _recordId(): JsonField<String> = recordId
-
-        /**
-         * Returns the raw JSON value of [recordType].
-         *
-         * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        fun _recordType(): JsonField<RecordType> = recordType
 
         /**
          * Returns the raw JSON value of [region].
@@ -547,12 +502,10 @@ private constructor(
              * .id()
              * .chunkIndex()
              * .chunkTotal()
-             * .documentId()
              * .ingestedAt()
              * .organizationId()
              * .recordCreatedAt()
              * .recordId()
-             * .recordType()
              * .region()
              * .score()
              * .text()
@@ -568,12 +521,10 @@ private constructor(
             private var id: JsonField<String>? = null
             private var chunkIndex: JsonField<Long>? = null
             private var chunkTotal: JsonField<Long>? = null
-            private var documentId: JsonField<String>? = null
             private var ingestedAt: JsonField<OffsetDateTime>? = null
             private var organizationId: JsonField<String>? = null
             private var recordCreatedAt: JsonField<OffsetDateTime>? = null
             private var recordId: JsonField<String>? = null
-            private var recordType: JsonField<RecordType>? = null
             private var region: JsonField<Region>? = null
             private var score: JsonField<Float>? = null
             private var text: JsonField<String>? = null
@@ -586,12 +537,10 @@ private constructor(
                 id = data.id
                 chunkIndex = data.chunkIndex
                 chunkTotal = data.chunkTotal
-                documentId = data.documentId
                 ingestedAt = data.ingestedAt
                 organizationId = data.organizationId
                 recordCreatedAt = data.recordCreatedAt
                 recordId = data.recordId
-                recordType = data.recordType
                 region = data.region
                 score = data.score
                 text = data.text
@@ -635,24 +584,6 @@ private constructor(
              * supported value.
              */
             fun chunkTotal(chunkTotal: JsonField<Long>) = apply { this.chunkTotal = chunkTotal }
-
-            /**
-             * Document identifier. Present only for knowledge_base records; null for all other
-             * record types.
-             */
-            fun documentId(documentId: String?) = documentId(JsonField.ofNullable(documentId))
-
-            /** Alias for calling [Builder.documentId] with `documentId.orElse(null)`. */
-            fun documentId(documentId: Optional<String>) = documentId(documentId.getOrNull())
-
-            /**
-             * Sets [Builder.documentId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.documentId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun documentId(documentId: JsonField<String>) = apply { this.documentId = documentId }
 
             /** When the record was chunked, embedded, and indexed (ISO 8601). */
             fun ingestedAt(ingestedAt: OffsetDateTime) = ingestedAt(JsonField.of(ingestedAt))
@@ -712,20 +643,6 @@ private constructor(
              */
             fun recordId(recordId: JsonField<String>) = apply { this.recordId = recordId }
 
-            /** Type of the record. */
-            fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
-
-            /**
-             * Sets [Builder.recordType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.recordType] with a well-typed [RecordType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun recordType(recordType: JsonField<RecordType>) = apply {
-                this.recordType = recordType
-            }
-
             /** The region where this record is stored. */
             fun region(region: Region) = region(JsonField.of(region))
 
@@ -778,8 +695,8 @@ private constructor(
             fun userId(userId: JsonField<String>) = apply { this.userId = userId }
 
             /**
-             * Arbitrary metadata attached to the record at ingestion time. Stored as a flat_object
-             * in OpenSearch and filterable via filter[field]=value query parameters.
+             * Arbitrary metadata attached to the record at ingestion time. Filterable via
+             * filter[field]=value query parameters.
              */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
@@ -821,12 +738,10 @@ private constructor(
              * .id()
              * .chunkIndex()
              * .chunkTotal()
-             * .documentId()
              * .ingestedAt()
              * .organizationId()
              * .recordCreatedAt()
              * .recordId()
-             * .recordType()
              * .region()
              * .score()
              * .text()
@@ -840,12 +755,10 @@ private constructor(
                     checkRequired("id", id),
                     checkRequired("chunkIndex", chunkIndex),
                     checkRequired("chunkTotal", chunkTotal),
-                    checkRequired("documentId", documentId),
                     checkRequired("ingestedAt", ingestedAt),
                     checkRequired("organizationId", organizationId),
                     checkRequired("recordCreatedAt", recordCreatedAt),
                     checkRequired("recordId", recordId),
-                    checkRequired("recordType", recordType),
                     checkRequired("region", region),
                     checkRequired("score", score),
                     checkRequired("text", text),
@@ -874,12 +787,10 @@ private constructor(
             id()
             chunkIndex()
             chunkTotal()
-            documentId()
             ingestedAt()
             organizationId()
             recordCreatedAt()
             recordId()
-            recordType().validate()
             region().validate()
             score()
             text()
@@ -907,171 +818,15 @@ private constructor(
             (if (id.asKnown().isPresent) 1 else 0) +
                 (if (chunkIndex.asKnown().isPresent) 1 else 0) +
                 (if (chunkTotal.asKnown().isPresent) 1 else 0) +
-                (if (documentId.asKnown().isPresent) 1 else 0) +
                 (if (ingestedAt.asKnown().isPresent) 1 else 0) +
                 (if (organizationId.asKnown().isPresent) 1 else 0) +
                 (if (recordCreatedAt.asKnown().isPresent) 1 else 0) +
                 (if (recordId.asKnown().isPresent) 1 else 0) +
-                (recordType.asKnown().getOrNull()?.validity() ?: 0) +
                 (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (score.asKnown().isPresent) 1 else 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
                 (if (userId.asKnown().isPresent) 1 else 0) +
                 (metadata.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** Type of the record. */
-        class RecordType @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val VOICE = of("voice")
-
-                @JvmField val MESSAGE = of("message")
-
-                @JvmField val AI_PIPELINE_STORAGE = of("ai_pipeline_storage")
-
-                @JvmField val KNOWLEDGE_BASE = of("knowledge_base")
-
-                @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
-            }
-
-            /** An enum containing [RecordType]'s known values. */
-            enum class Known {
-                VOICE,
-                MESSAGE,
-                AI_PIPELINE_STORAGE,
-                KNOWLEDGE_BASE,
-            }
-
-            /**
-             * An enum containing [RecordType]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [RecordType] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                VOICE,
-                MESSAGE,
-                AI_PIPELINE_STORAGE,
-                KNOWLEDGE_BASE,
-                /**
-                 * An enum member indicating that [RecordType] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    VOICE -> Value.VOICE
-                    MESSAGE -> Value.MESSAGE
-                    AI_PIPELINE_STORAGE -> Value.AI_PIPELINE_STORAGE
-                    KNOWLEDGE_BASE -> Value.KNOWLEDGE_BASE
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    VOICE -> Known.VOICE
-                    MESSAGE -> Known.MESSAGE
-                    AI_PIPELINE_STORAGE -> Known.AI_PIPELINE_STORAGE
-                    KNOWLEDGE_BASE -> Known.KNOWLEDGE_BASE
-                    else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): RecordType = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is RecordType && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
 
         /** The region where this record is stored. */
         class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1226,8 +981,8 @@ private constructor(
         }
 
         /**
-         * Arbitrary metadata attached to the record at ingestion time. Stored as a flat_object in
-         * OpenSearch and filterable via filter[field]=value query parameters.
+         * Arbitrary metadata attached to the record at ingestion time. Filterable via
+         * filter[field]=value query parameters.
          */
         class Metadata
         @JsonCreator
@@ -1350,12 +1105,10 @@ private constructor(
                 id == other.id &&
                 chunkIndex == other.chunkIndex &&
                 chunkTotal == other.chunkTotal &&
-                documentId == other.documentId &&
                 ingestedAt == other.ingestedAt &&
                 organizationId == other.organizationId &&
                 recordCreatedAt == other.recordCreatedAt &&
                 recordId == other.recordId &&
-                recordType == other.recordType &&
                 region == other.region &&
                 score == other.score &&
                 text == other.text &&
@@ -1369,12 +1122,10 @@ private constructor(
                 id,
                 chunkIndex,
                 chunkTotal,
-                documentId,
                 ingestedAt,
                 organizationId,
                 recordCreatedAt,
                 recordId,
-                recordType,
                 region,
                 score,
                 text,
@@ -1387,7 +1138,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, chunkIndex=$chunkIndex, chunkTotal=$chunkTotal, documentId=$documentId, ingestedAt=$ingestedAt, organizationId=$organizationId, recordCreatedAt=$recordCreatedAt, recordId=$recordId, recordType=$recordType, region=$region, score=$score, text=$text, userId=$userId, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "Data{id=$id, chunkIndex=$chunkIndex, chunkTotal=$chunkTotal, ingestedAt=$ingestedAt, organizationId=$organizationId, recordCreatedAt=$recordCreatedAt, recordId=$recordId, region=$region, score=$score, text=$text, userId=$userId, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     /** Pagination metadata following the standard Telnyx V2 API format. */
@@ -1416,7 +1167,7 @@ private constructor(
         ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
 
         /**
-         * Current page number (always 1 — this API does not support pagination, use top_k instead).
+         * Current page number (1-based), matching the requested page[number].
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1424,7 +1175,7 @@ private constructor(
         fun pageNumber(): Long = pageNumber.getRequired("page_number")
 
         /**
-         * Number of results per page (equals the effective top_k value).
+         * Number of results per page, matching the requested page[size].
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1440,7 +1191,7 @@ private constructor(
         fun totalPages(): Long = totalPages.getRequired("total_pages")
 
         /**
-         * Total number of matching results across all queried regions (before top_k truncation).
+         * Total number of matching results across all queried regions.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1524,10 +1275,7 @@ private constructor(
                 additionalProperties = meta.additionalProperties.toMutableMap()
             }
 
-            /**
-             * Current page number (always 1 — this API does not support pagination, use top_k
-             * instead).
-             */
+            /** Current page number (1-based), matching the requested page[number]. */
             fun pageNumber(pageNumber: Long) = pageNumber(JsonField.of(pageNumber))
 
             /**
@@ -1539,7 +1287,7 @@ private constructor(
              */
             fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
 
-            /** Number of results per page (equals the effective top_k value). */
+            /** Number of results per page, matching the requested page[size]. */
             fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
 
             /**
@@ -1563,10 +1311,7 @@ private constructor(
              */
             fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
 
-            /**
-             * Total number of matching results across all queried regions (before top_k
-             * truncation).
-             */
+            /** Total number of matching results across all queried regions. */
             fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
 
             /**

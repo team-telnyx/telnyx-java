@@ -22,11 +22,11 @@ import kotlin.jvm.optionals.getOrNull
  * **How it works:**
  * 1. The query text is embedded into a 1024-dimensional vector using the multilingual-e5-large
  *    model.
- * 2. The vector is sent to regional OpenSearch clusters for kNN search using HNSW cosine
- *    similarity.
+ * 2. The vector is compared against indexed record chunks using semantic similarity search.
  * 3. When no region is specified, all regions are queried in parallel (fan-out) and results are
  *    merged by score.
- * 4. Results are ranked by cosine similarity score (descending) and truncated to `top_k`.
+ * 4. Results are ranked by similarity score (descending) and paginated via `page[number]` /
+ *    `page[size]`.
  *
  * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`. Results are
  * automatically scoped to the caller's organization — `organization_id` is injected from the auth
@@ -39,14 +39,14 @@ import kotlin.jvm.optionals.getOrNull
  * **Filtering:** Use `filter[field][operator]=value` query parameters to narrow results before
  * vector search.
  *
- * Top-level filterable fields: `user_id`, `record_type`, `region`, `document_id`, `record_id`,
- * `record_created_at`, `ingested_at`, `retention`
+ * Top-level filterable fields: `user_id`, `region`, `record_id`, `record_created_at`,
+ * `ingested_at`, `retention`
  *
  * Note: `retention` is filter-only — it can be used to narrow results but is not returned in the
  * response body.
  *
- * Metadata fields: any field not in the list above is resolved to `data.metadata.<field>` in
- * OpenSearch (e.g., `filter[language]=en` → `data.metadata.language`).
+ * Metadata fields: any field not in the list above is resolved to `data.metadata.<field>` (e.g.,
+ * `filter[language]=en` → `data.metadata.language`).
  *
  * Supported filter operators:
  * - `eq` — exact match (default when no operator specified)
@@ -57,18 +57,16 @@ import kotlin.jvm.optionals.getOrNull
  * **Examples:**
  *
  * ```
- * GET /v2/ai/conversation_histories?q=billing+issue&record_type=voice&top_k=10
- * GET /v2/ai/conversation_histories?q=setup+guide&record_type=knowledge_base&region=USA&min_score=0.5
- * GET /v2/ai/conversation_histories?q=refund&record_type=voice&filter[record_created_at][gte]=2026-01-01T00:00:00Z
- * GET /v2/ai/conversation_histories?q=outage&record_type=voice&filter[region][in]=USA,DEU
- * GET /v2/ai/conversation_histories?q=hold+time&record_type=voice&filter[language]=en
+ * GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10
+ * GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5
+ * GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z
+ * GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU
+ * GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en
  * ```
  */
 class AiSearchConversationHistoriesParams
 private constructor(
     private val q: String,
-    private val recordType: RecordType,
-    private val filterDocumentId: String?,
     private val filterIngestedAtGte: OffsetDateTime?,
     private val filterIngestedAtLte: OffsetDateTime?,
     private val filterRecordCreatedAtGte: OffsetDateTime?,
@@ -78,23 +76,18 @@ private constructor(
     private val filterRetention: String?,
     private val filterUserId: String?,
     private val minScore: Float?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val region: Region?,
-    private val topK: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /**
      * Natural language search query. The text is embedded into a 1024-dimensional vector and
-     * compared against indexed record chunks using kNN cosine similarity.
+     * compared against indexed record chunks using semantic similarity.
      */
     fun q(): String = q
-
-    /** The type of records to search. Each record type is stored in a separate vector index. */
-    fun recordType(): RecordType = recordType
-
-    /** Filter by document identifier (exact match). Populated for knowledge_base records. */
-    fun filterDocumentId(): Optional<String> = Optional.ofNullable(filterDocumentId)
 
     /**
      * Only include records ingested (chunked, embedded, and indexed) on or after this ISO 8601
@@ -140,14 +133,17 @@ private constructor(
      */
     fun minScore(): Optional<Float> = Optional.ofNullable(minScore)
 
+    /** Page number to return (1-based). Defaults to 1. */
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    /** Number of results per page. Defaults to 20, maximum 100. */
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+
     /**
-     * Restrict search to a specific region's OpenSearch cluster. When omitted, all regions are
-     * queried in parallel (fan-out) and results are merged by cosine similarity score.
+     * Restrict search to a specific region. When omitted, all regions are queried in parallel
+     * (fan-out) and results are merged by similarity score.
      */
     fun region(): Optional<Region> = Optional.ofNullable(region)
-
-    /** Maximum number of results to return. Defaults to 20, maximum 100. */
-    fun topK(): Optional<Long> = Optional.ofNullable(topK)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -166,7 +162,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .q()
-         * .recordType()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -176,8 +171,6 @@ private constructor(
     class Builder internal constructor() {
 
         private var q: String? = null
-        private var recordType: RecordType? = null
-        private var filterDocumentId: String? = null
         private var filterIngestedAtGte: OffsetDateTime? = null
         private var filterIngestedAtLte: OffsetDateTime? = null
         private var filterRecordCreatedAtGte: OffsetDateTime? = null
@@ -187,8 +180,9 @@ private constructor(
         private var filterRetention: String? = null
         private var filterUserId: String? = null
         private var minScore: Float? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var region: Region? = null
-        private var topK: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -197,8 +191,6 @@ private constructor(
             aiSearchConversationHistoriesParams: AiSearchConversationHistoriesParams
         ) = apply {
             q = aiSearchConversationHistoriesParams.q
-            recordType = aiSearchConversationHistoriesParams.recordType
-            filterDocumentId = aiSearchConversationHistoriesParams.filterDocumentId
             filterIngestedAtGte = aiSearchConversationHistoriesParams.filterIngestedAtGte
             filterIngestedAtLte = aiSearchConversationHistoriesParams.filterIngestedAtLte
             filterRecordCreatedAtGte = aiSearchConversationHistoriesParams.filterRecordCreatedAtGte
@@ -208,8 +200,9 @@ private constructor(
             filterRetention = aiSearchConversationHistoriesParams.filterRetention
             filterUserId = aiSearchConversationHistoriesParams.filterUserId
             minScore = aiSearchConversationHistoriesParams.minScore
+            pageNumber = aiSearchConversationHistoriesParams.pageNumber
+            pageSize = aiSearchConversationHistoriesParams.pageSize
             region = aiSearchConversationHistoriesParams.region
-            topK = aiSearchConversationHistoriesParams.topK
             additionalHeaders = aiSearchConversationHistoriesParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 aiSearchConversationHistoriesParams.additionalQueryParams.toBuilder()
@@ -217,21 +210,9 @@ private constructor(
 
         /**
          * Natural language search query. The text is embedded into a 1024-dimensional vector and
-         * compared against indexed record chunks using kNN cosine similarity.
+         * compared against indexed record chunks using semantic similarity.
          */
         fun q(q: String) = apply { this.q = q }
-
-        /** The type of records to search. Each record type is stored in a separate vector index. */
-        fun recordType(recordType: RecordType) = apply { this.recordType = recordType }
-
-        /** Filter by document identifier (exact match). Populated for knowledge_base records. */
-        fun filterDocumentId(filterDocumentId: String?) = apply {
-            this.filterDocumentId = filterDocumentId
-        }
-
-        /** Alias for calling [Builder.filterDocumentId] with `filterDocumentId.orElse(null)`. */
-        fun filterDocumentId(filterDocumentId: Optional<String>) =
-            filterDocumentId(filterDocumentId.getOrNull())
 
         /**
          * Only include records ingested (chunked, embedded, and indexed) on or after this ISO 8601
@@ -341,27 +322,40 @@ private constructor(
         /** Alias for calling [Builder.minScore] with `minScore.orElse(null)`. */
         fun minScore(minScore: Optional<Float>) = minScore(minScore.getOrNull())
 
+        /** Page number to return (1-based). Defaults to 1. */
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+
         /**
-         * Restrict search to a specific region's OpenSearch cluster. When omitted, all regions are
-         * queried in parallel (fan-out) and results are merged by cosine similarity score.
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        /** Number of results per page. Defaults to 20, maximum 100. */
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+
+        /**
+         * Restrict search to a specific region. When omitted, all regions are queried in parallel
+         * (fan-out) and results are merged by similarity score.
          */
         fun region(region: Region?) = apply { this.region = region }
 
         /** Alias for calling [Builder.region] with `region.orElse(null)`. */
         fun region(region: Optional<Region>) = region(region.getOrNull())
-
-        /** Maximum number of results to return. Defaults to 20, maximum 100. */
-        fun topK(topK: Long?) = apply { this.topK = topK }
-
-        /**
-         * Alias for [Builder.topK].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun topK(topK: Long) = topK(topK as Long?)
-
-        /** Alias for calling [Builder.topK] with `topK.orElse(null)`. */
-        fun topK(topK: Optional<Long>) = topK(topK.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -469,7 +463,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .q()
-         * .recordType()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -477,8 +470,6 @@ private constructor(
         fun build(): AiSearchConversationHistoriesParams =
             AiSearchConversationHistoriesParams(
                 checkRequired("q", q),
-                checkRequired("recordType", recordType),
-                filterDocumentId,
                 filterIngestedAtGte,
                 filterIngestedAtLte,
                 filterRecordCreatedAtGte,
@@ -488,8 +479,9 @@ private constructor(
                 filterRetention,
                 filterUserId,
                 minScore,
+                pageNumber,
+                pageSize,
                 region,
-                topK,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -501,8 +493,6 @@ private constructor(
         QueryParams.builder()
             .apply {
                 put("q", q)
-                put("record_type", recordType.toString())
-                filterDocumentId?.let { put("filter[document_id]", it) }
                 filterIngestedAtGte?.let {
                     put(
                         "filter[ingested_at][gte]",
@@ -532,164 +522,16 @@ private constructor(
                 filterRetention?.let { put("filter[retention]", it) }
                 filterUserId?.let { put("filter[user_id]", it) }
                 minScore?.let { put("min_score", it.toString()) }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 region?.let { put("region", it.toString()) }
-                topK?.let { put("top_k", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
 
-    /** The type of records to search. Each record type is stored in a separate vector index. */
-    class RecordType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val VOICE = of("voice")
-
-            @JvmField val MESSAGE = of("message")
-
-            @JvmField val AI_PIPELINE_STORAGE = of("ai_pipeline_storage")
-
-            @JvmField val KNOWLEDGE_BASE = of("knowledge_base")
-
-            @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
-        }
-
-        /** An enum containing [RecordType]'s known values. */
-        enum class Known {
-            VOICE,
-            MESSAGE,
-            AI_PIPELINE_STORAGE,
-            KNOWLEDGE_BASE,
-        }
-
-        /**
-         * An enum containing [RecordType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [RecordType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            VOICE,
-            MESSAGE,
-            AI_PIPELINE_STORAGE,
-            KNOWLEDGE_BASE,
-            /**
-             * An enum member indicating that [RecordType] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                VOICE -> Value.VOICE
-                MESSAGE -> Value.MESSAGE
-                AI_PIPELINE_STORAGE -> Value.AI_PIPELINE_STORAGE
-                KNOWLEDGE_BASE -> Value.KNOWLEDGE_BASE
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                VOICE -> Known.VOICE
-                MESSAGE -> Known.MESSAGE
-                AI_PIPELINE_STORAGE -> Known.AI_PIPELINE_STORAGE
-                KNOWLEDGE_BASE -> Known.KNOWLEDGE_BASE
-                else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): RecordType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RecordType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     /**
-     * Restrict search to a specific region's OpenSearch cluster. When omitted, all regions are
-     * queried in parallel (fan-out) and results are merged by cosine similarity score.
+     * Restrict search to a specific region. When omitted, all regions are queried in parallel
+     * (fan-out) and results are merged by similarity score.
      */
     class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -844,8 +686,6 @@ private constructor(
 
         return other is AiSearchConversationHistoriesParams &&
             q == other.q &&
-            recordType == other.recordType &&
-            filterDocumentId == other.filterDocumentId &&
             filterIngestedAtGte == other.filterIngestedAtGte &&
             filterIngestedAtLte == other.filterIngestedAtLte &&
             filterRecordCreatedAtGte == other.filterRecordCreatedAtGte &&
@@ -855,8 +695,9 @@ private constructor(
             filterRetention == other.filterRetention &&
             filterUserId == other.filterUserId &&
             minScore == other.minScore &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             region == other.region &&
-            topK == other.topK &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -864,8 +705,6 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             q,
-            recordType,
-            filterDocumentId,
             filterIngestedAtGte,
             filterIngestedAtLte,
             filterRecordCreatedAtGte,
@@ -875,12 +714,13 @@ private constructor(
             filterRetention,
             filterUserId,
             minScore,
+            pageNumber,
+            pageSize,
             region,
-            topK,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "AiSearchConversationHistoriesParams{q=$q, recordType=$recordType, filterDocumentId=$filterDocumentId, filterIngestedAtGte=$filterIngestedAtGte, filterIngestedAtLte=$filterIngestedAtLte, filterRecordCreatedAtGte=$filterRecordCreatedAtGte, filterRecordCreatedAtLte=$filterRecordCreatedAtLte, filterRecordId=$filterRecordId, filterRegionIn=$filterRegionIn, filterRetention=$filterRetention, filterUserId=$filterUserId, minScore=$minScore, region=$region, topK=$topK, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiSearchConversationHistoriesParams{q=$q, filterIngestedAtGte=$filterIngestedAtGte, filterIngestedAtLte=$filterIngestedAtLte, filterRecordCreatedAtGte=$filterRecordCreatedAtGte, filterRecordCreatedAtLte=$filterRecordCreatedAtLte, filterRecordId=$filterRecordId, filterRegionIn=$filterRegionIn, filterRetention=$filterRetention, filterUserId=$filterUserId, minScore=$minScore, pageNumber=$pageNumber, pageSize=$pageSize, region=$region, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
