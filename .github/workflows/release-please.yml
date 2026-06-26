@@ -18,7 +18,15 @@ name: Release Please
 #
 # Uses the official Google release-please from npm (not the Stainless fork,
 # which has broken TypeScript compilation on newer Node versions).
-# The --release-as flag replaces the need for the Stainless-only --changes-branch.
+#
+# release-please v17 does not have --changes-branch (a Stainless-only flag).
+# Instead, we use --local so release-please scans the local checkout (which is
+# `next`, the branch that triggered this workflow) for commits since the last
+# release, rather than making API calls to scan `master` (where there are 0
+# new commits — the code changes are on `next`).
+#
+# The --release-as flag sets the version number; --local makes release-please
+# find the actual commits to include in the release PR.
 
 on:
   push:
@@ -88,6 +96,7 @@ jobs:
             --target-branch master
             --config-file release-please-config.json
             --manifest-file .release-please-manifest.json
+            --local
           )
 
           if [ "${{ steps.version.outputs.has_version }}" = "true" ]; then
