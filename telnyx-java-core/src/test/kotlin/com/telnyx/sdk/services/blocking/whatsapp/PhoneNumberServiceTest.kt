@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetConversationWindowParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import org.junit.jupiter.api.Disabled
@@ -28,6 +29,23 @@ internal class PhoneNumberServiceTest {
         val phoneNumberService = client.whatsapp().phoneNumbers()
 
         phoneNumberService.delete("phone_number")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getConversationWindow() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val phoneNumberService = client.whatsapp().phoneNumbers()
+
+        val response =
+            phoneNumberService.getConversationWindow(
+                PhoneNumberGetConversationWindowParams.builder()
+                    .phoneNumber("phone_number")
+                    .destinationNumber("+353894650851")
+                    .build()
+            )
+
+        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")

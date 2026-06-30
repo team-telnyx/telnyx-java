@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetConversationWindowParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetConversationWindowResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
@@ -66,6 +68,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         // delete /v2/whatsapp/phone_numbers/{phone_number}
         withRawResponse().delete(params, requestOptions)
     }
+
+    override fun getConversationWindow(
+        params: PhoneNumberGetConversationWindowParams,
+        requestOptions: RequestOptions,
+    ): PhoneNumberGetConversationWindowResponse =
+        // get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window
+        withRawResponse().getConversationWindow(params, requestOptions).parse()
 
     override fun resendVerification(
         params: PhoneNumberResendVerificationParams,
@@ -162,6 +171,43 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
+            }
+        }
+
+        private val getConversationWindowHandler:
+            Handler<PhoneNumberGetConversationWindowResponse> =
+            jsonHandler<PhoneNumberGetConversationWindowResponse>(clientOptions.jsonMapper)
+
+        override fun getConversationWindow(
+            params: PhoneNumberGetConversationWindowParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhoneNumberGetConversationWindowResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "v2",
+                        "whatsapp",
+                        "phone_numbers",
+                        params._pathParam(0),
+                        "conversation_window",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getConversationWindowHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 

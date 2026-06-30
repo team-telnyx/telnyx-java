@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetConversationWindowParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetConversationWindowResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
@@ -82,6 +84,36 @@ interface PhoneNumberService {
     /** @see delete */
     fun delete(phoneNumber: String, requestOptions: RequestOptions) =
         delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
+
+    /**
+     * Returns whether the 24-hour conversation window is currently open for a given
+     * source/destination pair. If window_active is false, only template messages may be sent.
+     */
+    fun getConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberGetConversationWindowParams,
+    ): PhoneNumberGetConversationWindowResponse =
+        getConversationWindow(phoneNumber, params, RequestOptions.none())
+
+    /** @see getConversationWindow */
+    fun getConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberGetConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberGetConversationWindowResponse =
+        getConversationWindow(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see getConversationWindow */
+    fun getConversationWindow(
+        params: PhoneNumberGetConversationWindowParams
+    ): PhoneNumberGetConversationWindowResponse =
+        getConversationWindow(params, RequestOptions.none())
+
+    /** @see getConversationWindow */
+    fun getConversationWindow(
+        params: PhoneNumberGetConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberGetConversationWindowResponse
 
     /** Resend verification code */
     fun resendVerification(phoneNumber: String) =
@@ -219,6 +251,44 @@ interface PhoneNumberService {
         @MustBeClosed
         fun delete(phoneNumber: String, requestOptions: RequestOptions): HttpResponse =
             delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /v2/whatsapp/phone_numbers/{phone_number}/conversation_window`, but is otherwise the same
+         * as [PhoneNumberService.getConversationWindow].
+         */
+        @MustBeClosed
+        fun getConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberGetConversationWindowParams,
+        ): HttpResponseFor<PhoneNumberGetConversationWindowResponse> =
+            getConversationWindow(phoneNumber, params, RequestOptions.none())
+
+        /** @see getConversationWindow */
+        @MustBeClosed
+        fun getConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberGetConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberGetConversationWindowResponse> =
+            getConversationWindow(
+                params.toBuilder().phoneNumber(phoneNumber).build(),
+                requestOptions,
+            )
+
+        /** @see getConversationWindow */
+        @MustBeClosed
+        fun getConversationWindow(
+            params: PhoneNumberGetConversationWindowParams
+        ): HttpResponseFor<PhoneNumberGetConversationWindowResponse> =
+            getConversationWindow(params, RequestOptions.none())
+
+        /** @see getConversationWindow */
+        @MustBeClosed
+        fun getConversationWindow(
+            params: PhoneNumberGetConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberGetConversationWindowResponse>
 
         /**
          * Returns a raw HTTP response for `post
