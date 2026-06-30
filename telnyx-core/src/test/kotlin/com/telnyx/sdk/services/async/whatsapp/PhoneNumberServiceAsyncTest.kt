@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -48,6 +49,24 @@ internal class PhoneNumberServiceAsyncTest {
             )
 
         val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveConversationWindow() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val phoneNumberServiceAsync = client.whatsapp().phoneNumbers()
+
+        val responseFuture =
+            phoneNumberServiceAsync.retrieveConversationWindow(
+                PhoneNumberRetrieveConversationWindowParams.builder()
+                    .phoneNumber("phone_number")
+                    .destinationNumber("+353894650851")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")
