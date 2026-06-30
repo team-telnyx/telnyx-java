@@ -23,6 +23,8 @@ import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.services.blocking.dir.CommentService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberBatchService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberService
+import com.telnyx.sdk.services.blocking.dir.ReferenceService
+import com.telnyx.sdk.services.blocking.dir.VerifyEmailService
 import java.util.function.Consumer
 
 interface DirService {
@@ -53,6 +55,18 @@ interface DirService {
      * display identity.
      */
     fun phoneNumbers(): PhoneNumberService
+
+    /**
+     * Submit and manage the two business references and one financial reference that vouch for a
+     * DIR. References are contacted to confirm the business identity during vetting.
+     */
+    fun references(): ReferenceService
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    fun verifyEmail(): VerifyEmailService
 
     /**
      * Returns a single DIR by id. The enterprise is resolved server-side from the DIR id. Returns
@@ -359,6 +373,18 @@ interface DirService {
          * display identity.
          */
         fun phoneNumbers(): PhoneNumberService.WithRawResponse
+
+        /**
+         * Submit and manage the two business references and one financial reference that vouch for
+         * a DIR. References are contacted to confirm the business identity during vetting.
+         */
+        fun references(): ReferenceService.WithRawResponse
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        fun verifyEmail(): VerifyEmailService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /dir/{dir_id}`, but is otherwise the same as

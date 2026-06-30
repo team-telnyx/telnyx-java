@@ -38,6 +38,10 @@ import com.telnyx.sdk.services.blocking.dir.PhoneNumberBatchService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberBatchServiceImpl
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberService
 import com.telnyx.sdk.services.blocking.dir.PhoneNumberServiceImpl
+import com.telnyx.sdk.services.blocking.dir.ReferenceService
+import com.telnyx.sdk.services.blocking.dir.ReferenceServiceImpl
+import com.telnyx.sdk.services.blocking.dir.VerifyEmailService
+import com.telnyx.sdk.services.blocking.dir.VerifyEmailServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -54,6 +58,10 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
     }
 
     private val phoneNumbers: PhoneNumberService by lazy { PhoneNumberServiceImpl(clientOptions) }
+
+    private val references: ReferenceService by lazy { ReferenceServiceImpl(clientOptions) }
+
+    private val verifyEmail: VerifyEmailService by lazy { VerifyEmailServiceImpl(clientOptions) }
 
     override fun withRawResponse(): DirService.WithRawResponse = withRawResponse
 
@@ -74,6 +82,18 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
      * display identity.
      */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
+
+    /**
+     * Submit and manage the two business references and one financial reference that vouch for a
+     * DIR. References are contacted to confirm the business identity during vetting.
+     */
+    override fun references(): ReferenceService = references
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    override fun verifyEmail(): VerifyEmailService = verifyEmail
 
     override fun retrieve(params: DirRetrieveParams, requestOptions: RequestOptions): DirWrapped =
         // get /dir/{dir_id}
@@ -139,6 +159,14 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             PhoneNumberServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val references: ReferenceService.WithRawResponse by lazy {
+            ReferenceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val verifyEmail: VerifyEmailService.WithRawResponse by lazy {
+            VerifyEmailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): DirService.WithRawResponse =
@@ -161,6 +189,18 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
          * display identity.
          */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
+
+        /**
+         * Submit and manage the two business references and one financial reference that vouch for
+         * a DIR. References are contacted to confirm the business identity during vetting.
+         */
+        override fun references(): ReferenceService.WithRawResponse = references
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        override fun verifyEmail(): VerifyEmailService.WithRawResponse = verifyEmail
 
         private val retrieveHandler: Handler<DirWrapped> =
             jsonHandler<DirWrapped>(clientOptions.jsonMapper)

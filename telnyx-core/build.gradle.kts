@@ -6,7 +6,7 @@ plugins {
 configurations.all {
     resolutionStrategy {
         // Compile and test against a lower Jackson version to ensure we're compatible with it. Note that
-        // we generally support 2.13.4, but test against 2.14.0 because 2.13.4 has some annoying (but
+        // we generally support 2.13.4, but we test against 2.14.0 because 2.13.4 has some annoying (but
         // niche) bugs (users should upgrade if they encounter them). We publish with a higher version
         // (see below) to ensure users depend on a secure version by default.
         force("com.fasterxml.jackson.core:jackson-core:2.14.0")
@@ -40,4 +40,10 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.14.2")
     testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+}
+
+// Suppress ByteBuddy dynamic agent loading warnings that pollute stderr
+// and cause LoggingHttpClientTest to fail on self-hosted runners.
+tasks.test {
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
 }

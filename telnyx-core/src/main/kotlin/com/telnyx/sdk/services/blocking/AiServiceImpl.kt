@@ -17,9 +17,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
-import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiSearchConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.models.ai.ModelsResponse
@@ -124,6 +124,13 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         // post /ai/responses
         withRawResponse().createResponseDeprecated(params, requestOptions).parse()
 
+    override fun retrieveConversationHistories(
+        params: AiRetrieveConversationHistoriesParams,
+        requestOptions: RequestOptions,
+    ): AiRetrieveConversationHistoriesResponse =
+        // get /ai/conversation_histories
+        withRawResponse().retrieveConversationHistories(params, requestOptions).parse()
+
     @Deprecated("deprecated")
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -131,13 +138,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     ): ModelsResponse =
         // get /ai/models
         withRawResponse().retrieveModels(params, requestOptions).parse()
-
-    override fun searchConversationHistories(
-        params: AiSearchConversationHistoriesParams,
-        requestOptions: RequestOptions,
-    ): AiSearchConversationHistoriesResponse =
-        // get /ai/conversation_histories
-        withRawResponse().searchConversationHistories(params, requestOptions).parse()
 
     override fun summarize(
         params: AiSummarizeParams,
@@ -266,6 +266,34 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             }
         }
 
+        private val retrieveConversationHistoriesHandler:
+            Handler<AiRetrieveConversationHistoriesResponse> =
+            jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveConversationHistories(
+            params: AiRetrieveConversationHistoriesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AiRetrieveConversationHistoriesResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "conversation_histories")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveConversationHistoriesHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val retrieveModelsHandler: Handler<ModelsResponse> =
             jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
 
@@ -286,34 +314,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveModelsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val searchConversationHistoriesHandler:
-            Handler<AiSearchConversationHistoriesResponse> =
-            jsonHandler<AiSearchConversationHistoriesResponse>(clientOptions.jsonMapper)
-
-        override fun searchConversationHistories(
-            params: AiSearchConversationHistoriesParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AiSearchConversationHistoriesResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "conversation_histories")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { searchConversationHistoriesHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

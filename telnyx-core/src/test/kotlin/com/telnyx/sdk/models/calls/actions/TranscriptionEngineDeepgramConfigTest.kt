@@ -20,6 +20,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
             DeepgramNova2Config.builder()
                 .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
+                .hints(listOf("Telnyx", "LiveKit", "VoIP"))
                 .interimResults(true)
                 .keywordsBoosting(
                     DeepgramNova2Config.KeywordsBoosting.builder()
@@ -29,6 +30,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                         .build()
                 )
                 .language(DeepgramNova2Config.Language.BG)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 
@@ -47,6 +49,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                 DeepgramNova2Config.builder()
                     .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                     .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
+                    .hints(listOf("Telnyx", "LiveKit", "VoIP"))
                     .interimResults(true)
                     .keywordsBoosting(
                         DeepgramNova2Config.KeywordsBoosting.builder()
@@ -56,6 +59,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                             .build()
                     )
                     .language(DeepgramNova2Config.Language.BG)
+                    .smartFormat(false)
                     .utteranceEndMs(800L)
                     .build()
             )
@@ -77,6 +81,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                 .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                 .interimResults(true)
+                .keyterms(listOf("Telnyx", "LiveKit", "VoIP"))
                 .keywordsBoosting(
                     DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -85,6 +90,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                         .build()
                 )
                 .language(DeepgramNova3Config.Language.EN_US)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 
@@ -104,6 +110,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                     .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                     .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                     .interimResults(true)
+                    .keyterms(listOf("Telnyx", "LiveKit", "VoIP"))
                     .keywordsBoosting(
                         DeepgramNova3Config.KeywordsBoosting.builder()
                             .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -112,6 +119,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                             .build()
                     )
                     .language(DeepgramNova3Config.Language.EN_US)
+                    .smartFormat(false)
                     .utteranceEndMs(800L)
                     .build()
             )
