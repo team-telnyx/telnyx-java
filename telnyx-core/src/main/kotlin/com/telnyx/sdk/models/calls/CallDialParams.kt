@@ -1,0 +1,12360 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.calls
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
+import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
+import com.telnyx.sdk.core.ExcludeMissing
+import com.telnyx.sdk.core.JsonField
+import com.telnyx.sdk.core.JsonMissing
+import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.allMaxBy
+import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.getOrThrow
+import com.telnyx.sdk.core.http.Headers
+import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
+import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.AzureVoiceSettings
+import com.telnyx.sdk.models.InworldVoiceSettings
+import com.telnyx.sdk.models.MinimaxVoiceSettings
+import com.telnyx.sdk.models.ResembleVoiceSettings
+import com.telnyx.sdk.models.RimeVoiceSettings
+import com.telnyx.sdk.models.XaiVoiceSettings
+import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
+import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
+import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
+import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
+import java.util.Collections
+import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
+
+/**
+ * Dial a number or SIP URI from a given connection. A successful response will include a
+ * `call_leg_id` which can be used to correlate the command with subsequent webhooks.
+ *
+ * **Expected Webhooks:**
+ * - `call.initiated`
+ * - `call.answered` or `call.hangup`
+ * - `call.hold` and `call.unhold` if the call is held/unheld
+ * - `call.machine.detection.ended` if `answering_machine_detection` was requested
+ * - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end
+ *   of machine greeting
+ * - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
+ * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested
+ *   and a beep was detected
+ * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+ * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
+ * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
+ *
+ * When the `record` parameter is set to `record-from-answer`, the response will include a
+ * `recording_id` field.
+ */
+class CallDialParams
+private constructor(
+    private val body: Body,
+    private val additionalHeaders: Headers,
+    private val additionalQueryParams: QueryParams,
+) : Params {
+
+    /**
+     * The ID of the Call Control App (formerly ID of the connection) to be used when dialing the
+     * destination.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun connectionId(): String = body.connectionId()
+
+    /**
+     * The `from` number to be used as the caller id presented to the destination (`to` number). The
+     * number should be in +E164 format.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun from(): String = body.from()
+
+    /**
+     * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of
+     * strings. For SIP URI destinations, append `;secure=true` or `;secure=srtp` to enable SRTP
+     * media encryption for that endpoint, or `;secure=dtls` to enable DTLS media encryption for
+     * that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it takes precedence over any
+     * per-endpoint `secure` URI parameter. For a single string destination, you may append a comma
+     * followed by DTMF digits (e.g. `+18004247767,200`) to play those digits as DTMF once the
+     * called party answers — equivalent to setting `send_digits_on_answer` separately. If both are
+     * present, the explicit `send_digits_on_answer` parameter takes precedence. This shorthand is
+     * not supported when `to` is an array.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun to(): To = body.to()
+
+    /**
+     * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With
+     * Premium detection, when a call is answered, Telnyx runs real-time detection and sends a
+     * `call.machine.premium.detection.ended` webhook with one of the following results:
+     * `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a
+     * beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of
+     * `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only
+     * send `call.machine.premium.greeting.ended`, and if we detect a beep after
+     * `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when
+     * a call is answered, Telnyx runs real-time detection to determine if it was picked up by a
+     * human or a machine and sends an `call.machine.detection.ended` webhook with the analysis
+     * result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will
+     * receive another `call.machine.greeting.ended` webhook when the answering machine greeting
+     * ends with a beep or silence. If `detect_beep` is used, you will only receive
+     * `call.machine.greeting.ended` if a beep is detected.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun answeringMachineDetection(): Optional<AnsweringMachineDetection> =
+        body.answeringMachineDetection()
+
+    /**
+     * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
+     * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
+     * `premium` is selected as answering_machine_detection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun answeringMachineDetectionConfig(): Optional<AnsweringMachineDetectionConfig> =
+        body.answeringMachineDetectionConfig()
+
+    /**
+     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+     * configuration will be used as fallback for any omitted fields.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun assistant(): Optional<CallAssistantRequest> = body.assistant()
+
+    /**
+     * The URL of a file to be played back to the callee when the call is answered. The URL can
+     * point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one
+     * request.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun audioUrl(): Optional<String> = body.audioUrl()
+
+    /**
+     * Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing
+     * Group ID.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun billingGroupId(): Optional<String> = body.billingGroupId()
+
+    /**
+     * Indicates the intent to bridge this call with the call specified in link_to. When
+     * bridge_intent is true, link_to becomes required and the from number will be overwritten by
+     * the from number from the linked call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bridgeIntent(): Optional<Boolean> = body.bridgeIntent()
+
+    /**
+     * Whether to automatically bridge answered call to the call specified in link_to. When
+     * bridge_on_answer is true, link_to becomes required.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bridgeOnAnswer(): Optional<Boolean> = body.bridgeOnAnswer()
+
+    /**
+     * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded
+     * string.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun clientState(): Optional<String> = body.clientState()
+
+    /**
+     * Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with the
+     * same `command_id`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun commandId(): Optional<String> = body.commandId()
+
+    /**
+     * Optional configuration parameters to dial new participant into a conference.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conferenceConfig(): Optional<ConferenceConfig> = body.conferenceConfig()
+
+    /**
+     * Starts a Conversation Relay session automatically when the answered/dialed call is answered.
+     * This embedded shape is supported on `answer` and `dial`. It uses public field names (`url`,
+     * `dtmf_detection`, `greeting`, `voice`, `language`, etc.) and maps them to the underlying
+     * Conversation Relay action. `client_state`, `tts_language`, and `transcription_language`
+     * inside this object are ignored; use the parent command's `client_state` and `command_id`
+     * fields instead.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationRelayConfig(): Optional<ConversationRelayConfig> =
+        body.conversationRelayConfig()
+
+    /**
+     * Custom headers to be added to the SIP INVITE.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
+
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun deepfakeDetection(): Optional<DeepfakeDetection> = body.deepfakeDetection()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dialogflowConfig(): Optional<DialogflowConfig> = body.dialogflowConfig()
+
+    /**
+     * Enables Dialogflow for the current call. The default value is false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun enableDialogflow(): Optional<Boolean> = body.enableDialogflow()
+
+    /**
+     * The `from_display_name` string to be used as the caller id name (SIP From Display Name)
+     * presented to the destination (`to` number). The string should have a maximum of 128
+     * characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If
+     * ommited, the display name will be the same as the number in the `from` field.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun fromDisplayName(): Optional<String> = body.fromDisplayName()
+
+    /**
+     * Use another call's control id for sharing the same call session id
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun linkTo(): Optional<String> = body.linkTo()
+
+    /**
+     * Defines whether media should be encrypted on the call. For SIP URI destinations, media
+     * encryption can also be requested per endpoint with the `secure` URI parameter: `;secure=true`
+     * or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This parameter, when set to
+     * `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure` value.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mediaEncryption(): Optional<MediaEncryption> = body.mediaEncryption()
+
+    /**
+     * The media_name of a file to be played back to the callee when the call is answered. The
+     * media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same
+     * user/organization. The file must either be a WAV or MP3 file.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mediaName(): Optional<String> = body.mediaName()
+
+    /**
+     * If supplied with the value `self`, the current leg will be parked after unbridge. If not set,
+     * the default behavior is to hang up the leg. When park_after_unbridge is set, link_to becomes
+     * required.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun parkAfterUnbridge(): Optional<String> = body.parkAfterUnbridge()
+
+    /**
+     * The list of comma-separated codecs in a preferred order for the forked media to be received.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun preferredCodecs(): Optional<String> = body.preferredCodecs()
+
+    /**
+     * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+     * default.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun preventDoubleBridge(): Optional<Boolean> = body.preventDoubleBridge()
+
+    /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun privacy(): Optional<Privacy> = body.privacy()
+
+    /**
+     * Start recording automatically after an event. Disabled by default.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun record(): Optional<Record> = body.record()
+
+    /**
+     * Defines which channel should be recorded ('single' or 'dual') when `record` is specified.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordChannels(): Optional<RecordChannels> = body.recordChannels()
+
+    /**
+     * The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will
+     * still add a Unix timestamp suffix.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordCustomFileName(): Optional<String> = body.recordCustomFileName()
+
+    /**
+     * Defines the format of the recording ('wav' or 'mp3') when `record` is specified.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordFormat(): Optional<RecordFormat> = body.recordFormat()
+
+    /**
+     * Defines the maximum length for the recording in seconds when `record` is specified. The
+     * minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordMaxLength(): Optional<Int> = body.recordMaxLength()
+
+    /**
+     * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
+     * detected when `record` is specified. The timer only starts when the speech is detected.
+     * Please note that call transcription is used to detect silence and the related charge will be
+     * applied. The minimum value is 0. The default value is 0 (infinite).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordTimeoutSecs(): Optional<Int> = body.recordTimeoutSecs()
+
+    /**
+     * The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single
+     * track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will
+     * be recorded as mono (single channel).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordTrack(): Optional<RecordTrack> = body.recordTrack()
+
+    /**
+     * When set to `trim-silence`, silence will be removed from the beginning and end of the
+     * recording.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordTrim(): Optional<RecordTrim> = body.recordTrim()
+
+    /**
+     * DTMF digits to send automatically after the called party answers. Useful for reaching an
+     * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks up).
+     * Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64
+     * characters. When omitted, no automatic DTMF is sent. May also be supplied inline by appending
+     * `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are present, this explicit
+     * field takes precedence.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendDigitsOnAnswer(): Optional<String> = body.sendDigitsOnAnswer()
+
+    /**
+     * Generate silence RTP packets when no transmission available.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendSilenceWhenIdle(): Optional<Boolean> = body.sendSilenceWhenIdle()
+
+    /**
+     * SIP Authentication password used for SIP challenges.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipAuthPassword(): Optional<String> = body.sipAuthPassword()
+
+    /**
+     * SIP Authentication username used for SIP challenges.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipAuthUsername(): Optional<String> = body.sipAuthUsername()
+
+    /**
+     * SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is
+     * supported.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipHeaders(): Optional<List<SipHeader>> = body.sipHeaders()
+
+    /**
+     * Defines the SIP region to be used for the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipRegion(): Optional<SipRegion> = body.sipRegion()
+
+    /**
+     * Defines SIP transport protocol to be used on the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipTransportProtocol(): Optional<SipTransportProtocol> = body.sipTransportProtocol()
+
+    /**
+     * Use this field to modify sound effects, for example adjust the pitch.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun soundModifications(): Optional<SoundModifications> = body.soundModifications()
+
+    /**
+     * An authentication token to be sent as part of the WebSocket connection when using streaming.
+     * Maximum length is 4000 characters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamAuthToken(): Optional<String> = body.streamAuthToken()
+
+    /**
+     * Indicates codec for bidirectional streaming RTP payloads. Used only with
+     * stream_bidirectional_mode=rtp. Case sensitive.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamBidirectionalCodec(): Optional<StreamBidirectionalCodec> =
+        body.streamBidirectionalCodec()
+
+    /**
+     * Configures method of bidirectional streaming (mp3, rtp).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamBidirectionalMode(): Optional<StreamBidirectionalMode> =
+        body.streamBidirectionalMode()
+
+    /**
+     * Audio sampling rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamBidirectionalSamplingRate(): Optional<StreamBidirectionalSamplingRate> =
+        body.streamBidirectionalSamplingRate()
+
+    /**
+     * Specifies which call legs should receive the bidirectional stream audio.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamBidirectionalTargetLegs(): Optional<StreamBidirectionalTargetLegs> =
+        body.streamBidirectionalTargetLegs()
+
+    /**
+     * Specifies the codec to be used for the streamed audio. When set to 'default' or when
+     * transcoding is not possible, the codec from the call will be used.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamCodec(): Optional<StreamCodec> = body.streamCodec()
+
+    /**
+     * Establish websocket connection before dialing the destination. This is useful for cases where
+     * the websocket connection takes a long time to establish.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamEstablishBeforeCallOriginate(): Optional<Boolean> =
+        body.streamEstablishBeforeCallOriginate()
+
+    /**
+     * Specifies which track should be streamed.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamTrack(): Optional<StreamTrack> = body.streamTrack()
+
+    /**
+     * The destination WebSocket address where the stream is going to be delivered.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamUrl(): Optional<String> = body.streamUrl()
+
+    /**
+     * The call leg which will be supervised by the new call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun superviseCallControlId(): Optional<String> = body.superviseCallControlId()
+
+    /**
+     * The role of the supervisor call. 'barge' means that supervisor call hears and is being heard
+     * by both ends of the call (caller & callee). 'whisper' means that only
+     * supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor'
+     * means that nobody can hear supervisor call, but supervisor can hear everything on the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun supervisorRole(): Optional<SupervisorRole> = body.supervisorRole()
+
+    /**
+     * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached, the
+     * call will hangup and a `call.hangup` webhook with a `hangup_cause` of `time_limit` will be
+     * sent. For example, by setting a time limit of 120 seconds, a Call Leg will be automatically
+     * terminated two minutes after being answered. The default time limit is 14400 seconds or 4
+     * hours and this is also the maximum allowed call length.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeLimitSecs(): Optional<Int> = body.timeLimitSecs()
+
+    /**
+     * The number of seconds that Telnyx will wait for the call to be answered by the destination to
+     * which it is being called. If the timeout is reached before an answer is received, the call
+     * will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent.
+     * Minimum value is 5 seconds. Maximum value is 600 seconds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeoutSecs(): Optional<Int> = body.timeoutSecs()
+
+    /**
+     * Enable transcription upon call answer. The default value is false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun transcription(): Optional<Boolean> = body.transcription()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun transcriptionConfig(): Optional<TranscriptionStartRequest> = body.transcriptionConfig()
+
+    /**
+     * A map of event types to retry policies. Each retry policy contains an array of `retries_ms`
+     * specifying the delays between retry attempts in milliseconds. Maximum 5 retries, total delay
+     * cannot exceed 60 seconds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookRetriesPolicies(): Optional<WebhookRetriesPolicies> = body.webhookRetriesPolicies()
+
+    /**
+     * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this
+     * call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrl(): Optional<String> = body.webhookUrl()
+
+    /**
+     * HTTP request type used for `webhook_url`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrlMethod(): Optional<WebhookUrlMethod> = body.webhookUrlMethod()
+
+    /**
+     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
+     * URL associated with that event type will be called instead of the default webhook URL. Events
+     * not mapped here will use the default webhook URL.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrls(): Optional<WebhookUrls> = body.webhookUrls()
+
+    /**
+     * HTTP request method to invoke `webhook_urls`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> = body.webhookUrlsMethod()
+
+    /**
+     * Returns the raw JSON value of [connectionId].
+     *
+     * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _connectionId(): JsonField<String> = body._connectionId()
+
+    /**
+     * Returns the raw JSON value of [from].
+     *
+     * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _from(): JsonField<String> = body._from()
+
+    /**
+     * Returns the raw JSON value of [to].
+     *
+     * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _to(): JsonField<To> = body._to()
+
+    /**
+     * Returns the raw JSON value of [answeringMachineDetection].
+     *
+     * Unlike [answeringMachineDetection], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _answeringMachineDetection(): JsonField<AnsweringMachineDetection> =
+        body._answeringMachineDetection()
+
+    /**
+     * Returns the raw JSON value of [answeringMachineDetectionConfig].
+     *
+     * Unlike [answeringMachineDetectionConfig], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _answeringMachineDetectionConfig(): JsonField<AnsweringMachineDetectionConfig> =
+        body._answeringMachineDetectionConfig()
+
+    /**
+     * Returns the raw JSON value of [assistant].
+     *
+     * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _assistant(): JsonField<CallAssistantRequest> = body._assistant()
+
+    /**
+     * Returns the raw JSON value of [audioUrl].
+     *
+     * Unlike [audioUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _audioUrl(): JsonField<String> = body._audioUrl()
+
+    /**
+     * Returns the raw JSON value of [billingGroupId].
+     *
+     * Unlike [billingGroupId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _billingGroupId(): JsonField<String> = body._billingGroupId()
+
+    /**
+     * Returns the raw JSON value of [bridgeIntent].
+     *
+     * Unlike [bridgeIntent], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _bridgeIntent(): JsonField<Boolean> = body._bridgeIntent()
+
+    /**
+     * Returns the raw JSON value of [bridgeOnAnswer].
+     *
+     * Unlike [bridgeOnAnswer], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _bridgeOnAnswer(): JsonField<Boolean> = body._bridgeOnAnswer()
+
+    /**
+     * Returns the raw JSON value of [clientState].
+     *
+     * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _clientState(): JsonField<String> = body._clientState()
+
+    /**
+     * Returns the raw JSON value of [commandId].
+     *
+     * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _commandId(): JsonField<String> = body._commandId()
+
+    /**
+     * Returns the raw JSON value of [conferenceConfig].
+     *
+     * Unlike [conferenceConfig], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _conferenceConfig(): JsonField<ConferenceConfig> = body._conferenceConfig()
+
+    /**
+     * Returns the raw JSON value of [conversationRelayConfig].
+     *
+     * Unlike [conversationRelayConfig], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _conversationRelayConfig(): JsonField<ConversationRelayConfig> =
+        body._conversationRelayConfig()
+
+    /**
+     * Returns the raw JSON value of [customHeaders].
+     *
+     * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
+
+    /**
+     * Returns the raw JSON value of [deepfakeDetection].
+     *
+     * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _deepfakeDetection(): JsonField<DeepfakeDetection> = body._deepfakeDetection()
+
+    /**
+     * Returns the raw JSON value of [dialogflowConfig].
+     *
+     * Unlike [dialogflowConfig], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _dialogflowConfig(): JsonField<DialogflowConfig> = body._dialogflowConfig()
+
+    /**
+     * Returns the raw JSON value of [enableDialogflow].
+     *
+     * Unlike [enableDialogflow], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _enableDialogflow(): JsonField<Boolean> = body._enableDialogflow()
+
+    /**
+     * Returns the raw JSON value of [fromDisplayName].
+     *
+     * Unlike [fromDisplayName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _fromDisplayName(): JsonField<String> = body._fromDisplayName()
+
+    /**
+     * Returns the raw JSON value of [linkTo].
+     *
+     * Unlike [linkTo], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _linkTo(): JsonField<String> = body._linkTo()
+
+    /**
+     * Returns the raw JSON value of [mediaEncryption].
+     *
+     * Unlike [mediaEncryption], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mediaEncryption(): JsonField<MediaEncryption> = body._mediaEncryption()
+
+    /**
+     * Returns the raw JSON value of [mediaName].
+     *
+     * Unlike [mediaName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mediaName(): JsonField<String> = body._mediaName()
+
+    /**
+     * Returns the raw JSON value of [parkAfterUnbridge].
+     *
+     * Unlike [parkAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _parkAfterUnbridge(): JsonField<String> = body._parkAfterUnbridge()
+
+    /**
+     * Returns the raw JSON value of [preferredCodecs].
+     *
+     * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _preferredCodecs(): JsonField<String> = body._preferredCodecs()
+
+    /**
+     * Returns the raw JSON value of [preventDoubleBridge].
+     *
+     * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _preventDoubleBridge(): JsonField<Boolean> = body._preventDoubleBridge()
+
+    /**
+     * Returns the raw JSON value of [privacy].
+     *
+     * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _privacy(): JsonField<Privacy> = body._privacy()
+
+    /**
+     * Returns the raw JSON value of [record].
+     *
+     * Unlike [record], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _record(): JsonField<Record> = body._record()
+
+    /**
+     * Returns the raw JSON value of [recordChannels].
+     *
+     * Unlike [recordChannels], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordChannels(): JsonField<RecordChannels> = body._recordChannels()
+
+    /**
+     * Returns the raw JSON value of [recordCustomFileName].
+     *
+     * Unlike [recordCustomFileName], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recordCustomFileName(): JsonField<String> = body._recordCustomFileName()
+
+    /**
+     * Returns the raw JSON value of [recordFormat].
+     *
+     * Unlike [recordFormat], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordFormat(): JsonField<RecordFormat> = body._recordFormat()
+
+    /**
+     * Returns the raw JSON value of [recordMaxLength].
+     *
+     * Unlike [recordMaxLength], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordMaxLength(): JsonField<Int> = body._recordMaxLength()
+
+    /**
+     * Returns the raw JSON value of [recordTimeoutSecs].
+     *
+     * Unlike [recordTimeoutSecs], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recordTimeoutSecs(): JsonField<Int> = body._recordTimeoutSecs()
+
+    /**
+     * Returns the raw JSON value of [recordTrack].
+     *
+     * Unlike [recordTrack], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordTrack(): JsonField<RecordTrack> = body._recordTrack()
+
+    /**
+     * Returns the raw JSON value of [recordTrim].
+     *
+     * Unlike [recordTrim], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordTrim(): JsonField<RecordTrim> = body._recordTrim()
+
+    /**
+     * Returns the raw JSON value of [sendDigitsOnAnswer].
+     *
+     * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _sendDigitsOnAnswer(): JsonField<String> = body._sendDigitsOnAnswer()
+
+    /**
+     * Returns the raw JSON value of [sendSilenceWhenIdle].
+     *
+     * Unlike [sendSilenceWhenIdle], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _sendSilenceWhenIdle(): JsonField<Boolean> = body._sendSilenceWhenIdle()
+
+    /**
+     * Returns the raw JSON value of [sipAuthPassword].
+     *
+     * Unlike [sipAuthPassword], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _sipAuthPassword(): JsonField<String> = body._sipAuthPassword()
+
+    /**
+     * Returns the raw JSON value of [sipAuthUsername].
+     *
+     * Unlike [sipAuthUsername], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _sipAuthUsername(): JsonField<String> = body._sipAuthUsername()
+
+    /**
+     * Returns the raw JSON value of [sipHeaders].
+     *
+     * Unlike [sipHeaders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _sipHeaders(): JsonField<List<SipHeader>> = body._sipHeaders()
+
+    /**
+     * Returns the raw JSON value of [sipRegion].
+     *
+     * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _sipRegion(): JsonField<SipRegion> = body._sipRegion()
+
+    /**
+     * Returns the raw JSON value of [sipTransportProtocol].
+     *
+     * Unlike [sipTransportProtocol], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _sipTransportProtocol(): JsonField<SipTransportProtocol> = body._sipTransportProtocol()
+
+    /**
+     * Returns the raw JSON value of [soundModifications].
+     *
+     * Unlike [soundModifications], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _soundModifications(): JsonField<SoundModifications> = body._soundModifications()
+
+    /**
+     * Returns the raw JSON value of [streamAuthToken].
+     *
+     * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamAuthToken(): JsonField<String> = body._streamAuthToken()
+
+    /**
+     * Returns the raw JSON value of [streamBidirectionalCodec].
+     *
+     * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _streamBidirectionalCodec(): JsonField<StreamBidirectionalCodec> =
+        body._streamBidirectionalCodec()
+
+    /**
+     * Returns the raw JSON value of [streamBidirectionalMode].
+     *
+     * Unlike [streamBidirectionalMode], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _streamBidirectionalMode(): JsonField<StreamBidirectionalMode> =
+        body._streamBidirectionalMode()
+
+    /**
+     * Returns the raw JSON value of [streamBidirectionalSamplingRate].
+     *
+     * Unlike [streamBidirectionalSamplingRate], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _streamBidirectionalSamplingRate(): JsonField<StreamBidirectionalSamplingRate> =
+        body._streamBidirectionalSamplingRate()
+
+    /**
+     * Returns the raw JSON value of [streamBidirectionalTargetLegs].
+     *
+     * Unlike [streamBidirectionalTargetLegs], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _streamBidirectionalTargetLegs(): JsonField<StreamBidirectionalTargetLegs> =
+        body._streamBidirectionalTargetLegs()
+
+    /**
+     * Returns the raw JSON value of [streamCodec].
+     *
+     * Unlike [streamCodec], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamCodec(): JsonField<StreamCodec> = body._streamCodec()
+
+    /**
+     * Returns the raw JSON value of [streamEstablishBeforeCallOriginate].
+     *
+     * Unlike [streamEstablishBeforeCallOriginate], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _streamEstablishBeforeCallOriginate(): JsonField<Boolean> =
+        body._streamEstablishBeforeCallOriginate()
+
+    /**
+     * Returns the raw JSON value of [streamTrack].
+     *
+     * Unlike [streamTrack], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamTrack(): JsonField<StreamTrack> = body._streamTrack()
+
+    /**
+     * Returns the raw JSON value of [streamUrl].
+     *
+     * Unlike [streamUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamUrl(): JsonField<String> = body._streamUrl()
+
+    /**
+     * Returns the raw JSON value of [superviseCallControlId].
+     *
+     * Unlike [superviseCallControlId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _superviseCallControlId(): JsonField<String> = body._superviseCallControlId()
+
+    /**
+     * Returns the raw JSON value of [supervisorRole].
+     *
+     * Unlike [supervisorRole], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _supervisorRole(): JsonField<SupervisorRole> = body._supervisorRole()
+
+    /**
+     * Returns the raw JSON value of [timeLimitSecs].
+     *
+     * Unlike [timeLimitSecs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _timeLimitSecs(): JsonField<Int> = body._timeLimitSecs()
+
+    /**
+     * Returns the raw JSON value of [timeoutSecs].
+     *
+     * Unlike [timeoutSecs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _timeoutSecs(): JsonField<Int> = body._timeoutSecs()
+
+    /**
+     * Returns the raw JSON value of [transcription].
+     *
+     * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _transcription(): JsonField<Boolean> = body._transcription()
+
+    /**
+     * Returns the raw JSON value of [transcriptionConfig].
+     *
+     * Unlike [transcriptionConfig], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _transcriptionConfig(): JsonField<TranscriptionStartRequest> = body._transcriptionConfig()
+
+    /**
+     * Returns the raw JSON value of [webhookRetriesPolicies].
+     *
+     * Unlike [webhookRetriesPolicies], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _webhookRetriesPolicies(): JsonField<WebhookRetriesPolicies> =
+        body._webhookRetriesPolicies()
+
+    /**
+     * Returns the raw JSON value of [webhookUrl].
+     *
+     * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _webhookUrl(): JsonField<String> = body._webhookUrl()
+
+    /**
+     * Returns the raw JSON value of [webhookUrlMethod].
+     *
+     * Unlike [webhookUrlMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _webhookUrlMethod(): JsonField<WebhookUrlMethod> = body._webhookUrlMethod()
+
+    /**
+     * Returns the raw JSON value of [webhookUrls].
+     *
+     * Unlike [webhookUrls], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _webhookUrls(): JsonField<WebhookUrls> = body._webhookUrls()
+
+    /**
+     * Returns the raw JSON value of [webhookUrlsMethod].
+     *
+     * Unlike [webhookUrlsMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _webhookUrlsMethod(): JsonField<WebhookUrlsMethod> = body._webhookUrlsMethod()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
+    /** Additional headers to send with the request. */
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    /** Additional query param to send with the request. */
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [CallDialParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .connectionId()
+         * .from()
+         * .to()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CallDialParams]. */
+    class Builder internal constructor() {
+
+        private var body: Body.Builder = Body.builder()
+        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+
+        @JvmSynthetic
+        internal fun from(callDialParams: CallDialParams) = apply {
+            body = callDialParams.body.toBuilder()
+            additionalHeaders = callDialParams.additionalHeaders.toBuilder()
+            additionalQueryParams = callDialParams.additionalQueryParams.toBuilder()
+        }
+
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [connectionId]
+         * - [from]
+         * - [to]
+         * - [answeringMachineDetection]
+         * - [answeringMachineDetectionConfig]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The ID of the Call Control App (formerly ID of the connection) to be used when dialing
+         * the destination.
+         */
+        fun connectionId(connectionId: String) = apply { body.connectionId(connectionId) }
+
+        /**
+         * Sets [Builder.connectionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.connectionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun connectionId(connectionId: JsonField<String>) = apply {
+            body.connectionId(connectionId)
+        }
+
+        /**
+         * The `from` number to be used as the caller id presented to the destination (`to` number).
+         * The number should be in +E164 format.
+         */
+        fun from(from: String) = apply { body.from(from) }
+
+        /**
+         * Sets [Builder.from] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.from] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun from(from: JsonField<String>) = apply { body.from(from) }
+
+        /**
+         * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an
+         * array of strings. For SIP URI destinations, append `;secure=true` or `;secure=srtp` to
+         * enable SRTP media encryption for that endpoint, or `;secure=dtls` to enable DTLS media
+         * encryption for that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it takes
+         * precedence over any per-endpoint `secure` URI parameter. For a single string destination,
+         * you may append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play those
+         * digits as DTMF once the called party answers — equivalent to setting
+         * `send_digits_on_answer` separately. If both are present, the explicit
+         * `send_digits_on_answer` parameter takes precedence. This shorthand is not supported when
+         * `to` is an array.
+         */
+        fun to(to: To) = apply { body.to(to) }
+
+        /**
+         * Sets [Builder.to] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.to] with a well-typed [To] value instead. This method is
+         * primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun to(to: JsonField<To>) = apply { body.to(to) }
+
+        /** Alias for calling [to] with `To.ofString(string)`. */
+        fun to(string: String) = apply { body.to(string) }
+
+        /** Alias for calling [to] with `To.ofStrings(strings)`. */
+        fun toOfStrings(strings: List<String>) = apply { body.toOfStrings(strings) }
+
+        /**
+         * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With
+         * Premium detection, when a call is answered, Telnyx runs real-time detection and sends a
+         * `call.machine.premium.detection.ended` webhook with one of the following results:
+         * `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect
+         * a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of
+         * `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we
+         * only send `call.machine.premium.greeting.ended`, and if we detect a beep after
+         * `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection,
+         * when a call is answered, Telnyx runs real-time detection to determine if it was picked up
+         * by a human or a machine and sends an `call.machine.detection.ended` webhook with the
+         * analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected,
+         * you will receive another `call.machine.greeting.ended` webhook when the answering machine
+         * greeting ends with a beep or silence. If `detect_beep` is used, you will only receive
+         * `call.machine.greeting.ended` if a beep is detected.
+         */
+        fun answeringMachineDetection(answeringMachineDetection: AnsweringMachineDetection) =
+            apply {
+                body.answeringMachineDetection(answeringMachineDetection)
+            }
+
+        /**
+         * Sets [Builder.answeringMachineDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.answeringMachineDetection] with a well-typed
+         * [AnsweringMachineDetection] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun answeringMachineDetection(
+            answeringMachineDetection: JsonField<AnsweringMachineDetection>
+        ) = apply { body.answeringMachineDetection(answeringMachineDetection) }
+
+        /**
+         * Optional configuration parameters to modify 'answering_machine_detection' performance.
+         * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
+         * applicable when `premium` is selected as answering_machine_detection.
+         */
+        fun answeringMachineDetectionConfig(
+            answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
+        ) = apply { body.answeringMachineDetectionConfig(answeringMachineDetectionConfig) }
+
+        /**
+         * Sets [Builder.answeringMachineDetectionConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.answeringMachineDetectionConfig] with a well-typed
+         * [AnsweringMachineDetectionConfig] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun answeringMachineDetectionConfig(
+            answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig>
+        ) = apply { body.answeringMachineDetectionConfig(answeringMachineDetectionConfig) }
+
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         */
+        fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
+
+        /**
+         * Sets [Builder.assistant] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+            body.assistant(assistant)
+        }
+
+        /**
+         * The URL of a file to be played back to the callee when the call is answered. The URL can
+         * point to either a WAV or MP3 file. media_name and audio_url cannot be used together in
+         * one request.
+         */
+        fun audioUrl(audioUrl: String) = apply { body.audioUrl(audioUrl) }
+
+        /**
+         * Sets [Builder.audioUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.audioUrl] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun audioUrl(audioUrl: JsonField<String>) = apply { body.audioUrl(audioUrl) }
+
+        /**
+         * Use this field to set the Billing Group ID for the call. Must be a valid and existing
+         * Billing Group ID.
+         */
+        fun billingGroupId(billingGroupId: String) = apply { body.billingGroupId(billingGroupId) }
+
+        /**
+         * Sets [Builder.billingGroupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.billingGroupId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun billingGroupId(billingGroupId: JsonField<String>) = apply {
+            body.billingGroupId(billingGroupId)
+        }
+
+        /**
+         * Indicates the intent to bridge this call with the call specified in link_to. When
+         * bridge_intent is true, link_to becomes required and the from number will be overwritten
+         * by the from number from the linked call.
+         */
+        fun bridgeIntent(bridgeIntent: Boolean) = apply { body.bridgeIntent(bridgeIntent) }
+
+        /**
+         * Sets [Builder.bridgeIntent] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bridgeIntent] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun bridgeIntent(bridgeIntent: JsonField<Boolean>) = apply {
+            body.bridgeIntent(bridgeIntent)
+        }
+
+        /**
+         * Whether to automatically bridge answered call to the call specified in link_to. When
+         * bridge_on_answer is true, link_to becomes required.
+         */
+        fun bridgeOnAnswer(bridgeOnAnswer: Boolean) = apply { body.bridgeOnAnswer(bridgeOnAnswer) }
+
+        /**
+         * Sets [Builder.bridgeOnAnswer] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bridgeOnAnswer] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun bridgeOnAnswer(bridgeOnAnswer: JsonField<Boolean>) = apply {
+            body.bridgeOnAnswer(bridgeOnAnswer)
+        }
+
+        /**
+         * Use this field to add state to every subsequent webhook. It must be a valid Base-64
+         * encoded string.
+         */
+        fun clientState(clientState: String) = apply { body.clientState(clientState) }
+
+        /**
+         * Sets [Builder.clientState] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.clientState] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun clientState(clientState: JsonField<String>) = apply { body.clientState(clientState) }
+
+        /**
+         * Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with
+         * the same `command_id`.
+         */
+        fun commandId(commandId: String) = apply { body.commandId(commandId) }
+
+        /**
+         * Sets [Builder.commandId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.commandId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+
+        /** Optional configuration parameters to dial new participant into a conference. */
+        fun conferenceConfig(conferenceConfig: ConferenceConfig) = apply {
+            body.conferenceConfig(conferenceConfig)
+        }
+
+        /**
+         * Sets [Builder.conferenceConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conferenceConfig] with a well-typed [ConferenceConfig]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun conferenceConfig(conferenceConfig: JsonField<ConferenceConfig>) = apply {
+            body.conferenceConfig(conferenceConfig)
+        }
+
+        /**
+         * Starts a Conversation Relay session automatically when the answered/dialed call is
+         * answered. This embedded shape is supported on `answer` and `dial`. It uses public field
+         * names (`url`, `dtmf_detection`, `greeting`, `voice`, `language`, etc.) and maps them to
+         * the underlying Conversation Relay action. `client_state`, `tts_language`, and
+         * `transcription_language` inside this object are ignored; use the parent command's
+         * `client_state` and `command_id` fields instead.
+         */
+        fun conversationRelayConfig(conversationRelayConfig: ConversationRelayConfig) = apply {
+            body.conversationRelayConfig(conversationRelayConfig)
+        }
+
+        /**
+         * Sets [Builder.conversationRelayConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationRelayConfig] with a well-typed
+         * [ConversationRelayConfig] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun conversationRelayConfig(conversationRelayConfig: JsonField<ConversationRelayConfig>) =
+            apply {
+                body.conversationRelayConfig(conversationRelayConfig)
+            }
+
+        /** Custom headers to be added to the SIP INVITE. */
+        fun customHeaders(customHeaders: List<CustomSipHeader>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Sets [Builder.customHeaders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customHeaders] with a well-typed `List<CustomSipHeader>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun customHeaders(customHeaders: JsonField<List<CustomSipHeader>>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Adds a single [CustomSipHeader] to [customHeaders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCustomHeader(customHeader: CustomSipHeader) = apply {
+            body.addCustomHeader(customHeader)
+        }
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         */
+        fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) = apply {
+            body.deepfakeDetection(deepfakeDetection)
+        }
+
+        /**
+         * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deepfakeDetection] with a well-typed [DeepfakeDetection]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+            body.deepfakeDetection(deepfakeDetection)
+        }
+
+        fun dialogflowConfig(dialogflowConfig: DialogflowConfig) = apply {
+            body.dialogflowConfig(dialogflowConfig)
+        }
+
+        /**
+         * Sets [Builder.dialogflowConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dialogflowConfig] with a well-typed [DialogflowConfig]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun dialogflowConfig(dialogflowConfig: JsonField<DialogflowConfig>) = apply {
+            body.dialogflowConfig(dialogflowConfig)
+        }
+
+        /** Enables Dialogflow for the current call. The default value is false. */
+        fun enableDialogflow(enableDialogflow: Boolean) = apply {
+            body.enableDialogflow(enableDialogflow)
+        }
+
+        /**
+         * Sets [Builder.enableDialogflow] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.enableDialogflow] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun enableDialogflow(enableDialogflow: JsonField<Boolean>) = apply {
+            body.enableDialogflow(enableDialogflow)
+        }
+
+        /**
+         * The `from_display_name` string to be used as the caller id name (SIP From Display Name)
+         * presented to the destination (`to` number). The string should have a maximum of 128
+         * characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If
+         * ommited, the display name will be the same as the number in the `from` field.
+         */
+        fun fromDisplayName(fromDisplayName: String) = apply {
+            body.fromDisplayName(fromDisplayName)
+        }
+
+        /**
+         * Sets [Builder.fromDisplayName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fromDisplayName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun fromDisplayName(fromDisplayName: JsonField<String>) = apply {
+            body.fromDisplayName(fromDisplayName)
+        }
+
+        /** Use another call's control id for sharing the same call session id */
+        fun linkTo(linkTo: String) = apply { body.linkTo(linkTo) }
+
+        /**
+         * Sets [Builder.linkTo] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.linkTo] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun linkTo(linkTo: JsonField<String>) = apply { body.linkTo(linkTo) }
+
+        /**
+         * Defines whether media should be encrypted on the call. For SIP URI destinations, media
+         * encryption can also be requested per endpoint with the `secure` URI parameter:
+         * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+         * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+         * value.
+         */
+        fun mediaEncryption(mediaEncryption: MediaEncryption) = apply {
+            body.mediaEncryption(mediaEncryption)
+        }
+
+        /**
+         * Sets [Builder.mediaEncryption] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mediaEncryption] with a well-typed [MediaEncryption]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun mediaEncryption(mediaEncryption: JsonField<MediaEncryption>) = apply {
+            body.mediaEncryption(mediaEncryption)
+        }
+
+        /**
+         * The media_name of a file to be played back to the callee when the call is answered. The
+         * media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the
+         * same user/organization. The file must either be a WAV or MP3 file.
+         */
+        fun mediaName(mediaName: String) = apply { body.mediaName(mediaName) }
+
+        /**
+         * Sets [Builder.mediaName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mediaName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun mediaName(mediaName: JsonField<String>) = apply { body.mediaName(mediaName) }
+
+        /**
+         * If supplied with the value `self`, the current leg will be parked after unbridge. If not
+         * set, the default behavior is to hang up the leg. When park_after_unbridge is set, link_to
+         * becomes required.
+         */
+        fun parkAfterUnbridge(parkAfterUnbridge: String) = apply {
+            body.parkAfterUnbridge(parkAfterUnbridge)
+        }
+
+        /**
+         * Sets [Builder.parkAfterUnbridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.parkAfterUnbridge] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun parkAfterUnbridge(parkAfterUnbridge: JsonField<String>) = apply {
+            body.parkAfterUnbridge(parkAfterUnbridge)
+        }
+
+        /**
+         * The list of comma-separated codecs in a preferred order for the forked media to be
+         * received.
+         */
+        fun preferredCodecs(preferredCodecs: String) = apply {
+            body.preferredCodecs(preferredCodecs)
+        }
+
+        /**
+         * Sets [Builder.preferredCodecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.preferredCodecs] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
+            body.preferredCodecs(preferredCodecs)
+        }
+
+        /**
+         * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+         * default.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: Boolean) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
+        }
+
+        /**
+         * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
+        }
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         */
+        fun privacy(privacy: Privacy) = apply { body.privacy(privacy) }
+
+        /**
+         * Sets [Builder.privacy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun privacy(privacy: JsonField<Privacy>) = apply { body.privacy(privacy) }
+
+        /** Start recording automatically after an event. Disabled by default. */
+        fun record(record: Record) = apply { body.record(record) }
+
+        /**
+         * Sets [Builder.record] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.record] with a well-typed [Record] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun record(record: JsonField<Record>) = apply { body.record(record) }
+
+        /**
+         * Defines which channel should be recorded ('single' or 'dual') when `record` is specified.
+         */
+        fun recordChannels(recordChannels: RecordChannels) = apply {
+            body.recordChannels(recordChannels)
+        }
+
+        /**
+         * Sets [Builder.recordChannels] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordChannels] with a well-typed [RecordChannels] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordChannels(recordChannels: JsonField<RecordChannels>) = apply {
+            body.recordChannels(recordChannels)
+        }
+
+        /**
+         * The custom recording file name to be used instead of the default `call_leg_id`. Telnyx
+         * will still add a Unix timestamp suffix.
+         */
+        fun recordCustomFileName(recordCustomFileName: String) = apply {
+            body.recordCustomFileName(recordCustomFileName)
+        }
+
+        /**
+         * Sets [Builder.recordCustomFileName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordCustomFileName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordCustomFileName(recordCustomFileName: JsonField<String>) = apply {
+            body.recordCustomFileName(recordCustomFileName)
+        }
+
+        /** Defines the format of the recording ('wav' or 'mp3') when `record` is specified. */
+        fun recordFormat(recordFormat: RecordFormat) = apply { body.recordFormat(recordFormat) }
+
+        /**
+         * Sets [Builder.recordFormat] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordFormat] with a well-typed [RecordFormat] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordFormat(recordFormat: JsonField<RecordFormat>) = apply {
+            body.recordFormat(recordFormat)
+        }
+
+        /**
+         * Defines the maximum length for the recording in seconds when `record` is specified. The
+         * minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+         */
+        fun recordMaxLength(recordMaxLength: Int) = apply { body.recordMaxLength(recordMaxLength) }
+
+        /**
+         * Sets [Builder.recordMaxLength] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordMaxLength] with a well-typed [Int] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recordMaxLength(recordMaxLength: JsonField<Int>) = apply {
+            body.recordMaxLength(recordMaxLength)
+        }
+
+        /**
+         * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
+         * detected when `record` is specified. The timer only starts when the speech is detected.
+         * Please note that call transcription is used to detect silence and the related charge will
+         * be applied. The minimum value is 0. The default value is 0 (infinite).
+         */
+        fun recordTimeoutSecs(recordTimeoutSecs: Int) = apply {
+            body.recordTimeoutSecs(recordTimeoutSecs)
+        }
+
+        /**
+         * Sets [Builder.recordTimeoutSecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordTimeoutSecs] with a well-typed [Int] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordTimeoutSecs(recordTimeoutSecs: JsonField<Int>) = apply {
+            body.recordTimeoutSecs(recordTimeoutSecs)
+        }
+
+        /**
+         * The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only
+         * single track is specified (`inbound`, `outbound`), `channels` configuration is ignored
+         * and it will be recorded as mono (single channel).
+         */
+        fun recordTrack(recordTrack: RecordTrack) = apply { body.recordTrack(recordTrack) }
+
+        /**
+         * Sets [Builder.recordTrack] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordTrack] with a well-typed [RecordTrack] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordTrack(recordTrack: JsonField<RecordTrack>) = apply {
+            body.recordTrack(recordTrack)
+        }
+
+        /**
+         * When set to `trim-silence`, silence will be removed from the beginning and end of the
+         * recording.
+         */
+        fun recordTrim(recordTrim: RecordTrim) = apply { body.recordTrim(recordTrim) }
+
+        /**
+         * Sets [Builder.recordTrim] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordTrim] with a well-typed [RecordTrim] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordTrim(recordTrim: JsonField<RecordTrim>) = apply { body.recordTrim(recordTrim) }
+
+        /**
+         * DTMF digits to send automatically after the called party answers. Useful for reaching an
+         * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
+         * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`.
+         * Maximum 64 characters. When omitted, no automatic DTMF is sent. May also be supplied
+         * inline by appending `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are
+         * present, this explicit field takes precedence.
+         */
+        fun sendDigitsOnAnswer(sendDigitsOnAnswer: String) = apply {
+            body.sendDigitsOnAnswer(sendDigitsOnAnswer)
+        }
+
+        /**
+         * Sets [Builder.sendDigitsOnAnswer] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendDigitsOnAnswer] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sendDigitsOnAnswer(sendDigitsOnAnswer: JsonField<String>) = apply {
+            body.sendDigitsOnAnswer(sendDigitsOnAnswer)
+        }
+
+        /** Generate silence RTP packets when no transmission available. */
+        fun sendSilenceWhenIdle(sendSilenceWhenIdle: Boolean) = apply {
+            body.sendSilenceWhenIdle(sendSilenceWhenIdle)
+        }
+
+        /**
+         * Sets [Builder.sendSilenceWhenIdle] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendSilenceWhenIdle] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sendSilenceWhenIdle(sendSilenceWhenIdle: JsonField<Boolean>) = apply {
+            body.sendSilenceWhenIdle(sendSilenceWhenIdle)
+        }
+
+        /** SIP Authentication password used for SIP challenges. */
+        fun sipAuthPassword(sipAuthPassword: String) = apply {
+            body.sipAuthPassword(sipAuthPassword)
+        }
+
+        /**
+         * Sets [Builder.sipAuthPassword] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipAuthPassword] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sipAuthPassword(sipAuthPassword: JsonField<String>) = apply {
+            body.sipAuthPassword(sipAuthPassword)
+        }
+
+        /** SIP Authentication username used for SIP challenges. */
+        fun sipAuthUsername(sipAuthUsername: String) = apply {
+            body.sipAuthUsername(sipAuthUsername)
+        }
+
+        /**
+         * Sets [Builder.sipAuthUsername] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipAuthUsername] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sipAuthUsername(sipAuthUsername: JsonField<String>) = apply {
+            body.sipAuthUsername(sipAuthUsername)
+        }
+
+        /**
+         * SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is
+         * supported.
+         */
+        fun sipHeaders(sipHeaders: List<SipHeader>) = apply { body.sipHeaders(sipHeaders) }
+
+        /**
+         * Sets [Builder.sipHeaders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipHeaders] with a well-typed `List<SipHeader>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sipHeaders(sipHeaders: JsonField<List<SipHeader>>) = apply {
+            body.sipHeaders(sipHeaders)
+        }
+
+        /**
+         * Adds a single [SipHeader] to [sipHeaders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addSipHeader(sipHeader: SipHeader) = apply { body.addSipHeader(sipHeader) }
+
+        /** Defines the SIP region to be used for the call. */
+        fun sipRegion(sipRegion: SipRegion) = apply { body.sipRegion(sipRegion) }
+
+        /**
+         * Sets [Builder.sipRegion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { body.sipRegion(sipRegion) }
+
+        /** Defines SIP transport protocol to be used on the call. */
+        fun sipTransportProtocol(sipTransportProtocol: SipTransportProtocol) = apply {
+            body.sipTransportProtocol(sipTransportProtocol)
+        }
+
+        /**
+         * Sets [Builder.sipTransportProtocol] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipTransportProtocol] with a well-typed
+         * [SipTransportProtocol] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun sipTransportProtocol(sipTransportProtocol: JsonField<SipTransportProtocol>) = apply {
+            body.sipTransportProtocol(sipTransportProtocol)
+        }
+
+        /** Use this field to modify sound effects, for example adjust the pitch. */
+        fun soundModifications(soundModifications: SoundModifications) = apply {
+            body.soundModifications(soundModifications)
+        }
+
+        /**
+         * Sets [Builder.soundModifications] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.soundModifications] with a well-typed
+         * [SoundModifications] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun soundModifications(soundModifications: JsonField<SoundModifications>) = apply {
+            body.soundModifications(soundModifications)
+        }
+
+        /**
+         * An authentication token to be sent as part of the WebSocket connection when using
+         * streaming. Maximum length is 4000 characters.
+         */
+        fun streamAuthToken(streamAuthToken: String) = apply {
+            body.streamAuthToken(streamAuthToken)
+        }
+
+        /**
+         * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+            body.streamAuthToken(streamAuthToken)
+        }
+
+        /**
+         * Indicates codec for bidirectional streaming RTP payloads. Used only with
+         * stream_bidirectional_mode=rtp. Case sensitive.
+         */
+        fun streamBidirectionalCodec(streamBidirectionalCodec: StreamBidirectionalCodec) = apply {
+            body.streamBidirectionalCodec(streamBidirectionalCodec)
+        }
+
+        /**
+         * Sets [Builder.streamBidirectionalCodec] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamBidirectionalCodec] with a well-typed
+         * [StreamBidirectionalCodec] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun streamBidirectionalCodec(
+            streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>
+        ) = apply { body.streamBidirectionalCodec(streamBidirectionalCodec) }
+
+        /** Configures method of bidirectional streaming (mp3, rtp). */
+        fun streamBidirectionalMode(streamBidirectionalMode: StreamBidirectionalMode) = apply {
+            body.streamBidirectionalMode(streamBidirectionalMode)
+        }
+
+        /**
+         * Sets [Builder.streamBidirectionalMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamBidirectionalMode] with a well-typed
+         * [StreamBidirectionalMode] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun streamBidirectionalMode(streamBidirectionalMode: JsonField<StreamBidirectionalMode>) =
+            apply {
+                body.streamBidirectionalMode(streamBidirectionalMode)
+            }
+
+        /** Audio sampling rate. */
+        fun streamBidirectionalSamplingRate(
+            streamBidirectionalSamplingRate: StreamBidirectionalSamplingRate
+        ) = apply { body.streamBidirectionalSamplingRate(streamBidirectionalSamplingRate) }
+
+        /**
+         * Sets [Builder.streamBidirectionalSamplingRate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamBidirectionalSamplingRate] with a well-typed
+         * [StreamBidirectionalSamplingRate] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun streamBidirectionalSamplingRate(
+            streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>
+        ) = apply { body.streamBidirectionalSamplingRate(streamBidirectionalSamplingRate) }
+
+        /** Specifies which call legs should receive the bidirectional stream audio. */
+        fun streamBidirectionalTargetLegs(
+            streamBidirectionalTargetLegs: StreamBidirectionalTargetLegs
+        ) = apply { body.streamBidirectionalTargetLegs(streamBidirectionalTargetLegs) }
+
+        /**
+         * Sets [Builder.streamBidirectionalTargetLegs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamBidirectionalTargetLegs] with a well-typed
+         * [StreamBidirectionalTargetLegs] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun streamBidirectionalTargetLegs(
+            streamBidirectionalTargetLegs: JsonField<StreamBidirectionalTargetLegs>
+        ) = apply { body.streamBidirectionalTargetLegs(streamBidirectionalTargetLegs) }
+
+        /**
+         * Specifies the codec to be used for the streamed audio. When set to 'default' or when
+         * transcoding is not possible, the codec from the call will be used.
+         */
+        fun streamCodec(streamCodec: StreamCodec) = apply { body.streamCodec(streamCodec) }
+
+        /**
+         * Sets [Builder.streamCodec] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamCodec] with a well-typed [StreamCodec] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun streamCodec(streamCodec: JsonField<StreamCodec>) = apply {
+            body.streamCodec(streamCodec)
+        }
+
+        /**
+         * Establish websocket connection before dialing the destination. This is useful for cases
+         * where the websocket connection takes a long time to establish.
+         */
+        fun streamEstablishBeforeCallOriginate(streamEstablishBeforeCallOriginate: Boolean) =
+            apply {
+                body.streamEstablishBeforeCallOriginate(streamEstablishBeforeCallOriginate)
+            }
+
+        /**
+         * Sets [Builder.streamEstablishBeforeCallOriginate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamEstablishBeforeCallOriginate] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun streamEstablishBeforeCallOriginate(
+            streamEstablishBeforeCallOriginate: JsonField<Boolean>
+        ) = apply { body.streamEstablishBeforeCallOriginate(streamEstablishBeforeCallOriginate) }
+
+        /** Specifies which track should be streamed. */
+        fun streamTrack(streamTrack: StreamTrack) = apply { body.streamTrack(streamTrack) }
+
+        /**
+         * Sets [Builder.streamTrack] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamTrack] with a well-typed [StreamTrack] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun streamTrack(streamTrack: JsonField<StreamTrack>) = apply {
+            body.streamTrack(streamTrack)
+        }
+
+        /** The destination WebSocket address where the stream is going to be delivered. */
+        fun streamUrl(streamUrl: String) = apply { body.streamUrl(streamUrl) }
+
+        /**
+         * Sets [Builder.streamUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun streamUrl(streamUrl: JsonField<String>) = apply { body.streamUrl(streamUrl) }
+
+        /** The call leg which will be supervised by the new call. */
+        fun superviseCallControlId(superviseCallControlId: String) = apply {
+            body.superviseCallControlId(superviseCallControlId)
+        }
+
+        /**
+         * Sets [Builder.superviseCallControlId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.superviseCallControlId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun superviseCallControlId(superviseCallControlId: JsonField<String>) = apply {
+            body.superviseCallControlId(superviseCallControlId)
+        }
+
+        /**
+         * The role of the supervisor call. 'barge' means that supervisor call hears and is being
+         * heard by both ends of the call (caller & callee). 'whisper' means that only
+         * supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor'
+         * means that nobody can hear supervisor call, but supervisor can hear everything on the
+         * call.
+         */
+        fun supervisorRole(supervisorRole: SupervisorRole) = apply {
+            body.supervisorRole(supervisorRole)
+        }
+
+        /**
+         * Sets [Builder.supervisorRole] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.supervisorRole] with a well-typed [SupervisorRole] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun supervisorRole(supervisorRole: JsonField<SupervisorRole>) = apply {
+            body.supervisorRole(supervisorRole)
+        }
+
+        /**
+         * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached,
+         * the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `time_limit`
+         * will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be
+         * automatically terminated two minutes after being answered. The default time limit is
+         * 14400 seconds or 4 hours and this is also the maximum allowed call length.
+         */
+        fun timeLimitSecs(timeLimitSecs: Int) = apply { body.timeLimitSecs(timeLimitSecs) }
+
+        /**
+         * Sets [Builder.timeLimitSecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeLimitSecs] with a well-typed [Int] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun timeLimitSecs(timeLimitSecs: JsonField<Int>) = apply {
+            body.timeLimitSecs(timeLimitSecs)
+        }
+
+        /**
+         * The number of seconds that Telnyx will wait for the call to be answered by the
+         * destination to which it is being called. If the timeout is reached before an answer is
+         * received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of
+         * `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
+         */
+        fun timeoutSecs(timeoutSecs: Int) = apply { body.timeoutSecs(timeoutSecs) }
+
+        /**
+         * Sets [Builder.timeoutSecs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeoutSecs] with a well-typed [Int] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeoutSecs(timeoutSecs: JsonField<Int>) = apply { body.timeoutSecs(timeoutSecs) }
+
+        /** Enable transcription upon call answer. The default value is false. */
+        fun transcription(transcription: Boolean) = apply { body.transcription(transcription) }
+
+        /**
+         * Sets [Builder.transcription] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transcription] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun transcription(transcription: JsonField<Boolean>) = apply {
+            body.transcription(transcription)
+        }
+
+        fun transcriptionConfig(transcriptionConfig: TranscriptionStartRequest) = apply {
+            body.transcriptionConfig(transcriptionConfig)
+        }
+
+        /**
+         * Sets [Builder.transcriptionConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transcriptionConfig] with a well-typed
+         * [TranscriptionStartRequest] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun transcriptionConfig(transcriptionConfig: JsonField<TranscriptionStartRequest>) = apply {
+            body.transcriptionConfig(transcriptionConfig)
+        }
+
+        /**
+         * A map of event types to retry policies. Each retry policy contains an array of
+         * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+         * retries, total delay cannot exceed 60 seconds.
+         */
+        fun webhookRetriesPolicies(webhookRetriesPolicies: WebhookRetriesPolicies) = apply {
+            body.webhookRetriesPolicies(webhookRetriesPolicies)
+        }
+
+        /**
+         * Sets [Builder.webhookRetriesPolicies] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookRetriesPolicies] with a well-typed
+         * [WebhookRetriesPolicies] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun webhookRetriesPolicies(webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>) =
+            apply {
+                body.webhookRetriesPolicies(webhookRetriesPolicies)
+            }
+
+        /**
+         * Use this field to override the URL for which Telnyx will send subsequent webhooks to for
+         * this call.
+         */
+        fun webhookUrl(webhookUrl: String) = apply { body.webhookUrl(webhookUrl) }
+
+        /**
+         * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun webhookUrl(webhookUrl: JsonField<String>) = apply { body.webhookUrl(webhookUrl) }
+
+        /** HTTP request type used for `webhook_url`. */
+        fun webhookUrlMethod(webhookUrlMethod: WebhookUrlMethod) = apply {
+            body.webhookUrlMethod(webhookUrlMethod)
+        }
+
+        /**
+         * Sets [Builder.webhookUrlMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrlMethod] with a well-typed [WebhookUrlMethod]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun webhookUrlMethod(webhookUrlMethod: JsonField<WebhookUrlMethod>) = apply {
+            body.webhookUrlMethod(webhookUrlMethod)
+        }
+
+        /**
+         * A map of event types to webhook URLs. When an event of the specified type occurs, the
+         * webhook URL associated with that event type will be called instead of the default webhook
+         * URL. Events not mapped here will use the default webhook URL.
+         */
+        fun webhookUrls(webhookUrls: WebhookUrls) = apply { body.webhookUrls(webhookUrls) }
+
+        /**
+         * Sets [Builder.webhookUrls] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrls] with a well-typed [WebhookUrls] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun webhookUrls(webhookUrls: JsonField<WebhookUrls>) = apply {
+            body.webhookUrls(webhookUrls)
+        }
+
+        /** HTTP request method to invoke `webhook_urls`. */
+        fun webhookUrlsMethod(webhookUrlsMethod: WebhookUrlsMethod) = apply {
+            body.webhookUrlsMethod(webhookUrlsMethod)
+        }
+
+        /**
+         * Sets [Builder.webhookUrlsMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrlsMethod] with a well-typed [WebhookUrlsMethod]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun webhookUrlsMethod(webhookUrlsMethod: JsonField<WebhookUrlsMethod>) = apply {
+            body.webhookUrlsMethod(webhookUrlsMethod)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
+
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
+
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
+
+        /**
+         * Returns an immutable instance of [CallDialParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .connectionId()
+         * .from()
+         * .to()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CallDialParams =
+            CallDialParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
+    }
+
+    fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val connectionId: JsonField<String>,
+        private val from: JsonField<String>,
+        private val to: JsonField<To>,
+        private val answeringMachineDetection: JsonField<AnsweringMachineDetection>,
+        private val answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig>,
+        private val assistant: JsonField<CallAssistantRequest>,
+        private val audioUrl: JsonField<String>,
+        private val billingGroupId: JsonField<String>,
+        private val bridgeIntent: JsonField<Boolean>,
+        private val bridgeOnAnswer: JsonField<Boolean>,
+        private val clientState: JsonField<String>,
+        private val commandId: JsonField<String>,
+        private val conferenceConfig: JsonField<ConferenceConfig>,
+        private val conversationRelayConfig: JsonField<ConversationRelayConfig>,
+        private val customHeaders: JsonField<List<CustomSipHeader>>,
+        private val deepfakeDetection: JsonField<DeepfakeDetection>,
+        private val dialogflowConfig: JsonField<DialogflowConfig>,
+        private val enableDialogflow: JsonField<Boolean>,
+        private val fromDisplayName: JsonField<String>,
+        private val linkTo: JsonField<String>,
+        private val mediaEncryption: JsonField<MediaEncryption>,
+        private val mediaName: JsonField<String>,
+        private val parkAfterUnbridge: JsonField<String>,
+        private val preferredCodecs: JsonField<String>,
+        private val preventDoubleBridge: JsonField<Boolean>,
+        private val privacy: JsonField<Privacy>,
+        private val record: JsonField<Record>,
+        private val recordChannels: JsonField<RecordChannels>,
+        private val recordCustomFileName: JsonField<String>,
+        private val recordFormat: JsonField<RecordFormat>,
+        private val recordMaxLength: JsonField<Int>,
+        private val recordTimeoutSecs: JsonField<Int>,
+        private val recordTrack: JsonField<RecordTrack>,
+        private val recordTrim: JsonField<RecordTrim>,
+        private val sendDigitsOnAnswer: JsonField<String>,
+        private val sendSilenceWhenIdle: JsonField<Boolean>,
+        private val sipAuthPassword: JsonField<String>,
+        private val sipAuthUsername: JsonField<String>,
+        private val sipHeaders: JsonField<List<SipHeader>>,
+        private val sipRegion: JsonField<SipRegion>,
+        private val sipTransportProtocol: JsonField<SipTransportProtocol>,
+        private val soundModifications: JsonField<SoundModifications>,
+        private val streamAuthToken: JsonField<String>,
+        private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
+        private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
+        private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
+        private val streamBidirectionalTargetLegs: JsonField<StreamBidirectionalTargetLegs>,
+        private val streamCodec: JsonField<StreamCodec>,
+        private val streamEstablishBeforeCallOriginate: JsonField<Boolean>,
+        private val streamTrack: JsonField<StreamTrack>,
+        private val streamUrl: JsonField<String>,
+        private val superviseCallControlId: JsonField<String>,
+        private val supervisorRole: JsonField<SupervisorRole>,
+        private val timeLimitSecs: JsonField<Int>,
+        private val timeoutSecs: JsonField<Int>,
+        private val transcription: JsonField<Boolean>,
+        private val transcriptionConfig: JsonField<TranscriptionStartRequest>,
+        private val webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>,
+        private val webhookUrl: JsonField<String>,
+        private val webhookUrlMethod: JsonField<WebhookUrlMethod>,
+        private val webhookUrls: JsonField<WebhookUrls>,
+        private val webhookUrlsMethod: JsonField<WebhookUrlsMethod>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("connection_id")
+            @ExcludeMissing
+            connectionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("to") @ExcludeMissing to: JsonField<To> = JsonMissing.of(),
+            @JsonProperty("answering_machine_detection")
+            @ExcludeMissing
+            answeringMachineDetection: JsonField<AnsweringMachineDetection> = JsonMissing.of(),
+            @JsonProperty("answering_machine_detection_config")
+            @ExcludeMissing
+            answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig> =
+                JsonMissing.of(),
+            @JsonProperty("assistant")
+            @ExcludeMissing
+            assistant: JsonField<CallAssistantRequest> = JsonMissing.of(),
+            @JsonProperty("audio_url")
+            @ExcludeMissing
+            audioUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("billing_group_id")
+            @ExcludeMissing
+            billingGroupId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bridge_intent")
+            @ExcludeMissing
+            bridgeIntent: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("bridge_on_answer")
+            @ExcludeMissing
+            bridgeOnAnswer: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("client_state")
+            @ExcludeMissing
+            clientState: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("command_id")
+            @ExcludeMissing
+            commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("conference_config")
+            @ExcludeMissing
+            conferenceConfig: JsonField<ConferenceConfig> = JsonMissing.of(),
+            @JsonProperty("conversation_relay_config")
+            @ExcludeMissing
+            conversationRelayConfig: JsonField<ConversationRelayConfig> = JsonMissing.of(),
+            @JsonProperty("custom_headers")
+            @ExcludeMissing
+            customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
+            @JsonProperty("deepfake_detection")
+            @ExcludeMissing
+            deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
+            @JsonProperty("dialogflow_config")
+            @ExcludeMissing
+            dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of(),
+            @JsonProperty("enable_dialogflow")
+            @ExcludeMissing
+            enableDialogflow: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("from_display_name")
+            @ExcludeMissing
+            fromDisplayName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("link_to") @ExcludeMissing linkTo: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("media_encryption")
+            @ExcludeMissing
+            mediaEncryption: JsonField<MediaEncryption> = JsonMissing.of(),
+            @JsonProperty("media_name")
+            @ExcludeMissing
+            mediaName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("park_after_unbridge")
+            @ExcludeMissing
+            parkAfterUnbridge: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("preferred_codecs")
+            @ExcludeMissing
+            preferredCodecs: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("prevent_double_bridge")
+            @ExcludeMissing
+            preventDoubleBridge: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("privacy") @ExcludeMissing privacy: JsonField<Privacy> = JsonMissing.of(),
+            @JsonProperty("record") @ExcludeMissing record: JsonField<Record> = JsonMissing.of(),
+            @JsonProperty("record_channels")
+            @ExcludeMissing
+            recordChannels: JsonField<RecordChannels> = JsonMissing.of(),
+            @JsonProperty("record_custom_file_name")
+            @ExcludeMissing
+            recordCustomFileName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("record_format")
+            @ExcludeMissing
+            recordFormat: JsonField<RecordFormat> = JsonMissing.of(),
+            @JsonProperty("record_max_length")
+            @ExcludeMissing
+            recordMaxLength: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("record_timeout_secs")
+            @ExcludeMissing
+            recordTimeoutSecs: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("record_track")
+            @ExcludeMissing
+            recordTrack: JsonField<RecordTrack> = JsonMissing.of(),
+            @JsonProperty("record_trim")
+            @ExcludeMissing
+            recordTrim: JsonField<RecordTrim> = JsonMissing.of(),
+            @JsonProperty("send_digits_on_answer")
+            @ExcludeMissing
+            sendDigitsOnAnswer: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("send_silence_when_idle")
+            @ExcludeMissing
+            sendSilenceWhenIdle: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("sip_auth_password")
+            @ExcludeMissing
+            sipAuthPassword: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sip_auth_username")
+            @ExcludeMissing
+            sipAuthUsername: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sip_headers")
+            @ExcludeMissing
+            sipHeaders: JsonField<List<SipHeader>> = JsonMissing.of(),
+            @JsonProperty("sip_region")
+            @ExcludeMissing
+            sipRegion: JsonField<SipRegion> = JsonMissing.of(),
+            @JsonProperty("sip_transport_protocol")
+            @ExcludeMissing
+            sipTransportProtocol: JsonField<SipTransportProtocol> = JsonMissing.of(),
+            @JsonProperty("sound_modifications")
+            @ExcludeMissing
+            soundModifications: JsonField<SoundModifications> = JsonMissing.of(),
+            @JsonProperty("stream_auth_token")
+            @ExcludeMissing
+            streamAuthToken: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("stream_bidirectional_codec")
+            @ExcludeMissing
+            streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
+            @JsonProperty("stream_bidirectional_mode")
+            @ExcludeMissing
+            streamBidirectionalMode: JsonField<StreamBidirectionalMode> = JsonMissing.of(),
+            @JsonProperty("stream_bidirectional_sampling_rate")
+            @ExcludeMissing
+            streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate> =
+                JsonMissing.of(),
+            @JsonProperty("stream_bidirectional_target_legs")
+            @ExcludeMissing
+            streamBidirectionalTargetLegs: JsonField<StreamBidirectionalTargetLegs> =
+                JsonMissing.of(),
+            @JsonProperty("stream_codec")
+            @ExcludeMissing
+            streamCodec: JsonField<StreamCodec> = JsonMissing.of(),
+            @JsonProperty("stream_establish_before_call_originate")
+            @ExcludeMissing
+            streamEstablishBeforeCallOriginate: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("stream_track")
+            @ExcludeMissing
+            streamTrack: JsonField<StreamTrack> = JsonMissing.of(),
+            @JsonProperty("stream_url")
+            @ExcludeMissing
+            streamUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("supervise_call_control_id")
+            @ExcludeMissing
+            superviseCallControlId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("supervisor_role")
+            @ExcludeMissing
+            supervisorRole: JsonField<SupervisorRole> = JsonMissing.of(),
+            @JsonProperty("time_limit_secs")
+            @ExcludeMissing
+            timeLimitSecs: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("timeout_secs")
+            @ExcludeMissing
+            timeoutSecs: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("transcription")
+            @ExcludeMissing
+            transcription: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("transcription_config")
+            @ExcludeMissing
+            transcriptionConfig: JsonField<TranscriptionStartRequest> = JsonMissing.of(),
+            @JsonProperty("webhook_retries_policies")
+            @ExcludeMissing
+            webhookRetriesPolicies: JsonField<WebhookRetriesPolicies> = JsonMissing.of(),
+            @JsonProperty("webhook_url")
+            @ExcludeMissing
+            webhookUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("webhook_url_method")
+            @ExcludeMissing
+            webhookUrlMethod: JsonField<WebhookUrlMethod> = JsonMissing.of(),
+            @JsonProperty("webhook_urls")
+            @ExcludeMissing
+            webhookUrls: JsonField<WebhookUrls> = JsonMissing.of(),
+            @JsonProperty("webhook_urls_method")
+            @ExcludeMissing
+            webhookUrlsMethod: JsonField<WebhookUrlsMethod> = JsonMissing.of(),
+        ) : this(
+            connectionId,
+            from,
+            to,
+            answeringMachineDetection,
+            answeringMachineDetectionConfig,
+            assistant,
+            audioUrl,
+            billingGroupId,
+            bridgeIntent,
+            bridgeOnAnswer,
+            clientState,
+            commandId,
+            conferenceConfig,
+            conversationRelayConfig,
+            customHeaders,
+            deepfakeDetection,
+            dialogflowConfig,
+            enableDialogflow,
+            fromDisplayName,
+            linkTo,
+            mediaEncryption,
+            mediaName,
+            parkAfterUnbridge,
+            preferredCodecs,
+            preventDoubleBridge,
+            privacy,
+            record,
+            recordChannels,
+            recordCustomFileName,
+            recordFormat,
+            recordMaxLength,
+            recordTimeoutSecs,
+            recordTrack,
+            recordTrim,
+            sendDigitsOnAnswer,
+            sendSilenceWhenIdle,
+            sipAuthPassword,
+            sipAuthUsername,
+            sipHeaders,
+            sipRegion,
+            sipTransportProtocol,
+            soundModifications,
+            streamAuthToken,
+            streamBidirectionalCodec,
+            streamBidirectionalMode,
+            streamBidirectionalSamplingRate,
+            streamBidirectionalTargetLegs,
+            streamCodec,
+            streamEstablishBeforeCallOriginate,
+            streamTrack,
+            streamUrl,
+            superviseCallControlId,
+            supervisorRole,
+            timeLimitSecs,
+            timeoutSecs,
+            transcription,
+            transcriptionConfig,
+            webhookRetriesPolicies,
+            webhookUrl,
+            webhookUrlMethod,
+            webhookUrls,
+            webhookUrlsMethod,
+            mutableMapOf(),
+        )
+
+        /**
+         * The ID of the Call Control App (formerly ID of the connection) to be used when dialing
+         * the destination.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun connectionId(): String = connectionId.getRequired("connection_id")
+
+        /**
+         * The `from` number to be used as the caller id presented to the destination (`to` number).
+         * The number should be in +E164 format.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun from(): String = from.getRequired("from")
+
+        /**
+         * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an
+         * array of strings. For SIP URI destinations, append `;secure=true` or `;secure=srtp` to
+         * enable SRTP media encryption for that endpoint, or `;secure=dtls` to enable DTLS media
+         * encryption for that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it takes
+         * precedence over any per-endpoint `secure` URI parameter. For a single string destination,
+         * you may append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play those
+         * digits as DTMF once the called party answers — equivalent to setting
+         * `send_digits_on_answer` separately. If both are present, the explicit
+         * `send_digits_on_answer` parameter takes precedence. This shorthand is not supported when
+         * `to` is an array.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun to(): To = to.getRequired("to")
+
+        /**
+         * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With
+         * Premium detection, when a call is answered, Telnyx runs real-time detection and sends a
+         * `call.machine.premium.detection.ended` webhook with one of the following results:
+         * `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect
+         * a beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of
+         * `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we
+         * only send `call.machine.premium.greeting.ended`, and if we detect a beep after
+         * `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection,
+         * when a call is answered, Telnyx runs real-time detection to determine if it was picked up
+         * by a human or a machine and sends an `call.machine.detection.ended` webhook with the
+         * analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected,
+         * you will receive another `call.machine.greeting.ended` webhook when the answering machine
+         * greeting ends with a beep or silence. If `detect_beep` is used, you will only receive
+         * `call.machine.greeting.ended` if a beep is detected.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun answeringMachineDetection(): Optional<AnsweringMachineDetection> =
+            answeringMachineDetection.getOptional("answering_machine_detection")
+
+        /**
+         * Optional configuration parameters to modify 'answering_machine_detection' performance.
+         * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
+         * applicable when `premium` is selected as answering_machine_detection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun answeringMachineDetectionConfig(): Optional<AnsweringMachineDetectionConfig> =
+            answeringMachineDetectionConfig.getOptional("answering_machine_detection_config")
+
+        /**
+         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
+         * configuration will be used as fallback for any omitted fields.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun assistant(): Optional<CallAssistantRequest> = assistant.getOptional("assistant")
+
+        /**
+         * The URL of a file to be played back to the callee when the call is answered. The URL can
+         * point to either a WAV or MP3 file. media_name and audio_url cannot be used together in
+         * one request.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun audioUrl(): Optional<String> = audioUrl.getOptional("audio_url")
+
+        /**
+         * Use this field to set the Billing Group ID for the call. Must be a valid and existing
+         * Billing Group ID.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun billingGroupId(): Optional<String> = billingGroupId.getOptional("billing_group_id")
+
+        /**
+         * Indicates the intent to bridge this call with the call specified in link_to. When
+         * bridge_intent is true, link_to becomes required and the from number will be overwritten
+         * by the from number from the linked call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bridgeIntent(): Optional<Boolean> = bridgeIntent.getOptional("bridge_intent")
+
+        /**
+         * Whether to automatically bridge answered call to the call specified in link_to. When
+         * bridge_on_answer is true, link_to becomes required.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bridgeOnAnswer(): Optional<Boolean> = bridgeOnAnswer.getOptional("bridge_on_answer")
+
+        /**
+         * Use this field to add state to every subsequent webhook. It must be a valid Base-64
+         * encoded string.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun clientState(): Optional<String> = clientState.getOptional("client_state")
+
+        /**
+         * Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands with
+         * the same `command_id`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun commandId(): Optional<String> = commandId.getOptional("command_id")
+
+        /**
+         * Optional configuration parameters to dial new participant into a conference.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conferenceConfig(): Optional<ConferenceConfig> =
+            conferenceConfig.getOptional("conference_config")
+
+        /**
+         * Starts a Conversation Relay session automatically when the answered/dialed call is
+         * answered. This embedded shape is supported on `answer` and `dial`. It uses public field
+         * names (`url`, `dtmf_detection`, `greeting`, `voice`, `language`, etc.) and maps them to
+         * the underlying Conversation Relay action. `client_state`, `tts_language`, and
+         * `transcription_language` inside this object are ignored; use the parent command's
+         * `client_state` and `command_id` fields instead.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conversationRelayConfig(): Optional<ConversationRelayConfig> =
+            conversationRelayConfig.getOptional("conversation_relay_config")
+
+        /**
+         * Custom headers to be added to the SIP INVITE.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customHeaders(): Optional<List<CustomSipHeader>> =
+            customHeaders.getOptional("custom_headers")
+
+        /**
+         * Enables deepfake detection on the call. When enabled, audio from the remote party is
+         * streamed to a detection service that analyzes whether the voice is AI-generated. Results
+         * are delivered via the `call.deepfake_detection.result` webhook.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun deepfakeDetection(): Optional<DeepfakeDetection> =
+            deepfakeDetection.getOptional("deepfake_detection")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dialogflowConfig(): Optional<DialogflowConfig> =
+            dialogflowConfig.getOptional("dialogflow_config")
+
+        /**
+         * Enables Dialogflow for the current call. The default value is false.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enableDialogflow(): Optional<Boolean> =
+            enableDialogflow.getOptional("enable_dialogflow")
+
+        /**
+         * The `from_display_name` string to be used as the caller id name (SIP From Display Name)
+         * presented to the destination (`to` number). The string should have a maximum of 128
+         * characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If
+         * ommited, the display name will be the same as the number in the `from` field.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun fromDisplayName(): Optional<String> = fromDisplayName.getOptional("from_display_name")
+
+        /**
+         * Use another call's control id for sharing the same call session id
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun linkTo(): Optional<String> = linkTo.getOptional("link_to")
+
+        /**
+         * Defines whether media should be encrypted on the call. For SIP URI destinations, media
+         * encryption can also be requested per endpoint with the `secure` URI parameter:
+         * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+         * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure`
+         * value.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mediaEncryption(): Optional<MediaEncryption> =
+            mediaEncryption.getOptional("media_encryption")
+
+        /**
+         * The media_name of a file to be played back to the callee when the call is answered. The
+         * media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the
+         * same user/organization. The file must either be a WAV or MP3 file.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mediaName(): Optional<String> = mediaName.getOptional("media_name")
+
+        /**
+         * If supplied with the value `self`, the current leg will be parked after unbridge. If not
+         * set, the default behavior is to hang up the leg. When park_after_unbridge is set, link_to
+         * becomes required.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun parkAfterUnbridge(): Optional<String> =
+            parkAfterUnbridge.getOptional("park_after_unbridge")
+
+        /**
+         * The list of comma-separated codecs in a preferred order for the forked media to be
+         * received.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun preferredCodecs(): Optional<String> = preferredCodecs.getOptional("preferred_codecs")
+
+        /**
+         * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+         * default.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun preventDoubleBridge(): Optional<Boolean> =
+            preventDoubleBridge.getOptional("prevent_double_bridge")
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun privacy(): Optional<Privacy> = privacy.getOptional("privacy")
+
+        /**
+         * Start recording automatically after an event. Disabled by default.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun record(): Optional<Record> = record.getOptional("record")
+
+        /**
+         * Defines which channel should be recorded ('single' or 'dual') when `record` is specified.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordChannels(): Optional<RecordChannels> =
+            recordChannels.getOptional("record_channels")
+
+        /**
+         * The custom recording file name to be used instead of the default `call_leg_id`. Telnyx
+         * will still add a Unix timestamp suffix.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordCustomFileName(): Optional<String> =
+            recordCustomFileName.getOptional("record_custom_file_name")
+
+        /**
+         * Defines the format of the recording ('wav' or 'mp3') when `record` is specified.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordFormat(): Optional<RecordFormat> = recordFormat.getOptional("record_format")
+
+        /**
+         * Defines the maximum length for the recording in seconds when `record` is specified. The
+         * minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordMaxLength(): Optional<Int> = recordMaxLength.getOptional("record_max_length")
+
+        /**
+         * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
+         * detected when `record` is specified. The timer only starts when the speech is detected.
+         * Please note that call transcription is used to detect silence and the related charge will
+         * be applied. The minimum value is 0. The default value is 0 (infinite).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordTimeoutSecs(): Optional<Int> =
+            recordTimeoutSecs.getOptional("record_timeout_secs")
+
+        /**
+         * The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only
+         * single track is specified (`inbound`, `outbound`), `channels` configuration is ignored
+         * and it will be recorded as mono (single channel).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordTrack(): Optional<RecordTrack> = recordTrack.getOptional("record_track")
+
+        /**
+         * When set to `trim-silence`, silence will be removed from the beginning and end of the
+         * recording.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordTrim(): Optional<RecordTrim> = recordTrim.getOptional("record_trim")
+
+        /**
+         * DTMF digits to send automatically after the called party answers. Useful for reaching an
+         * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
+         * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`.
+         * Maximum 64 characters. When omitted, no automatic DTMF is sent. May also be supplied
+         * inline by appending `,<digits>` to `to` (e.g. `to=+18004247767,200`); if both forms are
+         * present, this explicit field takes precedence.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sendDigitsOnAnswer(): Optional<String> =
+            sendDigitsOnAnswer.getOptional("send_digits_on_answer")
+
+        /**
+         * Generate silence RTP packets when no transmission available.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sendSilenceWhenIdle(): Optional<Boolean> =
+            sendSilenceWhenIdle.getOptional("send_silence_when_idle")
+
+        /**
+         * SIP Authentication password used for SIP challenges.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipAuthPassword(): Optional<String> = sipAuthPassword.getOptional("sip_auth_password")
+
+        /**
+         * SIP Authentication username used for SIP challenges.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipAuthUsername(): Optional<String> = sipAuthUsername.getOptional("sip_auth_username")
+
+        /**
+         * SIP headers to be added to the SIP INVITE request. Currently only User-to-User header is
+         * supported.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipHeaders(): Optional<List<SipHeader>> = sipHeaders.getOptional("sip_headers")
+
+        /**
+         * Defines the SIP region to be used for the call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipRegion(): Optional<SipRegion> = sipRegion.getOptional("sip_region")
+
+        /**
+         * Defines SIP transport protocol to be used on the call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipTransportProtocol(): Optional<SipTransportProtocol> =
+            sipTransportProtocol.getOptional("sip_transport_protocol")
+
+        /**
+         * Use this field to modify sound effects, for example adjust the pitch.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun soundModifications(): Optional<SoundModifications> =
+            soundModifications.getOptional("sound_modifications")
+
+        /**
+         * An authentication token to be sent as part of the WebSocket connection when using
+         * streaming. Maximum length is 4000 characters.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("stream_auth_token")
+
+        /**
+         * Indicates codec for bidirectional streaming RTP payloads. Used only with
+         * stream_bidirectional_mode=rtp. Case sensitive.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamBidirectionalCodec(): Optional<StreamBidirectionalCodec> =
+            streamBidirectionalCodec.getOptional("stream_bidirectional_codec")
+
+        /**
+         * Configures method of bidirectional streaming (mp3, rtp).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamBidirectionalMode(): Optional<StreamBidirectionalMode> =
+            streamBidirectionalMode.getOptional("stream_bidirectional_mode")
+
+        /**
+         * Audio sampling rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamBidirectionalSamplingRate(): Optional<StreamBidirectionalSamplingRate> =
+            streamBidirectionalSamplingRate.getOptional("stream_bidirectional_sampling_rate")
+
+        /**
+         * Specifies which call legs should receive the bidirectional stream audio.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamBidirectionalTargetLegs(): Optional<StreamBidirectionalTargetLegs> =
+            streamBidirectionalTargetLegs.getOptional("stream_bidirectional_target_legs")
+
+        /**
+         * Specifies the codec to be used for the streamed audio. When set to 'default' or when
+         * transcoding is not possible, the codec from the call will be used.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamCodec(): Optional<StreamCodec> = streamCodec.getOptional("stream_codec")
+
+        /**
+         * Establish websocket connection before dialing the destination. This is useful for cases
+         * where the websocket connection takes a long time to establish.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamEstablishBeforeCallOriginate(): Optional<Boolean> =
+            streamEstablishBeforeCallOriginate.getOptional("stream_establish_before_call_originate")
+
+        /**
+         * Specifies which track should be streamed.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamTrack(): Optional<StreamTrack> = streamTrack.getOptional("stream_track")
+
+        /**
+         * The destination WebSocket address where the stream is going to be delivered.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamUrl(): Optional<String> = streamUrl.getOptional("stream_url")
+
+        /**
+         * The call leg which will be supervised by the new call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun superviseCallControlId(): Optional<String> =
+            superviseCallControlId.getOptional("supervise_call_control_id")
+
+        /**
+         * The role of the supervisor call. 'barge' means that supervisor call hears and is being
+         * heard by both ends of the call (caller & callee). 'whisper' means that only
+         * supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor'
+         * means that nobody can hear supervisor call, but supervisor can hear everything on the
+         * call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun supervisorRole(): Optional<SupervisorRole> =
+            supervisorRole.getOptional("supervisor_role")
+
+        /**
+         * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached,
+         * the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `time_limit`
+         * will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be
+         * automatically terminated two minutes after being answered. The default time limit is
+         * 14400 seconds or 4 hours and this is also the maximum allowed call length.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeLimitSecs(): Optional<Int> = timeLimitSecs.getOptional("time_limit_secs")
+
+        /**
+         * The number of seconds that Telnyx will wait for the call to be answered by the
+         * destination to which it is being called. If the timeout is reached before an answer is
+         * received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of
+         * `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeoutSecs(): Optional<Int> = timeoutSecs.getOptional("timeout_secs")
+
+        /**
+         * Enable transcription upon call answer. The default value is false.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun transcription(): Optional<Boolean> = transcription.getOptional("transcription")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun transcriptionConfig(): Optional<TranscriptionStartRequest> =
+            transcriptionConfig.getOptional("transcription_config")
+
+        /**
+         * A map of event types to retry policies. Each retry policy contains an array of
+         * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+         * retries, total delay cannot exceed 60 seconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookRetriesPolicies(): Optional<WebhookRetriesPolicies> =
+            webhookRetriesPolicies.getOptional("webhook_retries_policies")
+
+        /**
+         * Use this field to override the URL for which Telnyx will send subsequent webhooks to for
+         * this call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+        /**
+         * HTTP request type used for `webhook_url`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrlMethod(): Optional<WebhookUrlMethod> =
+            webhookUrlMethod.getOptional("webhook_url_method")
+
+        /**
+         * A map of event types to webhook URLs. When an event of the specified type occurs, the
+         * webhook URL associated with that event type will be called instead of the default webhook
+         * URL. Events not mapped here will use the default webhook URL.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrls(): Optional<WebhookUrls> = webhookUrls.getOptional("webhook_urls")
+
+        /**
+         * HTTP request method to invoke `webhook_urls`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrlsMethod(): Optional<WebhookUrlsMethod> =
+            webhookUrlsMethod.getOptional("webhook_urls_method")
+
+        /**
+         * Returns the raw JSON value of [connectionId].
+         *
+         * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("connection_id")
+        @ExcludeMissing
+        fun _connectionId(): JsonField<String> = connectionId
+
+        /**
+         * Returns the raw JSON value of [from].
+         *
+         * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
+
+        /**
+         * Returns the raw JSON value of [to].
+         *
+         * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<To> = to
+
+        /**
+         * Returns the raw JSON value of [answeringMachineDetection].
+         *
+         * Unlike [answeringMachineDetection], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("answering_machine_detection")
+        @ExcludeMissing
+        fun _answeringMachineDetection(): JsonField<AnsweringMachineDetection> =
+            answeringMachineDetection
+
+        /**
+         * Returns the raw JSON value of [answeringMachineDetectionConfig].
+         *
+         * Unlike [answeringMachineDetectionConfig], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("answering_machine_detection_config")
+        @ExcludeMissing
+        fun _answeringMachineDetectionConfig(): JsonField<AnsweringMachineDetectionConfig> =
+            answeringMachineDetectionConfig
+
+        /**
+         * Returns the raw JSON value of [assistant].
+         *
+         * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("assistant")
+        @ExcludeMissing
+        fun _assistant(): JsonField<CallAssistantRequest> = assistant
+
+        /**
+         * Returns the raw JSON value of [audioUrl].
+         *
+         * Unlike [audioUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("audio_url") @ExcludeMissing fun _audioUrl(): JsonField<String> = audioUrl
+
+        /**
+         * Returns the raw JSON value of [billingGroupId].
+         *
+         * Unlike [billingGroupId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("billing_group_id")
+        @ExcludeMissing
+        fun _billingGroupId(): JsonField<String> = billingGroupId
+
+        /**
+         * Returns the raw JSON value of [bridgeIntent].
+         *
+         * Unlike [bridgeIntent], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("bridge_intent")
+        @ExcludeMissing
+        fun _bridgeIntent(): JsonField<Boolean> = bridgeIntent
+
+        /**
+         * Returns the raw JSON value of [bridgeOnAnswer].
+         *
+         * Unlike [bridgeOnAnswer], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("bridge_on_answer")
+        @ExcludeMissing
+        fun _bridgeOnAnswer(): JsonField<Boolean> = bridgeOnAnswer
+
+        /**
+         * Returns the raw JSON value of [clientState].
+         *
+         * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("client_state")
+        @ExcludeMissing
+        fun _clientState(): JsonField<String> = clientState
+
+        /**
+         * Returns the raw JSON value of [commandId].
+         *
+         * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
+
+        /**
+         * Returns the raw JSON value of [conferenceConfig].
+         *
+         * Unlike [conferenceConfig], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("conference_config")
+        @ExcludeMissing
+        fun _conferenceConfig(): JsonField<ConferenceConfig> = conferenceConfig
+
+        /**
+         * Returns the raw JSON value of [conversationRelayConfig].
+         *
+         * Unlike [conversationRelayConfig], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("conversation_relay_config")
+        @ExcludeMissing
+        fun _conversationRelayConfig(): JsonField<ConversationRelayConfig> = conversationRelayConfig
+
+        /**
+         * Returns the raw JSON value of [customHeaders].
+         *
+         * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_headers")
+        @ExcludeMissing
+        fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
+
+        /**
+         * Returns the raw JSON value of [deepfakeDetection].
+         *
+         * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("deepfake_detection")
+        @ExcludeMissing
+        fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
+
+        /**
+         * Returns the raw JSON value of [dialogflowConfig].
+         *
+         * Unlike [dialogflowConfig], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dialogflow_config")
+        @ExcludeMissing
+        fun _dialogflowConfig(): JsonField<DialogflowConfig> = dialogflowConfig
+
+        /**
+         * Returns the raw JSON value of [enableDialogflow].
+         *
+         * Unlike [enableDialogflow], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("enable_dialogflow")
+        @ExcludeMissing
+        fun _enableDialogflow(): JsonField<Boolean> = enableDialogflow
+
+        /**
+         * Returns the raw JSON value of [fromDisplayName].
+         *
+         * Unlike [fromDisplayName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("from_display_name")
+        @ExcludeMissing
+        fun _fromDisplayName(): JsonField<String> = fromDisplayName
+
+        /**
+         * Returns the raw JSON value of [linkTo].
+         *
+         * Unlike [linkTo], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("link_to") @ExcludeMissing fun _linkTo(): JsonField<String> = linkTo
+
+        /**
+         * Returns the raw JSON value of [mediaEncryption].
+         *
+         * Unlike [mediaEncryption], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("media_encryption")
+        @ExcludeMissing
+        fun _mediaEncryption(): JsonField<MediaEncryption> = mediaEncryption
+
+        /**
+         * Returns the raw JSON value of [mediaName].
+         *
+         * Unlike [mediaName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("media_name") @ExcludeMissing fun _mediaName(): JsonField<String> = mediaName
+
+        /**
+         * Returns the raw JSON value of [parkAfterUnbridge].
+         *
+         * Unlike [parkAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("park_after_unbridge")
+        @ExcludeMissing
+        fun _parkAfterUnbridge(): JsonField<String> = parkAfterUnbridge
+
+        /**
+         * Returns the raw JSON value of [preferredCodecs].
+         *
+         * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("preferred_codecs")
+        @ExcludeMissing
+        fun _preferredCodecs(): JsonField<String> = preferredCodecs
+
+        /**
+         * Returns the raw JSON value of [preventDoubleBridge].
+         *
+         * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("prevent_double_bridge")
+        @ExcludeMissing
+        fun _preventDoubleBridge(): JsonField<Boolean> = preventDoubleBridge
+
+        /**
+         * Returns the raw JSON value of [privacy].
+         *
+         * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("privacy") @ExcludeMissing fun _privacy(): JsonField<Privacy> = privacy
+
+        /**
+         * Returns the raw JSON value of [record].
+         *
+         * Unlike [record], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("record") @ExcludeMissing fun _record(): JsonField<Record> = record
+
+        /**
+         * Returns the raw JSON value of [recordChannels].
+         *
+         * Unlike [recordChannels], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("record_channels")
+        @ExcludeMissing
+        fun _recordChannels(): JsonField<RecordChannels> = recordChannels
+
+        /**
+         * Returns the raw JSON value of [recordCustomFileName].
+         *
+         * Unlike [recordCustomFileName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("record_custom_file_name")
+        @ExcludeMissing
+        fun _recordCustomFileName(): JsonField<String> = recordCustomFileName
+
+        /**
+         * Returns the raw JSON value of [recordFormat].
+         *
+         * Unlike [recordFormat], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("record_format")
+        @ExcludeMissing
+        fun _recordFormat(): JsonField<RecordFormat> = recordFormat
+
+        /**
+         * Returns the raw JSON value of [recordMaxLength].
+         *
+         * Unlike [recordMaxLength], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("record_max_length")
+        @ExcludeMissing
+        fun _recordMaxLength(): JsonField<Int> = recordMaxLength
+
+        /**
+         * Returns the raw JSON value of [recordTimeoutSecs].
+         *
+         * Unlike [recordTimeoutSecs], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("record_timeout_secs")
+        @ExcludeMissing
+        fun _recordTimeoutSecs(): JsonField<Int> = recordTimeoutSecs
+
+        /**
+         * Returns the raw JSON value of [recordTrack].
+         *
+         * Unlike [recordTrack], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("record_track")
+        @ExcludeMissing
+        fun _recordTrack(): JsonField<RecordTrack> = recordTrack
+
+        /**
+         * Returns the raw JSON value of [recordTrim].
+         *
+         * Unlike [recordTrim], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("record_trim")
+        @ExcludeMissing
+        fun _recordTrim(): JsonField<RecordTrim> = recordTrim
+
+        /**
+         * Returns the raw JSON value of [sendDigitsOnAnswer].
+         *
+         * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("send_digits_on_answer")
+        @ExcludeMissing
+        fun _sendDigitsOnAnswer(): JsonField<String> = sendDigitsOnAnswer
+
+        /**
+         * Returns the raw JSON value of [sendSilenceWhenIdle].
+         *
+         * Unlike [sendSilenceWhenIdle], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("send_silence_when_idle")
+        @ExcludeMissing
+        fun _sendSilenceWhenIdle(): JsonField<Boolean> = sendSilenceWhenIdle
+
+        /**
+         * Returns the raw JSON value of [sipAuthPassword].
+         *
+         * Unlike [sipAuthPassword], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sip_auth_password")
+        @ExcludeMissing
+        fun _sipAuthPassword(): JsonField<String> = sipAuthPassword
+
+        /**
+         * Returns the raw JSON value of [sipAuthUsername].
+         *
+         * Unlike [sipAuthUsername], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sip_auth_username")
+        @ExcludeMissing
+        fun _sipAuthUsername(): JsonField<String> = sipAuthUsername
+
+        /**
+         * Returns the raw JSON value of [sipHeaders].
+         *
+         * Unlike [sipHeaders], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sip_headers")
+        @ExcludeMissing
+        fun _sipHeaders(): JsonField<List<SipHeader>> = sipHeaders
+
+        /**
+         * Returns the raw JSON value of [sipRegion].
+         *
+         * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sip_region")
+        @ExcludeMissing
+        fun _sipRegion(): JsonField<SipRegion> = sipRegion
+
+        /**
+         * Returns the raw JSON value of [sipTransportProtocol].
+         *
+         * Unlike [sipTransportProtocol], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("sip_transport_protocol")
+        @ExcludeMissing
+        fun _sipTransportProtocol(): JsonField<SipTransportProtocol> = sipTransportProtocol
+
+        /**
+         * Returns the raw JSON value of [soundModifications].
+         *
+         * Unlike [soundModifications], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("sound_modifications")
+        @ExcludeMissing
+        fun _soundModifications(): JsonField<SoundModifications> = soundModifications
+
+        /**
+         * Returns the raw JSON value of [streamAuthToken].
+         *
+         * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("stream_auth_token")
+        @ExcludeMissing
+        fun _streamAuthToken(): JsonField<String> = streamAuthToken
+
+        /**
+         * Returns the raw JSON value of [streamBidirectionalCodec].
+         *
+         * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("stream_bidirectional_codec")
+        @ExcludeMissing
+        fun _streamBidirectionalCodec(): JsonField<StreamBidirectionalCodec> =
+            streamBidirectionalCodec
+
+        /**
+         * Returns the raw JSON value of [streamBidirectionalMode].
+         *
+         * Unlike [streamBidirectionalMode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("stream_bidirectional_mode")
+        @ExcludeMissing
+        fun _streamBidirectionalMode(): JsonField<StreamBidirectionalMode> = streamBidirectionalMode
+
+        /**
+         * Returns the raw JSON value of [streamBidirectionalSamplingRate].
+         *
+         * Unlike [streamBidirectionalSamplingRate], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("stream_bidirectional_sampling_rate")
+        @ExcludeMissing
+        fun _streamBidirectionalSamplingRate(): JsonField<StreamBidirectionalSamplingRate> =
+            streamBidirectionalSamplingRate
+
+        /**
+         * Returns the raw JSON value of [streamBidirectionalTargetLegs].
+         *
+         * Unlike [streamBidirectionalTargetLegs], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("stream_bidirectional_target_legs")
+        @ExcludeMissing
+        fun _streamBidirectionalTargetLegs(): JsonField<StreamBidirectionalTargetLegs> =
+            streamBidirectionalTargetLegs
+
+        /**
+         * Returns the raw JSON value of [streamCodec].
+         *
+         * Unlike [streamCodec], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stream_codec")
+        @ExcludeMissing
+        fun _streamCodec(): JsonField<StreamCodec> = streamCodec
+
+        /**
+         * Returns the raw JSON value of [streamEstablishBeforeCallOriginate].
+         *
+         * Unlike [streamEstablishBeforeCallOriginate], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("stream_establish_before_call_originate")
+        @ExcludeMissing
+        fun _streamEstablishBeforeCallOriginate(): JsonField<Boolean> =
+            streamEstablishBeforeCallOriginate
+
+        /**
+         * Returns the raw JSON value of [streamTrack].
+         *
+         * Unlike [streamTrack], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stream_track")
+        @ExcludeMissing
+        fun _streamTrack(): JsonField<StreamTrack> = streamTrack
+
+        /**
+         * Returns the raw JSON value of [streamUrl].
+         *
+         * Unlike [streamUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stream_url") @ExcludeMissing fun _streamUrl(): JsonField<String> = streamUrl
+
+        /**
+         * Returns the raw JSON value of [superviseCallControlId].
+         *
+         * Unlike [superviseCallControlId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("supervise_call_control_id")
+        @ExcludeMissing
+        fun _superviseCallControlId(): JsonField<String> = superviseCallControlId
+
+        /**
+         * Returns the raw JSON value of [supervisorRole].
+         *
+         * Unlike [supervisorRole], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("supervisor_role")
+        @ExcludeMissing
+        fun _supervisorRole(): JsonField<SupervisorRole> = supervisorRole
+
+        /**
+         * Returns the raw JSON value of [timeLimitSecs].
+         *
+         * Unlike [timeLimitSecs], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("time_limit_secs")
+        @ExcludeMissing
+        fun _timeLimitSecs(): JsonField<Int> = timeLimitSecs
+
+        /**
+         * Returns the raw JSON value of [timeoutSecs].
+         *
+         * Unlike [timeoutSecs], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("timeout_secs")
+        @ExcludeMissing
+        fun _timeoutSecs(): JsonField<Int> = timeoutSecs
+
+        /**
+         * Returns the raw JSON value of [transcription].
+         *
+         * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("transcription")
+        @ExcludeMissing
+        fun _transcription(): JsonField<Boolean> = transcription
+
+        /**
+         * Returns the raw JSON value of [transcriptionConfig].
+         *
+         * Unlike [transcriptionConfig], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("transcription_config")
+        @ExcludeMissing
+        fun _transcriptionConfig(): JsonField<TranscriptionStartRequest> = transcriptionConfig
+
+        /**
+         * Returns the raw JSON value of [webhookRetriesPolicies].
+         *
+         * Unlike [webhookRetriesPolicies], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("webhook_retries_policies")
+        @ExcludeMissing
+        fun _webhookRetriesPolicies(): JsonField<WebhookRetriesPolicies> = webhookRetriesPolicies
+
+        /**
+         * Returns the raw JSON value of [webhookUrl].
+         *
+         * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("webhook_url")
+        @ExcludeMissing
+        fun _webhookUrl(): JsonField<String> = webhookUrl
+
+        /**
+         * Returns the raw JSON value of [webhookUrlMethod].
+         *
+         * Unlike [webhookUrlMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("webhook_url_method")
+        @ExcludeMissing
+        fun _webhookUrlMethod(): JsonField<WebhookUrlMethod> = webhookUrlMethod
+
+        /**
+         * Returns the raw JSON value of [webhookUrls].
+         *
+         * Unlike [webhookUrls], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("webhook_urls")
+        @ExcludeMissing
+        fun _webhookUrls(): JsonField<WebhookUrls> = webhookUrls
+
+        /**
+         * Returns the raw JSON value of [webhookUrlsMethod].
+         *
+         * Unlike [webhookUrlsMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("webhook_urls_method")
+        @ExcludeMissing
+        fun _webhookUrlsMethod(): JsonField<WebhookUrlsMethod> = webhookUrlsMethod
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .connectionId()
+             * .from()
+             * .to()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var connectionId: JsonField<String>? = null
+            private var from: JsonField<String>? = null
+            private var to: JsonField<To>? = null
+            private var answeringMachineDetection: JsonField<AnsweringMachineDetection> =
+                JsonMissing.of()
+            private var answeringMachineDetectionConfig:
+                JsonField<AnsweringMachineDetectionConfig> =
+                JsonMissing.of()
+            private var assistant: JsonField<CallAssistantRequest> = JsonMissing.of()
+            private var audioUrl: JsonField<String> = JsonMissing.of()
+            private var billingGroupId: JsonField<String> = JsonMissing.of()
+            private var bridgeIntent: JsonField<Boolean> = JsonMissing.of()
+            private var bridgeOnAnswer: JsonField<Boolean> = JsonMissing.of()
+            private var clientState: JsonField<String> = JsonMissing.of()
+            private var commandId: JsonField<String> = JsonMissing.of()
+            private var conferenceConfig: JsonField<ConferenceConfig> = JsonMissing.of()
+            private var conversationRelayConfig: JsonField<ConversationRelayConfig> =
+                JsonMissing.of()
+            private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
+            private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
+            private var dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of()
+            private var enableDialogflow: JsonField<Boolean> = JsonMissing.of()
+            private var fromDisplayName: JsonField<String> = JsonMissing.of()
+            private var linkTo: JsonField<String> = JsonMissing.of()
+            private var mediaEncryption: JsonField<MediaEncryption> = JsonMissing.of()
+            private var mediaName: JsonField<String> = JsonMissing.of()
+            private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
+            private var preferredCodecs: JsonField<String> = JsonMissing.of()
+            private var preventDoubleBridge: JsonField<Boolean> = JsonMissing.of()
+            private var privacy: JsonField<Privacy> = JsonMissing.of()
+            private var record: JsonField<Record> = JsonMissing.of()
+            private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
+            private var recordCustomFileName: JsonField<String> = JsonMissing.of()
+            private var recordFormat: JsonField<RecordFormat> = JsonMissing.of()
+            private var recordMaxLength: JsonField<Int> = JsonMissing.of()
+            private var recordTimeoutSecs: JsonField<Int> = JsonMissing.of()
+            private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
+            private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
+            private var sendDigitsOnAnswer: JsonField<String> = JsonMissing.of()
+            private var sendSilenceWhenIdle: JsonField<Boolean> = JsonMissing.of()
+            private var sipAuthPassword: JsonField<String> = JsonMissing.of()
+            private var sipAuthUsername: JsonField<String> = JsonMissing.of()
+            private var sipHeaders: JsonField<MutableList<SipHeader>>? = null
+            private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
+            private var sipTransportProtocol: JsonField<SipTransportProtocol> = JsonMissing.of()
+            private var soundModifications: JsonField<SoundModifications> = JsonMissing.of()
+            private var streamAuthToken: JsonField<String> = JsonMissing.of()
+            private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
+                JsonMissing.of()
+            private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
+                JsonMissing.of()
+            private var streamBidirectionalSamplingRate:
+                JsonField<StreamBidirectionalSamplingRate> =
+                JsonMissing.of()
+            private var streamBidirectionalTargetLegs: JsonField<StreamBidirectionalTargetLegs> =
+                JsonMissing.of()
+            private var streamCodec: JsonField<StreamCodec> = JsonMissing.of()
+            private var streamEstablishBeforeCallOriginate: JsonField<Boolean> = JsonMissing.of()
+            private var streamTrack: JsonField<StreamTrack> = JsonMissing.of()
+            private var streamUrl: JsonField<String> = JsonMissing.of()
+            private var superviseCallControlId: JsonField<String> = JsonMissing.of()
+            private var supervisorRole: JsonField<SupervisorRole> = JsonMissing.of()
+            private var timeLimitSecs: JsonField<Int> = JsonMissing.of()
+            private var timeoutSecs: JsonField<Int> = JsonMissing.of()
+            private var transcription: JsonField<Boolean> = JsonMissing.of()
+            private var transcriptionConfig: JsonField<TranscriptionStartRequest> = JsonMissing.of()
+            private var webhookRetriesPolicies: JsonField<WebhookRetriesPolicies> = JsonMissing.of()
+            private var webhookUrl: JsonField<String> = JsonMissing.of()
+            private var webhookUrlMethod: JsonField<WebhookUrlMethod> = JsonMissing.of()
+            private var webhookUrls: JsonField<WebhookUrls> = JsonMissing.of()
+            private var webhookUrlsMethod: JsonField<WebhookUrlsMethod> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                connectionId = body.connectionId
+                from = body.from
+                to = body.to
+                answeringMachineDetection = body.answeringMachineDetection
+                answeringMachineDetectionConfig = body.answeringMachineDetectionConfig
+                assistant = body.assistant
+                audioUrl = body.audioUrl
+                billingGroupId = body.billingGroupId
+                bridgeIntent = body.bridgeIntent
+                bridgeOnAnswer = body.bridgeOnAnswer
+                clientState = body.clientState
+                commandId = body.commandId
+                conferenceConfig = body.conferenceConfig
+                conversationRelayConfig = body.conversationRelayConfig
+                customHeaders = body.customHeaders.map { it.toMutableList() }
+                deepfakeDetection = body.deepfakeDetection
+                dialogflowConfig = body.dialogflowConfig
+                enableDialogflow = body.enableDialogflow
+                fromDisplayName = body.fromDisplayName
+                linkTo = body.linkTo
+                mediaEncryption = body.mediaEncryption
+                mediaName = body.mediaName
+                parkAfterUnbridge = body.parkAfterUnbridge
+                preferredCodecs = body.preferredCodecs
+                preventDoubleBridge = body.preventDoubleBridge
+                privacy = body.privacy
+                record = body.record
+                recordChannels = body.recordChannels
+                recordCustomFileName = body.recordCustomFileName
+                recordFormat = body.recordFormat
+                recordMaxLength = body.recordMaxLength
+                recordTimeoutSecs = body.recordTimeoutSecs
+                recordTrack = body.recordTrack
+                recordTrim = body.recordTrim
+                sendDigitsOnAnswer = body.sendDigitsOnAnswer
+                sendSilenceWhenIdle = body.sendSilenceWhenIdle
+                sipAuthPassword = body.sipAuthPassword
+                sipAuthUsername = body.sipAuthUsername
+                sipHeaders = body.sipHeaders.map { it.toMutableList() }
+                sipRegion = body.sipRegion
+                sipTransportProtocol = body.sipTransportProtocol
+                soundModifications = body.soundModifications
+                streamAuthToken = body.streamAuthToken
+                streamBidirectionalCodec = body.streamBidirectionalCodec
+                streamBidirectionalMode = body.streamBidirectionalMode
+                streamBidirectionalSamplingRate = body.streamBidirectionalSamplingRate
+                streamBidirectionalTargetLegs = body.streamBidirectionalTargetLegs
+                streamCodec = body.streamCodec
+                streamEstablishBeforeCallOriginate = body.streamEstablishBeforeCallOriginate
+                streamTrack = body.streamTrack
+                streamUrl = body.streamUrl
+                superviseCallControlId = body.superviseCallControlId
+                supervisorRole = body.supervisorRole
+                timeLimitSecs = body.timeLimitSecs
+                timeoutSecs = body.timeoutSecs
+                transcription = body.transcription
+                transcriptionConfig = body.transcriptionConfig
+                webhookRetriesPolicies = body.webhookRetriesPolicies
+                webhookUrl = body.webhookUrl
+                webhookUrlMethod = body.webhookUrlMethod
+                webhookUrls = body.webhookUrls
+                webhookUrlsMethod = body.webhookUrlsMethod
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The ID of the Call Control App (formerly ID of the connection) to be used when
+             * dialing the destination.
+             */
+            fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
+
+            /**
+             * Sets [Builder.connectionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.connectionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun connectionId(connectionId: JsonField<String>) = apply {
+                this.connectionId = connectionId
+            }
+
+            /**
+             * The `from` number to be used as the caller id presented to the destination (`to`
+             * number). The number should be in +E164 format.
+             */
+            fun from(from: String) = from(JsonField.of(from))
+
+            /**
+             * Sets [Builder.from] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.from] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun from(from: JsonField<String>) = apply { this.from = from }
+
+            /**
+             * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an
+             * array of strings. For SIP URI destinations, append `;secure=true` or `;secure=srtp`
+             * to enable SRTP media encryption for that endpoint, or `;secure=dtls` to enable DTLS
+             * media encryption for that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`,
+             * it takes precedence over any per-endpoint `secure` URI parameter. For a single string
+             * destination, you may append a comma followed by DTMF digits (e.g. `+18004247767,200`)
+             * to play those digits as DTMF once the called party answers — equivalent to setting
+             * `send_digits_on_answer` separately. If both are present, the explicit
+             * `send_digits_on_answer` parameter takes precedence. This shorthand is not supported
+             * when `to` is an array.
+             */
+            fun to(to: To) = to(JsonField.of(to))
+
+            /**
+             * Sets [Builder.to] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.to] with a well-typed [To] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun to(to: JsonField<To>) = apply { this.to = to }
+
+            /** Alias for calling [to] with `To.ofString(string)`. */
+            fun to(string: String) = to(To.ofString(string))
+
+            /** Alias for calling [to] with `To.ofStrings(strings)`. */
+            fun toOfStrings(strings: List<String>) = to(To.ofStrings(strings))
+
+            /**
+             * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections.
+             * With Premium detection, when a call is answered, Telnyx runs real-time detection and
+             * sends a `call.machine.premium.detection.ended` webhook with one of the following
+             * results: `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`.
+             * If we detect a beep, we also send a `call.machine.premium.greeting.ended` webhook
+             * with the result of `beep_detected`. If we detect a beep before
+             * `call.machine.premium.detection.ended` we only send
+             * `call.machine.premium.greeting.ended`, and if we detect a beep after
+             * `call.machine.premium.detection.ended`, we send both webhooks. With Standard
+             * detection, when a call is answered, Telnyx runs real-time detection to determine if
+             * it was picked up by a human or a machine and sends an `call.machine.detection.ended`
+             * webhook with the analysis result. If `greeting_end` or `detect_words` is used and a
+             * `machine` is detected, you will receive another `call.machine.greeting.ended` webhook
+             * when the answering machine greeting ends with a beep or silence. If `detect_beep` is
+             * used, you will only receive `call.machine.greeting.ended` if a beep is detected.
+             */
+            fun answeringMachineDetection(answeringMachineDetection: AnsweringMachineDetection) =
+                answeringMachineDetection(JsonField.of(answeringMachineDetection))
+
+            /**
+             * Sets [Builder.answeringMachineDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.answeringMachineDetection] with a well-typed
+             * [AnsweringMachineDetection] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun answeringMachineDetection(
+                answeringMachineDetection: JsonField<AnsweringMachineDetection>
+            ) = apply { this.answeringMachineDetection = answeringMachineDetection }
+
+            /**
+             * Optional configuration parameters to modify 'answering_machine_detection'
+             * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+             * parameters are applicable when `premium` is selected as answering_machine_detection.
+             */
+            fun answeringMachineDetectionConfig(
+                answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
+            ) = answeringMachineDetectionConfig(JsonField.of(answeringMachineDetectionConfig))
+
+            /**
+             * Sets [Builder.answeringMachineDetectionConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.answeringMachineDetectionConfig] with a well-typed
+             * [AnsweringMachineDetectionConfig] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun answeringMachineDetectionConfig(
+                answeringMachineDetectionConfig: JsonField<AnsweringMachineDetectionConfig>
+            ) = apply { this.answeringMachineDetectionConfig = answeringMachineDetectionConfig }
+
+            /**
+             * AI Assistant configuration. All fields except `id` are optional — the assistant's
+             * stored configuration will be used as fallback for any omitted fields.
+             */
+            fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
+
+            /**
+             * Sets [Builder.assistant] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.assistant] with a well-typed [CallAssistantRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun assistant(assistant: JsonField<CallAssistantRequest>) = apply {
+                this.assistant = assistant
+            }
+
+            /**
+             * The URL of a file to be played back to the callee when the call is answered. The URL
+             * can point to either a WAV or MP3 file. media_name and audio_url cannot be used
+             * together in one request.
+             */
+            fun audioUrl(audioUrl: String) = audioUrl(JsonField.of(audioUrl))
+
+            /**
+             * Sets [Builder.audioUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.audioUrl] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun audioUrl(audioUrl: JsonField<String>) = apply { this.audioUrl = audioUrl }
+
+            /**
+             * Use this field to set the Billing Group ID for the call. Must be a valid and existing
+             * Billing Group ID.
+             */
+            fun billingGroupId(billingGroupId: String) =
+                billingGroupId(JsonField.of(billingGroupId))
+
+            /**
+             * Sets [Builder.billingGroupId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.billingGroupId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun billingGroupId(billingGroupId: JsonField<String>) = apply {
+                this.billingGroupId = billingGroupId
+            }
+
+            /**
+             * Indicates the intent to bridge this call with the call specified in link_to. When
+             * bridge_intent is true, link_to becomes required and the from number will be
+             * overwritten by the from number from the linked call.
+             */
+            fun bridgeIntent(bridgeIntent: Boolean) = bridgeIntent(JsonField.of(bridgeIntent))
+
+            /**
+             * Sets [Builder.bridgeIntent] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bridgeIntent] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bridgeIntent(bridgeIntent: JsonField<Boolean>) = apply {
+                this.bridgeIntent = bridgeIntent
+            }
+
+            /**
+             * Whether to automatically bridge answered call to the call specified in link_to. When
+             * bridge_on_answer is true, link_to becomes required.
+             */
+            fun bridgeOnAnswer(bridgeOnAnswer: Boolean) =
+                bridgeOnAnswer(JsonField.of(bridgeOnAnswer))
+
+            /**
+             * Sets [Builder.bridgeOnAnswer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bridgeOnAnswer] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bridgeOnAnswer(bridgeOnAnswer: JsonField<Boolean>) = apply {
+                this.bridgeOnAnswer = bridgeOnAnswer
+            }
+
+            /**
+             * Use this field to add state to every subsequent webhook. It must be a valid Base-64
+             * encoded string.
+             */
+            fun clientState(clientState: String) = clientState(JsonField.of(clientState))
+
+            /**
+             * Sets [Builder.clientState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.clientState] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun clientState(clientState: JsonField<String>) = apply {
+                this.clientState = clientState
+            }
+
+            /**
+             * Use this field to avoid duplicate commands. Telnyx will ignore others Dial commands
+             * with the same `command_id`.
+             */
+            fun commandId(commandId: String) = commandId(JsonField.of(commandId))
+
+            /**
+             * Sets [Builder.commandId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.commandId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
+
+            /** Optional configuration parameters to dial new participant into a conference. */
+            fun conferenceConfig(conferenceConfig: ConferenceConfig) =
+                conferenceConfig(JsonField.of(conferenceConfig))
+
+            /**
+             * Sets [Builder.conferenceConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conferenceConfig] with a well-typed
+             * [ConferenceConfig] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun conferenceConfig(conferenceConfig: JsonField<ConferenceConfig>) = apply {
+                this.conferenceConfig = conferenceConfig
+            }
+
+            /**
+             * Starts a Conversation Relay session automatically when the answered/dialed call is
+             * answered. This embedded shape is supported on `answer` and `dial`. It uses public
+             * field names (`url`, `dtmf_detection`, `greeting`, `voice`, `language`, etc.) and maps
+             * them to the underlying Conversation Relay action. `client_state`, `tts_language`, and
+             * `transcription_language` inside this object are ignored; use the parent command's
+             * `client_state` and `command_id` fields instead.
+             */
+            fun conversationRelayConfig(conversationRelayConfig: ConversationRelayConfig) =
+                conversationRelayConfig(JsonField.of(conversationRelayConfig))
+
+            /**
+             * Sets [Builder.conversationRelayConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conversationRelayConfig] with a well-typed
+             * [ConversationRelayConfig] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun conversationRelayConfig(
+                conversationRelayConfig: JsonField<ConversationRelayConfig>
+            ) = apply { this.conversationRelayConfig = conversationRelayConfig }
+
+            /** Custom headers to be added to the SIP INVITE. */
+            fun customHeaders(customHeaders: List<CustomSipHeader>) =
+                customHeaders(JsonField.of(customHeaders))
+
+            /**
+             * Sets [Builder.customHeaders] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customHeaders] with a well-typed
+             * `List<CustomSipHeader>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun customHeaders(customHeaders: JsonField<List<CustomSipHeader>>) = apply {
+                this.customHeaders = customHeaders.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [CustomSipHeader] to [customHeaders].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addCustomHeader(customHeader: CustomSipHeader) = apply {
+                customHeaders =
+                    (customHeaders ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("customHeaders", it).add(customHeader)
+                    }
+            }
+
+            /**
+             * Enables deepfake detection on the call. When enabled, audio from the remote party is
+             * streamed to a detection service that analyzes whether the voice is AI-generated.
+             * Results are delivered via the `call.deepfake_detection.result` webhook.
+             */
+            fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                deepfakeDetection(JsonField.of(deepfakeDetection))
+
+            /**
+             * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.deepfakeDetection] with a well-typed
+             * [DeepfakeDetection] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                this.deepfakeDetection = deepfakeDetection
+            }
+
+            fun dialogflowConfig(dialogflowConfig: DialogflowConfig) =
+                dialogflowConfig(JsonField.of(dialogflowConfig))
+
+            /**
+             * Sets [Builder.dialogflowConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dialogflowConfig] with a well-typed
+             * [DialogflowConfig] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun dialogflowConfig(dialogflowConfig: JsonField<DialogflowConfig>) = apply {
+                this.dialogflowConfig = dialogflowConfig
+            }
+
+            /** Enables Dialogflow for the current call. The default value is false. */
+            fun enableDialogflow(enableDialogflow: Boolean) =
+                enableDialogflow(JsonField.of(enableDialogflow))
+
+            /**
+             * Sets [Builder.enableDialogflow] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enableDialogflow] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enableDialogflow(enableDialogflow: JsonField<Boolean>) = apply {
+                this.enableDialogflow = enableDialogflow
+            }
+
+            /**
+             * The `from_display_name` string to be used as the caller id name (SIP From Display
+             * Name) presented to the destination (`to` number). The string should have a maximum of
+             * 128 characters, containing only letters, numbers, spaces, and -_~!.+ special
+             * characters. If ommited, the display name will be the same as the number in the `from`
+             * field.
+             */
+            fun fromDisplayName(fromDisplayName: String) =
+                fromDisplayName(JsonField.of(fromDisplayName))
+
+            /**
+             * Sets [Builder.fromDisplayName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fromDisplayName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fromDisplayName(fromDisplayName: JsonField<String>) = apply {
+                this.fromDisplayName = fromDisplayName
+            }
+
+            /** Use another call's control id for sharing the same call session id */
+            fun linkTo(linkTo: String) = linkTo(JsonField.of(linkTo))
+
+            /**
+             * Sets [Builder.linkTo] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.linkTo] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun linkTo(linkTo: JsonField<String>) = apply { this.linkTo = linkTo }
+
+            /**
+             * Defines whether media should be encrypted on the call. For SIP URI destinations,
+             * media encryption can also be requested per endpoint with the `secure` URI parameter:
+             * `;secure=true` or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This
+             * parameter, when set to `SRTP` or `DTLS`, takes precedence over the per-endpoint
+             * `secure` value.
+             */
+            fun mediaEncryption(mediaEncryption: MediaEncryption) =
+                mediaEncryption(JsonField.of(mediaEncryption))
+
+            /**
+             * Sets [Builder.mediaEncryption] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mediaEncryption] with a well-typed [MediaEncryption]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun mediaEncryption(mediaEncryption: JsonField<MediaEncryption>) = apply {
+                this.mediaEncryption = mediaEncryption
+            }
+
+            /**
+             * The media_name of a file to be played back to the callee when the call is answered.
+             * The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by
+             * the same user/organization. The file must either be a WAV or MP3 file.
+             */
+            fun mediaName(mediaName: String) = mediaName(JsonField.of(mediaName))
+
+            /**
+             * Sets [Builder.mediaName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mediaName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun mediaName(mediaName: JsonField<String>) = apply { this.mediaName = mediaName }
+
+            /**
+             * If supplied with the value `self`, the current leg will be parked after unbridge. If
+             * not set, the default behavior is to hang up the leg. When park_after_unbridge is set,
+             * link_to becomes required.
+             */
+            fun parkAfterUnbridge(parkAfterUnbridge: String) =
+                parkAfterUnbridge(JsonField.of(parkAfterUnbridge))
+
+            /**
+             * Sets [Builder.parkAfterUnbridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.parkAfterUnbridge] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun parkAfterUnbridge(parkAfterUnbridge: JsonField<String>) = apply {
+                this.parkAfterUnbridge = parkAfterUnbridge
+            }
+
+            /**
+             * The list of comma-separated codecs in a preferred order for the forked media to be
+             * received.
+             */
+            fun preferredCodecs(preferredCodecs: String) =
+                preferredCodecs(JsonField.of(preferredCodecs))
+
+            /**
+             * Sets [Builder.preferredCodecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.preferredCodecs] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
+                this.preferredCodecs = preferredCodecs
+            }
+
+            /**
+             * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+             * default.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: Boolean) =
+                preventDoubleBridge(JsonField.of(preventDoubleBridge))
+
+            /**
+             * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+                this.preventDoubleBridge = preventDoubleBridge
+            }
+
+            /**
+             * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+             * information (name and number) will be hidden from the called party. When set to
+             * `none` or omitted, caller ID will be shown normally.
+             */
+            fun privacy(privacy: Privacy) = privacy(JsonField.of(privacy))
+
+            /**
+             * Sets [Builder.privacy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun privacy(privacy: JsonField<Privacy>) = apply { this.privacy = privacy }
+
+            /** Start recording automatically after an event. Disabled by default. */
+            fun record(record: Record) = record(JsonField.of(record))
+
+            /**
+             * Sets [Builder.record] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.record] with a well-typed [Record] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun record(record: JsonField<Record>) = apply { this.record = record }
+
+            /**
+             * Defines which channel should be recorded ('single' or 'dual') when `record` is
+             * specified.
+             */
+            fun recordChannels(recordChannels: RecordChannels) =
+                recordChannels(JsonField.of(recordChannels))
+
+            /**
+             * Sets [Builder.recordChannels] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordChannels] with a well-typed [RecordChannels]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recordChannels(recordChannels: JsonField<RecordChannels>) = apply {
+                this.recordChannels = recordChannels
+            }
+
+            /**
+             * The custom recording file name to be used instead of the default `call_leg_id`.
+             * Telnyx will still add a Unix timestamp suffix.
+             */
+            fun recordCustomFileName(recordCustomFileName: String) =
+                recordCustomFileName(JsonField.of(recordCustomFileName))
+
+            /**
+             * Sets [Builder.recordCustomFileName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordCustomFileName] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recordCustomFileName(recordCustomFileName: JsonField<String>) = apply {
+                this.recordCustomFileName = recordCustomFileName
+            }
+
+            /** Defines the format of the recording ('wav' or 'mp3') when `record` is specified. */
+            fun recordFormat(recordFormat: RecordFormat) = recordFormat(JsonField.of(recordFormat))
+
+            /**
+             * Sets [Builder.recordFormat] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordFormat] with a well-typed [RecordFormat] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordFormat(recordFormat: JsonField<RecordFormat>) = apply {
+                this.recordFormat = recordFormat
+            }
+
+            /**
+             * Defines the maximum length for the recording in seconds when `record` is specified.
+             * The minimum value is 0. The maximum value is 43200. The default value is 0
+             * (infinite).
+             */
+            fun recordMaxLength(recordMaxLength: Int) =
+                recordMaxLength(JsonField.of(recordMaxLength))
+
+            /**
+             * Sets [Builder.recordMaxLength] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordMaxLength] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordMaxLength(recordMaxLength: JsonField<Int>) = apply {
+                this.recordMaxLength = recordMaxLength
+            }
+
+            /**
+             * The number of seconds that Telnyx will wait for the recording to be stopped if
+             * silence is detected when `record` is specified. The timer only starts when the speech
+             * is detected. Please note that call transcription is used to detect silence and the
+             * related charge will be applied. The minimum value is 0. The default value is 0
+             * (infinite).
+             */
+            fun recordTimeoutSecs(recordTimeoutSecs: Int) =
+                recordTimeoutSecs(JsonField.of(recordTimeoutSecs))
+
+            /**
+             * Sets [Builder.recordTimeoutSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordTimeoutSecs] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordTimeoutSecs(recordTimeoutSecs: JsonField<Int>) = apply {
+                this.recordTimeoutSecs = recordTimeoutSecs
+            }
+
+            /**
+             * The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If
+             * only single track is specified (`inbound`, `outbound`), `channels` configuration is
+             * ignored and it will be recorded as mono (single channel).
+             */
+            fun recordTrack(recordTrack: RecordTrack) = recordTrack(JsonField.of(recordTrack))
+
+            /**
+             * Sets [Builder.recordTrack] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordTrack] with a well-typed [RecordTrack] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordTrack(recordTrack: JsonField<RecordTrack>) = apply {
+                this.recordTrack = recordTrack
+            }
+
+            /**
+             * When set to `trim-silence`, silence will be removed from the beginning and end of the
+             * recording.
+             */
+            fun recordTrim(recordTrim: RecordTrim) = recordTrim(JsonField.of(recordTrim))
+
+            /**
+             * Sets [Builder.recordTrim] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordTrim] with a well-typed [RecordTrim] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordTrim(recordTrim: JsonField<RecordTrim>) = apply {
+                this.recordTrim = recordTrim
+            }
+
+            /**
+             * DTMF digits to send automatically after the called party answers. Useful for reaching
+             * an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party
+             * picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
+             * `#`. Maximum 64 characters. When omitted, no automatic DTMF is sent. May also be
+             * supplied inline by appending `,<digits>` to `to` (e.g. `to=+18004247767,200`); if
+             * both forms are present, this explicit field takes precedence.
+             */
+            fun sendDigitsOnAnswer(sendDigitsOnAnswer: String) =
+                sendDigitsOnAnswer(JsonField.of(sendDigitsOnAnswer))
+
+            /**
+             * Sets [Builder.sendDigitsOnAnswer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendDigitsOnAnswer] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sendDigitsOnAnswer(sendDigitsOnAnswer: JsonField<String>) = apply {
+                this.sendDigitsOnAnswer = sendDigitsOnAnswer
+            }
+
+            /** Generate silence RTP packets when no transmission available. */
+            fun sendSilenceWhenIdle(sendSilenceWhenIdle: Boolean) =
+                sendSilenceWhenIdle(JsonField.of(sendSilenceWhenIdle))
+
+            /**
+             * Sets [Builder.sendSilenceWhenIdle] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendSilenceWhenIdle] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun sendSilenceWhenIdle(sendSilenceWhenIdle: JsonField<Boolean>) = apply {
+                this.sendSilenceWhenIdle = sendSilenceWhenIdle
+            }
+
+            /** SIP Authentication password used for SIP challenges. */
+            fun sipAuthPassword(sipAuthPassword: String) =
+                sipAuthPassword(JsonField.of(sipAuthPassword))
+
+            /**
+             * Sets [Builder.sipAuthPassword] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipAuthPassword] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sipAuthPassword(sipAuthPassword: JsonField<String>) = apply {
+                this.sipAuthPassword = sipAuthPassword
+            }
+
+            /** SIP Authentication username used for SIP challenges. */
+            fun sipAuthUsername(sipAuthUsername: String) =
+                sipAuthUsername(JsonField.of(sipAuthUsername))
+
+            /**
+             * Sets [Builder.sipAuthUsername] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipAuthUsername] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sipAuthUsername(sipAuthUsername: JsonField<String>) = apply {
+                this.sipAuthUsername = sipAuthUsername
+            }
+
+            /**
+             * SIP headers to be added to the SIP INVITE request. Currently only User-to-User header
+             * is supported.
+             */
+            fun sipHeaders(sipHeaders: List<SipHeader>) = sipHeaders(JsonField.of(sipHeaders))
+
+            /**
+             * Sets [Builder.sipHeaders] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipHeaders] with a well-typed `List<SipHeader>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun sipHeaders(sipHeaders: JsonField<List<SipHeader>>) = apply {
+                this.sipHeaders = sipHeaders.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [SipHeader] to [sipHeaders].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addSipHeader(sipHeader: SipHeader) = apply {
+                sipHeaders =
+                    (sipHeaders ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("sipHeaders", it).add(sipHeader)
+                    }
+            }
+
+            /** Defines the SIP region to be used for the call. */
+            fun sipRegion(sipRegion: SipRegion) = sipRegion(JsonField.of(sipRegion))
+
+            /**
+             * Sets [Builder.sipRegion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { this.sipRegion = sipRegion }
+
+            /** Defines SIP transport protocol to be used on the call. */
+            fun sipTransportProtocol(sipTransportProtocol: SipTransportProtocol) =
+                sipTransportProtocol(JsonField.of(sipTransportProtocol))
+
+            /**
+             * Sets [Builder.sipTransportProtocol] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipTransportProtocol] with a well-typed
+             * [SipTransportProtocol] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun sipTransportProtocol(sipTransportProtocol: JsonField<SipTransportProtocol>) =
+                apply {
+                    this.sipTransportProtocol = sipTransportProtocol
+                }
+
+            /** Use this field to modify sound effects, for example adjust the pitch. */
+            fun soundModifications(soundModifications: SoundModifications) =
+                soundModifications(JsonField.of(soundModifications))
+
+            /**
+             * Sets [Builder.soundModifications] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.soundModifications] with a well-typed
+             * [SoundModifications] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun soundModifications(soundModifications: JsonField<SoundModifications>) = apply {
+                this.soundModifications = soundModifications
+            }
+
+            /**
+             * An authentication token to be sent as part of the WebSocket connection when using
+             * streaming. Maximum length is 4000 characters.
+             */
+            fun streamAuthToken(streamAuthToken: String) =
+                streamAuthToken(JsonField.of(streamAuthToken))
+
+            /**
+             * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                this.streamAuthToken = streamAuthToken
+            }
+
+            /**
+             * Indicates codec for bidirectional streaming RTP payloads. Used only with
+             * stream_bidirectional_mode=rtp. Case sensitive.
+             */
+            fun streamBidirectionalCodec(streamBidirectionalCodec: StreamBidirectionalCodec) =
+                streamBidirectionalCodec(JsonField.of(streamBidirectionalCodec))
+
+            /**
+             * Sets [Builder.streamBidirectionalCodec] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamBidirectionalCodec] with a well-typed
+             * [StreamBidirectionalCodec] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun streamBidirectionalCodec(
+                streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>
+            ) = apply { this.streamBidirectionalCodec = streamBidirectionalCodec }
+
+            /** Configures method of bidirectional streaming (mp3, rtp). */
+            fun streamBidirectionalMode(streamBidirectionalMode: StreamBidirectionalMode) =
+                streamBidirectionalMode(JsonField.of(streamBidirectionalMode))
+
+            /**
+             * Sets [Builder.streamBidirectionalMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamBidirectionalMode] with a well-typed
+             * [StreamBidirectionalMode] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun streamBidirectionalMode(
+                streamBidirectionalMode: JsonField<StreamBidirectionalMode>
+            ) = apply { this.streamBidirectionalMode = streamBidirectionalMode }
+
+            /** Audio sampling rate. */
+            fun streamBidirectionalSamplingRate(
+                streamBidirectionalSamplingRate: StreamBidirectionalSamplingRate
+            ) = streamBidirectionalSamplingRate(JsonField.of(streamBidirectionalSamplingRate))
+
+            /**
+             * Sets [Builder.streamBidirectionalSamplingRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamBidirectionalSamplingRate] with a well-typed
+             * [StreamBidirectionalSamplingRate] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun streamBidirectionalSamplingRate(
+                streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>
+            ) = apply { this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate }
+
+            /** Specifies which call legs should receive the bidirectional stream audio. */
+            fun streamBidirectionalTargetLegs(
+                streamBidirectionalTargetLegs: StreamBidirectionalTargetLegs
+            ) = streamBidirectionalTargetLegs(JsonField.of(streamBidirectionalTargetLegs))
+
+            /**
+             * Sets [Builder.streamBidirectionalTargetLegs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamBidirectionalTargetLegs] with a well-typed
+             * [StreamBidirectionalTargetLegs] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun streamBidirectionalTargetLegs(
+                streamBidirectionalTargetLegs: JsonField<StreamBidirectionalTargetLegs>
+            ) = apply { this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs }
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to 'default' or when
+             * transcoding is not possible, the codec from the call will be used.
+             */
+            fun streamCodec(streamCodec: StreamCodec) = streamCodec(JsonField.of(streamCodec))
+
+            /**
+             * Sets [Builder.streamCodec] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamCodec] with a well-typed [StreamCodec] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamCodec(streamCodec: JsonField<StreamCodec>) = apply {
+                this.streamCodec = streamCodec
+            }
+
+            /**
+             * Establish websocket connection before dialing the destination. This is useful for
+             * cases where the websocket connection takes a long time to establish.
+             */
+            fun streamEstablishBeforeCallOriginate(streamEstablishBeforeCallOriginate: Boolean) =
+                streamEstablishBeforeCallOriginate(JsonField.of(streamEstablishBeforeCallOriginate))
+
+            /**
+             * Sets [Builder.streamEstablishBeforeCallOriginate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamEstablishBeforeCallOriginate] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun streamEstablishBeforeCallOriginate(
+                streamEstablishBeforeCallOriginate: JsonField<Boolean>
+            ) = apply {
+                this.streamEstablishBeforeCallOriginate = streamEstablishBeforeCallOriginate
+            }
+
+            /** Specifies which track should be streamed. */
+            fun streamTrack(streamTrack: StreamTrack) = streamTrack(JsonField.of(streamTrack))
+
+            /**
+             * Sets [Builder.streamTrack] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamTrack] with a well-typed [StreamTrack] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamTrack(streamTrack: JsonField<StreamTrack>) = apply {
+                this.streamTrack = streamTrack
+            }
+
+            /** The destination WebSocket address where the stream is going to be delivered. */
+            fun streamUrl(streamUrl: String) = streamUrl(JsonField.of(streamUrl))
+
+            /**
+             * Sets [Builder.streamUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamUrl] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamUrl(streamUrl: JsonField<String>) = apply { this.streamUrl = streamUrl }
+
+            /** The call leg which will be supervised by the new call. */
+            fun superviseCallControlId(superviseCallControlId: String) =
+                superviseCallControlId(JsonField.of(superviseCallControlId))
+
+            /**
+             * Sets [Builder.superviseCallControlId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.superviseCallControlId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun superviseCallControlId(superviseCallControlId: JsonField<String>) = apply {
+                this.superviseCallControlId = superviseCallControlId
+            }
+
+            /**
+             * The role of the supervisor call. 'barge' means that supervisor call hears and is
+             * being heard by both ends of the call (caller & callee). 'whisper' means that only
+             * supervised_call_control_id hears supervisor but supervisor can hear everything.
+             * 'monitor' means that nobody can hear supervisor call, but supervisor can hear
+             * everything on the call.
+             */
+            fun supervisorRole(supervisorRole: SupervisorRole) =
+                supervisorRole(JsonField.of(supervisorRole))
+
+            /**
+             * Sets [Builder.supervisorRole] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.supervisorRole] with a well-typed [SupervisorRole]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun supervisorRole(supervisorRole: JsonField<SupervisorRole>) = apply {
+                this.supervisorRole = supervisorRole
+            }
+
+            /**
+             * Sets the maximum duration of a Call Control Leg in seconds. If the time limit is
+             * reached, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of
+             * `time_limit` will be sent. For example, by setting a time limit of 120 seconds, a
+             * Call Leg will be automatically terminated two minutes after being answered. The
+             * default time limit is 14400 seconds or 4 hours and this is also the maximum allowed
+             * call length.
+             */
+            fun timeLimitSecs(timeLimitSecs: Int) = timeLimitSecs(JsonField.of(timeLimitSecs))
+
+            /**
+             * Sets [Builder.timeLimitSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeLimitSecs] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun timeLimitSecs(timeLimitSecs: JsonField<Int>) = apply {
+                this.timeLimitSecs = timeLimitSecs
+            }
+
+            /**
+             * The number of seconds that Telnyx will wait for the call to be answered by the
+             * destination to which it is being called. If the timeout is reached before an answer
+             * is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause`
+             * of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
+             */
+            fun timeoutSecs(timeoutSecs: Int) = timeoutSecs(JsonField.of(timeoutSecs))
+
+            /**
+             * Sets [Builder.timeoutSecs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeoutSecs] with a well-typed [Int] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun timeoutSecs(timeoutSecs: JsonField<Int>) = apply { this.timeoutSecs = timeoutSecs }
+
+            /** Enable transcription upon call answer. The default value is false. */
+            fun transcription(transcription: Boolean) = transcription(JsonField.of(transcription))
+
+            /**
+             * Sets [Builder.transcription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transcription] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun transcription(transcription: JsonField<Boolean>) = apply {
+                this.transcription = transcription
+            }
+
+            fun transcriptionConfig(transcriptionConfig: TranscriptionStartRequest) =
+                transcriptionConfig(JsonField.of(transcriptionConfig))
+
+            /**
+             * Sets [Builder.transcriptionConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transcriptionConfig] with a well-typed
+             * [TranscriptionStartRequest] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun transcriptionConfig(transcriptionConfig: JsonField<TranscriptionStartRequest>) =
+                apply {
+                    this.transcriptionConfig = transcriptionConfig
+                }
+
+            /**
+             * A map of event types to retry policies. Each retry policy contains an array of
+             * `retries_ms` specifying the delays between retry attempts in milliseconds. Maximum 5
+             * retries, total delay cannot exceed 60 seconds.
+             */
+            fun webhookRetriesPolicies(webhookRetriesPolicies: WebhookRetriesPolicies) =
+                webhookRetriesPolicies(JsonField.of(webhookRetriesPolicies))
+
+            /**
+             * Sets [Builder.webhookRetriesPolicies] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookRetriesPolicies] with a well-typed
+             * [WebhookRetriesPolicies] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun webhookRetriesPolicies(webhookRetriesPolicies: JsonField<WebhookRetriesPolicies>) =
+                apply {
+                    this.webhookRetriesPolicies = webhookRetriesPolicies
+                }
+
+            /**
+             * Use this field to override the URL for which Telnyx will send subsequent webhooks to
+             * for this call.
+             */
+            fun webhookUrl(webhookUrl: String) = webhookUrl(JsonField.of(webhookUrl))
+
+            /**
+             * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
+            /** HTTP request type used for `webhook_url`. */
+            fun webhookUrlMethod(webhookUrlMethod: WebhookUrlMethod) =
+                webhookUrlMethod(JsonField.of(webhookUrlMethod))
+
+            /**
+             * Sets [Builder.webhookUrlMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrlMethod] with a well-typed
+             * [WebhookUrlMethod] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun webhookUrlMethod(webhookUrlMethod: JsonField<WebhookUrlMethod>) = apply {
+                this.webhookUrlMethod = webhookUrlMethod
+            }
+
+            /**
+             * A map of event types to webhook URLs. When an event of the specified type occurs, the
+             * webhook URL associated with that event type will be called instead of the default
+             * webhook URL. Events not mapped here will use the default webhook URL.
+             */
+            fun webhookUrls(webhookUrls: WebhookUrls) = webhookUrls(JsonField.of(webhookUrls))
+
+            /**
+             * Sets [Builder.webhookUrls] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrls] with a well-typed [WebhookUrls] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun webhookUrls(webhookUrls: JsonField<WebhookUrls>) = apply {
+                this.webhookUrls = webhookUrls
+            }
+
+            /** HTTP request method to invoke `webhook_urls`. */
+            fun webhookUrlsMethod(webhookUrlsMethod: WebhookUrlsMethod) =
+                webhookUrlsMethod(JsonField.of(webhookUrlsMethod))
+
+            /**
+             * Sets [Builder.webhookUrlsMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrlsMethod] with a well-typed
+             * [WebhookUrlsMethod] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun webhookUrlsMethod(webhookUrlsMethod: JsonField<WebhookUrlsMethod>) = apply {
+                this.webhookUrlsMethod = webhookUrlsMethod
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .connectionId()
+             * .from()
+             * .to()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("connectionId", connectionId),
+                    checkRequired("from", from),
+                    checkRequired("to", to),
+                    answeringMachineDetection,
+                    answeringMachineDetectionConfig,
+                    assistant,
+                    audioUrl,
+                    billingGroupId,
+                    bridgeIntent,
+                    bridgeOnAnswer,
+                    clientState,
+                    commandId,
+                    conferenceConfig,
+                    conversationRelayConfig,
+                    (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    deepfakeDetection,
+                    dialogflowConfig,
+                    enableDialogflow,
+                    fromDisplayName,
+                    linkTo,
+                    mediaEncryption,
+                    mediaName,
+                    parkAfterUnbridge,
+                    preferredCodecs,
+                    preventDoubleBridge,
+                    privacy,
+                    record,
+                    recordChannels,
+                    recordCustomFileName,
+                    recordFormat,
+                    recordMaxLength,
+                    recordTimeoutSecs,
+                    recordTrack,
+                    recordTrim,
+                    sendDigitsOnAnswer,
+                    sendSilenceWhenIdle,
+                    sipAuthPassword,
+                    sipAuthUsername,
+                    (sipHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    sipRegion,
+                    sipTransportProtocol,
+                    soundModifications,
+                    streamAuthToken,
+                    streamBidirectionalCodec,
+                    streamBidirectionalMode,
+                    streamBidirectionalSamplingRate,
+                    streamBidirectionalTargetLegs,
+                    streamCodec,
+                    streamEstablishBeforeCallOriginate,
+                    streamTrack,
+                    streamUrl,
+                    superviseCallControlId,
+                    supervisorRole,
+                    timeLimitSecs,
+                    timeoutSecs,
+                    transcription,
+                    transcriptionConfig,
+                    webhookRetriesPolicies,
+                    webhookUrl,
+                    webhookUrlMethod,
+                    webhookUrls,
+                    webhookUrlsMethod,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            connectionId()
+            from()
+            to().validate()
+            answeringMachineDetection().ifPresent { it.validate() }
+            answeringMachineDetectionConfig().ifPresent { it.validate() }
+            assistant().ifPresent { it.validate() }
+            audioUrl()
+            billingGroupId()
+            bridgeIntent()
+            bridgeOnAnswer()
+            clientState()
+            commandId()
+            conferenceConfig().ifPresent { it.validate() }
+            conversationRelayConfig().ifPresent { it.validate() }
+            customHeaders().ifPresent { it.forEach { it.validate() } }
+            deepfakeDetection().ifPresent { it.validate() }
+            dialogflowConfig().ifPresent { it.validate() }
+            enableDialogflow()
+            fromDisplayName()
+            linkTo()
+            mediaEncryption().ifPresent { it.validate() }
+            mediaName()
+            parkAfterUnbridge()
+            preferredCodecs()
+            preventDoubleBridge()
+            privacy().ifPresent { it.validate() }
+            record().ifPresent { it.validate() }
+            recordChannels().ifPresent { it.validate() }
+            recordCustomFileName()
+            recordFormat().ifPresent { it.validate() }
+            recordMaxLength()
+            recordTimeoutSecs()
+            recordTrack().ifPresent { it.validate() }
+            recordTrim().ifPresent { it.validate() }
+            sendDigitsOnAnswer()
+            sendSilenceWhenIdle()
+            sipAuthPassword()
+            sipAuthUsername()
+            sipHeaders().ifPresent { it.forEach { it.validate() } }
+            sipRegion().ifPresent { it.validate() }
+            sipTransportProtocol().ifPresent { it.validate() }
+            soundModifications().ifPresent { it.validate() }
+            streamAuthToken()
+            streamBidirectionalCodec().ifPresent { it.validate() }
+            streamBidirectionalMode().ifPresent { it.validate() }
+            streamBidirectionalSamplingRate().ifPresent { it.validate() }
+            streamBidirectionalTargetLegs().ifPresent { it.validate() }
+            streamCodec().ifPresent { it.validate() }
+            streamEstablishBeforeCallOriginate()
+            streamTrack().ifPresent { it.validate() }
+            streamUrl()
+            superviseCallControlId()
+            supervisorRole().ifPresent { it.validate() }
+            timeLimitSecs()
+            timeoutSecs()
+            transcription()
+            transcriptionConfig().ifPresent { it.validate() }
+            webhookRetriesPolicies().ifPresent { it.validate() }
+            webhookUrl()
+            webhookUrlMethod().ifPresent { it.validate() }
+            webhookUrls().ifPresent { it.validate() }
+            webhookUrlsMethod().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (connectionId.asKnown().isPresent) 1 else 0) +
+                (if (from.asKnown().isPresent) 1 else 0) +
+                (to.asKnown().getOrNull()?.validity() ?: 0) +
+                (answeringMachineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                (answeringMachineDetectionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (assistant.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (audioUrl.asKnown().isPresent) 1 else 0) +
+                (if (billingGroupId.asKnown().isPresent) 1 else 0) +
+                (if (bridgeIntent.asKnown().isPresent) 1 else 0) +
+                (if (bridgeOnAnswer.asKnown().isPresent) 1 else 0) +
+                (if (clientState.asKnown().isPresent) 1 else 0) +
+                (if (commandId.asKnown().isPresent) 1 else 0) +
+                (conferenceConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (conversationRelayConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                (dialogflowConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (enableDialogflow.asKnown().isPresent) 1 else 0) +
+                (if (fromDisplayName.asKnown().isPresent) 1 else 0) +
+                (if (linkTo.asKnown().isPresent) 1 else 0) +
+                (mediaEncryption.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (mediaName.asKnown().isPresent) 1 else 0) +
+                (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
+                (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
+                (if (preventDoubleBridge.asKnown().isPresent) 1 else 0) +
+                (privacy.asKnown().getOrNull()?.validity() ?: 0) +
+                (record.asKnown().getOrNull()?.validity() ?: 0) +
+                (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (recordCustomFileName.asKnown().isPresent) 1 else 0) +
+                (recordFormat.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (recordMaxLength.asKnown().isPresent) 1 else 0) +
+                (if (recordTimeoutSecs.asKnown().isPresent) 1 else 0) +
+                (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (sendDigitsOnAnswer.asKnown().isPresent) 1 else 0) +
+                (if (sendSilenceWhenIdle.asKnown().isPresent) 1 else 0) +
+                (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
+                (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
+                (sipHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
+                (sipTransportProtocol.asKnown().getOrNull()?.validity() ?: 0) +
+                (soundModifications.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
+                (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
+                (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
+                (streamBidirectionalTargetLegs.asKnown().getOrNull()?.validity() ?: 0) +
+                (streamCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (streamEstablishBeforeCallOriginate.asKnown().isPresent) 1 else 0) +
+                (streamTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (streamUrl.asKnown().isPresent) 1 else 0) +
+                (if (superviseCallControlId.asKnown().isPresent) 1 else 0) +
+                (supervisorRole.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (timeLimitSecs.asKnown().isPresent) 1 else 0) +
+                (if (timeoutSecs.asKnown().isPresent) 1 else 0) +
+                (if (transcription.asKnown().isPresent) 1 else 0) +
+                (transcriptionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookRetriesPolicies.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (webhookUrl.asKnown().isPresent) 1 else 0) +
+                (webhookUrlMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookUrls.asKnown().getOrNull()?.validity() ?: 0) +
+                (webhookUrlsMethod.asKnown().getOrNull()?.validity() ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Body &&
+                connectionId == other.connectionId &&
+                from == other.from &&
+                to == other.to &&
+                answeringMachineDetection == other.answeringMachineDetection &&
+                answeringMachineDetectionConfig == other.answeringMachineDetectionConfig &&
+                assistant == other.assistant &&
+                audioUrl == other.audioUrl &&
+                billingGroupId == other.billingGroupId &&
+                bridgeIntent == other.bridgeIntent &&
+                bridgeOnAnswer == other.bridgeOnAnswer &&
+                clientState == other.clientState &&
+                commandId == other.commandId &&
+                conferenceConfig == other.conferenceConfig &&
+                conversationRelayConfig == other.conversationRelayConfig &&
+                customHeaders == other.customHeaders &&
+                deepfakeDetection == other.deepfakeDetection &&
+                dialogflowConfig == other.dialogflowConfig &&
+                enableDialogflow == other.enableDialogflow &&
+                fromDisplayName == other.fromDisplayName &&
+                linkTo == other.linkTo &&
+                mediaEncryption == other.mediaEncryption &&
+                mediaName == other.mediaName &&
+                parkAfterUnbridge == other.parkAfterUnbridge &&
+                preferredCodecs == other.preferredCodecs &&
+                preventDoubleBridge == other.preventDoubleBridge &&
+                privacy == other.privacy &&
+                record == other.record &&
+                recordChannels == other.recordChannels &&
+                recordCustomFileName == other.recordCustomFileName &&
+                recordFormat == other.recordFormat &&
+                recordMaxLength == other.recordMaxLength &&
+                recordTimeoutSecs == other.recordTimeoutSecs &&
+                recordTrack == other.recordTrack &&
+                recordTrim == other.recordTrim &&
+                sendDigitsOnAnswer == other.sendDigitsOnAnswer &&
+                sendSilenceWhenIdle == other.sendSilenceWhenIdle &&
+                sipAuthPassword == other.sipAuthPassword &&
+                sipAuthUsername == other.sipAuthUsername &&
+                sipHeaders == other.sipHeaders &&
+                sipRegion == other.sipRegion &&
+                sipTransportProtocol == other.sipTransportProtocol &&
+                soundModifications == other.soundModifications &&
+                streamAuthToken == other.streamAuthToken &&
+                streamBidirectionalCodec == other.streamBidirectionalCodec &&
+                streamBidirectionalMode == other.streamBidirectionalMode &&
+                streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
+                streamBidirectionalTargetLegs == other.streamBidirectionalTargetLegs &&
+                streamCodec == other.streamCodec &&
+                streamEstablishBeforeCallOriginate == other.streamEstablishBeforeCallOriginate &&
+                streamTrack == other.streamTrack &&
+                streamUrl == other.streamUrl &&
+                superviseCallControlId == other.superviseCallControlId &&
+                supervisorRole == other.supervisorRole &&
+                timeLimitSecs == other.timeLimitSecs &&
+                timeoutSecs == other.timeoutSecs &&
+                transcription == other.transcription &&
+                transcriptionConfig == other.transcriptionConfig &&
+                webhookRetriesPolicies == other.webhookRetriesPolicies &&
+                webhookUrl == other.webhookUrl &&
+                webhookUrlMethod == other.webhookUrlMethod &&
+                webhookUrls == other.webhookUrls &&
+                webhookUrlsMethod == other.webhookUrlsMethod &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                connectionId,
+                from,
+                to,
+                answeringMachineDetection,
+                answeringMachineDetectionConfig,
+                assistant,
+                audioUrl,
+                billingGroupId,
+                bridgeIntent,
+                bridgeOnAnswer,
+                clientState,
+                commandId,
+                conferenceConfig,
+                conversationRelayConfig,
+                customHeaders,
+                deepfakeDetection,
+                dialogflowConfig,
+                enableDialogflow,
+                fromDisplayName,
+                linkTo,
+                mediaEncryption,
+                mediaName,
+                parkAfterUnbridge,
+                preferredCodecs,
+                preventDoubleBridge,
+                privacy,
+                record,
+                recordChannels,
+                recordCustomFileName,
+                recordFormat,
+                recordMaxLength,
+                recordTimeoutSecs,
+                recordTrack,
+                recordTrim,
+                sendDigitsOnAnswer,
+                sendSilenceWhenIdle,
+                sipAuthPassword,
+                sipAuthUsername,
+                sipHeaders,
+                sipRegion,
+                sipTransportProtocol,
+                soundModifications,
+                streamAuthToken,
+                streamBidirectionalCodec,
+                streamBidirectionalMode,
+                streamBidirectionalSamplingRate,
+                streamBidirectionalTargetLegs,
+                streamCodec,
+                streamEstablishBeforeCallOriginate,
+                streamTrack,
+                streamUrl,
+                superviseCallControlId,
+                supervisorRole,
+                timeLimitSecs,
+                timeoutSecs,
+                transcription,
+                transcriptionConfig,
+                webhookRetriesPolicies,
+                webhookUrl,
+                webhookUrlMethod,
+                webhookUrls,
+                webhookUrlsMethod,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The DID or SIP URI to dial out to. Multiple DID or SIP URIs can be provided using an array of
+     * strings. For SIP URI destinations, append `;secure=true` or `;secure=srtp` to enable SRTP
+     * media encryption for that endpoint, or `;secure=dtls` to enable DTLS media encryption for
+     * that endpoint. If `media_encryption` is set to `SRTP` or `DTLS`, it takes precedence over any
+     * per-endpoint `secure` URI parameter. For a single string destination, you may append a comma
+     * followed by DTMF digits (e.g. `+18004247767,200`) to play those digits as DTMF once the
+     * called party answers — equivalent to setting `send_digits_on_answer` separately. If both are
+     * present, the explicit `send_digits_on_answer` parameter takes precedence. This shorthand is
+     * not supported when `to` is an array.
+     */
+    @JsonDeserialize(using = To.Deserializer::class)
+    @JsonSerialize(using = To.Serializer::class)
+    class To
+    private constructor(
+        private val string: String? = null,
+        private val strings: List<String>? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        fun string(): Optional<String> = Optional.ofNullable(string)
+
+        fun strings(): Optional<List<String>> = Optional.ofNullable(strings)
+
+        fun isString(): Boolean = string != null
+
+        fun isStrings(): Boolean = strings != null
+
+        fun asString(): String = string.getOrThrow("string")
+
+        fun asStrings(): List<String> = strings.getOrThrow("strings")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.telnyx.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = to.accept(new To.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitString(String string) {
+         *         return Optional.of(string.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                string != null -> visitor.visitString(string)
+                strings != null -> visitor.visitStrings(strings)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): To = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitString(string: String) {}
+
+                    override fun visitStrings(strings: List<String>) {}
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitString(string: String) = 1
+
+                    override fun visitStrings(strings: List<String>) = strings.size
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is To && string == other.string && strings == other.strings
+        }
+
+        override fun hashCode(): Int = Objects.hash(string, strings)
+
+        override fun toString(): String =
+            when {
+                string != null -> "To{string=$string}"
+                strings != null -> "To{strings=$strings}"
+                _json != null -> "To{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid To")
+            }
+
+        companion object {
+
+            @JvmStatic fun ofString(string: String) = To(string = string)
+
+            @JvmStatic fun ofStrings(strings: List<String>) = To(strings = strings.toImmutable())
+        }
+
+        /** An interface that defines how to map each variant of [To] to a value of type [T]. */
+        interface Visitor<out T> {
+
+            fun visitString(string: String): T
+
+            fun visitStrings(strings: List<String>): T
+
+            /**
+             * Maps an unknown variant of [To] to a value of type [T].
+             *
+             * An instance of [To] can contain an unknown variant if it was deserialized from data
+             * that doesn't match any known variant. For example, if the SDK is on an older version
+             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown To: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<To>(To::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): To {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<String>())?.let {
+                                To(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<List<String>>())?.let {
+                                To(strings = it, _json = json)
+                            },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> To(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
+        internal class Serializer : BaseSerializer<To>(To::class) {
+
+            override fun serialize(
+                value: To,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.string != null -> generator.writeObject(value.string)
+                    value.strings != null -> generator.writeObject(value.strings)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid To")
+                }
+            }
+        }
+    }
+
+    /**
+     * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With
+     * Premium detection, when a call is answered, Telnyx runs real-time detection and sends a
+     * `call.machine.premium.detection.ended` webhook with one of the following results:
+     * `human_residence`, `human_business`, `machine`, `silence` or `fax_detected`. If we detect a
+     * beep, we also send a `call.machine.premium.greeting.ended` webhook with the result of
+     * `beep_detected`. If we detect a beep before `call.machine.premium.detection.ended` we only
+     * send `call.machine.premium.greeting.ended`, and if we detect a beep after
+     * `call.machine.premium.detection.ended`, we send both webhooks. With Standard detection, when
+     * a call is answered, Telnyx runs real-time detection to determine if it was picked up by a
+     * human or a machine and sends an `call.machine.detection.ended` webhook with the analysis
+     * result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will
+     * receive another `call.machine.greeting.ended` webhook when the answering machine greeting
+     * ends with a beep or silence. If `detect_beep` is used, you will only receive
+     * `call.machine.greeting.ended` if a beep is detected.
+     */
+    class AnsweringMachineDetection
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PREMIUM = of("premium")
+
+            @JvmField val DETECT = of("detect")
+
+            @JvmField val DETECT_BEEP = of("detect_beep")
+
+            @JvmField val DETECT_WORDS = of("detect_words")
+
+            @JvmField val GREETING_END = of("greeting_end")
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmStatic fun of(value: String) = AnsweringMachineDetection(JsonField.of(value))
+        }
+
+        /** An enum containing [AnsweringMachineDetection]'s known values. */
+        enum class Known {
+            PREMIUM,
+            DETECT,
+            DETECT_BEEP,
+            DETECT_WORDS,
+            GREETING_END,
+            DISABLED,
+        }
+
+        /**
+         * An enum containing [AnsweringMachineDetection]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [AnsweringMachineDetection] can contain an unknown value in a couple of
+         * cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PREMIUM,
+            DETECT,
+            DETECT_BEEP,
+            DETECT_WORDS,
+            GREETING_END,
+            DISABLED,
+            /**
+             * An enum member indicating that [AnsweringMachineDetection] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PREMIUM -> Value.PREMIUM
+                DETECT -> Value.DETECT
+                DETECT_BEEP -> Value.DETECT_BEEP
+                DETECT_WORDS -> Value.DETECT_WORDS
+                GREETING_END -> Value.GREETING_END
+                DISABLED -> Value.DISABLED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PREMIUM -> Known.PREMIUM
+                DETECT -> Known.DETECT
+                DETECT_BEEP -> Known.DETECT_BEEP
+                DETECT_WORDS -> Known.DETECT_WORDS
+                GREETING_END -> Known.GREETING_END
+                DISABLED -> Known.DISABLED
+                else ->
+                    throw TelnyxInvalidDataException("Unknown AnsweringMachineDetection: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): AnsweringMachineDetection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AnsweringMachineDetection && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
+     * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
+     * `premium` is selected as answering_machine_detection.
+     */
+    class AnsweringMachineDetectionConfig
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val afterGreetingSilenceMillis: JsonField<Int>,
+        private val betweenWordsSilenceMillis: JsonField<Int>,
+        private val greetingDurationMillis: JsonField<Int>,
+        private val greetingSilenceDurationMillis: JsonField<Int>,
+        private val greetingTotalAnalysisTimeMillis: JsonField<Int>,
+        private val initialSilenceMillis: JsonField<Int>,
+        private val maximumNumberOfWords: JsonField<Int>,
+        private val maximumWordLengthMillis: JsonField<Int>,
+        private val silenceThreshold: JsonField<Int>,
+        private val totalAnalysisTimeMillis: JsonField<Int>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("after_greeting_silence_millis")
+            @ExcludeMissing
+            afterGreetingSilenceMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("between_words_silence_millis")
+            @ExcludeMissing
+            betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("greeting_duration_millis")
+            @ExcludeMissing
+            greetingDurationMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("greeting_silence_duration_millis")
+            @ExcludeMissing
+            greetingSilenceDurationMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("greeting_total_analysis_time_millis")
+            @ExcludeMissing
+            greetingTotalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("initial_silence_millis")
+            @ExcludeMissing
+            initialSilenceMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("maximum_number_of_words")
+            @ExcludeMissing
+            maximumNumberOfWords: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("maximum_word_length_millis")
+            @ExcludeMissing
+            maximumWordLengthMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("silence_threshold")
+            @ExcludeMissing
+            silenceThreshold: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("total_analysis_time_millis")
+            @ExcludeMissing
+            totalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of(),
+        ) : this(
+            afterGreetingSilenceMillis,
+            betweenWordsSilenceMillis,
+            greetingDurationMillis,
+            greetingSilenceDurationMillis,
+            greetingTotalAnalysisTimeMillis,
+            initialSilenceMillis,
+            maximumNumberOfWords,
+            maximumWordLengthMillis,
+            silenceThreshold,
+            totalAnalysisTimeMillis,
+            mutableMapOf(),
+        )
+
+        /**
+         * Silence duration threshold after a greeting message or voice for it be considered human.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun afterGreetingSilenceMillis(): Optional<Int> =
+            afterGreetingSilenceMillis.getOptional("after_greeting_silence_millis")
+
+        /**
+         * Maximum threshold for silence between words.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun betweenWordsSilenceMillis(): Optional<Int> =
+            betweenWordsSilenceMillis.getOptional("between_words_silence_millis")
+
+        /**
+         * Maximum threshold of a human greeting. If greeting longer than this value, considered
+         * machine.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun greetingDurationMillis(): Optional<Int> =
+            greetingDurationMillis.getOptional("greeting_duration_millis")
+
+        /**
+         * If machine already detected, maximum threshold for silence between words. If exceeded,
+         * the greeting is considered ended.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun greetingSilenceDurationMillis(): Optional<Int> =
+            greetingSilenceDurationMillis.getOptional("greeting_silence_duration_millis")
+
+        /**
+         * If machine already detected, maximum timeout threshold to determine the end of the
+         * machine greeting.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun greetingTotalAnalysisTimeMillis(): Optional<Int> =
+            greetingTotalAnalysisTimeMillis.getOptional("greeting_total_analysis_time_millis")
+
+        /**
+         * If initial silence duration is greater than this value, consider it a machine.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun initialSilenceMillis(): Optional<Int> =
+            initialSilenceMillis.getOptional("initial_silence_millis")
+
+        /**
+         * If number of detected words is greater than this value, consder it a machine.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun maximumNumberOfWords(): Optional<Int> =
+            maximumNumberOfWords.getOptional("maximum_number_of_words")
+
+        /**
+         * If a single word lasts longer than this threshold, consider it a machine.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun maximumWordLengthMillis(): Optional<Int> =
+            maximumWordLengthMillis.getOptional("maximum_word_length_millis")
+
+        /**
+         * Minimum noise threshold for any analysis.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun silenceThreshold(): Optional<Int> = silenceThreshold.getOptional("silence_threshold")
+
+        /**
+         * Maximum timeout threshold for overall detection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun totalAnalysisTimeMillis(): Optional<Int> =
+            totalAnalysisTimeMillis.getOptional("total_analysis_time_millis")
+
+        /**
+         * Returns the raw JSON value of [afterGreetingSilenceMillis].
+         *
+         * Unlike [afterGreetingSilenceMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("after_greeting_silence_millis")
+        @ExcludeMissing
+        fun _afterGreetingSilenceMillis(): JsonField<Int> = afterGreetingSilenceMillis
+
+        /**
+         * Returns the raw JSON value of [betweenWordsSilenceMillis].
+         *
+         * Unlike [betweenWordsSilenceMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("between_words_silence_millis")
+        @ExcludeMissing
+        fun _betweenWordsSilenceMillis(): JsonField<Int> = betweenWordsSilenceMillis
+
+        /**
+         * Returns the raw JSON value of [greetingDurationMillis].
+         *
+         * Unlike [greetingDurationMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("greeting_duration_millis")
+        @ExcludeMissing
+        fun _greetingDurationMillis(): JsonField<Int> = greetingDurationMillis
+
+        /**
+         * Returns the raw JSON value of [greetingSilenceDurationMillis].
+         *
+         * Unlike [greetingSilenceDurationMillis], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("greeting_silence_duration_millis")
+        @ExcludeMissing
+        fun _greetingSilenceDurationMillis(): JsonField<Int> = greetingSilenceDurationMillis
+
+        /**
+         * Returns the raw JSON value of [greetingTotalAnalysisTimeMillis].
+         *
+         * Unlike [greetingTotalAnalysisTimeMillis], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("greeting_total_analysis_time_millis")
+        @ExcludeMissing
+        fun _greetingTotalAnalysisTimeMillis(): JsonField<Int> = greetingTotalAnalysisTimeMillis
+
+        /**
+         * Returns the raw JSON value of [initialSilenceMillis].
+         *
+         * Unlike [initialSilenceMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("initial_silence_millis")
+        @ExcludeMissing
+        fun _initialSilenceMillis(): JsonField<Int> = initialSilenceMillis
+
+        /**
+         * Returns the raw JSON value of [maximumNumberOfWords].
+         *
+         * Unlike [maximumNumberOfWords], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("maximum_number_of_words")
+        @ExcludeMissing
+        fun _maximumNumberOfWords(): JsonField<Int> = maximumNumberOfWords
+
+        /**
+         * Returns the raw JSON value of [maximumWordLengthMillis].
+         *
+         * Unlike [maximumWordLengthMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("maximum_word_length_millis")
+        @ExcludeMissing
+        fun _maximumWordLengthMillis(): JsonField<Int> = maximumWordLengthMillis
+
+        /**
+         * Returns the raw JSON value of [silenceThreshold].
+         *
+         * Unlike [silenceThreshold], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("silence_threshold")
+        @ExcludeMissing
+        fun _silenceThreshold(): JsonField<Int> = silenceThreshold
+
+        /**
+         * Returns the raw JSON value of [totalAnalysisTimeMillis].
+         *
+         * Unlike [totalAnalysisTimeMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("total_analysis_time_millis")
+        @ExcludeMissing
+        fun _totalAnalysisTimeMillis(): JsonField<Int> = totalAnalysisTimeMillis
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AnsweringMachineDetectionConfig].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [AnsweringMachineDetectionConfig]. */
+        class Builder internal constructor() {
+
+            private var afterGreetingSilenceMillis: JsonField<Int> = JsonMissing.of()
+            private var betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of()
+            private var greetingDurationMillis: JsonField<Int> = JsonMissing.of()
+            private var greetingSilenceDurationMillis: JsonField<Int> = JsonMissing.of()
+            private var greetingTotalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of()
+            private var initialSilenceMillis: JsonField<Int> = JsonMissing.of()
+            private var maximumNumberOfWords: JsonField<Int> = JsonMissing.of()
+            private var maximumWordLengthMillis: JsonField<Int> = JsonMissing.of()
+            private var silenceThreshold: JsonField<Int> = JsonMissing.of()
+            private var totalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(answeringMachineDetectionConfig: AnsweringMachineDetectionConfig) =
+                apply {
+                    afterGreetingSilenceMillis =
+                        answeringMachineDetectionConfig.afterGreetingSilenceMillis
+                    betweenWordsSilenceMillis =
+                        answeringMachineDetectionConfig.betweenWordsSilenceMillis
+                    greetingDurationMillis = answeringMachineDetectionConfig.greetingDurationMillis
+                    greetingSilenceDurationMillis =
+                        answeringMachineDetectionConfig.greetingSilenceDurationMillis
+                    greetingTotalAnalysisTimeMillis =
+                        answeringMachineDetectionConfig.greetingTotalAnalysisTimeMillis
+                    initialSilenceMillis = answeringMachineDetectionConfig.initialSilenceMillis
+                    maximumNumberOfWords = answeringMachineDetectionConfig.maximumNumberOfWords
+                    maximumWordLengthMillis =
+                        answeringMachineDetectionConfig.maximumWordLengthMillis
+                    silenceThreshold = answeringMachineDetectionConfig.silenceThreshold
+                    totalAnalysisTimeMillis =
+                        answeringMachineDetectionConfig.totalAnalysisTimeMillis
+                    additionalProperties =
+                        answeringMachineDetectionConfig.additionalProperties.toMutableMap()
+                }
+
+            /**
+             * Silence duration threshold after a greeting message or voice for it be considered
+             * human.
+             */
+            fun afterGreetingSilenceMillis(afterGreetingSilenceMillis: Int) =
+                afterGreetingSilenceMillis(JsonField.of(afterGreetingSilenceMillis))
+
+            /**
+             * Sets [Builder.afterGreetingSilenceMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.afterGreetingSilenceMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun afterGreetingSilenceMillis(afterGreetingSilenceMillis: JsonField<Int>) = apply {
+                this.afterGreetingSilenceMillis = afterGreetingSilenceMillis
+            }
+
+            /** Maximum threshold for silence between words. */
+            fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: Int) =
+                betweenWordsSilenceMillis(JsonField.of(betweenWordsSilenceMillis))
+
+            /**
+             * Sets [Builder.betweenWordsSilenceMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.betweenWordsSilenceMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: JsonField<Int>) = apply {
+                this.betweenWordsSilenceMillis = betweenWordsSilenceMillis
+            }
+
+            /**
+             * Maximum threshold of a human greeting. If greeting longer than this value, considered
+             * machine.
+             */
+            fun greetingDurationMillis(greetingDurationMillis: Int) =
+                greetingDurationMillis(JsonField.of(greetingDurationMillis))
+
+            /**
+             * Sets [Builder.greetingDurationMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.greetingDurationMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun greetingDurationMillis(greetingDurationMillis: JsonField<Int>) = apply {
+                this.greetingDurationMillis = greetingDurationMillis
+            }
+
+            /**
+             * If machine already detected, maximum threshold for silence between words. If
+             * exceeded, the greeting is considered ended.
+             */
+            fun greetingSilenceDurationMillis(greetingSilenceDurationMillis: Int) =
+                greetingSilenceDurationMillis(JsonField.of(greetingSilenceDurationMillis))
+
+            /**
+             * Sets [Builder.greetingSilenceDurationMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.greetingSilenceDurationMillis] with a well-typed
+             * [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun greetingSilenceDurationMillis(greetingSilenceDurationMillis: JsonField<Int>) =
+                apply {
+                    this.greetingSilenceDurationMillis = greetingSilenceDurationMillis
+                }
+
+            /**
+             * If machine already detected, maximum timeout threshold to determine the end of the
+             * machine greeting.
+             */
+            fun greetingTotalAnalysisTimeMillis(greetingTotalAnalysisTimeMillis: Int) =
+                greetingTotalAnalysisTimeMillis(JsonField.of(greetingTotalAnalysisTimeMillis))
+
+            /**
+             * Sets [Builder.greetingTotalAnalysisTimeMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.greetingTotalAnalysisTimeMillis] with a well-typed
+             * [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun greetingTotalAnalysisTimeMillis(greetingTotalAnalysisTimeMillis: JsonField<Int>) =
+                apply {
+                    this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis
+                }
+
+            /** If initial silence duration is greater than this value, consider it a machine. */
+            fun initialSilenceMillis(initialSilenceMillis: Int) =
+                initialSilenceMillis(JsonField.of(initialSilenceMillis))
+
+            /**
+             * Sets [Builder.initialSilenceMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.initialSilenceMillis] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun initialSilenceMillis(initialSilenceMillis: JsonField<Int>) = apply {
+                this.initialSilenceMillis = initialSilenceMillis
+            }
+
+            /** If number of detected words is greater than this value, consder it a machine. */
+            fun maximumNumberOfWords(maximumNumberOfWords: Int) =
+                maximumNumberOfWords(JsonField.of(maximumNumberOfWords))
+
+            /**
+             * Sets [Builder.maximumNumberOfWords] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maximumNumberOfWords] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maximumNumberOfWords(maximumNumberOfWords: JsonField<Int>) = apply {
+                this.maximumNumberOfWords = maximumNumberOfWords
+            }
+
+            /** If a single word lasts longer than this threshold, consider it a machine. */
+            fun maximumWordLengthMillis(maximumWordLengthMillis: Int) =
+                maximumWordLengthMillis(JsonField.of(maximumWordLengthMillis))
+
+            /**
+             * Sets [Builder.maximumWordLengthMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maximumWordLengthMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun maximumWordLengthMillis(maximumWordLengthMillis: JsonField<Int>) = apply {
+                this.maximumWordLengthMillis = maximumWordLengthMillis
+            }
+
+            /** Minimum noise threshold for any analysis. */
+            fun silenceThreshold(silenceThreshold: Int) =
+                silenceThreshold(JsonField.of(silenceThreshold))
+
+            /**
+             * Sets [Builder.silenceThreshold] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.silenceThreshold] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun silenceThreshold(silenceThreshold: JsonField<Int>) = apply {
+                this.silenceThreshold = silenceThreshold
+            }
+
+            /** Maximum timeout threshold for overall detection. */
+            fun totalAnalysisTimeMillis(totalAnalysisTimeMillis: Int) =
+                totalAnalysisTimeMillis(JsonField.of(totalAnalysisTimeMillis))
+
+            /**
+             * Sets [Builder.totalAnalysisTimeMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalAnalysisTimeMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun totalAnalysisTimeMillis(totalAnalysisTimeMillis: JsonField<Int>) = apply {
+                this.totalAnalysisTimeMillis = totalAnalysisTimeMillis
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AnsweringMachineDetectionConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): AnsweringMachineDetectionConfig =
+                AnsweringMachineDetectionConfig(
+                    afterGreetingSilenceMillis,
+                    betweenWordsSilenceMillis,
+                    greetingDurationMillis,
+                    greetingSilenceDurationMillis,
+                    greetingTotalAnalysisTimeMillis,
+                    initialSilenceMillis,
+                    maximumNumberOfWords,
+                    maximumWordLengthMillis,
+                    silenceThreshold,
+                    totalAnalysisTimeMillis,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): AnsweringMachineDetectionConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            afterGreetingSilenceMillis()
+            betweenWordsSilenceMillis()
+            greetingDurationMillis()
+            greetingSilenceDurationMillis()
+            greetingTotalAnalysisTimeMillis()
+            initialSilenceMillis()
+            maximumNumberOfWords()
+            maximumWordLengthMillis()
+            silenceThreshold()
+            totalAnalysisTimeMillis()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (afterGreetingSilenceMillis.asKnown().isPresent) 1 else 0) +
+                (if (betweenWordsSilenceMillis.asKnown().isPresent) 1 else 0) +
+                (if (greetingDurationMillis.asKnown().isPresent) 1 else 0) +
+                (if (greetingSilenceDurationMillis.asKnown().isPresent) 1 else 0) +
+                (if (greetingTotalAnalysisTimeMillis.asKnown().isPresent) 1 else 0) +
+                (if (initialSilenceMillis.asKnown().isPresent) 1 else 0) +
+                (if (maximumNumberOfWords.asKnown().isPresent) 1 else 0) +
+                (if (maximumWordLengthMillis.asKnown().isPresent) 1 else 0) +
+                (if (silenceThreshold.asKnown().isPresent) 1 else 0) +
+                (if (totalAnalysisTimeMillis.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AnsweringMachineDetectionConfig &&
+                afterGreetingSilenceMillis == other.afterGreetingSilenceMillis &&
+                betweenWordsSilenceMillis == other.betweenWordsSilenceMillis &&
+                greetingDurationMillis == other.greetingDurationMillis &&
+                greetingSilenceDurationMillis == other.greetingSilenceDurationMillis &&
+                greetingTotalAnalysisTimeMillis == other.greetingTotalAnalysisTimeMillis &&
+                initialSilenceMillis == other.initialSilenceMillis &&
+                maximumNumberOfWords == other.maximumNumberOfWords &&
+                maximumWordLengthMillis == other.maximumWordLengthMillis &&
+                silenceThreshold == other.silenceThreshold &&
+                totalAnalysisTimeMillis == other.totalAnalysisTimeMillis &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                afterGreetingSilenceMillis,
+                betweenWordsSilenceMillis,
+                greetingDurationMillis,
+                greetingSilenceDurationMillis,
+                greetingTotalAnalysisTimeMillis,
+                initialSilenceMillis,
+                maximumNumberOfWords,
+                maximumWordLengthMillis,
+                silenceThreshold,
+                totalAnalysisTimeMillis,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
+    }
+
+    /** Optional configuration parameters to dial new participant into a conference. */
+    class ConferenceConfig
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val id: JsonField<String>,
+        private val beepEnabled: JsonField<BeepEnabled>,
+        private val conferenceName: JsonField<String>,
+        private val earlyMedia: JsonField<Boolean>,
+        private val endConferenceOnExit: JsonField<Boolean>,
+        private val hold: JsonField<Boolean>,
+        private val holdAudioUrl: JsonField<String>,
+        private val holdMediaName: JsonField<String>,
+        private val mute: JsonField<Boolean>,
+        private val softEndConferenceOnExit: JsonField<Boolean>,
+        private val startConferenceOnCreate: JsonField<Boolean>,
+        private val startConferenceOnEnter: JsonField<Boolean>,
+        private val supervisorRole: JsonField<SupervisorRole>,
+        private val whisperCallControlIds: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("beep_enabled")
+            @ExcludeMissing
+            beepEnabled: JsonField<BeepEnabled> = JsonMissing.of(),
+            @JsonProperty("conference_name")
+            @ExcludeMissing
+            conferenceName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("early_media")
+            @ExcludeMissing
+            earlyMedia: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("end_conference_on_exit")
+            @ExcludeMissing
+            endConferenceOnExit: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("hold") @ExcludeMissing hold: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("hold_audio_url")
+            @ExcludeMissing
+            holdAudioUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("hold_media_name")
+            @ExcludeMissing
+            holdMediaName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("mute") @ExcludeMissing mute: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("soft_end_conference_on_exit")
+            @ExcludeMissing
+            softEndConferenceOnExit: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("start_conference_on_create")
+            @ExcludeMissing
+            startConferenceOnCreate: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("start_conference_on_enter")
+            @ExcludeMissing
+            startConferenceOnEnter: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("supervisor_role")
+            @ExcludeMissing
+            supervisorRole: JsonField<SupervisorRole> = JsonMissing.of(),
+            @JsonProperty("whisper_call_control_ids")
+            @ExcludeMissing
+            whisperCallControlIds: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(
+            id,
+            beepEnabled,
+            conferenceName,
+            earlyMedia,
+            endConferenceOnExit,
+            hold,
+            holdAudioUrl,
+            holdMediaName,
+            mute,
+            softEndConferenceOnExit,
+            startConferenceOnCreate,
+            startConferenceOnEnter,
+            supervisorRole,
+            whisperCallControlIds,
+            mutableMapOf(),
+        )
+
+        /**
+         * Conference ID to be joined
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun id(): Optional<String> = id.getOptional("id")
+
+        /**
+         * Whether a beep sound should be played when the participant joins and/or leaves the
+         * conference. Can be used to override the conference-level setting.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepEnabled(): Optional<BeepEnabled> = beepEnabled.getOptional("beep_enabled")
+
+        /**
+         * Conference name to be joined
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conferenceName(): Optional<String> = conferenceName.getOptional("conference_name")
+
+        /**
+         * Controls the moment when dialled call is joined into conference. If set to `true` user
+         * will be joined as soon as media is available (ringback). If `false` user will be joined
+         * when call is answered. Defaults to `true`
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun earlyMedia(): Optional<Boolean> = earlyMedia.getOptional("early_media")
+
+        /**
+         * Whether the conference should end and all remaining participants be hung up after the
+         * participant leaves the conference. Defaults to "false".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun endConferenceOnExit(): Optional<Boolean> =
+            endConferenceOnExit.getOptional("end_conference_on_exit")
+
+        /**
+         * Whether the participant should be put on hold immediately after joining the conference.
+         * Defaults to "false".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun hold(): Optional<Boolean> = hold.getOptional("hold")
+
+        /**
+         * The URL of a file to be played to the participant when they are put on hold after joining
+         * the conference. hold_media_name and hold_audio_url cannot be used together in one
+         * request. Takes effect only when "start_conference_on_create" is set to "false". This
+         * property takes effect only if "hold" is set to "true".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun holdAudioUrl(): Optional<String> = holdAudioUrl.getOptional("hold_audio_url")
+
+        /**
+         * The media_name of a file to be played to the participant when they are put on hold after
+         * joining the conference. The media_name must point to a file previously uploaded to
+         * api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or
+         * MP3 file. Takes effect only when "start_conference_on_create" is set to "false". This
+         * property takes effect only if "hold" is set to "true".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun holdMediaName(): Optional<String> = holdMediaName.getOptional("hold_media_name")
+
+        /**
+         * Whether the participant should be muted immediately after joining the conference.
+         * Defaults to "false".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mute(): Optional<Boolean> = mute.getOptional("mute")
+
+        /**
+         * Whether the conference should end after the participant leaves the conference. NOTE this
+         * doesn't hang up the other participants. Defaults to "false".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun softEndConferenceOnExit(): Optional<Boolean> =
+            softEndConferenceOnExit.getOptional("soft_end_conference_on_exit")
+
+        /**
+         * Whether the conference should be started on creation. If the conference isn't started all
+         * participants that join are automatically put on hold. Defaults to "true".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun startConferenceOnCreate(): Optional<Boolean> =
+            startConferenceOnCreate.getOptional("start_conference_on_create")
+
+        /**
+         * Whether the conference should be started after the participant joins the conference.
+         * Defaults to "false".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun startConferenceOnEnter(): Optional<Boolean> =
+            startConferenceOnEnter.getOptional("start_conference_on_enter")
+
+        /**
+         * Sets the joining participant as a supervisor for the conference. A conference can have
+         * multiple supervisors. "barge" means the supervisor enters the conference as a normal
+         * participant. This is the same as "none". "monitor" means the supervisor is muted but can
+         * hear all participants. "whisper" means that only the specified "whisper_call_control_ids"
+         * can hear the supervisor. Defaults to "none".
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun supervisorRole(): Optional<SupervisorRole> =
+            supervisorRole.getOptional("supervisor_role")
+
+        /**
+         * Array of unique call_control_ids the joining supervisor can whisper to. If none provided,
+         * the supervisor will join the conference as a monitoring participant only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun whisperCallControlIds(): Optional<List<String>> =
+            whisperCallControlIds.getOptional("whisper_call_control_ids")
+
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [beepEnabled].
+         *
+         * Unlike [beepEnabled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("beep_enabled")
+        @ExcludeMissing
+        fun _beepEnabled(): JsonField<BeepEnabled> = beepEnabled
+
+        /**
+         * Returns the raw JSON value of [conferenceName].
+         *
+         * Unlike [conferenceName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("conference_name")
+        @ExcludeMissing
+        fun _conferenceName(): JsonField<String> = conferenceName
+
+        /**
+         * Returns the raw JSON value of [earlyMedia].
+         *
+         * Unlike [earlyMedia], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("early_media")
+        @ExcludeMissing
+        fun _earlyMedia(): JsonField<Boolean> = earlyMedia
+
+        /**
+         * Returns the raw JSON value of [endConferenceOnExit].
+         *
+         * Unlike [endConferenceOnExit], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("end_conference_on_exit")
+        @ExcludeMissing
+        fun _endConferenceOnExit(): JsonField<Boolean> = endConferenceOnExit
+
+        /**
+         * Returns the raw JSON value of [hold].
+         *
+         * Unlike [hold], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("hold") @ExcludeMissing fun _hold(): JsonField<Boolean> = hold
+
+        /**
+         * Returns the raw JSON value of [holdAudioUrl].
+         *
+         * Unlike [holdAudioUrl], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("hold_audio_url")
+        @ExcludeMissing
+        fun _holdAudioUrl(): JsonField<String> = holdAudioUrl
+
+        /**
+         * Returns the raw JSON value of [holdMediaName].
+         *
+         * Unlike [holdMediaName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("hold_media_name")
+        @ExcludeMissing
+        fun _holdMediaName(): JsonField<String> = holdMediaName
+
+        /**
+         * Returns the raw JSON value of [mute].
+         *
+         * Unlike [mute], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mute") @ExcludeMissing fun _mute(): JsonField<Boolean> = mute
+
+        /**
+         * Returns the raw JSON value of [softEndConferenceOnExit].
+         *
+         * Unlike [softEndConferenceOnExit], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("soft_end_conference_on_exit")
+        @ExcludeMissing
+        fun _softEndConferenceOnExit(): JsonField<Boolean> = softEndConferenceOnExit
+
+        /**
+         * Returns the raw JSON value of [startConferenceOnCreate].
+         *
+         * Unlike [startConferenceOnCreate], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("start_conference_on_create")
+        @ExcludeMissing
+        fun _startConferenceOnCreate(): JsonField<Boolean> = startConferenceOnCreate
+
+        /**
+         * Returns the raw JSON value of [startConferenceOnEnter].
+         *
+         * Unlike [startConferenceOnEnter], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("start_conference_on_enter")
+        @ExcludeMissing
+        fun _startConferenceOnEnter(): JsonField<Boolean> = startConferenceOnEnter
+
+        /**
+         * Returns the raw JSON value of [supervisorRole].
+         *
+         * Unlike [supervisorRole], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("supervisor_role")
+        @ExcludeMissing
+        fun _supervisorRole(): JsonField<SupervisorRole> = supervisorRole
+
+        /**
+         * Returns the raw JSON value of [whisperCallControlIds].
+         *
+         * Unlike [whisperCallControlIds], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("whisper_call_control_ids")
+        @ExcludeMissing
+        fun _whisperCallControlIds(): JsonField<List<String>> = whisperCallControlIds
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ConferenceConfig]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ConferenceConfig]. */
+        class Builder internal constructor() {
+
+            private var id: JsonField<String> = JsonMissing.of()
+            private var beepEnabled: JsonField<BeepEnabled> = JsonMissing.of()
+            private var conferenceName: JsonField<String> = JsonMissing.of()
+            private var earlyMedia: JsonField<Boolean> = JsonMissing.of()
+            private var endConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
+            private var hold: JsonField<Boolean> = JsonMissing.of()
+            private var holdAudioUrl: JsonField<String> = JsonMissing.of()
+            private var holdMediaName: JsonField<String> = JsonMissing.of()
+            private var mute: JsonField<Boolean> = JsonMissing.of()
+            private var softEndConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
+            private var startConferenceOnCreate: JsonField<Boolean> = JsonMissing.of()
+            private var startConferenceOnEnter: JsonField<Boolean> = JsonMissing.of()
+            private var supervisorRole: JsonField<SupervisorRole> = JsonMissing.of()
+            private var whisperCallControlIds: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(conferenceConfig: ConferenceConfig) = apply {
+                id = conferenceConfig.id
+                beepEnabled = conferenceConfig.beepEnabled
+                conferenceName = conferenceConfig.conferenceName
+                earlyMedia = conferenceConfig.earlyMedia
+                endConferenceOnExit = conferenceConfig.endConferenceOnExit
+                hold = conferenceConfig.hold
+                holdAudioUrl = conferenceConfig.holdAudioUrl
+                holdMediaName = conferenceConfig.holdMediaName
+                mute = conferenceConfig.mute
+                softEndConferenceOnExit = conferenceConfig.softEndConferenceOnExit
+                startConferenceOnCreate = conferenceConfig.startConferenceOnCreate
+                startConferenceOnEnter = conferenceConfig.startConferenceOnEnter
+                supervisorRole = conferenceConfig.supervisorRole
+                whisperCallControlIds =
+                    conferenceConfig.whisperCallControlIds.map { it.toMutableList() }
+                additionalProperties = conferenceConfig.additionalProperties.toMutableMap()
+            }
+
+            /** Conference ID to be joined */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /**
+             * Whether a beep sound should be played when the participant joins and/or leaves the
+             * conference. Can be used to override the conference-level setting.
+             */
+            fun beepEnabled(beepEnabled: BeepEnabled) = beepEnabled(JsonField.of(beepEnabled))
+
+            /**
+             * Sets [Builder.beepEnabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepEnabled] with a well-typed [BeepEnabled] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun beepEnabled(beepEnabled: JsonField<BeepEnabled>) = apply {
+                this.beepEnabled = beepEnabled
+            }
+
+            /** Conference name to be joined */
+            fun conferenceName(conferenceName: String) =
+                conferenceName(JsonField.of(conferenceName))
+
+            /**
+             * Sets [Builder.conferenceName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conferenceName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun conferenceName(conferenceName: JsonField<String>) = apply {
+                this.conferenceName = conferenceName
+            }
+
+            /**
+             * Controls the moment when dialled call is joined into conference. If set to `true`
+             * user will be joined as soon as media is available (ringback). If `false` user will be
+             * joined when call is answered. Defaults to `true`
+             */
+            fun earlyMedia(earlyMedia: Boolean) = earlyMedia(JsonField.of(earlyMedia))
+
+            /**
+             * Sets [Builder.earlyMedia] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.earlyMedia] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun earlyMedia(earlyMedia: JsonField<Boolean>) = apply { this.earlyMedia = earlyMedia }
+
+            /**
+             * Whether the conference should end and all remaining participants be hung up after the
+             * participant leaves the conference. Defaults to "false".
+             */
+            fun endConferenceOnExit(endConferenceOnExit: Boolean) =
+                endConferenceOnExit(JsonField.of(endConferenceOnExit))
+
+            /**
+             * Sets [Builder.endConferenceOnExit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.endConferenceOnExit] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun endConferenceOnExit(endConferenceOnExit: JsonField<Boolean>) = apply {
+                this.endConferenceOnExit = endConferenceOnExit
+            }
+
+            /**
+             * Whether the participant should be put on hold immediately after joining the
+             * conference. Defaults to "false".
+             */
+            fun hold(hold: Boolean) = hold(JsonField.of(hold))
+
+            /**
+             * Sets [Builder.hold] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.hold] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun hold(hold: JsonField<Boolean>) = apply { this.hold = hold }
+
+            /**
+             * The URL of a file to be played to the participant when they are put on hold after
+             * joining the conference. hold_media_name and hold_audio_url cannot be used together in
+             * one request. Takes effect only when "start_conference_on_create" is set to "false".
+             * This property takes effect only if "hold" is set to "true".
+             */
+            fun holdAudioUrl(holdAudioUrl: String) = holdAudioUrl(JsonField.of(holdAudioUrl))
+
+            /**
+             * Sets [Builder.holdAudioUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.holdAudioUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun holdAudioUrl(holdAudioUrl: JsonField<String>) = apply {
+                this.holdAudioUrl = holdAudioUrl
+            }
+
+            /**
+             * The media_name of a file to be played to the participant when they are put on hold
+             * after joining the conference. The media_name must point to a file previously uploaded
+             * to api.telnyx.com/v2/media by the same user/organization. The file must either be a
+             * WAV or MP3 file. Takes effect only when "start_conference_on_create" is set to
+             * "false". This property takes effect only if "hold" is set to "true".
+             */
+            fun holdMediaName(holdMediaName: String) = holdMediaName(JsonField.of(holdMediaName))
+
+            /**
+             * Sets [Builder.holdMediaName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.holdMediaName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun holdMediaName(holdMediaName: JsonField<String>) = apply {
+                this.holdMediaName = holdMediaName
+            }
+
+            /**
+             * Whether the participant should be muted immediately after joining the conference.
+             * Defaults to "false".
+             */
+            fun mute(mute: Boolean) = mute(JsonField.of(mute))
+
+            /**
+             * Sets [Builder.mute] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mute] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun mute(mute: JsonField<Boolean>) = apply { this.mute = mute }
+
+            /**
+             * Whether the conference should end after the participant leaves the conference. NOTE
+             * this doesn't hang up the other participants. Defaults to "false".
+             */
+            fun softEndConferenceOnExit(softEndConferenceOnExit: Boolean) =
+                softEndConferenceOnExit(JsonField.of(softEndConferenceOnExit))
+
+            /**
+             * Sets [Builder.softEndConferenceOnExit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.softEndConferenceOnExit] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun softEndConferenceOnExit(softEndConferenceOnExit: JsonField<Boolean>) = apply {
+                this.softEndConferenceOnExit = softEndConferenceOnExit
+            }
+
+            /**
+             * Whether the conference should be started on creation. If the conference isn't started
+             * all participants that join are automatically put on hold. Defaults to "true".
+             */
+            fun startConferenceOnCreate(startConferenceOnCreate: Boolean) =
+                startConferenceOnCreate(JsonField.of(startConferenceOnCreate))
+
+            /**
+             * Sets [Builder.startConferenceOnCreate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.startConferenceOnCreate] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun startConferenceOnCreate(startConferenceOnCreate: JsonField<Boolean>) = apply {
+                this.startConferenceOnCreate = startConferenceOnCreate
+            }
+
+            /**
+             * Whether the conference should be started after the participant joins the conference.
+             * Defaults to "false".
+             */
+            fun startConferenceOnEnter(startConferenceOnEnter: Boolean) =
+                startConferenceOnEnter(JsonField.of(startConferenceOnEnter))
+
+            /**
+             * Sets [Builder.startConferenceOnEnter] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.startConferenceOnEnter] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun startConferenceOnEnter(startConferenceOnEnter: JsonField<Boolean>) = apply {
+                this.startConferenceOnEnter = startConferenceOnEnter
+            }
+
+            /**
+             * Sets the joining participant as a supervisor for the conference. A conference can
+             * have multiple supervisors. "barge" means the supervisor enters the conference as a
+             * normal participant. This is the same as "none". "monitor" means the supervisor is
+             * muted but can hear all participants. "whisper" means that only the specified
+             * "whisper_call_control_ids" can hear the supervisor. Defaults to "none".
+             */
+            fun supervisorRole(supervisorRole: SupervisorRole) =
+                supervisorRole(JsonField.of(supervisorRole))
+
+            /**
+             * Sets [Builder.supervisorRole] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.supervisorRole] with a well-typed [SupervisorRole]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun supervisorRole(supervisorRole: JsonField<SupervisorRole>) = apply {
+                this.supervisorRole = supervisorRole
+            }
+
+            /**
+             * Array of unique call_control_ids the joining supervisor can whisper to. If none
+             * provided, the supervisor will join the conference as a monitoring participant only.
+             */
+            fun whisperCallControlIds(whisperCallControlIds: List<String>) =
+                whisperCallControlIds(JsonField.of(whisperCallControlIds))
+
+            /**
+             * Sets [Builder.whisperCallControlIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.whisperCallControlIds] with a well-typed
+             * `List<String>` value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun whisperCallControlIds(whisperCallControlIds: JsonField<List<String>>) = apply {
+                this.whisperCallControlIds = whisperCallControlIds.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [whisperCallControlIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addWhisperCallControlId(whisperCallControlId: String) = apply {
+                whisperCallControlIds =
+                    (whisperCallControlIds ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("whisperCallControlIds", it).add(whisperCallControlId)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ConferenceConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ConferenceConfig =
+                ConferenceConfig(
+                    id,
+                    beepEnabled,
+                    conferenceName,
+                    earlyMedia,
+                    endConferenceOnExit,
+                    hold,
+                    holdAudioUrl,
+                    holdMediaName,
+                    mute,
+                    softEndConferenceOnExit,
+                    startConferenceOnCreate,
+                    startConferenceOnEnter,
+                    supervisorRole,
+                    (whisperCallControlIds ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ConferenceConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            beepEnabled().ifPresent { it.validate() }
+            conferenceName()
+            earlyMedia()
+            endConferenceOnExit()
+            hold()
+            holdAudioUrl()
+            holdMediaName()
+            mute()
+            softEndConferenceOnExit()
+            startConferenceOnCreate()
+            startConferenceOnEnter()
+            supervisorRole().ifPresent { it.validate() }
+            whisperCallControlIds()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (id.asKnown().isPresent) 1 else 0) +
+                (beepEnabled.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (conferenceName.asKnown().isPresent) 1 else 0) +
+                (if (earlyMedia.asKnown().isPresent) 1 else 0) +
+                (if (endConferenceOnExit.asKnown().isPresent) 1 else 0) +
+                (if (hold.asKnown().isPresent) 1 else 0) +
+                (if (holdAudioUrl.asKnown().isPresent) 1 else 0) +
+                (if (holdMediaName.asKnown().isPresent) 1 else 0) +
+                (if (mute.asKnown().isPresent) 1 else 0) +
+                (if (softEndConferenceOnExit.asKnown().isPresent) 1 else 0) +
+                (if (startConferenceOnCreate.asKnown().isPresent) 1 else 0) +
+                (if (startConferenceOnEnter.asKnown().isPresent) 1 else 0) +
+                (supervisorRole.asKnown().getOrNull()?.validity() ?: 0) +
+                (whisperCallControlIds.asKnown().getOrNull()?.size ?: 0)
+
+        /**
+         * Whether a beep sound should be played when the participant joins and/or leaves the
+         * conference. Can be used to override the conference-level setting.
+         */
+        class BeepEnabled @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val ALWAYS = of("always")
+
+                @JvmField val NEVER = of("never")
+
+                @JvmField val ON_ENTER = of("on_enter")
+
+                @JvmField val ON_EXIT = of("on_exit")
+
+                @JvmStatic fun of(value: String) = BeepEnabled(JsonField.of(value))
+            }
+
+            /** An enum containing [BeepEnabled]'s known values. */
+            enum class Known {
+                ALWAYS,
+                NEVER,
+                ON_ENTER,
+                ON_EXIT,
+            }
+
+            /**
+             * An enum containing [BeepEnabled]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [BeepEnabled] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                ALWAYS,
+                NEVER,
+                ON_ENTER,
+                ON_EXIT,
+                /**
+                 * An enum member indicating that [BeepEnabled] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ALWAYS -> Value.ALWAYS
+                    NEVER -> Value.NEVER
+                    ON_ENTER -> Value.ON_ENTER
+                    ON_EXIT -> Value.ON_EXIT
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ALWAYS -> Known.ALWAYS
+                    NEVER -> Known.NEVER
+                    ON_ENTER -> Known.ON_ENTER
+                    ON_EXIT -> Known.ON_EXIT
+                    else -> throw TelnyxInvalidDataException("Unknown BeepEnabled: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): BeepEnabled = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is BeepEnabled && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Sets the joining participant as a supervisor for the conference. A conference can have
+         * multiple supervisors. "barge" means the supervisor enters the conference as a normal
+         * participant. This is the same as "none". "monitor" means the supervisor is muted but can
+         * hear all participants. "whisper" means that only the specified "whisper_call_control_ids"
+         * can hear the supervisor. Defaults to "none".
+         */
+        class SupervisorRole
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val BARGE = of("barge")
+
+                @JvmField val MONITOR = of("monitor")
+
+                @JvmField val NONE = of("none")
+
+                @JvmField val WHISPER = of("whisper")
+
+                @JvmStatic fun of(value: String) = SupervisorRole(JsonField.of(value))
+            }
+
+            /** An enum containing [SupervisorRole]'s known values. */
+            enum class Known {
+                BARGE,
+                MONITOR,
+                NONE,
+                WHISPER,
+            }
+
+            /**
+             * An enum containing [SupervisorRole]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [SupervisorRole] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                BARGE,
+                MONITOR,
+                NONE,
+                WHISPER,
+                /**
+                 * An enum member indicating that [SupervisorRole] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    BARGE -> Value.BARGE
+                    MONITOR -> Value.MONITOR
+                    NONE -> Value.NONE
+                    WHISPER -> Value.WHISPER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    BARGE -> Known.BARGE
+                    MONITOR -> Known.MONITOR
+                    NONE -> Known.NONE
+                    WHISPER -> Known.WHISPER
+                    else -> throw TelnyxInvalidDataException("Unknown SupervisorRole: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): SupervisorRole = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SupervisorRole && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ConferenceConfig &&
+                id == other.id &&
+                beepEnabled == other.beepEnabled &&
+                conferenceName == other.conferenceName &&
+                earlyMedia == other.earlyMedia &&
+                endConferenceOnExit == other.endConferenceOnExit &&
+                hold == other.hold &&
+                holdAudioUrl == other.holdAudioUrl &&
+                holdMediaName == other.holdMediaName &&
+                mute == other.mute &&
+                softEndConferenceOnExit == other.softEndConferenceOnExit &&
+                startConferenceOnCreate == other.startConferenceOnCreate &&
+                startConferenceOnEnter == other.startConferenceOnEnter &&
+                supervisorRole == other.supervisorRole &&
+                whisperCallControlIds == other.whisperCallControlIds &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                beepEnabled,
+                conferenceName,
+                earlyMedia,
+                endConferenceOnExit,
+                hold,
+                holdAudioUrl,
+                holdMediaName,
+                mute,
+                softEndConferenceOnExit,
+                startConferenceOnCreate,
+                startConferenceOnEnter,
+                supervisorRole,
+                whisperCallControlIds,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ConferenceConfig{id=$id, beepEnabled=$beepEnabled, conferenceName=$conferenceName, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, hold=$hold, holdAudioUrl=$holdAudioUrl, holdMediaName=$holdMediaName, mute=$mute, softEndConferenceOnExit=$softEndConferenceOnExit, startConferenceOnCreate=$startConferenceOnCreate, startConferenceOnEnter=$startConferenceOnEnter, supervisorRole=$supervisorRole, whisperCallControlIds=$whisperCallControlIds, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Starts a Conversation Relay session automatically when the answered/dialed call is answered.
+     * This embedded shape is supported on `answer` and `dial`. It uses public field names (`url`,
+     * `dtmf_detection`, `greeting`, `voice`, `language`, etc.) and maps them to the underlying
+     * Conversation Relay action. `client_state`, `tts_language`, and `transcription_language`
+     * inside this object are ignored; use the parent command's `client_state` and `command_id`
+     * fields instead.
+     */
+    class ConversationRelayConfig
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val url: JsonField<String>,
+        private val customParameters: JsonField<CustomParameters>,
+        private val dtmfDetection: JsonField<Boolean>,
+        private val greeting: JsonField<String>,
+        private val interruptible: JsonField<Interruptible>,
+        private val interruptibleGreeting: JsonField<InterruptibleGreeting>,
+        private val interruptionSettings: JsonField<ConversationRelayInterruptionSettings>,
+        private val language: JsonField<String>,
+        private val languages: JsonField<List<ConversationRelayLanguage>>,
+        private val provider: JsonField<String>,
+        private val structuredProvider: JsonField<StructuredProvider>,
+        private val transcriptionEngine: JsonField<TranscriptionEngine>,
+        private val transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>,
+        private val ttsProvider: JsonField<String>,
+        private val voice: JsonField<String>,
+        private val voiceSettings: JsonField<VoiceSettings>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("custom_parameters")
+            @ExcludeMissing
+            customParameters: JsonField<CustomParameters> = JsonMissing.of(),
+            @JsonProperty("dtmf_detection")
+            @ExcludeMissing
+            dtmfDetection: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("greeting")
+            @ExcludeMissing
+            greeting: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("interruptible")
+            @ExcludeMissing
+            interruptible: JsonField<Interruptible> = JsonMissing.of(),
+            @JsonProperty("interruptible_greeting")
+            @ExcludeMissing
+            interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of(),
+            @JsonProperty("interruption_settings")
+            @ExcludeMissing
+            interruptionSettings: JsonField<ConversationRelayInterruptionSettings> =
+                JsonMissing.of(),
+            @JsonProperty("language")
+            @ExcludeMissing
+            language: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("languages")
+            @ExcludeMissing
+            languages: JsonField<List<ConversationRelayLanguage>> = JsonMissing.of(),
+            @JsonProperty("provider")
+            @ExcludeMissing
+            provider: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("structured_provider")
+            @ExcludeMissing
+            structuredProvider: JsonField<StructuredProvider> = JsonMissing.of(),
+            @JsonProperty("transcription_engine")
+            @ExcludeMissing
+            transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
+            @JsonProperty("transcription_engine_config")
+            @ExcludeMissing
+            transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> = JsonMissing.of(),
+            @JsonProperty("tts_provider")
+            @ExcludeMissing
+            ttsProvider: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("voice_settings")
+            @ExcludeMissing
+            voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+        ) : this(
+            url,
+            customParameters,
+            dtmfDetection,
+            greeting,
+            interruptible,
+            interruptibleGreeting,
+            interruptionSettings,
+            language,
+            languages,
+            provider,
+            structuredProvider,
+            transcriptionEngine,
+            transcriptionEngineConfig,
+            ttsProvider,
+            voice,
+            voiceSettings,
+            mutableMapOf(),
+        )
+
+        /**
+         * WebSocket URL for your Conversation Relay server. Must start with `ws://` or `wss://`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun url(): String = url.getRequired("url")
+
+        /**
+         * Custom key-value parameters forwarded to the relay session as assistant dynamic
+         * variables.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customParameters(): Optional<CustomParameters> =
+            customParameters.getOptional("custom_parameters")
+
+        /**
+         * Enable DTMF detection for the relay session.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dtmfDetection(): Optional<Boolean> = dtmfDetection.getOptional("dtmf_detection")
+
+        /**
+         * Text played when the relay session starts.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun greeting(): Optional<String> = greeting.getOptional("greeting")
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptible(): Optional<Interruptible> = interruptible.getOptional("interruptible")
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptibleGreeting(): Optional<InterruptibleGreeting> =
+            interruptibleGreeting.getOptional("interruptible_greeting")
+
+        /**
+         * Settings for handling caller interruptions during Conversation Relay speech.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun interruptionSettings(): Optional<ConversationRelayInterruptionSettings> =
+            interruptionSettings.getOptional("interruption_settings")
+
+        /**
+         * Default language for both text-to-speech and speech recognition.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun language(): Optional<String> = language.getOptional("language")
+
+        /**
+         * Per-language TTS and transcription settings.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun languages(): Optional<List<ConversationRelayLanguage>> =
+            languages.getOptional("languages")
+
+        /**
+         * Structured voice provider. Must be supplied together with `structured_provider`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun provider(): Optional<String> = provider.getOptional("provider")
+
+        /**
+         * Provider-specific structured voice settings. Must be supplied together with `provider`;
+         * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun structuredProvider(): Optional<StructuredProvider> =
+            structuredProvider.getOptional("structured_provider")
+
+        /**
+         * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+         * supported for backward compatibility. For Conversation Relay, use this field with
+         * `transcription_engine_config`; the `transcription` object is not supported.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun transcriptionEngine(): Optional<TranscriptionEngine> =
+            transcriptionEngine.getOptional("transcription_engine")
+
+        /**
+         * Engine-specific transcription settings for Conversation Relay. This accepts the same
+         * provider-specific options used by the Call Transcription Start command, such as
+         * `transcription_model`, without requiring the engine discriminator to be repeated inside
+         * this object.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun transcriptionEngineConfig(): Optional<TranscriptionEngineConfig> =
+            transcriptionEngineConfig.getOptional("transcription_engine_config")
+
+        /**
+         * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun ttsProvider(): Optional<String> = ttsProvider.getOptional("tts_provider")
+
+        /**
+         * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and
+         * AWS voices.
+         *
+         *     **Supported Providers:**
+         * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
+         *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
+         *   `AWS.Polly.Joanna-Neural`). Check the
+         *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+         *   for compatibility.
+         * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
+         *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a
+         *   complete list of voices, go to
+         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+         * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+         *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you
+         *   must provide your ElevenLabs API key as an integration secret under `"voice_settings":
+         *   {"api_key_ref": "<secret_id>"}`. See
+         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         *   for details. Check
+         *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+         *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
+         * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
+         *   `sal`, `leo`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun voice(): Optional<String> = voice.getOptional("voice")
+
+        /**
+         * The settings associated with the voice selected
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+
+        /**
+         * Returns the raw JSON value of [url].
+         *
+         * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+        /**
+         * Returns the raw JSON value of [customParameters].
+         *
+         * Unlike [customParameters], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_parameters")
+        @ExcludeMissing
+        fun _customParameters(): JsonField<CustomParameters> = customParameters
+
+        /**
+         * Returns the raw JSON value of [dtmfDetection].
+         *
+         * Unlike [dtmfDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dtmf_detection")
+        @ExcludeMissing
+        fun _dtmfDetection(): JsonField<Boolean> = dtmfDetection
+
+        /**
+         * Returns the raw JSON value of [greeting].
+         *
+         * Unlike [greeting], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("greeting") @ExcludeMissing fun _greeting(): JsonField<String> = greeting
+
+        /**
+         * Returns the raw JSON value of [interruptible].
+         *
+         * Unlike [interruptible], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("interruptible")
+        @ExcludeMissing
+        fun _interruptible(): JsonField<Interruptible> = interruptible
+
+        /**
+         * Returns the raw JSON value of [interruptibleGreeting].
+         *
+         * Unlike [interruptibleGreeting], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruptible_greeting")
+        @ExcludeMissing
+        fun _interruptibleGreeting(): JsonField<InterruptibleGreeting> = interruptibleGreeting
+
+        /**
+         * Returns the raw JSON value of [interruptionSettings].
+         *
+         * Unlike [interruptionSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("interruption_settings")
+        @ExcludeMissing
+        fun _interruptionSettings(): JsonField<ConversationRelayInterruptionSettings> =
+            interruptionSettings
+
+        /**
+         * Returns the raw JSON value of [language].
+         *
+         * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+        /**
+         * Returns the raw JSON value of [languages].
+         *
+         * Unlike [languages], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("languages")
+        @ExcludeMissing
+        fun _languages(): JsonField<List<ConversationRelayLanguage>> = languages
+
+        /**
+         * Returns the raw JSON value of [provider].
+         *
+         * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<String> = provider
+
+        /**
+         * Returns the raw JSON value of [structuredProvider].
+         *
+         * Unlike [structuredProvider], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("structured_provider")
+        @ExcludeMissing
+        fun _structuredProvider(): JsonField<StructuredProvider> = structuredProvider
+
+        /**
+         * Returns the raw JSON value of [transcriptionEngine].
+         *
+         * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("transcription_engine")
+        @ExcludeMissing
+        fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
+
+        /**
+         * Returns the raw JSON value of [transcriptionEngineConfig].
+         *
+         * Unlike [transcriptionEngineConfig], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("transcription_engine_config")
+        @ExcludeMissing
+        fun _transcriptionEngineConfig(): JsonField<TranscriptionEngineConfig> =
+            transcriptionEngineConfig
+
+        /**
+         * Returns the raw JSON value of [ttsProvider].
+         *
+         * Unlike [ttsProvider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tts_provider")
+        @ExcludeMissing
+        fun _ttsProvider(): JsonField<String> = ttsProvider
+
+        /**
+         * Returns the raw JSON value of [voice].
+         *
+         * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
+
+        /**
+         * Returns the raw JSON value of [voiceSettings].
+         *
+         * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("voice_settings")
+        @ExcludeMissing
+        fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ConversationRelayConfig].
+             *
+             * The following fields are required:
+             * ```java
+             * .url()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ConversationRelayConfig]. */
+        class Builder internal constructor() {
+
+            private var url: JsonField<String>? = null
+            private var customParameters: JsonField<CustomParameters> = JsonMissing.of()
+            private var dtmfDetection: JsonField<Boolean> = JsonMissing.of()
+            private var greeting: JsonField<String> = JsonMissing.of()
+            private var interruptible: JsonField<Interruptible> = JsonMissing.of()
+            private var interruptibleGreeting: JsonField<InterruptibleGreeting> = JsonMissing.of()
+            private var interruptionSettings: JsonField<ConversationRelayInterruptionSettings> =
+                JsonMissing.of()
+            private var language: JsonField<String> = JsonMissing.of()
+            private var languages: JsonField<MutableList<ConversationRelayLanguage>>? = null
+            private var provider: JsonField<String> = JsonMissing.of()
+            private var structuredProvider: JsonField<StructuredProvider> = JsonMissing.of()
+            private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
+            private var transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> =
+                JsonMissing.of()
+            private var ttsProvider: JsonField<String> = JsonMissing.of()
+            private var voice: JsonField<String> = JsonMissing.of()
+            private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(conversationRelayConfig: ConversationRelayConfig) = apply {
+                url = conversationRelayConfig.url
+                customParameters = conversationRelayConfig.customParameters
+                dtmfDetection = conversationRelayConfig.dtmfDetection
+                greeting = conversationRelayConfig.greeting
+                interruptible = conversationRelayConfig.interruptible
+                interruptibleGreeting = conversationRelayConfig.interruptibleGreeting
+                interruptionSettings = conversationRelayConfig.interruptionSettings
+                language = conversationRelayConfig.language
+                languages = conversationRelayConfig.languages.map { it.toMutableList() }
+                provider = conversationRelayConfig.provider
+                structuredProvider = conversationRelayConfig.structuredProvider
+                transcriptionEngine = conversationRelayConfig.transcriptionEngine
+                transcriptionEngineConfig = conversationRelayConfig.transcriptionEngineConfig
+                ttsProvider = conversationRelayConfig.ttsProvider
+                voice = conversationRelayConfig.voice
+                voiceSettings = conversationRelayConfig.voiceSettings
+                additionalProperties = conversationRelayConfig.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+             * `wss://`.
+             */
+            fun url(url: String) = url(JsonField.of(url))
+
+            /**
+             * Sets [Builder.url] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.url] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun url(url: JsonField<String>) = apply { this.url = url }
+
+            /**
+             * Custom key-value parameters forwarded to the relay session as assistant dynamic
+             * variables.
+             */
+            fun customParameters(customParameters: CustomParameters) =
+                customParameters(JsonField.of(customParameters))
+
+            /**
+             * Sets [Builder.customParameters] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customParameters] with a well-typed
+             * [CustomParameters] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun customParameters(customParameters: JsonField<CustomParameters>) = apply {
+                this.customParameters = customParameters
+            }
+
+            /** Enable DTMF detection for the relay session. */
+            fun dtmfDetection(dtmfDetection: Boolean) = dtmfDetection(JsonField.of(dtmfDetection))
+
+            /**
+             * Sets [Builder.dtmfDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dtmfDetection] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dtmfDetection(dtmfDetection: JsonField<Boolean>) = apply {
+                this.dtmfDetection = dtmfDetection
+            }
+
+            /** Text played when the relay session starts. */
+            fun greeting(greeting: String) = greeting(JsonField.of(greeting))
+
+            /**
+             * Sets [Builder.greeting] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.greeting] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun greeting(greeting: JsonField<String>) = apply { this.greeting = greeting }
+
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptible(interruptible: Interruptible) =
+                interruptible(JsonField.of(interruptible))
+
+            /**
+             * Sets [Builder.interruptible] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptible] with a well-typed [Interruptible]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun interruptible(interruptible: JsonField<Interruptible>) = apply {
+                this.interruptible = interruptible
+            }
+
+            /**
+             * Controls when caller input can interrupt assistant speech. `any` allows speech or
+             * DTMF interruptions; `none` disables interruptions; `speech` allows speech only;
+             * `dtmf` allows DTMF only.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: InterruptibleGreeting) =
+                interruptibleGreeting(JsonField.of(interruptibleGreeting))
+
+            /**
+             * Sets [Builder.interruptibleGreeting] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptibleGreeting] with a well-typed
+             * [InterruptibleGreeting] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun interruptibleGreeting(interruptibleGreeting: JsonField<InterruptibleGreeting>) =
+                apply {
+                    this.interruptibleGreeting = interruptibleGreeting
+                }
+
+            /** Settings for handling caller interruptions during Conversation Relay speech. */
+            fun interruptionSettings(interruptionSettings: ConversationRelayInterruptionSettings) =
+                interruptionSettings(JsonField.of(interruptionSettings))
+
+            /**
+             * Sets [Builder.interruptionSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.interruptionSettings] with a well-typed
+             * [ConversationRelayInterruptionSettings] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun interruptionSettings(
+                interruptionSettings: JsonField<ConversationRelayInterruptionSettings>
+            ) = apply { this.interruptionSettings = interruptionSettings }
+
+            /** Default language for both text-to-speech and speech recognition. */
+            fun language(language: String) = language(JsonField.of(language))
+
+            /**
+             * Sets [Builder.language] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.language] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun language(language: JsonField<String>) = apply { this.language = language }
+
+            /** Per-language TTS and transcription settings. */
+            fun languages(languages: List<ConversationRelayLanguage>) =
+                languages(JsonField.of(languages))
+
+            /**
+             * Sets [Builder.languages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.languages] with a well-typed
+             * `List<ConversationRelayLanguage>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun languages(languages: JsonField<List<ConversationRelayLanguage>>) = apply {
+                this.languages = languages.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [ConversationRelayLanguage] to [languages].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addLanguage(language: ConversationRelayLanguage) = apply {
+                languages =
+                    (languages ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("languages", it).add(language)
+                    }
+            }
+
+            /** Structured voice provider. Must be supplied together with `structured_provider`. */
+            fun provider(provider: String) = provider(JsonField.of(provider))
+
+            /**
+             * Sets [Builder.provider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.provider] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provider(provider: JsonField<String>) = apply { this.provider = provider }
+
+            /**
+             * Provider-specific structured voice settings. Must be supplied together with
+             * `provider`; Telnyx sends the value as the nested provider configuration for
+             * Conversation Relay.
+             */
+            fun structuredProvider(structuredProvider: StructuredProvider) =
+                structuredProvider(JsonField.of(structuredProvider))
+
+            /**
+             * Sets [Builder.structuredProvider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.structuredProvider] with a well-typed
+             * [StructuredProvider] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun structuredProvider(structuredProvider: JsonField<StructuredProvider>) = apply {
+                this.structuredProvider = structuredProvider
+            }
+
+            /**
+             * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx`
+             * are supported for backward compatibility. For Conversation Relay, use this field with
+             * `transcription_engine_config`; the `transcription` object is not supported.
+             */
+            fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
+                transcriptionEngine(JsonField.of(transcriptionEngine))
+
+            /**
+             * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transcriptionEngine] with a well-typed
+             * [TranscriptionEngine] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) = apply {
+                this.transcriptionEngine = transcriptionEngine
+            }
+
+            /**
+             * Engine-specific transcription settings for Conversation Relay. This accepts the same
+             * provider-specific options used by the Call Transcription Start command, such as
+             * `transcription_model`, without requiring the engine discriminator to be repeated
+             * inside this object.
+             */
+            fun transcriptionEngineConfig(transcriptionEngineConfig: TranscriptionEngineConfig) =
+                transcriptionEngineConfig(JsonField.of(transcriptionEngineConfig))
+
+            /**
+             * Sets [Builder.transcriptionEngineConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transcriptionEngineConfig] with a well-typed
+             * [TranscriptionEngineConfig] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun transcriptionEngineConfig(
+                transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>
+            ) = apply { this.transcriptionEngineConfig = transcriptionEngineConfig }
+
+            /**
+             * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`.
+             */
+            fun ttsProvider(ttsProvider: String) = ttsProvider(JsonField.of(ttsProvider))
+
+            /**
+             * Sets [Builder.ttsProvider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ttsProvider] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ttsProvider(ttsProvider: JsonField<String>) = apply {
+                this.ttsProvider = ttsProvider
+            }
+
+            /**
+             * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx
+             * and AWS voices.
+             *
+             *     **Supported Providers:**
+             * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices,
+             *   which provide more realistic, human-like speech, append `-Neural` to the `VoiceId`
+             *   (e.g., `AWS.Polly.Joanna-Neural`). Check the
+             *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+             *   for compatibility.
+             * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+             *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+             *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+             *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+             * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+             *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs,
+             *   you must provide your ElevenLabs API key as an integration secret under
+             *   `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
+             *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+             *   for details. Check
+             *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+             *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+             *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`,
+             *   `TTS2`.
+             * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`,
+             *   `rex`, `sal`, `leo`.
+             */
+            fun voice(voice: String) = voice(JsonField.of(voice))
+
+            /**
+             * Sets [Builder.voice] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voice] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voice(voice: JsonField<String>) = apply { this.voice = voice }
+
+            /** The settings associated with the voice selected */
+            fun voiceSettings(voiceSettings: VoiceSettings) =
+                voiceSettings(JsonField.of(voiceSettings))
+
+            /**
+             * Sets [Builder.voiceSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+                this.voiceSettings = voiceSettings
+            }
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenlabs(elevenlabs)`. */
+            fun voiceSettings(elevenlabs: ElevenLabsVoiceSettings) =
+                voiceSettings(VoiceSettings.ofElevenlabs(elevenlabs))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
+            fun voiceSettings(telnyx: TelnyxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofTelnyx(telnyx))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
+            fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+            fun voiceSettings(azure: AzureVoiceSettings) =
+                voiceSettings(VoiceSettings.ofAzure(azure))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
+            fun voiceSettings(rime: RimeVoiceSettings) = voiceSettings(VoiceSettings.ofRime(rime))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+            fun voiceSettings(resemble: ResembleVoiceSettings) =
+                voiceSettings(VoiceSettings.ofResemble(resemble))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
+            fun voiceSettings(inworld: InworldVoiceSettings) =
+                voiceSettings(VoiceSettings.ofInworld(inworld))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
+            fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ConversationRelayConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .url()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ConversationRelayConfig =
+                ConversationRelayConfig(
+                    checkRequired("url", url),
+                    customParameters,
+                    dtmfDetection,
+                    greeting,
+                    interruptible,
+                    interruptibleGreeting,
+                    interruptionSettings,
+                    language,
+                    (languages ?: JsonMissing.of()).map { it.toImmutable() },
+                    provider,
+                    structuredProvider,
+                    transcriptionEngine,
+                    transcriptionEngineConfig,
+                    ttsProvider,
+                    voice,
+                    voiceSettings,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ConversationRelayConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            url()
+            customParameters().ifPresent { it.validate() }
+            dtmfDetection()
+            greeting()
+            interruptible().ifPresent { it.validate() }
+            interruptibleGreeting().ifPresent { it.validate() }
+            interruptionSettings().ifPresent { it.validate() }
+            language()
+            languages().ifPresent { it.forEach { it.validate() } }
+            provider()
+            structuredProvider().ifPresent { it.validate() }
+            transcriptionEngine().ifPresent { it.validate() }
+            transcriptionEngineConfig().ifPresent { it.validate() }
+            ttsProvider()
+            voice()
+            voiceSettings().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (url.asKnown().isPresent) 1 else 0) +
+                (customParameters.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (dtmfDetection.asKnown().isPresent) 1 else 0) +
+                (if (greeting.asKnown().isPresent) 1 else 0) +
+                (interruptible.asKnown().getOrNull()?.validity() ?: 0) +
+                (interruptibleGreeting.asKnown().getOrNull()?.validity() ?: 0) +
+                (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (language.asKnown().isPresent) 1 else 0) +
+                (languages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (provider.asKnown().isPresent) 1 else 0) +
+                (structuredProvider.asKnown().getOrNull()?.validity() ?: 0) +
+                (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                (transcriptionEngineConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (ttsProvider.asKnown().isPresent) 1 else 0) +
+                (if (voice.asKnown().isPresent) 1 else 0) +
+                (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * Custom key-value parameters forwarded to the relay session as assistant dynamic
+         * variables.
+         */
+        class CustomParameters
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [CustomParameters]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CustomParameters]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(customParameters: CustomParameters) = apply {
+                    additionalProperties = customParameters.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [CustomParameters].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): CustomParameters = CustomParameters(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): CustomParameters = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CustomParameters &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "CustomParameters{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        class Interruptible @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NONE = of("none")
+
+                @JvmField val ANY = of("any")
+
+                @JvmField val SPEECH = of("speech")
+
+                @JvmField val DTMF = of("dtmf")
+
+                @JvmStatic fun of(value: String) = Interruptible(JsonField.of(value))
+            }
+
+            /** An enum containing [Interruptible]'s known values. */
+            enum class Known {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+            }
+
+            /**
+             * An enum containing [Interruptible]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Interruptible] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+                /**
+                 * An enum member indicating that [Interruptible] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NONE -> Value.NONE
+                    ANY -> Value.ANY
+                    SPEECH -> Value.SPEECH
+                    DTMF -> Value.DTMF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NONE -> Known.NONE
+                    ANY -> Known.ANY
+                    SPEECH -> Known.SPEECH
+                    DTMF -> Known.DTMF
+                    else -> throw TelnyxInvalidDataException("Unknown Interruptible: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Interruptible = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Interruptible && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Controls when caller input can interrupt assistant speech. `any` allows speech or DTMF
+         * interruptions; `none` disables interruptions; `speech` allows speech only; `dtmf` allows
+         * DTMF only.
+         */
+        class InterruptibleGreeting
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NONE = of("none")
+
+                @JvmField val ANY = of("any")
+
+                @JvmField val SPEECH = of("speech")
+
+                @JvmField val DTMF = of("dtmf")
+
+                @JvmStatic fun of(value: String) = InterruptibleGreeting(JsonField.of(value))
+            }
+
+            /** An enum containing [InterruptibleGreeting]'s known values. */
+            enum class Known {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+            }
+
+            /**
+             * An enum containing [InterruptibleGreeting]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [InterruptibleGreeting] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NONE,
+                ANY,
+                SPEECH,
+                DTMF,
+                /**
+                 * An enum member indicating that [InterruptibleGreeting] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NONE -> Value.NONE
+                    ANY -> Value.ANY
+                    SPEECH -> Value.SPEECH
+                    DTMF -> Value.DTMF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NONE -> Known.NONE
+                    ANY -> Known.ANY
+                    SPEECH -> Known.SPEECH
+                    DTMF -> Known.DTMF
+                    else ->
+                        throw TelnyxInvalidDataException("Unknown InterruptibleGreeting: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): InterruptibleGreeting = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InterruptibleGreeting && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Provider-specific structured voice settings. Must be supplied together with `provider`;
+         * Telnyx sends the value as the nested provider configuration for Conversation Relay.
+         */
+        class StructuredProvider
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [StructuredProvider].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [StructuredProvider]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(structuredProvider: StructuredProvider) = apply {
+                    additionalProperties = structuredProvider.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [StructuredProvider].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): StructuredProvider =
+                    StructuredProvider(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): StructuredProvider = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is StructuredProvider &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "StructuredProvider{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are
+         * supported for backward compatibility. For Conversation Relay, use this field with
+         * `transcription_engine_config`; the `transcription` object is not supported.
+         */
+        class TranscriptionEngine
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val GOOGLE = of("Google")
+
+                @JvmField val TELNYX = of("Telnyx")
+
+                @JvmField val DEEPGRAM = of("Deepgram")
+
+                @JvmField val AZURE = of("Azure")
+
+                @JvmField val X_AI = of("xAI")
+
+                @JvmField val ASSEMBLY_AI = of("AssemblyAI")
+
+                @JvmField val SPEECHMATICS = of("Speechmatics")
+
+                @JvmField val SONIOX = of("Soniox")
+
+                @JvmField val A = of("A")
+
+                @JvmField val B = of("B")
+
+                @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
+            }
+
+            /** An enum containing [TranscriptionEngine]'s known values. */
+            enum class Known {
+                GOOGLE,
+                TELNYX,
+                DEEPGRAM,
+                AZURE,
+                X_AI,
+                ASSEMBLY_AI,
+                SPEECHMATICS,
+                SONIOX,
+                A,
+                B,
+            }
+
+            /**
+             * An enum containing [TranscriptionEngine]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [TranscriptionEngine] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                GOOGLE,
+                TELNYX,
+                DEEPGRAM,
+                AZURE,
+                X_AI,
+                ASSEMBLY_AI,
+                SPEECHMATICS,
+                SONIOX,
+                A,
+                B,
+                /**
+                 * An enum member indicating that [TranscriptionEngine] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    GOOGLE -> Value.GOOGLE
+                    TELNYX -> Value.TELNYX
+                    DEEPGRAM -> Value.DEEPGRAM
+                    AZURE -> Value.AZURE
+                    X_AI -> Value.X_AI
+                    ASSEMBLY_AI -> Value.ASSEMBLY_AI
+                    SPEECHMATICS -> Value.SPEECHMATICS
+                    SONIOX -> Value.SONIOX
+                    A -> Value.A
+                    B -> Value.B
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    GOOGLE -> Known.GOOGLE
+                    TELNYX -> Known.TELNYX
+                    DEEPGRAM -> Known.DEEPGRAM
+                    AZURE -> Known.AZURE
+                    X_AI -> Known.X_AI
+                    ASSEMBLY_AI -> Known.ASSEMBLY_AI
+                    SPEECHMATICS -> Known.SPEECHMATICS
+                    SONIOX -> Known.SONIOX
+                    A -> Known.A
+                    B -> Known.B
+                    else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): TranscriptionEngine = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TranscriptionEngine && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Engine-specific transcription settings for Conversation Relay. This accepts the same
+         * provider-specific options used by the Call Transcription Start command, such as
+         * `transcription_model`, without requiring the engine discriminator to be repeated inside
+         * this object.
+         */
+        class TranscriptionEngineConfig
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [TranscriptionEngineConfig].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [TranscriptionEngineConfig]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(transcriptionEngineConfig: TranscriptionEngineConfig) = apply {
+                    additionalProperties =
+                        transcriptionEngineConfig.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [TranscriptionEngineConfig].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TranscriptionEngineConfig =
+                    TranscriptionEngineConfig(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): TranscriptionEngineConfig = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TranscriptionEngineConfig &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "TranscriptionEngineConfig{additionalProperties=$additionalProperties}"
+        }
+
+        /** The settings associated with the voice selected */
+        @JsonDeserialize(using = VoiceSettings.Deserializer::class)
+        @JsonSerialize(using = VoiceSettings.Serializer::class)
+        class VoiceSettings
+        private constructor(
+            private val elevenlabs: ElevenLabsVoiceSettings? = null,
+            private val telnyx: TelnyxVoiceSettings? = null,
+            private val aws: AwsVoiceSettings? = null,
+            private val minimax: MinimaxVoiceSettings? = null,
+            private val azure: AzureVoiceSettings? = null,
+            private val rime: RimeVoiceSettings? = null,
+            private val resemble: ResembleVoiceSettings? = null,
+            private val inworld: InworldVoiceSettings? = null,
+            private val xai: XaiVoiceSettings? = null,
+            private val _json: JsonValue? = null,
+        ) {
+
+            fun elevenlabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenlabs)
+
+            fun telnyx(): Optional<TelnyxVoiceSettings> = Optional.ofNullable(telnyx)
+
+            fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
+
+            fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
+
+            fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
+
+            fun rime(): Optional<RimeVoiceSettings> = Optional.ofNullable(rime)
+
+            fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
+
+            fun inworld(): Optional<InworldVoiceSettings> = Optional.ofNullable(inworld)
+
+            fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
+
+            fun isElevenlabs(): Boolean = elevenlabs != null
+
+            fun isTelnyx(): Boolean = telnyx != null
+
+            fun isAws(): Boolean = aws != null
+
+            fun isMinimax(): Boolean = minimax != null
+
+            fun isAzure(): Boolean = azure != null
+
+            fun isRime(): Boolean = rime != null
+
+            fun isResemble(): Boolean = resemble != null
+
+            fun isInworld(): Boolean = inworld != null
+
+            fun isXai(): Boolean = xai != null
+
+            fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
+
+            fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
+
+            fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+            fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
+
+            fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
+
+            fun asRime(): RimeVoiceSettings = rime.getOrThrow("rime")
+
+            fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
+
+            fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
+
+            fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
+
+            fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             *
+             * Note that this method is _not_ forwards compatible with new variants from the API,
+             * unless [visitor] overrides [Visitor.unknown]. To handle variants not known to this
+             * version of the SDK gracefully, consider overriding [Visitor.unknown]:
+             * ```java
+             * import com.telnyx.sdk.core.JsonValue;
+             * import java.util.Optional;
+             *
+             * Optional<String> result = voiceSettings.accept(new VoiceSettings.Visitor<Optional<String>>() {
+             *     @Override
+             *     public Optional<String> visitElevenlabs(ElevenLabsVoiceSettings elevenlabs) {
+             *         return Optional.of(elevenlabs.toString());
+             *     }
+             *
+             *     // ...
+             *
+             *     @Override
+             *     public Optional<String> unknown(JsonValue json) {
+             *         // Or inspect the `json`.
+             *         return Optional.empty();
+             *     }
+             * });
+             * ```
+             *
+             * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+             *   [visitor] and the current variant is unknown.
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
+                    telnyx != null -> visitor.visitTelnyx(telnyx)
+                    aws != null -> visitor.visitAws(aws)
+                    minimax != null -> visitor.visitMinimax(minimax)
+                    azure != null -> visitor.visitAzure(azure)
+                    rime != null -> visitor.visitRime(rime)
+                    resemble != null -> visitor.visitResemble(resemble)
+                    inworld != null -> visitor.visitInworld(inworld)
+                    xai != null -> visitor.visitXai(xai)
+                    else -> visitor.unknown(_json)
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): VoiceSettings = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accept(
+                    object : Visitor<Unit> {
+                        override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) {
+                            elevenlabs.validate()
+                        }
+
+                        override fun visitTelnyx(telnyx: TelnyxVoiceSettings) {
+                            telnyx.validate()
+                        }
+
+                        override fun visitAws(aws: AwsVoiceSettings) {
+                            aws.validate()
+                        }
+
+                        override fun visitMinimax(minimax: MinimaxVoiceSettings) {
+                            minimax.validate()
+                        }
+
+                        override fun visitAzure(azure: AzureVoiceSettings) {
+                            azure.validate()
+                        }
+
+                        override fun visitRime(rime: RimeVoiceSettings) {
+                            rime.validate()
+                        }
+
+                        override fun visitResemble(resemble: ResembleVoiceSettings) {
+                            resemble.validate()
+                        }
+
+                        override fun visitInworld(inworld: InworldVoiceSettings) {
+                            inworld.validate()
+                        }
+
+                        override fun visitXai(xai: XaiVoiceSettings) {
+                            xai.validate()
+                        }
+                    }
+                )
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                accept(
+                    object : Visitor<Int> {
+                        override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                            elevenlabs.validity()
+
+                        override fun visitTelnyx(telnyx: TelnyxVoiceSettings) = telnyx.validity()
+
+                        override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
+
+                        override fun visitMinimax(minimax: MinimaxVoiceSettings) =
+                            minimax.validity()
+
+                        override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
+
+                        override fun visitRime(rime: RimeVoiceSettings) = rime.validity()
+
+                        override fun visitResemble(resemble: ResembleVoiceSettings) =
+                            resemble.validity()
+
+                        override fun visitInworld(inworld: InworldVoiceSettings) =
+                            inworld.validity()
+
+                        override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
+
+                        override fun unknown(json: JsonValue?) = 0
+                    }
+                )
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is VoiceSettings &&
+                    elevenlabs == other.elevenlabs &&
+                    telnyx == other.telnyx &&
+                    aws == other.aws &&
+                    minimax == other.minimax &&
+                    azure == other.azure &&
+                    rime == other.rime &&
+                    resemble == other.resemble &&
+                    inworld == other.inworld &&
+                    xai == other.xai
+            }
+
+            override fun hashCode(): Int =
+                Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble, inworld, xai)
+
+            override fun toString(): String =
+                when {
+                    elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
+                    telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
+                    aws != null -> "VoiceSettings{aws=$aws}"
+                    minimax != null -> "VoiceSettings{minimax=$minimax}"
+                    azure != null -> "VoiceSettings{azure=$azure}"
+                    rime != null -> "VoiceSettings{rime=$rime}"
+                    resemble != null -> "VoiceSettings{resemble=$resemble}"
+                    inworld != null -> "VoiceSettings{inworld=$inworld}"
+                    xai != null -> "VoiceSettings{xai=$xai}"
+                    _json != null -> "VoiceSettings{_unknown=$_json}"
+                    else -> throw IllegalStateException("Invalid VoiceSettings")
+                }
+
+            companion object {
+
+                @JvmStatic
+                fun ofElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                    VoiceSettings(elevenlabs = elevenlabs)
+
+                @JvmStatic
+                fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
+
+                @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+                @JvmStatic
+                fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
+
+                @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
+
+                @JvmStatic fun ofRime(rime: RimeVoiceSettings) = VoiceSettings(rime = rime)
+
+                @JvmStatic
+                fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
+
+                @JvmStatic
+                fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
+
+                @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [VoiceSettings] to a value of
+             * type [T].
+             */
+            interface Visitor<out T> {
+
+                fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings): T
+
+                fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
+
+                fun visitAws(aws: AwsVoiceSettings): T
+
+                fun visitMinimax(minimax: MinimaxVoiceSettings): T
+
+                fun visitAzure(azure: AzureVoiceSettings): T
+
+                fun visitRime(rime: RimeVoiceSettings): T
+
+                fun visitResemble(resemble: ResembleVoiceSettings): T
+
+                fun visitInworld(inworld: InworldVoiceSettings): T
+
+                fun visitXai(xai: XaiVoiceSettings): T
+
+                /**
+                 * Maps an unknown variant of [VoiceSettings] to a value of type [T].
+                 *
+                 * An instance of [VoiceSettings] can contain an unknown variant if it was
+                 * deserialized from data that doesn't match any known variant. For example, if the
+                 * SDK is on an older version than the API, then the API may respond with new
+                 * variants that the SDK is unaware of.
+                 *
+                 * @throws TelnyxInvalidDataException in the default implementation.
+                 */
+                fun unknown(json: JsonValue?): T {
+                    throw TelnyxInvalidDataException("Unknown VoiceSettings: $json")
+                }
+            }
+
+            internal class Deserializer : BaseDeserializer<VoiceSettings>(VoiceSettings::class) {
+
+                override fun ObjectCodec.deserialize(node: JsonNode): VoiceSettings {
+                    val json = JsonValue.fromJsonNode(node)
+                    val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
+
+                    when (type) {
+                        "elevenlabs" -> {
+                            return tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())
+                                ?.let { VoiceSettings(elevenlabs = it, _json = json) }
+                                ?: VoiceSettings(_json = json)
+                        }
+                        "telnyx" -> {
+                            return tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())
+                                ?.let { VoiceSettings(telnyx = it, _json = json) }
+                                ?: VoiceSettings(_json = json)
+                        }
+                        "aws" -> {
+                            return tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
+                                VoiceSettings(aws = it, _json = json)
+                            } ?: VoiceSettings(_json = json)
+                        }
+                        "minimax" -> {
+                            return tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())
+                                ?.let { VoiceSettings(minimax = it, _json = json) }
+                                ?: VoiceSettings(_json = json)
+                        }
+                        "azure" -> {
+                            return tryDeserialize(node, jacksonTypeRef<AzureVoiceSettings>())?.let {
+                                VoiceSettings(azure = it, _json = json)
+                            } ?: VoiceSettings(_json = json)
+                        }
+                        "rime" -> {
+                            return tryDeserialize(node, jacksonTypeRef<RimeVoiceSettings>())?.let {
+                                VoiceSettings(rime = it, _json = json)
+                            } ?: VoiceSettings(_json = json)
+                        }
+                        "resemble" -> {
+                            return tryDeserialize(node, jacksonTypeRef<ResembleVoiceSettings>())
+                                ?.let { VoiceSettings(resemble = it, _json = json) }
+                                ?: VoiceSettings(_json = json)
+                        }
+                        "inworld" -> {
+                            return tryDeserialize(node, jacksonTypeRef<InworldVoiceSettings>())
+                                ?.let { VoiceSettings(inworld = it, _json = json) }
+                                ?: VoiceSettings(_json = json)
+                        }
+                        "xai" -> {
+                            return tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {
+                                VoiceSettings(xai = it, _json = json)
+                            } ?: VoiceSettings(_json = json)
+                        }
+                    }
+
+                    return VoiceSettings(_json = json)
+                }
+            }
+
+            internal class Serializer : BaseSerializer<VoiceSettings>(VoiceSettings::class) {
+
+                override fun serialize(
+                    value: VoiceSettings,
+                    generator: JsonGenerator,
+                    provider: SerializerProvider,
+                ) {
+                    when {
+                        value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
+                        value.telnyx != null -> generator.writeObject(value.telnyx)
+                        value.aws != null -> generator.writeObject(value.aws)
+                        value.minimax != null -> generator.writeObject(value.minimax)
+                        value.azure != null -> generator.writeObject(value.azure)
+                        value.rime != null -> generator.writeObject(value.rime)
+                        value.resemble != null -> generator.writeObject(value.resemble)
+                        value.inworld != null -> generator.writeObject(value.inworld)
+                        value.xai != null -> generator.writeObject(value.xai)
+                        value._json != null -> generator.writeObject(value._json)
+                        else -> throw IllegalStateException("Invalid VoiceSettings")
+                    }
+                }
+            }
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ConversationRelayConfig &&
+                url == other.url &&
+                customParameters == other.customParameters &&
+                dtmfDetection == other.dtmfDetection &&
+                greeting == other.greeting &&
+                interruptible == other.interruptible &&
+                interruptibleGreeting == other.interruptibleGreeting &&
+                interruptionSettings == other.interruptionSettings &&
+                language == other.language &&
+                languages == other.languages &&
+                provider == other.provider &&
+                structuredProvider == other.structuredProvider &&
+                transcriptionEngine == other.transcriptionEngine &&
+                transcriptionEngineConfig == other.transcriptionEngineConfig &&
+                ttsProvider == other.ttsProvider &&
+                voice == other.voice &&
+                voiceSettings == other.voiceSettings &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                url,
+                customParameters,
+                dtmfDetection,
+                greeting,
+                interruptible,
+                interruptibleGreeting,
+                interruptionSettings,
+                language,
+                languages,
+                provider,
+                structuredProvider,
+                transcriptionEngine,
+                transcriptionEngineConfig,
+                ttsProvider,
+                voice,
+                voiceSettings,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ConversationRelayConfig{url=$url, customParameters=$customParameters, dtmfDetection=$dtmfDetection, greeting=$greeting, interruptible=$interruptible, interruptibleGreeting=$interruptibleGreeting, interruptionSettings=$interruptionSettings, language=$language, languages=$languages, provider=$provider, structuredProvider=$structuredProvider, transcriptionEngine=$transcriptionEngine, transcriptionEngineConfig=$transcriptionEngineConfig, ttsProvider=$ttsProvider, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Enables deepfake detection on the call. When enabled, audio from the remote party is streamed
+     * to a detection service that analyzes whether the voice is AI-generated. Results are delivered
+     * via the `call.deepfake_detection.result` webhook.
+     */
+    class DeepfakeDetection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val enabled: JsonField<Boolean>,
+        private val rtpTimeout: JsonField<Int>,
+        private val timeout: JsonField<Int>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("rtp_timeout")
+            @ExcludeMissing
+            rtpTimeout: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Int> = JsonMissing.of(),
+        ) : this(enabled, rtpTimeout, timeout, mutableMapOf())
+
+        /**
+         * Whether deepfake detection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun enabled(): Boolean = enabled.getRequired("enabled")
+
+        /**
+         * Maximum time in seconds to wait for RTP audio before timing out. If no audio is received
+         * within this window, detection stops with an error.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun rtpTimeout(): Optional<Int> = rtpTimeout.getOptional("rtp_timeout")
+
+        /**
+         * Maximum time in seconds to wait for a detection result before timing out.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeout(): Optional<Int> = timeout.getOptional("timeout")
+
+        /**
+         * Returns the raw JSON value of [enabled].
+         *
+         * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
+
+        /**
+         * Returns the raw JSON value of [rtpTimeout].
+         *
+         * Unlike [rtpTimeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rtp_timeout") @ExcludeMissing fun _rtpTimeout(): JsonField<Int> = rtpTimeout
+
+        /**
+         * Returns the raw JSON value of [timeout].
+         *
+         * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Int> = timeout
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DeepfakeDetection].
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DeepfakeDetection]. */
+        class Builder internal constructor() {
+
+            private var enabled: JsonField<Boolean>? = null
+            private var rtpTimeout: JsonField<Int> = JsonMissing.of()
+            private var timeout: JsonField<Int> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(deepfakeDetection: DeepfakeDetection) = apply {
+                enabled = deepfakeDetection.enabled
+                rtpTimeout = deepfakeDetection.rtpTimeout
+                timeout = deepfakeDetection.timeout
+                additionalProperties = deepfakeDetection.additionalProperties.toMutableMap()
+            }
+
+            /** Whether deepfake detection is enabled. */
+            fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+            /**
+             * Sets [Builder.enabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enabled] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+            /**
+             * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+             * received within this window, detection stops with an error.
+             */
+            fun rtpTimeout(rtpTimeout: Int) = rtpTimeout(JsonField.of(rtpTimeout))
+
+            /**
+             * Sets [Builder.rtpTimeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rtpTimeout] with a well-typed [Int] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rtpTimeout(rtpTimeout: JsonField<Int>) = apply { this.rtpTimeout = rtpTimeout }
+
+            /** Maximum time in seconds to wait for a detection result before timing out. */
+            fun timeout(timeout: Int) = timeout(JsonField.of(timeout))
+
+            /**
+             * Sets [Builder.timeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeout] with a well-typed [Int] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun timeout(timeout: JsonField<Int>) = apply { this.timeout = timeout }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DeepfakeDetection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .enabled()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DeepfakeDetection =
+                DeepfakeDetection(
+                    checkRequired("enabled", enabled),
+                    rtpTimeout,
+                    timeout,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): DeepfakeDetection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            enabled()
+            rtpTimeout()
+            timeout()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (enabled.asKnown().isPresent) 1 else 0) +
+                (if (rtpTimeout.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DeepfakeDetection &&
+                enabled == other.enabled &&
+                rtpTimeout == other.rtpTimeout &&
+                timeout == other.timeout &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(enabled, rtpTimeout, timeout, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DeepfakeDetection{enabled=$enabled, rtpTimeout=$rtpTimeout, timeout=$timeout, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Defines whether media should be encrypted on the call. For SIP URI destinations, media
+     * encryption can also be requested per endpoint with the `secure` URI parameter: `;secure=true`
+     * or `;secure=srtp` enables SRTP, and `;secure=dtls` enables DTLS. This parameter, when set to
+     * `SRTP` or `DTLS`, takes precedence over the per-endpoint `secure` value.
+     */
+    class MediaEncryption @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmField val SRTP = of("SRTP")
+
+            @JvmField val DTLS = of("DTLS")
+
+            @JvmStatic fun of(value: String) = MediaEncryption(JsonField.of(value))
+        }
+
+        /** An enum containing [MediaEncryption]'s known values. */
+        enum class Known {
+            DISABLED,
+            SRTP,
+            DTLS,
+        }
+
+        /**
+         * An enum containing [MediaEncryption]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [MediaEncryption] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DISABLED,
+            SRTP,
+            DTLS,
+            /**
+             * An enum member indicating that [MediaEncryption] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DISABLED -> Value.DISABLED
+                SRTP -> Value.SRTP
+                DTLS -> Value.DTLS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DISABLED -> Known.DISABLED
+                SRTP -> Known.SRTP
+                DTLS -> Known.DTLS
+                else -> throw TelnyxInvalidDataException("Unknown MediaEncryption: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): MediaEncryption = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MediaEncryption && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     */
+    class Privacy @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ID = of("id")
+
+            @JvmField val NONE = of("none")
+
+            @JvmStatic fun of(value: String) = Privacy(JsonField.of(value))
+        }
+
+        /** An enum containing [Privacy]'s known values. */
+        enum class Known {
+            ID,
+            NONE,
+        }
+
+        /**
+         * An enum containing [Privacy]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Privacy] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ID,
+            NONE,
+            /** An enum member indicating that [Privacy] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ID -> Value.ID
+                NONE -> Value.NONE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ID -> Known.ID
+                NONE -> Known.NONE
+                else -> throw TelnyxInvalidDataException("Unknown Privacy: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Privacy = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Privacy && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Start recording automatically after an event. Disabled by default. */
+    class Record @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val RECORD_FROM_ANSWER = of("record-from-answer")
+
+            @JvmStatic fun of(value: String) = Record(JsonField.of(value))
+        }
+
+        /** An enum containing [Record]'s known values. */
+        enum class Known {
+            RECORD_FROM_ANSWER
+        }
+
+        /**
+         * An enum containing [Record]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Record] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            RECORD_FROM_ANSWER,
+            /** An enum member indicating that [Record] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                RECORD_FROM_ANSWER -> Value.RECORD_FROM_ANSWER
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                RECORD_FROM_ANSWER -> Known.RECORD_FROM_ANSWER
+                else -> throw TelnyxInvalidDataException("Unknown Record: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Record = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Record && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Defines which channel should be recorded ('single' or 'dual') when `record` is specified. */
+    class RecordChannels @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SINGLE = of("single")
+
+            @JvmField val DUAL = of("dual")
+
+            @JvmStatic fun of(value: String) = RecordChannels(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordChannels]'s known values. */
+        enum class Known {
+            SINGLE,
+            DUAL,
+        }
+
+        /**
+         * An enum containing [RecordChannels]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordChannels] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SINGLE,
+            DUAL,
+            /**
+             * An enum member indicating that [RecordChannels] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SINGLE -> Value.SINGLE
+                DUAL -> Value.DUAL
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SINGLE -> Known.SINGLE
+                DUAL -> Known.DUAL
+                else -> throw TelnyxInvalidDataException("Unknown RecordChannels: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordChannels = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordChannels && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Defines the format of the recording ('wav' or 'mp3') when `record` is specified. */
+    class RecordFormat @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val WAV = of("wav")
+
+            @JvmField val MP3 = of("mp3")
+
+            @JvmStatic fun of(value: String) = RecordFormat(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordFormat]'s known values. */
+        enum class Known {
+            WAV,
+            MP3,
+        }
+
+        /**
+         * An enum containing [RecordFormat]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordFormat] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            WAV,
+            MP3,
+            /**
+             * An enum member indicating that [RecordFormat] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                WAV -> Value.WAV
+                MP3 -> Value.MP3
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                WAV -> Known.WAV
+                MP3 -> Known.MP3
+                else -> throw TelnyxInvalidDataException("Unknown RecordFormat: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordFormat = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordFormat && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single
+     * track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will
+     * be recorded as mono (single channel).
+     */
+    class RecordTrack @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val BOTH = of("both")
+
+            @JvmField val INBOUND = of("inbound")
+
+            @JvmField val OUTBOUND = of("outbound")
+
+            @JvmStatic fun of(value: String) = RecordTrack(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordTrack]'s known values. */
+        enum class Known {
+            BOTH,
+            INBOUND,
+            OUTBOUND,
+        }
+
+        /**
+         * An enum containing [RecordTrack]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordTrack] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            BOTH,
+            INBOUND,
+            OUTBOUND,
+            /**
+             * An enum member indicating that [RecordTrack] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BOTH -> Value.BOTH
+                INBOUND -> Value.INBOUND
+                OUTBOUND -> Value.OUTBOUND
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                BOTH -> Known.BOTH
+                INBOUND -> Known.INBOUND
+                OUTBOUND -> Known.OUTBOUND
+                else -> throw TelnyxInvalidDataException("Unknown RecordTrack: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordTrack = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordTrack && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * When set to `trim-silence`, silence will be removed from the beginning and end of the
+     * recording.
+     */
+    class RecordTrim @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TRIM_SILENCE = of("trim-silence")
+
+            @JvmStatic fun of(value: String) = RecordTrim(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordTrim]'s known values. */
+        enum class Known {
+            TRIM_SILENCE
+        }
+
+        /**
+         * An enum containing [RecordTrim]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordTrim] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TRIM_SILENCE,
+            /**
+             * An enum member indicating that [RecordTrim] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TRIM_SILENCE -> Value.TRIM_SILENCE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TRIM_SILENCE -> Known.TRIM_SILENCE
+                else -> throw TelnyxInvalidDataException("Unknown RecordTrim: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordTrim = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordTrim && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Defines the SIP region to be used for the call. */
+    class SipRegion @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val US = of("US")
+
+            @JvmField val EUROPE = of("Europe")
+
+            @JvmField val CANADA = of("Canada")
+
+            @JvmField val AUSTRALIA = of("Australia")
+
+            @JvmField val MIDDLE_EAST = of("Middle East")
+
+            @JvmStatic fun of(value: String) = SipRegion(JsonField.of(value))
+        }
+
+        /** An enum containing [SipRegion]'s known values. */
+        enum class Known {
+            US,
+            EUROPE,
+            CANADA,
+            AUSTRALIA,
+            MIDDLE_EAST,
+        }
+
+        /**
+         * An enum containing [SipRegion]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SipRegion] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            US,
+            EUROPE,
+            CANADA,
+            AUSTRALIA,
+            MIDDLE_EAST,
+            /**
+             * An enum member indicating that [SipRegion] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                US -> Value.US
+                EUROPE -> Value.EUROPE
+                CANADA -> Value.CANADA
+                AUSTRALIA -> Value.AUSTRALIA
+                MIDDLE_EAST -> Value.MIDDLE_EAST
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                US -> Known.US
+                EUROPE -> Known.EUROPE
+                CANADA -> Known.CANADA
+                AUSTRALIA -> Known.AUSTRALIA
+                MIDDLE_EAST -> Known.MIDDLE_EAST
+                else -> throw TelnyxInvalidDataException("Unknown SipRegion: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): SipRegion = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SipRegion && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Defines SIP transport protocol to be used on the call. */
+    class SipTransportProtocol
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val UDP = of("UDP")
+
+            @JvmField val TCP = of("TCP")
+
+            @JvmField val TLS = of("TLS")
+
+            @JvmStatic fun of(value: String) = SipTransportProtocol(JsonField.of(value))
+        }
+
+        /** An enum containing [SipTransportProtocol]'s known values. */
+        enum class Known {
+            UDP,
+            TCP,
+            TLS,
+        }
+
+        /**
+         * An enum containing [SipTransportProtocol]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [SipTransportProtocol] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            UDP,
+            TCP,
+            TLS,
+            /**
+             * An enum member indicating that [SipTransportProtocol] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                UDP -> Value.UDP
+                TCP -> Value.TCP
+                TLS -> Value.TLS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                UDP -> Known.UDP
+                TCP -> Known.TCP
+                TLS -> Known.TLS
+                else -> throw TelnyxInvalidDataException("Unknown SipTransportProtocol: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): SipTransportProtocol = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SipTransportProtocol && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Specifies which track should be streamed. */
+    class StreamTrack @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val INBOUND_TRACK = of("inbound_track")
+
+            @JvmField val OUTBOUND_TRACK = of("outbound_track")
+
+            @JvmField val BOTH_TRACKS = of("both_tracks")
+
+            @JvmStatic fun of(value: String) = StreamTrack(JsonField.of(value))
+        }
+
+        /** An enum containing [StreamTrack]'s known values. */
+        enum class Known {
+            INBOUND_TRACK,
+            OUTBOUND_TRACK,
+            BOTH_TRACKS,
+        }
+
+        /**
+         * An enum containing [StreamTrack]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [StreamTrack] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            INBOUND_TRACK,
+            OUTBOUND_TRACK,
+            BOTH_TRACKS,
+            /**
+             * An enum member indicating that [StreamTrack] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                INBOUND_TRACK -> Value.INBOUND_TRACK
+                OUTBOUND_TRACK -> Value.OUTBOUND_TRACK
+                BOTH_TRACKS -> Value.BOTH_TRACKS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                INBOUND_TRACK -> Known.INBOUND_TRACK
+                OUTBOUND_TRACK -> Known.OUTBOUND_TRACK
+                BOTH_TRACKS -> Known.BOTH_TRACKS
+                else -> throw TelnyxInvalidDataException("Unknown StreamTrack: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): StreamTrack = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is StreamTrack && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * The role of the supervisor call. 'barge' means that supervisor call hears and is being heard
+     * by both ends of the call (caller & callee). 'whisper' means that only
+     * supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor'
+     * means that nobody can hear supervisor call, but supervisor can hear everything on the call.
+     */
+    class SupervisorRole @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val BARGE = of("barge")
+
+            @JvmField val WHISPER = of("whisper")
+
+            @JvmField val MONITOR = of("monitor")
+
+            @JvmStatic fun of(value: String) = SupervisorRole(JsonField.of(value))
+        }
+
+        /** An enum containing [SupervisorRole]'s known values. */
+        enum class Known {
+            BARGE,
+            WHISPER,
+            MONITOR,
+        }
+
+        /**
+         * An enum containing [SupervisorRole]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SupervisorRole] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            BARGE,
+            WHISPER,
+            MONITOR,
+            /**
+             * An enum member indicating that [SupervisorRole] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BARGE -> Value.BARGE
+                WHISPER -> Value.WHISPER
+                MONITOR -> Value.MONITOR
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                BARGE -> Known.BARGE
+                WHISPER -> Known.WHISPER
+                MONITOR -> Known.MONITOR
+                else -> throw TelnyxInvalidDataException("Unknown SupervisorRole: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): SupervisorRole = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SupervisorRole && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * A map of event types to retry policies. Each retry policy contains an array of `retries_ms`
+     * specifying the delays between retry attempts in milliseconds. Maximum 5 retries, total delay
+     * cannot exceed 60 seconds.
+     */
+    class WebhookRetriesPolicies
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [WebhookRetriesPolicies].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [WebhookRetriesPolicies]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(webhookRetriesPolicies: WebhookRetriesPolicies) = apply {
+                additionalProperties = webhookRetriesPolicies.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [WebhookRetriesPolicies].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): WebhookRetriesPolicies =
+                WebhookRetriesPolicies(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): WebhookRetriesPolicies = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookRetriesPolicies &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "WebhookRetriesPolicies{additionalProperties=$additionalProperties}"
+    }
+
+    /** HTTP request type used for `webhook_url`. */
+    class WebhookUrlMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val POST = of("POST")
+
+            @JvmField val GET = of("GET")
+
+            @JvmStatic fun of(value: String) = WebhookUrlMethod(JsonField.of(value))
+        }
+
+        /** An enum containing [WebhookUrlMethod]'s known values. */
+        enum class Known {
+            POST,
+            GET,
+        }
+
+        /**
+         * An enum containing [WebhookUrlMethod]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [WebhookUrlMethod] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            POST,
+            GET,
+            /**
+             * An enum member indicating that [WebhookUrlMethod] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                POST -> Value.POST
+                GET -> Value.GET
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                POST -> Known.POST
+                GET -> Known.GET
+                else -> throw TelnyxInvalidDataException("Unknown WebhookUrlMethod: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): WebhookUrlMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookUrlMethod && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
+     * URL associated with that event type will be called instead of the default webhook URL. Events
+     * not mapped here will use the default webhook URL.
+     */
+    class WebhookUrls
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [WebhookUrls]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [WebhookUrls]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(webhookUrls: WebhookUrls) = apply {
+                additionalProperties = webhookUrls.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [WebhookUrls].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): WebhookUrls = WebhookUrls(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): WebhookUrls = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookUrls && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "WebhookUrls{additionalProperties=$additionalProperties}"
+    }
+
+    /** HTTP request method to invoke `webhook_urls`. */
+    class WebhookUrlsMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val POST = of("POST")
+
+            @JvmField val GET = of("GET")
+
+            @JvmStatic fun of(value: String) = WebhookUrlsMethod(JsonField.of(value))
+        }
+
+        /** An enum containing [WebhookUrlsMethod]'s known values. */
+        enum class Known {
+            POST,
+            GET,
+        }
+
+        /**
+         * An enum containing [WebhookUrlsMethod]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [WebhookUrlsMethod] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            POST,
+            GET,
+            /**
+             * An enum member indicating that [WebhookUrlsMethod] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                POST -> Value.POST
+                GET -> Value.GET
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                POST -> Known.POST
+                GET -> Known.GET
+                else -> throw TelnyxInvalidDataException("Unknown WebhookUrlsMethod: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): WebhookUrlsMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WebhookUrlsMethod && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CallDialParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
+    }
+
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+
+    override fun toString() =
+        "CallDialParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+}
