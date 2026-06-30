@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -24,9 +25,11 @@ class DeepgramNova2Config
 private constructor(
     private val transcriptionEngine: JsonField<TranscriptionEngine>,
     private val transcriptionModel: JsonField<TranscriptionModel>,
+    private val hints: JsonField<List<String>>,
     private val interimResults: JsonField<Boolean>,
     private val keywordsBoosting: JsonField<KeywordsBoosting>,
     private val language: JsonField<Language>,
+    private val smartFormat: JsonField<Boolean>,
     private val utteranceEndMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -39,6 +42,7 @@ private constructor(
         @JsonProperty("transcription_model")
         @ExcludeMissing
         transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+        @JsonProperty("hints") @ExcludeMissing hints: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("interim_results")
         @ExcludeMissing
         interimResults: JsonField<Boolean> = JsonMissing.of(),
@@ -46,15 +50,20 @@ private constructor(
         @ExcludeMissing
         keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<Language> = JsonMissing.of(),
+        @JsonProperty("smart_format")
+        @ExcludeMissing
+        smartFormat: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("utterance_end_ms")
         @ExcludeMissing
         utteranceEndMs: JsonField<Long> = JsonMissing.of(),
     ) : this(
         transcriptionEngine,
         transcriptionModel,
+        hints,
         interimResults,
         keywordsBoosting,
         language,
+        smartFormat,
         utteranceEndMs,
         mutableMapOf(),
     )
@@ -72,6 +81,15 @@ private constructor(
      */
     fun transcriptionModel(): TranscriptionModel =
         transcriptionModel.getRequired("transcription_model")
+
+    /**
+     * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition toward. For
+     * weighted biasing, use `keywords_boosting` instead. Nova-2-only; use `keyterms` on Nova-3.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun hints(): Optional<List<String>> = hints.getOptional("hints")
 
     /**
      * Whether to send also interim results. If set to false, only final results will be sent.
@@ -99,6 +117,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun language(): Optional<Language> = language.getOptional("language")
+
+    /**
+     * Enable Deepgram's smart formatting (capitalization, punctuation, and digit normalization).
+     * Note: Telnyx defaults this to `true`, overriding Deepgram's underlying default of `false` —
+     * omit the field to get a smart-formatted transcript, or set it to `false` to receive the raw
+     * lowercase transcript without punctuation.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartFormat(): Optional<Boolean> = smartFormat.getOptional("smart_format")
 
     /**
      * Number of milliseconds of silence to consider an utterance ended. Ranges from 0 to 5000 ms.
@@ -129,6 +158,13 @@ private constructor(
     fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
 
     /**
+     * Returns the raw JSON value of [hints].
+     *
+     * Unlike [hints], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("hints") @ExcludeMissing fun _hints(): JsonField<List<String>> = hints
+
+    /**
      * Returns the raw JSON value of [interimResults].
      *
      * Unlike [interimResults], this method doesn't throw if the JSON field has an unexpected type.
@@ -153,6 +189,15 @@ private constructor(
      * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<Language> = language
+
+    /**
+     * Returns the raw JSON value of [smartFormat].
+     *
+     * Unlike [smartFormat], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("smart_format")
+    @ExcludeMissing
+    fun _smartFormat(): JsonField<Boolean> = smartFormat
 
     /**
      * Returns the raw JSON value of [utteranceEndMs].
@@ -194,9 +239,11 @@ private constructor(
 
         private var transcriptionEngine: JsonField<TranscriptionEngine>? = null
         private var transcriptionModel: JsonField<TranscriptionModel>? = null
+        private var hints: JsonField<MutableList<String>>? = null
         private var interimResults: JsonField<Boolean> = JsonMissing.of()
         private var keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of()
         private var language: JsonField<Language> = JsonMissing.of()
+        private var smartFormat: JsonField<Boolean> = JsonMissing.of()
         private var utteranceEndMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -204,9 +251,11 @@ private constructor(
         internal fun from(deepgramNova2Config: DeepgramNova2Config) = apply {
             transcriptionEngine = deepgramNova2Config.transcriptionEngine
             transcriptionModel = deepgramNova2Config.transcriptionModel
+            hints = deepgramNova2Config.hints.map { it.toMutableList() }
             interimResults = deepgramNova2Config.interimResults
             keywordsBoosting = deepgramNova2Config.keywordsBoosting
             language = deepgramNova2Config.language
+            smartFormat = deepgramNova2Config.smartFormat
             utteranceEndMs = deepgramNova2Config.utteranceEndMs
             additionalProperties = deepgramNova2Config.additionalProperties.toMutableMap()
         }
@@ -237,6 +286,34 @@ private constructor(
          */
         fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
             this.transcriptionModel = transcriptionModel
+        }
+
+        /**
+         * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition toward.
+         * For weighted biasing, use `keywords_boosting` instead. Nova-2-only; use `keyterms` on
+         * Nova-3.
+         */
+        fun hints(hints: List<String>) = hints(JsonField.of(hints))
+
+        /**
+         * Sets [Builder.hints] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.hints] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun hints(hints: JsonField<List<String>>) = apply {
+            this.hints = hints.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [hints].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addHint(hint: String) = apply {
+            hints =
+                (hints ?: JsonField.of(mutableListOf())).also { checkKnown("hints", it).add(hint) }
         }
 
         /**
@@ -285,6 +362,23 @@ private constructor(
          * value.
          */
         fun language(language: JsonField<Language>) = apply { this.language = language }
+
+        /**
+         * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+         * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's underlying
+         * default of `false` — omit the field to get a smart-formatted transcript, or set it to
+         * `false` to receive the raw lowercase transcript without punctuation.
+         */
+        fun smartFormat(smartFormat: Boolean) = smartFormat(JsonField.of(smartFormat))
+
+        /**
+         * Sets [Builder.smartFormat] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartFormat] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun smartFormat(smartFormat: JsonField<Boolean>) = apply { this.smartFormat = smartFormat }
 
         /**
          * Number of milliseconds of silence to consider an utterance ended. Ranges from 0 to 5000
@@ -339,9 +433,11 @@ private constructor(
             DeepgramNova2Config(
                 checkRequired("transcriptionEngine", transcriptionEngine),
                 checkRequired("transcriptionModel", transcriptionModel),
+                (hints ?: JsonMissing.of()).map { it.toImmutable() },
                 interimResults,
                 keywordsBoosting,
                 language,
+                smartFormat,
                 utteranceEndMs,
                 additionalProperties.toMutableMap(),
             )
@@ -364,9 +460,11 @@ private constructor(
 
         transcriptionEngine().validate()
         transcriptionModel().validate()
+        hints()
         interimResults()
         keywordsBoosting().ifPresent { it.validate() }
         language().ifPresent { it.validate() }
+        smartFormat()
         utteranceEndMs()
         validated = true
     }
@@ -388,9 +486,11 @@ private constructor(
     internal fun validity(): Int =
         (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
             (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0) +
+            (hints.asKnown().getOrNull()?.size ?: 0) +
             (if (interimResults.asKnown().isPresent) 1 else 0) +
             (keywordsBoosting.asKnown().getOrNull()?.validity() ?: 0) +
             (language.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (smartFormat.asKnown().isPresent) 1 else 0) +
             (if (utteranceEndMs.asKnown().isPresent) 1 else 0)
 
     class TranscriptionEngine
@@ -1167,9 +1267,11 @@ private constructor(
         return other is DeepgramNova2Config &&
             transcriptionEngine == other.transcriptionEngine &&
             transcriptionModel == other.transcriptionModel &&
+            hints == other.hints &&
             interimResults == other.interimResults &&
             keywordsBoosting == other.keywordsBoosting &&
             language == other.language &&
+            smartFormat == other.smartFormat &&
             utteranceEndMs == other.utteranceEndMs &&
             additionalProperties == other.additionalProperties
     }
@@ -1178,9 +1280,11 @@ private constructor(
         Objects.hash(
             transcriptionEngine,
             transcriptionModel,
+            hints,
             interimResults,
             keywordsBoosting,
             language,
+            smartFormat,
             utteranceEndMs,
             additionalProperties,
         )
@@ -1189,5 +1293,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DeepgramNova2Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, interimResults=$interimResults, keywordsBoosting=$keywordsBoosting, language=$language, utteranceEndMs=$utteranceEndMs, additionalProperties=$additionalProperties}"
+        "DeepgramNova2Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, hints=$hints, interimResults=$interimResults, keywordsBoosting=$keywordsBoosting, language=$language, smartFormat=$smartFormat, utteranceEndMs=$utteranceEndMs, additionalProperties=$additionalProperties}"
 }

@@ -11,6 +11,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingSettingService
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.ProfileService
@@ -113,6 +115,39 @@ interface PhoneNumberService {
     /** @see resendVerification */
     fun resendVerification(phoneNumber: String, requestOptions: RequestOptions) =
         resendVerification(phoneNumber, PhoneNumberResendVerificationParams.none(), requestOptions)
+
+    /**
+     * Returns whether the 24-hour conversation window is currently open for a given
+     * source/destination pair. If window_active is false, only template messages may be sent.
+     */
+    fun retrieveConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberRetrieveConversationWindowParams,
+    ): PhoneNumberRetrieveConversationWindowResponse =
+        retrieveConversationWindow(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberRetrieveConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberRetrieveConversationWindowResponse =
+        retrieveConversationWindow(
+            params.toBuilder().phoneNumber(phoneNumber).build(),
+            requestOptions,
+        )
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        params: PhoneNumberRetrieveConversationWindowParams
+    ): PhoneNumberRetrieveConversationWindowResponse =
+        retrieveConversationWindow(params, RequestOptions.none())
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        params: PhoneNumberRetrieveConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberRetrieveConversationWindowResponse
 
     /** Submit verification code for a phone number */
     fun verify(phoneNumber: String, params: PhoneNumberVerifyParams) =
@@ -266,6 +301,44 @@ interface PhoneNumberService {
                 PhoneNumberResendVerificationParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /v2/whatsapp/phone_numbers/{phone_number}/conversation_window`, but is otherwise the same
+         * as [PhoneNumberService.retrieveConversationWindow].
+         */
+        @MustBeClosed
+        fun retrieveConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberRetrieveConversationWindowParams,
+        ): HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse> =
+            retrieveConversationWindow(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrieveConversationWindow */
+        @MustBeClosed
+        fun retrieveConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberRetrieveConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse> =
+            retrieveConversationWindow(
+                params.toBuilder().phoneNumber(phoneNumber).build(),
+                requestOptions,
+            )
+
+        /** @see retrieveConversationWindow */
+        @MustBeClosed
+        fun retrieveConversationWindow(
+            params: PhoneNumberRetrieveConversationWindowParams
+        ): HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse> =
+            retrieveConversationWindow(params, RequestOptions.none())
+
+        /** @see retrieveConversationWindow */
+        @MustBeClosed
+        fun retrieveConversationWindow(
+            params: PhoneNumberRetrieveConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>
 
         /**
          * Returns a raw HTTP response for `post /v2/whatsapp/phone_numbers/{phone_number}/verify`,

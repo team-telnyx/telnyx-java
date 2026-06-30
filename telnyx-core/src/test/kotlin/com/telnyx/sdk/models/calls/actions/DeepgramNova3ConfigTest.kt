@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.calls.actions
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -17,6 +18,7 @@ internal class DeepgramNova3ConfigTest {
                 .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                 .interimResults(true)
+                .keyterms(listOf("Telnyx", "LiveKit", "VoIP"))
                 .keywordsBoosting(
                     DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -25,6 +27,7 @@ internal class DeepgramNova3ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova3Config.Language.EN_US)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 
@@ -33,6 +36,8 @@ internal class DeepgramNova3ConfigTest {
         assertThat(deepgramNova3Config.transcriptionModel())
             .isEqualTo(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
         assertThat(deepgramNova3Config.interimResults()).contains(true)
+        assertThat(deepgramNova3Config.keyterms().getOrNull())
+            .containsExactly("Telnyx", "LiveKit", "VoIP")
         assertThat(deepgramNova3Config.keywordsBoosting())
             .contains(
                 DeepgramNova3Config.KeywordsBoosting.builder()
@@ -42,6 +47,7 @@ internal class DeepgramNova3ConfigTest {
                     .build()
             )
         assertThat(deepgramNova3Config.language()).contains(DeepgramNova3Config.Language.EN_US)
+        assertThat(deepgramNova3Config.smartFormat()).contains(false)
         assertThat(deepgramNova3Config.utteranceEndMs()).contains(800L)
     }
 
@@ -53,6 +59,7 @@ internal class DeepgramNova3ConfigTest {
                 .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                 .interimResults(true)
+                .keyterms(listOf("Telnyx", "LiveKit", "VoIP"))
                 .keywordsBoosting(
                     DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -61,6 +68,7 @@ internal class DeepgramNova3ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova3Config.Language.EN_US)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 

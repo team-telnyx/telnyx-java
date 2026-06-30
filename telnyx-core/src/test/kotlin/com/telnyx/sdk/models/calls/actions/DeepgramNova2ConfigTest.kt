@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.calls.actions
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,6 +17,7 @@ internal class DeepgramNova2ConfigTest {
             DeepgramNova2Config.builder()
                 .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
+                .hints(listOf("Telnyx", "LiveKit", "VoIP"))
                 .interimResults(true)
                 .keywordsBoosting(
                     DeepgramNova2Config.KeywordsBoosting.builder()
@@ -25,6 +27,7 @@ internal class DeepgramNova2ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova2Config.Language.BG)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 
@@ -32,6 +35,8 @@ internal class DeepgramNova2ConfigTest {
             .isEqualTo(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
         assertThat(deepgramNova2Config.transcriptionModel())
             .isEqualTo(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
+        assertThat(deepgramNova2Config.hints().getOrNull())
+            .containsExactly("Telnyx", "LiveKit", "VoIP")
         assertThat(deepgramNova2Config.interimResults()).contains(true)
         assertThat(deepgramNova2Config.keywordsBoosting())
             .contains(
@@ -42,6 +47,7 @@ internal class DeepgramNova2ConfigTest {
                     .build()
             )
         assertThat(deepgramNova2Config.language()).contains(DeepgramNova2Config.Language.BG)
+        assertThat(deepgramNova2Config.smartFormat()).contains(false)
         assertThat(deepgramNova2Config.utteranceEndMs()).contains(800L)
     }
 
@@ -52,6 +58,7 @@ internal class DeepgramNova2ConfigTest {
             DeepgramNova2Config.builder()
                 .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
+                .hints(listOf("Telnyx", "LiveKit", "VoIP"))
                 .interimResults(true)
                 .keywordsBoosting(
                     DeepgramNova2Config.KeywordsBoosting.builder()
@@ -61,6 +68,7 @@ internal class DeepgramNova2ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova2Config.Language.BG)
+                .smartFormat(false)
                 .utteranceEndMs(800L)
                 .build()
 

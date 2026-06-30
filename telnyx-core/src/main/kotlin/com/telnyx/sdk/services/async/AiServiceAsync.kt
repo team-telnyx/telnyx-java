@@ -116,11 +116,11 @@ interface AiServiceAsync {
      * **How it works:**
      * 1. The query text is embedded into a 1024-dimensional vector using the multilingual-e5-large
      *    model.
-     * 2. The vector is sent to regional OpenSearch clusters for kNN search using HNSW cosine
-     *    similarity.
+     * 2. The vector is compared against indexed record chunks using semantic similarity search.
      * 3. When no region is specified, all regions are queried in parallel (fan-out) and results are
      *    merged by score.
-     * 4. Results are ranked by cosine similarity score (descending) and truncated to `top_k`.
+     * 4. Results are ranked by similarity score (descending) and paginated via `page[number]` /
+     *    `page[size]`.
      *
      * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`. Results are
      * automatically scoped to the caller's organization — `organization_id` is injected from the
@@ -133,14 +133,14 @@ interface AiServiceAsync {
      * **Filtering:** Use `filter[field][operator]=value` query parameters to narrow results before
      * vector search.
      *
-     * Top-level filterable fields: `user_id`, `record_type`, `region`, `document_id`, `record_id`,
-     * `record_created_at`, `ingested_at`, `retention`
+     * Top-level filterable fields: `user_id`, `region`, `record_id`, `record_created_at`,
+     * `ingested_at`, `retention`
      *
      * Note: `retention` is filter-only — it can be used to narrow results but is not returned in
      * the response body.
      *
-     * Metadata fields: any field not in the list above is resolved to `data.metadata.<field>` in
-     * OpenSearch (e.g., `filter[language]=en` → `data.metadata.language`).
+     * Metadata fields: any field not in the list above is resolved to `data.metadata.<field>`
+     * (e.g., `filter[language]=en` → `data.metadata.language`).
      *
      * Supported filter operators:
      * - `eq` — exact match (default when no operator specified)
@@ -151,11 +151,11 @@ interface AiServiceAsync {
      * **Examples:**
      *
      * ```
-     * GET /v2/ai/conversation_histories?q=billing+issue&record_type=voice&top_k=10
-     * GET /v2/ai/conversation_histories?q=setup+guide&record_type=knowledge_base&region=USA&min_score=0.5
-     * GET /v2/ai/conversation_histories?q=refund&record_type=voice&filter[record_created_at][gte]=2026-01-01T00:00:00Z
-     * GET /v2/ai/conversation_histories?q=outage&record_type=voice&filter[region][in]=USA,DEU
-     * GET /v2/ai/conversation_histories?q=hold+time&record_type=voice&filter[language]=en
+     * GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10
+     * GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5
+     * GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z
+     * GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU
+     * GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en
      * ```
      */
     fun retrieveConversationHistories(

@@ -13,8 +13,6 @@ internal class AiRetrieveConversationHistoriesParamsTest {
     fun create() {
         AiRetrieveConversationHistoriesParams.builder()
             .q("customer called about billing issue")
-            .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
-            .filterDocumentId("doc-789")
             .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
             .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
             .filterRecordCreatedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
@@ -24,8 +22,9 @@ internal class AiRetrieveConversationHistoriesParamsTest {
             .filterRetention("filter[retention]")
             .filterUserId("user-123")
             .minScore(0.5f)
+            .pageNumber(1L)
+            .pageSize(10L)
             .region(AiRetrieveConversationHistoriesParams.Region.USA)
-            .topK(10L)
             .build()
     }
 
@@ -34,8 +33,6 @@ internal class AiRetrieveConversationHistoriesParamsTest {
         val params =
             AiRetrieveConversationHistoriesParams.builder()
                 .q("customer called about billing issue")
-                .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
-                .filterDocumentId("doc-789")
                 .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
                 .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
                 .filterRecordCreatedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
@@ -45,8 +42,9 @@ internal class AiRetrieveConversationHistoriesParamsTest {
                 .filterRetention("filter[retention]")
                 .filterUserId("user-123")
                 .minScore(0.5f)
+                .pageNumber(1L)
+                .pageSize(10L)
                 .region(AiRetrieveConversationHistoriesParams.Region.USA)
-                .topK(10L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -55,8 +53,6 @@ internal class AiRetrieveConversationHistoriesParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("q", "customer called about billing issue")
-                    .put("record_type", "voice")
-                    .put("filter[document_id]", "doc-789")
                     .put("filter[ingested_at][gte]", "2026-01-01T00:00:00Z")
                     .put("filter[ingested_at][lte]", "2026-12-31T23:59:59Z")
                     .put("filter[record_created_at][gte]", "2026-01-01T00:00:00Z")
@@ -66,8 +62,9 @@ internal class AiRetrieveConversationHistoriesParamsTest {
                     .put("filter[retention]", "filter[retention]")
                     .put("filter[user_id]", "user-123")
                     .put("min_score", "0.5")
+                    .put("page[number]", "1")
+                    .put("page[size]", "10")
                     .put("region", "USA")
-                    .put("top_k", "10")
                     .build()
             )
     }
@@ -77,17 +74,13 @@ internal class AiRetrieveConversationHistoriesParamsTest {
         val params =
             AiRetrieveConversationHistoriesParams.builder()
                 .q("customer called about billing issue")
-                .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
                 .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder()
-                    .put("q", "customer called about billing issue")
-                    .put("record_type", "voice")
-                    .build()
+                QueryParams.builder().put("q", "customer called about billing issue").build()
             )
     }
 }

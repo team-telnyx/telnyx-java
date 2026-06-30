@@ -126,9 +126,7 @@ internal class CallServiceAsyncTest {
                             .sipAuthUsername("user")
                             .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
                             .statusCallback("https://www.example.com/statuscallback-listener")
-                            .statusCallbackEvent(
-                                CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED
-                            )
+                            .statusCallbackEvent("initiated answered")
                             .statusCallbackMethod(
                                 CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET
                             )

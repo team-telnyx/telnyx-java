@@ -41,8 +41,6 @@ internal class AiServiceAsyncTest {
             aiServiceAsync.retrieveConversationHistories(
                 AiRetrieveConversationHistoriesParams.builder()
                     .q("customer called about billing issue")
-                    .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
-                    .filterDocumentId("doc-789")
                     .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
                     .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
                     .filterRecordCreatedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
@@ -52,8 +50,9 @@ internal class AiServiceAsyncTest {
                     .filterRetention("filter[retention]")
                     .filterUserId("user-123")
                     .minScore(0.5f)
+                    .pageNumber(1L)
+                    .pageSize(10L)
                     .region(AiRetrieveConversationHistoriesParams.Region.USA)
-                    .topK(10L)
                     .build()
             )
 
