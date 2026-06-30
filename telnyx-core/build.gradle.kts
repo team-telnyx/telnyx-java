@@ -41,10 +41,3 @@ dependencies {
     testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
-
-// Suppress ByteBuddy dynamic agent loading warnings that pollute stderr
-// (Mockito loads byte-buddy-agent dynamically, which causes JVM warnings
-// that break LoggingHttpClientTest which captures stderr for assertions)
-tasks.withType<Test> {
-    jvmArgs("-XX:+EnableDynamicAgentLoading")
-}

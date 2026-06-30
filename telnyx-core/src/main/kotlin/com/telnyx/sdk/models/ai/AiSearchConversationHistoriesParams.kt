@@ -64,7 +64,7 @@ import kotlin.jvm.optionals.getOrNull
  * GET /v2/ai/conversation_histories?q=hold+time&record_type=voice&filter[language]=en
  * ```
  */
-class AiRetrieveConversationHistoriesParams
+class AiSearchConversationHistoriesParams
 private constructor(
     private val q: String,
     private val recordType: RecordType,
@@ -161,7 +161,7 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [AiRetrieveConversationHistoriesParams].
+         * [AiSearchConversationHistoriesParams].
          *
          * The following fields are required:
          * ```java
@@ -172,7 +172,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AiRetrieveConversationHistoriesParams]. */
+    /** A builder for [AiSearchConversationHistoriesParams]. */
     class Builder internal constructor() {
 
         private var q: String? = null
@@ -194,27 +194,25 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(
-            aiRetrieveConversationHistoriesParams: AiRetrieveConversationHistoriesParams
+            aiSearchConversationHistoriesParams: AiSearchConversationHistoriesParams
         ) = apply {
-            q = aiRetrieveConversationHistoriesParams.q
-            recordType = aiRetrieveConversationHistoriesParams.recordType
-            filterDocumentId = aiRetrieveConversationHistoriesParams.filterDocumentId
-            filterIngestedAtGte = aiRetrieveConversationHistoriesParams.filterIngestedAtGte
-            filterIngestedAtLte = aiRetrieveConversationHistoriesParams.filterIngestedAtLte
-            filterRecordCreatedAtGte =
-                aiRetrieveConversationHistoriesParams.filterRecordCreatedAtGte
-            filterRecordCreatedAtLte =
-                aiRetrieveConversationHistoriesParams.filterRecordCreatedAtLte
-            filterRecordId = aiRetrieveConversationHistoriesParams.filterRecordId
-            filterRegionIn = aiRetrieveConversationHistoriesParams.filterRegionIn
-            filterRetention = aiRetrieveConversationHistoriesParams.filterRetention
-            filterUserId = aiRetrieveConversationHistoriesParams.filterUserId
-            minScore = aiRetrieveConversationHistoriesParams.minScore
-            region = aiRetrieveConversationHistoriesParams.region
-            topK = aiRetrieveConversationHistoriesParams.topK
-            additionalHeaders = aiRetrieveConversationHistoriesParams.additionalHeaders.toBuilder()
+            q = aiSearchConversationHistoriesParams.q
+            recordType = aiSearchConversationHistoriesParams.recordType
+            filterDocumentId = aiSearchConversationHistoriesParams.filterDocumentId
+            filterIngestedAtGte = aiSearchConversationHistoriesParams.filterIngestedAtGte
+            filterIngestedAtLte = aiSearchConversationHistoriesParams.filterIngestedAtLte
+            filterRecordCreatedAtGte = aiSearchConversationHistoriesParams.filterRecordCreatedAtGte
+            filterRecordCreatedAtLte = aiSearchConversationHistoriesParams.filterRecordCreatedAtLte
+            filterRecordId = aiSearchConversationHistoriesParams.filterRecordId
+            filterRegionIn = aiSearchConversationHistoriesParams.filterRegionIn
+            filterRetention = aiSearchConversationHistoriesParams.filterRetention
+            filterUserId = aiSearchConversationHistoriesParams.filterUserId
+            minScore = aiSearchConversationHistoriesParams.minScore
+            region = aiSearchConversationHistoriesParams.region
+            topK = aiSearchConversationHistoriesParams.topK
+            additionalHeaders = aiSearchConversationHistoriesParams.additionalHeaders.toBuilder()
             additionalQueryParams =
-                aiRetrieveConversationHistoriesParams.additionalQueryParams.toBuilder()
+                aiSearchConversationHistoriesParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -464,7 +462,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AiRetrieveConversationHistoriesParams].
+         * Returns an immutable instance of [AiSearchConversationHistoriesParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -476,8 +474,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): AiRetrieveConversationHistoriesParams =
-            AiRetrieveConversationHistoriesParams(
+        fun build(): AiSearchConversationHistoriesParams =
+            AiSearchConversationHistoriesParams(
                 checkRequired("q", q),
                 checkRequired("recordType", recordType),
                 filterDocumentId,
@@ -844,7 +842,7 @@ private constructor(
             return true
         }
 
-        return other is AiRetrieveConversationHistoriesParams &&
+        return other is AiSearchConversationHistoriesParams &&
             q == other.q &&
             recordType == other.recordType &&
             filterDocumentId == other.filterDocumentId &&
@@ -884,5 +882,5 @@ private constructor(
         )
 
     override fun toString() =
-        "AiRetrieveConversationHistoriesParams{q=$q, recordType=$recordType, filterDocumentId=$filterDocumentId, filterIngestedAtGte=$filterIngestedAtGte, filterIngestedAtLte=$filterIngestedAtLte, filterRecordCreatedAtGte=$filterRecordCreatedAtGte, filterRecordCreatedAtLte=$filterRecordCreatedAtLte, filterRecordId=$filterRecordId, filterRegionIn=$filterRegionIn, filterRetention=$filterRetention, filterUserId=$filterUserId, minScore=$minScore, region=$region, topK=$topK, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiSearchConversationHistoriesParams{q=$q, recordType=$recordType, filterDocumentId=$filterDocumentId, filterIngestedAtGte=$filterIngestedAtGte, filterIngestedAtLte=$filterIngestedAtLte, filterRecordCreatedAtGte=$filterRecordCreatedAtGte, filterRecordCreatedAtLte=$filterRecordCreatedAtLte, filterRecordId=$filterRecordId, filterRegionIn=$filterRegionIn, filterRetention=$filterRetention, filterUserId=$filterUserId, minScore=$minScore, region=$region, topK=$topK, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

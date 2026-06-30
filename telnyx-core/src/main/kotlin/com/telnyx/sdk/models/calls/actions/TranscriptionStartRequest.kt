@@ -325,13 +325,6 @@ private constructor(
             transcriptionEngineConfig(TranscriptionEngineConfig.ofSoniox(soniox))
 
         /**
-         * Alias for calling [transcriptionEngineConfig] with
-         * `TranscriptionEngineConfig.ofParakeet(parakeet)`.
-         */
-        fun transcriptionEngineConfig(parakeet: TranscriptionEngineParakeetConfig) =
-            transcriptionEngineConfig(TranscriptionEngineConfig.ofParakeet(parakeet))
-
-        /**
          * Alias for calling [transcriptionEngineConfig] with `TranscriptionEngineConfig.ofA(a)`.
          */
         fun transcriptionEngineConfig(a: TranscriptionEngineAConfig) =
@@ -529,8 +522,6 @@ private constructor(
 
             @JvmField val SONIOX = of("Soniox")
 
-            @JvmField val PARAKEET = of("Parakeet")
-
             @JvmField val A = of("A")
 
             @JvmField val B = of("B")
@@ -548,7 +539,6 @@ private constructor(
             ASSEMBLY_AI,
             SPEECHMATICS,
             SONIOX,
-            PARAKEET,
             A,
             B,
         }
@@ -571,7 +561,6 @@ private constructor(
             ASSEMBLY_AI,
             SPEECHMATICS,
             SONIOX,
-            PARAKEET,
             A,
             B,
             /**
@@ -598,7 +587,6 @@ private constructor(
                 ASSEMBLY_AI -> Value.ASSEMBLY_AI
                 SPEECHMATICS -> Value.SPEECHMATICS
                 SONIOX -> Value.SONIOX
-                PARAKEET -> Value.PARAKEET
                 A -> Value.A
                 B -> Value.B
                 else -> Value._UNKNOWN
@@ -623,7 +611,6 @@ private constructor(
                 ASSEMBLY_AI -> Known.ASSEMBLY_AI
                 SPEECHMATICS -> Known.SPEECHMATICS
                 SONIOX -> Known.SONIOX
-                PARAKEET -> Known.PARAKEET
                 A -> Known.A
                 B -> Known.B
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
@@ -701,7 +688,6 @@ private constructor(
         private val assemblyAi: TranscriptionEngineAssemblyaiConfig? = null,
         private val speechmatics: TranscriptionEngineSpeechmaticsConfig? = null,
         private val soniox: TranscriptionEngineSonioxConfig? = null,
-        private val parakeet: TranscriptionEngineParakeetConfig? = null,
         private val a: TranscriptionEngineAConfig? = null,
         private val b: TranscriptionEngineBConfig? = null,
         private val deepgramNova2: DeepgramNova2Config? = null,
@@ -725,8 +711,6 @@ private constructor(
 
         fun soniox(): Optional<TranscriptionEngineSonioxConfig> = Optional.ofNullable(soniox)
 
-        fun parakeet(): Optional<TranscriptionEngineParakeetConfig> = Optional.ofNullable(parakeet)
-
         fun a(): Optional<TranscriptionEngineAConfig> = Optional.ofNullable(a)
 
         fun b(): Optional<TranscriptionEngineBConfig> = Optional.ofNullable(b)
@@ -748,8 +732,6 @@ private constructor(
         fun isSpeechmatics(): Boolean = speechmatics != null
 
         fun isSoniox(): Boolean = soniox != null
-
-        fun isParakeet(): Boolean = parakeet != null
 
         fun isA(): Boolean = a != null
 
@@ -774,8 +756,6 @@ private constructor(
             speechmatics.getOrThrow("speechmatics")
 
         fun asSoniox(): TranscriptionEngineSonioxConfig = soniox.getOrThrow("soniox")
-
-        fun asParakeet(): TranscriptionEngineParakeetConfig = parakeet.getOrThrow("parakeet")
 
         fun asA(): TranscriptionEngineAConfig = a.getOrThrow("a")
 
@@ -825,7 +805,6 @@ private constructor(
                 assemblyAi != null -> visitor.visitAssemblyAi(assemblyAi)
                 speechmatics != null -> visitor.visitSpeechmatics(speechmatics)
                 soniox != null -> visitor.visitSoniox(soniox)
-                parakeet != null -> visitor.visitParakeet(parakeet)
                 a != null -> visitor.visitA(a)
                 b != null -> visitor.visitB(b)
                 deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
@@ -879,10 +858,6 @@ private constructor(
 
                     override fun visitSoniox(soniox: TranscriptionEngineSonioxConfig) {
                         soniox.validate()
-                    }
-
-                    override fun visitParakeet(parakeet: TranscriptionEngineParakeetConfig) {
-                        parakeet.validate()
                     }
 
                     override fun visitA(a: TranscriptionEngineAConfig) {
@@ -944,9 +919,6 @@ private constructor(
                     override fun visitSoniox(soniox: TranscriptionEngineSonioxConfig) =
                         soniox.validity()
 
-                    override fun visitParakeet(parakeet: TranscriptionEngineParakeetConfig) =
-                        parakeet.validity()
-
                     override fun visitA(a: TranscriptionEngineAConfig) = a.validity()
 
                     override fun visitB(b: TranscriptionEngineBConfig) = b.validity()
@@ -974,7 +946,6 @@ private constructor(
                 assemblyAi == other.assemblyAi &&
                 speechmatics == other.speechmatics &&
                 soniox == other.soniox &&
-                parakeet == other.parakeet &&
                 a == other.a &&
                 b == other.b &&
                 deepgramNova2 == other.deepgramNova2 &&
@@ -990,7 +961,6 @@ private constructor(
                 assemblyAi,
                 speechmatics,
                 soniox,
-                parakeet,
                 a,
                 b,
                 deepgramNova2,
@@ -1006,7 +976,6 @@ private constructor(
                 assemblyAi != null -> "TranscriptionEngineConfig{assemblyAi=$assemblyAi}"
                 speechmatics != null -> "TranscriptionEngineConfig{speechmatics=$speechmatics}"
                 soniox != null -> "TranscriptionEngineConfig{soniox=$soniox}"
-                parakeet != null -> "TranscriptionEngineConfig{parakeet=$parakeet}"
                 a != null -> "TranscriptionEngineConfig{a=$a}"
                 b != null -> "TranscriptionEngineConfig{b=$b}"
                 deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
@@ -1044,10 +1013,6 @@ private constructor(
             fun ofSoniox(soniox: TranscriptionEngineSonioxConfig) =
                 TranscriptionEngineConfig(soniox = soniox)
 
-            @JvmStatic
-            fun ofParakeet(parakeet: TranscriptionEngineParakeetConfig) =
-                TranscriptionEngineConfig(parakeet = parakeet)
-
             @JvmStatic fun ofA(a: TranscriptionEngineAConfig) = TranscriptionEngineConfig(a = a)
 
             @JvmStatic fun ofB(b: TranscriptionEngineBConfig) = TranscriptionEngineConfig(b = b)
@@ -1080,8 +1045,6 @@ private constructor(
             fun visitSpeechmatics(speechmatics: TranscriptionEngineSpeechmaticsConfig): T
 
             fun visitSoniox(soniox: TranscriptionEngineSonioxConfig): T
-
-            fun visitParakeet(parakeet: TranscriptionEngineParakeetConfig): T
 
             fun visitA(a: TranscriptionEngineAConfig): T
 
@@ -1173,14 +1136,6 @@ private constructor(
                             ?.let { TranscriptionEngineConfig(soniox = it, _json = json) }
                             ?: TranscriptionEngineConfig(_json = json)
                     }
-                    "Parakeet" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<TranscriptionEngineParakeetConfig>(),
-                            )
-                            ?.let { TranscriptionEngineConfig(parakeet = it, _json = json) }
-                            ?: TranscriptionEngineConfig(_json = json)
-                    }
                     "A" -> {
                         return tryDeserialize(node, jacksonTypeRef<TranscriptionEngineAConfig>())
                             ?.let { TranscriptionEngineConfig(a = it, _json = json) }
@@ -1223,7 +1178,6 @@ private constructor(
                     value.assemblyAi != null -> generator.writeObject(value.assemblyAi)
                     value.speechmatics != null -> generator.writeObject(value.speechmatics)
                     value.soniox != null -> generator.writeObject(value.soniox)
-                    value.parakeet != null -> generator.writeObject(value.parakeet)
                     value.a != null -> generator.writeObject(value.a)
                     value.b != null -> generator.writeObject(value.b)
                     value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)

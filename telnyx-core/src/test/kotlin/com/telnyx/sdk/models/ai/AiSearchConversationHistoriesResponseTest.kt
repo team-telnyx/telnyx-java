@@ -9,14 +9,14 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AiRetrieveConversationHistoriesResponseTest {
+internal class AiSearchConversationHistoriesResponseTest {
 
     @Test
     fun create() {
-        val aiRetrieveConversationHistoriesResponse =
-            AiRetrieveConversationHistoriesResponse.builder()
+        val aiSearchConversationHistoriesResponse =
+            AiSearchConversationHistoriesResponse.builder()
                 .addData(
-                    AiRetrieveConversationHistoriesResponse.Data.builder()
+                    AiSearchConversationHistoriesResponse.Data.builder()
                         .id("rec-001_chunk_0")
                         .chunkIndex(0L)
                         .chunkTotal(3L)
@@ -25,15 +25,15 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                         .organizationId("org-456")
                         .recordCreatedAt(OffsetDateTime.parse("2026-05-28T12:00:00Z"))
                         .recordId("rec-001")
-                        .recordType(AiRetrieveConversationHistoriesResponse.Data.RecordType.VOICE)
-                        .region(AiRetrieveConversationHistoriesResponse.Data.Region.USA)
+                        .recordType(AiSearchConversationHistoriesResponse.Data.RecordType.VOICE)
+                        .region(AiSearchConversationHistoriesResponse.Data.Region.USA)
                         .score(0.92f)
                         .text(
                             "Customer called regarding a billing discrepancy on their latest invoice."
                         )
                         .userId("user-123")
                         .metadata(
-                            AiRetrieveConversationHistoriesResponse.Data.Metadata.builder()
+                            AiSearchConversationHistoriesResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("source", JsonValue.from("bar"))
                                 .putAdditionalProperty("language", JsonValue.from("bar"))
                                 .build()
@@ -41,7 +41,7 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                         .build()
                 )
                 .meta(
-                    AiRetrieveConversationHistoriesResponse.Meta.builder()
+                    AiSearchConversationHistoriesResponse.Meta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(1L)
@@ -50,9 +50,9 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                 )
                 .build()
 
-        assertThat(aiRetrieveConversationHistoriesResponse.data())
+        assertThat(aiSearchConversationHistoriesResponse.data())
             .containsExactly(
-                AiRetrieveConversationHistoriesResponse.Data.builder()
+                AiSearchConversationHistoriesResponse.Data.builder()
                     .id("rec-001_chunk_0")
                     .chunkIndex(0L)
                     .chunkTotal(3L)
@@ -61,24 +61,24 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                     .organizationId("org-456")
                     .recordCreatedAt(OffsetDateTime.parse("2026-05-28T12:00:00Z"))
                     .recordId("rec-001")
-                    .recordType(AiRetrieveConversationHistoriesResponse.Data.RecordType.VOICE)
-                    .region(AiRetrieveConversationHistoriesResponse.Data.Region.USA)
+                    .recordType(AiSearchConversationHistoriesResponse.Data.RecordType.VOICE)
+                    .region(AiSearchConversationHistoriesResponse.Data.Region.USA)
                     .score(0.92f)
                     .text(
                         "Customer called regarding a billing discrepancy on their latest invoice."
                     )
                     .userId("user-123")
                     .metadata(
-                        AiRetrieveConversationHistoriesResponse.Data.Metadata.builder()
+                        AiSearchConversationHistoriesResponse.Data.Metadata.builder()
                             .putAdditionalProperty("source", JsonValue.from("bar"))
                             .putAdditionalProperty("language", JsonValue.from("bar"))
                             .build()
                     )
                     .build()
             )
-        assertThat(aiRetrieveConversationHistoriesResponse.meta())
+        assertThat(aiSearchConversationHistoriesResponse.meta())
             .isEqualTo(
-                AiRetrieveConversationHistoriesResponse.Meta.builder()
+                AiSearchConversationHistoriesResponse.Meta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(1L)
@@ -90,10 +90,10 @@ internal class AiRetrieveConversationHistoriesResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val aiRetrieveConversationHistoriesResponse =
-            AiRetrieveConversationHistoriesResponse.builder()
+        val aiSearchConversationHistoriesResponse =
+            AiSearchConversationHistoriesResponse.builder()
                 .addData(
-                    AiRetrieveConversationHistoriesResponse.Data.builder()
+                    AiSearchConversationHistoriesResponse.Data.builder()
                         .id("rec-001_chunk_0")
                         .chunkIndex(0L)
                         .chunkTotal(3L)
@@ -102,15 +102,15 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                         .organizationId("org-456")
                         .recordCreatedAt(OffsetDateTime.parse("2026-05-28T12:00:00Z"))
                         .recordId("rec-001")
-                        .recordType(AiRetrieveConversationHistoriesResponse.Data.RecordType.VOICE)
-                        .region(AiRetrieveConversationHistoriesResponse.Data.Region.USA)
+                        .recordType(AiSearchConversationHistoriesResponse.Data.RecordType.VOICE)
+                        .region(AiSearchConversationHistoriesResponse.Data.Region.USA)
                         .score(0.92f)
                         .text(
                             "Customer called regarding a billing discrepancy on their latest invoice."
                         )
                         .userId("user-123")
                         .metadata(
-                            AiRetrieveConversationHistoriesResponse.Data.Metadata.builder()
+                            AiSearchConversationHistoriesResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("source", JsonValue.from("bar"))
                                 .putAdditionalProperty("language", JsonValue.from("bar"))
                                 .build()
@@ -118,7 +118,7 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                         .build()
                 )
                 .meta(
-                    AiRetrieveConversationHistoriesResponse.Meta.builder()
+                    AiSearchConversationHistoriesResponse.Meta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(1L)
@@ -127,13 +127,13 @@ internal class AiRetrieveConversationHistoriesResponseTest {
                 )
                 .build()
 
-        val roundtrippedAiRetrieveConversationHistoriesResponse =
+        val roundtrippedAiSearchConversationHistoriesResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(aiRetrieveConversationHistoriesResponse),
-                jacksonTypeRef<AiRetrieveConversationHistoriesResponse>(),
+                jsonMapper.writeValueAsString(aiSearchConversationHistoriesResponse),
+                jacksonTypeRef<AiSearchConversationHistoriesResponse>(),
             )
 
-        assertThat(roundtrippedAiRetrieveConversationHistoriesResponse)
-            .isEqualTo(aiRetrieveConversationHistoriesResponse)
+        assertThat(roundtrippedAiSearchConversationHistoriesResponse)
+            .isEqualTo(aiSearchConversationHistoriesResponse)
     }
 }

@@ -1,14 +1,6 @@
 # Changelog
 
-## [6.77.0](https://github.com/team-telnyx/telnyx-java/compare/v6.76.0...v6.77.0) (2026-06-24)
-
-
-### Bug Fixes
-
-* remove `|| true` from github-release step ([#177](https://github.com/team-telnyx/telnyx-java/issues/177)) ([1730f9d](https://github.com/team-telnyx/telnyx-java/commit/1730f9def0148823ef1cc7c5509bfa52c40c8da5))
-* suppress ByteBuddy agent warnings flaking LoggingHttpClientTest ([#182](https://github.com/team-telnyx/telnyx-java/issues/182)) ([46ddd8a](https://github.com/team-telnyx/telnyx-java/commit/46ddd8ab7b4f37d28f5e1f31ad36cf04421d3609))
-
-## [6.76.0](https://github.com/team-telnyx/telnyx-java/compare/v6.74.0...v6.76.0) (2026-06-19)
+## [6.75.0](https://github.com/team-telnyx/telnyx-java-staging/compare/v6.74.0...v6.75.0) (2026-06-17)
 
 
 ### Features

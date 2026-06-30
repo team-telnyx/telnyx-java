@@ -11,8 +11,6 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * Returns the live SIP registration state of a UAC connection: whether it is currently registered,
@@ -21,30 +19,17 @@ import kotlin.jvm.optionals.getOrNull
  */
 class SipRegistrationStatusRetrieveParams
 private constructor(
+    private val connectionId: String,
     private val credentialType: CredentialType,
-    private val connectionId: String?,
-    private val username: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-     * `telephony_credential` is keyed by `username`.
-     */
+    /** Identifier of the UAC connection to look up. */
+    fun connectionId(): String = connectionId
+
+    /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
     fun credentialType(): CredentialType = credentialType
-
-    /**
-     * Identifier of the UAC connection to look up. Required when `credential_type` is
-     * `uac_external_credential`.
-     */
-    fun connectionId(): Optional<String> = Optional.ofNullable(connectionId)
-
-    /**
-     * SIP username of the telephony credential to look up. Required when `credential_type` is
-     * `telephony_credential`.
-     */
-    fun username(): Optional<String> = Optional.ofNullable(username)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -62,6 +47,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .connectionId()
          * .credentialType()
          * ```
          */
@@ -71,9 +57,8 @@ private constructor(
     /** A builder for [SipRegistrationStatusRetrieveParams]. */
     class Builder internal constructor() {
 
-        private var credentialType: CredentialType? = null
         private var connectionId: String? = null
-        private var username: String? = null
+        private var credentialType: CredentialType? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -81,39 +66,20 @@ private constructor(
         internal fun from(
             sipRegistrationStatusRetrieveParams: SipRegistrationStatusRetrieveParams
         ) = apply {
-            credentialType = sipRegistrationStatusRetrieveParams.credentialType
             connectionId = sipRegistrationStatusRetrieveParams.connectionId
-            username = sipRegistrationStatusRetrieveParams.username
+            credentialType = sipRegistrationStatusRetrieveParams.credentialType
             additionalHeaders = sipRegistrationStatusRetrieveParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 sipRegistrationStatusRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-         * `telephony_credential` is keyed by `username`.
-         */
+        /** Identifier of the UAC connection to look up. */
+        fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
+
+        /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
         fun credentialType(credentialType: CredentialType) = apply {
             this.credentialType = credentialType
         }
-
-        /**
-         * Identifier of the UAC connection to look up. Required when `credential_type` is
-         * `uac_external_credential`.
-         */
-        fun connectionId(connectionId: String?) = apply { this.connectionId = connectionId }
-
-        /** Alias for calling [Builder.connectionId] with `connectionId.orElse(null)`. */
-        fun connectionId(connectionId: Optional<String>) = connectionId(connectionId.getOrNull())
-
-        /**
-         * SIP username of the telephony credential to look up. Required when `credential_type` is
-         * `telephony_credential`.
-         */
-        fun username(username: String?) = apply { this.username = username }
-
-        /** Alias for calling [Builder.username] with `username.orElse(null)`. */
-        fun username(username: Optional<String>) = username(username.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -220,6 +186,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .connectionId()
          * .credentialType()
          * ```
          *
@@ -227,9 +194,8 @@ private constructor(
          */
         fun build(): SipRegistrationStatusRetrieveParams =
             SipRegistrationStatusRetrieveParams(
+                checkRequired("connectionId", connectionId),
                 checkRequired("credentialType", credentialType),
-                connectionId,
-                username,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -240,17 +206,13 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                put("connection_id", connectionId)
                 put("credential_type", credentialType.toString())
-                connectionId?.let { put("connection_id", it) }
-                username?.let { put("username", it) }
                 putAll(additionalQueryParams)
             }
             .build()
 
-    /**
-     * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-     * `telephony_credential` is keyed by `username`.
-     */
+    /** The kind of credential to look up. Only `uac_external_credential` is supported today. */
     class CredentialType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -268,15 +230,12 @@ private constructor(
 
             @JvmField val UAC_EXTERNAL_CREDENTIAL = of("uac_external_credential")
 
-            @JvmField val TELEPHONY_CREDENTIAL = of("telephony_credential")
-
             @JvmStatic fun of(value: String) = CredentialType(JsonField.of(value))
         }
 
         /** An enum containing [CredentialType]'s known values. */
         enum class Known {
-            UAC_EXTERNAL_CREDENTIAL,
-            TELEPHONY_CREDENTIAL,
+            UAC_EXTERNAL_CREDENTIAL
         }
 
         /**
@@ -290,7 +249,6 @@ private constructor(
          */
         enum class Value {
             UAC_EXTERNAL_CREDENTIAL,
-            TELEPHONY_CREDENTIAL,
             /**
              * An enum member indicating that [CredentialType] was instantiated with an unknown
              * value.
@@ -308,7 +266,6 @@ private constructor(
         fun value(): Value =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Value.UAC_EXTERNAL_CREDENTIAL
-                TELEPHONY_CREDENTIAL -> Value.TELEPHONY_CREDENTIAL
                 else -> Value._UNKNOWN
             }
 
@@ -324,7 +281,6 @@ private constructor(
         fun known(): Known =
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Known.UAC_EXTERNAL_CREDENTIAL
-                TELEPHONY_CREDENTIAL -> Known.TELEPHONY_CREDENTIAL
                 else -> throw TelnyxInvalidDataException("Unknown CredentialType: $value")
             }
 
@@ -395,22 +351,15 @@ private constructor(
         }
 
         return other is SipRegistrationStatusRetrieveParams &&
-            credentialType == other.credentialType &&
             connectionId == other.connectionId &&
-            username == other.username &&
+            credentialType == other.credentialType &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            credentialType,
-            connectionId,
-            username,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(connectionId, credentialType, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SipRegistrationStatusRetrieveParams{credentialType=$credentialType, connectionId=$connectionId, username=$username, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SipRegistrationStatusRetrieveParams{connectionId=$connectionId, credentialType=$credentialType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

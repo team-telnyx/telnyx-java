@@ -7,13 +7,13 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AiRetrieveConversationHistoriesParamsTest {
+internal class AiSearchConversationHistoriesParamsTest {
 
     @Test
     fun create() {
-        AiRetrieveConversationHistoriesParams.builder()
+        AiSearchConversationHistoriesParams.builder()
             .q("customer called about billing issue")
-            .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
+            .recordType(AiSearchConversationHistoriesParams.RecordType.VOICE)
             .filterDocumentId("doc-789")
             .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
             .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
@@ -24,7 +24,7 @@ internal class AiRetrieveConversationHistoriesParamsTest {
             .filterRetention("filter[retention]")
             .filterUserId("user-123")
             .minScore(0.5f)
-            .region(AiRetrieveConversationHistoriesParams.Region.USA)
+            .region(AiSearchConversationHistoriesParams.Region.USA)
             .topK(10L)
             .build()
     }
@@ -32,9 +32,9 @@ internal class AiRetrieveConversationHistoriesParamsTest {
     @Test
     fun queryParams() {
         val params =
-            AiRetrieveConversationHistoriesParams.builder()
+            AiSearchConversationHistoriesParams.builder()
                 .q("customer called about billing issue")
-                .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
+                .recordType(AiSearchConversationHistoriesParams.RecordType.VOICE)
                 .filterDocumentId("doc-789")
                 .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
                 .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
@@ -45,7 +45,7 @@ internal class AiRetrieveConversationHistoriesParamsTest {
                 .filterRetention("filter[retention]")
                 .filterUserId("user-123")
                 .minScore(0.5f)
-                .region(AiRetrieveConversationHistoriesParams.Region.USA)
+                .region(AiSearchConversationHistoriesParams.Region.USA)
                 .topK(10L)
                 .build()
 
@@ -75,9 +75,9 @@ internal class AiRetrieveConversationHistoriesParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            AiRetrieveConversationHistoriesParams.builder()
+            AiSearchConversationHistoriesParams.builder()
                 .q("customer called about billing issue")
-                .recordType(AiRetrieveConversationHistoriesParams.RecordType.VOICE)
+                .recordType(AiSearchConversationHistoriesParams.RecordType.VOICE)
                 .build()
 
         val queryParams = params._queryParams()
