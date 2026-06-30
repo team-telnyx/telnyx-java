@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.78.0](https://github.com/team-telnyx/telnyx-java/compare/v6.77.0...v6.78.0) (2026-06-30)
+
+
+### Bug Fixes
+
+* add --local flag so release-please scans next branch for commits ([#185](https://github.com/team-telnyx/telnyx-java/issues/185)) ([74f2e8e](https://github.com/team-telnyx/telnyx-java/commit/74f2e8e968b0828bbd1097307f15e881c2acb749))
+
+
+### Chores
+
+* remove leaked staging-only promote-to-prod.yml from prod ([#187](https://github.com/team-telnyx/telnyx-java/issues/187)) ([7a2d24e](https://github.com/team-telnyx/telnyx-java/commit/7a2d24e2d8906e01bb44a0be2d2399e875b64c61))
+
 ## [6.77.0](https://github.com/team-telnyx/telnyx-java/compare/v6.76.0...v6.77.0) (2026-06-24)
 
 
