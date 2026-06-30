@@ -10,6 +10,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ProfileServiceAsync
@@ -121,6 +123,39 @@ interface PhoneNumberServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         resendVerification(phoneNumber, PhoneNumberResendVerificationParams.none(), requestOptions)
+
+    /**
+     * Returns whether the 24-hour conversation window is currently open for a given
+     * source/destination pair. If window_active is false, only template messages may be sent.
+     */
+    fun retrieveConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberRetrieveConversationWindowParams,
+    ): CompletableFuture<PhoneNumberRetrieveConversationWindowResponse> =
+        retrieveConversationWindow(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        phoneNumber: String,
+        params: PhoneNumberRetrieveConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhoneNumberRetrieveConversationWindowResponse> =
+        retrieveConversationWindow(
+            params.toBuilder().phoneNumber(phoneNumber).build(),
+            requestOptions,
+        )
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        params: PhoneNumberRetrieveConversationWindowParams
+    ): CompletableFuture<PhoneNumberRetrieveConversationWindowResponse> =
+        retrieveConversationWindow(params, RequestOptions.none())
+
+    /** @see retrieveConversationWindow */
+    fun retrieveConversationWindow(
+        params: PhoneNumberRetrieveConversationWindowParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhoneNumberRetrieveConversationWindowResponse>
 
     /** Submit verification code for a phone number */
     fun verify(phoneNumber: String, params: PhoneNumberVerifyParams): CompletableFuture<Void?> =
@@ -273,6 +308,40 @@ interface PhoneNumberServiceAsync {
                 PhoneNumberResendVerificationParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /v2/whatsapp/phone_numbers/{phone_number}/conversation_window`, but is otherwise the same
+         * as [PhoneNumberServiceAsync.retrieveConversationWindow].
+         */
+        fun retrieveConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberRetrieveConversationWindowParams,
+        ): CompletableFuture<HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>> =
+            retrieveConversationWindow(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrieveConversationWindow */
+        fun retrieveConversationWindow(
+            phoneNumber: String,
+            params: PhoneNumberRetrieveConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>> =
+            retrieveConversationWindow(
+                params.toBuilder().phoneNumber(phoneNumber).build(),
+                requestOptions,
+            )
+
+        /** @see retrieveConversationWindow */
+        fun retrieveConversationWindow(
+            params: PhoneNumberRetrieveConversationWindowParams
+        ): CompletableFuture<HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>> =
+            retrieveConversationWindow(params, RequestOptions.none())
+
+        /** @see retrieveConversationWindow */
+        fun retrieveConversationWindow(
+            params: PhoneNumberRetrieveConversationWindowParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>>
 
         /**
          * Returns a raw HTTP response for `post /v2/whatsapp/phone_numbers/{phone_number}/verify`,

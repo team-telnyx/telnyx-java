@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.dir.DirWrapped
 import com.telnyx.sdk.services.async.dir.CommentServiceAsync
 import com.telnyx.sdk.services.async.dir.PhoneNumberBatchServiceAsync
 import com.telnyx.sdk.services.async.dir.PhoneNumberServiceAsync
+import com.telnyx.sdk.services.async.dir.ReferenceServiceAsync
+import com.telnyx.sdk.services.async.dir.VerifyEmailServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -53,6 +55,18 @@ interface DirServiceAsync {
      * display identity.
      */
     fun phoneNumbers(): PhoneNumberServiceAsync
+
+    /**
+     * Submit and manage the two business references and one financial reference that vouch for a
+     * DIR. References are contacted to confirm the business identity during vetting.
+     */
+    fun references(): ReferenceServiceAsync
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    fun verifyEmail(): VerifyEmailServiceAsync
 
     /**
      * Returns a single DIR by id. The enterprise is resolved server-side from the DIR id. Returns
@@ -386,6 +400,18 @@ interface DirServiceAsync {
          * display identity.
          */
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
+
+        /**
+         * Submit and manage the two business references and one financial reference that vouch for
+         * a DIR. References are contacted to confirm the business identity during vetting.
+         */
+        fun references(): ReferenceServiceAsync.WithRawResponse
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /dir/{dir_id}`, but is otherwise the same as
