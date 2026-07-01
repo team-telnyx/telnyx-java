@@ -59,7 +59,7 @@ internal class CallCallsParamsTest {
                     .sipAuthUsername("user")
                     .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
                     .statusCallback("https://www.example.com/statuscallback-listener")
-                    .statusCallbackEvent(CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED)
+                    .statusCallbackEvent("initiated answered")
                     .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
                     .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .supervisingRole(CallCallsParams.Body.WithUrl.SupervisingRole.MONITOR)
@@ -144,9 +144,7 @@ internal class CallCallsParamsTest {
                         .sipAuthUsername("user")
                         .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
                         .statusCallback("https://www.example.com/statuscallback-listener")
-                        .statusCallbackEvent(
-                            CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED
-                        )
+                        .statusCallbackEvent("initiated answered")
                         .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
                         .superviseCallSid(
                             "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
@@ -214,9 +212,7 @@ internal class CallCallsParamsTest {
                         .sipAuthUsername("user")
                         .sipRegion(CallCallsParams.Body.WithUrl.SipRegion.CANADA)
                         .statusCallback("https://www.example.com/statuscallback-listener")
-                        .statusCallbackEvent(
-                            CallCallsParams.Body.WithUrl.StatusCallbackEvent.INITIATED
-                        )
+                        .statusCallbackEvent("initiated answered")
                         .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
                         .superviseCallSid(
                             "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"

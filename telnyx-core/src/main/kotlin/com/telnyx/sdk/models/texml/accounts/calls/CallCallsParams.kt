@@ -527,7 +527,7 @@ private constructor(
             private val sipAuthUsername: JsonField<String>,
             private val sipRegion: JsonField<SipRegion>,
             private val statusCallback: JsonField<String>,
-            private val statusCallbackEvent: JsonField<StatusCallbackEvent>,
+            private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
@@ -648,7 +648,7 @@ private constructor(
                 statusCallback: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackEvent")
                 @ExcludeMissing
-                statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of(),
+                statusCallbackEvent: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
@@ -1055,7 +1055,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun statusCallbackEvent(): Optional<StatusCallbackEvent> =
+            fun statusCallbackEvent(): Optional<String> =
                 statusCallbackEvent.getOptional("StatusCallbackEvent")
 
             /**
@@ -1494,7 +1494,7 @@ private constructor(
              */
             @JsonProperty("StatusCallbackEvent")
             @ExcludeMissing
-            fun _statusCallbackEvent(): JsonField<StatusCallbackEvent> = statusCallbackEvent
+            fun _statusCallbackEvent(): JsonField<String> = statusCallbackEvent
 
             /**
              * Returns the raw JSON value of [statusCallbackMethod].
@@ -1640,7 +1640,7 @@ private constructor(
                 private var sipAuthUsername: JsonField<String> = JsonMissing.of()
                 private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
                 private var statusCallback: JsonField<String> = JsonMissing.of()
-                private var statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of()
+                private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
@@ -2303,20 +2303,19 @@ private constructor(
                  * The call events for which Telnyx should send a webhook. Multiple events can be
                  * defined when separated by a space.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: StatusCallbackEvent) =
+                fun statusCallbackEvent(statusCallbackEvent: String) =
                     statusCallbackEvent(JsonField.of(statusCallbackEvent))
 
                 /**
                  * Sets [Builder.statusCallbackEvent] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.statusCallbackEvent] with a well-typed
-                 * [StatusCallbackEvent] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.statusCallbackEvent] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: JsonField<StatusCallbackEvent>) =
-                    apply {
-                        this.statusCallbackEvent = statusCallbackEvent
-                    }
+                fun statusCallbackEvent(statusCallbackEvent: JsonField<String>) = apply {
+                    this.statusCallbackEvent = statusCallbackEvent
+                }
 
                 /** HTTP request type used for `StatusCallback`. */
                 fun statusCallbackMethod(statusCallbackMethod: StatusCallbackMethod) =
@@ -2601,7 +2600,7 @@ private constructor(
                 sipAuthUsername()
                 sipRegion().ifPresent { it.validate() }
                 statusCallback()
-                statusCallbackEvent().ifPresent { it.validate() }
+                statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
@@ -2665,7 +2664,7 @@ private constructor(
                     (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
                     (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
-                    (statusCallbackEvent.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
@@ -4402,167 +4401,6 @@ private constructor(
                     }
 
                     return other is SipRegion && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * The call events for which Telnyx should send a webhook. Multiple events can be
-             * defined when separated by a space.
-             */
-            class StatusCallbackEvent
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val INITIATED = of("initiated")
-
-                    @JvmField val RINGING = of("ringing")
-
-                    @JvmField val ANSWERED = of("answered")
-
-                    @JvmField val COMPLETED = of("completed")
-
-                    @JvmStatic fun of(value: String) = StatusCallbackEvent(JsonField.of(value))
-                }
-
-                /** An enum containing [StatusCallbackEvent]'s known values. */
-                enum class Known {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                }
-
-                /**
-                 * An enum containing [StatusCallbackEvent]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [StatusCallbackEvent] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                    /**
-                     * An enum member indicating that [StatusCallbackEvent] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        INITIATED -> Value.INITIATED
-                        RINGING -> Value.RINGING
-                        ANSWERED -> Value.ANSWERED
-                        COMPLETED -> Value.COMPLETED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        INITIATED -> Known.INITIATED
-                        RINGING -> Known.RINGING
-                        ANSWERED -> Known.ANSWERED
-                        COMPLETED -> Known.COMPLETED
-                        else ->
-                            throw TelnyxInvalidDataException("Unknown StatusCallbackEvent: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): StatusCallbackEvent = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is StatusCallbackEvent && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -5310,7 +5148,7 @@ private constructor(
             private val sipAuthUsername: JsonField<String>,
             private val sipRegion: JsonField<SipRegion>,
             private val statusCallback: JsonField<String>,
-            private val statusCallbackEvent: JsonField<StatusCallbackEvent>,
+            private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
@@ -5431,7 +5269,7 @@ private constructor(
                 statusCallback: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackEvent")
                 @ExcludeMissing
-                statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of(),
+                statusCallbackEvent: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
@@ -5839,7 +5677,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun statusCallbackEvent(): Optional<StatusCallbackEvent> =
+            fun statusCallbackEvent(): Optional<String> =
                 statusCallbackEvent.getOptional("StatusCallbackEvent")
 
             /**
@@ -6278,7 +6116,7 @@ private constructor(
              */
             @JsonProperty("StatusCallbackEvent")
             @ExcludeMissing
-            fun _statusCallbackEvent(): JsonField<StatusCallbackEvent> = statusCallbackEvent
+            fun _statusCallbackEvent(): JsonField<String> = statusCallbackEvent
 
             /**
              * Returns the raw JSON value of [statusCallbackMethod].
@@ -6424,7 +6262,7 @@ private constructor(
                 private var sipAuthUsername: JsonField<String> = JsonMissing.of()
                 private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
                 private var statusCallback: JsonField<String> = JsonMissing.of()
-                private var statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of()
+                private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
@@ -7091,20 +6929,19 @@ private constructor(
                  * The call events for which Telnyx should send a webhook. Multiple events can be
                  * defined when separated by a space.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: StatusCallbackEvent) =
+                fun statusCallbackEvent(statusCallbackEvent: String) =
                     statusCallbackEvent(JsonField.of(statusCallbackEvent))
 
                 /**
                  * Sets [Builder.statusCallbackEvent] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.statusCallbackEvent] with a well-typed
-                 * [StatusCallbackEvent] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.statusCallbackEvent] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: JsonField<StatusCallbackEvent>) =
-                    apply {
-                        this.statusCallbackEvent = statusCallbackEvent
-                    }
+                fun statusCallbackEvent(statusCallbackEvent: JsonField<String>) = apply {
+                    this.statusCallbackEvent = statusCallbackEvent
+                }
 
                 /** HTTP request type used for `StatusCallback`. */
                 fun statusCallbackMethod(statusCallbackMethod: StatusCallbackMethod) =
@@ -7389,7 +7226,7 @@ private constructor(
                 sipAuthUsername()
                 sipRegion().ifPresent { it.validate() }
                 statusCallback()
-                statusCallbackEvent().ifPresent { it.validate() }
+                statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
@@ -7453,7 +7290,7 @@ private constructor(
                     (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
                     (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
-                    (statusCallbackEvent.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
@@ -9197,167 +9034,6 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /**
-             * The call events for which Telnyx should send a webhook. Multiple events can be
-             * defined when separated by a space.
-             */
-            class StatusCallbackEvent
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val INITIATED = of("initiated")
-
-                    @JvmField val RINGING = of("ringing")
-
-                    @JvmField val ANSWERED = of("answered")
-
-                    @JvmField val COMPLETED = of("completed")
-
-                    @JvmStatic fun of(value: String) = StatusCallbackEvent(JsonField.of(value))
-                }
-
-                /** An enum containing [StatusCallbackEvent]'s known values. */
-                enum class Known {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                }
-
-                /**
-                 * An enum containing [StatusCallbackEvent]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [StatusCallbackEvent] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                    /**
-                     * An enum member indicating that [StatusCallbackEvent] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        INITIATED -> Value.INITIATED
-                        RINGING -> Value.RINGING
-                        ANSWERED -> Value.ANSWERED
-                        COMPLETED -> Value.COMPLETED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        INITIATED -> Known.INITIATED
-                        RINGING -> Known.RINGING
-                        ANSWERED -> Known.ANSWERED
-                        COMPLETED -> Known.COMPLETED
-                        else ->
-                            throw TelnyxInvalidDataException("Unknown StatusCallbackEvent: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): StatusCallbackEvent = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is StatusCallbackEvent && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             /** HTTP request type used for `StatusCallback`. */
             class StatusCallbackMethod
             @JsonCreator
@@ -10097,7 +9773,7 @@ private constructor(
             private val sipAuthUsername: JsonField<String>,
             private val sipRegion: JsonField<SipRegion>,
             private val statusCallback: JsonField<String>,
-            private val statusCallbackEvent: JsonField<StatusCallbackEvent>,
+            private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
@@ -10218,7 +9894,7 @@ private constructor(
                 statusCallback: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackEvent")
                 @ExcludeMissing
-                statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of(),
+                statusCallbackEvent: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
@@ -10617,7 +10293,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun statusCallbackEvent(): Optional<StatusCallbackEvent> =
+            fun statusCallbackEvent(): Optional<String> =
                 statusCallbackEvent.getOptional("StatusCallbackEvent")
 
             /**
@@ -11055,7 +10731,7 @@ private constructor(
              */
             @JsonProperty("StatusCallbackEvent")
             @ExcludeMissing
-            fun _statusCallbackEvent(): JsonField<StatusCallbackEvent> = statusCallbackEvent
+            fun _statusCallbackEvent(): JsonField<String> = statusCallbackEvent
 
             /**
              * Returns the raw JSON value of [statusCallbackMethod].
@@ -11202,7 +10878,7 @@ private constructor(
                 private var sipAuthUsername: JsonField<String> = JsonMissing.of()
                 private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
                 private var statusCallback: JsonField<String> = JsonMissing.of()
-                private var statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of()
+                private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
@@ -11861,20 +11537,19 @@ private constructor(
                  * The call events for which Telnyx should send a webhook. Multiple events can be
                  * defined when separated by a space.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: StatusCallbackEvent) =
+                fun statusCallbackEvent(statusCallbackEvent: String) =
                     statusCallbackEvent(JsonField.of(statusCallbackEvent))
 
                 /**
                  * Sets [Builder.statusCallbackEvent] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.statusCallbackEvent] with a well-typed
-                 * [StatusCallbackEvent] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.statusCallbackEvent] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun statusCallbackEvent(statusCallbackEvent: JsonField<StatusCallbackEvent>) =
-                    apply {
-                        this.statusCallbackEvent = statusCallbackEvent
-                    }
+                fun statusCallbackEvent(statusCallbackEvent: JsonField<String>) = apply {
+                    this.statusCallbackEvent = statusCallbackEvent
+                }
 
                 /** HTTP request type used for `StatusCallback`. */
                 fun statusCallbackMethod(statusCallbackMethod: StatusCallbackMethod) =
@@ -12165,7 +11840,7 @@ private constructor(
                 sipAuthUsername()
                 sipRegion().ifPresent { it.validate() }
                 statusCallback()
-                statusCallbackEvent().ifPresent { it.validate() }
+                statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
@@ -12229,7 +11904,7 @@ private constructor(
                     (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
                     (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
-                    (statusCallbackEvent.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
@@ -13967,167 +13642,6 @@ private constructor(
                     }
 
                     return other is SipRegion && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * The call events for which Telnyx should send a webhook. Multiple events can be
-             * defined when separated by a space.
-             */
-            class StatusCallbackEvent
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val INITIATED = of("initiated")
-
-                    @JvmField val RINGING = of("ringing")
-
-                    @JvmField val ANSWERED = of("answered")
-
-                    @JvmField val COMPLETED = of("completed")
-
-                    @JvmStatic fun of(value: String) = StatusCallbackEvent(JsonField.of(value))
-                }
-
-                /** An enum containing [StatusCallbackEvent]'s known values. */
-                enum class Known {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                }
-
-                /**
-                 * An enum containing [StatusCallbackEvent]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [StatusCallbackEvent] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    INITIATED,
-                    RINGING,
-                    ANSWERED,
-                    COMPLETED,
-                    /**
-                     * An enum member indicating that [StatusCallbackEvent] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        INITIATED -> Value.INITIATED
-                        RINGING -> Value.RINGING
-                        ANSWERED -> Value.ANSWERED
-                        COMPLETED -> Value.COMPLETED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        INITIATED -> Known.INITIATED
-                        RINGING -> Known.RINGING
-                        ANSWERED -> Known.ANSWERED
-                        COMPLETED -> Known.COMPLETED
-                        else ->
-                            throw TelnyxInvalidDataException("Unknown StatusCallbackEvent: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): StatusCallbackEvent = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is StatusCallbackEvent && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()

@@ -38,6 +38,10 @@ import com.telnyx.sdk.services.async.dir.PhoneNumberBatchServiceAsync
 import com.telnyx.sdk.services.async.dir.PhoneNumberBatchServiceAsyncImpl
 import com.telnyx.sdk.services.async.dir.PhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.dir.PhoneNumberServiceAsyncImpl
+import com.telnyx.sdk.services.async.dir.ReferenceServiceAsync
+import com.telnyx.sdk.services.async.dir.ReferenceServiceAsyncImpl
+import com.telnyx.sdk.services.async.dir.VerifyEmailServiceAsync
+import com.telnyx.sdk.services.async.dir.VerifyEmailServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -59,6 +63,14 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
         PhoneNumberServiceAsyncImpl(clientOptions)
     }
 
+    private val references: ReferenceServiceAsync by lazy {
+        ReferenceServiceAsyncImpl(clientOptions)
+    }
+
+    private val verifyEmail: VerifyEmailServiceAsync by lazy {
+        VerifyEmailServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): DirServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DirServiceAsync =
@@ -78,6 +90,18 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
      * display identity.
      */
     override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
+
+    /**
+     * Submit and manage the two business references and one financial reference that vouch for a
+     * DIR. References are contacted to confirm the business identity during vetting.
+     */
+    override fun references(): ReferenceServiceAsync = references
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    override fun verifyEmail(): VerifyEmailServiceAsync = verifyEmail
 
     override fun retrieve(
         params: DirRetrieveParams,
@@ -160,6 +184,14 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
             PhoneNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val references: ReferenceServiceAsync.WithRawResponse by lazy {
+            ReferenceServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val verifyEmail: VerifyEmailServiceAsync.WithRawResponse by lazy {
+            VerifyEmailServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): DirServiceAsync.WithRawResponse =
@@ -182,6 +214,18 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
          * display identity.
          */
         override fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse = phoneNumbers
+
+        /**
+         * Submit and manage the two business references and one financial reference that vouch for
+         * a DIR. References are contacted to confirm the business identity during vetting.
+         */
+        override fun references(): ReferenceServiceAsync.WithRawResponse = references
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        override fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse = verifyEmail
 
         private val retrieveHandler: Handler<DirWrapped> =
             jsonHandler<DirWrapped>(clientOptions.jsonMapper)
