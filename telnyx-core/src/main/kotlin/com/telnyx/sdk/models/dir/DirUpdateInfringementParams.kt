@@ -93,7 +93,8 @@ private constructor(
     fun displayName(): Optional<String> = body.displayName()
 
     /**
-     * Append-only supporting documents.
+     * Append-only supporting documents to attach while resolving the claim (e.g. authorization or
+     * licensing proof).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -357,7 +358,10 @@ private constructor(
          */
         fun displayName(displayName: JsonField<String>) = apply { body.displayName(displayName) }
 
-        /** Append-only supporting documents. */
+        /**
+         * Append-only supporting documents to attach while resolving the claim (e.g. authorization
+         * or licensing proof).
+         */
         fun documents(documents: List<Document>?) = apply { body.documents(documents) }
 
         /** Alias for calling [Builder.documents] with `documents.orElse(null)`. */
@@ -660,7 +664,8 @@ private constructor(
         fun displayName(): Optional<String> = displayName.getOptional("display_name")
 
         /**
-         * Append-only supporting documents.
+         * Append-only supporting documents to attach while resolving the claim (e.g. authorization
+         * or licensing proof).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -941,7 +946,10 @@ private constructor(
                 this.displayName = displayName
             }
 
-            /** Append-only supporting documents. */
+            /**
+             * Append-only supporting documents to attach while resolving the claim (e.g.
+             * authorization or licensing proof).
+             */
             fun documents(documents: List<Document>?) = documents(JsonField.ofNullable(documents))
 
             /** Alias for calling [Builder.documents] with `documents.orElse(null)`. */

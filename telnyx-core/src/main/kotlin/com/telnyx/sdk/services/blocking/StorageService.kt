@@ -9,6 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageParams
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageResponse
 import com.telnyx.sdk.services.blocking.storage.BucketService
+import com.telnyx.sdk.services.blocking.storage.KvService
 import com.telnyx.sdk.services.blocking.storage.MigrationService
 import com.telnyx.sdk.services.blocking.storage.MigrationSourceService
 import java.util.function.Consumer
@@ -36,6 +37,9 @@ interface StorageService {
 
     /** Migrate data from an external provider into Telnyx Cloud Storage */
     fun migrations(): MigrationService
+
+    /** Manage KV storage namespaces */
+    fun kvs(): KvService
 
     /** List Migration Source coverage */
     fun listMigrationSourceCoverage(): StorageListMigrationSourceCoverageResponse =
@@ -79,6 +83,9 @@ interface StorageService {
 
         /** Migrate data from an external provider into Telnyx Cloud Storage */
         fun migrations(): MigrationService.WithRawResponse
+
+        /** Manage KV storage namespaces */
+        fun kvs(): KvService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /storage/migration_source_coverage`, but is

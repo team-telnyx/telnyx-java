@@ -76,6 +76,15 @@ private constructor(
     fun authorizerName(): String = body.authorizerName()
 
     /**
+     * 1–10 reasons your business calls customers. Validate phrasing against `POST
+     * /call_reasons/validate`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun callReasons(): List<String> = body.callReasons()
+
+    /**
      * Must be `true`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -107,15 +116,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayName(): String = body.displayName()
-
-    /**
-     * 1–10 reasons your business calls customers. Validate phrasing against `POST
-     * /call_reasons/validate`.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun callReasons(): Optional<List<String>> = body.callReasons()
 
     /**
      * Supporting documents. Each `document_id` may appear at most once on a DIR.
@@ -156,6 +156,13 @@ private constructor(
     fun _authorizerName(): JsonField<String> = body._authorizerName()
 
     /**
+     * Returns the raw JSON value of [callReasons].
+     *
+     * Unlike [callReasons], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _callReasons(): JsonField<List<String>> = body._callReasons()
+
+    /**
      * Returns the raw JSON value of [certifyBrandIsAccurate].
      *
      * Unlike [certifyBrandIsAccurate], this method doesn't throw if the JSON field has an
@@ -186,13 +193,6 @@ private constructor(
      * Unlike [displayName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _displayName(): JsonField<String> = body._displayName()
-
-    /**
-     * Returns the raw JSON value of [callReasons].
-     *
-     * Unlike [callReasons], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _callReasons(): JsonField<List<String>> = body._callReasons()
 
     /**
      * Returns the raw JSON value of [documents].
@@ -234,6 +234,7 @@ private constructor(
          * ```java
          * .authorizerEmail()
          * .authorizerName()
+         * .callReasons()
          * .certifyBrandIsAccurate()
          * .certifyIpOwnership()
          * .certifyNoShaftContent()
@@ -271,9 +272,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [authorizerEmail]
          * - [authorizerName]
+         * - [callReasons]
          * - [certifyBrandIsAccurate]
          * - [certifyIpOwnership]
-         * - [certifyNoShaftContent]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -313,6 +314,30 @@ private constructor(
         fun authorizerName(authorizerName: JsonField<String>) = apply {
             body.authorizerName(authorizerName)
         }
+
+        /**
+         * 1–10 reasons your business calls customers. Validate phrasing against `POST
+         * /call_reasons/validate`.
+         */
+        fun callReasons(callReasons: List<String>) = apply { body.callReasons(callReasons) }
+
+        /**
+         * Sets [Builder.callReasons] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callReasons] with a well-typed `List<String>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callReasons(callReasons: JsonField<List<String>>) = apply {
+            body.callReasons(callReasons)
+        }
+
+        /**
+         * Adds a single [String] to [callReasons].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCallReason(callReason: String) = apply { body.addCallReason(callReason) }
 
         /** Must be `true`. */
         fun certifyBrandIsAccurate(certifyBrandIsAccurate: CertifyBrandIsAccurate) = apply {
@@ -377,30 +402,6 @@ private constructor(
          * value.
          */
         fun displayName(displayName: JsonField<String>) = apply { body.displayName(displayName) }
-
-        /**
-         * 1–10 reasons your business calls customers. Validate phrasing against `POST
-         * /call_reasons/validate`.
-         */
-        fun callReasons(callReasons: List<String>) = apply { body.callReasons(callReasons) }
-
-        /**
-         * Sets [Builder.callReasons] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.callReasons] with a well-typed `List<String>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun callReasons(callReasons: JsonField<List<String>>) = apply {
-            body.callReasons(callReasons)
-        }
-
-        /**
-         * Adds a single [String] to [callReasons].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addCallReason(callReason: String) = apply { body.addCallReason(callReason) }
 
         /** Supporting documents. Each `document_id` may appear at most once on a DIR. */
         fun documents(documents: List<Document>) = apply { body.documents(documents) }
@@ -573,6 +574,7 @@ private constructor(
          * ```java
          * .authorizerEmail()
          * .authorizerName()
+         * .callReasons()
          * .certifyBrandIsAccurate()
          * .certifyIpOwnership()
          * .certifyNoShaftContent()
@@ -607,11 +609,11 @@ private constructor(
     private constructor(
         private val authorizerEmail: JsonField<String>,
         private val authorizerName: JsonField<String>,
+        private val callReasons: JsonField<List<String>>,
         private val certifyBrandIsAccurate: JsonField<CertifyBrandIsAccurate>,
         private val certifyIpOwnership: JsonField<CertifyIpOwnership>,
         private val certifyNoShaftContent: JsonField<CertifyNoShaftContent>,
         private val displayName: JsonField<String>,
-        private val callReasons: JsonField<List<String>>,
         private val documents: JsonField<List<Document>>,
         private val logoUrl: JsonField<String>,
         private val reselling: JsonField<Boolean>,
@@ -626,6 +628,9 @@ private constructor(
             @JsonProperty("authorizer_name")
             @ExcludeMissing
             authorizerName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("call_reasons")
+            @ExcludeMissing
+            callReasons: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("certify_brand_is_accurate")
             @ExcludeMissing
             certifyBrandIsAccurate: JsonField<CertifyBrandIsAccurate> = JsonMissing.of(),
@@ -638,9 +643,6 @@ private constructor(
             @JsonProperty("display_name")
             @ExcludeMissing
             displayName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("call_reasons")
-            @ExcludeMissing
-            callReasons: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("documents")
             @ExcludeMissing
             documents: JsonField<List<Document>> = JsonMissing.of(),
@@ -651,11 +653,11 @@ private constructor(
         ) : this(
             authorizerEmail,
             authorizerName,
+            callReasons,
             certifyBrandIsAccurate,
             certifyIpOwnership,
             certifyNoShaftContent,
             displayName,
-            callReasons,
             documents,
             logoUrl,
             reselling,
@@ -679,6 +681,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun authorizerName(): String = authorizerName.getRequired("authorizer_name")
+
+        /**
+         * 1–10 reasons your business calls customers. Validate phrasing against `POST
+         * /call_reasons/validate`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun callReasons(): List<String> = callReasons.getRequired("call_reasons")
 
         /**
          * Must be `true`.
@@ -715,15 +726,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun displayName(): String = displayName.getRequired("display_name")
-
-        /**
-         * 1–10 reasons your business calls customers. Validate phrasing against `POST
-         * /call_reasons/validate`.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun callReasons(): Optional<List<String>> = callReasons.getOptional("call_reasons")
 
         /**
          * Supporting documents. Each `document_id` may appear at most once on a DIR.
@@ -771,6 +773,15 @@ private constructor(
         fun _authorizerName(): JsonField<String> = authorizerName
 
         /**
+         * Returns the raw JSON value of [callReasons].
+         *
+         * Unlike [callReasons], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("call_reasons")
+        @ExcludeMissing
+        fun _callReasons(): JsonField<List<String>> = callReasons
+
+        /**
          * Returns the raw JSON value of [certifyBrandIsAccurate].
          *
          * Unlike [certifyBrandIsAccurate], this method doesn't throw if the JSON field has an
@@ -808,15 +819,6 @@ private constructor(
         @JsonProperty("display_name")
         @ExcludeMissing
         fun _displayName(): JsonField<String> = displayName
-
-        /**
-         * Returns the raw JSON value of [callReasons].
-         *
-         * Unlike [callReasons], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("call_reasons")
-        @ExcludeMissing
-        fun _callReasons(): JsonField<List<String>> = callReasons
 
         /**
          * Returns the raw JSON value of [documents].
@@ -862,6 +864,7 @@ private constructor(
              * ```java
              * .authorizerEmail()
              * .authorizerName()
+             * .callReasons()
              * .certifyBrandIsAccurate()
              * .certifyIpOwnership()
              * .certifyNoShaftContent()
@@ -876,11 +879,11 @@ private constructor(
 
             private var authorizerEmail: JsonField<String>? = null
             private var authorizerName: JsonField<String>? = null
+            private var callReasons: JsonField<MutableList<String>>? = null
             private var certifyBrandIsAccurate: JsonField<CertifyBrandIsAccurate>? = null
             private var certifyIpOwnership: JsonField<CertifyIpOwnership>? = null
             private var certifyNoShaftContent: JsonField<CertifyNoShaftContent>? = null
             private var displayName: JsonField<String>? = null
-            private var callReasons: JsonField<MutableList<String>>? = null
             private var documents: JsonField<MutableList<Document>>? = null
             private var logoUrl: JsonField<String> = JsonMissing.of()
             private var reselling: JsonField<Boolean> = JsonMissing.of()
@@ -890,11 +893,11 @@ private constructor(
             internal fun from(body: Body) = apply {
                 authorizerEmail = body.authorizerEmail
                 authorizerName = body.authorizerName
+                callReasons = body.callReasons.map { it.toMutableList() }
                 certifyBrandIsAccurate = body.certifyBrandIsAccurate
                 certifyIpOwnership = body.certifyIpOwnership
                 certifyNoShaftContent = body.certifyNoShaftContent
                 displayName = body.displayName
-                callReasons = body.callReasons.map { it.toMutableList() }
                 documents = body.documents.map { it.toMutableList() }
                 logoUrl = body.logoUrl
                 reselling = body.reselling
@@ -935,6 +938,35 @@ private constructor(
              */
             fun authorizerName(authorizerName: JsonField<String>) = apply {
                 this.authorizerName = authorizerName
+            }
+
+            /**
+             * 1–10 reasons your business calls customers. Validate phrasing against `POST
+             * /call_reasons/validate`.
+             */
+            fun callReasons(callReasons: List<String>) = callReasons(JsonField.of(callReasons))
+
+            /**
+             * Sets [Builder.callReasons] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callReasons] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun callReasons(callReasons: JsonField<List<String>>) = apply {
+                this.callReasons = callReasons.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [callReasons].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addCallReason(callReason: String) = apply {
+                callReasons =
+                    (callReasons ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("callReasons", it).add(callReason)
+                    }
             }
 
             /** Must be `true`. */
@@ -999,35 +1031,6 @@ private constructor(
              */
             fun displayName(displayName: JsonField<String>) = apply {
                 this.displayName = displayName
-            }
-
-            /**
-             * 1–10 reasons your business calls customers. Validate phrasing against `POST
-             * /call_reasons/validate`.
-             */
-            fun callReasons(callReasons: List<String>) = callReasons(JsonField.of(callReasons))
-
-            /**
-             * Sets [Builder.callReasons] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.callReasons] with a well-typed `List<String>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun callReasons(callReasons: JsonField<List<String>>) = apply {
-                this.callReasons = callReasons.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [String] to [callReasons].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addCallReason(callReason: String) = apply {
-                callReasons =
-                    (callReasons ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("callReasons", it).add(callReason)
-                    }
             }
 
             /** Supporting documents. Each `document_id` may appear at most once on a DIR. */
@@ -1111,6 +1114,7 @@ private constructor(
              * ```java
              * .authorizerEmail()
              * .authorizerName()
+             * .callReasons()
              * .certifyBrandIsAccurate()
              * .certifyIpOwnership()
              * .certifyNoShaftContent()
@@ -1123,11 +1127,11 @@ private constructor(
                 Body(
                     checkRequired("authorizerEmail", authorizerEmail),
                     checkRequired("authorizerName", authorizerName),
+                    checkRequired("callReasons", callReasons).map { it.toImmutable() },
                     checkRequired("certifyBrandIsAccurate", certifyBrandIsAccurate),
                     checkRequired("certifyIpOwnership", certifyIpOwnership),
                     checkRequired("certifyNoShaftContent", certifyNoShaftContent),
                     checkRequired("displayName", displayName),
-                    (callReasons ?: JsonMissing.of()).map { it.toImmutable() },
                     (documents ?: JsonMissing.of()).map { it.toImmutable() },
                     logoUrl,
                     reselling,
@@ -1153,11 +1157,11 @@ private constructor(
 
             authorizerEmail()
             authorizerName()
+            callReasons()
             certifyBrandIsAccurate().validate()
             certifyIpOwnership().validate()
             certifyNoShaftContent().validate()
             displayName()
-            callReasons()
             documents().ifPresent { it.forEach { it.validate() } }
             logoUrl()
             reselling()
@@ -1182,11 +1186,11 @@ private constructor(
         internal fun validity(): Int =
             (if (authorizerEmail.asKnown().isPresent) 1 else 0) +
                 (if (authorizerName.asKnown().isPresent) 1 else 0) +
+                (callReasons.asKnown().getOrNull()?.size ?: 0) +
                 (certifyBrandIsAccurate.asKnown().getOrNull()?.validity() ?: 0) +
                 (certifyIpOwnership.asKnown().getOrNull()?.validity() ?: 0) +
                 (certifyNoShaftContent.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (displayName.asKnown().isPresent) 1 else 0) +
-                (callReasons.asKnown().getOrNull()?.size ?: 0) +
                 (documents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (logoUrl.asKnown().isPresent) 1 else 0) +
                 (if (reselling.asKnown().isPresent) 1 else 0)
@@ -1199,11 +1203,11 @@ private constructor(
             return other is Body &&
                 authorizerEmail == other.authorizerEmail &&
                 authorizerName == other.authorizerName &&
+                callReasons == other.callReasons &&
                 certifyBrandIsAccurate == other.certifyBrandIsAccurate &&
                 certifyIpOwnership == other.certifyIpOwnership &&
                 certifyNoShaftContent == other.certifyNoShaftContent &&
                 displayName == other.displayName &&
-                callReasons == other.callReasons &&
                 documents == other.documents &&
                 logoUrl == other.logoUrl &&
                 reselling == other.reselling &&
@@ -1214,11 +1218,11 @@ private constructor(
             Objects.hash(
                 authorizerEmail,
                 authorizerName,
+                callReasons,
                 certifyBrandIsAccurate,
                 certifyIpOwnership,
                 certifyNoShaftContent,
                 displayName,
-                callReasons,
                 documents,
                 logoUrl,
                 reselling,
@@ -1229,7 +1233,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, displayName=$displayName, callReasons=$callReasons, documents=$documents, logoUrl=$logoUrl, reselling=$reselling, additionalProperties=$additionalProperties}"
+            "Body{authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, callReasons=$callReasons, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, displayName=$displayName, documents=$documents, logoUrl=$logoUrl, reselling=$reselling, additionalProperties=$additionalProperties}"
     }
 
     /** Must be `true`. */
