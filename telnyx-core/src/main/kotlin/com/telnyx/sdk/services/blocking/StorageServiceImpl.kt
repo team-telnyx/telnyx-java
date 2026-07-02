@@ -18,6 +18,8 @@ import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageParams
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageResponse
 import com.telnyx.sdk.services.blocking.storage.BucketService
 import com.telnyx.sdk.services.blocking.storage.BucketServiceImpl
+import com.telnyx.sdk.services.blocking.storage.KvService
+import com.telnyx.sdk.services.blocking.storage.KvServiceImpl
 import com.telnyx.sdk.services.blocking.storage.MigrationService
 import com.telnyx.sdk.services.blocking.storage.MigrationServiceImpl
 import com.telnyx.sdk.services.blocking.storage.MigrationSourceService
@@ -40,6 +42,8 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val migrations: MigrationService by lazy { MigrationServiceImpl(clientOptions) }
 
+    private val kvs: KvService by lazy { KvServiceImpl(clientOptions) }
+
     override fun withRawResponse(): StorageService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageService =
@@ -53,6 +57,9 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
     /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun migrations(): MigrationService = migrations
+
+    /** Manage KV storage namespaces */
+    override fun kvs(): KvService = kvs
 
     override fun listMigrationSourceCoverage(
         params: StorageListMigrationSourceCoverageParams,
@@ -79,6 +86,10 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
             MigrationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val kvs: KvService.WithRawResponse by lazy {
+            KvServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): StorageService.WithRawResponse =
@@ -94,6 +105,9 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
         /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun migrations(): MigrationService.WithRawResponse = migrations
+
+        /** Manage KV storage namespaces */
+        override fun kvs(): KvService.WithRawResponse = kvs
 
         private val listMigrationSourceCoverageHandler:
             Handler<StorageListMigrationSourceCoverageResponse> =

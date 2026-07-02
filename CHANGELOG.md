@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.79.0](https://github.com/team-telnyx/telnyx-java/compare/v6.78.0...v6.79.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* add git clean -fdx to tree replacement step in release-please.yml ([#190](https://github.com/team-telnyx/telnyx-java/issues/190)) ([1c6b9a4](https://github.com/team-telnyx/telnyx-java/commit/1c6b9a40f7832c84cf66ba011771304a119c3988))
+* replace git merge with tree replacement in release-please.yml ([#189](https://github.com/team-telnyx/telnyx-java/issues/189)) ([87388e9](https://github.com/team-telnyx/telnyx-java/commit/87388e9e2ef404db1696114ecc2a4a5d21163a17))
+* use git reset --hard for tree replacement, force-push, and fix PR URL regex in release-please.yml ([#191](https://github.com/team-telnyx/telnyx-java/issues/191)) ([6d66609](https://github.com/team-telnyx/telnyx-java/commit/6d6660924b293d848f2f97e49a01523502649bea))
+
 ## [6.78.0](https://github.com/team-telnyx/telnyx-java/compare/v6.77.0...v6.78.0) (2026-06-30)
 
 
