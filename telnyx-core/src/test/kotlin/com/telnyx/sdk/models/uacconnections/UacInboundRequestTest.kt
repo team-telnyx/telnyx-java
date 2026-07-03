@@ -25,6 +25,7 @@ internal class UacInboundRequestTest {
                 .shakenStirEnabled(true)
                 .simultaneousRinging(UacInboundRequest.SimultaneousRinging.ENABLED)
                 .sipCompactHeadersEnabled(true)
+                .sipRegion(UacInboundRequest.SipRegion.US)
                 .timeout1xxSecs(10L)
                 .timeout2xxSecs(20L)
                 .build()
@@ -44,6 +45,7 @@ internal class UacInboundRequestTest {
         assertThat(uacInboundRequest.simultaneousRinging())
             .contains(UacInboundRequest.SimultaneousRinging.ENABLED)
         assertThat(uacInboundRequest.sipCompactHeadersEnabled()).contains(true)
+        assertThat(uacInboundRequest.sipRegion()).contains(UacInboundRequest.SipRegion.US)
         assertThat(uacInboundRequest.timeout1xxSecs()).contains(10L)
         assertThat(uacInboundRequest.timeout2xxSecs()).contains(20L)
     }
@@ -64,6 +66,7 @@ internal class UacInboundRequestTest {
                 .shakenStirEnabled(true)
                 .simultaneousRinging(UacInboundRequest.SimultaneousRinging.ENABLED)
                 .sipCompactHeadersEnabled(true)
+                .sipRegion(UacInboundRequest.SipRegion.US)
                 .timeout1xxSecs(10L)
                 .timeout2xxSecs(20L)
                 .build()

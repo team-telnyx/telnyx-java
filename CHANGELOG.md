@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.80.0](https://github.com/team-telnyx/telnyx-java/compare/v6.79.0...v6.80.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **release:** document master-branch commit-scan requirement for release PRs ([#195](https://github.com/team-telnyx/telnyx-java/issues/195)) ([c702389](https://github.com/team-telnyx/telnyx-java/commit/c702389791538c466af4cac9743bfd1a9dcaf9be))
+
 ## [6.79.0](https://github.com/team-telnyx/telnyx-java/compare/v6.78.0...v6.79.0) (2026-07-02)
 
 

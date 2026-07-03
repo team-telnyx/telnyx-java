@@ -228,7 +228,8 @@ private constructor(
         /**
          * Port for the SIPREC SRS.
          *
-         * Unlike [pageNumber], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
         fun port(): Optional<Long> = port.getOptional("port")
 
@@ -257,9 +258,9 @@ private constructor(
         fun _appSubdomain(): JsonField<String> = appSubdomain
 
         /**
-         * Returns the raw JSON value of [totalPages].
+         * Returns the raw JSON value of [createdAt].
          *
-         * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
 
@@ -360,7 +361,7 @@ private constructor(
             fun createdAt(createdAt: String) = createdAt(JsonField.of(createdAt))
 
             /**
-             * Sets [Builder.pageSize] to an arbitrary JSON value.
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
              *
              * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
              * This method is primarily for setting the field to an undocumented or not yet

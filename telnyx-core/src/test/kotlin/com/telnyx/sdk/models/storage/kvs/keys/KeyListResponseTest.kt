@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.storage.kvs.keys
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,28 +14,15 @@ internal class KeyListResponseTest {
     fun create() {
         val keyListResponse =
             KeyListResponse.builder()
-                .addData(
-                    KeyListResponse.Data.builder()
-                        .key("user/123")
-                        .sizeBytes(21L)
-                        .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                        .build()
-                )
-                .meta(KeyListResponse.Meta.builder().cursor("cursor").hasMore(false).build())
-                .recordType("storage_kv_key")
+                .key("user/123")
+                .sizeBytes(21L)
+                .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
                 .build()
 
-        assertThat(keyListResponse.data().getOrNull())
-            .containsExactly(
-                KeyListResponse.Data.builder()
-                    .key("user/123")
-                    .sizeBytes(21L)
-                    .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                    .build()
-            )
-        assertThat(keyListResponse.meta())
-            .contains(KeyListResponse.Meta.builder().cursor("cursor").hasMore(false).build())
-        assertThat(keyListResponse.recordType()).contains("storage_kv_key")
+        assertThat(keyListResponse.key()).contains("user/123")
+        assertThat(keyListResponse.sizeBytes()).contains(21L)
+        assertThat(keyListResponse.updatedAt())
+            .contains(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
     }
 
     @Test
@@ -44,15 +30,9 @@ internal class KeyListResponseTest {
         val jsonMapper = jsonMapper()
         val keyListResponse =
             KeyListResponse.builder()
-                .addData(
-                    KeyListResponse.Data.builder()
-                        .key("user/123")
-                        .sizeBytes(21L)
-                        .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                        .build()
-                )
-                .meta(KeyListResponse.Meta.builder().cursor("cursor").hasMore(false).build())
-                .recordType("storage_kv_key")
+                .key("user/123")
+                .sizeBytes(21L)
+                .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
                 .build()
 
         val roundtrippedKeyListResponse =

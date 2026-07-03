@@ -33,6 +33,7 @@ private constructor(
     private val shakenStirEnabled: JsonField<Boolean>,
     private val simultaneousRinging: JsonField<SimultaneousRinging>,
     private val sipCompactHeadersEnabled: JsonField<Boolean>,
+    private val sipRegion: JsonField<SipRegion>,
     private val sipSubdomain: JsonField<String>,
     private val sipSubdomainReceiveSettings: JsonField<SipSubdomainReceiveSettings>,
     private val timeout1xxSecs: JsonField<Long>,
@@ -73,6 +74,9 @@ private constructor(
         @JsonProperty("sip_compact_headers_enabled")
         @ExcludeMissing
         sipCompactHeadersEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("sip_region")
+        @ExcludeMissing
+        sipRegion: JsonField<SipRegion> = JsonMissing.of(),
         @JsonProperty("sip_subdomain")
         @ExcludeMissing
         sipSubdomain: JsonField<String> = JsonMissing.of(),
@@ -97,6 +101,7 @@ private constructor(
         shakenStirEnabled,
         simultaneousRinging,
         sipCompactHeadersEnabled,
+        sipRegion,
         sipSubdomain,
         sipSubdomainReceiveSettings,
         timeout1xxSecs,
@@ -205,6 +210,15 @@ private constructor(
      */
     fun sipCompactHeadersEnabled(): Optional<Boolean> =
         sipCompactHeadersEnabled.getOptional("sip_compact_headers_enabled")
+
+    /**
+     * Selects which `sip_region` to receive inbound calls from. If null, the default region (US)
+     * will be used.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipRegion(): Optional<SipRegion> = sipRegion.getOptional("sip_region")
 
     /**
      * The Telnyx-generated SIP subdomain for this UAC connection.
@@ -344,6 +358,13 @@ private constructor(
     fun _sipCompactHeadersEnabled(): JsonField<Boolean> = sipCompactHeadersEnabled
 
     /**
+     * Returns the raw JSON value of [sipRegion].
+     *
+     * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("sip_region") @ExcludeMissing fun _sipRegion(): JsonField<SipRegion> = sipRegion
+
+    /**
      * Returns the raw JSON value of [sipSubdomain].
      *
      * Unlike [sipSubdomain], this method doesn't throw if the JSON field has an unexpected type.
@@ -413,6 +434,7 @@ private constructor(
         private var shakenStirEnabled: JsonField<Boolean> = JsonMissing.of()
         private var simultaneousRinging: JsonField<SimultaneousRinging> = JsonMissing.of()
         private var sipCompactHeadersEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
         private var sipSubdomain: JsonField<String> = JsonMissing.of()
         private var sipSubdomainReceiveSettings: JsonField<SipSubdomainReceiveSettings> =
             JsonMissing.of()
@@ -433,6 +455,7 @@ private constructor(
             shakenStirEnabled = uacInbound.shakenStirEnabled
             simultaneousRinging = uacInbound.simultaneousRinging
             sipCompactHeadersEnabled = uacInbound.sipCompactHeadersEnabled
+            sipRegion = uacInbound.sipRegion
             sipSubdomain = uacInbound.sipSubdomain
             sipSubdomainReceiveSettings = uacInbound.sipSubdomainReceiveSettings
             timeout1xxSecs = uacInbound.timeout1xxSecs
@@ -631,6 +654,21 @@ private constructor(
             this.sipCompactHeadersEnabled = sipCompactHeadersEnabled
         }
 
+        /**
+         * Selects which `sip_region` to receive inbound calls from. If null, the default region
+         * (US) will be used.
+         */
+        fun sipRegion(sipRegion: SipRegion) = sipRegion(JsonField.of(sipRegion))
+
+        /**
+         * Sets [Builder.sipRegion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { this.sipRegion = sipRegion }
+
         /** The Telnyx-generated SIP subdomain for this UAC connection. */
         fun sipSubdomain(sipSubdomain: String) = sipSubdomain(JsonField.of(sipSubdomain))
 
@@ -725,6 +763,7 @@ private constructor(
                 shakenStirEnabled,
                 simultaneousRinging,
                 sipCompactHeadersEnabled,
+                sipRegion,
                 sipSubdomain,
                 sipSubdomainReceiveSettings,
                 timeout1xxSecs,
@@ -759,6 +798,7 @@ private constructor(
         shakenStirEnabled()
         simultaneousRinging().ifPresent { it.validate() }
         sipCompactHeadersEnabled()
+        sipRegion().ifPresent { it.validate() }
         sipSubdomain()
         sipSubdomainReceiveSettings().ifPresent { it.validate() }
         timeout1xxSecs()
@@ -792,6 +832,7 @@ private constructor(
             (if (shakenStirEnabled.asKnown().isPresent) 1 else 0) +
             (simultaneousRinging.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sipCompactHeadersEnabled.asKnown().isPresent) 1 else 0) +
+            (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sipSubdomain.asKnown().isPresent) 1 else 0) +
             (sipSubdomainReceiveSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (timeout1xxSecs.asKnown().isPresent) 1 else 0) +
@@ -1385,6 +1426,152 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Selects which `sip_region` to receive inbound calls from. If null, the default region (US)
+     * will be used.
+     */
+    class SipRegion @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val US = of("US")
+
+            @JvmField val EUROPE = of("Europe")
+
+            @JvmField val AUSTRALIA = of("Australia")
+
+            @JvmStatic fun of(value: String) = SipRegion(JsonField.of(value))
+        }
+
+        /** An enum containing [SipRegion]'s known values. */
+        enum class Known {
+            US,
+            EUROPE,
+            AUSTRALIA,
+        }
+
+        /**
+         * An enum containing [SipRegion]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SipRegion] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            US,
+            EUROPE,
+            AUSTRALIA,
+            /**
+             * An enum member indicating that [SipRegion] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                US -> Value.US
+                EUROPE -> Value.EUROPE
+                AUSTRALIA -> Value.AUSTRALIA
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                US -> Known.US
+                EUROPE -> Known.EUROPE
+                AUSTRALIA -> Known.AUSTRALIA
+                else -> throw TelnyxInvalidDataException("Unknown SipRegion: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): SipRegion = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SipRegion && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** Controls which SIP URI callers may reach this connection. */
     class SipSubdomainReceiveSettings
     @JsonCreator
@@ -1545,6 +1732,7 @@ private constructor(
             shakenStirEnabled == other.shakenStirEnabled &&
             simultaneousRinging == other.simultaneousRinging &&
             sipCompactHeadersEnabled == other.sipCompactHeadersEnabled &&
+            sipRegion == other.sipRegion &&
             sipSubdomain == other.sipSubdomain &&
             sipSubdomainReceiveSettings == other.sipSubdomainReceiveSettings &&
             timeout1xxSecs == other.timeout1xxSecs &&
@@ -1565,6 +1753,7 @@ private constructor(
             shakenStirEnabled,
             simultaneousRinging,
             sipCompactHeadersEnabled,
+            sipRegion,
             sipSubdomain,
             sipSubdomainReceiveSettings,
             timeout1xxSecs,
@@ -1576,5 +1765,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UacInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, defaultRoutingMethod=$defaultRoutingMethod, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, simultaneousRinging=$simultaneousRinging, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, sipSubdomain=$sipSubdomain, sipSubdomainReceiveSettings=$sipSubdomainReceiveSettings, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
+        "UacInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, defaultRoutingMethod=$defaultRoutingMethod, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, simultaneousRinging=$simultaneousRinging, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, sipRegion=$sipRegion, sipSubdomain=$sipSubdomain, sipSubdomainReceiveSettings=$sipSubdomainReceiveSettings, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
 }

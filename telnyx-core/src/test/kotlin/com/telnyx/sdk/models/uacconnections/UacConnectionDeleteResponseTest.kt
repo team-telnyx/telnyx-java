@@ -76,6 +76,7 @@ internal class UacConnectionDeleteResponseTest {
                                 .shakenStirEnabled(true)
                                 .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
                                 .sipCompactHeadersEnabled(true)
+                                .sipRegion(UacInbound.SipRegion.US)
                                 .sipSubdomain("abc123def456")
                                 .sipSubdomainReceiveSettings(
                                     UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
@@ -198,6 +199,7 @@ internal class UacConnectionDeleteResponseTest {
                             .shakenStirEnabled(true)
                             .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
                             .sipCompactHeadersEnabled(true)
+                            .sipRegion(UacInbound.SipRegion.US)
                             .sipSubdomain("abc123def456")
                             .sipSubdomainReceiveSettings(
                                 UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
@@ -324,6 +326,7 @@ internal class UacConnectionDeleteResponseTest {
                                 .shakenStirEnabled(true)
                                 .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
                                 .sipCompactHeadersEnabled(true)
+                                .sipRegion(UacInbound.SipRegion.US)
                                 .sipSubdomain("abc123def456")
                                 .sipSubdomainReceiveSettings(
                                     UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS

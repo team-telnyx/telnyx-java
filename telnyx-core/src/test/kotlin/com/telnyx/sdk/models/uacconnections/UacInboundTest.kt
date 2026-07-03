@@ -25,6 +25,7 @@ internal class UacInboundTest {
                 .shakenStirEnabled(true)
                 .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
                 .sipCompactHeadersEnabled(true)
+                .sipRegion(UacInbound.SipRegion.US)
                 .sipSubdomain("abc123def456")
                 .sipSubdomainReceiveSettings(
                     UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS
@@ -46,6 +47,7 @@ internal class UacInboundTest {
         assertThat(uacInbound.simultaneousRinging())
             .contains(UacInbound.SimultaneousRinging.ENABLED)
         assertThat(uacInbound.sipCompactHeadersEnabled()).contains(true)
+        assertThat(uacInbound.sipRegion()).contains(UacInbound.SipRegion.US)
         assertThat(uacInbound.sipSubdomain()).contains("abc123def456")
         assertThat(uacInbound.sipSubdomainReceiveSettings())
             .contains(UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS)
@@ -69,6 +71,7 @@ internal class UacInboundTest {
                 .shakenStirEnabled(true)
                 .simultaneousRinging(UacInbound.SimultaneousRinging.ENABLED)
                 .sipCompactHeadersEnabled(true)
+                .sipRegion(UacInbound.SipRegion.US)
                 .sipSubdomain("abc123def456")
                 .sipSubdomainReceiveSettings(
                     UacInbound.SipSubdomainReceiveSettings.ONLY_MY_CONNECTIONS

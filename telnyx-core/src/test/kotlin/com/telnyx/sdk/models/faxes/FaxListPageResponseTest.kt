@@ -4,7 +4,7 @@ package com.telnyx.sdk.models.faxes
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import com.telnyx.sdk.models.Metadata
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -44,11 +44,11 @@ internal class FaxListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .totalPages(3L)
-                        .pageSize(25L)
-                        .totalResults(55L)
+                    Metadata.builder()
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()
@@ -83,12 +83,7 @@ internal class FaxListPageResponseTest {
             )
         assertThat(faxListPageResponse.meta())
             .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .totalPages(3L)
-                    .pageSize(25L)
-                    .totalResults(55L)
-                    .build()
+                Metadata.builder().pageNumber(3).totalPages(13).pageSize(1).totalResults(13).build()
             )
     }
 
@@ -125,11 +120,11 @@ internal class FaxListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .totalPages(3L)
-                        .pageSize(25L)
-                        .totalResults(55L)
+                    Metadata.builder()
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()
