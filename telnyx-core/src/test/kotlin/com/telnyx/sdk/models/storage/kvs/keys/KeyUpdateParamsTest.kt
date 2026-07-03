@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.storage.kvs.keys
 
 import com.telnyx.sdk.core.http.QueryParams
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -72,7 +73,7 @@ internal class KeyUpdateParamsTest {
                 .body("Example data")
                 .build()
 
-        val body = params._body()
+        val body = params._body().getOrNull()
 
         assertThat(body).isEqualTo("Example data")
     }
@@ -86,7 +87,7 @@ internal class KeyUpdateParamsTest {
                 .body("Example data")
                 .build()
 
-        val body = params._body()
+        val body = params._body().getOrNull()
 
         assertThat(body).isEqualTo("Example data")
     }

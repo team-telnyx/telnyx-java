@@ -21,7 +21,7 @@ private constructor(
     private val id: String,
     private val key: String?,
     private val ttlSecs: Long?,
-    private val body: String,
+    private val body: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -37,7 +37,7 @@ private constructor(
     fun ttlSecs(): Optional<Long> = Optional.ofNullable(ttlSecs)
 
     /** Raw value bytes, stored verbatim. */
-    fun body(): String = body
+    fun body(): Optional<String> = Optional.ofNullable(body)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -55,7 +55,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .body()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -105,7 +104,10 @@ private constructor(
         fun ttlSecs(ttlSecs: Optional<Long>) = ttlSecs(ttlSecs.getOrNull())
 
         /** Raw value bytes, stored verbatim. */
-        fun body(body: String) = apply { this.body = body }
+        fun body(body: String?) = apply { this.body = body }
+
+        /** Alias for calling [Builder.body] with `body.orElse(null)`. */
+        fun body(body: Optional<String>) = body(body.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -213,7 +215,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .body()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -223,13 +224,13 @@ private constructor(
                 checkRequired("id", id),
                 key,
                 ttlSecs,
-                checkRequired("body", body),
+                body,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): String = body
+    fun _body(): Optional<String> = Optional.ofNullable(body)
 
     fun _pathParam(index: Int): String =
         when (index) {

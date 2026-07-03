@@ -86,7 +86,7 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
                         "keys",
                         params._pathParam(1),
                     )
-                    .putHeader("Accept", "*/*")
+                    .putHeader("Accept", "application/octet-stream")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -100,6 +100,7 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("key", params.key().getOrNull())
+            checkRequired("body", params._body().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
@@ -111,7 +112,7 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
                         "keys",
                         params._pathParam(1),
                     )
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

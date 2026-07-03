@@ -63,14 +63,16 @@ interface KeyService {
      * the value and echoed back on retrieval. Returns `201` when the key is created and `200` when
      * an existing key is updated.
      */
-    fun update(key: String, params: KeyUpdateParams) = update(key, params, RequestOptions.none())
+    fun update(key: String, body: String, params: KeyUpdateParams) =
+        update(key, body, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         key: String,
+        body: String,
         params: KeyUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = update(params.toBuilder().key(key).build(), requestOptions)
+    ) = update(params.toBuilder().key(key).body(body).build(), requestOptions)
 
     /** @see update */
     fun update(params: KeyUpdateParams) = update(params, RequestOptions.none())
@@ -170,16 +172,17 @@ interface KeyService {
          * same as [KeyService.update].
          */
         @MustBeClosed
-        fun update(key: String, params: KeyUpdateParams): HttpResponse =
-            update(key, params, RequestOptions.none())
+        fun update(key: String, body: String, params: KeyUpdateParams): HttpResponse =
+            update(key, body, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             key: String,
+            body: String,
             params: KeyUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = update(params.toBuilder().key(key).build(), requestOptions)
+        ): HttpResponse = update(params.toBuilder().key(key).body(body).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed

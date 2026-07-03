@@ -98,7 +98,7 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                         "keys",
                         params._pathParam(1),
                     )
-                    .putHeader("Accept", "*/*")
+                    .putHeader("Accept", "application/octet-stream")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -116,6 +116,7 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("key", params.key().getOrNull())
+            checkRequired("body", params._body().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
@@ -127,7 +128,7 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                         "keys",
                         params._pathParam(1),
                     )
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
