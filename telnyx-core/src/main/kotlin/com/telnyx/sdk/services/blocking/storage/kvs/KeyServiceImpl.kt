@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.storage.kvs.keys.KeyDeleteParams
+import com.telnyx.sdk.models.storage.kvs.keys.KeyListPage
+import com.telnyx.sdk.models.storage.kvs.keys.KeyListPageResponse
 import com.telnyx.sdk.models.storage.kvs.keys.KeyListParams
-import com.telnyx.sdk.models.storage.kvs.keys.KeyListResponse
 import com.telnyx.sdk.models.storage.kvs.keys.KeyRetrieveParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyUpdateParams
 import java.util.function.Consumer
@@ -46,7 +47,7 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
         withRawResponse().update(params, requestOptions)
     }
 
-    override fun list(params: KeyListParams, requestOptions: RequestOptions): KeyListResponse =
+    override fun list(params: KeyListParams, requestOptions: RequestOptions): KeyListPage =
         // get /storage/kvs/{id}/keys
         withRawResponse().list(params, requestOptions).parse()
 
@@ -122,13 +123,13 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<KeyListResponse> =
-            jsonHandler<KeyListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<KeyListPageResponse> =
+            jsonHandler<KeyListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: KeyListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<KeyListResponse> {
+        ): HttpResponseFor<KeyListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -148,6 +149,13 @@ class KeyServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        KeyListPage.builder()
+                            .service(KeyServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

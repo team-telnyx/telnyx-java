@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.storage.kvs.keys.KeyDeleteParams
+import com.telnyx.sdk.models.storage.kvs.keys.KeyListPageAsync
+import com.telnyx.sdk.models.storage.kvs.keys.KeyListPageResponse
 import com.telnyx.sdk.models.storage.kvs.keys.KeyListParams
-import com.telnyx.sdk.models.storage.kvs.keys.KeyListResponse
 import com.telnyx.sdk.models.storage.kvs.keys.KeyRetrieveParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -56,7 +57,7 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: KeyListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<KeyListResponse> =
+    ): CompletableFuture<KeyListPageAsync> =
         // get /storage/kvs/{id}/keys
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -141,13 +142,13 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listHandler: Handler<KeyListResponse> =
-            jsonHandler<KeyListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<KeyListPageResponse> =
+            jsonHandler<KeyListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: KeyListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<KeyListResponse>> {
+        ): CompletableFuture<HttpResponseFor<KeyListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -169,6 +170,14 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                KeyListPageAsync.builder()
+                                    .service(KeyServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

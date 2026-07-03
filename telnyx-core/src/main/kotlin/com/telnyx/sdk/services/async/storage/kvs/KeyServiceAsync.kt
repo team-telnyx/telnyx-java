@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.storage.kvs.keys.KeyDeleteParams
+import com.telnyx.sdk.models.storage.kvs.keys.KeyListPageAsync
 import com.telnyx.sdk.models.storage.kvs.keys.KeyListParams
-import com.telnyx.sdk.models.storage.kvs.keys.KeyListResponse
 import com.telnyx.sdk.models.storage.kvs.keys.KeyRetrieveParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -87,33 +87,33 @@ interface KeyServiceAsync {
      * Lists the keys in a namespace. Returns key names and metadata only, never values. Results are
      * paginated with `limit` and an opaque `cursor`.
      */
-    fun list(id: String): CompletableFuture<KeyListResponse> = list(id, KeyListParams.none())
+    fun list(id: String): CompletableFuture<KeyListPageAsync> = list(id, KeyListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: KeyListParams = KeyListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<KeyListResponse> = list(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<KeyListPageAsync> = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: KeyListParams = KeyListParams.none(),
-    ): CompletableFuture<KeyListResponse> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<KeyListPageAsync> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: KeyListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<KeyListResponse>
+    ): CompletableFuture<KeyListPageAsync>
 
     /** @see list */
-    fun list(params: KeyListParams): CompletableFuture<KeyListResponse> =
+    fun list(params: KeyListParams): CompletableFuture<KeyListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<KeyListResponse> =
+    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<KeyListPageAsync> =
         list(id, KeyListParams.none(), requestOptions)
 
     /**
@@ -208,7 +208,7 @@ interface KeyServiceAsync {
          * Returns a raw HTTP response for `get /storage/kvs/{id}/keys`, but is otherwise the same
          * as [KeyServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<KeyListResponse>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<KeyListPageAsync>> =
             list(id, KeyListParams.none())
 
         /** @see list */
@@ -216,31 +216,31 @@ interface KeyServiceAsync {
             id: String,
             params: KeyListParams = KeyListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<KeyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<KeyListPageAsync>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: KeyListParams = KeyListParams.none(),
-        ): CompletableFuture<HttpResponseFor<KeyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<KeyListPageAsync>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: KeyListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<KeyListResponse>>
+        ): CompletableFuture<HttpResponseFor<KeyListPageAsync>>
 
         /** @see list */
-        fun list(params: KeyListParams): CompletableFuture<HttpResponseFor<KeyListResponse>> =
+        fun list(params: KeyListParams): CompletableFuture<HttpResponseFor<KeyListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<KeyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<KeyListPageAsync>> =
             list(id, KeyListParams.none(), requestOptions)
 
         /**

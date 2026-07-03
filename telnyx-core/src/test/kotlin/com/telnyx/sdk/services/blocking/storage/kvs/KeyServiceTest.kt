@@ -10,7 +10,6 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.storage.kvs.keys.KeyDeleteParams
-import com.telnyx.sdk.models.storage.kvs.keys.KeyListParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyRetrieveParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -65,17 +64,9 @@ internal class KeyServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val keyService = client.storage().kvs().keys()
 
-        val keys =
-            keyService.list(
-                KeyListParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .cursor("cursor")
-                    .limit(1L)
-                    .prefix("prefix")
-                    .build()
-            )
+        val page = keyService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        keys.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
