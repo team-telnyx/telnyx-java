@@ -85,6 +85,12 @@ jobs:
             echo "Release-As version: $VERSION"
           fi
 
+      # NOTE: release-pr collects commits since the last release on the TARGET
+      # branch (master) — commits on `next` (chore promotes + Release-As
+      # footers) are invisible to this scan. The scan needs >=1 non-hidden
+      # (user-facing) commit ON MASTER to build the PR; the promoted SDK
+      # content then enters the PR via the tree-replacement sync step below,
+      # and the version comes from --release-as (read off next above).
       - name: Run release-please (release-pr)
         if: github.ref == 'refs/heads/next'
         id: release-pr
