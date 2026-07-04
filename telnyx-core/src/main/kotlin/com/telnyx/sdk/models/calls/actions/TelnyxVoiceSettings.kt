@@ -42,7 +42,7 @@ private constructor(
 
     /**
      * The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0.
-     * Default value is 1.0.
+     * Default value is 1.0. Not supported for `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -115,7 +115,7 @@ private constructor(
 
         /**
          * The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0.
-         * Default value is 1.0.
+         * Default value is 1.0. Not supported for `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
          */
         fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
 
