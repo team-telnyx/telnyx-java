@@ -1227,6 +1227,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** Media Storage operations */
     override fun media(): MediaServiceAsync = media
 
+    /** Messages */
     override fun messages(): MessageServiceAsync = messages
 
     override fun messaging(): MessagingServiceAsync = messaging
@@ -2494,6 +2495,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Media Storage operations */
         override fun media(): MediaServiceAsync.WithRawResponse = media
 
+        /** Messages */
         override fun messages(): MessageServiceAsync.WithRawResponse = messages
 
         override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging

@@ -6,14 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
-import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
-import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AudioService
 import com.telnyx.sdk.services.blocking.ai.ChatService
@@ -47,7 +43,6 @@ interface AiService {
 
     fun audio(): AudioService
 
-    /** Generate text with LLMs */
     fun chat(): ChatService
 
     /** Identify common themes and patterns in your embedded documents */
@@ -71,43 +66,6 @@ interface AiService {
 
     /** Configure AI assistant specifications */
     fun tools(): ToolService
-
-    /**
-     * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is compatible with
-     * the [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
-     * and may be used with the OpenAI JS or Python SDK. Response id parameter is not supported at
-     * the moment. Use the `conversation` parameter with a Telnyx Conversation ID to leverage
-     * persistent conversations.
-     */
-    @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams
-    ): AiCreateResponseDeprecatedResponse = createResponseDeprecated(params, RequestOptions.none())
-
-    /** @see createResponseDeprecated */
-    @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiCreateResponseDeprecatedResponse
-
-    /** @see createResponseDeprecated */
-    @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiCreateResponseDeprecatedResponse =
-        createResponseDeprecated(
-            AiCreateResponseDeprecatedParams.builder().responseRequest(responseRequest).build(),
-            requestOptions,
-        )
-
-    /** @see createResponseDeprecated */
-    @Deprecated("deprecated")
-    fun createResponseDeprecated(
-        responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest
-    ): AiCreateResponseDeprecatedResponse =
-        createResponseDeprecated(responseRequest, RequestOptions.none())
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -169,37 +127,6 @@ interface AiService {
     ): AiRetrieveConversationHistoriesResponse
 
     /**
-     * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
-     *
-     * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint — open-source
-     * LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.1-FP8`,
-     * `MiniMaxAI/MiniMax-M2.7`), embedding models, and fine-tuned models — kept around for
-     * backwards compatibility. New integrations should use `/v2/ai/openai/models`.
-     *
-     * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
-     */
-    @Deprecated("deprecated")
-    fun retrieveModels(): ModelsResponse = retrieveModels(AiRetrieveModelsParams.none())
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(
-        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ModelsResponse
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(
-        params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
-    ): ModelsResponse = retrieveModels(params, RequestOptions.none())
-
-    /** @see retrieveModels */
-    @Deprecated("deprecated")
-    fun retrieveModels(requestOptions: RequestOptions): ModelsResponse =
-        retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
-
-    /**
      * Generate a summary of a file's contents.
      *
      * Supports the following text formats:
@@ -233,7 +160,6 @@ interface AiService {
 
         fun audio(): AudioService.WithRawResponse
 
-        /** Generate text with LLMs */
         fun chat(): ChatService.WithRawResponse
 
         /** Identify common themes and patterns in your embedded documents */
@@ -259,45 +185,6 @@ interface AiService {
         fun tools(): ToolService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /ai/responses`, but is otherwise the same as
-         * [AiService.createResponseDeprecated].
-         */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(params, RequestOptions.none())
-
-        /** @see createResponseDeprecated */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse>
-
-        /** @see createResponseDeprecated */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun createResponseDeprecated(
-            responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.builder().responseRequest(responseRequest).build(),
-                requestOptions,
-            )
-
-        /** @see createResponseDeprecated */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun createResponseDeprecated(
-            responseRequest: AiCreateResponseDeprecatedParams.ResponseRequest
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> =
-            createResponseDeprecated(responseRequest, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
          * same as [AiService.retrieveConversationHistories].
          */
@@ -313,36 +200,6 @@ interface AiService {
             params: AiRetrieveConversationHistoriesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AiRetrieveConversationHistoriesResponse>
-
-        /**
-         * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
-         * [AiService.retrieveModels].
-         */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun retrieveModels(): HttpResponseFor<ModelsResponse> =
-            retrieveModels(AiRetrieveModelsParams.none())
-
-        /** @see retrieveModels */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun retrieveModels(
-            params: AiRetrieveModelsParams = AiRetrieveModelsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ModelsResponse>
-
-        /** @see retrieveModels */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun retrieveModels(
-            params: AiRetrieveModelsParams = AiRetrieveModelsParams.none()
-        ): HttpResponseFor<ModelsResponse> = retrieveModels(params, RequestOptions.none())
-
-        /** @see retrieveModels */
-        @Deprecated("deprecated")
-        @MustBeClosed
-        fun retrieveModels(requestOptions: RequestOptions): HttpResponseFor<ModelsResponse> =
-            retrieveModels(AiRetrieveModelsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /ai/summarize`, but is otherwise the same as

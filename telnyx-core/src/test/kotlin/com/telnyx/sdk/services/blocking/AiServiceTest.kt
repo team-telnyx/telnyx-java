@@ -3,8 +3,6 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import java.time.OffsetDateTime
@@ -12,23 +10,6 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class AiServiceTest {
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun createResponseDeprecated() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val aiService = client.ai()
-
-        val response =
-            aiService.createResponseDeprecated(
-                AiCreateResponseDeprecatedParams.ResponseRequest.builder()
-                    .putAdditionalProperty("model", JsonValue.from("bar"))
-                    .putAdditionalProperty("input", JsonValue.from("bar"))
-                    .build()
-            )
-
-        response.validate()
-    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -56,17 +37,6 @@ internal class AiServiceTest {
             )
 
         response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun retrieveModels() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val aiService = client.ai()
-
-        val modelsResponse = aiService.retrieveModels()
-
-        modelsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

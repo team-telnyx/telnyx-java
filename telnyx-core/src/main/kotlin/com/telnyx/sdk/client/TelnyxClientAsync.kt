@@ -396,6 +396,7 @@ interface TelnyxClientAsync {
     /** Media Storage operations */
     fun media(): MediaServiceAsync
 
+    /** Messages */
     fun messages(): MessageServiceAsync
 
     fun messaging(): MessagingServiceAsync
@@ -914,6 +915,7 @@ interface TelnyxClientAsync {
         /** Media Storage operations */
         fun media(): MediaServiceAsync.WithRawResponse
 
+        /** Messages */
         fun messages(): MessageServiceAsync.WithRawResponse
 
         fun messaging(): MessagingServiceAsync.WithRawResponse
