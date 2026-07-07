@@ -35,6 +35,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun clientSideTool(): Optional<ClientSideTool> = body.clientSideTool()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun displayName(): Optional<String> = body.displayName()
 
     /**
@@ -78,6 +84,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun webhook(): Optional<Webhook> = body.webhook()
+
+    /**
+     * Returns the raw JSON value of [clientSideTool].
+     *
+     * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _clientSideTool(): JsonField<ClientSideTool> = body._clientSideTool()
 
     /**
      * Returns the raw JSON value of [displayName].
@@ -179,14 +192,29 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [clientSideTool]
          * - [displayName]
          * - [function]
          * - [handoff]
          * - [invite]
-         * - [retrieval]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        fun clientSideTool(clientSideTool: ClientSideTool) = apply {
+            body.clientSideTool(clientSideTool)
+        }
+
+        /**
+         * Sets [Builder.clientSideTool] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.clientSideTool] with a well-typed [ClientSideTool] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun clientSideTool(clientSideTool: JsonField<ClientSideTool>) = apply {
+            body.clientSideTool(clientSideTool)
+        }
 
         fun displayName(displayName: String) = apply { body.displayName(displayName) }
 
@@ -418,6 +446,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val clientSideTool: JsonField<ClientSideTool>,
         private val displayName: JsonField<String>,
         private val function: JsonField<Function>,
         private val handoff: JsonField<Handoff>,
@@ -431,6 +460,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("client_side_tool")
+            @ExcludeMissing
+            clientSideTool: JsonField<ClientSideTool> = JsonMissing.of(),
             @JsonProperty("display_name")
             @ExcludeMissing
             displayName: JsonField<String> = JsonMissing.of(),
@@ -448,6 +480,7 @@ private constructor(
             @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
             @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
         ) : this(
+            clientSideTool,
             displayName,
             function,
             handoff,
@@ -458,6 +491,13 @@ private constructor(
             webhook,
             mutableMapOf(),
         )
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun clientSideTool(): Optional<ClientSideTool> =
+            clientSideTool.getOptional("client_side_tool")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -506,6 +546,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun webhook(): Optional<Webhook> = webhook.getOptional("webhook")
+
+        /**
+         * Returns the raw JSON value of [clientSideTool].
+         *
+         * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("client_side_tool")
+        @ExcludeMissing
+        fun _clientSideTool(): JsonField<ClientSideTool> = clientSideTool
 
         /**
          * Returns the raw JSON value of [displayName].
@@ -588,6 +638,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var clientSideTool: JsonField<ClientSideTool> = JsonMissing.of()
             private var displayName: JsonField<String> = JsonMissing.of()
             private var function: JsonField<Function> = JsonMissing.of()
             private var handoff: JsonField<Handoff> = JsonMissing.of()
@@ -600,6 +651,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                clientSideTool = body.clientSideTool
                 displayName = body.displayName
                 function = body.function
                 handoff = body.handoff
@@ -609,6 +661,20 @@ private constructor(
                 type = body.type
                 webhook = body.webhook
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            fun clientSideTool(clientSideTool: ClientSideTool) =
+                clientSideTool(JsonField.of(clientSideTool))
+
+            /**
+             * Sets [Builder.clientSideTool] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.clientSideTool] with a well-typed [ClientSideTool]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun clientSideTool(clientSideTool: JsonField<ClientSideTool>) = apply {
+                this.clientSideTool = clientSideTool
             }
 
             fun displayName(displayName: String) = displayName(JsonField.of(displayName))
@@ -727,6 +793,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
+                    clientSideTool,
                     displayName,
                     function,
                     handoff,
@@ -755,6 +822,7 @@ private constructor(
                 return@apply
             }
 
+            clientSideTool().ifPresent { it.validate() }
             displayName()
             function().ifPresent { it.validate() }
             handoff().ifPresent { it.validate() }
@@ -782,7 +850,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (displayName.asKnown().isPresent) 1 else 0) +
+            (clientSideTool.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (displayName.asKnown().isPresent) 1 else 0) +
                 (function.asKnown().getOrNull()?.validity() ?: 0) +
                 (handoff.asKnown().getOrNull()?.validity() ?: 0) +
                 (invite.asKnown().getOrNull()?.validity() ?: 0) +
@@ -797,6 +866,7 @@ private constructor(
             }
 
             return other is Body &&
+                clientSideTool == other.clientSideTool &&
                 displayName == other.displayName &&
                 function == other.function &&
                 handoff == other.handoff &&
@@ -810,6 +880,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                clientSideTool,
                 displayName,
                 function,
                 handoff,
@@ -825,7 +896,115 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{displayName=$displayName, function=$function, handoff=$handoff, invite=$invite, retrieval=$retrieval, timeoutMs=$timeoutMs, type=$type, webhook=$webhook, additionalProperties=$additionalProperties}"
+            "Body{clientSideTool=$clientSideTool, displayName=$displayName, function=$function, handoff=$handoff, invite=$invite, retrieval=$retrieval, timeoutMs=$timeoutMs, type=$type, webhook=$webhook, additionalProperties=$additionalProperties}"
+    }
+
+    class ClientSideTool
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ClientSideTool]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ClientSideTool]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(clientSideTool: ClientSideTool) = apply {
+                additionalProperties = clientSideTool.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ClientSideTool].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ClientSideTool = ClientSideTool(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ClientSideTool = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ClientSideTool && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "ClientSideTool{additionalProperties=$additionalProperties}"
     }
 
     class Function

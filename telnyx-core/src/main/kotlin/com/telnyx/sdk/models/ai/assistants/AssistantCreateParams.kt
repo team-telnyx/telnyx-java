@@ -1020,6 +1020,22 @@ private constructor(
             body.addWebhookTool(webhook)
         }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofClientSide(clientSide)`. */
+        fun addTool(clientSide: AssistantTool.ClientSideTool) = apply { body.addTool(clientSide) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.ClientSideTool.builder()
+         *     .clientSideTool(clientSideTool)
+         *     .build()
+         * ```
+         */
+        fun addClientSideTool(clientSideTool: AssistantTool.ClientSideTool.InnerClientSideTool) =
+            apply {
+                body.addClientSideTool(clientSideTool)
+            }
+
         /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
         fun addTool(retrieval: RetrievalTool) = apply { body.addTool(retrieval) }
 
@@ -2612,6 +2628,25 @@ private constructor(
                         .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
                         .webhook(webhook)
                         .build()
+                )
+
+            /** Alias for calling [addTool] with `AssistantTool.ofClientSide(clientSide)`. */
+            fun addTool(clientSide: AssistantTool.ClientSideTool) =
+                addTool(AssistantTool.ofClientSide(clientSide))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.ClientSideTool.builder()
+             *     .clientSideTool(clientSideTool)
+             *     .build()
+             * ```
+             */
+            fun addClientSideTool(
+                clientSideTool: AssistantTool.ClientSideTool.InnerClientSideTool
+            ) =
+                addTool(
+                    AssistantTool.ClientSideTool.builder().clientSideTool(clientSideTool).build()
                 )
 
             /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */

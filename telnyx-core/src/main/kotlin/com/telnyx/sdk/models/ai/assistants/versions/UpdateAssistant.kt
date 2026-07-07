@@ -1301,6 +1301,21 @@ private constructor(
                     .build()
             )
 
+        /** Alias for calling [addTool] with `AssistantTool.ofClientSide(clientSide)`. */
+        fun addTool(clientSide: AssistantTool.ClientSideTool) =
+            addTool(AssistantTool.ofClientSide(clientSide))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.ClientSideTool.builder()
+         *     .clientSideTool(clientSideTool)
+         *     .build()
+         * ```
+         */
+        fun addClientSideTool(clientSideTool: AssistantTool.ClientSideTool.InnerClientSideTool) =
+            addTool(AssistantTool.ClientSideTool.builder().clientSideTool(clientSideTool).build())
+
         /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
         fun addTool(retrieval: RetrievalTool) = addTool(AssistantTool.ofRetrieval(retrieval))
 

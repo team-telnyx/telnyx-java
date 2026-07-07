@@ -12,6 +12,11 @@ internal class ToolUpdateParamsTest {
     fun create() {
         ToolUpdateParams.builder()
             .toolId("tool_id")
+            .clientSideTool(
+                ToolUpdateParams.ClientSideTool.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .displayName("display_name")
             .function(
                 ToolUpdateParams.Function.builder()
@@ -57,6 +62,11 @@ internal class ToolUpdateParamsTest {
         val params =
             ToolUpdateParams.builder()
                 .toolId("tool_id")
+                .clientSideTool(
+                    ToolUpdateParams.ClientSideTool.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .displayName("display_name")
                 .function(
                     ToolUpdateParams.Function.builder()
@@ -89,6 +99,12 @@ internal class ToolUpdateParamsTest {
 
         val body = params._body()
 
+        assertThat(body.clientSideTool())
+            .contains(
+                ToolUpdateParams.ClientSideTool.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(body.displayName()).contains("display_name")
         assertThat(body.function())
             .contains(
