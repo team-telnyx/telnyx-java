@@ -1,6 +1,51 @@
 # Changelog
 
-## [6.75.0](https://github.com/team-telnyx/telnyx-java-staging/compare/v6.74.0...v6.75.0) (2026-06-17)
+## [6.81.0](https://github.com/team-telnyx/telnyx-java/compare/v6.80.0...v6.81.0) (2026-07-09)
+
+
+### Bug Fixes
+
+* **release:** ghost guard also verifies the GitHub Release exists ([#201](https://github.com/team-telnyx/telnyx-java/issues/201)) ([04acec4](https://github.com/team-telnyx/telnyx-java/commit/04acec47b966fe247fdfe760861b53b84a0edc03))
+* **release:** scan next's commits in release-pr (stop depending on master hotfixes) ([#200](https://github.com/team-telnyx/telnyx-java/issues/200)) ([20032e6](https://github.com/team-telnyx/telnyx-java/commit/20032e6dd523f46fae084d70b78176db7e12e7a5))
+* **release:** take first Release-As match (multiline output broke GITHUB_OUTPUT) ([#197](https://github.com/team-telnyx/telnyx-java/issues/197)) ([d4dbd43](https://github.com/team-telnyx/telnyx-java/commit/d4dbd43dd924dd161ec9df6cae84c7b810e414e4))
+
+## [6.80.0](https://github.com/team-telnyx/telnyx-java/compare/v6.79.0...v6.80.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **release:** document master-branch commit-scan requirement for release PRs ([#195](https://github.com/team-telnyx/telnyx-java/issues/195)) ([c702389](https://github.com/team-telnyx/telnyx-java/commit/c702389791538c466af4cac9743bfd1a9dcaf9be))
+
+## [6.79.0](https://github.com/team-telnyx/telnyx-java/compare/v6.78.0...v6.79.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* add git clean -fdx to tree replacement step in release-please.yml ([#190](https://github.com/team-telnyx/telnyx-java/issues/190)) ([1c6b9a4](https://github.com/team-telnyx/telnyx-java/commit/1c6b9a40f7832c84cf66ba011771304a119c3988))
+* replace git merge with tree replacement in release-please.yml ([#189](https://github.com/team-telnyx/telnyx-java/issues/189)) ([87388e9](https://github.com/team-telnyx/telnyx-java/commit/87388e9e2ef404db1696114ecc2a4a5d21163a17))
+* use git reset --hard for tree replacement, force-push, and fix PR URL regex in release-please.yml ([#191](https://github.com/team-telnyx/telnyx-java/issues/191)) ([6d66609](https://github.com/team-telnyx/telnyx-java/commit/6d6660924b293d848f2f97e49a01523502649bea))
+
+## [6.78.0](https://github.com/team-telnyx/telnyx-java/compare/v6.77.0...v6.78.0) (2026-06-30)
+
+
+### Bug Fixes
+
+* add --local flag so release-please scans next branch for commits ([#185](https://github.com/team-telnyx/telnyx-java/issues/185)) ([74f2e8e](https://github.com/team-telnyx/telnyx-java/commit/74f2e8e968b0828bbd1097307f15e881c2acb749))
+
+
+### Chores
+
+* remove leaked staging-only promote-to-prod.yml from prod ([#187](https://github.com/team-telnyx/telnyx-java/issues/187)) ([7a2d24e](https://github.com/team-telnyx/telnyx-java/commit/7a2d24e2d8906e01bb44a0be2d2399e875b64c61))
+
+## [6.77.0](https://github.com/team-telnyx/telnyx-java/compare/v6.76.0...v6.77.0) (2026-06-24)
+
+
+### Bug Fixes
+
+* remove `|| true` from github-release step ([#177](https://github.com/team-telnyx/telnyx-java/issues/177)) ([1730f9d](https://github.com/team-telnyx/telnyx-java/commit/1730f9def0148823ef1cc7c5509bfa52c40c8da5))
+* suppress ByteBuddy agent warnings flaking LoggingHttpClientTest ([#182](https://github.com/team-telnyx/telnyx-java/issues/182)) ([46ddd8a](https://github.com/team-telnyx/telnyx-java/commit/46ddd8ab7b4f37d28f5e1f31ad36cf04421d3609))
+
+## [6.76.0](https://github.com/team-telnyx/telnyx-java/compare/v6.74.0...v6.76.0) (2026-06-19)
 
 
 ### Features
