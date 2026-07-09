@@ -15,14 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
-import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
-import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AssistantServiceImpl
 import com.telnyx.sdk.services.blocking.ai.AudioService
@@ -91,7 +87,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     override fun audio(): AudioService = audio
 
-    /** Generate text with LLMs */
     override fun chat(): ChatService = chat
 
     /** Identify common themes and patterns in your embedded documents */
@@ -116,28 +111,12 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     /** Configure AI assistant specifications */
     override fun tools(): ToolService = tools
 
-    @Deprecated("deprecated")
-    override fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
-        requestOptions: RequestOptions,
-    ): AiCreateResponseDeprecatedResponse =
-        // post /ai/responses
-        withRawResponse().createResponseDeprecated(params, requestOptions).parse()
-
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions,
     ): AiRetrieveConversationHistoriesResponse =
         // get /ai/conversation_histories
         withRawResponse().retrieveConversationHistories(params, requestOptions).parse()
-
-    @Deprecated("deprecated")
-    override fun retrieveModels(
-        params: AiRetrieveModelsParams,
-        requestOptions: RequestOptions,
-    ): ModelsResponse =
-        // get /ai/models
-        withRawResponse().retrieveModels(params, requestOptions).parse()
 
     override fun summarize(
         params: AiSummarizeParams,
@@ -212,7 +191,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         override fun audio(): AudioService.WithRawResponse = audio
 
-        /** Generate text with LLMs */
         override fun chat(): ChatService.WithRawResponse = chat
 
         /** Identify common themes and patterns in your embedded documents */
@@ -237,35 +215,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         /** Configure AI assistant specifications */
         override fun tools(): ToolService.WithRawResponse = tools
 
-        private val createResponseDeprecatedHandler: Handler<AiCreateResponseDeprecatedResponse> =
-            jsonHandler<AiCreateResponseDeprecatedResponse>(clientOptions.jsonMapper)
-
-        @Deprecated("deprecated")
-        override fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AiCreateResponseDeprecatedResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "responses")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createResponseDeprecatedHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesResponse> =
             jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
@@ -286,34 +235,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveConversationHistoriesHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val retrieveModelsHandler: Handler<ModelsResponse> =
-            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
-
-        @Deprecated("deprecated")
-        override fun retrieveModels(
-            params: AiRetrieveModelsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ModelsResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "models")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveModelsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

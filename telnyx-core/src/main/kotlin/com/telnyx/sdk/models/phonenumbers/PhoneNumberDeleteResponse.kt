@@ -14,6 +14,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -152,6 +153,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
+        private val activatedAt: JsonField<OffsetDateTime>,
         private val billingGroupId: JsonField<String>,
         private val callForwardingEnabled: JsonField<Boolean>,
         private val callRecordingEnabled: JsonField<Boolean>,
@@ -182,6 +184,9 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("activated_at")
+            @ExcludeMissing
+            activatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("billing_group_id")
             @ExcludeMissing
             billingGroupId: JsonField<String> = JsonMissing.of(),
@@ -252,6 +257,7 @@ private constructor(
             updatedAt: JsonField<String> = JsonMissing.of(),
         ) : this(
             id,
+            activatedAt,
             billingGroupId,
             callForwardingEnabled,
             callRecordingEnabled,
@@ -286,6 +292,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun id(): Optional<String> = id.getOptional("id")
+
+        /**
+         * ISO 8601 formatted date indicating when the phone number was first activated
+         * (transitioned from purchase-pending or port-pending to active). Will be null for numbers
+         * that have not yet been activated, or for legacy numbers activated before this field was
+         * tracked.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun activatedAt(): Optional<OffsetDateTime> = activatedAt.getOptional("activated_at")
 
         /**
          * Identifies the billing group associated with the phone number.
@@ -503,6 +520,15 @@ private constructor(
          * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [activatedAt].
+         *
+         * Unlike [activatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("activated_at")
+        @ExcludeMissing
+        fun _activatedAt(): JsonField<OffsetDateTime> = activatedAt
 
         /**
          * Returns the raw JSON value of [billingGroupId].
@@ -750,6 +776,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String> = JsonMissing.of()
+            private var activatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var billingGroupId: JsonField<String> = JsonMissing.of()
             private var callForwardingEnabled: JsonField<Boolean> = JsonMissing.of()
             private var callRecordingEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -779,6 +806,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(data: Data) = apply {
                 id = data.id
+                activatedAt = data.activatedAt
                 billingGroupId = data.billingGroupId
                 callForwardingEnabled = data.callForwardingEnabled
                 callRecordingEnabled = data.callRecordingEnabled
@@ -817,6 +845,30 @@ private constructor(
              * value.
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /**
+             * ISO 8601 formatted date indicating when the phone number was first activated
+             * (transitioned from purchase-pending or port-pending to active). Will be null for
+             * numbers that have not yet been activated, or for legacy numbers activated before this
+             * field was tracked.
+             */
+            fun activatedAt(activatedAt: OffsetDateTime?) =
+                activatedAt(JsonField.ofNullable(activatedAt))
+
+            /** Alias for calling [Builder.activatedAt] with `activatedAt.orElse(null)`. */
+            fun activatedAt(activatedAt: Optional<OffsetDateTime>) =
+                activatedAt(activatedAt.getOrNull())
+
+            /**
+             * Sets [Builder.activatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.activatedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun activatedAt(activatedAt: JsonField<OffsetDateTime>) = apply {
+                this.activatedAt = activatedAt
+            }
 
             /** Identifies the billing group associated with the phone number. */
             fun billingGroupId(billingGroupId: String) =
@@ -1216,6 +1268,7 @@ private constructor(
             fun build(): Data =
                 Data(
                     id,
+                    activatedAt,
                     billingGroupId,
                     callForwardingEnabled,
                     callRecordingEnabled,
@@ -1261,6 +1314,7 @@ private constructor(
             }
 
             id()
+            activatedAt()
             billingGroupId()
             callForwardingEnabled()
             callRecordingEnabled()
@@ -1305,6 +1359,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
+                (if (activatedAt.asKnown().isPresent) 1 else 0) +
                 (if (billingGroupId.asKnown().isPresent) 1 else 0) +
                 (if (callForwardingEnabled.asKnown().isPresent) 1 else 0) +
                 (if (callRecordingEnabled.asKnown().isPresent) 1 else 0) +
@@ -1686,6 +1741,7 @@ private constructor(
 
             return other is Data &&
                 id == other.id &&
+                activatedAt == other.activatedAt &&
                 billingGroupId == other.billingGroupId &&
                 callForwardingEnabled == other.callForwardingEnabled &&
                 callRecordingEnabled == other.callRecordingEnabled &&
@@ -1716,6 +1772,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 id,
+                activatedAt,
                 billingGroupId,
                 callForwardingEnabled,
                 callRecordingEnabled,
@@ -1747,7 +1804,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, createdAt=$createdAt, customerReference=$customerReference, deletionLockEnabled=$deletionLockEnabled, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, tags=$tags, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "Data{id=$id, activatedAt=$activatedAt, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, createdAt=$createdAt, customerReference=$customerReference, deletionLockEnabled=$deletionLockEnabled, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, tags=$tags, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -15,14 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedParams
-import com.telnyx.sdk.models.ai.AiCreateResponseDeprecatedResponse
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
-import com.telnyx.sdk.models.ai.AiRetrieveModelsParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
-import com.telnyx.sdk.models.ai.ModelsResponse
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
@@ -103,7 +99,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     override fun audio(): AudioServiceAsync = audio
 
-    /** Generate text with LLMs */
     override fun chat(): ChatServiceAsync = chat
 
     /** Identify common themes and patterns in your embedded documents */
@@ -128,14 +123,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     /** Configure AI assistant specifications */
     override fun tools(): ToolServiceAsync = tools
 
-    @Deprecated("deprecated")
-    override fun createResponseDeprecated(
-        params: AiCreateResponseDeprecatedParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<AiCreateResponseDeprecatedResponse> =
-        // post /ai/responses
-        withRawResponse().createResponseDeprecated(params, requestOptions).thenApply { it.parse() }
-
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions,
@@ -144,14 +131,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         withRawResponse().retrieveConversationHistories(params, requestOptions).thenApply {
             it.parse()
         }
-
-    @Deprecated("deprecated")
-    override fun retrieveModels(
-        params: AiRetrieveModelsParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ModelsResponse> =
-        // get /ai/models
-        withRawResponse().retrieveModels(params, requestOptions).thenApply { it.parse() }
 
     override fun summarize(
         params: AiSummarizeParams,
@@ -226,7 +205,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         override fun audio(): AudioServiceAsync.WithRawResponse = audio
 
-        /** Generate text with LLMs */
         override fun chat(): ChatServiceAsync.WithRawResponse = chat
 
         /** Identify common themes and patterns in your embedded documents */
@@ -251,38 +229,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         /** Configure AI assistant specifications */
         override fun tools(): ToolServiceAsync.WithRawResponse = tools
 
-        private val createResponseDeprecatedHandler: Handler<AiCreateResponseDeprecatedResponse> =
-            jsonHandler<AiCreateResponseDeprecatedResponse>(clientOptions.jsonMapper)
-
-        @Deprecated("deprecated")
-        override fun createResponseDeprecated(
-            params: AiCreateResponseDeprecatedParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AiCreateResponseDeprecatedResponse>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "responses")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createResponseDeprecatedHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesResponse> =
             jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
@@ -305,37 +251,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveConversationHistoriesHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val retrieveModelsHandler: Handler<ModelsResponse> =
-            jsonHandler<ModelsResponse>(clientOptions.jsonMapper)
-
-        @Deprecated("deprecated")
-        override fun retrieveModels(
-            params: AiRetrieveModelsParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ModelsResponse>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "models")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { retrieveModelsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

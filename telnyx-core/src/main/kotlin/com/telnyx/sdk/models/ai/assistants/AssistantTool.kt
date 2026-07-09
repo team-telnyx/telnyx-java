@@ -40,6 +40,7 @@ import kotlin.jvm.optionals.getOrNull
 class AssistantTool
 private constructor(
     private val webhook: InferenceEmbeddingWebhookToolParams? = null,
+    private val clientSide: ClientSideTool? = null,
     private val retrieval: RetrievalTool? = null,
     private val handoff: HandoffTool? = null,
     private val hangup: HangupTool? = null,
@@ -53,6 +54,8 @@ private constructor(
 ) {
 
     fun webhook(): Optional<InferenceEmbeddingWebhookToolParams> = Optional.ofNullable(webhook)
+
+    fun clientSide(): Optional<ClientSideTool> = Optional.ofNullable(clientSide)
 
     fun retrieval(): Optional<RetrievalTool> = Optional.ofNullable(retrieval)
 
@@ -84,6 +87,8 @@ private constructor(
 
     fun isWebhook(): Boolean = webhook != null
 
+    fun isClientSide(): Boolean = clientSide != null
+
     fun isRetrieval(): Boolean = retrieval != null
 
     fun isHandoff(): Boolean = handoff != null
@@ -103,6 +108,8 @@ private constructor(
     fun isSkipTurn(): Boolean = skipTurn != null
 
     fun asWebhook(): InferenceEmbeddingWebhookToolParams = webhook.getOrThrow("webhook")
+
+    fun asClientSide(): ClientSideTool = clientSide.getOrThrow("clientSide")
 
     fun asRetrieval(): RetrievalTool = retrieval.getOrThrow("retrieval")
 
@@ -166,6 +173,7 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             webhook != null -> visitor.visitWebhook(webhook)
+            clientSide != null -> visitor.visitClientSide(clientSide)
             retrieval != null -> visitor.visitRetrieval(retrieval)
             handoff != null -> visitor.visitHandoff(handoff)
             hangup != null -> visitor.visitHangup(hangup)
@@ -197,6 +205,10 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams) {
                     webhook.validate()
+                }
+
+                override fun visitClientSide(clientSide: ClientSideTool) {
+                    clientSide.validate()
                 }
 
                 override fun visitRetrieval(retrieval: RetrievalTool) {
@@ -259,6 +271,8 @@ private constructor(
                 override fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams) =
                     webhook.validity()
 
+                override fun visitClientSide(clientSide: ClientSideTool) = clientSide.validity()
+
                 override fun visitRetrieval(retrieval: RetrievalTool) = retrieval.validity()
 
                 override fun visitHandoff(handoff: HandoffTool) = handoff.validity()
@@ -288,6 +302,7 @@ private constructor(
 
         return other is AssistantTool &&
             webhook == other.webhook &&
+            clientSide == other.clientSide &&
             retrieval == other.retrieval &&
             handoff == other.handoff &&
             hangup == other.hangup &&
@@ -302,6 +317,7 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             webhook,
+            clientSide,
             retrieval,
             handoff,
             hangup,
@@ -316,6 +332,7 @@ private constructor(
     override fun toString(): String =
         when {
             webhook != null -> "AssistantTool{webhook=$webhook}"
+            clientSide != null -> "AssistantTool{clientSide=$clientSide}"
             retrieval != null -> "AssistantTool{retrieval=$retrieval}"
             handoff != null -> "AssistantTool{handoff=$handoff}"
             hangup != null -> "AssistantTool{hangup=$hangup}"
@@ -334,6 +351,9 @@ private constructor(
         @JvmStatic
         fun ofWebhook(webhook: InferenceEmbeddingWebhookToolParams) =
             AssistantTool(webhook = webhook)
+
+        @JvmStatic
+        fun ofClientSide(clientSide: ClientSideTool) = AssistantTool(clientSide = clientSide)
 
         @JvmStatic fun ofRetrieval(retrieval: RetrievalTool) = AssistantTool(retrieval = retrieval)
 
@@ -371,6 +391,8 @@ private constructor(
     interface Visitor<out T> {
 
         fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams): T
+
+        fun visitClientSide(clientSide: ClientSideTool): T
 
         fun visitRetrieval(retrieval: RetrievalTool): T
 
@@ -428,6 +450,11 @@ private constructor(
                         )
                         ?.let { AssistantTool(webhook = it, _json = json) }
                         ?: AssistantTool(_json = json)
+                }
+                "client_side_tool" -> {
+                    return tryDeserialize(node, jacksonTypeRef<ClientSideTool>())?.let {
+                        AssistantTool(clientSide = it, _json = json)
+                    } ?: AssistantTool(_json = json)
                 }
                 "retrieval" -> {
                     return tryDeserialize(node, jacksonTypeRef<RetrievalTool>())?.let {
@@ -489,6 +516,7 @@ private constructor(
         ) {
             when {
                 value.webhook != null -> generator.writeObject(value.webhook)
+                value.clientSide != null -> generator.writeObject(value.clientSide)
                 value.retrieval != null -> generator.writeObject(value.retrieval)
                 value.handoff != null -> generator.writeObject(value.handoff)
                 value.hangup != null -> generator.writeObject(value.hangup)
@@ -502,6 +530,1011 @@ private constructor(
                 else -> throw IllegalStateException("Invalid AssistantTool")
             }
         }
+    }
+
+    class ClientSideTool
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val clientSideTool: JsonField<InnerClientSideTool>,
+        private val type: JsonValue,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("client_side_tool")
+            @ExcludeMissing
+            clientSideTool: JsonField<InnerClientSideTool> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+        ) : this(clientSideTool, type, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun clientSideTool(): InnerClientSideTool = clientSideTool.getRequired("client_side_tool")
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("client_side_tool")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Returns the raw JSON value of [clientSideTool].
+         *
+         * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("client_side_tool")
+        @ExcludeMissing
+        fun _clientSideTool(): JsonField<InnerClientSideTool> = clientSideTool
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ClientSideTool].
+             *
+             * The following fields are required:
+             * ```java
+             * .clientSideTool()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ClientSideTool]. */
+        class Builder internal constructor() {
+
+            private var clientSideTool: JsonField<InnerClientSideTool>? = null
+            private var type: JsonValue = JsonValue.from("client_side_tool")
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(clientSideTool: ClientSideTool) = apply {
+                this.clientSideTool = clientSideTool.clientSideTool
+                type = clientSideTool.type
+                additionalProperties = clientSideTool.additionalProperties.toMutableMap()
+            }
+
+            fun clientSideTool(clientSideTool: InnerClientSideTool) =
+                clientSideTool(JsonField.of(clientSideTool))
+
+            /**
+             * Sets [Builder.clientSideTool] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.clientSideTool] with a well-typed
+             * [InnerClientSideTool] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun clientSideTool(clientSideTool: JsonField<InnerClientSideTool>) = apply {
+                this.clientSideTool = clientSideTool
+            }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("client_side_tool")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ClientSideTool].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .clientSideTool()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ClientSideTool =
+                ClientSideTool(
+                    checkRequired("clientSideTool", clientSideTool),
+                    type,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ClientSideTool = apply {
+            if (validated) {
+                return@apply
+            }
+
+            clientSideTool().validate()
+            _type().let {
+                if (it != JsonValue.from("client_side_tool")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (clientSideTool.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("client_side_tool")) 1 else 0 }
+
+        class InnerClientSideTool
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val description: JsonField<String>,
+            private val name: JsonField<String>,
+            private val parameters: JsonField<Parameters>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("description")
+                @ExcludeMissing
+                description: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("parameters")
+                @ExcludeMissing
+                parameters: JsonField<Parameters> = JsonMissing.of(),
+            ) : this(description, name, parameters, mutableMapOf())
+
+            /**
+             * The description of the tool.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun description(): String = description.getRequired("description")
+
+            /**
+             * The name of the tool.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
+
+            /**
+             * The parameters the tool accepts, described as a JSON Schema object. See the
+             * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+             * documentation about the format
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun parameters(): Parameters = parameters.getRequired("parameters")
+
+            /**
+             * Returns the raw JSON value of [description].
+             *
+             * Unlike [description], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("description")
+            @ExcludeMissing
+            fun _description(): JsonField<String> = description
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
+             * Returns the raw JSON value of [parameters].
+             *
+             * Unlike [parameters], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("parameters")
+            @ExcludeMissing
+            fun _parameters(): JsonField<Parameters> = parameters
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [InnerClientSideTool].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .description()
+                 * .name()
+                 * .parameters()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InnerClientSideTool]. */
+            class Builder internal constructor() {
+
+                private var description: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var parameters: JsonField<Parameters>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(innerClientSideTool: InnerClientSideTool) = apply {
+                    description = innerClientSideTool.description
+                    name = innerClientSideTool.name
+                    parameters = innerClientSideTool.parameters
+                    additionalProperties = innerClientSideTool.additionalProperties.toMutableMap()
+                }
+
+                /** The description of the tool. */
+                fun description(description: String) = description(JsonField.of(description))
+
+                /**
+                 * Sets [Builder.description] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.description] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun description(description: JsonField<String>) = apply {
+                    this.description = description
+                }
+
+                /** The name of the tool. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                /**
+                 * The parameters the tool accepts, described as a JSON Schema object. See the
+                 * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+                 * documentation about the format
+                 */
+                fun parameters(parameters: Parameters) = parameters(JsonField.of(parameters))
+
+                /**
+                 * Sets [Builder.parameters] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.parameters] with a well-typed [Parameters] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun parameters(parameters: JsonField<Parameters>) = apply {
+                    this.parameters = parameters
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [InnerClientSideTool].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .description()
+                 * .name()
+                 * .parameters()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): InnerClientSideTool =
+                    InnerClientSideTool(
+                        checkRequired("description", description),
+                        checkRequired("name", name),
+                        checkRequired("parameters", parameters),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): InnerClientSideTool = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                description()
+                name()
+                parameters().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (description.asKnown().isPresent) 1 else 0) +
+                    (if (name.asKnown().isPresent) 1 else 0) +
+                    (parameters.asKnown().getOrNull()?.validity() ?: 0)
+
+            /**
+             * The parameters the tool accepts, described as a JSON Schema object. See the
+             * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+             * documentation about the format
+             */
+            class Parameters
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val properties: JsonField<Properties>,
+                private val required: JsonField<List<String>>,
+                private val type: JsonField<Type>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("properties")
+                    @ExcludeMissing
+                    properties: JsonField<Properties> = JsonMissing.of(),
+                    @JsonProperty("required")
+                    @ExcludeMissing
+                    required: JsonField<List<String>> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                ) : this(properties, required, type, mutableMapOf())
+
+                /**
+                 * The properties of the parameters.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun properties(): Optional<Properties> = properties.getOptional("properties")
+
+                /**
+                 * The required properties of the parameters.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun required(): Optional<List<String>> = required.getOptional("required")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun type(): Optional<Type> = type.getOptional("type")
+
+                /**
+                 * Returns the raw JSON value of [properties].
+                 *
+                 * Unlike [properties], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("properties")
+                @ExcludeMissing
+                fun _properties(): JsonField<Properties> = properties
+
+                /**
+                 * Returns the raw JSON value of [required].
+                 *
+                 * Unlike [required], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("required")
+                @ExcludeMissing
+                fun _required(): JsonField<List<String>> = required
+
+                /**
+                 * Returns the raw JSON value of [type].
+                 *
+                 * Unlike [type], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Parameters]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Parameters]. */
+                class Builder internal constructor() {
+
+                    private var properties: JsonField<Properties> = JsonMissing.of()
+                    private var required: JsonField<MutableList<String>>? = null
+                    private var type: JsonField<Type> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(parameters: Parameters) = apply {
+                        properties = parameters.properties
+                        required = parameters.required.map { it.toMutableList() }
+                        type = parameters.type
+                        additionalProperties = parameters.additionalProperties.toMutableMap()
+                    }
+
+                    /** The properties of the parameters. */
+                    fun properties(properties: Properties) = properties(JsonField.of(properties))
+
+                    /**
+                     * Sets [Builder.properties] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.properties] with a well-typed [Properties]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun properties(properties: JsonField<Properties>) = apply {
+                        this.properties = properties
+                    }
+
+                    /** The required properties of the parameters. */
+                    fun required(required: List<String>) = required(JsonField.of(required))
+
+                    /**
+                     * Sets [Builder.required] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.required] with a well-typed `List<String>`
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun required(required: JsonField<List<String>>) = apply {
+                        this.required = required.map { it.toMutableList() }
+                    }
+
+                    /**
+                     * Adds a single [String] to [Builder.required].
+                     *
+                     * @throws IllegalStateException if the field was previously set to a non-list.
+                     */
+                    fun addRequired(required: String) = apply {
+                        this.required =
+                            (this.required ?: JsonField.of(mutableListOf())).also {
+                                checkKnown("required", it).add(required)
+                            }
+                    }
+
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * Sets [Builder.type] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.type] with a well-typed [Type] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Parameters].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Parameters =
+                        Parameters(
+                            properties,
+                            (required ?: JsonMissing.of()).map { it.toImmutable() },
+                            type,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Parameters = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    properties().ifPresent { it.validate() }
+                    required()
+                    type().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (properties.asKnown().getOrNull()?.validity() ?: 0) +
+                        (required.asKnown().getOrNull()?.size ?: 0) +
+                        (type.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The properties of the parameters. */
+                class Properties
+                @JsonCreator
+                private constructor(
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    private val additionalProperties: Map<String, JsonValue>
+                ) {
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Properties].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Properties]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(properties: Properties) = apply {
+                            additionalProperties = properties.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Properties].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): Properties = Properties(additionalProperties.toImmutable())
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Properties = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        additionalProperties.count { (_, value) ->
+                            !value.isNull() && !value.isMissing()
+                        }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Properties &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Properties{additionalProperties=$additionalProperties}"
+                }
+
+                class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val OBJECT = of("object")
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Type]'s known values. */
+                    enum class Known {
+                        OBJECT
+                    }
+
+                    /**
+                     * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Type] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        OBJECT,
+                        /**
+                         * An enum member indicating that [Type] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            OBJECT -> Value.OBJECT
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            OBJECT -> Known.OBJECT
+                            else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Type = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Parameters &&
+                        properties == other.properties &&
+                        required == other.required &&
+                        type == other.type &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(properties, required, type, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Parameters{properties=$properties, required=$required, type=$type, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InnerClientSideTool &&
+                    description == other.description &&
+                    name == other.name &&
+                    parameters == other.parameters &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(description, name, parameters, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InnerClientSideTool{description=$description, name=$name, parameters=$parameters, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ClientSideTool &&
+                clientSideTool == other.clientSideTool &&
+                type == other.type &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(clientSideTool, type, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ClientSideTool{clientSideTool=$clientSideTool, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**

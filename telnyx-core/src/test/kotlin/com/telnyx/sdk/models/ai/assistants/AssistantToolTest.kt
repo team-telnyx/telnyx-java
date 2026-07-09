@@ -99,6 +99,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofWebhook(webhook)
 
         assertThat(assistantTool.webhook()).contains(webhook)
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -211,6 +212,98 @@ internal class AssistantToolTest {
     }
 
     @Test
+    fun ofClientSide() {
+        val clientSide =
+            AssistantTool.ClientSideTool.builder()
+                .clientSideTool(
+                    AssistantTool.ClientSideTool.InnerClientSideTool.builder()
+                        .description("description")
+                        .name("name")
+                        .parameters(
+                            AssistantTool.ClientSideTool.InnerClientSideTool.Parameters.builder()
+                                .properties(
+                                    AssistantTool.ClientSideTool.InnerClientSideTool.Parameters
+                                        .Properties
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("age")
+                                .addRequired("location")
+                                .type(
+                                    AssistantTool.ClientSideTool.InnerClientSideTool.Parameters.Type
+                                        .OBJECT
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val assistantTool = AssistantTool.ofClientSide(clientSide)
+
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).contains(clientSide)
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+    }
+
+    @Test
+    fun ofClientSideRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofClientSide(
+                AssistantTool.ClientSideTool.builder()
+                    .clientSideTool(
+                        AssistantTool.ClientSideTool.InnerClientSideTool.builder()
+                            .description("description")
+                            .name("name")
+                            .parameters(
+                                AssistantTool.ClientSideTool.InnerClientSideTool.Parameters
+                                    .builder()
+                                    .properties(
+                                        AssistantTool.ClientSideTool.InnerClientSideTool.Parameters
+                                            .Properties
+                                            .builder()
+                                            .putAdditionalProperty("age", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "location",
+                                                JsonValue.from("bar"),
+                                            )
+                                            .build()
+                                    )
+                                    .addRequired("age")
+                                    .addRequired("location")
+                                    .type(
+                                        AssistantTool.ClientSideTool.InnerClientSideTool.Parameters
+                                            .Type
+                                            .OBJECT
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+    }
+
+    @Test
     fun ofRetrieval() {
         val retrieval =
             RetrievalTool.builder()
@@ -221,6 +314,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofRetrieval(retrieval)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).contains(retrieval)
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -272,6 +366,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofHandoff(handoff)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).contains(handoff)
         assertThat(assistantTool.hangup()).isEmpty
@@ -323,6 +418,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofHangup(hangup)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).contains(hangup)
@@ -434,6 +530,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofTransfer(transfer)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -579,6 +676,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofInvite(invite)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -678,6 +776,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofRefer(refer)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -747,6 +846,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofSendDtmf(sendDtmf)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -795,6 +895,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofSendMessage(sendMessage)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
@@ -843,6 +944,7 @@ internal class AssistantToolTest {
         val assistantTool = AssistantTool.ofSkipTurn(skipTurn)
 
         assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty

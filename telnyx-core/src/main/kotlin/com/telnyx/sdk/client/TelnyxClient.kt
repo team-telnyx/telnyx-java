@@ -396,6 +396,7 @@ interface TelnyxClient {
     /** Media Storage operations */
     fun media(): MediaService
 
+    /** Messages */
     fun messages(): MessageService
 
     fun messaging(): MessagingService
@@ -912,6 +913,7 @@ interface TelnyxClient {
         /** Media Storage operations */
         fun media(): MediaService.WithRawResponse
 
+        /** Messages */
         fun messages(): MessageService.WithRawResponse
 
         fun messaging(): MessagingService.WithRawResponse

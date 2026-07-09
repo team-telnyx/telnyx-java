@@ -13,6 +13,11 @@ internal class ToolCreateParamsTest {
         ToolCreateParams.builder()
             .displayName("display_name")
             .type("type")
+            .clientSideTool(
+                ToolCreateParams.ClientSideTool.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .function(
                 ToolCreateParams.Function.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -48,6 +53,11 @@ internal class ToolCreateParamsTest {
             ToolCreateParams.builder()
                 .displayName("display_name")
                 .type("type")
+                .clientSideTool(
+                    ToolCreateParams.ClientSideTool.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .function(
                     ToolCreateParams.Function.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -80,6 +90,12 @@ internal class ToolCreateParamsTest {
 
         assertThat(body.displayName()).isEqualTo("display_name")
         assertThat(body.type()).isEqualTo("type")
+        assertThat(body.clientSideTool())
+            .contains(
+                ToolCreateParams.ClientSideTool.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(body.function())
             .contains(
                 ToolCreateParams.Function.builder()

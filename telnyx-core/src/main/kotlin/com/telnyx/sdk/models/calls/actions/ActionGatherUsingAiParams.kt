@@ -200,6 +200,9 @@ private constructor(
      *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
      * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
      *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
+     * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
+     *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
+     *   `VoiceId` is a Fish Voice-Library reference ID.
      * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
      *   `sal`, `leo`.
      *
@@ -638,6 +641,9 @@ private constructor(
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
          *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
+         * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
+         *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
+         *   `VoiceId` is a Fish Voice-Library reference ID.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          */
@@ -1077,6 +1083,9 @@ private constructor(
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
          *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
+         * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
+         *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
+         *   `VoiceId` is a Fish Voice-Library reference ID.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          *
@@ -1552,6 +1561,9 @@ private constructor(
              * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
              *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`,
              *   `TTS2`.
+             * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
+             *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
+             *   `VoiceId` is a Fish Voice-Library reference ID.
              * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`,
              *   `rex`, `sal`, `leo`.
              */

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.phonenumbers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,6 +15,7 @@ internal class PhoneNumberSlimListResponseTest {
         val phoneNumberSlimListResponse =
             PhoneNumberSlimListResponse.builder()
                 .id("1293384261075731499")
+                .activatedAt(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
                 .billingGroupId("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                 .callForwardingEnabled(true)
                 .callRecordingEnabled(true)
@@ -39,6 +41,8 @@ internal class PhoneNumberSlimListResponseTest {
                 .build()
 
         assertThat(phoneNumberSlimListResponse.id()).contains("1293384261075731499")
+        assertThat(phoneNumberSlimListResponse.activatedAt())
+            .contains(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
         assertThat(phoneNumberSlimListResponse.billingGroupId())
             .contains("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
         assertThat(phoneNumberSlimListResponse.callForwardingEnabled()).contains(true)
@@ -74,6 +78,7 @@ internal class PhoneNumberSlimListResponseTest {
         val phoneNumberSlimListResponse =
             PhoneNumberSlimListResponse.builder()
                 .id("1293384261075731499")
+                .activatedAt(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
                 .billingGroupId("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                 .callForwardingEnabled(true)
                 .callRecordingEnabled(true)

@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.phonenumbers
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,6 +19,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                 .addData(
                     PhoneNumberSlimListResponse.builder()
                         .id("1293384261075731499")
+                        .activatedAt(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
                         .billingGroupId("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                         .callForwardingEnabled(true)
                         .callRecordingEnabled(true)
@@ -58,6 +60,7 @@ internal class PhoneNumberSlimListPageResponseTest {
             .containsExactly(
                 PhoneNumberSlimListResponse.builder()
                     .id("1293384261075731499")
+                    .activatedAt(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
                     .billingGroupId("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                     .callForwardingEnabled(true)
                     .callRecordingEnabled(true)
@@ -101,6 +104,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                 .addData(
                     PhoneNumberSlimListResponse.builder()
                         .id("1293384261075731499")
+                        .activatedAt(OffsetDateTime.parse("2019-10-23T18:10:00.000Z"))
                         .billingGroupId("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                         .callForwardingEnabled(true)
                         .callRecordingEnabled(true)

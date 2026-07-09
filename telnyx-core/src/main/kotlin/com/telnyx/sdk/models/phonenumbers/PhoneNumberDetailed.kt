@@ -35,6 +35,7 @@ private constructor(
     private val recordType: JsonField<String>,
     private val status: JsonField<Status>,
     private val tags: JsonField<List<String>>,
+    private val activatedAt: JsonField<OffsetDateTime>,
     private val billingGroupId: JsonField<String>,
     private val callForwardingEnabled: JsonField<Boolean>,
     private val callRecordingEnabled: JsonField<Boolean>,
@@ -85,6 +86,9 @@ private constructor(
         recordType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("activated_at")
+        @ExcludeMissing
+        activatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("billing_group_id")
         @ExcludeMissing
         billingGroupId: JsonField<String> = JsonMissing.of(),
@@ -149,6 +153,7 @@ private constructor(
         recordType,
         status,
         tags,
+        activatedAt,
         billingGroupId,
         callForwardingEnabled,
         callRecordingEnabled,
@@ -262,6 +267,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun tags(): List<String> = tags.getRequired("tags")
+
+    /**
+     * ISO 8601 formatted date indicating when the phone number was first activated (transitioned
+     * from purchase-pending or port-pending to active). Will be null for numbers that have not yet
+     * been activated, or for legacy numbers activated before this field was tracked.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun activatedAt(): Optional<OffsetDateTime> = activatedAt.getOptional("activated_at")
 
     /**
      * Identifies the billing group associated with the phone number.
@@ -519,6 +534,15 @@ private constructor(
     @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
     /**
+     * Returns the raw JSON value of [activatedAt].
+     *
+     * Unlike [activatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("activated_at")
+    @ExcludeMissing
+    fun _activatedAt(): JsonField<OffsetDateTime> = activatedAt
+
+    /**
      * Returns the raw JSON value of [billingGroupId].
      *
      * Unlike [billingGroupId], this method doesn't throw if the JSON field has an unexpected type.
@@ -738,6 +762,7 @@ private constructor(
         private var recordType: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var tags: JsonField<MutableList<String>>? = null
+        private var activatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var billingGroupId: JsonField<String> = JsonMissing.of()
         private var callForwardingEnabled: JsonField<Boolean> = JsonMissing.of()
         private var callRecordingEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -771,6 +796,7 @@ private constructor(
             recordType = phoneNumberDetailed.recordType
             status = phoneNumberDetailed.status
             tags = phoneNumberDetailed.tags.map { it.toMutableList() }
+            activatedAt = phoneNumberDetailed.activatedAt
             billingGroupId = phoneNumberDetailed.billingGroupId
             callForwardingEnabled = phoneNumberDetailed.callForwardingEnabled
             callRecordingEnabled = phoneNumberDetailed.callRecordingEnabled
@@ -955,6 +981,30 @@ private constructor(
          */
         fun addTag(tag: String) = apply {
             tags = (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+        }
+
+        /**
+         * ISO 8601 formatted date indicating when the phone number was first activated
+         * (transitioned from purchase-pending or port-pending to active). Will be null for numbers
+         * that have not yet been activated, or for legacy numbers activated before this field was
+         * tracked.
+         */
+        fun activatedAt(activatedAt: OffsetDateTime?) =
+            activatedAt(JsonField.ofNullable(activatedAt))
+
+        /** Alias for calling [Builder.activatedAt] with `activatedAt.orElse(null)`. */
+        fun activatedAt(activatedAt: Optional<OffsetDateTime>) =
+            activatedAt(activatedAt.getOrNull())
+
+        /**
+         * Sets [Builder.activatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.activatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun activatedAt(activatedAt: JsonField<OffsetDateTime>) = apply {
+            this.activatedAt = activatedAt
         }
 
         /** Identifies the billing group associated with the phone number. */
@@ -1326,6 +1376,7 @@ private constructor(
                 checkRequired("recordType", recordType),
                 checkRequired("status", status),
                 checkRequired("tags", tags).map { it.toImmutable() },
+                activatedAt,
                 billingGroupId,
                 callForwardingEnabled,
                 callRecordingEnabled,
@@ -1374,6 +1425,7 @@ private constructor(
         recordType()
         status().validate()
         tags()
+        activatedAt()
         billingGroupId()
         callForwardingEnabled()
         callRecordingEnabled()
@@ -1421,6 +1473,7 @@ private constructor(
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (tags.asKnown().getOrNull()?.size ?: 0) +
+            (if (activatedAt.asKnown().isPresent) 1 else 0) +
             (if (billingGroupId.asKnown().isPresent) 1 else 0) +
             (if (callForwardingEnabled.asKnown().isPresent) 1 else 0) +
             (if (callRecordingEnabled.asKnown().isPresent) 1 else 0) +
@@ -2296,6 +2349,7 @@ private constructor(
             recordType == other.recordType &&
             status == other.status &&
             tags == other.tags &&
+            activatedAt == other.activatedAt &&
             billingGroupId == other.billingGroupId &&
             callForwardingEnabled == other.callForwardingEnabled &&
             callRecordingEnabled == other.callRecordingEnabled &&
@@ -2330,6 +2384,7 @@ private constructor(
             recordType,
             status,
             tags,
+            activatedAt,
             billingGroupId,
             callForwardingEnabled,
             callRecordingEnabled,
@@ -2355,5 +2410,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "PhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, activatedAt=$activatedAt, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

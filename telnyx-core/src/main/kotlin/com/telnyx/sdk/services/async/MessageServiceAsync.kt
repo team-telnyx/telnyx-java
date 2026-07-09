@@ -23,14 +23,13 @@ import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendResponse
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
-import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
-import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Messages */
 interface MessageServiceAsync {
 
     /**
@@ -243,17 +242,6 @@ interface MessageServiceAsync {
         params: MessageSendShortCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendShortCodeResponse>
-
-    /** Send a Whatsapp message */
-    fun sendWhatsapp(
-        params: MessageSendWhatsappParams
-    ): CompletableFuture<MessageSendWhatsappResponse> = sendWhatsapp(params, RequestOptions.none())
-
-    /** @see sendWhatsapp */
-    fun sendWhatsapp(
-        params: MessageSendWhatsappParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessageSendWhatsappResponse>
 
     /** Send an SMS message using an alphanumeric sender ID. This is SMS only. */
     fun sendWithAlphanumericSender(
@@ -504,21 +492,6 @@ interface MessageServiceAsync {
             params: MessageSendShortCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessageSendShortCodeResponse>>
-
-        /**
-         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
-         * [MessageServiceAsync.sendWhatsapp].
-         */
-        fun sendWhatsapp(
-            params: MessageSendWhatsappParams
-        ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>> =
-            sendWhatsapp(params, RequestOptions.none())
-
-        /** @see sendWhatsapp */
-        fun sendWhatsapp(
-            params: MessageSendWhatsappParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>>
 
         /**
          * Returns a raw HTTP response for `post /messages/alphanumeric_sender_id`, but is otherwise

@@ -45,6 +45,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun clientSideTool(): Optional<ClientSideTool> = body.clientSideTool()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun function(): Optional<Function> = body.function()
 
     /**
@@ -90,6 +96,13 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _type(): JsonField<String> = body._type()
+
+    /**
+     * Returns the raw JSON value of [clientSideTool].
+     *
+     * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _clientSideTool(): JsonField<ClientSideTool> = body._clientSideTool()
 
     /**
      * Returns the raw JSON value of [function].
@@ -178,9 +191,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [displayName]
          * - [type]
+         * - [clientSideTool]
          * - [function]
          * - [handoff]
-         * - [invite]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -205,6 +218,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<String>) = apply { body.type(type) }
+
+        fun clientSideTool(clientSideTool: ClientSideTool) = apply {
+            body.clientSideTool(clientSideTool)
+        }
+
+        /**
+         * Sets [Builder.clientSideTool] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.clientSideTool] with a well-typed [ClientSideTool] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun clientSideTool(clientSideTool: JsonField<ClientSideTool>) = apply {
+            body.clientSideTool(clientSideTool)
+        }
 
         fun function(function: Function) = apply { body.function(function) }
 
@@ -414,6 +442,7 @@ private constructor(
     private constructor(
         private val displayName: JsonField<String>,
         private val type: JsonField<String>,
+        private val clientSideTool: JsonField<ClientSideTool>,
         private val function: JsonField<Function>,
         private val handoff: JsonField<Handoff>,
         private val invite: JsonField<Invite>,
@@ -429,6 +458,9 @@ private constructor(
             @ExcludeMissing
             displayName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("client_side_tool")
+            @ExcludeMissing
+            clientSideTool: JsonField<ClientSideTool> = JsonMissing.of(),
             @JsonProperty("function")
             @ExcludeMissing
             function: JsonField<Function> = JsonMissing.of(),
@@ -444,6 +476,7 @@ private constructor(
         ) : this(
             displayName,
             type,
+            clientSideTool,
             function,
             handoff,
             invite,
@@ -464,6 +497,13 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun type(): String = type.getRequired("type")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun clientSideTool(): Optional<ClientSideTool> =
+            clientSideTool.getOptional("client_side_tool")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -516,6 +556,16 @@ private constructor(
          * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+        /**
+         * Returns the raw JSON value of [clientSideTool].
+         *
+         * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("client_side_tool")
+        @ExcludeMissing
+        fun _clientSideTool(): JsonField<ClientSideTool> = clientSideTool
 
         /**
          * Returns the raw JSON value of [function].
@@ -592,6 +642,7 @@ private constructor(
 
             private var displayName: JsonField<String>? = null
             private var type: JsonField<String>? = null
+            private var clientSideTool: JsonField<ClientSideTool> = JsonMissing.of()
             private var function: JsonField<Function> = JsonMissing.of()
             private var handoff: JsonField<Handoff> = JsonMissing.of()
             private var invite: JsonField<Invite> = JsonMissing.of()
@@ -604,6 +655,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 displayName = body.displayName
                 type = body.type
+                clientSideTool = body.clientSideTool
                 function = body.function
                 handoff = body.handoff
                 invite = body.invite
@@ -636,6 +688,20 @@ private constructor(
              * value.
              */
             fun type(type: JsonField<String>) = apply { this.type = type }
+
+            fun clientSideTool(clientSideTool: ClientSideTool) =
+                clientSideTool(JsonField.of(clientSideTool))
+
+            /**
+             * Sets [Builder.clientSideTool] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.clientSideTool] with a well-typed [ClientSideTool]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun clientSideTool(clientSideTool: JsonField<ClientSideTool>) = apply {
+                this.clientSideTool = clientSideTool
+            }
 
             fun function(function: Function) = function(JsonField.of(function))
 
@@ -739,6 +805,7 @@ private constructor(
                 Body(
                     checkRequired("displayName", displayName),
                     checkRequired("type", type),
+                    clientSideTool,
                     function,
                     handoff,
                     invite,
@@ -767,6 +834,7 @@ private constructor(
 
             displayName()
             type()
+            clientSideTool().ifPresent { it.validate() }
             function().ifPresent { it.validate() }
             handoff().ifPresent { it.validate() }
             invite().ifPresent { it.validate() }
@@ -794,6 +862,7 @@ private constructor(
         internal fun validity(): Int =
             (if (displayName.asKnown().isPresent) 1 else 0) +
                 (if (type.asKnown().isPresent) 1 else 0) +
+                (clientSideTool.asKnown().getOrNull()?.validity() ?: 0) +
                 (function.asKnown().getOrNull()?.validity() ?: 0) +
                 (handoff.asKnown().getOrNull()?.validity() ?: 0) +
                 (invite.asKnown().getOrNull()?.validity() ?: 0) +
@@ -809,6 +878,7 @@ private constructor(
             return other is Body &&
                 displayName == other.displayName &&
                 type == other.type &&
+                clientSideTool == other.clientSideTool &&
                 function == other.function &&
                 handoff == other.handoff &&
                 invite == other.invite &&
@@ -822,6 +892,7 @@ private constructor(
             Objects.hash(
                 displayName,
                 type,
+                clientSideTool,
                 function,
                 handoff,
                 invite,
@@ -835,7 +906,115 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{displayName=$displayName, type=$type, function=$function, handoff=$handoff, invite=$invite, retrieval=$retrieval, timeoutMs=$timeoutMs, webhook=$webhook, additionalProperties=$additionalProperties}"
+            "Body{displayName=$displayName, type=$type, clientSideTool=$clientSideTool, function=$function, handoff=$handoff, invite=$invite, retrieval=$retrieval, timeoutMs=$timeoutMs, webhook=$webhook, additionalProperties=$additionalProperties}"
+    }
+
+    class ClientSideTool
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ClientSideTool]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ClientSideTool]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(clientSideTool: ClientSideTool) = apply {
+                additionalProperties = clientSideTool.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ClientSideTool].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ClientSideTool = ClientSideTool(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ClientSideTool = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ClientSideTool && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "ClientSideTool{additionalProperties=$additionalProperties}"
     }
 
     class Function

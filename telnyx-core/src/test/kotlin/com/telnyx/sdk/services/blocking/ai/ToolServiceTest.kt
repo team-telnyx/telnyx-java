@@ -22,6 +22,11 @@ internal class ToolServiceTest {
                 ToolCreateParams.builder()
                     .displayName("display_name")
                     .type("type")
+                    .clientSideTool(
+                        ToolCreateParams.ClientSideTool.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .function(
                         ToolCreateParams.Function.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -75,6 +80,11 @@ internal class ToolServiceTest {
             toolService.update(
                 ToolUpdateParams.builder()
                     .toolId("tool_id")
+                    .clientSideTool(
+                        ToolUpdateParams.ClientSideTool.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .displayName("display_name")
                     .function(
                         ToolUpdateParams.Function.builder()

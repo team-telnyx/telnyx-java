@@ -130,6 +130,8 @@ private constructor(
     /**
      * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
      * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
+     * `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't support
+     * `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no `wav`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -154,7 +156,8 @@ private constructor(
 
     /**
      * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`. Examples:
-     * `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `azure.en-US-AvaMultilingualNeural`,
+     * `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+     * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
      * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
      * extracted automatically and take precedence over individual parameters.
      *
@@ -466,7 +469,9 @@ private constructor(
         /**
          * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
          * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
-         * `emotion`.
+         * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
+         * don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm`
+         * (no `wav`).
          */
         fun telnyx(telnyx: Telnyx) = apply { body.telnyx(telnyx) }
 
@@ -503,10 +508,10 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
-         * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
-         * `provider`, `model_id`, and `voice_id` are extracted automatically and take precedence
-         * over individual parameters.
+         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+         * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
+         * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
+         * extracted automatically and take precedence over individual parameters.
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -845,7 +850,9 @@ private constructor(
         /**
          * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
          * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
-         * `emotion`.
+         * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
+         * don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm`
+         * (no `wav`).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -870,10 +877,10 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
-         * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
-         * `provider`, `model_id`, and `voice_id` are extracted automatically and take precedence
-         * over individual parameters.
+         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+         * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
+         * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
+         * extracted automatically and take precedence over individual parameters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1211,7 +1218,9 @@ private constructor(
             /**
              * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
              * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`,
-             * and `emotion`.
+             * and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`,
+             * and don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3`
+             * or `pcm` (no `wav`).
              */
             fun telnyx(telnyx: Telnyx) = telnyx(JsonField.of(telnyx))
 
@@ -1250,10 +1259,10 @@ private constructor(
 
             /**
              * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-             * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
-             * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
-             * `provider`, `model_id`, and `voice_id` are extracted automatically and take
-             * precedence over individual parameters.
+             * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+             * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
+             * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id`
+             * are extracted automatically and take precedence over individual parameters.
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -4024,6 +4033,8 @@ private constructor(
     /**
      * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
      * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
+     * `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't support
+     * `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no `wav`).
      */
     class Telnyx
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -4097,7 +4108,8 @@ private constructor(
         fun temperature(): Optional<Float> = temperature.getOptional("temperature")
 
         /**
-         * Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0.
+         * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which don't
+         * support it. Range: 0.5 to 2.0.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4262,7 +4274,10 @@ private constructor(
                 this.temperature = temperature
             }
 
-            /** Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0. */
+            /**
+             * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which
+             * don't support it. Range: 0.5 to 2.0.
+             */
             fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
 
             /**

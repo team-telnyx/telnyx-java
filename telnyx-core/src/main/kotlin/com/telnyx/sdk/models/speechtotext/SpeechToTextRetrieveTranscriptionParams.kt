@@ -18,7 +18,8 @@ import kotlin.jvm.optionals.getOrNull
  * Open a WebSocket connection to stream audio and receive transcriptions in real-time.
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
- * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`.
+ * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
+ * `Parakeet`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying engine, input format, and language.
@@ -534,6 +535,8 @@ private constructor(
 
             @JvmField val SONIOX = of("Soniox")
 
+            @JvmField val PARAKEET = of("Parakeet")
+
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
@@ -546,6 +549,7 @@ private constructor(
             X_AI,
             SPEECHMATICS,
             SONIOX,
+            PARAKEET,
         }
 
         /**
@@ -565,6 +569,7 @@ private constructor(
             X_AI,
             SPEECHMATICS,
             SONIOX,
+            PARAKEET,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -588,6 +593,7 @@ private constructor(
                 X_AI -> Value.X_AI
                 SPEECHMATICS -> Value.SPEECHMATICS
                 SONIOX -> Value.SONIOX
+                PARAKEET -> Value.PARAKEET
                 else -> Value._UNKNOWN
             }
 
@@ -609,6 +615,7 @@ private constructor(
                 X_AI -> Known.X_AI
                 SPEECHMATICS -> Known.SPEECHMATICS
                 SONIOX -> Known.SONIOX
+                PARAKEET -> Known.PARAKEET
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 
@@ -720,6 +727,8 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
+            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -741,6 +750,7 @@ private constructor(
             XAI_GROK_STT,
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
+            PARAKEET_TDT_0_6B_V3,
         }
 
         /**
@@ -769,6 +779,7 @@ private constructor(
             XAI_GROK_STT,
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
+            PARAKEET_TDT_0_6B_V3,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -798,6 +809,7 @@ private constructor(
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
+                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
                 else -> Value._UNKNOWN
             }
 
@@ -828,6 +840,7 @@ private constructor(
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
+                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 

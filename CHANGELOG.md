@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.81.0](https://github.com/team-telnyx/telnyx-java/compare/v6.80.0...v6.81.0) (2026-07-09)
+
+
+### Bug Fixes
+
+* **release:** ghost guard also verifies the GitHub Release exists ([#201](https://github.com/team-telnyx/telnyx-java/issues/201)) ([04acec4](https://github.com/team-telnyx/telnyx-java/commit/04acec47b966fe247fdfe760861b53b84a0edc03))
+* **release:** scan next's commits in release-pr (stop depending on master hotfixes) ([#200](https://github.com/team-telnyx/telnyx-java/issues/200)) ([20032e6](https://github.com/team-telnyx/telnyx-java/commit/20032e6dd523f46fae084d70b78176db7e12e7a5))
+* **release:** take first Release-As match (multiline output broke GITHUB_OUTPUT) ([#197](https://github.com/team-telnyx/telnyx-java/issues/197)) ([d4dbd43](https://github.com/team-telnyx/telnyx-java/commit/d4dbd43dd924dd161ec9df6cae84c7b810e414e4))
+
 ## [6.80.0](https://github.com/team-telnyx/telnyx-java/compare/v6.79.0...v6.80.0) (2026-07-03)
 
 
