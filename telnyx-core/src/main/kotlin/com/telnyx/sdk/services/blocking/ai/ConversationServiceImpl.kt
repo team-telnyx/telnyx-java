@@ -29,6 +29,8 @@ import com.telnyx.sdk.models.ai.conversations.ConversationRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.ConversationRetrieveResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationUpdateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationUpdateResponse
+import com.telnyx.sdk.services.blocking.ai.conversations.ConversationInsightService
+import com.telnyx.sdk.services.blocking.ai.conversations.ConversationInsightServiceImpl
 import com.telnyx.sdk.services.blocking.ai.conversations.InsightGroupService
 import com.telnyx.sdk.services.blocking.ai.conversations.InsightGroupServiceImpl
 import com.telnyx.sdk.services.blocking.ai.conversations.InsightService
@@ -54,6 +56,10 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
 
     private val messages: MessageService by lazy { MessageServiceImpl(clientOptions) }
 
+    private val conversationInsights: ConversationInsightService by lazy {
+        ConversationInsightServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): ConversationService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationService =
@@ -67,6 +73,9 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
 
     /** Manage historical AI assistant conversations */
     override fun messages(): MessageService = messages
+
+    /** Manage historical AI assistant conversations */
+    override fun conversationInsights(): ConversationInsightService = conversationInsights
 
     override fun create(
         params: ConversationCreateParams,
@@ -131,6 +140,10 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
             MessageServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val conversationInsights: ConversationInsightService.WithRawResponse by lazy {
+            ConversationInsightServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ConversationService.WithRawResponse =
@@ -146,6 +159,10 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
 
         /** Manage historical AI assistant conversations */
         override fun messages(): MessageService.WithRawResponse = messages
+
+        /** Manage historical AI assistant conversations */
+        override fun conversationInsights(): ConversationInsightService.WithRawResponse =
+            conversationInsights
 
         private val createHandler: Handler<Conversation> =
             jsonHandler<Conversation>(clientOptions.jsonMapper)

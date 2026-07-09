@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.ai.conversations.ConversationRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.ConversationRetrieveResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationUpdateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationUpdateResponse
+import com.telnyx.sdk.services.blocking.ai.conversations.ConversationInsightService
 import com.telnyx.sdk.services.blocking.ai.conversations.InsightGroupService
 import com.telnyx.sdk.services.blocking.ai.conversations.InsightService
 import com.telnyx.sdk.services.blocking.ai.conversations.MessageService
@@ -47,6 +48,9 @@ interface ConversationService {
 
     /** Manage historical AI assistant conversations */
     fun messages(): MessageService
+
+    /** Manage historical AI assistant conversations */
+    fun conversationInsights(): ConversationInsightService
 
     /** Create a new AI Conversation. */
     fun create(): Conversation = create(ConversationCreateParams.none())
@@ -282,6 +286,9 @@ interface ConversationService {
 
         /** Manage historical AI assistant conversations */
         fun messages(): MessageService.WithRawResponse
+
+        /** Manage historical AI assistant conversations */
+        fun conversationInsights(): ConversationInsightService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /ai/conversations`, but is otherwise the same as
