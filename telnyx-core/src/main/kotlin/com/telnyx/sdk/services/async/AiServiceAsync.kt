@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.services.async.ai.AnthropicServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsync
@@ -66,6 +67,8 @@ interface AiServiceAsync {
 
     /** Configure AI assistant specifications */
     fun tools(): ToolServiceAsync
+
+    fun anthropic(): AnthropicServiceAsync
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -183,6 +186,8 @@ interface AiServiceAsync {
 
         /** Configure AI assistant specifications */
         fun tools(): ToolServiceAsync.WithRawResponse
+
+        fun anthropic(): AnthropicServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
