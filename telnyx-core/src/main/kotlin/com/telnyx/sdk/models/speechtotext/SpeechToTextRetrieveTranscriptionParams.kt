@@ -727,7 +727,7 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
-            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
@@ -750,7 +750,7 @@ private constructor(
             XAI_GROK_STT,
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
         }
 
         /**
@@ -779,7 +779,7 @@ private constructor(
             XAI_GROK_STT,
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -809,7 +809,7 @@ private constructor(
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 else -> Value._UNKNOWN
             }
 
@@ -840,7 +840,7 @@ private constructor(
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 

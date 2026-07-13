@@ -403,14 +403,14 @@ private constructor(
 
         companion object {
 
-            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
         }
 
         /** An enum containing [TranscriptionModel]'s known values. */
         enum class Known {
-            PARAKEET_TDT_0_6B_V3
+            NVIDIA_PARAKEET_V3
         }
 
         /**
@@ -423,7 +423,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             /**
              * An enum member indicating that [TranscriptionModel] was instantiated with an unknown
              * value.
@@ -440,7 +440,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 else -> Value._UNKNOWN
             }
 
@@ -455,7 +455,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
             }
 

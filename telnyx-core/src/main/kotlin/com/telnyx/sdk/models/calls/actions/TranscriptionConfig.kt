@@ -59,7 +59,7 @@ private constructor(
      * - `xai/grok-stt` for live streaming transcription.
      * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
      *   detection.
-     * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language detection.
+     * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -147,8 +147,7 @@ private constructor(
          * - `xai/grok-stt` for live streaming transcription.
          * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic
          *   language detection.
-         * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language
-         *   detection.
+         * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
          * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported
          *   regions require `api_key_ref`.
          * - `google/latest_long` for non-streaming multilingual transcription.
@@ -242,7 +241,7 @@ private constructor(
      * - `xai/grok-stt` for live streaming transcription.
      * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
      *   detection.
-     * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language detection.
+     * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -283,7 +282,7 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
-            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val AZURE_FAST = of("azure/fast")
 
@@ -309,7 +308,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -336,7 +335,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -364,7 +363,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 AZURE_FAST -> Value.AZURE_FAST
                 AZURE_REALTIME -> Value.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Value.GOOGLE_LATEST_LONG
@@ -393,7 +392,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 AZURE_FAST -> Known.AZURE_FAST
                 AZURE_REALTIME -> Known.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Known.GOOGLE_LATEST_LONG

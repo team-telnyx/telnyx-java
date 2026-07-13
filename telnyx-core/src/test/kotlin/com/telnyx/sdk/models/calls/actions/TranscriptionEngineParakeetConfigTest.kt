@@ -16,7 +16,7 @@ internal class TranscriptionEngineParakeetConfigTest {
                 .interimResults(true)
                 .transcriptionEngine(TranscriptionEngineParakeetConfig.TranscriptionEngine.PARAKEET)
                 .transcriptionModel(
-                    TranscriptionEngineParakeetConfig.TranscriptionModel.PARAKEET_TDT_0_6B_V3
+                    TranscriptionEngineParakeetConfig.TranscriptionModel.NVIDIA_PARAKEET_V3
                 )
                 .build()
 
@@ -24,7 +24,7 @@ internal class TranscriptionEngineParakeetConfigTest {
         assertThat(transcriptionEngineParakeetConfig.transcriptionEngine())
             .contains(TranscriptionEngineParakeetConfig.TranscriptionEngine.PARAKEET)
         assertThat(transcriptionEngineParakeetConfig.transcriptionModel())
-            .contains(TranscriptionEngineParakeetConfig.TranscriptionModel.PARAKEET_TDT_0_6B_V3)
+            .contains(TranscriptionEngineParakeetConfig.TranscriptionModel.NVIDIA_PARAKEET_V3)
     }
 
     @Test
@@ -35,7 +35,7 @@ internal class TranscriptionEngineParakeetConfigTest {
                 .interimResults(true)
                 .transcriptionEngine(TranscriptionEngineParakeetConfig.TranscriptionEngine.PARAKEET)
                 .transcriptionModel(
-                    TranscriptionEngineParakeetConfig.TranscriptionModel.PARAKEET_TDT_0_6B_V3
+                    TranscriptionEngineParakeetConfig.TranscriptionModel.NVIDIA_PARAKEET_V3
                 )
                 .build()
 

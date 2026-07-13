@@ -75,7 +75,7 @@ private constructor(
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection and
      *   configurable endpointing.
-     * - `parakeet/tdt-0.6b-v3` is a multilingual transcription model with automatic language
+     * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -218,7 +218,7 @@ private constructor(
          * - `xai/grok-stt` is a multilingual Grok STT model.
          * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection
          *   and configurable endpointing.
-         * - `parakeet/tdt-0.6b-v3` is a multilingual transcription model with automatic language
+         * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
          *   detection.
          */
         fun model(model: Model) = model(JsonField.of(model))
@@ -349,7 +349,7 @@ private constructor(
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language detection and
      *   configurable endpointing.
-     * - `parakeet/tdt-0.6b-v3` is a multilingual transcription model with automatic language
+     * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -380,7 +380,7 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
-            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val DISTIL_WHISPER_DISTIL_LARGE_V2 = of("distil-whisper/distil-large-v2")
 
@@ -398,7 +398,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
         }
@@ -420,7 +420,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -443,7 +443,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> Value._UNKNOWN
@@ -467,7 +467,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
