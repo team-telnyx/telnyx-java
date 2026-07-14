@@ -399,6 +399,17 @@ private constructor(
     fun recordTrim(): Optional<RecordTrim> = body.recordTrim()
 
     /**
+     * Whether to keep trying the remaining routing paths (e.g. alternate providers/gateways) for
+     * the same destination after `timeout_secs` is reached for the current attempt. When set to
+     * `false`, reaching `timeout_secs` aborts the entire dial attempt and the `call.hangup` webhook
+     * reports a `hangup_cause` of `no_answer` instead of `timeout`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun retryOnTimeout(): Optional<Boolean> = body.retryOnTimeout()
+
+    /**
      * DTMF digits to send automatically after the called party answers. Useful for reaching an
      * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks up).
      * Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64
@@ -901,6 +912,13 @@ private constructor(
      * Unlike [recordTrim], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordTrim(): JsonField<RecordTrim> = body._recordTrim()
+
+    /**
+     * Returns the raw JSON value of [retryOnTimeout].
+     *
+     * Unlike [retryOnTimeout], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _retryOnTimeout(): JsonField<Boolean> = body._retryOnTimeout()
 
     /**
      * Returns the raw JSON value of [sendDigitsOnAnswer].
@@ -1789,6 +1807,25 @@ private constructor(
         fun recordTrim(recordTrim: JsonField<RecordTrim>) = apply { body.recordTrim(recordTrim) }
 
         /**
+         * Whether to keep trying the remaining routing paths (e.g. alternate providers/gateways)
+         * for the same destination after `timeout_secs` is reached for the current attempt. When
+         * set to `false`, reaching `timeout_secs` aborts the entire dial attempt and the
+         * `call.hangup` webhook reports a `hangup_cause` of `no_answer` instead of `timeout`.
+         */
+        fun retryOnTimeout(retryOnTimeout: Boolean) = apply { body.retryOnTimeout(retryOnTimeout) }
+
+        /**
+         * Sets [Builder.retryOnTimeout] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.retryOnTimeout] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun retryOnTimeout(retryOnTimeout: JsonField<Boolean>) = apply {
+            body.retryOnTimeout(retryOnTimeout)
+        }
+
+        /**
          * DTMF digits to send automatically after the called party answers. Useful for reaching an
          * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
          * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`.
@@ -2444,6 +2481,7 @@ private constructor(
         private val recordTimeoutSecs: JsonField<Int>,
         private val recordTrack: JsonField<RecordTrack>,
         private val recordTrim: JsonField<RecordTrim>,
+        private val retryOnTimeout: JsonField<Boolean>,
         private val sendDigitsOnAnswer: JsonField<String>,
         private val sendSilenceWhenIdle: JsonField<Boolean>,
         private val sipAuthPassword: JsonField<String>,
@@ -2570,6 +2608,9 @@ private constructor(
             @JsonProperty("record_trim")
             @ExcludeMissing
             recordTrim: JsonField<RecordTrim> = JsonMissing.of(),
+            @JsonProperty("retry_on_timeout")
+            @ExcludeMissing
+            retryOnTimeout: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("send_digits_on_answer")
             @ExcludeMissing
             sendDigitsOnAnswer: JsonField<String> = JsonMissing.of(),
@@ -2691,6 +2732,7 @@ private constructor(
             recordTimeoutSecs,
             recordTrack,
             recordTrim,
+            retryOnTimeout,
             sendDigitsOnAnswer,
             sendSilenceWhenIdle,
             sipAuthPassword,
@@ -3070,6 +3112,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordTrim(): Optional<RecordTrim> = recordTrim.getOptional("record_trim")
+
+        /**
+         * Whether to keep trying the remaining routing paths (e.g. alternate providers/gateways)
+         * for the same destination after `timeout_secs` is reached for the current attempt. When
+         * set to `false`, reaching `timeout_secs` aborts the entire dial attempt and the
+         * `call.hangup` webhook reports a `hangup_cause` of `no_answer` instead of `timeout`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun retryOnTimeout(): Optional<Boolean> = retryOnTimeout.getOptional("retry_on_timeout")
 
         /**
          * DTMF digits to send automatically after the called party answers. Useful for reaching an
@@ -3650,6 +3703,16 @@ private constructor(
         fun _recordTrim(): JsonField<RecordTrim> = recordTrim
 
         /**
+         * Returns the raw JSON value of [retryOnTimeout].
+         *
+         * Unlike [retryOnTimeout], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("retry_on_timeout")
+        @ExcludeMissing
+        fun _retryOnTimeout(): JsonField<Boolean> = retryOnTimeout
+
+        /**
          * Returns the raw JSON value of [sendDigitsOnAnswer].
          *
          * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an
@@ -3991,6 +4054,7 @@ private constructor(
             private var recordTimeoutSecs: JsonField<Int> = JsonMissing.of()
             private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
             private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
+            private var retryOnTimeout: JsonField<Boolean> = JsonMissing.of()
             private var sendDigitsOnAnswer: JsonField<String> = JsonMissing.of()
             private var sendSilenceWhenIdle: JsonField<Boolean> = JsonMissing.of()
             private var sipAuthPassword: JsonField<String> = JsonMissing.of()
@@ -4062,6 +4126,7 @@ private constructor(
                 recordTimeoutSecs = body.recordTimeoutSecs
                 recordTrack = body.recordTrack
                 recordTrim = body.recordTrim
+                retryOnTimeout = body.retryOnTimeout
                 sendDigitsOnAnswer = body.sendDigitsOnAnswer
                 sendSilenceWhenIdle = body.sendSilenceWhenIdle
                 sipAuthPassword = body.sipAuthPassword
@@ -4715,6 +4780,27 @@ private constructor(
             }
 
             /**
+             * Whether to keep trying the remaining routing paths (e.g. alternate
+             * providers/gateways) for the same destination after `timeout_secs` is reached for the
+             * current attempt. When set to `false`, reaching `timeout_secs` aborts the entire dial
+             * attempt and the `call.hangup` webhook reports a `hangup_cause` of `no_answer` instead
+             * of `timeout`.
+             */
+            fun retryOnTimeout(retryOnTimeout: Boolean) =
+                retryOnTimeout(JsonField.of(retryOnTimeout))
+
+            /**
+             * Sets [Builder.retryOnTimeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.retryOnTimeout] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun retryOnTimeout(retryOnTimeout: JsonField<Boolean>) = apply {
+                this.retryOnTimeout = retryOnTimeout
+            }
+
+            /**
              * DTMF digits to send automatically after the called party answers. Useful for reaching
              * an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party
              * picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
@@ -5254,6 +5340,7 @@ private constructor(
                     recordTimeoutSecs,
                     recordTrack,
                     recordTrim,
+                    retryOnTimeout,
                     sendDigitsOnAnswer,
                     sendSilenceWhenIdle,
                     sipAuthPassword,
@@ -5336,6 +5423,7 @@ private constructor(
             recordTimeoutSecs()
             recordTrack().ifPresent { it.validate() }
             recordTrim().ifPresent { it.validate() }
+            retryOnTimeout()
             sendDigitsOnAnswer()
             sendSilenceWhenIdle()
             sipAuthPassword()
@@ -5417,6 +5505,7 @@ private constructor(
                 (if (recordTimeoutSecs.asKnown().isPresent) 1 else 0) +
                 (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (retryOnTimeout.asKnown().isPresent) 1 else 0) +
                 (if (sendDigitsOnAnswer.asKnown().isPresent) 1 else 0) +
                 (if (sendSilenceWhenIdle.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
@@ -5486,6 +5575,7 @@ private constructor(
                 recordTimeoutSecs == other.recordTimeoutSecs &&
                 recordTrack == other.recordTrack &&
                 recordTrim == other.recordTrim &&
+                retryOnTimeout == other.retryOnTimeout &&
                 sendDigitsOnAnswer == other.sendDigitsOnAnswer &&
                 sendSilenceWhenIdle == other.sendSilenceWhenIdle &&
                 sipAuthPassword == other.sipAuthPassword &&
@@ -5553,6 +5643,7 @@ private constructor(
                 recordTimeoutSecs,
                 recordTrack,
                 recordTrim,
+                retryOnTimeout,
                 sendDigitsOnAnswer,
                 sendSilenceWhenIdle,
                 sipAuthPassword,
@@ -5588,7 +5679,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, retryOnTimeout=$retryOnTimeout, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
