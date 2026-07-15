@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageParams
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageResponse
 import com.telnyx.sdk.services.async.storage.BucketServiceAsync
+import com.telnyx.sdk.services.async.storage.CloudfServiceAsync
 import com.telnyx.sdk.services.async.storage.KvServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsync
@@ -40,6 +41,11 @@ interface StorageServiceAsync {
 
     /** Manage KV storage namespaces */
     fun kvs(): KvServiceAsync
+
+    /**
+     * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
+     */
+    fun cloudfs(): CloudfServiceAsync
 
     /** List Migration Source coverage */
     fun listMigrationSourceCoverage():
@@ -91,6 +97,12 @@ interface StorageServiceAsync {
 
         /** Manage KV storage namespaces */
         fun kvs(): KvServiceAsync.WithRawResponse
+
+        /**
+         * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud
+         * Storage
+         */
+        fun cloudfs(): CloudfServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /storage/migration_source_coverage`, but is

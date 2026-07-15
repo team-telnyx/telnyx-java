@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.requirements
+package com.telnyx.sdk.models.storage.cloudfs
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
@@ -9,19 +9,19 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a document requirement record */
-class RequirementRetrieveParams
+/**
+ * Retrieves a CloudFS filesystem by its ID. The returned `meta_url` omits the credential — the
+ * metadata token is only ever returned by create and rotate-meta-token. A filesystem whose last
+ * lifecycle action failed includes a customer-safe `error` message.
+ */
+class CloudfRetrieveParams
 private constructor(
     private val id: String?,
-    private val version: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun id(): Optional<String> = Optional.ofNullable(id)
-
-    /** Filter by requirement version number. When omitted, returns the currently-active version. */
-    fun version(): Optional<Long> = Optional.ofNullable(version)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,49 +33,30 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): RequirementRetrieveParams = builder().build()
+        @JvmStatic fun none(): CloudfRetrieveParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [RequirementRetrieveParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [CloudfRetrieveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RequirementRetrieveParams]. */
+    /** A builder for [CloudfRetrieveParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var version: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(requirementRetrieveParams: RequirementRetrieveParams) = apply {
-            id = requirementRetrieveParams.id
-            version = requirementRetrieveParams.version
-            additionalHeaders = requirementRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = requirementRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(cloudfRetrieveParams: CloudfRetrieveParams) = apply {
+            id = cloudfRetrieveParams.id
+            additionalHeaders = cloudfRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cloudfRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
-
-        /**
-         * Filter by requirement version number. When omitted, returns the currently-active version.
-         */
-        fun version(version: Long?) = apply { this.version = version }
-
-        /**
-         * Alias for [Builder.version].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun version(version: Long) = version(version as Long?)
-
-        /** Alias for calling [Builder.version] with `version.orElse(null)`. */
-        fun version(version: Optional<Long>) = version(version.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -176,17 +157,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RequirementRetrieveParams].
+         * Returns an immutable instance of [CloudfRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): RequirementRetrieveParams =
-            RequirementRetrieveParams(
-                id,
-                version,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+        fun build(): CloudfRetrieveParams =
+            CloudfRetrieveParams(id, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
@@ -197,29 +173,21 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                version?.let { put("version", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is RequirementRetrieveParams &&
+        return other is CloudfRetrieveParams &&
             id == other.id &&
-            version == other.version &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(id, version, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RequirementRetrieveParams{id=$id, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CloudfRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

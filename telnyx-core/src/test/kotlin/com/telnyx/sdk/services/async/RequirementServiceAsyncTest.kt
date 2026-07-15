@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.requirements.RequirementRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -15,7 +16,12 @@ internal class RequirementServiceAsyncTest {
         val requirementServiceAsync = client.requirements()
 
         val requirementFuture =
-            requirementServiceAsync.retrieve("a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa")
+            requirementServiceAsync.retrieve(
+                RequirementRetrieveParams.builder()
+                    .id("a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa")
+                    .version(0L)
+                    .build()
+            )
 
         val requirement = requirementFuture.get()
         requirement.validate()

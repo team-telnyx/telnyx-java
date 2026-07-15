@@ -1,27 +1,40 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.requirements
+package com.telnyx.sdk.models.storage.cloudfs.actions
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a document requirement record */
-class RequirementRetrieveParams
+/**
+ * Issues a new metadata access token for the filesystem and returns the full filesystem, including
+ * the new `meta_token` and credential-bearing `meta_url`. The previous token stops authenticating
+ * immediately; the metadata database and S3 bucket are unchanged. The request takes no body.
+ * Allowed while the filesystem is `ready` or `needs_format`; otherwise returns a `409`. Retrying
+ * with the same `Idempotency-Key` within 24 hours replays the original response — including the
+ * same token — instead of rotating again.
+ */
+class ActionRotateMetaTokenParams
 private constructor(
     private val id: String?,
-    private val version: Long?,
+    private val idempotencyKey: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun id(): Optional<String> = Optional.ofNullable(id)
 
-    /** Filter by requirement version number. When omitted, returns the currently-active version. */
-    fun version(): Optional<Long> = Optional.ofNullable(version)
+    fun idempotencyKey(): String = idempotencyKey
+
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,28 +46,34 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): RequirementRetrieveParams = builder().build()
-
         /**
-         * Returns a mutable builder for constructing an instance of [RequirementRetrieveParams].
+         * Returns a mutable builder for constructing an instance of [ActionRotateMetaTokenParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .idempotencyKey()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RequirementRetrieveParams]. */
+    /** A builder for [ActionRotateMetaTokenParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var version: Long? = null
+        private var idempotencyKey: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(requirementRetrieveParams: RequirementRetrieveParams) = apply {
-            id = requirementRetrieveParams.id
-            version = requirementRetrieveParams.version
-            additionalHeaders = requirementRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = requirementRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(actionRotateMetaTokenParams: ActionRotateMetaTokenParams) = apply {
+            id = actionRotateMetaTokenParams.id
+            idempotencyKey = actionRotateMetaTokenParams.idempotencyKey
+            additionalHeaders = actionRotateMetaTokenParams.additionalHeaders.toBuilder()
+            additionalQueryParams = actionRotateMetaTokenParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                actionRotateMetaTokenParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -62,20 +81,7 @@ private constructor(
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
 
-        /**
-         * Filter by requirement version number. When omitted, returns the currently-active version.
-         */
-        fun version(version: Long?) = apply { this.version = version }
-
-        /**
-         * Alias for [Builder.version].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun version(version: Long) = version(version as Long?)
-
-        /** Alias for calling [Builder.version] with `version.orElse(null)`. */
-        fun version(version: Optional<Long>) = version(version.getOrNull())
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -175,19 +181,52 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
-         * Returns an immutable instance of [RequirementRetrieveParams].
+         * Returns an immutable instance of [ActionRotateMetaTokenParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .idempotencyKey()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): RequirementRetrieveParams =
-            RequirementRetrieveParams(
+        fun build(): ActionRotateMetaTokenParams =
+            ActionRotateMetaTokenParams(
                 id,
-                version,
+                checkRequired("idempotencyKey", idempotencyKey),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
+
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -195,31 +234,38 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
+    override fun _headers(): Headers =
+        Headers.builder()
             .apply {
-                version?.let { put("version", it.toString()) }
-                putAll(additionalQueryParams)
+                put("Idempotency-Key", idempotencyKey)
+                putAll(additionalHeaders)
             }
             .build()
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is RequirementRetrieveParams &&
+        return other is ActionRotateMetaTokenParams &&
             id == other.id &&
-            version == other.version &&
+            idempotencyKey == other.idempotencyKey &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(id, version, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            id,
+            idempotencyKey,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "RequirementRetrieveParams{id=$id, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionRotateMetaTokenParams{id=$id, idempotencyKey=$idempotencyKey, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

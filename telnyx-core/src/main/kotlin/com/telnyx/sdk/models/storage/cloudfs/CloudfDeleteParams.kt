@@ -1,27 +1,34 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.requirements
+package com.telnyx.sdk.models.storage.cloudfs
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a document requirement record */
-class RequirementRetrieveParams
+/**
+ * Permanently deletes a CloudFS filesystem, removing its S3 bucket and its metadata database.
+ * Deletion is synchronous: the response returns the filesystem's final state with status `deleted`.
+ * There is no restore. A filesystem that is still `provisioning` returns a `409`. If the filesystem
+ * still contains data, the request may be rejected with a `409` — drain the bucket and retry.
+ */
+class CloudfDeleteParams
 private constructor(
     private val id: String?,
-    private val version: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun id(): Optional<String> = Optional.ofNullable(id)
 
-    /** Filter by requirement version number. When omitted, returns the currently-active version. */
-    fun version(): Optional<Long> = Optional.ofNullable(version)
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,49 +40,32 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): RequirementRetrieveParams = builder().build()
+        @JvmStatic fun none(): CloudfDeleteParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [RequirementRetrieveParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [CloudfDeleteParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RequirementRetrieveParams]. */
+    /** A builder for [CloudfDeleteParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var version: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(requirementRetrieveParams: RequirementRetrieveParams) = apply {
-            id = requirementRetrieveParams.id
-            version = requirementRetrieveParams.version
-            additionalHeaders = requirementRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = requirementRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(cloudfDeleteParams: CloudfDeleteParams) = apply {
+            id = cloudfDeleteParams.id
+            additionalHeaders = cloudfDeleteParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cloudfDeleteParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = cloudfDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String?) = apply { this.id = id }
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
-
-        /**
-         * Filter by requirement version number. When omitted, returns the currently-active version.
-         */
-        fun version(version: Long?) = apply { this.version = version }
-
-        /**
-         * Alias for [Builder.version].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun version(version: Long) = version(version as Long?)
-
-        /** Alias for calling [Builder.version] with `version.orElse(null)`. */
-        fun version(version: Optional<Long>) = version(version.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -175,19 +165,44 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
-         * Returns an immutable instance of [RequirementRetrieveParams].
+         * Returns an immutable instance of [CloudfDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): RequirementRetrieveParams =
-            RequirementRetrieveParams(
+        fun build(): CloudfDeleteParams =
+            CloudfDeleteParams(
                 id,
-                version,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
+
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -197,29 +212,23 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                version?.let { put("version", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is RequirementRetrieveParams &&
+        return other is CloudfDeleteParams &&
             id == other.id &&
-            version == other.version &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(id, version, additionalHeaders, additionalQueryParams)
+        Objects.hash(id, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
-        "RequirementRetrieveParams{id=$id, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CloudfDeleteParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

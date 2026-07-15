@@ -18,6 +18,8 @@ import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageParams
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageResponse
 import com.telnyx.sdk.services.async.storage.BucketServiceAsync
 import com.telnyx.sdk.services.async.storage.BucketServiceAsyncImpl
+import com.telnyx.sdk.services.async.storage.CloudfServiceAsync
+import com.telnyx.sdk.services.async.storage.CloudfServiceAsyncImpl
 import com.telnyx.sdk.services.async.storage.KvServiceAsync
 import com.telnyx.sdk.services.async.storage.KvServiceAsyncImpl
 import com.telnyx.sdk.services.async.storage.MigrationServiceAsync
@@ -47,6 +49,8 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val kvs: KvServiceAsync by lazy { KvServiceAsyncImpl(clientOptions) }
 
+    private val cloudfs: CloudfServiceAsync by lazy { CloudfServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): StorageServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageServiceAsync =
@@ -63,6 +67,11 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     /** Manage KV storage namespaces */
     override fun kvs(): KvServiceAsync = kvs
+
+    /**
+     * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
+     */
+    override fun cloudfs(): CloudfServiceAsync = cloudfs
 
     override fun listMigrationSourceCoverage(
         params: StorageListMigrationSourceCoverageParams,
@@ -95,6 +104,10 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             KvServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val cloudfs: CloudfServiceAsync.WithRawResponse by lazy {
+            CloudfServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): StorageServiceAsync.WithRawResponse =
@@ -114,6 +127,12 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
         /** Manage KV storage namespaces */
         override fun kvs(): KvServiceAsync.WithRawResponse = kvs
+
+        /**
+         * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud
+         * Storage
+         */
+        override fun cloudfs(): CloudfServiceAsync.WithRawResponse = cloudfs
 
         private val listMigrationSourceCoverageHandler:
             Handler<StorageListMigrationSourceCoverageResponse> =

@@ -21,6 +21,7 @@ private constructor(
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val sort: List<Sort>?,
+    private val version: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -37,6 +38,9 @@ private constructor(
 
     /** Consolidated sort parameter for requirements (deepObject style). Originally: sort[] */
     fun sort(): Optional<List<Sort>> = Optional.ofNullable(sort)
+
+    /** Filter by requirement version number. When omitted, returns the currently-active version. */
+    fun version(): Optional<Long> = Optional.ofNullable(version)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -61,6 +65,7 @@ private constructor(
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var sort: MutableList<Sort>? = null
+        private var version: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -70,6 +75,7 @@ private constructor(
             pageNumber = requirementListParams.pageNumber
             pageSize = requirementListParams.pageSize
             sort = requirementListParams.sort?.toMutableList()
+            version = requirementListParams.version
             additionalHeaders = requirementListParams.additionalHeaders.toBuilder()
             additionalQueryParams = requirementListParams.additionalQueryParams.toBuilder()
         }
@@ -121,6 +127,21 @@ private constructor(
         fun addSort(sort: Sort) = apply {
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
+
+        /**
+         * Filter by requirement version number. When omitted, returns the currently-active version.
+         */
+        fun version(version: Long?) = apply { this.version = version }
+
+        /**
+         * Alias for [Builder.version].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun version(version: Long) = version(version as Long?)
+
+        /** Alias for calling [Builder.version] with `version.orElse(null)`. */
+        fun version(version: Optional<Long>) = version(version.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -231,6 +252,7 @@ private constructor(
                 pageNumber,
                 pageSize,
                 sort?.toImmutable(),
+                version,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -256,6 +278,7 @@ private constructor(
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 sort?.let { put("sort", it.joinToString(",") { it.toString() }) }
+                version?.let { put("version", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -886,13 +909,22 @@ private constructor(
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             sort == other.sort &&
+            version == other.version &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, pageNumber, pageSize, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filter,
+            pageNumber,
+            pageSize,
+            sort,
+            version,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "RequirementListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RequirementListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

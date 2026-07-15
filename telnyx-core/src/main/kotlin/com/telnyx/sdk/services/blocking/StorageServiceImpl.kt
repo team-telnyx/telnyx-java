@@ -18,6 +18,8 @@ import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageParams
 import com.telnyx.sdk.models.storage.StorageListMigrationSourceCoverageResponse
 import com.telnyx.sdk.services.blocking.storage.BucketService
 import com.telnyx.sdk.services.blocking.storage.BucketServiceImpl
+import com.telnyx.sdk.services.blocking.storage.CloudfService
+import com.telnyx.sdk.services.blocking.storage.CloudfServiceImpl
 import com.telnyx.sdk.services.blocking.storage.KvService
 import com.telnyx.sdk.services.blocking.storage.KvServiceImpl
 import com.telnyx.sdk.services.blocking.storage.MigrationService
@@ -44,6 +46,8 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val kvs: KvService by lazy { KvServiceImpl(clientOptions) }
 
+    private val cloudfs: CloudfService by lazy { CloudfServiceImpl(clientOptions) }
+
     override fun withRawResponse(): StorageService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageService =
@@ -60,6 +64,11 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
     /** Manage KV storage namespaces */
     override fun kvs(): KvService = kvs
+
+    /**
+     * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
+     */
+    override fun cloudfs(): CloudfService = cloudfs
 
     override fun listMigrationSourceCoverage(
         params: StorageListMigrationSourceCoverageParams,
@@ -90,6 +99,10 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
             KvServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val cloudfs: CloudfService.WithRawResponse by lazy {
+            CloudfServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): StorageService.WithRawResponse =
@@ -108,6 +121,12 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
         /** Manage KV storage namespaces */
         override fun kvs(): KvService.WithRawResponse = kvs
+
+        /**
+         * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud
+         * Storage
+         */
+        override fun cloudfs(): CloudfService.WithRawResponse = cloudfs
 
         private val listMigrationSourceCoverageHandler:
             Handler<StorageListMigrationSourceCoverageResponse> =
