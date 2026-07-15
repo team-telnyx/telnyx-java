@@ -16,16 +16,16 @@ internal class CloudfsFilesystemResponseWrapperTest {
             CloudfsFilesystemResponseWrapper.builder()
                 .data(
                     CloudfsFilesystemResponseWrapper.Data.builder()
-                        .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                        .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
-                        .metaToken("cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654")
+                        .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")
                         .metaUrl(
-                            "postgres://fs_1fe301e97d7c4edd:cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                            "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                         )
                         .name("agent-fs")
                         .recordType("cloudfs")
                         .region("us-east-1")
-                        .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                        .s3Bucket("cloudfs-fs-0123456789abcdef")
                         .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                         .status(CloudfsFilesystemStatus.READY)
                         .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
@@ -36,16 +36,16 @@ internal class CloudfsFilesystemResponseWrapperTest {
         assertThat(cloudfsFilesystemResponseWrapper.data())
             .contains(
                 CloudfsFilesystemResponseWrapper.Data.builder()
-                    .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                    .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
-                    .metaToken("cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654")
+                    .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")
                     .metaUrl(
-                        "postgres://fs_1fe301e97d7c4edd:cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                        "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                     )
                     .name("agent-fs")
                     .recordType("cloudfs")
                     .region("us-east-1")
-                    .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                    .s3Bucket("cloudfs-fs-0123456789abcdef")
                     .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                     .status(CloudfsFilesystemStatus.READY)
                     .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
@@ -60,16 +60,16 @@ internal class CloudfsFilesystemResponseWrapperTest {
             CloudfsFilesystemResponseWrapper.builder()
                 .data(
                     CloudfsFilesystemResponseWrapper.Data.builder()
-                        .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                        .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
-                        .metaToken("cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654")
+                        .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")
                         .metaUrl(
-                            "postgres://fs_1fe301e97d7c4edd:cloudfs_tok_9f2c1e0a4b8d47c6a3e5f10298d7b654@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                            "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                         )
                         .name("agent-fs")
                         .recordType("cloudfs")
                         .region("us-east-1")
-                        .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                        .s3Bucket("cloudfs-fs-0123456789abcdef")
                         .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                         .status(CloudfsFilesystemStatus.READY)
                         .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))

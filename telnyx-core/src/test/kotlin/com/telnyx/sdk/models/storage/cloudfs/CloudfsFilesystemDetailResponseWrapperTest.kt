@@ -16,16 +16,16 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
             CloudfsFilesystemDetailResponseWrapper.builder()
                 .data(
                     CloudfsFilesystemDetailResponseWrapper.Data.builder()
-                        .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                        .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .error("failed to create storage bucket")
                         .metaUrl(
-                            "postgres://fs_1fe301e97d7c4edd@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                            "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                         )
                         .name("agent-fs")
                         .recordType("cloudfs")
                         .region("us-east-1")
-                        .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                        .s3Bucket("cloudfs-fs-0123456789abcdef")
                         .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                         .status(CloudfsFilesystemStatus.READY)
                         .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
@@ -36,16 +36,16 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
         assertThat(cloudfsFilesystemDetailResponseWrapper.data())
             .contains(
                 CloudfsFilesystemDetailResponseWrapper.Data.builder()
-                    .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                    .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                     .error("failed to create storage bucket")
                     .metaUrl(
-                        "postgres://fs_1fe301e97d7c4edd@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                        "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                     )
                     .name("agent-fs")
                     .recordType("cloudfs")
                     .region("us-east-1")
-                    .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                    .s3Bucket("cloudfs-fs-0123456789abcdef")
                     .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                     .status(CloudfsFilesystemStatus.READY)
                     .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
@@ -60,16 +60,16 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
             CloudfsFilesystemDetailResponseWrapper.builder()
                 .data(
                     CloudfsFilesystemDetailResponseWrapper.Data.builder()
-                        .id("3be44fad-d34c-4884-b4b2-ef12c6133af4")
+                        .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .error("failed to create storage bucket")
                         .metaUrl(
-                            "postgres://fs_1fe301e97d7c4edd@us-east-1.telnyxcloudfs.com:5432/fs_1fe301e97d7c4edd?sslmode=require"
+                            "postgres://fs_0123456789abcdef@us-east-1.telnyxcloudfs.com:5432/fs_0123456789abcdef?sslmode=require"
                         )
                         .name("agent-fs")
                         .recordType("cloudfs")
                         .region("us-east-1")
-                        .s3Bucket("cloudfs-fs-1fe301e97d7c4edd")
+                        .s3Bucket("cloudfs-fs-0123456789abcdef")
                         .s3Endpoint("https://us-east-1.telnyxcloudstorage.com")
                         .status(CloudfsFilesystemStatus.READY)
                         .updatedAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
