@@ -30,7 +30,8 @@ private constructor(
 
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[email][contains],
-     * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq]
+     * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq],
+     * filter[status][eq]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -93,7 +94,8 @@ private constructor(
 
         /**
          * Consolidated filter parameter (deepObject style). Originally: filter[email][contains],
-         * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq]
+         * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq],
+         * filter[status][eq]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -298,6 +300,14 @@ private constructor(
                             }
                         }
                     }
+                    it.status().ifPresent {
+                        it.eq().ifPresent { put("filter[status][eq]", it.toString()) }
+                        it._additionalProperties().keys().forEach { key ->
+                            it._additionalProperties().values(key).forEach { value ->
+                                put("filter[status][$key]", value)
+                            }
+                        }
+                    }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("filter[$key]", value)
@@ -314,18 +324,22 @@ private constructor(
 
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[email][contains],
-     * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq]
+     * filter[email][eq], filter[organization_name][contains], filter[organization_name][eq],
+     * filter[status][eq]
      */
     class Filter
     private constructor(
         private val email: Email?,
         private val organizationName: OrganizationName?,
+        private val status: Status?,
         private val additionalProperties: QueryParams,
     ) {
 
         fun email(): Optional<Email> = Optional.ofNullable(email)
 
         fun organizationName(): Optional<OrganizationName> = Optional.ofNullable(organizationName)
+
+        fun status(): Optional<Status> = Optional.ofNullable(status)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -343,12 +357,14 @@ private constructor(
 
             private var email: Email? = null
             private var organizationName: OrganizationName? = null
+            private var status: Status? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
                 email = filter.email
                 organizationName = filter.organizationName
+                status = filter.status
                 additionalProperties = filter.additionalProperties.toBuilder()
             }
 
@@ -366,6 +382,11 @@ private constructor(
              */
             fun organizationName(organizationName: Optional<OrganizationName>) =
                 organizationName(organizationName.getOrNull())
+
+            fun status(status: Status?) = apply { this.status = status }
+
+            /** Alias for calling [Builder.status] with `status.orElse(null)`. */
+            fun status(status: Optional<Status>) = status(status.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -421,7 +442,8 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Filter = Filter(email, organizationName, additionalProperties.build())
+            fun build(): Filter =
+                Filter(email, organizationName, status, additionalProperties.build())
         }
 
         class Email
@@ -706,6 +728,293 @@ private constructor(
                 "OrganizationName{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
         }
 
+        class Status
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
+
+            /**
+             * If present, only returns managed accounts with the <code>status</code> matching
+             * exactly the value given. Use <code>enabled</code> or <code>disabled</code> to filter
+             * accounts by whether they are currently able to use Telnyx services.
+             */
+            fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Status]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Status]. */
+            class Builder internal constructor() {
+
+                private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                @JvmSynthetic
+                internal fun from(status: Status) = apply {
+                    eq = status.eq
+                    additionalProperties = status.additionalProperties.toBuilder()
+                }
+
+                /**
+                 * If present, only returns managed accounts with the <code>status</code> matching
+                 * exactly the value given. Use <code>enabled</code> or <code>disabled</code> to
+                 * filter accounts by whether they are currently able to use Telnyx services.
+                 */
+                fun eq(eq: Eq?) = apply { this.eq = eq }
+
+                /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
+                fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
+
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
+                /**
+                 * Returns an immutable instance of [Status].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Status = Status(eq, additionalProperties.build())
+            }
+
+            /**
+             * If present, only returns managed accounts with the <code>status</code> matching
+             * exactly the value given. Use <code>enabled</code> or <code>disabled</code> to filter
+             * accounts by whether they are currently able to use Telnyx services.
+             */
+            class Eq @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ALL = of("all")
+
+                    @JvmField val ACTIVE = of("active")
+
+                    @JvmField val ENABLED = of("enabled")
+
+                    @JvmField val CANCELLED = of("cancelled")
+
+                    @JvmField val DISABLED = of("disabled")
+
+                    @JvmField val BLOCKED = of("blocked")
+
+                    @JvmStatic fun of(value: String) = Eq(JsonField.of(value))
+                }
+
+                /** An enum containing [Eq]'s known values. */
+                enum class Known {
+                    ALL,
+                    ACTIVE,
+                    ENABLED,
+                    CANCELLED,
+                    DISABLED,
+                    BLOCKED,
+                }
+
+                /**
+                 * An enum containing [Eq]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Eq] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ALL,
+                    ACTIVE,
+                    ENABLED,
+                    CANCELLED,
+                    DISABLED,
+                    BLOCKED,
+                    /**
+                     * An enum member indicating that [Eq] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ALL -> Value.ALL
+                        ACTIVE -> Value.ACTIVE
+                        ENABLED -> Value.ENABLED
+                        CANCELLED -> Value.CANCELLED
+                        DISABLED -> Value.DISABLED
+                        BLOCKED -> Value.BLOCKED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ALL -> Known.ALL
+                        ACTIVE -> Known.ACTIVE
+                        ENABLED -> Known.ENABLED
+                        CANCELLED -> Known.CANCELLED
+                        DISABLED -> Known.DISABLED
+                        BLOCKED -> Known.BLOCKED
+                        else -> throw TelnyxInvalidDataException("Unknown Eq: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Eq = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Eq && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "Status{eq=$eq, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -714,17 +1023,18 @@ private constructor(
             return other is Filter &&
                 email == other.email &&
                 organizationName == other.organizationName &&
+                status == other.status &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(email, organizationName, additionalProperties)
+            Objects.hash(email, organizationName, status, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{email=$email, organizationName=$organizationName, additionalProperties=$additionalProperties}"
+            "Filter{email=$email, organizationName=$organizationName, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /**
