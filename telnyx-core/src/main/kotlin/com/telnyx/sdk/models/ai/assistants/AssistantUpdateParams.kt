@@ -18,6 +18,7 @@ import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.tools.PayToolParams
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -1203,6 +1204,19 @@ private constructor(
         fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) = apply {
             body.addSkipTurnTool(skipTurn)
         }
+
+        /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
+        fun addTool(pay: AssistantTool.Pay) = apply { body.addTool(pay) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.Pay.builder()
+         *     .pay(pay)
+         *     .build()
+         * ```
+         */
+        fun addPayTool(pay: PayToolParams) = apply { body.addPayTool(pay) }
 
         fun transcription(transcription: TranscriptionSettings) = apply {
             body.transcription(transcription)
@@ -2924,6 +2938,20 @@ private constructor(
              */
             fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) =
                 addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
+
+            /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
+            fun addTool(pay: AssistantTool.Pay) = addTool(AssistantTool.ofPay(pay))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.Pay.builder()
+             *     .pay(pay)
+             *     .build()
+             * ```
+             */
+            fun addPayTool(pay: PayToolParams) =
+                addTool(AssistantTool.Pay.builder().pay(pay).build())
 
             fun transcription(transcription: TranscriptionSettings) =
                 transcription(JsonField.of(transcription))

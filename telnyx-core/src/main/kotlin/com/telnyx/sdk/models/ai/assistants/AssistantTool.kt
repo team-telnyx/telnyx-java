@@ -26,6 +26,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.ai.tools.PayToolParams
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -50,6 +51,7 @@ private constructor(
     private val sendDtmf: DtmfTool? = null,
     private val sendMessage: SendMessage? = null,
     private val skipTurn: SkipTurn? = null,
+    private val pay: Pay? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -85,6 +87,14 @@ private constructor(
 
     fun skipTurn(): Optional<SkipTurn> = Optional.ofNullable(skipTurn)
 
+    /**
+     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
+     * the conversation. Recording is automatically paused while the pay tool is active and resumes
+     * when the payment flow completes. The connector_name must reference a pay connector configured
+     * in the Telnyx API.
+     */
+    fun pay(): Optional<Pay> = Optional.ofNullable(pay)
+
     fun isWebhook(): Boolean = webhook != null
 
     fun isClientSide(): Boolean = clientSide != null
@@ -106,6 +116,8 @@ private constructor(
     fun isSendMessage(): Boolean = sendMessage != null
 
     fun isSkipTurn(): Boolean = skipTurn != null
+
+    fun isPay(): Boolean = pay != null
 
     fun asWebhook(): InferenceEmbeddingWebhookToolParams = webhook.getOrThrow("webhook")
 
@@ -138,6 +150,14 @@ private constructor(
     fun asSendMessage(): SendMessage = sendMessage.getOrThrow("sendMessage")
 
     fun asSkipTurn(): SkipTurn = skipTurn.getOrThrow("skipTurn")
+
+    /**
+     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
+     * the conversation. Recording is automatically paused while the pay tool is active and resumes
+     * when the payment flow completes. The connector_name must reference a pay connector configured
+     * in the Telnyx API.
+     */
+    fun asPay(): Pay = pay.getOrThrow("pay")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -183,6 +203,7 @@ private constructor(
             sendDtmf != null -> visitor.visitSendDtmf(sendDtmf)
             sendMessage != null -> visitor.visitSendMessage(sendMessage)
             skipTurn != null -> visitor.visitSkipTurn(skipTurn)
+            pay != null -> visitor.visitPay(pay)
             else -> visitor.unknown(_json)
         }
 
@@ -246,6 +267,10 @@ private constructor(
                 override fun visitSkipTurn(skipTurn: SkipTurn) {
                     skipTurn.validate()
                 }
+
+                override fun visitPay(pay: Pay) {
+                    pay.validate()
+                }
             }
         )
         validated = true
@@ -291,6 +316,8 @@ private constructor(
 
                 override fun visitSkipTurn(skipTurn: SkipTurn) = skipTurn.validity()
 
+                override fun visitPay(pay: Pay) = pay.validity()
+
                 override fun unknown(json: JsonValue?) = 0
             }
         )
@@ -311,7 +338,8 @@ private constructor(
             refer == other.refer &&
             sendDtmf == other.sendDtmf &&
             sendMessage == other.sendMessage &&
-            skipTurn == other.skipTurn
+            skipTurn == other.skipTurn &&
+            pay == other.pay
     }
 
     override fun hashCode(): Int =
@@ -327,6 +355,7 @@ private constructor(
             sendDtmf,
             sendMessage,
             skipTurn,
+            pay,
         )
 
     override fun toString(): String =
@@ -342,6 +371,7 @@ private constructor(
             sendDtmf != null -> "AssistantTool{sendDtmf=$sendDtmf}"
             sendMessage != null -> "AssistantTool{sendMessage=$sendMessage}"
             skipTurn != null -> "AssistantTool{skipTurn=$skipTurn}"
+            pay != null -> "AssistantTool{pay=$pay}"
             _json != null -> "AssistantTool{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid AssistantTool")
         }
@@ -383,6 +413,14 @@ private constructor(
         fun ofSendMessage(sendMessage: SendMessage) = AssistantTool(sendMessage = sendMessage)
 
         @JvmStatic fun ofSkipTurn(skipTurn: SkipTurn) = AssistantTool(skipTurn = skipTurn)
+
+        /**
+         * The pay tool allows the assistant to collect card payments from the caller via DTMF
+         * during the conversation. Recording is automatically paused while the pay tool is active
+         * and resumes when the payment flow completes. The connector_name must reference a pay
+         * connector configured in the Telnyx API.
+         */
+        @JvmStatic fun ofPay(pay: Pay) = AssistantTool(pay = pay)
     }
 
     /**
@@ -421,6 +459,14 @@ private constructor(
         fun visitSendMessage(sendMessage: SendMessage): T
 
         fun visitSkipTurn(skipTurn: SkipTurn): T
+
+        /**
+         * The pay tool allows the assistant to collect card payments from the caller via DTMF
+         * during the conversation. Recording is automatically paused while the pay tool is active
+         * and resumes when the payment flow completes. The connector_name must reference a pay
+         * connector configured in the Telnyx API.
+         */
+        fun visitPay(pay: Pay): T
 
         /**
          * Maps an unknown variant of [AssistantTool] to a value of type [T].
@@ -501,6 +547,11 @@ private constructor(
                         AssistantTool(skipTurn = it, _json = json)
                     } ?: AssistantTool(_json = json)
                 }
+                "pay" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Pay>())?.let {
+                        AssistantTool(pay = it, _json = json)
+                    } ?: AssistantTool(_json = json)
+                }
             }
 
             return AssistantTool(_json = json)
@@ -526,6 +577,7 @@ private constructor(
                 value.sendDtmf != null -> generator.writeObject(value.sendDtmf)
                 value.sendMessage != null -> generator.writeObject(value.sendMessage)
                 value.skipTurn != null -> generator.writeObject(value.skipTurn)
+                value.pay != null -> generator.writeObject(value.pay)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid AssistantTool")
             }
@@ -9978,5 +10030,211 @@ private constructor(
 
         override fun toString() =
             "SkipTurn{skipTurn=$skipTurn, type=$type, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
+     * the conversation. Recording is automatically paused while the pay tool is active and resumes
+     * when the payment flow completes. The connector_name must reference a pay connector configured
+     * in the Telnyx API.
+     */
+    class Pay
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val pay: JsonField<PayToolParams>,
+        private val type: JsonValue,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("pay") @ExcludeMissing pay: JsonField<PayToolParams> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+        ) : this(pay, type, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pay(): PayToolParams = pay.getRequired("pay")
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("pay")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Returns the raw JSON value of [pay].
+         *
+         * Unlike [pay], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("pay") @ExcludeMissing fun _pay(): JsonField<PayToolParams> = pay
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Pay].
+             *
+             * The following fields are required:
+             * ```java
+             * .pay()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Pay]. */
+        class Builder internal constructor() {
+
+            private var pay: JsonField<PayToolParams>? = null
+            private var type: JsonValue = JsonValue.from("pay")
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(pay: Pay) = apply {
+                this.pay = pay.pay
+                type = pay.type
+                additionalProperties = pay.additionalProperties.toMutableMap()
+            }
+
+            fun pay(pay: PayToolParams) = pay(JsonField.of(pay))
+
+            /**
+             * Sets [Builder.pay] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pay] with a well-typed [PayToolParams] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pay(pay: JsonField<PayToolParams>) = apply { this.pay = pay }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("pay")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Pay].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .pay()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Pay =
+                Pay(checkRequired("pay", pay), type, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Pay = apply {
+            if (validated) {
+                return@apply
+            }
+
+            pay().validate()
+            _type().let {
+                if (it != JsonValue.from("pay")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (pay.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("pay")) 1 else 0 }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Pay &&
+                pay == other.pay &&
+                type == other.type &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(pay, type, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Pay{pay=$pay, type=$type, additionalProperties=$additionalProperties}"
     }
 }

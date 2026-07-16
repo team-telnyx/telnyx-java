@@ -69,6 +69,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun pay(): Optional<PayToolParams> = body.pay()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun retrieval(): Optional<Retrieval> = body.retrieval()
 
     /**
@@ -124,6 +130,13 @@ private constructor(
      * Unlike [invite], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _invite(): JsonField<Invite> = body._invite()
+
+    /**
+     * Returns the raw JSON value of [pay].
+     *
+     * Unlike [pay], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _pay(): JsonField<PayToolParams> = body._pay()
 
     /**
      * Returns the raw JSON value of [retrieval].
@@ -264,6 +277,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun invite(invite: JsonField<Invite>) = apply { body.invite(invite) }
+
+        fun pay(pay: PayToolParams) = apply { body.pay(pay) }
+
+        /**
+         * Sets [Builder.pay] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pay] with a well-typed [PayToolParams] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun pay(pay: JsonField<PayToolParams>) = apply { body.pay(pay) }
 
         fun retrieval(retrieval: Retrieval) = apply { body.retrieval(retrieval) }
 
@@ -446,6 +470,7 @@ private constructor(
         private val function: JsonField<Function>,
         private val handoff: JsonField<Handoff>,
         private val invite: JsonField<Invite>,
+        private val pay: JsonField<PayToolParams>,
         private val retrieval: JsonField<Retrieval>,
         private val timeoutMs: JsonField<Long>,
         private val webhook: JsonField<Webhook>,
@@ -466,6 +491,7 @@ private constructor(
             function: JsonField<Function> = JsonMissing.of(),
             @JsonProperty("handoff") @ExcludeMissing handoff: JsonField<Handoff> = JsonMissing.of(),
             @JsonProperty("invite") @ExcludeMissing invite: JsonField<Invite> = JsonMissing.of(),
+            @JsonProperty("pay") @ExcludeMissing pay: JsonField<PayToolParams> = JsonMissing.of(),
             @JsonProperty("retrieval")
             @ExcludeMissing
             retrieval: JsonField<Retrieval> = JsonMissing.of(),
@@ -480,6 +506,7 @@ private constructor(
             function,
             handoff,
             invite,
+            pay,
             retrieval,
             timeoutMs,
             webhook,
@@ -522,6 +549,12 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun invite(): Optional<Invite> = invite.getOptional("invite")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun pay(): Optional<PayToolParams> = pay.getOptional("pay")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -589,6 +622,13 @@ private constructor(
         @JsonProperty("invite") @ExcludeMissing fun _invite(): JsonField<Invite> = invite
 
         /**
+         * Returns the raw JSON value of [pay].
+         *
+         * Unlike [pay], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("pay") @ExcludeMissing fun _pay(): JsonField<PayToolParams> = pay
+
+        /**
          * Returns the raw JSON value of [retrieval].
          *
          * Unlike [retrieval], this method doesn't throw if the JSON field has an unexpected type.
@@ -646,6 +686,7 @@ private constructor(
             private var function: JsonField<Function> = JsonMissing.of()
             private var handoff: JsonField<Handoff> = JsonMissing.of()
             private var invite: JsonField<Invite> = JsonMissing.of()
+            private var pay: JsonField<PayToolParams> = JsonMissing.of()
             private var retrieval: JsonField<Retrieval> = JsonMissing.of()
             private var timeoutMs: JsonField<Long> = JsonMissing.of()
             private var webhook: JsonField<Webhook> = JsonMissing.of()
@@ -659,6 +700,7 @@ private constructor(
                 function = body.function
                 handoff = body.handoff
                 invite = body.invite
+                pay = body.pay
                 retrieval = body.retrieval
                 timeoutMs = body.timeoutMs
                 webhook = body.webhook
@@ -736,6 +778,17 @@ private constructor(
              */
             fun invite(invite: JsonField<Invite>) = apply { this.invite = invite }
 
+            fun pay(pay: PayToolParams) = pay(JsonField.of(pay))
+
+            /**
+             * Sets [Builder.pay] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pay] with a well-typed [PayToolParams] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pay(pay: JsonField<PayToolParams>) = apply { this.pay = pay }
+
             fun retrieval(retrieval: Retrieval) = retrieval(JsonField.of(retrieval))
 
             /**
@@ -809,6 +862,7 @@ private constructor(
                     function,
                     handoff,
                     invite,
+                    pay,
                     retrieval,
                     timeoutMs,
                     webhook,
@@ -838,6 +892,7 @@ private constructor(
             function().ifPresent { it.validate() }
             handoff().ifPresent { it.validate() }
             invite().ifPresent { it.validate() }
+            pay().ifPresent { it.validate() }
             retrieval().ifPresent { it.validate() }
             timeoutMs()
             webhook().ifPresent { it.validate() }
@@ -866,6 +921,7 @@ private constructor(
                 (function.asKnown().getOrNull()?.validity() ?: 0) +
                 (handoff.asKnown().getOrNull()?.validity() ?: 0) +
                 (invite.asKnown().getOrNull()?.validity() ?: 0) +
+                (pay.asKnown().getOrNull()?.validity() ?: 0) +
                 (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (timeoutMs.asKnown().isPresent) 1 else 0) +
                 (webhook.asKnown().getOrNull()?.validity() ?: 0)
@@ -882,6 +938,7 @@ private constructor(
                 function == other.function &&
                 handoff == other.handoff &&
                 invite == other.invite &&
+                pay == other.pay &&
                 retrieval == other.retrieval &&
                 timeoutMs == other.timeoutMs &&
                 webhook == other.webhook &&
@@ -896,6 +953,7 @@ private constructor(
                 function,
                 handoff,
                 invite,
+                pay,
                 retrieval,
                 timeoutMs,
                 webhook,
@@ -906,7 +964,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{displayName=$displayName, type=$type, clientSideTool=$clientSideTool, function=$function, handoff=$handoff, invite=$invite, retrieval=$retrieval, timeoutMs=$timeoutMs, webhook=$webhook, additionalProperties=$additionalProperties}"
+            "Body{displayName=$displayName, type=$type, clientSideTool=$clientSideTool, function=$function, handoff=$handoff, invite=$invite, pay=$pay, retrieval=$retrieval, timeoutMs=$timeoutMs, webhook=$webhook, additionalProperties=$additionalProperties}"
     }
 
     class ClientSideTool

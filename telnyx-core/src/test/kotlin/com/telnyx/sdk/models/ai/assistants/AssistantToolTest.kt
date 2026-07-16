@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.tools.PayToolParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -109,6 +110,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -254,6 +256,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -324,6 +327,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -376,6 +380,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -428,6 +433,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -540,6 +546,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -686,6 +693,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -786,6 +794,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -856,6 +865,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).contains(sendDtmf)
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -905,6 +915,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).contains(sendMessage)
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -954,6 +965,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).contains(skipTurn)
+        assertThat(assistantTool.pay()).isEmpty
     }
 
     @Test
@@ -965,6 +977,62 @@ internal class AssistantToolTest {
                     .skipTurn(
                         AssistantTool.SkipTurn.SkipTurnConfig.builder()
                             .description("description")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+    }
+
+    @Test
+    fun ofPay() {
+        val pay =
+            AssistantTool.Pay.builder()
+                .pay(
+                    PayToolParams.builder()
+                        .connectorName("connector_name")
+                        .currency("currency")
+                        .description("description")
+                        .paymentMethod("payment_method")
+                        .build()
+                )
+                .build()
+
+        val assistantTool = AssistantTool.ofPay(pay)
+
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).contains(pay)
+    }
+
+    @Test
+    fun ofPayRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofPay(
+                AssistantTool.Pay.builder()
+                    .pay(
+                        PayToolParams.builder()
+                            .connectorName("connector_name")
+                            .currency("currency")
+                            .description("description")
+                            .paymentMethod("payment_method")
                             .build()
                     )
                     .build()
