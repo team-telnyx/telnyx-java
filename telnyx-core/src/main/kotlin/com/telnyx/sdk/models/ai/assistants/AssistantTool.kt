@@ -88,10 +88,10 @@ private constructor(
     fun skipTurn(): Optional<SkipTurn> = Optional.ofNullable(skipTurn)
 
     /**
-     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
-     * the conversation. Recording is automatically paused while the pay tool is active and resumes
-     * when the payment flow completes. The connector_name must reference a pay connector configured
-     * in the Telnyx API.
+     * (BETA) The pay tool allows the assistant to collect card payments from the caller via DTMF
+     * during the conversation. Recording is automatically paused while the pay tool is active and
+     * resumes when the payment flow completes. The connector_name must reference a pay connector
+     * configured in the Telnyx API.
      */
     fun pay(): Optional<Pay> = Optional.ofNullable(pay)
 
@@ -152,10 +152,10 @@ private constructor(
     fun asSkipTurn(): SkipTurn = skipTurn.getOrThrow("skipTurn")
 
     /**
-     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
-     * the conversation. Recording is automatically paused while the pay tool is active and resumes
-     * when the payment flow completes. The connector_name must reference a pay connector configured
-     * in the Telnyx API.
+     * (BETA) The pay tool allows the assistant to collect card payments from the caller via DTMF
+     * during the conversation. Recording is automatically paused while the pay tool is active and
+     * resumes when the payment flow completes. The connector_name must reference a pay connector
+     * configured in the Telnyx API.
      */
     fun asPay(): Pay = pay.getOrThrow("pay")
 
@@ -415,10 +415,10 @@ private constructor(
         @JvmStatic fun ofSkipTurn(skipTurn: SkipTurn) = AssistantTool(skipTurn = skipTurn)
 
         /**
-         * The pay tool allows the assistant to collect card payments from the caller via DTMF
-         * during the conversation. Recording is automatically paused while the pay tool is active
-         * and resumes when the payment flow completes. The connector_name must reference a pay
-         * connector configured in the Telnyx API.
+         * (BETA) The pay tool allows the assistant to collect card payments from the caller via
+         * DTMF during the conversation. Recording is automatically paused while the pay tool is
+         * active and resumes when the payment flow completes. The connector_name must reference a
+         * pay connector configured in the Telnyx API.
          */
         @JvmStatic fun ofPay(pay: Pay) = AssistantTool(pay = pay)
     }
@@ -461,10 +461,10 @@ private constructor(
         fun visitSkipTurn(skipTurn: SkipTurn): T
 
         /**
-         * The pay tool allows the assistant to collect card payments from the caller via DTMF
-         * during the conversation. Recording is automatically paused while the pay tool is active
-         * and resumes when the payment flow completes. The connector_name must reference a pay
-         * connector configured in the Telnyx API.
+         * (BETA) The pay tool allows the assistant to collect card payments from the caller via
+         * DTMF during the conversation. Recording is automatically paused while the pay tool is
+         * active and resumes when the payment flow completes. The connector_name must reference a
+         * pay connector configured in the Telnyx API.
          */
         fun visitPay(pay: Pay): T
 
@@ -10033,10 +10033,10 @@ private constructor(
     }
 
     /**
-     * The pay tool allows the assistant to collect card payments from the caller via DTMF during
-     * the conversation. Recording is automatically paused while the pay tool is active and resumes
-     * when the payment flow completes. The connector_name must reference a pay connector configured
-     * in the Telnyx API.
+     * (BETA) The pay tool allows the assistant to collect card payments from the caller via DTMF
+     * during the conversation. Recording is automatically paused while the pay tool is active and
+     * resumes when the payment flow completes. The connector_name must reference a pay connector
+     * configured in the Telnyx API.
      */
     class Pay
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)

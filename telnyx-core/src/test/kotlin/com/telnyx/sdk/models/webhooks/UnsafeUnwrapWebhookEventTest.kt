@@ -9433,9 +9433,9 @@ internal class UnsafeUnwrapWebhookEventTest {
         val inboundMessage =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessage.builder()
+                    InboundMessageWebhookEvent.Data.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessage.EventType.MESSAGE_RECEIVED)
+                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             InboundMessagePayload.builder()
@@ -9534,7 +9534,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessage.RecordType.EVENT)
+                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -9616,9 +9616,9 @@ internal class UnsafeUnwrapWebhookEventTest {
             UnsafeUnwrapWebhookEvent.ofInboundMessage(
                 InboundMessageWebhookEvent.builder()
                     .data(
-                        InboundMessage.builder()
+                        InboundMessageWebhookEvent.Data.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                            .eventType(InboundMessage.EventType.MESSAGE_RECEIVED)
+                            .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 InboundMessagePayload.builder()
@@ -9721,7 +9721,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .webhookUrl("https://www.example.com/hooks")
                                     .build()
                             )
-                            .recordType(InboundMessage.RecordType.EVENT)
+                            .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
                     .build()
