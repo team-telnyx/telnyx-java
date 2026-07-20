@@ -19,6 +19,8 @@ import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.services.async.ai.AnthropicServiceAsync
+import com.telnyx.sdk.services.async.ai.AnthropicServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
@@ -89,6 +91,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val tools: ToolServiceAsync by lazy { ToolServiceAsyncImpl(clientOptions) }
 
+    private val anthropic: AnthropicServiceAsync by lazy {
+        AnthropicServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -122,6 +128,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     /** Configure AI assistant specifications */
     override fun tools(): ToolServiceAsync = tools
+
+    override fun anthropic(): AnthropicServiceAsync = anthropic
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -193,6 +201,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             ToolServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val anthropic: AnthropicServiceAsync.WithRawResponse by lazy {
+            AnthropicServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -228,6 +240,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         /** Configure AI assistant specifications */
         override fun tools(): ToolServiceAsync.WithRawResponse = tools
+
+        override fun anthropic(): AnthropicServiceAsync.WithRawResponse = anthropic
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesResponse> =

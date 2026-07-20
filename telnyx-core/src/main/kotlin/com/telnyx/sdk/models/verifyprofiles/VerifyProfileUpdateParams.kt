@@ -1786,7 +1786,7 @@ private constructor(
             senderPhoneNumber.getOptional("sender_phone_number")
 
         /**
-         * Customer pre-approved authentication template name registered on Meta
+         * Customer pre-approved authentication template ID registered on Meta
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1939,7 +1939,7 @@ private constructor(
                 this.senderPhoneNumber = senderPhoneNumber
             }
 
-            /** Customer pre-approved authentication template name registered on Meta */
+            /** Customer pre-approved authentication template ID registered on Meta */
             fun templateId(templateId: String?) = templateId(JsonField.ofNullable(templateId))
 
             /** Alias for calling [Builder.templateId] with `templateId.orElse(null)`. */

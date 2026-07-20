@@ -13,11 +13,15 @@ import kotlin.jvm.optionals.getOrNull
 class RequirementRetrieveParams
 private constructor(
     private val id: String?,
+    private val version: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun id(): Optional<String> = Optional.ofNullable(id)
+
+    /** Filter by requirement version number. When omitted, returns the currently-active version. */
+    fun version(): Optional<Long> = Optional.ofNullable(version)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -41,12 +45,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
+        private var version: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(requirementRetrieveParams: RequirementRetrieveParams) = apply {
             id = requirementRetrieveParams.id
+            version = requirementRetrieveParams.version
             additionalHeaders = requirementRetrieveParams.additionalHeaders.toBuilder()
             additionalQueryParams = requirementRetrieveParams.additionalQueryParams.toBuilder()
         }
@@ -55,6 +61,21 @@ private constructor(
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
+
+        /**
+         * Filter by requirement version number. When omitted, returns the currently-active version.
+         */
+        fun version(version: Long?) = apply { this.version = version }
+
+        /**
+         * Alias for [Builder.version].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun version(version: Long) = version(version as Long?)
+
+        /** Alias for calling [Builder.version] with `version.orElse(null)`. */
+        fun version(version: Optional<Long>) = version(version.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,7 +181,12 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): RequirementRetrieveParams =
-            RequirementRetrieveParams(id, additionalHeaders.build(), additionalQueryParams.build())
+            RequirementRetrieveParams(
+                id,
+                version,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
@@ -171,7 +197,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                version?.let { put("version", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -180,12 +212,14 @@ private constructor(
 
         return other is RequirementRetrieveParams &&
             id == other.id &&
+            version == other.version &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(id, version, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RequirementRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RequirementRetrieveParams{id=$id, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

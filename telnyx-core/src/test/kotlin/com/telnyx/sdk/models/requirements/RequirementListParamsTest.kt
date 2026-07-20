@@ -21,6 +21,7 @@ internal class RequirementListParamsTest {
             .pageNumber(0L)
             .pageSize(0L)
             .addSort(RequirementListParams.Sort.COUNTRY_CODE)
+            .version(0L)
             .build()
     }
 
@@ -38,6 +39,7 @@ internal class RequirementListParamsTest {
                 .pageNumber(0L)
                 .pageSize(0L)
                 .addSort(RequirementListParams.Sort.COUNTRY_CODE)
+                .version(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -51,6 +53,7 @@ internal class RequirementListParamsTest {
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .put("sort", listOf("country_code").joinToString(","))
+                    .put("version", "0")
                     .build()
             )
     }

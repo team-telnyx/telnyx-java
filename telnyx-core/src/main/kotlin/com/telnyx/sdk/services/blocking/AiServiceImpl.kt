@@ -19,6 +19,8 @@ import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
+import com.telnyx.sdk.services.blocking.ai.AnthropicService
+import com.telnyx.sdk.services.blocking.ai.AnthropicServiceImpl
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AssistantServiceImpl
 import com.telnyx.sdk.services.blocking.ai.AudioService
@@ -77,6 +79,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val tools: ToolService by lazy { ToolServiceImpl(clientOptions) }
 
+    private val anthropic: AnthropicService by lazy { AnthropicServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AiService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiService =
@@ -110,6 +114,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     /** Configure AI assistant specifications */
     override fun tools(): ToolService = tools
+
+    override fun anthropic(): AnthropicService = anthropic
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -179,6 +185,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             ToolServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val anthropic: AnthropicService.WithRawResponse by lazy {
+            AnthropicServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiService.WithRawResponse =
@@ -214,6 +224,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         /** Configure AI assistant specifications */
         override fun tools(): ToolService.WithRawResponse = tools
+
+        override fun anthropic(): AnthropicService.WithRawResponse = anthropic
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesResponse> =

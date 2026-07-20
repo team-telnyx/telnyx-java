@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -40,6 +41,14 @@ internal class ToolServiceAsyncTest {
                     .invite(
                         ToolCreateParams.Invite.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .pay(
+                        PayToolParams.builder()
+                            .connectorName("connector_name")
+                            .currency("currency")
+                            .description("description")
+                            .paymentMethod("payment_method")
                             .build()
                     )
                     .retrieval(
@@ -101,6 +110,14 @@ internal class ToolServiceAsyncTest {
                     .invite(
                         ToolUpdateParams.Invite.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .pay(
+                        PayToolParams.builder()
+                            .connectorName("connector_name")
+                            .currency("currency")
+                            .description("description")
+                            .paymentMethod("payment_method")
                             .build()
                     )
                     .retrieval(

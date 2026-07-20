@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.82.0](https://github.com/team-telnyx/telnyx-java/compare/v6.81.0...v6.82.0) (2026-07-20)
+
+
+### Bug Fixes
+
+* **release:** assert a release PR exists for unreleased commits ([#205](https://github.com/team-telnyx/telnyx-java/issues/205)) ([f44572b](https://github.com/team-telnyx/telnyx-java/commit/f44572b32c181af7ca62c90ea22a9490914a0f52))
+* **release:** make the --local scan clone see the repointed release branch ([#203](https://github.com/team-telnyx/telnyx-java/issues/203)) ([48afc3b](https://github.com/team-telnyx/telnyx-java/commit/48afc3b21a9572264e5e170b26ed90ad4c83b153))
+
 ## [6.81.0](https://github.com/team-telnyx/telnyx-java/compare/v6.80.0...v6.81.0) (2026-07-09)
 
 

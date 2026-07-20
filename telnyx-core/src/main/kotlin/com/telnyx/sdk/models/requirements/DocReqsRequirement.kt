@@ -15,6 +15,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.DocReqsRequirementType
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -27,11 +28,14 @@ private constructor(
     private val action: JsonField<Action>,
     private val countryCode: JsonField<String>,
     private val createdAt: JsonField<String>,
+    private val effectiveEndAt: JsonField<OffsetDateTime>,
+    private val effectiveStartAt: JsonField<OffsetDateTime>,
     private val locality: JsonField<String>,
     private val phoneNumberType: JsonField<PhoneNumberType>,
     private val recordType: JsonField<String>,
-    private val requirementsTypes: JsonField<List<DocReqsRequirementType>>,
+    private val requirementTypes: JsonField<List<DocReqsRequirementType>>,
     private val updatedAt: JsonField<String>,
+    private val version: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -43,6 +47,12 @@ private constructor(
         @ExcludeMissing
         countryCode: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("effective_end_at")
+        @ExcludeMissing
+        effectiveEndAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("effective_start_at")
+        @ExcludeMissing
+        effectiveStartAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("locality") @ExcludeMissing locality: JsonField<String> = JsonMissing.of(),
         @JsonProperty("phone_number_type")
         @ExcludeMissing
@@ -50,20 +60,24 @@ private constructor(
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("requirements_types")
+        @JsonProperty("requirement_types")
         @ExcludeMissing
-        requirementsTypes: JsonField<List<DocReqsRequirementType>> = JsonMissing.of(),
+        requirementTypes: JsonField<List<DocReqsRequirementType>> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("version") @ExcludeMissing version: JsonField<Long> = JsonMissing.of(),
     ) : this(
         id,
         action,
         countryCode,
         createdAt,
+        effectiveEndAt,
+        effectiveStartAt,
         locality,
         phoneNumberType,
         recordType,
-        requirementsTypes,
+        requirementTypes,
         updatedAt,
+        version,
         mutableMapOf(),
     )
 
@@ -101,6 +115,23 @@ private constructor(
     fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
 
     /**
+     * When this version was superseded. NULL means this is the active or pending version.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun effectiveEndAt(): Optional<OffsetDateTime> = effectiveEndAt.getOptional("effective_end_at")
+
+    /**
+     * When this version became (or will become) active.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun effectiveStartAt(): Optional<OffsetDateTime> =
+        effectiveStartAt.getOptional("effective_start_at")
+
+    /**
      * The locality where this requirement applies
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -132,8 +163,8 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun requirementsTypes(): Optional<List<DocReqsRequirementType>> =
-        requirementsTypes.getOptional("requirements_types")
+    fun requirementTypes(): Optional<List<DocReqsRequirementType>> =
+        requirementTypes.getOptional("requirement_types")
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was last updated.
@@ -142,6 +173,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
+
+    /**
+     * Version number. Increments with each new version. Defaults to 1.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun version(): Optional<Long> = version.getOptional("version")
 
     /**
      * Returns the raw JSON value of [id].
@@ -174,6 +213,25 @@ private constructor(
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
 
     /**
+     * Returns the raw JSON value of [effectiveEndAt].
+     *
+     * Unlike [effectiveEndAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("effective_end_at")
+    @ExcludeMissing
+    fun _effectiveEndAt(): JsonField<OffsetDateTime> = effectiveEndAt
+
+    /**
+     * Returns the raw JSON value of [effectiveStartAt].
+     *
+     * Unlike [effectiveStartAt], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("effective_start_at")
+    @ExcludeMissing
+    fun _effectiveStartAt(): JsonField<OffsetDateTime> = effectiveStartAt
+
+    /**
      * Returns the raw JSON value of [locality].
      *
      * Unlike [locality], this method doesn't throw if the JSON field has an unexpected type.
@@ -197,14 +255,14 @@ private constructor(
     @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
 
     /**
-     * Returns the raw JSON value of [requirementsTypes].
+     * Returns the raw JSON value of [requirementTypes].
      *
-     * Unlike [requirementsTypes], this method doesn't throw if the JSON field has an unexpected
+     * Unlike [requirementTypes], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    @JsonProperty("requirements_types")
+    @JsonProperty("requirement_types")
     @ExcludeMissing
-    fun _requirementsTypes(): JsonField<List<DocReqsRequirementType>> = requirementsTypes
+    fun _requirementTypes(): JsonField<List<DocReqsRequirementType>> = requirementTypes
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -212,6 +270,13 @@ private constructor(
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
+
+    /**
+     * Returns the raw JSON value of [version].
+     *
+     * Unlike [version], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("version") @ExcludeMissing fun _version(): JsonField<Long> = version
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -238,11 +303,14 @@ private constructor(
         private var action: JsonField<Action> = JsonMissing.of()
         private var countryCode: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
+        private var effectiveEndAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var effectiveStartAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var locality: JsonField<String> = JsonMissing.of()
         private var phoneNumberType: JsonField<PhoneNumberType> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
-        private var requirementsTypes: JsonField<MutableList<DocReqsRequirementType>>? = null
+        private var requirementTypes: JsonField<MutableList<DocReqsRequirementType>>? = null
         private var updatedAt: JsonField<String> = JsonMissing.of()
+        private var version: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -251,11 +319,14 @@ private constructor(
             action = docReqsRequirement.action
             countryCode = docReqsRequirement.countryCode
             createdAt = docReqsRequirement.createdAt
+            effectiveEndAt = docReqsRequirement.effectiveEndAt
+            effectiveStartAt = docReqsRequirement.effectiveStartAt
             locality = docReqsRequirement.locality
             phoneNumberType = docReqsRequirement.phoneNumberType
             recordType = docReqsRequirement.recordType
-            requirementsTypes = docReqsRequirement.requirementsTypes.map { it.toMutableList() }
+            requirementTypes = docReqsRequirement.requirementTypes.map { it.toMutableList() }
             updatedAt = docReqsRequirement.updatedAt
+            version = docReqsRequirement.version
             additionalProperties = docReqsRequirement.additionalProperties.toMutableMap()
         }
 
@@ -308,6 +379,44 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
 
+        /** When this version was superseded. NULL means this is the active or pending version. */
+        fun effectiveEndAt(effectiveEndAt: OffsetDateTime?) =
+            effectiveEndAt(JsonField.ofNullable(effectiveEndAt))
+
+        /** Alias for calling [Builder.effectiveEndAt] with `effectiveEndAt.orElse(null)`. */
+        fun effectiveEndAt(effectiveEndAt: Optional<OffsetDateTime>) =
+            effectiveEndAt(effectiveEndAt.getOrNull())
+
+        /**
+         * Sets [Builder.effectiveEndAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveEndAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun effectiveEndAt(effectiveEndAt: JsonField<OffsetDateTime>) = apply {
+            this.effectiveEndAt = effectiveEndAt
+        }
+
+        /** When this version became (or will become) active. */
+        fun effectiveStartAt(effectiveStartAt: OffsetDateTime?) =
+            effectiveStartAt(JsonField.ofNullable(effectiveStartAt))
+
+        /** Alias for calling [Builder.effectiveStartAt] with `effectiveStartAt.orElse(null)`. */
+        fun effectiveStartAt(effectiveStartAt: Optional<OffsetDateTime>) =
+            effectiveStartAt(effectiveStartAt.getOrNull())
+
+        /**
+         * Sets [Builder.effectiveStartAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveStartAt] with a well-typed [OffsetDateTime]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun effectiveStartAt(effectiveStartAt: JsonField<OffsetDateTime>) = apply {
+            this.effectiveStartAt = effectiveStartAt
+        }
+
         /** The locality where this requirement applies */
         fun locality(locality: String) = locality(JsonField.of(locality))
 
@@ -350,29 +459,29 @@ private constructor(
         fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
         /** Lists the requirement types necessary to fulfill this requirement */
-        fun requirementsTypes(requirementsTypes: List<DocReqsRequirementType>) =
-            requirementsTypes(JsonField.of(requirementsTypes))
+        fun requirementTypes(requirementTypes: List<DocReqsRequirementType>) =
+            requirementTypes(JsonField.of(requirementTypes))
 
         /**
-         * Sets [Builder.requirementsTypes] to an arbitrary JSON value.
+         * Sets [Builder.requirementTypes] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.requirementsTypes] with a well-typed
+         * You should usually call [Builder.requirementTypes] with a well-typed
          * `List<DocReqsRequirementType>` value instead. This method is primarily for setting the
          * field to an undocumented or not yet supported value.
          */
-        fun requirementsTypes(requirementsTypes: JsonField<List<DocReqsRequirementType>>) = apply {
-            this.requirementsTypes = requirementsTypes.map { it.toMutableList() }
+        fun requirementTypes(requirementTypes: JsonField<List<DocReqsRequirementType>>) = apply {
+            this.requirementTypes = requirementTypes.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [DocReqsRequirementType] to [requirementsTypes].
+         * Adds a single [DocReqsRequirementType] to [requirementTypes].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addRequirementsType(requirementsType: DocReqsRequirementType) = apply {
-            requirementsTypes =
-                (requirementsTypes ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("requirementsTypes", it).add(requirementsType)
+        fun addRequirementType(requirementType: DocReqsRequirementType) = apply {
+            requirementTypes =
+                (requirementTypes ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("requirementTypes", it).add(requirementType)
                 }
         }
 
@@ -387,6 +496,17 @@ private constructor(
          * value.
          */
         fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
+
+        /** Version number. Increments with each new version. Defaults to 1. */
+        fun version(version: Long) = version(JsonField.of(version))
+
+        /**
+         * Sets [Builder.version] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.version] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun version(version: JsonField<Long>) = apply { this.version = version }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -418,11 +538,14 @@ private constructor(
                 action,
                 countryCode,
                 createdAt,
+                effectiveEndAt,
+                effectiveStartAt,
                 locality,
                 phoneNumberType,
                 recordType,
-                (requirementsTypes ?: JsonMissing.of()).map { it.toImmutable() },
+                (requirementTypes ?: JsonMissing.of()).map { it.toImmutable() },
                 updatedAt,
+                version,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -446,11 +569,14 @@ private constructor(
         action().ifPresent { it.validate() }
         countryCode()
         createdAt()
+        effectiveEndAt()
+        effectiveStartAt()
         locality()
         phoneNumberType().ifPresent { it.validate() }
         recordType()
-        requirementsTypes().ifPresent { it.forEach { it.validate() } }
+        requirementTypes().ifPresent { it.forEach { it.validate() } }
         updatedAt()
+        version()
         validated = true
     }
 
@@ -473,11 +599,14 @@ private constructor(
             (action.asKnown().getOrNull()?.validity() ?: 0) +
             (if (countryCode.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (effectiveEndAt.asKnown().isPresent) 1 else 0) +
+            (if (effectiveStartAt.asKnown().isPresent) 1 else 0) +
             (if (locality.asKnown().isPresent) 1 else 0) +
             (phoneNumberType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
-            (requirementsTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (requirementTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (version.asKnown().isPresent) 1 else 0)
 
     /**
      * Indicates whether this requirement applies to branded_calling, ordering, porting, or both
@@ -787,11 +916,14 @@ private constructor(
             action == other.action &&
             countryCode == other.countryCode &&
             createdAt == other.createdAt &&
+            effectiveEndAt == other.effectiveEndAt &&
+            effectiveStartAt == other.effectiveStartAt &&
             locality == other.locality &&
             phoneNumberType == other.phoneNumberType &&
             recordType == other.recordType &&
-            requirementsTypes == other.requirementsTypes &&
+            requirementTypes == other.requirementTypes &&
             updatedAt == other.updatedAt &&
+            version == other.version &&
             additionalProperties == other.additionalProperties
     }
 
@@ -801,11 +933,14 @@ private constructor(
             action,
             countryCode,
             createdAt,
+            effectiveEndAt,
+            effectiveStartAt,
             locality,
             phoneNumberType,
             recordType,
-            requirementsTypes,
+            requirementTypes,
             updatedAt,
+            version,
             additionalProperties,
         )
     }
@@ -813,5 +948,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DocReqsRequirement{id=$id, action=$action, countryCode=$countryCode, createdAt=$createdAt, locality=$locality, phoneNumberType=$phoneNumberType, recordType=$recordType, requirementsTypes=$requirementsTypes, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "DocReqsRequirement{id=$id, action=$action, countryCode=$countryCode, createdAt=$createdAt, effectiveEndAt=$effectiveEndAt, effectiveStartAt=$effectiveStartAt, locality=$locality, phoneNumberType=$phoneNumberType, recordType=$recordType, requirementTypes=$requirementTypes, updatedAt=$updatedAt, version=$version, additionalProperties=$additionalProperties}"
 }

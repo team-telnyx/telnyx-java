@@ -33,6 +33,14 @@ internal class ToolUpdateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
+            .pay(
+                PayToolParams.builder()
+                    .connectorName("connector_name")
+                    .currency("currency")
+                    .description("description")
+                    .paymentMethod("payment_method")
+                    .build()
+            )
             .retrieval(
                 ToolUpdateParams.Retrieval.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -83,6 +91,14 @@ internal class ToolUpdateParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
+                .pay(
+                    PayToolParams.builder()
+                        .connectorName("connector_name")
+                        .currency("currency")
+                        .description("description")
+                        .paymentMethod("payment_method")
+                        .build()
+                )
                 .retrieval(
                     ToolUpdateParams.Retrieval.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -122,6 +138,15 @@ internal class ToolUpdateParamsTest {
             .contains(
                 ToolUpdateParams.Invite.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
+        assertThat(body.pay())
+            .contains(
+                PayToolParams.builder()
+                    .connectorName("connector_name")
+                    .currency("currency")
+                    .description("description")
+                    .paymentMethod("payment_method")
                     .build()
             )
         assertThat(body.retrieval())

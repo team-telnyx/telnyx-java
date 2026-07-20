@@ -43,7 +43,10 @@ private constructor(
      * language detection controls the language hint), `multi` (no language hint), and
      * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
      * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO 639-1
-     * codes (e.g. `en`, `es`) bias detection toward that language.
+     * codes (e.g. `en`, `es`) bias detection toward that language. For
+     * `assemblyai/universal-streaming`, `auto` (or unset) enables native multilingual
+     * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`, `no`,
+     * `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to that language.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -59,7 +62,7 @@ private constructor(
      * - `xai/grok-stt` for live streaming transcription.
      * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
      *   detection.
-     * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language detection.
+     * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -126,7 +129,10 @@ private constructor(
          * (Telnyx language detection controls the language hint), `multi` (no language hint), and
          * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
          * For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO
-         * 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
+         * 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
+         * `assemblyai/universal-streaming`, `auto` (or unset) enables native multilingual
+         * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`,
+         * `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to that language.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -147,8 +153,7 @@ private constructor(
          * - `xai/grok-stt` for live streaming transcription.
          * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic
          *   language detection.
-         * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language
-         *   detection.
+         * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
          * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported
          *   regions require `api_key_ref`.
          * - `google/latest_long` for non-streaming multilingual transcription.
@@ -242,7 +247,7 @@ private constructor(
      * - `xai/grok-stt` for live streaming transcription.
      * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
      *   detection.
-     * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language detection.
+     * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -283,7 +288,7 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
-            @JvmField val PARAKEET_TDT_0_6B_V3 = of("parakeet/tdt-0.6b-v3")
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val AZURE_FAST = of("azure/fast")
 
@@ -309,7 +314,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -336,7 +341,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
-            PARAKEET_TDT_0_6B_V3,
+            NVIDIA_PARAKEET_V3,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -364,7 +369,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Value.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 AZURE_FAST -> Value.AZURE_FAST
                 AZURE_REALTIME -> Value.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Value.GOOGLE_LATEST_LONG
@@ -393,7 +398,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
-                PARAKEET_TDT_0_6B_V3 -> Known.PARAKEET_TDT_0_6B_V3
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 AZURE_FAST -> Known.AZURE_FAST
                 AZURE_REALTIME -> Known.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Known.GOOGLE_LATEST_LONG

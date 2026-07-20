@@ -327,6 +327,7 @@ internal class ServiceParamsTest {
                 .recordTimeoutSecs(100)
                 .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
                 .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)
+                .retryOnTimeout(true)
                 .sendDigitsOnAnswer("wwww200")
                 .sendSilenceWhenIdle(true)
                 .sipAuthPassword("password")

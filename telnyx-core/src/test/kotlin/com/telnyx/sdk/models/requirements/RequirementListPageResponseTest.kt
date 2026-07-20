@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.DocReqsRequirementType
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -22,10 +23,12 @@ internal class RequirementListPageResponseTest {
                         .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
+                        .effectiveEndAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .effectiveStartAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .locality("Nice")
                         .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
-                        .addRequirementsType(
+                        .addRequirementType(
                             DocReqsRequirementType.builder()
                                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                                 .acceptanceCriteria(
@@ -52,6 +55,7 @@ internal class RequirementListPageResponseTest {
                                 .build()
                         )
                         .updatedAt("2021-04-12T20:20:20.020Z")
+                        .version(0L)
                         .build()
                 )
                 .meta(
@@ -71,10 +75,12 @@ internal class RequirementListPageResponseTest {
                     .action(DocReqsRequirement.Action.ORDERING)
                     .countryCode("FR")
                     .createdAt("2021-04-09T22:25:27.521Z")
+                    .effectiveEndAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveStartAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .locality("Nice")
                     .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                     .recordType("requirement")
-                    .addRequirementsType(
+                    .addRequirementType(
                         DocReqsRequirementType.builder()
                             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                             .acceptanceCriteria(
@@ -101,6 +107,7 @@ internal class RequirementListPageResponseTest {
                             .build()
                     )
                     .updatedAt("2021-04-12T20:20:20.020Z")
+                    .version(0L)
                     .build()
             )
         assertThat(requirementListPageResponse.meta())
@@ -125,10 +132,12 @@ internal class RequirementListPageResponseTest {
                         .action(DocReqsRequirement.Action.ORDERING)
                         .countryCode("FR")
                         .createdAt("2021-04-09T22:25:27.521Z")
+                        .effectiveEndAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .effectiveStartAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .locality("Nice")
                         .phoneNumberType(DocReqsRequirement.PhoneNumberType.LOCAL)
                         .recordType("requirement")
-                        .addRequirementsType(
+                        .addRequirementType(
                             DocReqsRequirementType.builder()
                                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                                 .acceptanceCriteria(
@@ -155,6 +164,7 @@ internal class RequirementListPageResponseTest {
                                 .build()
                         )
                         .updatedAt("2021-04-12T20:20:20.020Z")
+                        .version(0L)
                         .build()
                 )
                 .meta(
