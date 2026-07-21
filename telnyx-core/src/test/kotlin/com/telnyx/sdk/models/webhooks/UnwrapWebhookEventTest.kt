@@ -10,7 +10,6 @@ import com.telnyx.sdk.models.InboundMessagePayload
 import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.SubNumberOrderRegulatoryRequirementWithValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
-import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
 import com.telnyx.sdk.models.numberorders.NumberOrderWithPhoneNumbers
 import com.telnyx.sdk.models.numberorders.PhoneNumber
@@ -626,14 +625,14 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .from("+35319605860")
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallAnswered.Payload.SipHeader.builder()
+                                        .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallAnswered.Payload.SipHeader.builder()
+                                        .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -753,14 +752,14 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .from("+35319605860")
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallAnswered.Payload.SipHeader.builder()
+                                            .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallAnswered.Payload.SipHeader.builder()
+                                            .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
@@ -2489,14 +2488,14 @@ internal class UnwrapWebhookEventTest {
                                 .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                 .sipHangupCause("603")
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallHangup.Payload.SipHeader.builder()
+                                        .name(CallHangup.Payload.SipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallHangup.Payload.SipHeader.builder()
+                                        .name(CallHangup.Payload.SipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -2640,14 +2639,14 @@ internal class UnwrapWebhookEventTest {
                                     .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                     .sipHangupCause("603")
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallHangup.Payload.SipHeader.builder()
+                                            .name(CallHangup.Payload.SipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallHangup.Payload.SipHeader.builder()
+                                            .name(CallHangup.Payload.SipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
@@ -2842,14 +2841,14 @@ internal class UnwrapWebhookEventTest {
                                 .shakenStirAttestation("A")
                                 .shakenStirValidated(true)
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallInitiated.Payload.SipHeader.builder()
+                                        .name(CallInitiated.Payload.SipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    SipHeader.builder()
-                                        .name(SipHeader.Name.USER_TO_USER)
+                                    CallInitiated.Payload.SipHeader.builder()
+                                        .name(CallInitiated.Payload.SipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -2976,14 +2975,14 @@ internal class UnwrapWebhookEventTest {
                                     .shakenStirAttestation("A")
                                     .shakenStirValidated(true)
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallInitiated.Payload.SipHeader.builder()
+                                            .name(CallInitiated.Payload.SipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        SipHeader.builder()
-                                            .name(SipHeader.Name.USER_TO_USER)
+                                        CallInitiated.Payload.SipHeader.builder()
+                                            .name(CallInitiated.Payload.SipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
