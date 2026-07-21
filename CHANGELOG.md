@@ -1,5 +1,20 @@
 # Changelog
 
+## [6.83.0](https://github.com/team-telnyx/telnyx-java/compare/v6.82.0...v6.83.0) (2026-07-21)
+
+
+### Features
+
+* promote from staging 72ccc5f ([90c968c](https://github.com/team-telnyx/telnyx-java/commit/90c968cc47b619eda00ab356eab568202fa13b48))
+
+
+### Bug Fixes
+
+* **release:** configure identity before synthetic commit ([#210](https://github.com/team-telnyx/telnyx-java/issues/210)) ([93da1b8](https://github.com/team-telnyx/telnyx-java/commit/93da1b8b91fd5a31496530b040f770f4a75e7c7b))
+* **release:** handle dirty local release checkout ([#211](https://github.com/team-telnyx/telnyx-java/issues/211)) ([41c7717](https://github.com/team-telnyx/telnyx-java/commit/41c7717086b6e576723a73a42eae931fd2b0de49))
+* **release:** keep release PR history on production base ([#208](https://github.com/team-telnyx/telnyx-java/issues/208)) ([ba3518b](https://github.com/team-telnyx/telnyx-java/commit/ba3518baea72f7b5a55bd824ddf94f9bc84f67dd))
+* scan next commits when creating release PR ([#206](https://github.com/team-telnyx/telnyx-java/issues/206)) ([1c07fc9](https://github.com/team-telnyx/telnyx-java/commit/1c07fc9e80e2d0c69f643f2905725810e41c0561))
+
 ## [6.82.0](https://github.com/team-telnyx/telnyx-java/compare/v6.81.0...v6.82.0) (2026-07-20)
 
 
