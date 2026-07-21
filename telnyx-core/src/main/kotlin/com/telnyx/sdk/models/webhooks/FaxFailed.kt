@@ -607,9 +607,10 @@ private constructor(
             private val clientState: JsonField<String>,
             private val connectionId: JsonField<String>,
             private val direction: JsonField<Direction>,
-            private val failureReason: JsonField<FailureReason>,
+            private val failureReason: JsonField<String>,
             private val faxId: JsonField<String>,
             private val from: JsonField<String>,
+            private val internalFailureReason: JsonField<String>,
             private val mediaName: JsonField<String>,
             private val originalMediaUrl: JsonField<String>,
             private val status: JsonField<Status>,
@@ -631,9 +632,12 @@ private constructor(
                 direction: JsonField<Direction> = JsonMissing.of(),
                 @JsonProperty("failure_reason")
                 @ExcludeMissing
-                failureReason: JsonField<FailureReason> = JsonMissing.of(),
+                failureReason: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("fax_id") @ExcludeMissing faxId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("internal_failure_reason")
+                @ExcludeMissing
+                internalFailureReason: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("media_name")
                 @ExcludeMissing
                 mediaName: JsonField<String> = JsonMissing.of(),
@@ -654,6 +658,7 @@ private constructor(
                 failureReason,
                 faxId,
                 from,
+                internalFailureReason,
                 mediaName,
                 originalMediaUrl,
                 status,
@@ -687,13 +692,13 @@ private constructor(
             fun direction(): Optional<Direction> = direction.getOptional("direction")
 
             /**
-             * Cause of the sending failure
+             * Customer-facing cause of the fax failure. Mapped from the more granular
+             * `internal_failure_reason`.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun failureReason(): Optional<FailureReason> =
-                failureReason.getOptional("failure_reason")
+            fun failureReason(): Optional<String> = failureReason.getOptional("failure_reason")
 
             /**
              * Identifies the fax.
@@ -710,6 +715,16 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun from(): Optional<String> = from.getOptional("from")
+
+            /**
+             * Internal, more granular cause of the fax failure. Useful for deeper debugging beyond
+             * the customer-facing `failure_reason`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun internalFailureReason(): Optional<String> =
+                internalFailureReason.getOptional("internal_failure_reason")
 
             /**
              * The media_name used for the fax's media. Must point to a file previously uploaded to
@@ -794,7 +809,7 @@ private constructor(
              */
             @JsonProperty("failure_reason")
             @ExcludeMissing
-            fun _failureReason(): JsonField<FailureReason> = failureReason
+            fun _failureReason(): JsonField<String> = failureReason
 
             /**
              * Returns the raw JSON value of [faxId].
@@ -809,6 +824,16 @@ private constructor(
              * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
+
+            /**
+             * Returns the raw JSON value of [internalFailureReason].
+             *
+             * Unlike [internalFailureReason], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("internal_failure_reason")
+            @ExcludeMissing
+            fun _internalFailureReason(): JsonField<String> = internalFailureReason
 
             /**
              * Returns the raw JSON value of [mediaName].
@@ -875,9 +900,10 @@ private constructor(
                 private var clientState: JsonField<String> = JsonMissing.of()
                 private var connectionId: JsonField<String> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
-                private var failureReason: JsonField<FailureReason> = JsonMissing.of()
+                private var failureReason: JsonField<String> = JsonMissing.of()
                 private var faxId: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
+                private var internalFailureReason: JsonField<String> = JsonMissing.of()
                 private var mediaName: JsonField<String> = JsonMissing.of()
                 private var originalMediaUrl: JsonField<String> = JsonMissing.of()
                 private var status: JsonField<Status> = JsonMissing.of()
@@ -893,6 +919,7 @@ private constructor(
                     failureReason = payload.failureReason
                     faxId = payload.faxId
                     from = payload.from
+                    internalFailureReason = payload.internalFailureReason
                     mediaName = payload.mediaName
                     originalMediaUrl = payload.originalMediaUrl
                     status = payload.status
@@ -943,18 +970,21 @@ private constructor(
                     this.direction = direction
                 }
 
-                /** Cause of the sending failure */
-                fun failureReason(failureReason: FailureReason) =
+                /**
+                 * Customer-facing cause of the fax failure. Mapped from the more granular
+                 * `internal_failure_reason`.
+                 */
+                fun failureReason(failureReason: String) =
                     failureReason(JsonField.of(failureReason))
 
                 /**
                  * Sets [Builder.failureReason] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.failureReason] with a well-typed [FailureReason]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.failureReason] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun failureReason(failureReason: JsonField<FailureReason>) = apply {
+                fun failureReason(failureReason: JsonField<String>) = apply {
                     this.failureReason = failureReason
                 }
 
@@ -981,6 +1011,24 @@ private constructor(
                  * supported value.
                  */
                 fun from(from: JsonField<String>) = apply { this.from = from }
+
+                /**
+                 * Internal, more granular cause of the fax failure. Useful for deeper debugging
+                 * beyond the customer-facing `failure_reason`.
+                 */
+                fun internalFailureReason(internalFailureReason: String) =
+                    internalFailureReason(JsonField.of(internalFailureReason))
+
+                /**
+                 * Sets [Builder.internalFailureReason] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.internalFailureReason] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun internalFailureReason(internalFailureReason: JsonField<String>) = apply {
+                    this.internalFailureReason = internalFailureReason
+                }
 
                 /**
                  * The media_name used for the fax's media. Must point to a file previously uploaded
@@ -1088,6 +1136,7 @@ private constructor(
                         failureReason,
                         faxId,
                         from,
+                        internalFailureReason,
                         mediaName,
                         originalMediaUrl,
                         status,
@@ -1117,9 +1166,10 @@ private constructor(
                 clientState()
                 connectionId()
                 direction().ifPresent { it.validate() }
-                failureReason().ifPresent { it.validate() }
+                failureReason()
                 faxId()
                 from()
+                internalFailureReason()
                 mediaName()
                 originalMediaUrl()
                 status().ifPresent { it.validate() }
@@ -1147,9 +1197,10 @@ private constructor(
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                     (if (connectionId.asKnown().isPresent) 1 else 0) +
                     (direction.asKnown().getOrNull()?.validity() ?: 0) +
-                    (failureReason.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (failureReason.asKnown().isPresent) 1 else 0) +
                     (if (faxId.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
+                    (if (internalFailureReason.asKnown().isPresent) 1 else 0) +
                     (if (mediaName.asKnown().isPresent) 1 else 0) +
                     (if (originalMediaUrl.asKnown().isPresent) 1 else 0) +
                     (status.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1291,144 +1342,6 @@ private constructor(
                     }
 
                     return other is Direction && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /** Cause of the sending failure */
-            class FailureReason
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val REJECTED = of("rejected")
-
-                    @JvmStatic fun of(value: String) = FailureReason(JsonField.of(value))
-                }
-
-                /** An enum containing [FailureReason]'s known values. */
-                enum class Known {
-                    REJECTED
-                }
-
-                /**
-                 * An enum containing [FailureReason]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [FailureReason] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    REJECTED,
-                    /**
-                     * An enum member indicating that [FailureReason] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        REJECTED -> Value.REJECTED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        REJECTED -> Known.REJECTED
-                        else -> throw TelnyxInvalidDataException("Unknown FailureReason: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): FailureReason = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is FailureReason && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1584,6 +1497,7 @@ private constructor(
                     failureReason == other.failureReason &&
                     faxId == other.faxId &&
                     from == other.from &&
+                    internalFailureReason == other.internalFailureReason &&
                     mediaName == other.mediaName &&
                     originalMediaUrl == other.originalMediaUrl &&
                     status == other.status &&
@@ -1600,6 +1514,7 @@ private constructor(
                     failureReason,
                     faxId,
                     from,
+                    internalFailureReason,
                     mediaName,
                     originalMediaUrl,
                     status,
@@ -1612,7 +1527,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Payload{clientState=$clientState, connectionId=$connectionId, direction=$direction, failureReason=$failureReason, faxId=$faxId, from=$from, mediaName=$mediaName, originalMediaUrl=$originalMediaUrl, status=$status, to=$to, userId=$userId, additionalProperties=$additionalProperties}"
+                "Payload{clientState=$clientState, connectionId=$connectionId, direction=$direction, failureReason=$failureReason, faxId=$faxId, from=$from, internalFailureReason=$internalFailureReason, mediaName=$mediaName, originalMediaUrl=$originalMediaUrl, status=$status, to=$to, userId=$userId, additionalProperties=$additionalProperties}"
         }
 
         /** Identifies the type of the resource. */
