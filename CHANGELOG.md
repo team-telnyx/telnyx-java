@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.83.0](https://github.com/team-telnyx/telnyx-java/compare/v6.82.0...v6.83.0) (2026-07-21)
+
+
+### Features
+
+* promote from staging 72ccc5f ([06364ab](https://github.com/team-telnyx/telnyx-java/commit/06364ab1e4f847efcda3d7323d7c69928c3322ca))
+
+
+### Bug Fixes
+
+* scan next commits when creating release PR ([#206](https://github.com/team-telnyx/telnyx-java/issues/206)) ([1c07fc9](https://github.com/team-telnyx/telnyx-java/commit/1c07fc9e80e2d0c69f643f2905725810e41c0561))
+
 ## [6.82.0](https://github.com/team-telnyx/telnyx-java/compare/v6.81.0...v6.82.0) (2026-07-20)
 
 
