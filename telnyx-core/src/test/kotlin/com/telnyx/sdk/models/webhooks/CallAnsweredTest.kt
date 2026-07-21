@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.webhooks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.calls.CustomSipHeader
-import com.telnyx.sdk.models.calls.SipHeader
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -34,14 +33,14 @@ internal class CallAnsweredTest {
                         )
                         .from("+35319605860")
                         .addSipHeader(
-                            SipHeader.builder()
-                                .name(SipHeader.Name.USER_TO_USER)
+                            CallAnswered.Payload.SipHeader.builder()
+                                .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
                                 .value("1234")
                                 .build()
                         )
                         .addSipHeader(
-                            SipHeader.builder()
-                                .name(SipHeader.Name.USER_TO_USER)
+                            CallAnswered.Payload.SipHeader.builder()
+                                .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
                                 .value("<sip:111@192.168.1.1>")
                                 .build()
                         )
@@ -75,11 +74,14 @@ internal class CallAnsweredTest {
                     )
                     .from("+35319605860")
                     .addSipHeader(
-                        SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("1234").build()
+                        CallAnswered.Payload.SipHeader.builder()
+                            .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
+                            .value("1234")
+                            .build()
                     )
                     .addSipHeader(
-                        SipHeader.builder()
-                            .name(SipHeader.Name.USER_TO_USER)
+                        CallAnswered.Payload.SipHeader.builder()
+                            .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
                             .value("<sip:111@192.168.1.1>")
                             .build()
                     )
@@ -116,14 +118,14 @@ internal class CallAnsweredTest {
                         )
                         .from("+35319605860")
                         .addSipHeader(
-                            SipHeader.builder()
-                                .name(SipHeader.Name.USER_TO_USER)
+                            CallAnswered.Payload.SipHeader.builder()
+                                .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
                                 .value("1234")
                                 .build()
                         )
                         .addSipHeader(
-                            SipHeader.builder()
-                                .name(SipHeader.Name.USER_TO_USER)
+                            CallAnswered.Payload.SipHeader.builder()
+                                .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
                                 .value("<sip:111@192.168.1.1>")
                                 .build()
                         )
