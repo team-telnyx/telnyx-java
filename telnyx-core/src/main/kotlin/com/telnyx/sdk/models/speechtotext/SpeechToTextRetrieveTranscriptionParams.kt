@@ -19,7 +19,7 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
- * `Parakeet`.
+ * `Parakeet`, `Humain`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying engine, input format, and language.
@@ -537,6 +537,8 @@ private constructor(
 
             @JvmField val PARAKEET = of("Parakeet")
 
+            @JvmField val HUMAIN = of("Humain")
+
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
@@ -550,6 +552,7 @@ private constructor(
             SPEECHMATICS,
             SONIOX,
             PARAKEET,
+            HUMAIN,
         }
 
         /**
@@ -570,6 +573,7 @@ private constructor(
             SPEECHMATICS,
             SONIOX,
             PARAKEET,
+            HUMAIN,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -594,6 +598,7 @@ private constructor(
                 SPEECHMATICS -> Value.SPEECHMATICS
                 SONIOX -> Value.SONIOX
                 PARAKEET -> Value.PARAKEET
+                HUMAIN -> Value.HUMAIN
                 else -> Value._UNKNOWN
             }
 
@@ -616,6 +621,7 @@ private constructor(
                 SPEECHMATICS -> Known.SPEECHMATICS
                 SONIOX -> Known.SONIOX
                 PARAKEET -> Known.PARAKEET
+                HUMAIN -> Known.HUMAIN
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 
@@ -729,6 +735,8 @@ private constructor(
 
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
+            @JvmField val HUMAIN_REALTIME = of("humain/realtime")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -751,6 +759,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
         }
 
         /**
@@ -780,6 +789,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -810,6 +820,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 else -> Value._UNKNOWN
             }
 
@@ -841,6 +852,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
