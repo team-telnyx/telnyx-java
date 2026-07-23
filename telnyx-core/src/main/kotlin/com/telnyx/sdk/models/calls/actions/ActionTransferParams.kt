@@ -292,6 +292,18 @@ private constructor(
     fun recordTrim(): Optional<RecordTrim> = body.recordTrim()
 
     /**
+     * When set to true, routes the call directly to the mobile device associated with the
+     * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+     * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use this
+     * when transferring an intercepted call to the mobile device to prevent the call from being
+     * intercepted again. Defaults to false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun routeToMobile(): Optional<Boolean> = body.routeToMobile()
+
+    /**
      * DTMF digits to send automatically after the transfer destination answers. Useful for reaching
      * an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
      * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64
@@ -603,6 +615,13 @@ private constructor(
      * Unlike [recordTrim], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordTrim(): JsonField<RecordTrim> = body._recordTrim()
+
+    /**
+     * Returns the raw JSON value of [routeToMobile].
+     *
+     * Unlike [routeToMobile], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _routeToMobile(): JsonField<Boolean> = body._routeToMobile()
 
     /**
      * Returns the raw JSON value of [sendDigitsOnAnswer].
@@ -1201,6 +1220,26 @@ private constructor(
         fun recordTrim(recordTrim: JsonField<RecordTrim>) = apply { body.recordTrim(recordTrim) }
 
         /**
+         * When set to true, routes the call directly to the mobile device associated with the
+         * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+         * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use
+         * this when transferring an intercepted call to the mobile device to prevent the call from
+         * being intercepted again. Defaults to false.
+         */
+        fun routeToMobile(routeToMobile: Boolean) = apply { body.routeToMobile(routeToMobile) }
+
+        /**
+         * Sets [Builder.routeToMobile] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routeToMobile] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun routeToMobile(routeToMobile: JsonField<Boolean>) = apply {
+            body.routeToMobile(routeToMobile)
+        }
+
+        /**
          * DTMF digits to send automatically after the transfer destination answers. Useful for
          * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called
          * party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
@@ -1641,6 +1680,7 @@ private constructor(
         private val recordTimeoutSecs: JsonField<Int>,
         private val recordTrack: JsonField<RecordTrack>,
         private val recordTrim: JsonField<RecordTrim>,
+        private val routeToMobile: JsonField<Boolean>,
         private val sendDigitsOnAnswer: JsonField<String>,
         private val sipAuthPassword: JsonField<String>,
         private val sipAuthUsername: JsonField<String>,
@@ -1726,6 +1766,9 @@ private constructor(
             @JsonProperty("record_trim")
             @ExcludeMissing
             recordTrim: JsonField<RecordTrim> = JsonMissing.of(),
+            @JsonProperty("route_to_mobile")
+            @ExcludeMissing
+            routeToMobile: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("send_digits_on_answer")
             @ExcludeMissing
             sendDigitsOnAnswer: JsonField<String> = JsonMissing.of(),
@@ -1796,6 +1839,7 @@ private constructor(
             recordTimeoutSecs,
             recordTrack,
             recordTrim,
+            routeToMobile,
             sendDigitsOnAnswer,
             sipAuthPassword,
             sipAuthUsername,
@@ -2058,6 +2102,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordTrim(): Optional<RecordTrim> = recordTrim.getOptional("record_trim")
+
+        /**
+         * When set to true, routes the call directly to the mobile device associated with the
+         * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+         * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use
+         * this when transferring an intercepted call to the mobile device to prevent the call from
+         * being intercepted again. Defaults to false.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun routeToMobile(): Optional<Boolean> = routeToMobile.getOptional("route_to_mobile")
 
         /**
          * DTMF digits to send automatically after the transfer destination answers. Useful for
@@ -2420,6 +2476,16 @@ private constructor(
         fun _recordTrim(): JsonField<RecordTrim> = recordTrim
 
         /**
+         * Returns the raw JSON value of [routeToMobile].
+         *
+         * Unlike [routeToMobile], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("route_to_mobile")
+        @ExcludeMissing
+        fun _routeToMobile(): JsonField<Boolean> = routeToMobile
+
+        /**
          * Returns the raw JSON value of [sendDigitsOnAnswer].
          *
          * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an
@@ -2619,6 +2685,7 @@ private constructor(
             private var recordTimeoutSecs: JsonField<Int> = JsonMissing.of()
             private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
             private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
+            private var routeToMobile: JsonField<Boolean> = JsonMissing.of()
             private var sendDigitsOnAnswer: JsonField<String> = JsonMissing.of()
             private var sipAuthPassword: JsonField<String> = JsonMissing.of()
             private var sipAuthUsername: JsonField<String> = JsonMissing.of()
@@ -2662,6 +2729,7 @@ private constructor(
                 recordTimeoutSecs = body.recordTimeoutSecs
                 recordTrack = body.recordTrack
                 recordTrim = body.recordTrim
+                routeToMobile = body.routeToMobile
                 sendDigitsOnAnswer = body.sendDigitsOnAnswer
                 sipAuthPassword = body.sipAuthPassword
                 sipAuthUsername = body.sipAuthUsername
@@ -3113,6 +3181,26 @@ private constructor(
             }
 
             /**
+             * When set to true, routes the call directly to the mobile device associated with the
+             * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in
+             * the Telnyx Portal under Mobile Numbers → select the number → Voice → Call
+             * Interception. Use this when transferring an intercepted call to the mobile device to
+             * prevent the call from being intercepted again. Defaults to false.
+             */
+            fun routeToMobile(routeToMobile: Boolean) = routeToMobile(JsonField.of(routeToMobile))
+
+            /**
+             * Sets [Builder.routeToMobile] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routeToMobile] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun routeToMobile(routeToMobile: JsonField<Boolean>) = apply {
+                this.routeToMobile = routeToMobile
+            }
+
+            /**
              * DTMF digits to send automatically after the transfer destination answers. Useful for
              * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the
              * called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s
@@ -3434,6 +3522,7 @@ private constructor(
                     recordTimeoutSecs,
                     recordTrack,
                     recordTrim,
+                    routeToMobile,
                     sendDigitsOnAnswer,
                     sipAuthPassword,
                     sipAuthUsername,
@@ -3493,6 +3582,7 @@ private constructor(
             recordTimeoutSecs()
             recordTrack().ifPresent { it.validate() }
             recordTrim().ifPresent { it.validate() }
+            routeToMobile()
             sendDigitsOnAnswer()
             sipAuthPassword()
             sipAuthUsername()
@@ -3551,6 +3641,7 @@ private constructor(
                 (if (recordTimeoutSecs.asKnown().isPresent) 1 else 0) +
                 (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (routeToMobile.asKnown().isPresent) 1 else 0) +
                 (if (sendDigitsOnAnswer.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
@@ -3597,6 +3688,7 @@ private constructor(
                 recordTimeoutSecs == other.recordTimeoutSecs &&
                 recordTrack == other.recordTrack &&
                 recordTrim == other.recordTrim &&
+                routeToMobile == other.routeToMobile &&
                 sendDigitsOnAnswer == other.sendDigitsOnAnswer &&
                 sipAuthPassword == other.sipAuthPassword &&
                 sipAuthUsername == other.sipAuthUsername &&
@@ -3641,6 +3733,7 @@ private constructor(
                 recordTimeoutSecs,
                 recordTrack,
                 recordTrim,
+                routeToMobile,
                 sendDigitsOnAnswer,
                 sipAuthPassword,
                 sipAuthUsername,
@@ -3663,7 +3756,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendDigitsOnAnswer=$sendDigitsOnAnswer, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

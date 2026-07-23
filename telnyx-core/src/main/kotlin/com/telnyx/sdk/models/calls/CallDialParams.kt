@@ -410,6 +410,18 @@ private constructor(
     fun retryOnTimeout(): Optional<Boolean> = body.retryOnTimeout()
 
     /**
+     * When set to true, routes the call directly to the mobile device associated with the
+     * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+     * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use this
+     * when transferring an intercepted call to the mobile device to prevent the call from being
+     * intercepted again. Defaults to false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun routeToMobile(): Optional<Boolean> = body.routeToMobile()
+
+    /**
      * DTMF digits to send automatically after the called party answers. Useful for reaching an
      * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks up).
      * Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64
@@ -919,6 +931,13 @@ private constructor(
      * Unlike [retryOnTimeout], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _retryOnTimeout(): JsonField<Boolean> = body._retryOnTimeout()
+
+    /**
+     * Returns the raw JSON value of [routeToMobile].
+     *
+     * Unlike [routeToMobile], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _routeToMobile(): JsonField<Boolean> = body._routeToMobile()
 
     /**
      * Returns the raw JSON value of [sendDigitsOnAnswer].
@@ -1826,6 +1845,26 @@ private constructor(
         }
 
         /**
+         * When set to true, routes the call directly to the mobile device associated with the
+         * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+         * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use
+         * this when transferring an intercepted call to the mobile device to prevent the call from
+         * being intercepted again. Defaults to false.
+         */
+        fun routeToMobile(routeToMobile: Boolean) = apply { body.routeToMobile(routeToMobile) }
+
+        /**
+         * Sets [Builder.routeToMobile] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routeToMobile] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun routeToMobile(routeToMobile: JsonField<Boolean>) = apply {
+            body.routeToMobile(routeToMobile)
+        }
+
+        /**
          * DTMF digits to send automatically after the called party answers. Useful for reaching an
          * extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party picks
          * up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`.
@@ -2482,6 +2521,7 @@ private constructor(
         private val recordTrack: JsonField<RecordTrack>,
         private val recordTrim: JsonField<RecordTrim>,
         private val retryOnTimeout: JsonField<Boolean>,
+        private val routeToMobile: JsonField<Boolean>,
         private val sendDigitsOnAnswer: JsonField<String>,
         private val sendSilenceWhenIdle: JsonField<Boolean>,
         private val sipAuthPassword: JsonField<String>,
@@ -2611,6 +2651,9 @@ private constructor(
             @JsonProperty("retry_on_timeout")
             @ExcludeMissing
             retryOnTimeout: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("route_to_mobile")
+            @ExcludeMissing
+            routeToMobile: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("send_digits_on_answer")
             @ExcludeMissing
             sendDigitsOnAnswer: JsonField<String> = JsonMissing.of(),
@@ -2733,6 +2776,7 @@ private constructor(
             recordTrack,
             recordTrim,
             retryOnTimeout,
+            routeToMobile,
             sendDigitsOnAnswer,
             sendSilenceWhenIdle,
             sipAuthPassword,
@@ -3123,6 +3167,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun retryOnTimeout(): Optional<Boolean> = retryOnTimeout.getOptional("retry_on_timeout")
+
+        /**
+         * When set to true, routes the call directly to the mobile device associated with the
+         * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in the
+         * Telnyx Portal under Mobile Numbers → select the number → Voice → Call Interception. Use
+         * this when transferring an intercepted call to the mobile device to prevent the call from
+         * being intercepted again. Defaults to false.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun routeToMobile(): Optional<Boolean> = routeToMobile.getOptional("route_to_mobile")
 
         /**
          * DTMF digits to send automatically after the called party answers. Useful for reaching an
@@ -3713,6 +3769,16 @@ private constructor(
         fun _retryOnTimeout(): JsonField<Boolean> = retryOnTimeout
 
         /**
+         * Returns the raw JSON value of [routeToMobile].
+         *
+         * Unlike [routeToMobile], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("route_to_mobile")
+        @ExcludeMissing
+        fun _routeToMobile(): JsonField<Boolean> = routeToMobile
+
+        /**
          * Returns the raw JSON value of [sendDigitsOnAnswer].
          *
          * Unlike [sendDigitsOnAnswer], this method doesn't throw if the JSON field has an
@@ -4055,6 +4121,7 @@ private constructor(
             private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
             private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
             private var retryOnTimeout: JsonField<Boolean> = JsonMissing.of()
+            private var routeToMobile: JsonField<Boolean> = JsonMissing.of()
             private var sendDigitsOnAnswer: JsonField<String> = JsonMissing.of()
             private var sendSilenceWhenIdle: JsonField<Boolean> = JsonMissing.of()
             private var sipAuthPassword: JsonField<String> = JsonMissing.of()
@@ -4127,6 +4194,7 @@ private constructor(
                 recordTrack = body.recordTrack
                 recordTrim = body.recordTrim
                 retryOnTimeout = body.retryOnTimeout
+                routeToMobile = body.routeToMobile
                 sendDigitsOnAnswer = body.sendDigitsOnAnswer
                 sendSilenceWhenIdle = body.sendSilenceWhenIdle
                 sipAuthPassword = body.sipAuthPassword
@@ -4801,6 +4869,26 @@ private constructor(
             }
 
             /**
+             * When set to true, routes the call directly to the mobile device associated with the
+             * destination Telnyx Mobile number, bypassing Inbound Calls Interception configured in
+             * the Telnyx Portal under Mobile Numbers → select the number → Voice → Call
+             * Interception. Use this when transferring an intercepted call to the mobile device to
+             * prevent the call from being intercepted again. Defaults to false.
+             */
+            fun routeToMobile(routeToMobile: Boolean) = routeToMobile(JsonField.of(routeToMobile))
+
+            /**
+             * Sets [Builder.routeToMobile] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routeToMobile] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun routeToMobile(routeToMobile: JsonField<Boolean>) = apply {
+                this.routeToMobile = routeToMobile
+            }
+
+            /**
              * DTMF digits to send automatically after the called party answers. Useful for reaching
              * an extension behind an IVR (e.g. `"200"` to dial extension 200 once the called party
              * picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W` (1s pause), `*`,
@@ -5341,6 +5429,7 @@ private constructor(
                     recordTrack,
                     recordTrim,
                     retryOnTimeout,
+                    routeToMobile,
                     sendDigitsOnAnswer,
                     sendSilenceWhenIdle,
                     sipAuthPassword,
@@ -5424,6 +5513,7 @@ private constructor(
             recordTrack().ifPresent { it.validate() }
             recordTrim().ifPresent { it.validate() }
             retryOnTimeout()
+            routeToMobile()
             sendDigitsOnAnswer()
             sendSilenceWhenIdle()
             sipAuthPassword()
@@ -5506,6 +5596,7 @@ private constructor(
                 (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (retryOnTimeout.asKnown().isPresent) 1 else 0) +
+                (if (routeToMobile.asKnown().isPresent) 1 else 0) +
                 (if (sendDigitsOnAnswer.asKnown().isPresent) 1 else 0) +
                 (if (sendSilenceWhenIdle.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
@@ -5576,6 +5667,7 @@ private constructor(
                 recordTrack == other.recordTrack &&
                 recordTrim == other.recordTrim &&
                 retryOnTimeout == other.retryOnTimeout &&
+                routeToMobile == other.routeToMobile &&
                 sendDigitsOnAnswer == other.sendDigitsOnAnswer &&
                 sendSilenceWhenIdle == other.sendSilenceWhenIdle &&
                 sipAuthPassword == other.sipAuthPassword &&
@@ -5644,6 +5736,7 @@ private constructor(
                 recordTrack,
                 recordTrim,
                 retryOnTimeout,
+                routeToMobile,
                 sendDigitsOnAnswer,
                 sendSilenceWhenIdle,
                 sipAuthPassword,
@@ -5679,7 +5772,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, retryOnTimeout=$retryOnTimeout, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, retryOnTimeout=$retryOnTimeout, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

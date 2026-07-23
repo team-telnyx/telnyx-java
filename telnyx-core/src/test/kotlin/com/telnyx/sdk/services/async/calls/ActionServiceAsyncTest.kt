@@ -1633,6 +1633,7 @@ internal class ActionServiceAsyncTest {
                     .recordTimeoutSecs(100)
                     .recordTrack(ActionTransferParams.RecordTrack.OUTBOUND)
                     .recordTrim(ActionTransferParams.RecordTrim.TRIM_SILENCE)
+                    .routeToMobile(true)
                     .sendDigitsOnAnswer("wwww200")
                     .sipAuthPassword("password")
                     .sipAuthUsername("username")
