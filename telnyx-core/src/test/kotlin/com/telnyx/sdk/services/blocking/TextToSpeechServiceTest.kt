@@ -54,6 +54,12 @@ internal class TextToSpeechServiceTest {
                             )
                             .build()
                     )
+                    .humain(
+                        TextToSpeechGenerateSpeechParams.Humain.builder()
+                            .voiceId(TextToSpeechGenerateSpeechParams.Humain.VoiceId.SARA_EN)
+                            .ttfbEagerness(0.0f)
+                            .build()
+                    )
                     .language("language")
                     .minimax(
                         TextToSpeechGenerateSpeechParams.Minimax.builder()

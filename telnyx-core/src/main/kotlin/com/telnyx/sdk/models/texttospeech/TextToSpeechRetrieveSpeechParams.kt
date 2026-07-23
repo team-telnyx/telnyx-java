@@ -19,7 +19,7 @@ import kotlin.jvm.optionals.getOrNull
  * frames with text to synthesize; receive JSON frames containing base64-encoded audio chunks.
  *
  * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`, `resemble`,
- * `elevenlabs`, `xai`.
+ * `elevenlabs`, `xai`, `humain`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying provider, voice, and model.
@@ -513,6 +513,8 @@ private constructor(
 
             @JvmField val XAI = of("xai")
 
+            @JvmField val HUMAIN = of("humain")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -527,6 +529,7 @@ private constructor(
             RIME,
             RESEMBLE,
             XAI,
+            HUMAIN,
         }
 
         /**
@@ -548,6 +551,7 @@ private constructor(
             RIME,
             RESEMBLE,
             XAI,
+            HUMAIN,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -570,6 +574,7 @@ private constructor(
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
+                HUMAIN -> Value.HUMAIN
                 else -> Value._UNKNOWN
             }
 
@@ -593,6 +598,7 @@ private constructor(
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
+                HUMAIN -> Known.HUMAIN
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

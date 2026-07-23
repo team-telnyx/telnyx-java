@@ -160,6 +160,9 @@ private constructor(
      *   `VoiceId` is a Fish Voice-Library reference ID.
      * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
      *   `sal`, `leo`.
+     * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices: `sara-en`,
+     *   `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`, `abdullah-ar`. Native Arabic (Saudi
+     *   dialect) and English voices only — no `ModelId` segment.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -561,6 +564,9 @@ private constructor(
          *   `VoiceId` is a Fish Voice-Library reference ID.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
+         * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
+         *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`, `abdullah-ar`.
+         *   Native Arabic (Saudi dialect) and English voices only — no `ModelId` segment.
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -933,6 +939,9 @@ private constructor(
          *   `VoiceId` is a Fish Voice-Library reference ID.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
+         * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
+         *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`, `abdullah-ar`.
+         *   Native Arabic (Saudi dialect) and English voices only — no `ModelId` segment.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1370,6 +1379,9 @@ private constructor(
              *   `VoiceId` is a Fish Voice-Library reference ID.
              * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`,
              *   `rex`, `sal`, `leo`.
+             * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
+             *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`, `abdullah-ar`.
+             *   Native Arabic (Saudi dialect) and English voices only — no `ModelId` segment.
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 

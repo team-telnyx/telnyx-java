@@ -34,7 +34,7 @@ import kotlin.jvm.optionals.getOrNull
  * specify `provider` explicitly along with provider-specific parameters.
  *
  * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
- * `xai`.
+ * `xai`, `humain`.
  *
  * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
  * control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -77,6 +77,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun elevenlabs(): Optional<Elevenlabs> = body.elevenlabs()
+
+    /**
+     * Humain provider-specific parameters. Unlike other providers, Humain has no format/sample-rate
+     * negotiation (output is always PCM16 24kHz mono) and no language parameter — language is fixed
+     * per voice.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun humain(): Optional<Humain> = body.humain()
 
     /**
      * Language code (e.g. `en-US`). Usage varies by provider.
@@ -212,6 +222,13 @@ private constructor(
     fun _elevenlabs(): JsonField<Elevenlabs> = body._elevenlabs()
 
     /**
+     * Returns the raw JSON value of [humain].
+     *
+     * Unlike [humain], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _humain(): JsonField<Humain> = body._humain()
+
+    /**
      * Returns the raw JSON value of [language].
      *
      * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
@@ -341,7 +358,7 @@ private constructor(
          * - [azure]
          * - [disableCache]
          * - [elevenlabs]
-         * - [language]
+         * - [humain]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -393,6 +410,21 @@ private constructor(
          * supported value.
          */
         fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply { body.elevenlabs(elevenlabs) }
+
+        /**
+         * Humain provider-specific parameters. Unlike other providers, Humain has no
+         * format/sample-rate negotiation (output is always PCM16 24kHz mono) and no language
+         * parameter — language is fixed per voice.
+         */
+        fun humain(humain: Humain) = apply { body.humain(humain) }
+
+        /**
+         * Sets [Builder.humain] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.humain] with a well-typed [Humain] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun humain(humain: JsonField<Humain>) = apply { body.humain(humain) }
 
         /** Language code (e.g. `en-US`). Usage varies by provider. */
         fun language(language: String) = apply { body.language(language) }
@@ -697,6 +729,7 @@ private constructor(
         private val azure: JsonField<Azure>,
         private val disableCache: JsonField<Boolean>,
         private val elevenlabs: JsonField<Elevenlabs>,
+        private val humain: JsonField<Humain>,
         private val language: JsonField<String>,
         private val minimax: JsonField<Minimax>,
         private val outputType: JsonField<OutputType>,
@@ -722,6 +755,7 @@ private constructor(
             @JsonProperty("elevenlabs")
             @ExcludeMissing
             elevenlabs: JsonField<Elevenlabs> = JsonMissing.of(),
+            @JsonProperty("humain") @ExcludeMissing humain: JsonField<Humain> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
@@ -751,6 +785,7 @@ private constructor(
             azure,
             disableCache,
             elevenlabs,
+            humain,
             language,
             minimax,
             outputType,
@@ -797,6 +832,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun elevenlabs(): Optional<Elevenlabs> = elevenlabs.getOptional("elevenlabs")
+
+        /**
+         * Humain provider-specific parameters. Unlike other providers, Humain has no
+         * format/sample-rate negotiation (output is always PCM16 24kHz mono) and no language
+         * parameter — language is fixed per voice.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun humain(): Optional<Humain> = humain.getOptional("humain")
 
         /**
          * Language code (e.g. `en-US`). Usage varies by provider.
@@ -938,6 +983,13 @@ private constructor(
         fun _elevenlabs(): JsonField<Elevenlabs> = elevenlabs
 
         /**
+         * Returns the raw JSON value of [humain].
+         *
+         * Unlike [humain], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("humain") @ExcludeMissing fun _humain(): JsonField<Humain> = humain
+
+        /**
          * Returns the raw JSON value of [language].
          *
          * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
@@ -1051,6 +1103,7 @@ private constructor(
             private var azure: JsonField<Azure> = JsonMissing.of()
             private var disableCache: JsonField<Boolean> = JsonMissing.of()
             private var elevenlabs: JsonField<Elevenlabs> = JsonMissing.of()
+            private var humain: JsonField<Humain> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var minimax: JsonField<Minimax> = JsonMissing.of()
             private var outputType: JsonField<OutputType> = JsonMissing.of()
@@ -1071,6 +1124,7 @@ private constructor(
                 azure = body.azure
                 disableCache = body.disableCache
                 elevenlabs = body.elevenlabs
+                humain = body.humain
                 language = body.language
                 minimax = body.minimax
                 outputType = body.outputType
@@ -1137,6 +1191,22 @@ private constructor(
             fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply {
                 this.elevenlabs = elevenlabs
             }
+
+            /**
+             * Humain provider-specific parameters. Unlike other providers, Humain has no
+             * format/sample-rate negotiation (output is always PCM16 24kHz mono) and no language
+             * parameter — language is fixed per voice.
+             */
+            fun humain(humain: Humain) = humain(JsonField.of(humain))
+
+            /**
+             * Sets [Builder.humain] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.humain] with a well-typed [Humain] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun humain(humain: JsonField<Humain>) = apply { this.humain = humain }
 
             /** Language code (e.g. `en-US`). Usage varies by provider. */
             fun language(language: String) = language(JsonField.of(language))
@@ -1335,6 +1405,7 @@ private constructor(
                     azure,
                     disableCache,
                     elevenlabs,
+                    humain,
                     language,
                     minimax,
                     outputType,
@@ -1371,6 +1442,7 @@ private constructor(
             azure().ifPresent { it.validate() }
             disableCache()
             elevenlabs().ifPresent { it.validate() }
+            humain().ifPresent { it.validate() }
             language()
             minimax().ifPresent { it.validate() }
             outputType().ifPresent { it.validate() }
@@ -1406,6 +1478,7 @@ private constructor(
                 (azure.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (disableCache.asKnown().isPresent) 1 else 0) +
                 (elevenlabs.asKnown().getOrNull()?.validity() ?: 0) +
+                (humain.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (minimax.asKnown().getOrNull()?.validity() ?: 0) +
                 (outputType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1429,6 +1502,7 @@ private constructor(
                 azure == other.azure &&
                 disableCache == other.disableCache &&
                 elevenlabs == other.elevenlabs &&
+                humain == other.humain &&
                 language == other.language &&
                 minimax == other.minimax &&
                 outputType == other.outputType &&
@@ -1450,6 +1524,7 @@ private constructor(
                 azure,
                 disableCache,
                 elevenlabs,
+                humain,
                 language,
                 minimax,
                 outputType,
@@ -1469,7 +1544,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, humain=$humain, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -2898,6 +2973,392 @@ private constructor(
             "Elevenlabs{apiKey=$apiKey, languageCode=$languageCode, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Humain provider-specific parameters. Unlike other providers, Humain has no format/sample-rate
+     * negotiation (output is always PCM16 24kHz mono) and no language parameter — language is fixed
+     * per voice.
+     */
+    class Humain
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val voiceId: JsonField<VoiceId>,
+        private val ttfbEagerness: JsonField<Float>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("voice_id")
+            @ExcludeMissing
+            voiceId: JsonField<VoiceId> = JsonMissing.of(),
+            @JsonProperty("ttfb_eagerness")
+            @ExcludeMissing
+            ttfbEagerness: JsonField<Float> = JsonMissing.of(),
+        ) : this(voiceId, ttfbEagerness, mutableMapOf())
+
+        /**
+         * Humain voice identifier.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun voiceId(): VoiceId = voiceId.getRequired("voice_id")
+
+        /**
+         * Time-to-first-byte eagerness, trading synthesis latency for quality.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun ttfbEagerness(): Optional<Float> = ttfbEagerness.getOptional("ttfb_eagerness")
+
+        /**
+         * Returns the raw JSON value of [voiceId].
+         *
+         * Unlike [voiceId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice_id") @ExcludeMissing fun _voiceId(): JsonField<VoiceId> = voiceId
+
+        /**
+         * Returns the raw JSON value of [ttfbEagerness].
+         *
+         * Unlike [ttfbEagerness], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ttfb_eagerness")
+        @ExcludeMissing
+        fun _ttfbEagerness(): JsonField<Float> = ttfbEagerness
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Humain].
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Humain]. */
+        class Builder internal constructor() {
+
+            private var voiceId: JsonField<VoiceId>? = null
+            private var ttfbEagerness: JsonField<Float> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(humain: Humain) = apply {
+                voiceId = humain.voiceId
+                ttfbEagerness = humain.ttfbEagerness
+                additionalProperties = humain.additionalProperties.toMutableMap()
+            }
+
+            /** Humain voice identifier. */
+            fun voiceId(voiceId: VoiceId) = voiceId(JsonField.of(voiceId))
+
+            /**
+             * Sets [Builder.voiceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceId] with a well-typed [VoiceId] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voiceId(voiceId: JsonField<VoiceId>) = apply { this.voiceId = voiceId }
+
+            /** Time-to-first-byte eagerness, trading synthesis latency for quality. */
+            fun ttfbEagerness(ttfbEagerness: Float) = ttfbEagerness(JsonField.of(ttfbEagerness))
+
+            /**
+             * Sets [Builder.ttfbEagerness] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ttfbEagerness] with a well-typed [Float] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ttfbEagerness(ttfbEagerness: JsonField<Float>) = apply {
+                this.ttfbEagerness = ttfbEagerness
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Humain].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Humain =
+                Humain(
+                    checkRequired("voiceId", voiceId),
+                    ttfbEagerness,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Humain = apply {
+            if (validated) {
+                return@apply
+            }
+
+            voiceId().validate()
+            ttfbEagerness()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (voiceId.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (ttfbEagerness.asKnown().isPresent) 1 else 0)
+
+        /** Humain voice identifier. */
+        class VoiceId @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val SARA_EN = of("sara-en")
+
+                @JvmField val ABDULAZIZ_EN = of("abdulaziz-en")
+
+                @JvmField val SARA_AR = of("sara-ar")
+
+                @JvmField val ABDULAZIZ_AR = of("abdulaziz-ar")
+
+                @JvmField val NOURAH_AR = of("nourah-ar")
+
+                @JvmField val ABDULLAH_AR = of("abdullah-ar")
+
+                @JvmStatic fun of(value: String) = VoiceId(JsonField.of(value))
+            }
+
+            /** An enum containing [VoiceId]'s known values. */
+            enum class Known {
+                SARA_EN,
+                ABDULAZIZ_EN,
+                SARA_AR,
+                ABDULAZIZ_AR,
+                NOURAH_AR,
+                ABDULLAH_AR,
+            }
+
+            /**
+             * An enum containing [VoiceId]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [VoiceId] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                SARA_EN,
+                ABDULAZIZ_EN,
+                SARA_AR,
+                ABDULAZIZ_AR,
+                NOURAH_AR,
+                ABDULLAH_AR,
+                /**
+                 * An enum member indicating that [VoiceId] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SARA_EN -> Value.SARA_EN
+                    ABDULAZIZ_EN -> Value.ABDULAZIZ_EN
+                    SARA_AR -> Value.SARA_AR
+                    ABDULAZIZ_AR -> Value.ABDULAZIZ_AR
+                    NOURAH_AR -> Value.NOURAH_AR
+                    ABDULLAH_AR -> Value.ABDULLAH_AR
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SARA_EN -> Known.SARA_EN
+                    ABDULAZIZ_EN -> Known.ABDULAZIZ_EN
+                    SARA_AR -> Known.SARA_AR
+                    ABDULAZIZ_AR -> Known.ABDULAZIZ_AR
+                    NOURAH_AR -> Known.NOURAH_AR
+                    ABDULLAH_AR -> Known.ABDULLAH_AR
+                    else -> throw TelnyxInvalidDataException("Unknown VoiceId: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): VoiceId = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is VoiceId && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Humain &&
+                voiceId == other.voiceId &&
+                ttfbEagerness == other.ttfbEagerness &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(voiceId, ttfbEagerness, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Humain{voiceId=$voiceId, ttfbEagerness=$ttfbEagerness, additionalProperties=$additionalProperties}"
+    }
+
     /** Minimax provider-specific parameters. */
     class Minimax
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3383,6 +3844,8 @@ private constructor(
 
             @JvmField val XAI = of("xai")
 
+            @JvmField val HUMAIN = of("humain")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -3396,6 +3859,7 @@ private constructor(
             RIME,
             RESEMBLE,
             XAI,
+            HUMAIN,
         }
 
         /**
@@ -3416,6 +3880,7 @@ private constructor(
             RIME,
             RESEMBLE,
             XAI,
+            HUMAIN,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3437,6 +3902,7 @@ private constructor(
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
+                HUMAIN -> Value.HUMAIN
                 else -> Value._UNKNOWN
             }
 
@@ -3459,6 +3925,7 @@ private constructor(
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
+                HUMAIN -> Known.HUMAIN
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 
