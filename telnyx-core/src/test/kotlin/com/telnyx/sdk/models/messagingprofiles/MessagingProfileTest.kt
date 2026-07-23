@@ -16,7 +16,7 @@ internal class MessagingProfileTest {
         val messagingProfile =
             MessagingProfile.builder()
                 .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                .aiAssistantId("ai_assistant_id")
+                .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                 .alphaSender("sqF")
                 .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .dailySpendLimit("100.00")
@@ -59,7 +59,8 @@ internal class MessagingProfileTest {
                 .build()
 
         assertThat(messagingProfile.id()).contains("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-        assertThat(messagingProfile.aiAssistantId()).contains("ai_assistant_id")
+        assertThat(messagingProfile.aiAssistantId())
+            .contains("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
         assertThat(messagingProfile.alphaSender()).contains("sqF")
         assertThat(messagingProfile.createdAt())
             .contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
@@ -114,7 +115,7 @@ internal class MessagingProfileTest {
         val messagingProfile =
             MessagingProfile.builder()
                 .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                .aiAssistantId("ai_assistant_id")
+                .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                 .alphaSender("sqF")
                 .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .dailySpendLimit("100.00")

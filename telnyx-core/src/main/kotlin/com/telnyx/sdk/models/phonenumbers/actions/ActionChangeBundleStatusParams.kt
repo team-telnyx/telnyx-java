@@ -39,10 +39,10 @@ private constructor(
      * this must be null. You cannot assign a number from one bundle to another directly. You must
      * first remove it from a bundle, and then assign it to a new bundle.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun bundleId(): String = body.bundleId()
+    fun bundleId(): Optional<String> = body.bundleId()
 
     /**
      * Returns the raw JSON value of [bundleId].
@@ -111,7 +111,10 @@ private constructor(
          * a bundle, this must be null. You cannot assign a number from one bundle to another
          * directly. You must first remove it from a bundle, and then assign it to a new bundle.
          */
-        fun bundleId(bundleId: String) = apply { body.bundleId(bundleId) }
+        fun bundleId(bundleId: String?) = apply { body.bundleId(bundleId) }
+
+        /** Alias for calling [Builder.bundleId] with `bundleId.orElse(null)`. */
+        fun bundleId(bundleId: Optional<String>) = bundleId(bundleId.getOrNull())
 
         /**
          * Sets [Builder.bundleId] to an arbitrary JSON value.
@@ -291,10 +294,10 @@ private constructor(
          * a bundle, this must be null. You cannot assign a number from one bundle to another
          * directly. You must first remove it from a bundle, and then assign it to a new bundle.
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        fun bundleId(): String = bundleId.getRequired("bundle_id")
+        fun bundleId(): Optional<String> = bundleId.getOptional("bundle_id")
 
         /**
          * Returns the raw JSON value of [bundleId].
@@ -347,7 +350,10 @@ private constructor(
              * to another directly. You must first remove it from a bundle, and then assign it to a
              * new bundle.
              */
-            fun bundleId(bundleId: String) = bundleId(JsonField.of(bundleId))
+            fun bundleId(bundleId: String?) = bundleId(JsonField.ofNullable(bundleId))
+
+            /** Alias for calling [Builder.bundleId] with `bundleId.orElse(null)`. */
+            fun bundleId(bundleId: Optional<String>) = bundleId(bundleId.getOrNull())
 
             /**
              * Sets [Builder.bundleId] to an arbitrary JSON value.

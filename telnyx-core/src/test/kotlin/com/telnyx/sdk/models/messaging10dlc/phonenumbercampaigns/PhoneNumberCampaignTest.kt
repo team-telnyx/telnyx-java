@@ -20,9 +20,11 @@ internal class PhoneNumberCampaignTest {
                 .assignmentStatus(PhoneNumberCampaign.AssignmentStatus.ASSIGNED)
                 .brandId("7ba705b7-22af-493f-addc-ac04b7ca071c")
                 .failureReasons("failureReasons")
+                .nonTmobileNumberMappingStatus("ADDED")
                 .tcrBrandId("BBRAND1")
                 .tcrCampaignId("CCAMPA1")
                 .telnyxCampaignId("3008dd9f-66d7-40e0-bf23-bf2d8d1a96ba")
+                .tmobileNumberMappingStatus("ADDED")
                 .build()
 
         assertThat(phoneNumberCampaign.campaignId()).isEqualTo("campaignId")
@@ -33,10 +35,12 @@ internal class PhoneNumberCampaignTest {
             .contains(PhoneNumberCampaign.AssignmentStatus.ASSIGNED)
         assertThat(phoneNumberCampaign.brandId()).contains("7ba705b7-22af-493f-addc-ac04b7ca071c")
         assertThat(phoneNumberCampaign.failureReasons()).contains("failureReasons")
+        assertThat(phoneNumberCampaign.nonTmobileNumberMappingStatus()).contains("ADDED")
         assertThat(phoneNumberCampaign.tcrBrandId()).contains("BBRAND1")
         assertThat(phoneNumberCampaign.tcrCampaignId()).contains("CCAMPA1")
         assertThat(phoneNumberCampaign.telnyxCampaignId())
             .contains("3008dd9f-66d7-40e0-bf23-bf2d8d1a96ba")
+        assertThat(phoneNumberCampaign.tmobileNumberMappingStatus()).contains("ADDED")
     }
 
     @Test
@@ -51,9 +55,11 @@ internal class PhoneNumberCampaignTest {
                 .assignmentStatus(PhoneNumberCampaign.AssignmentStatus.ASSIGNED)
                 .brandId("7ba705b7-22af-493f-addc-ac04b7ca071c")
                 .failureReasons("failureReasons")
+                .nonTmobileNumberMappingStatus("ADDED")
                 .tcrBrandId("BBRAND1")
                 .tcrCampaignId("CCAMPA1")
                 .telnyxCampaignId("3008dd9f-66d7-40e0-bf23-bf2d8d1a96ba")
+                .tmobileNumberMappingStatus("ADDED")
                 .build()
 
         val roundtrippedPhoneNumberCampaign =

@@ -38,6 +38,6 @@ internal class ActionChangeBundleStatusParamsTest {
 
         val body = params._body()
 
-        assertThat(body.bundleId()).isEqualTo("5194d8fc-87e6-4188-baa9-1c434bbe861b")
+        assertThat(body.bundleId()).contains("5194d8fc-87e6-4188-baa9-1c434bbe861b")
     }
 }

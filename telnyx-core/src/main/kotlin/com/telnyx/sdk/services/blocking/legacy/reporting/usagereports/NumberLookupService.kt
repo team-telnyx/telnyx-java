@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPage
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.function.Consumer
@@ -81,21 +81,20 @@ interface NumberLookupService {
         retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of telco data usage reports */
-    fun list(): NumberLookupListResponse = list(NumberLookupListParams.none())
+    fun list(): NumberLookupListPage = list(NumberLookupListParams.none())
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberLookupListResponse
+    ): NumberLookupListPage
 
     /** @see list */
-    fun list(
-        params: NumberLookupListParams = NumberLookupListParams.none()
-    ): NumberLookupListResponse = list(params, RequestOptions.none())
+    fun list(params: NumberLookupListParams = NumberLookupListParams.none()): NumberLookupListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NumberLookupListResponse =
+    fun list(requestOptions: RequestOptions): NumberLookupListPage =
         list(NumberLookupListParams.none(), requestOptions)
 
     /** Delete a specific telco data usage report by its ID */
@@ -216,24 +215,24 @@ interface NumberLookupService {
          * is otherwise the same as [NumberLookupService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NumberLookupListResponse> = list(NumberLookupListParams.none())
+        fun list(): HttpResponseFor<NumberLookupListPage> = list(NumberLookupListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberLookupListResponse>
+        ): HttpResponseFor<NumberLookupListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none()
-        ): HttpResponseFor<NumberLookupListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NumberLookupListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberLookupListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberLookupListPage> =
             list(NumberLookupListParams.none(), requestOptions)
 
         /**

@@ -26,7 +26,7 @@ internal class MessagingProfileServiceTest {
                 MessagingProfileCreateParams.builder()
                     .name("My name")
                     .addWhitelistedDestination("US")
-                    .aiAssistantId("ai_assistant_id")
+                    .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                     .alphaSender("sqF")
                     .dailySpendLimit("269125115713")
                     .dailySpendLimitEnabled(true)

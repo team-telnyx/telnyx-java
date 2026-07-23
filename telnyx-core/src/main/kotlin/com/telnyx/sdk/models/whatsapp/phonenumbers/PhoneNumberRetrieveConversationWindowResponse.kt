@@ -316,8 +316,12 @@ private constructor(
             }
 
             /** When the window closes. Null if no active window. */
-            fun windowExpiresAt(windowExpiresAt: OffsetDateTime) =
-                windowExpiresAt(JsonField.of(windowExpiresAt))
+            fun windowExpiresAt(windowExpiresAt: OffsetDateTime?) =
+                windowExpiresAt(JsonField.ofNullable(windowExpiresAt))
+
+            /** Alias for calling [Builder.windowExpiresAt] with `windowExpiresAt.orElse(null)`. */
+            fun windowExpiresAt(windowExpiresAt: Optional<OffsetDateTime>) =
+                windowExpiresAt(windowExpiresAt.getOrNull())
 
             /**
              * Sets [Builder.windowExpiresAt] to an arbitrary JSON value.

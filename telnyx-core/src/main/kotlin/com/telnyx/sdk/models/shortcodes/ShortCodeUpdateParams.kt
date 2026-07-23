@@ -46,6 +46,8 @@ private constructor(
     fun messagingProfileId(): String = body.messagingProfileId()
 
     /**
+     * Tags associated with the resource.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -136,6 +138,7 @@ private constructor(
             body.messagingProfileId(messagingProfileId)
         }
 
+        /** Tags associated with the resource. */
         fun tags(tags: List<String>) = apply { body.tags(tags) }
 
         /**
@@ -329,6 +332,8 @@ private constructor(
         fun messagingProfileId(): String = messagingProfileId.getRequired("messaging_profile_id")
 
         /**
+         * Tags associated with the resource.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -405,6 +410,7 @@ private constructor(
                 this.messagingProfileId = messagingProfileId
             }
 
+            /** Tags associated with the resource. */
             fun tags(tags: List<String>) = tags(JsonField.of(tags))
 
             /**

@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class NumberLookupListResponse
+class NumberLookupListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<TelcoDataUsageReportResponse>>,
@@ -79,11 +79,13 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [NumberLookupListResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [NumberLookupListPageResponse].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [NumberLookupListResponse]. */
+    /** A builder for [NumberLookupListPageResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<TelcoDataUsageReportResponse>>? = null
@@ -91,10 +93,10 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(numberLookupListResponse: NumberLookupListResponse) = apply {
-            data = numberLookupListResponse.data.map { it.toMutableList() }
-            meta = numberLookupListResponse.meta
-            additionalProperties = numberLookupListResponse.additionalProperties.toMutableMap()
+        internal fun from(numberLookupListPageResponse: NumberLookupListPageResponse) = apply {
+            data = numberLookupListPageResponse.data.map { it.toMutableList() }
+            meta = numberLookupListPageResponse.meta
+            additionalProperties = numberLookupListPageResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: List<TelcoDataUsageReportResponse>) = data(JsonField.of(data))
@@ -153,12 +155,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [NumberLookupListResponse].
+         * Returns an immutable instance of [NumberLookupListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): NumberLookupListResponse =
-            NumberLookupListResponse(
+        fun build(): NumberLookupListPageResponse =
+            NumberLookupListPageResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
                 additionalProperties.toMutableMap(),
@@ -175,7 +177,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): NumberLookupListResponse = apply {
+    fun validate(): NumberLookupListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -208,7 +210,7 @@ private constructor(
             return true
         }
 
-        return other is NumberLookupListResponse &&
+        return other is NumberLookupListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -219,5 +221,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "NumberLookupListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "NumberLookupListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

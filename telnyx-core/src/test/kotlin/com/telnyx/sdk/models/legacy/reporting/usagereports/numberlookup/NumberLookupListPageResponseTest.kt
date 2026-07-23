@@ -11,12 +11,12 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class NumberLookupListResponseTest {
+internal class NumberLookupListPageResponseTest {
 
     @Test
     fun create() {
-        val numberLookupListResponse =
-            NumberLookupListResponse.builder()
+        val numberLookupListPageResponse =
+            NumberLookupListPageResponse.builder()
                 .addData(
                     TelcoDataUsageReportResponse.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
@@ -57,7 +57,7 @@ internal class NumberLookupListResponseTest {
                 )
                 .build()
 
-        assertThat(numberLookupListResponse.data().getOrNull())
+        assertThat(numberLookupListPageResponse.data().getOrNull())
             .containsExactly(
                 TelcoDataUsageReportResponse.builder()
                     .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
@@ -88,7 +88,7 @@ internal class NumberLookupListResponseTest {
                     .updatedAt(OffsetDateTime.parse("2025-12-02T20:21:08.237091Z"))
                     .build()
             )
-        assertThat(numberLookupListResponse.meta())
+        assertThat(numberLookupListPageResponse.meta())
             .contains(
                 StandardPaginationMeta.builder()
                     .pageNumber(2)
@@ -102,8 +102,8 @@ internal class NumberLookupListResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val numberLookupListResponse =
-            NumberLookupListResponse.builder()
+        val numberLookupListPageResponse =
+            NumberLookupListPageResponse.builder()
                 .addData(
                     TelcoDataUsageReportResponse.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
@@ -144,12 +144,12 @@ internal class NumberLookupListResponseTest {
                 )
                 .build()
 
-        val roundtrippedNumberLookupListResponse =
+        val roundtrippedNumberLookupListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(numberLookupListResponse),
-                jacksonTypeRef<NumberLookupListResponse>(),
+                jsonMapper.writeValueAsString(numberLookupListPageResponse),
+                jacksonTypeRef<NumberLookupListPageResponse>(),
             )
 
-        assertThat(roundtrippedNumberLookupListResponse).isEqualTo(numberLookupListResponse)
+        assertThat(roundtrippedNumberLookupListPageResponse).isEqualTo(numberLookupListPageResponse)
     }
 }

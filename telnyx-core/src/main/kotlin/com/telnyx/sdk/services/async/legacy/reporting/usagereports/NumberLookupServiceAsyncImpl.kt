@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPageAsync
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -58,7 +59,7 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: NumberLookupListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberLookupListResponse> =
+    ): CompletableFuture<NumberLookupListPageAsync> =
         // get /legacy/reporting/usage_reports/number_lookup
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -152,13 +153,13 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<NumberLookupListResponse> =
-            jsonHandler<NumberLookupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberLookupListPageResponse> =
+            jsonHandler<NumberLookupListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberLookupListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> {
+        ): CompletableFuture<HttpResponseFor<NumberLookupListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,6 +178,14 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                NumberLookupListPageAsync.builder()
+                                    .service(NumberLookupServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

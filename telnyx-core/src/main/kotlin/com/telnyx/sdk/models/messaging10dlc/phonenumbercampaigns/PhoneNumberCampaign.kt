@@ -28,9 +28,11 @@ private constructor(
     private val assignmentStatus: JsonField<AssignmentStatus>,
     private val brandId: JsonField<String>,
     private val failureReasons: JsonField<String>,
+    private val nonTmobileNumberMappingStatus: JsonField<String>,
     private val tcrBrandId: JsonField<String>,
     private val tcrCampaignId: JsonField<String>,
     private val telnyxCampaignId: JsonField<String>,
+    private val tmobileNumberMappingStatus: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -51,6 +53,9 @@ private constructor(
         @JsonProperty("failureReasons")
         @ExcludeMissing
         failureReasons: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("nonTmobileNumberMappingStatus")
+        @ExcludeMissing
+        nonTmobileNumberMappingStatus: JsonField<String> = JsonMissing.of(),
         @JsonProperty("tcrBrandId")
         @ExcludeMissing
         tcrBrandId: JsonField<String> = JsonMissing.of(),
@@ -60,6 +65,9 @@ private constructor(
         @JsonProperty("telnyxCampaignId")
         @ExcludeMissing
         telnyxCampaignId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("tmobileNumberMappingStatus")
+        @ExcludeMissing
+        tmobileNumberMappingStatus: JsonField<String> = JsonMissing.of(),
     ) : this(
         campaignId,
         createdAt,
@@ -68,9 +76,11 @@ private constructor(
         assignmentStatus,
         brandId,
         failureReasons,
+        nonTmobileNumberMappingStatus,
         tcrBrandId,
         tcrCampaignId,
         telnyxCampaignId,
+        tmobileNumberMappingStatus,
         mutableMapOf(),
     )
 
@@ -127,6 +137,15 @@ private constructor(
     fun failureReasons(): Optional<String> = failureReasons.getOptional("failureReasons")
 
     /**
+     * The assignment status of the number towards other carriers.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun nonTmobileNumberMappingStatus(): Optional<String> =
+        nonTmobileNumberMappingStatus.getOptional("nonTmobileNumberMappingStatus")
+
+    /**
      * TCR's alphanumeric ID for the brand.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -149,6 +168,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun telnyxCampaignId(): Optional<String> = telnyxCampaignId.getOptional("telnyxCampaignId")
+
+    /**
+     * The T-Mobile assignment status of the number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tmobileNumberMappingStatus(): Optional<String> =
+        tmobileNumberMappingStatus.getOptional("tmobileNumberMappingStatus")
 
     /**
      * Returns the raw JSON value of [campaignId].
@@ -205,6 +233,16 @@ private constructor(
     fun _failureReasons(): JsonField<String> = failureReasons
 
     /**
+     * Returns the raw JSON value of [nonTmobileNumberMappingStatus].
+     *
+     * Unlike [nonTmobileNumberMappingStatus], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("nonTmobileNumberMappingStatus")
+    @ExcludeMissing
+    fun _nonTmobileNumberMappingStatus(): JsonField<String> = nonTmobileNumberMappingStatus
+
+    /**
      * Returns the raw JSON value of [tcrBrandId].
      *
      * Unlike [tcrBrandId], this method doesn't throw if the JSON field has an unexpected type.
@@ -229,6 +267,16 @@ private constructor(
     @JsonProperty("telnyxCampaignId")
     @ExcludeMissing
     fun _telnyxCampaignId(): JsonField<String> = telnyxCampaignId
+
+    /**
+     * Returns the raw JSON value of [tmobileNumberMappingStatus].
+     *
+     * Unlike [tmobileNumberMappingStatus], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("tmobileNumberMappingStatus")
+    @ExcludeMissing
+    fun _tmobileNumberMappingStatus(): JsonField<String> = tmobileNumberMappingStatus
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -268,9 +316,11 @@ private constructor(
         private var assignmentStatus: JsonField<AssignmentStatus> = JsonMissing.of()
         private var brandId: JsonField<String> = JsonMissing.of()
         private var failureReasons: JsonField<String> = JsonMissing.of()
+        private var nonTmobileNumberMappingStatus: JsonField<String> = JsonMissing.of()
         private var tcrBrandId: JsonField<String> = JsonMissing.of()
         private var tcrCampaignId: JsonField<String> = JsonMissing.of()
         private var telnyxCampaignId: JsonField<String> = JsonMissing.of()
+        private var tmobileNumberMappingStatus: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -282,9 +332,11 @@ private constructor(
             assignmentStatus = phoneNumberCampaign.assignmentStatus
             brandId = phoneNumberCampaign.brandId
             failureReasons = phoneNumberCampaign.failureReasons
+            nonTmobileNumberMappingStatus = phoneNumberCampaign.nonTmobileNumberMappingStatus
             tcrBrandId = phoneNumberCampaign.tcrBrandId
             tcrCampaignId = phoneNumberCampaign.tcrCampaignId
             telnyxCampaignId = phoneNumberCampaign.telnyxCampaignId
+            tmobileNumberMappingStatus = phoneNumberCampaign.tmobileNumberMappingStatus
             additionalProperties = phoneNumberCampaign.additionalProperties.toMutableMap()
         }
 
@@ -376,6 +428,22 @@ private constructor(
             this.failureReasons = failureReasons
         }
 
+        /** The assignment status of the number towards other carriers. */
+        fun nonTmobileNumberMappingStatus(nonTmobileNumberMappingStatus: String) =
+            nonTmobileNumberMappingStatus(JsonField.of(nonTmobileNumberMappingStatus))
+
+        /**
+         * Sets [Builder.nonTmobileNumberMappingStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.nonTmobileNumberMappingStatus] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun nonTmobileNumberMappingStatus(nonTmobileNumberMappingStatus: JsonField<String>) =
+            apply {
+                this.nonTmobileNumberMappingStatus = nonTmobileNumberMappingStatus
+            }
+
         /** TCR's alphanumeric ID for the brand. */
         fun tcrBrandId(tcrBrandId: String) = tcrBrandId(JsonField.of(tcrBrandId))
 
@@ -415,6 +483,21 @@ private constructor(
          */
         fun telnyxCampaignId(telnyxCampaignId: JsonField<String>) = apply {
             this.telnyxCampaignId = telnyxCampaignId
+        }
+
+        /** The T-Mobile assignment status of the number. */
+        fun tmobileNumberMappingStatus(tmobileNumberMappingStatus: String) =
+            tmobileNumberMappingStatus(JsonField.of(tmobileNumberMappingStatus))
+
+        /**
+         * Sets [Builder.tmobileNumberMappingStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tmobileNumberMappingStatus] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun tmobileNumberMappingStatus(tmobileNumberMappingStatus: JsonField<String>) = apply {
+            this.tmobileNumberMappingStatus = tmobileNumberMappingStatus
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -460,9 +543,11 @@ private constructor(
                 assignmentStatus,
                 brandId,
                 failureReasons,
+                nonTmobileNumberMappingStatus,
                 tcrBrandId,
                 tcrCampaignId,
                 telnyxCampaignId,
+                tmobileNumberMappingStatus,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -489,9 +574,11 @@ private constructor(
         assignmentStatus().ifPresent { it.validate() }
         brandId()
         failureReasons()
+        nonTmobileNumberMappingStatus()
         tcrBrandId()
         tcrCampaignId()
         telnyxCampaignId()
+        tmobileNumberMappingStatus()
         validated = true
     }
 
@@ -517,9 +604,11 @@ private constructor(
             (assignmentStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (brandId.asKnown().isPresent) 1 else 0) +
             (if (failureReasons.asKnown().isPresent) 1 else 0) +
+            (if (nonTmobileNumberMappingStatus.asKnown().isPresent) 1 else 0) +
             (if (tcrBrandId.asKnown().isPresent) 1 else 0) +
             (if (tcrCampaignId.asKnown().isPresent) 1 else 0) +
-            (if (telnyxCampaignId.asKnown().isPresent) 1 else 0)
+            (if (telnyxCampaignId.asKnown().isPresent) 1 else 0) +
+            (if (tmobileNumberMappingStatus.asKnown().isPresent) 1 else 0)
 
     /** The assignment status of the number. */
     class AssignmentStatus @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -691,9 +780,11 @@ private constructor(
             assignmentStatus == other.assignmentStatus &&
             brandId == other.brandId &&
             failureReasons == other.failureReasons &&
+            nonTmobileNumberMappingStatus == other.nonTmobileNumberMappingStatus &&
             tcrBrandId == other.tcrBrandId &&
             tcrCampaignId == other.tcrCampaignId &&
             telnyxCampaignId == other.telnyxCampaignId &&
+            tmobileNumberMappingStatus == other.tmobileNumberMappingStatus &&
             additionalProperties == other.additionalProperties
     }
 
@@ -706,9 +797,11 @@ private constructor(
             assignmentStatus,
             brandId,
             failureReasons,
+            nonTmobileNumberMappingStatus,
             tcrBrandId,
             tcrCampaignId,
             telnyxCampaignId,
+            tmobileNumberMappingStatus,
             additionalProperties,
         )
     }
@@ -716,5 +809,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhoneNumberCampaign{campaignId=$campaignId, createdAt=$createdAt, phoneNumber=$phoneNumber, updatedAt=$updatedAt, assignmentStatus=$assignmentStatus, brandId=$brandId, failureReasons=$failureReasons, tcrBrandId=$tcrBrandId, tcrCampaignId=$tcrCampaignId, telnyxCampaignId=$telnyxCampaignId, additionalProperties=$additionalProperties}"
+        "PhoneNumberCampaign{campaignId=$campaignId, createdAt=$createdAt, phoneNumber=$phoneNumber, updatedAt=$updatedAt, assignmentStatus=$assignmentStatus, brandId=$brandId, failureReasons=$failureReasons, nonTmobileNumberMappingStatus=$nonTmobileNumberMappingStatus, tcrBrandId=$tcrBrandId, tcrCampaignId=$tcrCampaignId, telnyxCampaignId=$telnyxCampaignId, tmobileNumberMappingStatus=$tmobileNumberMappingStatus, additionalProperties=$additionalProperties}"
 }
