@@ -66,6 +66,17 @@ private constructor(
     fun name(): Optional<String> = body.name()
 
     /**
+     * When true, the response is streamed as Server-Sent Events (`text/event-stream`): `delta`
+     * events carry content fragments as they are generated, a final `done` event carries the full
+     * content plus `whatsapp_template`, and a terminal `error` event reports failures that happen
+     * after streaming started. When false (default), the response is a single JSON object.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun stream(): Optional<Boolean> = body.stream()
+
+    /**
      * Returns the raw JSON value of [content].
      *
      * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
@@ -85,6 +96,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [stream].
+     *
+     * Unlike [stream], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _stream(): JsonField<Boolean> = body._stream()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -139,6 +157,7 @@ private constructor(
          * - [content]
          * - [conversationId]
          * - [name]
+         * - [stream]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -177,6 +196,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /**
+         * When true, the response is streamed as Server-Sent Events (`text/event-stream`): `delta`
+         * events carry content fragments as they are generated, a final `done` event carries the
+         * full content plus `whatsapp_template`, and a terminal `error` event reports failures that
+         * happen after streaming started. When false (default), the response is a single JSON
+         * object.
+         */
+        fun stream(stream: Boolean) = apply { body.stream(stream) }
+
+        /**
+         * Sets [Builder.stream] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stream] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun stream(stream: JsonField<Boolean>) = apply { body.stream(stream) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -335,6 +371,7 @@ private constructor(
         private val content: JsonField<String>,
         private val conversationId: JsonField<String>,
         private val name: JsonField<String>,
+        private val stream: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -345,7 +382,8 @@ private constructor(
             @ExcludeMissing
             conversationId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(content, conversationId, name, mutableMapOf())
+            @JsonProperty("stream") @ExcludeMissing stream: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(content, conversationId, name, stream, mutableMapOf())
 
         /**
          * The message content sent by the client to the assistant
@@ -372,6 +410,18 @@ private constructor(
         fun name(): Optional<String> = name.getOptional("name")
 
         /**
+         * When true, the response is streamed as Server-Sent Events (`text/event-stream`): `delta`
+         * events carry content fragments as they are generated, a final `done` event carries the
+         * full content plus `whatsapp_template`, and a terminal `error` event reports failures that
+         * happen after streaming started. When false (default), the response is a single JSON
+         * object.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun stream(): Optional<Boolean> = stream.getOptional("stream")
+
+        /**
          * Returns the raw JSON value of [content].
          *
          * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
@@ -394,6 +444,13 @@ private constructor(
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [stream].
+         *
+         * Unlike [stream], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stream") @ExcludeMissing fun _stream(): JsonField<Boolean> = stream
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -427,6 +484,7 @@ private constructor(
             private var content: JsonField<String>? = null
             private var conversationId: JsonField<String>? = null
             private var name: JsonField<String> = JsonMissing.of()
+            private var stream: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -434,6 +492,7 @@ private constructor(
                 content = body.content
                 conversationId = body.conversationId
                 name = body.name
+                stream = body.stream
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -476,6 +535,24 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /**
+             * When true, the response is streamed as Server-Sent Events (`text/event-stream`):
+             * `delta` events carry content fragments as they are generated, a final `done` event
+             * carries the full content plus `whatsapp_template`, and a terminal `error` event
+             * reports failures that happen after streaming started. When false (default), the
+             * response is a single JSON object.
+             */
+            fun stream(stream: Boolean) = stream(JsonField.of(stream))
+
+            /**
+             * Sets [Builder.stream] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.stream] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun stream(stream: JsonField<Boolean>) = apply { this.stream = stream }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -513,6 +590,7 @@ private constructor(
                     checkRequired("content", content),
                     checkRequired("conversationId", conversationId),
                     name,
+                    stream,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -536,6 +614,7 @@ private constructor(
             content()
             conversationId()
             name()
+            stream()
             validated = true
         }
 
@@ -557,7 +636,8 @@ private constructor(
         internal fun validity(): Int =
             (if (content.asKnown().isPresent) 1 else 0) +
                 (if (conversationId.asKnown().isPresent) 1 else 0) +
-                (if (name.asKnown().isPresent) 1 else 0)
+                (if (name.asKnown().isPresent) 1 else 0) +
+                (if (stream.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -568,17 +648,18 @@ private constructor(
                 content == other.content &&
                 conversationId == other.conversationId &&
                 name == other.name &&
+                stream == other.stream &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(content, conversationId, name, additionalProperties)
+            Objects.hash(content, conversationId, name, stream, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{content=$content, conversationId=$conversationId, name=$name, additionalProperties=$additionalProperties}"
+            "Body{content=$content, conversationId=$conversationId, name=$name, stream=$stream, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
