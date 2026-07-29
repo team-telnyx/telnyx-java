@@ -76,7 +76,7 @@ private constructor(
     @get:JvmName("clock") val clock: Clock,
     private val baseUrl: String?,
     /** Headers to send with the request. */
-    @get:JvmName("headers") val headers: Headers,
+    @get:JvmName("headers") val headers: com.telnyx.sdk.core.http.Headers,
     /** Query params to send with the request. */
     @get:JvmName("queryParams") val queryParams: QueryParams,
     /**
@@ -183,7 +183,8 @@ private constructor(
         private var sleeper: Sleeper? = null
         private var clock: Clock = Clock.systemUTC()
         private var baseUrl: String? = null
-        private var headers: Headers.Builder = Headers.builder()
+        private var headers: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var queryParams: QueryParams.Builder = QueryParams.builder()
         private var responseValidation: Boolean = false
         private var timeout: Timeout = Timeout.default()
@@ -365,7 +366,7 @@ private constructor(
         /** Alias for calling [Builder.clientSecret] with `clientSecret.orElse(null)`. */
         fun clientSecret(clientSecret: Optional<String>) = clientSecret(clientSecret.getOrNull())
 
-        fun headers(headers: Headers) = apply {
+        fun headers(headers: com.telnyx.sdk.core.http.Headers) = apply {
             this.headers.clear()
             putAllHeaders(headers)
         }
@@ -379,7 +380,9 @@ private constructor(
 
         fun putHeaders(name: String, values: Iterable<String>) = apply { headers.put(name, values) }
 
-        fun putAllHeaders(headers: Headers) = apply { this.headers.putAll(headers) }
+        fun putAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            this.headers.putAll(headers)
+        }
 
         fun putAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             this.headers.putAll(headers)
@@ -391,7 +394,9 @@ private constructor(
             headers.replace(name, values)
         }
 
-        fun replaceAllHeaders(headers: Headers) = apply { this.headers.replaceAll(headers) }
+        fun replaceAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            this.headers.replaceAll(headers)
+        }
 
         fun replaceAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             this.headers.replaceAll(headers)

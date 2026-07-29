@@ -98,6 +98,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -205,7 +207,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -291,6 +294,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -401,7 +406,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -486,6 +492,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -597,7 +605,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -674,6 +683,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -783,7 +794,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -838,6 +850,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -919,7 +933,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -992,6 +1007,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1090,7 +1107,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1163,6 +1181,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1259,7 +1279,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1342,6 +1363,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1451,7 +1474,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1513,6 +1537,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1602,7 +1628,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1665,6 +1692,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1755,7 +1784,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1811,6 +1841,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -1893,7 +1925,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -1949,6 +1982,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2031,7 +2066,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2085,6 +2121,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2165,7 +2203,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2219,6 +2258,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2299,7 +2340,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2356,6 +2398,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2439,7 +2483,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2538,6 +2583,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2671,7 +2718,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2726,6 +2774,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -2807,7 +2857,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -2891,6 +2942,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3007,7 +3060,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3064,6 +3118,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3147,7 +3203,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3205,6 +3262,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3289,7 +3348,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3347,6 +3407,8 @@ internal class UnsafeUnwrapWebhookEventTest {
             .contains(callMachineGreetingEnded)
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3431,7 +3493,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3494,6 +3557,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded())
             .contains(callMachinePremiumDetectionEnded)
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3579,7 +3644,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3644,6 +3710,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded())
             .contains(callMachinePremiumGreetingEnded)
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3731,7 +3799,406 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofCallPaymentCompleted() {
+        val callPaymentCompleted =
+            CallPaymentCompletedWebhookEvent.builder()
+                .data(
+                    CallPaymentCompletedWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(
+                            CallPaymentCompletedWebhookEvent.Data.EventType.CALL_PAYMENT_COMPLETED
+                        )
+                        .occurredAt(OffsetDateTime.parse("2026-07-27T07:00:00.000000Z"))
+                        .payload(
+                            CallPaymentCompletedWebhookEvent.Data.Payload.builder()
+                                .bankAccountNumber("********34")
+                                .bankAccountType("consumer-checking")
+                                .bankRoutingNumber("110000000")
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                .chargeId("ch_abc123")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .connectorError("string")
+                                .expirationDate("1230")
+                                .from("+353****5860")
+                                .payErrorCode("card_declined")
+                                .paymentCardNumber("xxxxxxxxxxxx1111")
+                                .paymentCardPostalCode("10001")
+                                .paymentCardType(
+                                    CallPaymentCompletedWebhookEvent.Data.Payload.PaymentCardType
+                                        .VISA
+                                )
+                                .paymentConfirmationCode("CONF-98765")
+                                .paymentConnector("Default")
+                                .paymentError("pay_action_failed")
+                                .paymentMethod(
+                                    CallPaymentCompletedWebhookEvent.Data.Payload.PaymentMethod
+                                        .CREDIT_CARD
+                                )
+                                .result(
+                                    CallPaymentCompletedWebhookEvent.Data.Payload.Result.SUCCESS
+                                )
+                                .securityCode("xxx")
+                                .to("+131****7420")
+                                .tokenId("tok_abc123")
+                                .build()
+                        )
+                        .recordType(CallPaymentCompletedWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallPaymentCompleted(callPaymentCompleted)
+
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).contains(callPaymentCompleted)
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallPaymentCompletedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallPaymentCompleted(
+                CallPaymentCompletedWebhookEvent.builder()
+                    .data(
+                        CallPaymentCompletedWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(
+                                CallPaymentCompletedWebhookEvent.Data.EventType
+                                    .CALL_PAYMENT_COMPLETED
+                            )
+                            .occurredAt(OffsetDateTime.parse("2026-07-27T07:00:00.000000Z"))
+                            .payload(
+                                CallPaymentCompletedWebhookEvent.Data.Payload.builder()
+                                    .bankAccountNumber("********34")
+                                    .bankAccountType("consumer-checking")
+                                    .bankRoutingNumber("110000000")
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                    .chargeId("ch_abc123")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .connectorError("string")
+                                    .expirationDate("1230")
+                                    .from("+353****5860")
+                                    .payErrorCode("card_declined")
+                                    .paymentCardNumber("xxxxxxxxxxxx1111")
+                                    .paymentCardPostalCode("10001")
+                                    .paymentCardType(
+                                        CallPaymentCompletedWebhookEvent.Data.Payload
+                                            .PaymentCardType
+                                            .VISA
+                                    )
+                                    .paymentConfirmationCode("CONF-98765")
+                                    .paymentConnector("Default")
+                                    .paymentError("pay_action_failed")
+                                    .paymentMethod(
+                                        CallPaymentCompletedWebhookEvent.Data.Payload.PaymentMethod
+                                            .CREDIT_CARD
+                                    )
+                                    .result(
+                                        CallPaymentCompletedWebhookEvent.Data.Payload.Result.SUCCESS
+                                    )
+                                    .securityCode("xxx")
+                                    .to("+131****7420")
+                                    .tokenId("tok_abc123")
+                                    .build()
+                            )
+                            .recordType(CallPaymentCompletedWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnsafeUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofCallPaymentProgress() {
+        val callPaymentProgress =
+            CallPaymentProgressWebhookEvent.builder()
+                .data(
+                    CallPaymentProgressWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(
+                            CallPaymentProgressWebhookEvent.Data.EventType.CALL_PAYMENT_PROGRESS
+                        )
+                        .occurredAt(OffsetDateTime.parse("2026-07-27T07:00:00.000000Z"))
+                        .payload(
+                            CallPaymentProgressWebhookEvent.Data.Payload.builder()
+                                .attempt(1)
+                                .bankAccountNumber("********34")
+                                .bankAccountType("consumer-checking")
+                                .bankRoutingNumber("110000000")
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .errorType(
+                                    CallPaymentProgressWebhookEvent.Data.Payload.ErrorType
+                                        .INVALID_CARD_NUMBER
+                                )
+                                .expirationDate("1230")
+                                .from("+353****5860")
+                                .paymentCardNumber("xxxxxxxxxxxx1111")
+                                .paymentCardPostalCode("10001")
+                                .paymentCardType(
+                                    CallPaymentProgressWebhookEvent.Data.Payload.PaymentCardType
+                                        .VISA
+                                )
+                                .paymentConnector("Default")
+                                .paymentMethod(
+                                    CallPaymentProgressWebhookEvent.Data.Payload.PaymentMethod
+                                        .CREDIT_CARD
+                                )
+                                .paymentStatus(
+                                    CallPaymentProgressWebhookEvent.Data.Payload.PaymentStatus
+                                        .COMPLETED
+                                )
+                                .paymentStep(
+                                    CallPaymentProgressWebhookEvent.Data.Payload.PaymentStep
+                                        .PAYMENT_CARD_NUMBER
+                                )
+                                .securityCode("xxx")
+                                .to("+131****7420")
+                                .build()
+                        )
+                        .recordType(CallPaymentProgressWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallPaymentProgress(callPaymentProgress)
+
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).contains(callPaymentProgress)
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallPaymentProgressRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallPaymentProgress(
+                CallPaymentProgressWebhookEvent.builder()
+                    .data(
+                        CallPaymentProgressWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(
+                                CallPaymentProgressWebhookEvent.Data.EventType.CALL_PAYMENT_PROGRESS
+                            )
+                            .occurredAt(OffsetDateTime.parse("2026-07-27T07:00:00.000000Z"))
+                            .payload(
+                                CallPaymentProgressWebhookEvent.Data.Payload.builder()
+                                    .attempt(1)
+                                    .bankAccountNumber("********34")
+                                    .bankAccountType("consumer-checking")
+                                    .bankRoutingNumber("110000000")
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .errorType(
+                                        CallPaymentProgressWebhookEvent.Data.Payload.ErrorType
+                                            .INVALID_CARD_NUMBER
+                                    )
+                                    .expirationDate("1230")
+                                    .from("+353****5860")
+                                    .paymentCardNumber("xxxxxxxxxxxx1111")
+                                    .paymentCardPostalCode("10001")
+                                    .paymentCardType(
+                                        CallPaymentProgressWebhookEvent.Data.Payload.PaymentCardType
+                                            .VISA
+                                    )
+                                    .paymentConnector("Default")
+                                    .paymentMethod(
+                                        CallPaymentProgressWebhookEvent.Data.Payload.PaymentMethod
+                                            .CREDIT_CARD
+                                    )
+                                    .paymentStatus(
+                                        CallPaymentProgressWebhookEvent.Data.Payload.PaymentStatus
+                                            .COMPLETED
+                                    )
+                                    .paymentStep(
+                                        CallPaymentProgressWebhookEvent.Data.Payload.PaymentStep
+                                            .PAYMENT_CARD_NUMBER
+                                    )
+                                    .securityCode("xxx")
+                                    .to("+131****7420")
+                                    .build()
+                            )
+                            .recordType(CallPaymentProgressWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnsafeUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3792,6 +4259,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).contains(callPlaybackEnded)
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -3878,7 +4347,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -3935,6 +4405,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).contains(callPlaybackStarted)
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4017,7 +4489,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4072,6 +4545,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).contains(callRecordingError)
@@ -4152,7 +4627,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4222,6 +4698,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4317,7 +4795,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4383,6 +4862,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4478,7 +4959,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4535,6 +5017,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4617,7 +5101,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4673,6 +5158,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4755,7 +5242,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4811,6 +5299,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -4893,7 +5383,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -4945,6 +5436,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5023,7 +5516,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5075,6 +5569,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5152,7 +5648,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5205,6 +5702,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5283,7 +5782,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5337,6 +5837,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5417,7 +5919,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5470,6 +5973,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5549,7 +6054,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5613,6 +6119,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5702,7 +6210,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5755,6 +6264,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5833,7 +6344,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -5886,6 +6398,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -5964,7 +6478,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6019,6 +6534,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6100,7 +6617,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6143,6 +6661,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6211,7 +6731,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6266,6 +6787,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6346,7 +6869,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6401,6 +6925,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6482,7 +7008,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6531,6 +7058,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6608,7 +7137,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6665,6 +7195,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6748,7 +7280,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6803,6 +7336,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -6886,7 +7421,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -6949,6 +7485,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7036,7 +7574,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7099,6 +7638,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7186,7 +7727,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7247,6 +7789,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7332,7 +7876,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7393,6 +7938,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7478,7 +8025,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7530,6 +8078,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7608,7 +8158,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7660,6 +8211,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7740,7 +8293,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7814,6 +8368,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -7917,7 +8473,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -7967,6 +8524,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8042,7 +8601,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -8092,6 +8652,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8168,7 +8730,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -8317,6 +8880,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8495,7 +9060,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -8559,6 +9125,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8649,7 +9217,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -8713,6 +9282,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8803,7 +9374,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -8866,6 +9438,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -8954,7 +9528,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9016,6 +9591,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -9104,7 +9681,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9167,6 +9745,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -9255,7 +9835,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9326,6 +9907,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -9426,7 +10009,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9565,6 +10149,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -9734,7 +10320,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9827,6 +10414,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -9953,7 +10542,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -9997,6 +10587,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -10066,7 +10658,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     @Test
@@ -10131,6 +10724,8 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
@@ -10222,7 +10817,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                 jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

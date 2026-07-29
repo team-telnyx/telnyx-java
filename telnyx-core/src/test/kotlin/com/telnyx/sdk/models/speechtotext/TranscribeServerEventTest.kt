@@ -47,7 +47,8 @@ internal class TranscribeServerEventTest {
                 jacksonTypeRef<TranscribeServerEvent>(),
             )
 
-        assertThat(roundtrippedTranscribeServerEvent).isEqualTo(transcribeServerEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedTranscribeServerEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(transcribeServerEvent))
     }
 
     @Test
@@ -74,7 +75,8 @@ internal class TranscribeServerEventTest {
                 jacksonTypeRef<TranscribeServerEvent>(),
             )
 
-        assertThat(roundtrippedTranscribeServerEvent).isEqualTo(transcribeServerEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedTranscribeServerEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(transcribeServerEvent))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

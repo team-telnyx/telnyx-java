@@ -15,6 +15,8 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.emailinboxes.threads.InboundEmailAddress
+import com.telnyx.sdk.models.emailinboxes.threads.ThreadMessage
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -25,30 +27,32 @@ class InboundMessage
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val attachments: JsonField<List<Attachment>>,
-    private val bcc: JsonField<List<Bcc>>,
-    private val cc: JsonField<List<Cc>>,
+    private val attachments: JsonField<List<ThreadMessage.Attachment>>,
+    private val bcc: JsonField<List<InboundEmailAddress>>,
+    private val cc: JsonField<List<InboundEmailAddress>>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val direction: JsonField<Direction>,
-    private val from: JsonField<From>,
+    private val direction: JsonField<ThreadMessage.Direction>,
+    private val from: JsonField<InboundEmailAddress>,
     private val hasQuotedText: JsonField<Boolean>,
-    private val headers: JsonField<Headers>,
+    private val headers: JsonField<ThreadMessage.Headers>,
     private val htmlBodyUrl: JsonField<String>,
     private val inReplyTo: JsonField<String>,
     private val inboxId: JsonField<String>,
-    private val inlineFiles: JsonField<List<InlineFile>>,
+    private val inlineFiles: JsonField<List<ThreadMessage.InlineFile>>,
+    private val labels: JsonField<List<String>>,
     private val messageId: JsonField<String>,
     private val readAt: JsonField<OffsetDateTime>,
     private val receivedAt: JsonField<OffsetDateTime>,
-    private val recordType: JsonField<RecordType>,
+    private val recordType: JsonField<ThreadMessage.RecordType>,
     private val references: JsonField<List<String>>,
     private val replyText: JsonField<String>,
-    private val replyTo: JsonField<List<ReplyTo>>,
-    private val status: JsonField<Status>,
+    private val replyTo: JsonField<List<InboundEmailAddress>>,
+    private val sentAt: JsonField<OffsetDateTime>,
+    private val status: JsonField<String>,
     private val subject: JsonField<String>,
     private val textBodyUrl: JsonField<String>,
     private val threadId: JsonField<String>,
-    private val to: JsonField<List<To>>,
+    private val to: JsonField<List<InboundEmailAddress>>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -58,20 +62,28 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("attachments")
         @ExcludeMissing
-        attachments: JsonField<List<Attachment>> = JsonMissing.of(),
-        @JsonProperty("bcc") @ExcludeMissing bcc: JsonField<List<Bcc>> = JsonMissing.of(),
-        @JsonProperty("cc") @ExcludeMissing cc: JsonField<List<Cc>> = JsonMissing.of(),
+        attachments: JsonField<List<ThreadMessage.Attachment>> = JsonMissing.of(),
+        @JsonProperty("bcc")
+        @ExcludeMissing
+        bcc: JsonField<List<InboundEmailAddress>> = JsonMissing.of(),
+        @JsonProperty("cc")
+        @ExcludeMissing
+        cc: JsonField<List<InboundEmailAddress>> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("direction")
         @ExcludeMissing
-        direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("from") @ExcludeMissing from: JsonField<From> = JsonMissing.of(),
+        direction: JsonField<ThreadMessage.Direction> = JsonMissing.of(),
+        @JsonProperty("from")
+        @ExcludeMissing
+        from: JsonField<InboundEmailAddress> = JsonMissing.of(),
         @JsonProperty("has_quoted_text")
         @ExcludeMissing
         hasQuotedText: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("headers") @ExcludeMissing headers: JsonField<Headers> = JsonMissing.of(),
+        @JsonProperty("headers")
+        @ExcludeMissing
+        headers: JsonField<ThreadMessage.Headers> = JsonMissing.of(),
         @JsonProperty("html_body_url")
         @ExcludeMissing
         htmlBodyUrl: JsonField<String> = JsonMissing.of(),
@@ -81,7 +93,8 @@ private constructor(
         @JsonProperty("inbox_id") @ExcludeMissing inboxId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("inline_files")
         @ExcludeMissing
-        inlineFiles: JsonField<List<InlineFile>> = JsonMissing.of(),
+        inlineFiles: JsonField<List<ThreadMessage.InlineFile>> = JsonMissing.of(),
+        @JsonProperty("labels") @ExcludeMissing labels: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("message_id") @ExcludeMissing messageId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("read_at")
         @ExcludeMissing
@@ -91,21 +104,26 @@ private constructor(
         receivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
-        recordType: JsonField<RecordType> = JsonMissing.of(),
+        recordType: JsonField<ThreadMessage.RecordType> = JsonMissing.of(),
         @JsonProperty("references")
         @ExcludeMissing
         references: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("reply_text") @ExcludeMissing replyText: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reply_to")
         @ExcludeMissing
-        replyTo: JsonField<List<ReplyTo>> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        replyTo: JsonField<List<InboundEmailAddress>> = JsonMissing.of(),
+        @JsonProperty("sent_at")
+        @ExcludeMissing
+        sentAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
         @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
         @JsonProperty("text_body_url")
         @ExcludeMissing
         textBodyUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("thread_id") @ExcludeMissing threadId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("to") @ExcludeMissing to: JsonField<List<To>> = JsonMissing.of(),
+        @JsonProperty("to")
+        @ExcludeMissing
+        to: JsonField<List<InboundEmailAddress>> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -123,6 +141,7 @@ private constructor(
         inReplyTo,
         inboxId,
         inlineFiles,
+        labels,
         messageId,
         readAt,
         receivedAt,
@@ -130,6 +149,7 @@ private constructor(
         references,
         replyText,
         replyTo,
+        sentAt,
         status,
         subject,
         textBodyUrl,
@@ -138,6 +158,38 @@ private constructor(
         updatedAt,
         mutableMapOf(),
     )
+
+    fun toThreadMessage(): ThreadMessage =
+        ThreadMessage.builder()
+            .id(id)
+            .attachments(attachments)
+            .bcc(bcc)
+            .cc(cc)
+            .createdAt(createdAt)
+            .direction(direction)
+            .from(from)
+            .hasQuotedText(hasQuotedText)
+            .headers(headers)
+            .htmlBodyUrl(htmlBodyUrl)
+            .inReplyTo(inReplyTo)
+            .inboxId(inboxId)
+            .inlineFiles(inlineFiles)
+            .labels(labels)
+            .messageId(messageId)
+            .readAt(readAt)
+            .receivedAt(receivedAt)
+            .recordType(recordType)
+            .references(references)
+            .replyText(replyText)
+            .replyTo(replyTo)
+            .sentAt(sentAt)
+            .status(status)
+            .subject(subject)
+            .textBodyUrl(textBodyUrl)
+            .threadId(threadId)
+            .to(to)
+            .updatedAt(updatedAt)
+            .build()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -149,19 +201,19 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun attachments(): List<Attachment> = attachments.getRequired("attachments")
+    fun attachments(): List<ThreadMessage.Attachment> = attachments.getRequired("attachments")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun bcc(): List<Bcc> = bcc.getRequired("bcc")
+    fun bcc(): List<InboundEmailAddress> = bcc.getRequired("bcc")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun cc(): List<Cc> = cc.getRequired("cc")
+    fun cc(): List<InboundEmailAddress> = cc.getRequired("cc")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -173,13 +225,13 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun direction(): Direction = direction.getRequired("direction")
+    fun direction(): ThreadMessage.Direction = direction.getRequired("direction")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun from(): From = from.getRequired("from")
+    fun from(): InboundEmailAddress = from.getRequired("from")
 
     /**
      * Whether conservative plain-text extraction detected a quoted tail. False does not prove that
@@ -194,12 +246,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun headers(): Headers = headers.getRequired("headers")
+    fun headers(): ThreadMessage.Headers = headers.getRequired("headers")
 
     /**
      * URL for an offloaded HTML body. Null means the body is not offloaded to a URL; an inline HTML
-     * body may still exist but is not returned on list reads. `reply_text` and `has_quoted_text`
-     * are computed from the inline plain-text body when present.
+     * body may still exist but is not returned on list reads. Reply extraction uses only the
+     * plain-text body during ingest.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -222,33 +274,48 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun inlineFiles(): List<InlineFile> = inlineFiles.getRequired("inline_files")
+    fun inlineFiles(): List<ThreadMessage.InlineFile> = inlineFiles.getRequired("inline_files")
 
     /**
-     * RFC Message-ID header.
+     * Mutable message labels used for agent workflow state (for example `spam`, `needs_review`,
+     * `processed`). Distinct from the immutable send-time `tags` on outbound messages: labels are
+     * never propagated to Email Detail Records or Mission Control reporting. Always empty for
+     * outbound messages. Labels on a message are independent of the labels on its thread.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun messageId(): String = messageId.getRequired("message_id")
+    fun labels(): List<String> = labels.getRequired("labels")
 
     /**
+     * RFC Message-ID header. Null is possible for legacy outbound messages.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun messageId(): Optional<String> = messageId.getOptional("message_id")
+
+    /**
+     * Time the inbound message was marked read. Null means unread.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun readAt(): Optional<OffsetDateTime> = readAt.getOptional("read_at")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * Receipt time for inbound messages; null for outbound messages.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun receivedAt(): OffsetDateTime = receivedAt.getRequired("received_at")
+    fun receivedAt(): Optional<OffsetDateTime> = receivedAt.getOptional("received_at")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun recordType(): RecordType = recordType.getRequired("record_type")
+    fun recordType(): ThreadMessage.RecordType = recordType.getRequired("record_type")
 
     /**
      * Ordered RFC Message-ID values from the References header.
@@ -259,8 +326,9 @@ private constructor(
     fun references(): List<String> = references.getRequired("references")
 
     /**
-     * Conservatively extracted new-reply content from the available plain-text body. Null means no
-     * plain-text body was available because it was absent or offloaded; HTML bodies are not parsed.
+     * Conservatively extracted new-reply content persisted from the plain-text body during ingest.
+     * Null means no plain-text extraction input was available or extraction was skipped or failed;
+     * HTML bodies are not parsed.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -271,13 +339,23 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun replyTo(): List<ReplyTo> = replyTo.getRequired("reply_to")
+    fun replyTo(): List<InboundEmailAddress> = replyTo.getRequired("reply_to")
 
     /**
+     * Creation/send-acceptance time for outbound messages; null for inbound messages.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sentAt(): Optional<OffsetDateTime> = sentAt.getOptional("sent_at")
+
+    /**
+     * Received for inbound messages; the current send status for outbound messages.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun status(): Status = status.getRequired("status")
+    fun status(): String = status.getRequired("status")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -288,7 +366,7 @@ private constructor(
     /**
      * URL for an offloaded plain-text body. Null means the body is not offloaded to a URL; an
      * inline plain-text body may still exist but is not returned on list reads. `reply_text` and
-     * `has_quoted_text` are computed from the inline plain-text body when present.
+     * `has_quoted_text` are persisted during ingest before any body offload.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -305,7 +383,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun to(): List<To> = to.getRequired("to")
+    fun to(): List<InboundEmailAddress> = to.getRequired("to")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -327,21 +405,21 @@ private constructor(
      */
     @JsonProperty("attachments")
     @ExcludeMissing
-    fun _attachments(): JsonField<List<Attachment>> = attachments
+    fun _attachments(): JsonField<List<ThreadMessage.Attachment>> = attachments
 
     /**
      * Returns the raw JSON value of [bcc].
      *
      * Unlike [bcc], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("bcc") @ExcludeMissing fun _bcc(): JsonField<List<Bcc>> = bcc
+    @JsonProperty("bcc") @ExcludeMissing fun _bcc(): JsonField<List<InboundEmailAddress>> = bcc
 
     /**
      * Returns the raw JSON value of [cc].
      *
      * Unlike [cc], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("cc") @ExcludeMissing fun _cc(): JsonField<List<Cc>> = cc
+    @JsonProperty("cc") @ExcludeMissing fun _cc(): JsonField<List<InboundEmailAddress>> = cc
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -357,14 +435,16 @@ private constructor(
      *
      * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
+    @JsonProperty("direction")
+    @ExcludeMissing
+    fun _direction(): JsonField<ThreadMessage.Direction> = direction
 
     /**
      * Returns the raw JSON value of [from].
      *
      * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<From> = from
+    @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<InboundEmailAddress> = from
 
     /**
      * Returns the raw JSON value of [hasQuotedText].
@@ -380,7 +460,9 @@ private constructor(
      *
      * Unlike [headers], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("headers") @ExcludeMissing fun _headers(): JsonField<Headers> = headers
+    @JsonProperty("headers")
+    @ExcludeMissing
+    fun _headers(): JsonField<ThreadMessage.Headers> = headers
 
     /**
      * Returns the raw JSON value of [htmlBodyUrl].
@@ -412,7 +494,14 @@ private constructor(
      */
     @JsonProperty("inline_files")
     @ExcludeMissing
-    fun _inlineFiles(): JsonField<List<InlineFile>> = inlineFiles
+    fun _inlineFiles(): JsonField<List<ThreadMessage.InlineFile>> = inlineFiles
+
+    /**
+     * Returns the raw JSON value of [labels].
+     *
+     * Unlike [labels], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("labels") @ExcludeMissing fun _labels(): JsonField<List<String>> = labels
 
     /**
      * Returns the raw JSON value of [messageId].
@@ -444,7 +533,7 @@ private constructor(
      */
     @JsonProperty("record_type")
     @ExcludeMissing
-    fun _recordType(): JsonField<RecordType> = recordType
+    fun _recordType(): JsonField<ThreadMessage.RecordType> = recordType
 
     /**
      * Returns the raw JSON value of [references].
@@ -467,14 +556,23 @@ private constructor(
      *
      * Unlike [replyTo], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("reply_to") @ExcludeMissing fun _replyTo(): JsonField<List<ReplyTo>> = replyTo
+    @JsonProperty("reply_to")
+    @ExcludeMissing
+    fun _replyTo(): JsonField<List<InboundEmailAddress>> = replyTo
+
+    /**
+     * Returns the raw JSON value of [sentAt].
+     *
+     * Unlike [sentAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("sent_at") @ExcludeMissing fun _sentAt(): JsonField<OffsetDateTime> = sentAt
 
     /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
 
     /**
      * Returns the raw JSON value of [subject].
@@ -504,7 +602,7 @@ private constructor(
      *
      * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<List<To>> = to
+    @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<List<InboundEmailAddress>> = to
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -547,6 +645,7 @@ private constructor(
          * .inReplyTo()
          * .inboxId()
          * .inlineFiles()
+         * .labels()
          * .messageId()
          * .readAt()
          * .receivedAt()
@@ -554,6 +653,7 @@ private constructor(
          * .references()
          * .replyText()
          * .replyTo()
+         * .sentAt()
          * .status()
          * .subject()
          * .textBodyUrl()
@@ -569,30 +669,32 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var attachments: JsonField<MutableList<Attachment>>? = null
-        private var bcc: JsonField<MutableList<Bcc>>? = null
-        private var cc: JsonField<MutableList<Cc>>? = null
+        private var attachments: JsonField<MutableList<ThreadMessage.Attachment>>? = null
+        private var bcc: JsonField<MutableList<InboundEmailAddress>>? = null
+        private var cc: JsonField<MutableList<InboundEmailAddress>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
-        private var direction: JsonField<Direction>? = null
-        private var from: JsonField<From>? = null
+        private var direction: JsonField<ThreadMessage.Direction>? = null
+        private var from: JsonField<InboundEmailAddress>? = null
         private var hasQuotedText: JsonField<Boolean>? = null
-        private var headers: JsonField<Headers>? = null
+        private var headers: JsonField<ThreadMessage.Headers>? = null
         private var htmlBodyUrl: JsonField<String>? = null
         private var inReplyTo: JsonField<String>? = null
         private var inboxId: JsonField<String>? = null
-        private var inlineFiles: JsonField<MutableList<InlineFile>>? = null
+        private var inlineFiles: JsonField<MutableList<ThreadMessage.InlineFile>>? = null
+        private var labels: JsonField<MutableList<String>>? = null
         private var messageId: JsonField<String>? = null
         private var readAt: JsonField<OffsetDateTime>? = null
         private var receivedAt: JsonField<OffsetDateTime>? = null
-        private var recordType: JsonField<RecordType>? = null
+        private var recordType: JsonField<ThreadMessage.RecordType>? = null
         private var references: JsonField<MutableList<String>>? = null
         private var replyText: JsonField<String>? = null
-        private var replyTo: JsonField<MutableList<ReplyTo>>? = null
-        private var status: JsonField<Status>? = null
+        private var replyTo: JsonField<MutableList<InboundEmailAddress>>? = null
+        private var sentAt: JsonField<OffsetDateTime>? = null
+        private var status: JsonField<String>? = null
         private var subject: JsonField<String>? = null
         private var textBodyUrl: JsonField<String>? = null
         private var threadId: JsonField<String>? = null
-        private var to: JsonField<MutableList<To>>? = null
+        private var to: JsonField<MutableList<InboundEmailAddress>>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -611,6 +713,7 @@ private constructor(
             inReplyTo = inboundMessage.inReplyTo
             inboxId = inboundMessage.inboxId
             inlineFiles = inboundMessage.inlineFiles.map { it.toMutableList() }
+            labels = inboundMessage.labels.map { it.toMutableList() }
             messageId = inboundMessage.messageId
             readAt = inboundMessage.readAt
             receivedAt = inboundMessage.receivedAt
@@ -618,6 +721,7 @@ private constructor(
             references = inboundMessage.references.map { it.toMutableList() }
             replyText = inboundMessage.replyText
             replyTo = inboundMessage.replyTo.map { it.toMutableList() }
+            sentAt = inboundMessage.sentAt
             status = inboundMessage.status
             subject = inboundMessage.subject
             textBodyUrl = inboundMessage.textBodyUrl
@@ -637,67 +741,74 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun attachments(attachments: List<Attachment>) = attachments(JsonField.of(attachments))
+        fun attachments(attachments: List<ThreadMessage.Attachment>) =
+            attachments(JsonField.of(attachments))
 
         /**
          * Sets [Builder.attachments] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.attachments] with a well-typed `List<Attachment>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.attachments] with a well-typed
+         * `List<ThreadMessage.Attachment>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun attachments(attachments: JsonField<List<Attachment>>) = apply {
+        fun attachments(attachments: JsonField<List<ThreadMessage.Attachment>>) = apply {
             this.attachments = attachments.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Attachment] to [attachments].
+         * Adds a single [ThreadMessage.Attachment] to [attachments].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAttachment(attachment: Attachment) = apply {
+        fun addAttachment(attachment: ThreadMessage.Attachment) = apply {
             attachments =
                 (attachments ?: JsonField.of(mutableListOf())).also {
                     checkKnown("attachments", it).add(attachment)
                 }
         }
 
-        fun bcc(bcc: List<Bcc>) = bcc(JsonField.of(bcc))
+        fun bcc(bcc: List<InboundEmailAddress>) = bcc(JsonField.of(bcc))
 
         /**
          * Sets [Builder.bcc] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.bcc] with a well-typed `List<Bcc>` value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.bcc] with a well-typed `List<InboundEmailAddress>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun bcc(bcc: JsonField<List<Bcc>>) = apply { this.bcc = bcc.map { it.toMutableList() } }
+        fun bcc(bcc: JsonField<List<InboundEmailAddress>>) = apply {
+            this.bcc = bcc.map { it.toMutableList() }
+        }
 
         /**
-         * Adds a single [Bcc] to [Builder.bcc].
+         * Adds a single [InboundEmailAddress] to [Builder.bcc].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addBcc(bcc: Bcc) = apply {
+        fun addBcc(bcc: InboundEmailAddress) = apply {
             this.bcc =
                 (this.bcc ?: JsonField.of(mutableListOf())).also { checkKnown("bcc", it).add(bcc) }
         }
 
-        fun cc(cc: List<Cc>) = cc(JsonField.of(cc))
+        fun cc(cc: List<InboundEmailAddress>) = cc(JsonField.of(cc))
 
         /**
          * Sets [Builder.cc] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.cc] with a well-typed `List<Cc>` value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.cc] with a well-typed `List<InboundEmailAddress>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun cc(cc: JsonField<List<Cc>>) = apply { this.cc = cc.map { it.toMutableList() } }
+        fun cc(cc: JsonField<List<InboundEmailAddress>>) = apply {
+            this.cc = cc.map { it.toMutableList() }
+        }
 
         /**
-         * Adds a single [Cc] to [Builder.cc].
+         * Adds a single [InboundEmailAddress] to [Builder.cc].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addCc(cc: Cc) = apply {
+        fun addCc(cc: InboundEmailAddress) = apply {
             this.cc =
                 (this.cc ?: JsonField.of(mutableListOf())).also { checkKnown("cc", it).add(cc) }
         }
@@ -713,26 +824,29 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun direction(direction: Direction) = direction(JsonField.of(direction))
+        fun direction(direction: ThreadMessage.Direction) = direction(JsonField.of(direction))
 
         /**
          * Sets [Builder.direction] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.direction] with a well-typed [ThreadMessage.Direction]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+        fun direction(direction: JsonField<ThreadMessage.Direction>) = apply {
+            this.direction = direction
+        }
 
-        fun from(from: From) = from(JsonField.of(from))
+        fun from(from: InboundEmailAddress) = from(JsonField.of(from))
 
         /**
          * Sets [Builder.from] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.from] with a well-typed [From] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.from] with a well-typed [InboundEmailAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun from(from: JsonField<From>) = apply { this.from = from }
+        fun from(from: JsonField<InboundEmailAddress>) = apply { this.from = from }
 
         /**
          * Whether conservative plain-text extraction detected a quoted tail. False does not prove
@@ -751,20 +865,21 @@ private constructor(
             this.hasQuotedText = hasQuotedText
         }
 
-        fun headers(headers: Headers) = headers(JsonField.of(headers))
+        fun headers(headers: ThreadMessage.Headers) = headers(JsonField.of(headers))
 
         /**
          * Sets [Builder.headers] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.headers] with a well-typed [Headers] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.headers] with a well-typed [ThreadMessage.Headers] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun headers(headers: JsonField<Headers>) = apply { this.headers = headers }
+        fun headers(headers: JsonField<ThreadMessage.Headers>) = apply { this.headers = headers }
 
         /**
          * URL for an offloaded HTML body. Null means the body is not offloaded to a URL; an inline
-         * HTML body may still exist but is not returned on list reads. `reply_text` and
-         * `has_quoted_text` are computed from the inline plain-text body when present.
+         * HTML body may still exist but is not returned on list reads. Reply extraction uses only
+         * the plain-text body during ingest.
          */
         fun htmlBodyUrl(htmlBodyUrl: String?) = htmlBodyUrl(JsonField.ofNullable(htmlBodyUrl))
 
@@ -804,33 +919,68 @@ private constructor(
          */
         fun inboxId(inboxId: JsonField<String>) = apply { this.inboxId = inboxId }
 
-        fun inlineFiles(inlineFiles: List<InlineFile>) = inlineFiles(JsonField.of(inlineFiles))
+        fun inlineFiles(inlineFiles: List<ThreadMessage.InlineFile>) =
+            inlineFiles(JsonField.of(inlineFiles))
 
         /**
          * Sets [Builder.inlineFiles] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.inlineFiles] with a well-typed `List<InlineFile>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.inlineFiles] with a well-typed
+         * `List<ThreadMessage.InlineFile>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun inlineFiles(inlineFiles: JsonField<List<InlineFile>>) = apply {
+        fun inlineFiles(inlineFiles: JsonField<List<ThreadMessage.InlineFile>>) = apply {
             this.inlineFiles = inlineFiles.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [InlineFile] to [inlineFiles].
+         * Adds a single [ThreadMessage.InlineFile] to [inlineFiles].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addInlineFile(inlineFile: InlineFile) = apply {
+        fun addInlineFile(inlineFile: ThreadMessage.InlineFile) = apply {
             inlineFiles =
                 (inlineFiles ?: JsonField.of(mutableListOf())).also {
                     checkKnown("inlineFiles", it).add(inlineFile)
                 }
         }
 
-        /** RFC Message-ID header. */
-        fun messageId(messageId: String) = messageId(JsonField.of(messageId))
+        /**
+         * Mutable message labels used for agent workflow state (for example `spam`, `needs_review`,
+         * `processed`). Distinct from the immutable send-time `tags` on outbound messages: labels
+         * are never propagated to Email Detail Records or Mission Control reporting. Always empty
+         * for outbound messages. Labels on a message are independent of the labels on its thread.
+         */
+        fun labels(labels: List<String>) = labels(JsonField.of(labels))
+
+        /**
+         * Sets [Builder.labels] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.labels] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun labels(labels: JsonField<List<String>>) = apply {
+            this.labels = labels.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [labels].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addLabel(label: String) = apply {
+            labels =
+                (labels ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("labels", it).add(label)
+                }
+        }
+
+        /** RFC Message-ID header. Null is possible for legacy outbound messages. */
+        fun messageId(messageId: String?) = messageId(JsonField.ofNullable(messageId))
+
+        /** Alias for calling [Builder.messageId] with `messageId.orElse(null)`. */
+        fun messageId(messageId: Optional<String>) = messageId(messageId.getOrNull())
 
         /**
          * Sets [Builder.messageId] to an arbitrary JSON value.
@@ -841,6 +991,7 @@ private constructor(
          */
         fun messageId(messageId: JsonField<String>) = apply { this.messageId = messageId }
 
+        /** Time the inbound message was marked read. Null means unread. */
         fun readAt(readAt: OffsetDateTime?) = readAt(JsonField.ofNullable(readAt))
 
         /** Alias for calling [Builder.readAt] with `readAt.orElse(null)`. */
@@ -855,7 +1006,11 @@ private constructor(
          */
         fun readAt(readAt: JsonField<OffsetDateTime>) = apply { this.readAt = readAt }
 
-        fun receivedAt(receivedAt: OffsetDateTime) = receivedAt(JsonField.of(receivedAt))
+        /** Receipt time for inbound messages; null for outbound messages. */
+        fun receivedAt(receivedAt: OffsetDateTime?) = receivedAt(JsonField.ofNullable(receivedAt))
+
+        /** Alias for calling [Builder.receivedAt] with `receivedAt.orElse(null)`. */
+        fun receivedAt(receivedAt: Optional<OffsetDateTime>) = receivedAt(receivedAt.getOrNull())
 
         /**
          * Sets [Builder.receivedAt] to an arbitrary JSON value.
@@ -868,16 +1023,18 @@ private constructor(
             this.receivedAt = receivedAt
         }
 
-        fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
+        fun recordType(recordType: ThreadMessage.RecordType) = recordType(JsonField.of(recordType))
 
         /**
          * Sets [Builder.recordType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.recordType] with a well-typed [RecordType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.recordType] with a well-typed [ThreadMessage.RecordType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun recordType(recordType: JsonField<RecordType>) = apply { this.recordType = recordType }
+        fun recordType(recordType: JsonField<ThreadMessage.RecordType>) = apply {
+            this.recordType = recordType
+        }
 
         /** Ordered RFC Message-ID values from the References header. */
         fun references(references: List<String>) = references(JsonField.of(references))
@@ -906,9 +1063,9 @@ private constructor(
         }
 
         /**
-         * Conservatively extracted new-reply content from the available plain-text body. Null means
-         * no plain-text body was available because it was absent or offloaded; HTML bodies are not
-         * parsed.
+         * Conservatively extracted new-reply content persisted from the plain-text body during
+         * ingest. Null means no plain-text extraction input was available or extraction was skipped
+         * or failed; HTML bodies are not parsed.
          */
         fun replyText(replyText: String?) = replyText(JsonField.ofNullable(replyText))
 
@@ -924,40 +1081,56 @@ private constructor(
          */
         fun replyText(replyText: JsonField<String>) = apply { this.replyText = replyText }
 
-        fun replyTo(replyTo: List<ReplyTo>) = replyTo(JsonField.of(replyTo))
+        fun replyTo(replyTo: List<InboundEmailAddress>) = replyTo(JsonField.of(replyTo))
 
         /**
          * Sets [Builder.replyTo] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.replyTo] with a well-typed `List<ReplyTo>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.replyTo] with a well-typed `List<InboundEmailAddress>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun replyTo(replyTo: JsonField<List<ReplyTo>>) = apply {
+        fun replyTo(replyTo: JsonField<List<InboundEmailAddress>>) = apply {
             this.replyTo = replyTo.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [ReplyTo] to [Builder.replyTo].
+         * Adds a single [InboundEmailAddress] to [Builder.replyTo].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addReplyTo(replyTo: ReplyTo) = apply {
+        fun addReplyTo(replyTo: InboundEmailAddress) = apply {
             this.replyTo =
                 (this.replyTo ?: JsonField.of(mutableListOf())).also {
                     checkKnown("replyTo", it).add(replyTo)
                 }
         }
 
-        fun status(status: Status) = status(JsonField.of(status))
+        /** Creation/send-acceptance time for outbound messages; null for inbound messages. */
+        fun sentAt(sentAt: OffsetDateTime?) = sentAt(JsonField.ofNullable(sentAt))
+
+        /** Alias for calling [Builder.sentAt] with `sentAt.orElse(null)`. */
+        fun sentAt(sentAt: Optional<OffsetDateTime>) = sentAt(sentAt.getOrNull())
+
+        /**
+         * Sets [Builder.sentAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sentAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sentAt(sentAt: JsonField<OffsetDateTime>) = apply { this.sentAt = sentAt }
+
+        /** Received for inbound messages; the current send status for outbound messages. */
+        fun status(status: String) = status(JsonField.of(status))
 
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * You should usually call [Builder.status] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<String>) = apply { this.status = status }
 
         fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
 
@@ -975,7 +1148,7 @@ private constructor(
         /**
          * URL for an offloaded plain-text body. Null means the body is not offloaded to a URL; an
          * inline plain-text body may still exist but is not returned on list reads. `reply_text`
-         * and `has_quoted_text` are computed from the inline plain-text body when present.
+         * and `has_quoted_text` are persisted during ingest before any body offload.
          */
         fun textBodyUrl(textBodyUrl: String?) = textBodyUrl(JsonField.ofNullable(textBodyUrl))
 
@@ -1001,22 +1174,25 @@ private constructor(
          */
         fun threadId(threadId: JsonField<String>) = apply { this.threadId = threadId }
 
-        fun to(to: List<To>) = to(JsonField.of(to))
+        fun to(to: List<InboundEmailAddress>) = to(JsonField.of(to))
 
         /**
          * Sets [Builder.to] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.to] with a well-typed `List<To>` value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.to] with a well-typed `List<InboundEmailAddress>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun to(to: JsonField<List<To>>) = apply { this.to = to.map { it.toMutableList() } }
+        fun to(to: JsonField<List<InboundEmailAddress>>) = apply {
+            this.to = to.map { it.toMutableList() }
+        }
 
         /**
-         * Adds a single [To] to [Builder.to].
+         * Adds a single [InboundEmailAddress] to [Builder.to].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addTo(to: To) = apply {
+        fun addTo(to: InboundEmailAddress) = apply {
             this.to =
                 (this.to ?: JsonField.of(mutableListOf())).also { checkKnown("to", it).add(to) }
         }
@@ -1071,6 +1247,7 @@ private constructor(
          * .inReplyTo()
          * .inboxId()
          * .inlineFiles()
+         * .labels()
          * .messageId()
          * .readAt()
          * .receivedAt()
@@ -1078,6 +1255,7 @@ private constructor(
          * .references()
          * .replyText()
          * .replyTo()
+         * .sentAt()
          * .status()
          * .subject()
          * .textBodyUrl()
@@ -1103,6 +1281,7 @@ private constructor(
                 checkRequired("inReplyTo", inReplyTo),
                 checkRequired("inboxId", inboxId),
                 checkRequired("inlineFiles", inlineFiles).map { it.toImmutable() },
+                checkRequired("labels", labels).map { it.toImmutable() },
                 checkRequired("messageId", messageId),
                 checkRequired("readAt", readAt),
                 checkRequired("receivedAt", receivedAt),
@@ -1110,6 +1289,7 @@ private constructor(
                 checkRequired("references", references).map { it.toImmutable() },
                 checkRequired("replyText", replyText),
                 checkRequired("replyTo", replyTo).map { it.toImmutable() },
+                checkRequired("sentAt", sentAt),
                 checkRequired("status", status),
                 checkRequired("subject", subject),
                 checkRequired("textBodyUrl", textBodyUrl),
@@ -1148,6 +1328,7 @@ private constructor(
         inReplyTo()
         inboxId()
         inlineFiles().forEach { it.validate() }
+        labels()
         messageId()
         readAt()
         receivedAt()
@@ -1155,7 +1336,8 @@ private constructor(
         references()
         replyText()
         replyTo().forEach { it.validate() }
-        status().validate()
+        sentAt()
+        status()
         subject()
         textBodyUrl()
         threadId()
@@ -1192,6 +1374,7 @@ private constructor(
             (if (inReplyTo.asKnown().isPresent) 1 else 0) +
             (if (inboxId.asKnown().isPresent) 1 else 0) +
             (inlineFiles.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (labels.asKnown().getOrNull()?.size ?: 0) +
             (if (messageId.asKnown().isPresent) 1 else 0) +
             (if (readAt.asKnown().isPresent) 1 else 0) +
             (if (receivedAt.asKnown().isPresent) 1 else 0) +
@@ -1199,508 +1382,13 @@ private constructor(
             (references.asKnown().getOrNull()?.size ?: 0) +
             (if (replyText.asKnown().isPresent) 1 else 0) +
             (replyTo.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (sentAt.asKnown().isPresent) 1 else 0) +
+            (if (status.asKnown().isPresent) 1 else 0) +
             (if (subject.asKnown().isPresent) 1 else 0) +
             (if (textBodyUrl.asKnown().isPresent) 1 else 0) +
             (if (threadId.asKnown().isPresent) 1 else 0) +
             (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
-
-    class Attachment
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Attachment]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Attachment]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(attachment: Attachment) = apply {
-                additionalProperties = attachment.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Attachment].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Attachment = Attachment(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Attachment = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Attachment && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Attachment{additionalProperties=$additionalProperties}"
-    }
-
-    class Bcc
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val email: JsonField<String>,
-        private val name: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(email, name, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun email(): String = email.getRequired("email")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Bcc].
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Bcc]. */
-        class Builder internal constructor() {
-
-            private var email: JsonField<String>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(bcc: Bcc) = apply {
-                email = bcc.email
-                name = bcc.name
-                additionalProperties = bcc.additionalProperties.toMutableMap()
-            }
-
-            fun email(email: String) = email(JsonField.of(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Bcc].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Bcc =
-                Bcc(checkRequired("email", email), name, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Bcc = apply {
-            if (validated) {
-                return@apply
-            }
-
-            email()
-            name()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (email.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Bcc &&
-                email == other.email &&
-                name == other.name &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(email, name, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Bcc{email=$email, name=$name, additionalProperties=$additionalProperties}"
-    }
-
-    class Cc
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val email: JsonField<String>,
-        private val name: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(email, name, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun email(): String = email.getRequired("email")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Cc].
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Cc]. */
-        class Builder internal constructor() {
-
-            private var email: JsonField<String>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(cc: Cc) = apply {
-                email = cc.email
-                name = cc.name
-                additionalProperties = cc.additionalProperties.toMutableMap()
-            }
-
-            fun email(email: String) = email(JsonField.of(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Cc].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Cc =
-                Cc(checkRequired("email", email), name, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Cc = apply {
-            if (validated) {
-                return@apply
-            }
-
-            email()
-            name()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (email.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Cc &&
-                email == other.email &&
-                name == other.name &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(email, name, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Cc{email=$email, name=$name, additionalProperties=$additionalProperties}"
-    }
 
     class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1832,740 +1520,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class From
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val email: JsonField<String>,
-        private val name: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(email, name, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun email(): String = email.getRequired("email")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [From].
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [From]. */
-        class Builder internal constructor() {
-
-            private var email: JsonField<String>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(from: From) = apply {
-                email = from.email
-                name = from.name
-                additionalProperties = from.additionalProperties.toMutableMap()
-            }
-
-            fun email(email: String) = email(JsonField.of(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [From].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): From =
-                From(checkRequired("email", email), name, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): From = apply {
-            if (validated) {
-                return@apply
-            }
-
-            email()
-            name()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (email.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is From &&
-                email == other.email &&
-                name == other.name &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(email, name, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "From{email=$email, name=$name, additionalProperties=$additionalProperties}"
-    }
-
-    class Headers
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Headers]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Headers]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(headers: Headers) = apply {
-                additionalProperties = headers.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Headers].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Headers = Headers(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Headers = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Headers && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Headers{additionalProperties=$additionalProperties}"
-    }
-
-    class InlineFile
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [InlineFile]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [InlineFile]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(inlineFile: InlineFile) = apply {
-                additionalProperties = inlineFile.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [InlineFile].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): InlineFile = InlineFile(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): InlineFile = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InlineFile && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "InlineFile{additionalProperties=$additionalProperties}"
-    }
-
-    class RecordType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val EMAIL_MESSAGE = of("email_message")
-
-            @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
-        }
-
-        /** An enum containing [RecordType]'s known values. */
-        enum class Known {
-            EMAIL_MESSAGE
-        }
-
-        /**
-         * An enum containing [RecordType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [RecordType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            EMAIL_MESSAGE,
-            /**
-             * An enum member indicating that [RecordType] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                EMAIL_MESSAGE -> Value.EMAIL_MESSAGE
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                EMAIL_MESSAGE -> Known.EMAIL_MESSAGE
-                else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): RecordType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RecordType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    class ReplyTo
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val email: JsonField<String>,
-        private val name: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(email, name, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun email(): String = email.getRequired("email")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [ReplyTo].
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [ReplyTo]. */
-        class Builder internal constructor() {
-
-            private var email: JsonField<String>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(replyTo: ReplyTo) = apply {
-                email = replyTo.email
-                name = replyTo.name
-                additionalProperties = replyTo.additionalProperties.toMutableMap()
-            }
-
-            fun email(email: String) = email(JsonField.of(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [ReplyTo].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): ReplyTo =
-                ReplyTo(checkRequired("email", email), name, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): ReplyTo = apply {
-            if (validated) {
-                return@apply
-            }
-
-            email()
-            name()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (email.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReplyTo &&
-                email == other.email &&
-                name == other.name &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(email, name, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "ReplyTo{email=$email, name=$name, additionalProperties=$additionalProperties}"
-    }
-
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -2694,200 +1648,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class To
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val email: JsonField<String>,
-        private val name: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(email, name, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun email(): String = email.getRequired("email")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [To].
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [To]. */
-        class Builder internal constructor() {
-
-            private var email: JsonField<String>? = null
-            private var name: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(to: To) = apply {
-                email = to.email
-                name = to.name
-                additionalProperties = to.additionalProperties.toMutableMap()
-            }
-
-            fun email(email: String) = email(JsonField.of(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [To].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .email()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): To =
-                To(checkRequired("email", email), name, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): To = apply {
-            if (validated) {
-                return@apply
-            }
-
-            email()
-            name()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (email.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is To &&
-                email == other.email &&
-                name == other.name &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(email, name, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "To{email=$email, name=$name, additionalProperties=$additionalProperties}"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -2907,6 +1667,7 @@ private constructor(
             inReplyTo == other.inReplyTo &&
             inboxId == other.inboxId &&
             inlineFiles == other.inlineFiles &&
+            labels == other.labels &&
             messageId == other.messageId &&
             readAt == other.readAt &&
             receivedAt == other.receivedAt &&
@@ -2914,6 +1675,7 @@ private constructor(
             references == other.references &&
             replyText == other.replyText &&
             replyTo == other.replyTo &&
+            sentAt == other.sentAt &&
             status == other.status &&
             subject == other.subject &&
             textBodyUrl == other.textBodyUrl &&
@@ -2938,6 +1700,7 @@ private constructor(
             inReplyTo,
             inboxId,
             inlineFiles,
+            labels,
             messageId,
             readAt,
             receivedAt,
@@ -2945,6 +1708,7 @@ private constructor(
             references,
             replyText,
             replyTo,
+            sentAt,
             status,
             subject,
             textBodyUrl,
@@ -2958,5 +1722,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, direction=$direction, from=$from, hasQuotedText=$hasQuotedText, headers=$headers, htmlBodyUrl=$htmlBodyUrl, inReplyTo=$inReplyTo, inboxId=$inboxId, inlineFiles=$inlineFiles, messageId=$messageId, readAt=$readAt, receivedAt=$receivedAt, recordType=$recordType, references=$references, replyText=$replyText, replyTo=$replyTo, status=$status, subject=$subject, textBodyUrl=$textBodyUrl, threadId=$threadId, to=$to, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "InboundMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, direction=$direction, from=$from, hasQuotedText=$hasQuotedText, headers=$headers, htmlBodyUrl=$htmlBodyUrl, inReplyTo=$inReplyTo, inboxId=$inboxId, inlineFiles=$inlineFiles, labels=$labels, messageId=$messageId, readAt=$readAt, receivedAt=$receivedAt, recordType=$recordType, references=$references, replyText=$replyText, replyTo=$replyTo, sentAt=$sentAt, status=$status, subject=$subject, textBodyUrl=$textBodyUrl, threadId=$threadId, to=$to, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

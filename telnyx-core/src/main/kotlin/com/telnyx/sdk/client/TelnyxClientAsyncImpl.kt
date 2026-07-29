@@ -76,6 +76,24 @@ import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsyncImpl
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailBlockServiceAsync
+import com.telnyx.sdk.services.async.EmailBlockServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailDomainServiceAsync
+import com.telnyx.sdk.services.async.EmailDomainServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailEventServiceAsync
+import com.telnyx.sdk.services.async.EmailEventServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailInboxServiceAsync
+import com.telnyx.sdk.services.async.EmailInboxServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailMessageServiceAsync
+import com.telnyx.sdk.services.async.EmailMessageServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailTemplateServiceAsync
+import com.telnyx.sdk.services.async.EmailTemplateServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailThreadServiceAsync
+import com.telnyx.sdk.services.async.EmailThreadServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailUnsubscribeGroupServiceAsync
+import com.telnyx.sdk.services.async.EmailUnsubscribeGroupServiceAsyncImpl
+import com.telnyx.sdk.services.async.EmailValidationServiceAsync
+import com.telnyx.sdk.services.async.EmailValidationServiceAsyncImpl
 import com.telnyx.sdk.services.async.EnterpriseServiceAsync
 import com.telnyx.sdk.services.async.EnterpriseServiceAsyncImpl
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
@@ -1024,6 +1042,42 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         InfringementClaimServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val emailBlocks: EmailBlockServiceAsync by lazy {
+        EmailBlockServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailDomains: EmailDomainServiceAsync by lazy {
+        EmailDomainServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailEvents: EmailEventServiceAsync by lazy {
+        EmailEventServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailInboxes: EmailInboxServiceAsync by lazy {
+        EmailInboxServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailMessages: EmailMessageServiceAsync by lazy {
+        EmailMessageServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailTemplates: EmailTemplateServiceAsync by lazy {
+        EmailTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailThreads: EmailThreadServiceAsync by lazy {
+        EmailThreadServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailUnsubscribeGroups: EmailUnsubscribeGroupServiceAsync by lazy {
+        EmailUnsubscribeGroupServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailValidations: EmailValidationServiceAsync by lazy {
+        EmailValidationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1553,6 +1607,41 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
      * supporting evidence.
      */
     override fun infringementClaims(): InfringementClaimServiceAsync = infringementClaims
+
+    /** Recipient suppression records (`/v2/email_blocks`). */
+    override fun emailBlocks(): EmailBlockServiceAsync = emailBlocks
+
+    override fun emailDomains(): EmailDomainServiceAsync = emailDomains
+
+    /** Retrieve account-level email events and event statistics. */
+    override fun emailEvents(): EmailEventServiceAsync = emailEvents
+
+    /**
+     * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+     * forward messages.
+     */
+    override fun emailInboxes(): EmailInboxServiceAsync = emailInboxes
+
+    /**
+     * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these endpoints.
+     */
+    override fun emailMessages(): EmailMessageServiceAsync = emailMessages
+
+    /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+    override fun emailTemplates(): EmailTemplateServiceAsync = emailTemplates
+
+    /**
+     * Account-wide conversation threads across every inbox, for agents operating many inboxes at
+     * once.
+     */
+    override fun emailThreads(): EmailThreadServiceAsync = emailThreads
+
+    /** Named groups and group-scoped suppressions. */
+    override fun emailUnsubscribeGroups(): EmailUnsubscribeGroupServiceAsync =
+        emailUnsubscribeGroups
+
+    /** Validate email addresses synchronously or in asynchronous batches. */
+    override fun emailValidations(): EmailValidationServiceAsync = emailValidations
 
     override fun close() = clientOptions.close()
 
@@ -2277,6 +2366,43 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             InfringementClaimServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val emailBlocks: EmailBlockServiceAsync.WithRawResponse by lazy {
+            EmailBlockServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailDomains: EmailDomainServiceAsync.WithRawResponse by lazy {
+            EmailDomainServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailEvents: EmailEventServiceAsync.WithRawResponse by lazy {
+            EmailEventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailInboxes: EmailInboxServiceAsync.WithRawResponse by lazy {
+            EmailInboxServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailMessages: EmailMessageServiceAsync.WithRawResponse by lazy {
+            EmailMessageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailTemplates: EmailTemplateServiceAsync.WithRawResponse by lazy {
+            EmailTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailThreads: EmailThreadServiceAsync.WithRawResponse by lazy {
+            EmailThreadServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailUnsubscribeGroups:
+            EmailUnsubscribeGroupServiceAsync.WithRawResponse by lazy {
+            EmailUnsubscribeGroupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailValidations: EmailValidationServiceAsync.WithRawResponse by lazy {
+            EmailValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2862,5 +2988,42 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
          */
         override fun infringementClaims(): InfringementClaimServiceAsync.WithRawResponse =
             infringementClaims
+
+        /** Recipient suppression records (`/v2/email_blocks`). */
+        override fun emailBlocks(): EmailBlockServiceAsync.WithRawResponse = emailBlocks
+
+        override fun emailDomains(): EmailDomainServiceAsync.WithRawResponse = emailDomains
+
+        /** Retrieve account-level email events and event statistics. */
+        override fun emailEvents(): EmailEventServiceAsync.WithRawResponse = emailEvents
+
+        /**
+         * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+         * forward messages.
+         */
+        override fun emailInboxes(): EmailInboxServiceAsync.WithRawResponse = emailInboxes
+
+        /**
+         * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these
+         * endpoints.
+         */
+        override fun emailMessages(): EmailMessageServiceAsync.WithRawResponse = emailMessages
+
+        /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+        override fun emailTemplates(): EmailTemplateServiceAsync.WithRawResponse = emailTemplates
+
+        /**
+         * Account-wide conversation threads across every inbox, for agents operating many inboxes
+         * at once.
+         */
+        override fun emailThreads(): EmailThreadServiceAsync.WithRawResponse = emailThreads
+
+        /** Named groups and group-scoped suppressions. */
+        override fun emailUnsubscribeGroups(): EmailUnsubscribeGroupServiceAsync.WithRawResponse =
+            emailUnsubscribeGroups
+
+        /** Validate email addresses synchronously or in asynchronous batches. */
+        override fun emailValidations(): EmailValidationServiceAsync.WithRawResponse =
+            emailValidations
     }
 }

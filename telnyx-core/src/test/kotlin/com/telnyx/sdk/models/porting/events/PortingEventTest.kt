@@ -82,7 +82,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     @Test
@@ -179,7 +180,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     @Test
@@ -279,7 +281,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     @Test
@@ -365,7 +368,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     @Test
@@ -457,7 +461,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     @Test
@@ -513,7 +518,8 @@ internal class PortingEventTest {
                 jacksonTypeRef<PortingEvent>(),
             )
 
-        assertThat(roundtrippedPortingEvent).isEqualTo(portingEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortingEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portingEvent))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

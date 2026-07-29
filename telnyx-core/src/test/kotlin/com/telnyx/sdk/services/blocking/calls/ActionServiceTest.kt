@@ -32,6 +32,7 @@ import com.telnyx.sdk.models.calls.actions.ActionHangupParams
 import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
+import com.telnyx.sdk.models.calls.actions.ActionPayParams
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
 import com.telnyx.sdk.models.calls.actions.ActionResumeRecordingParams
@@ -65,6 +66,7 @@ import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
+import com.telnyx.sdk.models.calls.actions.PayPromptValue
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.calls.actions.SystemMessage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -100,6 +102,7 @@ internal class ActionServiceTest {
                             )
                             .build()
                     )
+                    .triggerResponse(false)
                     .build()
             )
 
@@ -677,6 +680,78 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .recordingId("6e00ab49-9487-4364-8ad6-23965965afb2")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun pay() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.calls().actions()
+
+        val response =
+            actionService.pay(
+                ActionPayParams.builder()
+                    .callControlId("call_control_id")
+                    .amount(10.5)
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .connectorName("Default")
+                    .currency(ActionPayParams.Currency.USD)
+                    .description("Order 12345")
+                    .interDigitTimeoutMillis(5000)
+                    .language("en-US")
+                    .maxAttempts(3)
+                    .metadata(
+                        ActionPayParams.Metadata.builder()
+                            .putAdditionalProperty("order_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .parameters(
+                        ActionPayParams.Parameters.builder()
+                            .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .paymentMethod(ActionPayParams.PaymentMethod.CREDIT_CARD)
+                    .paymentToken("tok_abc123")
+                    .prompts(
+                        ActionPayParams.Prompts.builder()
+                            .bankAccountNumber("x")
+                            .bankRoutingNumber("x")
+                            .expirationDate("x")
+                            .paymentCardNumberOfPrompts(
+                                listOf(
+                                    PayPromptValue.PayPrompt.builder()
+                                        .text("Please enter your card number.")
+                                        .attempt("2 3")
+                                        .cardType(PayPromptValue.PayPrompt.CardType.AMEX)
+                                        .errorType(
+                                            PayPromptValue.PayPrompt.ErrorType.INVALID_CARD_NUMBER
+                                        )
+                                        .build(),
+                                    PayPromptValue.PayPrompt.builder()
+                                        .text(
+                                            "That card number was not accepted. Please try again."
+                                        )
+                                        .attempt("2 3")
+                                        .cardType(PayPromptValue.PayPrompt.CardType.AMEX)
+                                        .errorType(
+                                            PayPromptValue.PayPrompt.ErrorType.INVALID_CARD_NUMBER
+                                        )
+                                        .build(),
+                                )
+                            )
+                            .postalCode("x")
+                            .securityCode("x")
+                            .build()
+                    )
+                    .serviceLevel("service_level")
+                    .timeoutMillis(5000)
+                    .transactionType(ActionPayParams.TransactionType.CHARGE)
+                    .voice("female")
                     .build()
             )
 

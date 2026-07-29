@@ -110,7 +110,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -177,7 +178,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -250,7 +252,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -319,7 +322,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -387,7 +391,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -462,7 +467,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     @Test
@@ -529,7 +535,8 @@ internal class DetailRecordListResponseTest {
                 jacksonTypeRef<DetailRecordListResponse>(),
             )
 
-        assertThat(roundtrippedDetailRecordListResponse).isEqualTo(detailRecordListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedDetailRecordListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(detailRecordListResponse))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

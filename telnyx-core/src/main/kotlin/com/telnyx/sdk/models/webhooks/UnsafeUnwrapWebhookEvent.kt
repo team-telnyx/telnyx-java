@@ -49,6 +49,8 @@ private constructor(
         null,
     private val callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent? =
         null,
+    private val callPaymentCompleted: CallPaymentCompletedWebhookEvent? = null,
+    private val callPaymentProgress: CallPaymentProgressWebhookEvent? = null,
     private val callPlaybackEnded: CallPlaybackEndedWebhookEvent? = null,
     private val callPlaybackStarted: CallPlaybackStartedWebhookEvent? = null,
     private val callRecordingError: CallRecordingErrorWebhookEvent? = null,
@@ -164,6 +166,12 @@ private constructor(
 
     fun callMachinePremiumGreetingEnded(): Optional<CallMachinePremiumGreetingEndedWebhookEvent> =
         Optional.ofNullable(callMachinePremiumGreetingEnded)
+
+    fun callPaymentCompleted(): Optional<CallPaymentCompletedWebhookEvent> =
+        Optional.ofNullable(callPaymentCompleted)
+
+    fun callPaymentProgress(): Optional<CallPaymentProgressWebhookEvent> =
+        Optional.ofNullable(callPaymentProgress)
 
     fun callPlaybackEnded(): Optional<CallPlaybackEndedWebhookEvent> =
         Optional.ofNullable(callPlaybackEnded)
@@ -333,6 +341,10 @@ private constructor(
 
     fun isCallMachinePremiumGreetingEnded(): Boolean = callMachinePremiumGreetingEnded != null
 
+    fun isCallPaymentCompleted(): Boolean = callPaymentCompleted != null
+
+    fun isCallPaymentProgress(): Boolean = callPaymentProgress != null
+
     fun isCallPlaybackEnded(): Boolean = callPlaybackEnded != null
 
     fun isCallPlaybackStarted(): Boolean = callPlaybackStarted != null
@@ -480,6 +492,12 @@ private constructor(
 
     fun asCallMachinePremiumGreetingEnded(): CallMachinePremiumGreetingEndedWebhookEvent =
         callMachinePremiumGreetingEnded.getOrThrow("callMachinePremiumGreetingEnded")
+
+    fun asCallPaymentCompleted(): CallPaymentCompletedWebhookEvent =
+        callPaymentCompleted.getOrThrow("callPaymentCompleted")
+
+    fun asCallPaymentProgress(): CallPaymentProgressWebhookEvent =
+        callPaymentProgress.getOrThrow("callPaymentProgress")
 
     fun asCallPlaybackEnded(): CallPlaybackEndedWebhookEvent =
         callPlaybackEnded.getOrThrow("callPlaybackEnded")
@@ -666,6 +684,8 @@ private constructor(
                 visitor.visitCallMachinePremiumDetectionEnded(callMachinePremiumDetectionEnded)
             callMachinePremiumGreetingEnded != null ->
                 visitor.visitCallMachinePremiumGreetingEnded(callMachinePremiumGreetingEnded)
+            callPaymentCompleted != null -> visitor.visitCallPaymentCompleted(callPaymentCompleted)
+            callPaymentProgress != null -> visitor.visitCallPaymentProgress(callPaymentProgress)
             callPlaybackEnded != null -> visitor.visitCallPlaybackEnded(callPlaybackEnded)
             callPlaybackStarted != null -> visitor.visitCallPlaybackStarted(callPlaybackStarted)
             callRecordingError != null -> visitor.visitCallRecordingError(callRecordingError)
@@ -857,6 +877,18 @@ private constructor(
                     callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent
                 ) {
                     callMachinePremiumGreetingEnded.validate()
+                }
+
+                override fun visitCallPaymentCompleted(
+                    callPaymentCompleted: CallPaymentCompletedWebhookEvent
+                ) {
+                    callPaymentCompleted.validate()
+                }
+
+                override fun visitCallPaymentProgress(
+                    callPaymentProgress: CallPaymentProgressWebhookEvent
+                ) {
+                    callPaymentProgress.validate()
                 }
 
                 override fun visitCallPlaybackEnded(
@@ -1186,6 +1218,14 @@ private constructor(
                     callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent
                 ) = callMachinePremiumGreetingEnded.validity()
 
+                override fun visitCallPaymentCompleted(
+                    callPaymentCompleted: CallPaymentCompletedWebhookEvent
+                ) = callPaymentCompleted.validity()
+
+                override fun visitCallPaymentProgress(
+                    callPaymentProgress: CallPaymentProgressWebhookEvent
+                ) = callPaymentProgress.validity()
+
                 override fun visitCallPlaybackEnded(
                     callPlaybackEnded: CallPlaybackEndedWebhookEvent
                 ) = callPlaybackEnded.validity()
@@ -1374,6 +1414,8 @@ private constructor(
             callMachineGreetingEnded == other.callMachineGreetingEnded &&
             callMachinePremiumDetectionEnded == other.callMachinePremiumDetectionEnded &&
             callMachinePremiumGreetingEnded == other.callMachinePremiumGreetingEnded &&
+            callPaymentCompleted == other.callPaymentCompleted &&
+            callPaymentProgress == other.callPaymentProgress &&
             callPlaybackEnded == other.callPlaybackEnded &&
             callPlaybackStarted == other.callPlaybackStarted &&
             callRecordingError == other.callRecordingError &&
@@ -1444,6 +1486,8 @@ private constructor(
             callMachineGreetingEnded,
             callMachinePremiumDetectionEnded,
             callMachinePremiumGreetingEnded,
+            callPaymentCompleted,
+            callPaymentProgress,
             callPlaybackEnded,
             callPlaybackStarted,
             callRecordingError,
@@ -1526,6 +1570,10 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{callMachinePremiumDetectionEnded=$callMachinePremiumDetectionEnded}"
             callMachinePremiumGreetingEnded != null ->
                 "UnsafeUnwrapWebhookEvent{callMachinePremiumGreetingEnded=$callMachinePremiumGreetingEnded}"
+            callPaymentCompleted != null ->
+                "UnsafeUnwrapWebhookEvent{callPaymentCompleted=$callPaymentCompleted}"
+            callPaymentProgress != null ->
+                "UnsafeUnwrapWebhookEvent{callPaymentProgress=$callPaymentProgress}"
             callPlaybackEnded != null ->
                 "UnsafeUnwrapWebhookEvent{callPlaybackEnded=$callPlaybackEnded}"
             callPlaybackStarted != null ->
@@ -1720,6 +1768,14 @@ private constructor(
             UnsafeUnwrapWebhookEvent(
                 callMachinePremiumGreetingEnded = callMachinePremiumGreetingEnded
             )
+
+        @JvmStatic
+        fun ofCallPaymentCompleted(callPaymentCompleted: CallPaymentCompletedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callPaymentCompleted = callPaymentCompleted)
+
+        @JvmStatic
+        fun ofCallPaymentProgress(callPaymentProgress: CallPaymentProgressWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callPaymentProgress = callPaymentProgress)
 
         @JvmStatic
         fun ofCallPlaybackEnded(callPlaybackEnded: CallPlaybackEndedWebhookEvent) =
@@ -1987,6 +2043,10 @@ private constructor(
             callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent
         ): T
 
+        fun visitCallPaymentCompleted(callPaymentCompleted: CallPaymentCompletedWebhookEvent): T
+
+        fun visitCallPaymentProgress(callPaymentProgress: CallPaymentProgressWebhookEvent): T
+
         fun visitCallPlaybackEnded(callPlaybackEnded: CallPlaybackEndedWebhookEvent): T
 
         fun visitCallPlaybackStarted(callPlaybackStarted: CallPlaybackStartedWebhookEvent): T
@@ -2250,6 +2310,14 @@ private constructor(
                                     _json = json,
                                 )
                             },
+                        tryDeserialize(node, jacksonTypeRef<CallPaymentCompletedWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(callPaymentCompleted = it, _json = json)
+                            },
+                        tryDeserialize(node, jacksonTypeRef<CallPaymentProgressWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(callPaymentProgress = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<CallPlaybackEndedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callPlaybackEnded = it, _json = json)
                         },
@@ -2508,6 +2576,10 @@ private constructor(
                     generator.writeObject(value.callMachinePremiumDetectionEnded)
                 value.callMachinePremiumGreetingEnded != null ->
                     generator.writeObject(value.callMachinePremiumGreetingEnded)
+                value.callPaymentCompleted != null ->
+                    generator.writeObject(value.callPaymentCompleted)
+                value.callPaymentProgress != null ->
+                    generator.writeObject(value.callPaymentProgress)
                 value.callPlaybackEnded != null -> generator.writeObject(value.callPlaybackEnded)
                 value.callPlaybackStarted != null ->
                     generator.writeObject(value.callPlaybackStarted)

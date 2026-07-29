@@ -52,6 +52,7 @@ private constructor(
     private val presencePenalty: JsonField<Double>,
     private val responseFormat: JsonField<ResponseFormat>,
     private val seed: JsonField<Long>,
+    private val serviceTier: JsonField<String>,
     private val stop: JsonField<Stop>,
     private val stream: JsonField<Boolean>,
     private val temperature: JsonField<Double>,
@@ -105,6 +106,9 @@ private constructor(
         @ExcludeMissing
         responseFormat: JsonField<ResponseFormat> = JsonMissing.of(),
         @JsonProperty("seed") @ExcludeMissing seed: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("service_tier")
+        @ExcludeMissing
+        serviceTier: JsonField<String> = JsonMissing.of(),
         @JsonProperty("stop") @ExcludeMissing stop: JsonField<Stop> = JsonMissing.of(),
         @JsonProperty("stream") @ExcludeMissing stream: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("temperature")
@@ -140,6 +144,7 @@ private constructor(
         presencePenalty,
         responseFormat,
         seed,
+        serviceTier,
         stop,
         stream,
         temperature,
@@ -305,6 +310,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun seed(): Optional<Long> = seed.getOptional("seed")
+
+    /**
+     * The service tier to use for this request. Supported values vary by model; use `GET
+     * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+     * Telnyx-hosted models use `default`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun serviceTier(): Optional<String> = serviceTier.getOptional("service_tier")
 
     /**
      * Up to 4 sequences where the API will stop generating further tokens. The returned text will
@@ -524,6 +539,15 @@ private constructor(
     @JsonProperty("seed") @ExcludeMissing fun _seed(): JsonField<Long> = seed
 
     /**
+     * Returns the raw JSON value of [serviceTier].
+     *
+     * Unlike [serviceTier], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("service_tier")
+    @ExcludeMissing
+    fun _serviceTier(): JsonField<String> = serviceTier
+
+    /**
      * Returns the raw JSON value of [stop].
      *
      * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
@@ -629,6 +653,7 @@ private constructor(
         private var presencePenalty: JsonField<Double> = JsonMissing.of()
         private var responseFormat: JsonField<ResponseFormat> = JsonMissing.of()
         private var seed: JsonField<Long> = JsonMissing.of()
+        private var serviceTier: JsonField<String> = JsonMissing.of()
         private var stop: JsonField<Stop> = JsonMissing.of()
         private var stream: JsonField<Boolean> = JsonMissing.of()
         private var temperature: JsonField<Double> = JsonMissing.of()
@@ -659,6 +684,7 @@ private constructor(
             presencePenalty = chatCompletionRequest.presencePenalty
             responseFormat = chatCompletionRequest.responseFormat
             seed = chatCompletionRequest.seed
+            serviceTier = chatCompletionRequest.serviceTier
             stop = chatCompletionRequest.stop
             stream = chatCompletionRequest.stream
             temperature = chatCompletionRequest.temperature
@@ -950,6 +976,22 @@ private constructor(
         fun seed(seed: JsonField<Long>) = apply { this.seed = seed }
 
         /**
+         * The service tier to use for this request. Supported values vary by model; use `GET
+         * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+         * Telnyx-hosted models use `default`.
+         */
+        fun serviceTier(serviceTier: String) = serviceTier(JsonField.of(serviceTier))
+
+        /**
+         * Sets [Builder.serviceTier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.serviceTier] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun serviceTier(serviceTier: JsonField<String>) = apply { this.serviceTier = serviceTier }
+
+        /**
          * Up to 4 sequences where the API will stop generating further tokens. The returned text
          * will not contain the stop sequence.
          */
@@ -1162,6 +1204,7 @@ private constructor(
                 presencePenalty,
                 responseFormat,
                 seed,
+                serviceTier,
                 stop,
                 stream,
                 temperature,
@@ -1207,6 +1250,7 @@ private constructor(
         presencePenalty()
         responseFormat().ifPresent { it.validate() }
         seed()
+        serviceTier()
         stop().ifPresent { it.validate() }
         stream()
         temperature()
@@ -1251,6 +1295,7 @@ private constructor(
             (if (presencePenalty.asKnown().isPresent) 1 else 0) +
             (responseFormat.asKnown().getOrNull()?.validity() ?: 0) +
             (if (seed.asKnown().isPresent) 1 else 0) +
+            (if (serviceTier.asKnown().isPresent) 1 else 0) +
             (stop.asKnown().getOrNull()?.validity() ?: 0) +
             (if (stream.asKnown().isPresent) 1 else 0) +
             (if (temperature.asKnown().isPresent) 1 else 0) +
@@ -4020,6 +4065,7 @@ private constructor(
             presencePenalty == other.presencePenalty &&
             responseFormat == other.responseFormat &&
             seed == other.seed &&
+            serviceTier == other.serviceTier &&
             stop == other.stop &&
             stream == other.stream &&
             temperature == other.temperature &&
@@ -4051,6 +4097,7 @@ private constructor(
             presencePenalty,
             responseFormat,
             seed,
+            serviceTier,
             stop,
             stream,
             temperature,
@@ -4066,5 +4113,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, seed=$seed, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
+        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, seed=$seed, serviceTier=$serviceTier, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
 }

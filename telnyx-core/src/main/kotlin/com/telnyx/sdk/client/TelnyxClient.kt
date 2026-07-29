@@ -39,6 +39,15 @@ import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
+import com.telnyx.sdk.services.blocking.EmailBlockService
+import com.telnyx.sdk.services.blocking.EmailDomainService
+import com.telnyx.sdk.services.blocking.EmailEventService
+import com.telnyx.sdk.services.blocking.EmailInboxService
+import com.telnyx.sdk.services.blocking.EmailMessageService
+import com.telnyx.sdk.services.blocking.EmailTemplateService
+import com.telnyx.sdk.services.blocking.EmailThreadService
+import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupService
+import com.telnyx.sdk.services.blocking.EmailValidationService
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
@@ -705,6 +714,40 @@ interface TelnyxClient {
      */
     fun infringementClaims(): InfringementClaimService
 
+    /** Recipient suppression records (`/v2/email_blocks`). */
+    fun emailBlocks(): EmailBlockService
+
+    fun emailDomains(): EmailDomainService
+
+    /** Retrieve account-level email events and event statistics. */
+    fun emailEvents(): EmailEventService
+
+    /**
+     * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+     * forward messages.
+     */
+    fun emailInboxes(): EmailInboxService
+
+    /**
+     * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these endpoints.
+     */
+    fun emailMessages(): EmailMessageService
+
+    /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+    fun emailTemplates(): EmailTemplateService
+
+    /**
+     * Account-wide conversation threads across every inbox, for agents operating many inboxes at
+     * once.
+     */
+    fun emailThreads(): EmailThreadService
+
+    /** Named groups and group-scoped suppressions. */
+    fun emailUnsubscribeGroups(): EmailUnsubscribeGroupService
+
+    /** Validate email addresses synchronously or in asynchronous batches. */
+    fun emailValidations(): EmailValidationService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1224,5 +1267,40 @@ interface TelnyxClient {
          * with supporting evidence.
          */
         fun infringementClaims(): InfringementClaimService.WithRawResponse
+
+        /** Recipient suppression records (`/v2/email_blocks`). */
+        fun emailBlocks(): EmailBlockService.WithRawResponse
+
+        fun emailDomains(): EmailDomainService.WithRawResponse
+
+        /** Retrieve account-level email events and event statistics. */
+        fun emailEvents(): EmailEventService.WithRawResponse
+
+        /**
+         * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+         * forward messages.
+         */
+        fun emailInboxes(): EmailInboxService.WithRawResponse
+
+        /**
+         * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these
+         * endpoints.
+         */
+        fun emailMessages(): EmailMessageService.WithRawResponse
+
+        /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+        fun emailTemplates(): EmailTemplateService.WithRawResponse
+
+        /**
+         * Account-wide conversation threads across every inbox, for agents operating many inboxes
+         * at once.
+         */
+        fun emailThreads(): EmailThreadService.WithRawResponse
+
+        /** Named groups and group-scoped suppressions. */
+        fun emailUnsubscribeGroups(): EmailUnsubscribeGroupService.WithRawResponse
+
+        /** Validate email addresses synchronously or in asynchronous batches. */
+        fun emailValidations(): EmailValidationService.WithRawResponse
     }
 }

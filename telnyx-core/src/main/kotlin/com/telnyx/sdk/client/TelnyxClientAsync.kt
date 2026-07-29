@@ -39,6 +39,15 @@ import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
 import com.telnyx.sdk.services.async.DocumentServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
+import com.telnyx.sdk.services.async.EmailBlockServiceAsync
+import com.telnyx.sdk.services.async.EmailDomainServiceAsync
+import com.telnyx.sdk.services.async.EmailEventServiceAsync
+import com.telnyx.sdk.services.async.EmailInboxServiceAsync
+import com.telnyx.sdk.services.async.EmailMessageServiceAsync
+import com.telnyx.sdk.services.async.EmailTemplateServiceAsync
+import com.telnyx.sdk.services.async.EmailThreadServiceAsync
+import com.telnyx.sdk.services.async.EmailUnsubscribeGroupServiceAsync
+import com.telnyx.sdk.services.async.EmailValidationServiceAsync
 import com.telnyx.sdk.services.async.EnterpriseServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
@@ -705,6 +714,40 @@ interface TelnyxClientAsync {
      */
     fun infringementClaims(): InfringementClaimServiceAsync
 
+    /** Recipient suppression records (`/v2/email_blocks`). */
+    fun emailBlocks(): EmailBlockServiceAsync
+
+    fun emailDomains(): EmailDomainServiceAsync
+
+    /** Retrieve account-level email events and event statistics. */
+    fun emailEvents(): EmailEventServiceAsync
+
+    /**
+     * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+     * forward messages.
+     */
+    fun emailInboxes(): EmailInboxServiceAsync
+
+    /**
+     * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these endpoints.
+     */
+    fun emailMessages(): EmailMessageServiceAsync
+
+    /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+    fun emailTemplates(): EmailTemplateServiceAsync
+
+    /**
+     * Account-wide conversation threads across every inbox, for agents operating many inboxes at
+     * once.
+     */
+    fun emailThreads(): EmailThreadServiceAsync
+
+    /** Named groups and group-scoped suppressions. */
+    fun emailUnsubscribeGroups(): EmailUnsubscribeGroupServiceAsync
+
+    /** Validate email addresses synchronously or in asynchronous batches. */
+    fun emailValidations(): EmailValidationServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1227,5 +1270,40 @@ interface TelnyxClientAsync {
          * with supporting evidence.
          */
         fun infringementClaims(): InfringementClaimServiceAsync.WithRawResponse
+
+        /** Recipient suppression records (`/v2/email_blocks`). */
+        fun emailBlocks(): EmailBlockServiceAsync.WithRawResponse
+
+        fun emailDomains(): EmailDomainServiceAsync.WithRawResponse
+
+        /** Retrieve account-level email events and event statistics. */
+        fun emailEvents(): EmailEventServiceAsync.WithRawResponse
+
+        /**
+         * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+         * forward messages.
+         */
+        fun emailInboxes(): EmailInboxServiceAsync.WithRawResponse
+
+        /**
+         * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these
+         * endpoints.
+         */
+        fun emailMessages(): EmailMessageServiceAsync.WithRawResponse
+
+        /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+        fun emailTemplates(): EmailTemplateServiceAsync.WithRawResponse
+
+        /**
+         * Account-wide conversation threads across every inbox, for agents operating many inboxes
+         * at once.
+         */
+        fun emailThreads(): EmailThreadServiceAsync.WithRawResponse
+
+        /** Named groups and group-scoped suppressions. */
+        fun emailUnsubscribeGroups(): EmailUnsubscribeGroupServiceAsync.WithRawResponse
+
+        /** Validate email addresses synchronously or in asynchronous batches. */
+        fun emailValidations(): EmailValidationServiceAsync.WithRawResponse
     }
 }

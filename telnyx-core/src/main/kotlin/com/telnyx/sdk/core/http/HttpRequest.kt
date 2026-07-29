@@ -81,7 +81,7 @@ private constructor(
             this.pathSegments.addAll(pathSegments)
         }
 
-        fun headers(headers: Headers) = apply {
+        fun headers(headers: com.telnyx.sdk.core.http.Headers) = apply {
             this.headers.clear()
             putAllHeaders(headers)
         }
@@ -95,7 +95,9 @@ private constructor(
 
         fun putHeaders(name: String, values: Iterable<String>) = apply { headers.put(name, values) }
 
-        fun putAllHeaders(headers: Headers) = apply { this.headers.putAll(headers) }
+        fun putAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            this.headers.putAll(headers)
+        }
 
         fun putAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             this.headers.putAll(headers)
@@ -107,7 +109,9 @@ private constructor(
             headers.replace(name, values)
         }
 
-        fun replaceAllHeaders(headers: Headers) = apply { this.headers.replaceAll(headers) }
+        fun replaceAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            this.headers.replaceAll(headers)
+        }
 
         fun replaceAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             this.headers.replaceAll(headers)

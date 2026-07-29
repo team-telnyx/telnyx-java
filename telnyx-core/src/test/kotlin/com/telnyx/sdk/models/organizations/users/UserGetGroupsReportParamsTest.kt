@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.organizations.users
 
-import com.telnyx.sdk.core.http.Headers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -24,7 +23,10 @@ internal class UserGetGroupsReportParamsTest {
 
         val headers = params._headers()
 
-        assertThat(headers).isEqualTo(Headers.builder().put("Accept", "application/json").build())
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder().put("Accept", "application/json").build()
+            )
     }
 
     @Test
@@ -33,6 +35,6 @@ internal class UserGetGroupsReportParamsTest {
 
         val headers = params._headers()
 
-        assertThat(headers).isEqualTo(Headers.builder().build())
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
     }
 }

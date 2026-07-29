@@ -56,9 +56,9 @@ internal class RoomCompositionListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[date_created_at][eq]", "2021-04-25")
-                    .put("filter[date_created_at][gte]", "2021-04-25")
-                    .put("filter[date_created_at][lte]", "2021-04-25")
+                    .put("filter[date_created_at][eq]", LocalDate.parse("2021-04-25").toString())
+                    .put("filter[date_created_at][gte]", LocalDate.parse("2021-04-25").toString())
+                    .put("filter[date_created_at][lte]", LocalDate.parse("2021-04-25").toString())
                     .put("filter[session_id]", "92e7d459-bcc5-4386-9f5f-6dd14a82588d")
                     .put("filter[status]", "completed")
                     .put("page[number]", "0")

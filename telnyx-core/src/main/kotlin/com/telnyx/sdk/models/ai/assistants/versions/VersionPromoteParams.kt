@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.ai.assistants.versions
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import java.util.Objects
@@ -20,7 +19,7 @@ class VersionPromoteParams
 private constructor(
     private val assistantId: String,
     private val versionId: String?,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
@@ -33,7 +32,7 @@ private constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -58,7 +57,8 @@ private constructor(
 
         private var assistantId: String? = null
         private var versionId: String? = null
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -78,7 +78,7 @@ private constructor(
         /** Alias for calling [Builder.versionId] with `versionId.orElse(null)`. */
         fun versionId(versionId: Optional<String>) = versionId(versionId.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -96,7 +96,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -112,9 +112,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -230,7 +231,7 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.documents
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -72,8 +73,18 @@ internal class DocumentListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[created_at][gt]", "2021-01-01T00:00:00Z")
-                    .put("filter[created_at][lt]", "2021-04-09T22:25:27.521Z")
+                    .put(
+                        "filter[created_at][gt]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-01-01T00:00:00Z")
+                        ),
+                    )
+                    .put(
+                        "filter[created_at][lt]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-04-09T22:25:27.521Z")
+                        ),
+                    )
                     .put("filter[customer_reference][eq]", "MY REF 001")
                     .put(
                         "filter[customer_reference][in]",

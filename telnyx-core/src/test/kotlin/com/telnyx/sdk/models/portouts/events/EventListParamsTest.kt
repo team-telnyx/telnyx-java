@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.portouts.events
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -54,8 +55,18 @@ internal class EventListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[created_at][gte]", "2021-01-01T00:00:00Z")
-                    .put("filter[created_at][lte]", "2021-01-01T00:00:00Z")
+                    .put(
+                        "filter[created_at][gte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-01-01T00:00:00Z")
+                        ),
+                    )
+                    .put(
+                        "filter[created_at][lte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-01-01T00:00:00Z")
+                        ),
+                    )
                     .put("filter[event_type]", "portout.status_changed")
                     .put("filter[portout_id]", "34dc46a9-53ed-4e01-9454-26227ea13326")
                     .put("page[number]", "0")

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.messagingtollfree.verification.requests
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -43,8 +44,18 @@ internal class RequestListParamsTest {
                     .put("page", "1")
                     .put("page_size", "1")
                     .put("business_name", "business_name")
-                    .put("date_end", "2019-12-27T18:11:19.117Z")
-                    .put("date_start", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "date_end",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
+                    .put(
+                        "date_start",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("phone_number", "phone_number")
                     .put("status", "Verified")
                     .build()

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.auditevents
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -44,8 +45,18 @@ internal class AuditEventListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[created_after]", "2021-01-08T00:00:00Z")
-                    .put("filter[created_before]", "2021-01-08T00:00:00Z")
+                    .put(
+                        "filter[created_after]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-01-08T00:00:00Z")
+                        ),
+                    )
+                    .put(
+                        "filter[created_before]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2021-01-08T00:00:00Z")
+                        ),
+                    )
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .put("sort", "desc")

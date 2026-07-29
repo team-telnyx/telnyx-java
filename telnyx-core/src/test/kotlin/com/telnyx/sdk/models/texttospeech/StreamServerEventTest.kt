@@ -54,7 +54,8 @@ internal class StreamServerEventTest {
                 jacksonTypeRef<StreamServerEvent>(),
             )
 
-        assertThat(roundtrippedStreamServerEvent).isEqualTo(streamServerEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedStreamServerEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(streamServerEvent))
     }
 
     @Test
@@ -95,7 +96,8 @@ internal class StreamServerEventTest {
                 jacksonTypeRef<StreamServerEvent>(),
             )
 
-        assertThat(roundtrippedStreamServerEvent).isEqualTo(streamServerEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedStreamServerEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(streamServerEvent))
     }
 
     @Test
@@ -130,7 +132,8 @@ internal class StreamServerEventTest {
                 jacksonTypeRef<StreamServerEvent>(),
             )
 
-        assertThat(roundtrippedStreamServerEvent).isEqualTo(streamServerEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedStreamServerEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(streamServerEvent))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

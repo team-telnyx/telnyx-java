@@ -30,6 +30,8 @@ import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueResponse
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingResponse
+import com.telnyx.sdk.models.calls.actions.ActionPayParams
+import com.telnyx.sdk.models.calls.actions.ActionPayResponse
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionReferResponse
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
@@ -547,6 +549,54 @@ interface ActionService {
         requestOptions: RequestOptions,
     ): ActionPauseRecordingResponse =
         pauseRecording(callControlId, ActionPauseRecordingParams.none(), requestOptions)
+
+    /**
+     * Collect payment details from the caller using DTMF and either charge or tokenize the payment
+     * method through a configured Pay connector. Pay pauses active call recordings while sensitive
+     * payment details are collected.
+     *
+     * When `payment_token` is supplied, the DTMF collection steps are skipped and the existing
+     * token is sent to the connector.
+     *
+     * **Expected Webhooks:**
+     * - `call.payment.progress`
+     * - `call.payment.completed`
+     *
+     * **Test mode card numbers:** `4111111111111111` (Visa), `5555555555554444` (Mastercard),
+     * `378282246310005` (American Express), `6011111111111117` (Discover), `3065930009020004`
+     * (Diners Club), `3566002020360505` (JCB), `6200000000000005` (UnionPay), and
+     * `6771798021000008` (Maestro). Test-mode connectors reject other card numbers before
+     * contacting the configured processor. The UnionPay and Maestro numbers are accepted for
+     * processor testing, but Pay currently does not emit a card type for them.
+     */
+    fun pay(callControlId: String): ActionPayResponse = pay(callControlId, ActionPayParams.none())
+
+    /** @see pay */
+    fun pay(
+        callControlId: String,
+        params: ActionPayParams = ActionPayParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionPayResponse =
+        pay(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+    /** @see pay */
+    fun pay(
+        callControlId: String,
+        params: ActionPayParams = ActionPayParams.none(),
+    ): ActionPayResponse = pay(callControlId, params, RequestOptions.none())
+
+    /** @see pay */
+    fun pay(
+        params: ActionPayParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionPayResponse
+
+    /** @see pay */
+    fun pay(params: ActionPayParams): ActionPayResponse = pay(params, RequestOptions.none())
+
+    /** @see pay */
+    fun pay(callControlId: String, requestOptions: RequestOptions): ActionPayResponse =
+        pay(callControlId, ActionPayParams.none(), requestOptions)
 
     /**
      * Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the
@@ -2108,6 +2158,50 @@ interface ActionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ActionPauseRecordingResponse> =
             pauseRecording(callControlId, ActionPauseRecordingParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/pay`, but is
+         * otherwise the same as [ActionService.pay].
+         */
+        @MustBeClosed
+        fun pay(callControlId: String): HttpResponseFor<ActionPayResponse> =
+            pay(callControlId, ActionPayParams.none())
+
+        /** @see pay */
+        @MustBeClosed
+        fun pay(
+            callControlId: String,
+            params: ActionPayParams = ActionPayParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionPayResponse> =
+            pay(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+        /** @see pay */
+        @MustBeClosed
+        fun pay(
+            callControlId: String,
+            params: ActionPayParams = ActionPayParams.none(),
+        ): HttpResponseFor<ActionPayResponse> = pay(callControlId, params, RequestOptions.none())
+
+        /** @see pay */
+        @MustBeClosed
+        fun pay(
+            params: ActionPayParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionPayResponse>
+
+        /** @see pay */
+        @MustBeClosed
+        fun pay(params: ActionPayParams): HttpResponseFor<ActionPayResponse> =
+            pay(params, RequestOptions.none())
+
+        /** @see pay */
+        @MustBeClosed
+        fun pay(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionPayResponse> =
+            pay(callControlId, ActionPayParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/refer`, but is

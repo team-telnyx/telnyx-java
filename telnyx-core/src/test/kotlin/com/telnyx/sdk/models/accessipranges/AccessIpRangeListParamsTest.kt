@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.accessipranges
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -43,7 +44,12 @@ internal class AccessIpRangeListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[cidr_block]", "string")
-                    .put("filter[created_at]", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "filter[created_at]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .build()
