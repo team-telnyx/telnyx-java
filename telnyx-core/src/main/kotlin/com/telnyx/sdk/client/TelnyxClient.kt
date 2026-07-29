@@ -121,6 +121,7 @@ import com.telnyx.sdk.services.blocking.PortingOrderService
 import com.telnyx.sdk.services.blocking.PortingPhoneNumberService
 import com.telnyx.sdk.services.blocking.PortingService
 import com.telnyx.sdk.services.blocking.PortoutService
+import com.telnyx.sdk.services.blocking.PricingService
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PronunciationDictService
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayService
@@ -748,6 +749,8 @@ interface TelnyxClient {
     /** Validate email addresses synchronously or in asynchronous batches. */
     fun emailValidations(): EmailValidationService
 
+    fun pricing(): PricingService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1302,5 +1305,7 @@ interface TelnyxClient {
 
         /** Validate email addresses synchronously or in asynchronous batches. */
         fun emailValidations(): EmailValidationService.WithRawResponse
+
+        fun pricing(): PricingService.WithRawResponse
     }
 }

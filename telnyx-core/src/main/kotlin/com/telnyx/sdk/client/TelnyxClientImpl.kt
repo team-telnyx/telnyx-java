@@ -240,6 +240,8 @@ import com.telnyx.sdk.services.blocking.PortingService
 import com.telnyx.sdk.services.blocking.PortingServiceImpl
 import com.telnyx.sdk.services.blocking.PortoutService
 import com.telnyx.sdk.services.blocking.PortoutServiceImpl
+import com.telnyx.sdk.services.blocking.PricingService
+import com.telnyx.sdk.services.blocking.PricingServiceImpl
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.PronunciationDictService
@@ -1036,6 +1038,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         EmailValidationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val pricing: PricingService by lazy { PricingServiceImpl(clientOptionsWithUserAgent) }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1585,6 +1589,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Validate email addresses synchronously or in asynchronous batches. */
     override fun emailValidations(): EmailValidationService = emailValidations
+
+    override fun pricing(): PricingService = pricing
 
     override fun close() = clientOptions.close()
 
@@ -2322,6 +2328,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             EmailValidationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val pricing: PricingService.WithRawResponse by lazy {
+            PricingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2930,5 +2940,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Validate email addresses synchronously or in asynchronous batches. */
         override fun emailValidations(): EmailValidationService.WithRawResponse = emailValidations
+
+        override fun pricing(): PricingService.WithRawResponse = pricing
     }
 }

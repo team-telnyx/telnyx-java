@@ -240,6 +240,8 @@ import com.telnyx.sdk.services.async.PortingServiceAsync
 import com.telnyx.sdk.services.async.PortingServiceAsyncImpl
 import com.telnyx.sdk.services.async.PortoutServiceAsync
 import com.telnyx.sdk.services.async.PortoutServiceAsyncImpl
+import com.telnyx.sdk.services.async.PricingServiceAsync
+import com.telnyx.sdk.services.async.PricingServiceAsyncImpl
 import com.telnyx.sdk.services.async.PrivateWirelessGatewayServiceAsync
 import com.telnyx.sdk.services.async.PrivateWirelessGatewayServiceAsyncImpl
 import com.telnyx.sdk.services.async.PronunciationDictServiceAsync
@@ -1078,6 +1080,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         EmailValidationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val pricing: PricingServiceAsync by lazy {
+        PricingServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1642,6 +1648,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Validate email addresses synchronously or in asynchronous batches. */
     override fun emailValidations(): EmailValidationServiceAsync = emailValidations
+
+    override fun pricing(): PricingServiceAsync = pricing
 
     override fun close() = clientOptions.close()
 
@@ -2403,6 +2411,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             EmailValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val pricing: PricingServiceAsync.WithRawResponse by lazy {
+            PricingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3025,5 +3037,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Validate email addresses synchronously or in asynchronous batches. */
         override fun emailValidations(): EmailValidationServiceAsync.WithRawResponse =
             emailValidations
+
+        override fun pricing(): PricingServiceAsync.WithRawResponse = pricing
     }
 }

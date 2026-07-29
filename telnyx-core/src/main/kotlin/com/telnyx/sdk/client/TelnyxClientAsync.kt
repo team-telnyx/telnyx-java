@@ -121,6 +121,7 @@ import com.telnyx.sdk.services.async.PortingOrderServiceAsync
 import com.telnyx.sdk.services.async.PortingPhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.PortingServiceAsync
 import com.telnyx.sdk.services.async.PortoutServiceAsync
+import com.telnyx.sdk.services.async.PricingServiceAsync
 import com.telnyx.sdk.services.async.PrivateWirelessGatewayServiceAsync
 import com.telnyx.sdk.services.async.PronunciationDictServiceAsync
 import com.telnyx.sdk.services.async.PublicInternetGatewayServiceAsync
@@ -748,6 +749,8 @@ interface TelnyxClientAsync {
     /** Validate email addresses synchronously or in asynchronous batches. */
     fun emailValidations(): EmailValidationServiceAsync
 
+    fun pricing(): PricingServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1305,5 +1308,7 @@ interface TelnyxClientAsync {
 
         /** Validate email addresses synchronously or in asynchronous batches. */
         fun emailValidations(): EmailValidationServiceAsync.WithRawResponse
+
+        fun pricing(): PricingServiceAsync.WithRawResponse
     }
 }

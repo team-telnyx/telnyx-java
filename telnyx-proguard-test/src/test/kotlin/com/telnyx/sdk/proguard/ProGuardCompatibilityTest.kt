@@ -234,6 +234,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.emailThreads()).isNotNull()
         assertThat(client.emailUnsubscribeGroups()).isNotNull()
         assertThat(client.emailValidations()).isNotNull()
+        assertThat(client.pricing()).isNotNull()
     }
 
     @Test
