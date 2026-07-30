@@ -67,7 +67,7 @@ interface SpeechToTextServiceAsync {
      * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
      *
      * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
-     * `Parakeet`, `Humain`.
+     * `Parakeet`, `Humain`, `Reson8`.
      *
      * **Connection flow:**
      * 1. Open WebSocket with query parameters specifying engine, input format, and language.

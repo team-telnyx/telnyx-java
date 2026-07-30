@@ -50,7 +50,9 @@ private constructor(
      * `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
      * code-switching), and `auto` (resolves server-side to code-switching). Unlike other models,
      * `humain/realtime` does not fall back to `auto` when `language` is omitted — omitting it
-     * applies `en` instead.
+     * applies `en` instead. For `reson8/turns`, supported values are `auto` (or unset) for
+     * automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`,
+     * `pl`, `pt`, `es`, and `sv` to fix the transcription language.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -69,6 +71,8 @@ private constructor(
      * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `humain/realtime` for live streaming transcription with native Arabic and Arabic/English
      *   code-switching support.
+     * - `reson8/turns` for live streaming turn-based transcription of 10 European languages with
+     *   automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -142,7 +146,9 @@ private constructor(
          * For `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
          * code-switching), and `auto` (resolves server-side to code-switching). Unlike other
          * models, `humain/realtime` does not fall back to `auto` when `language` is omitted —
-         * omitting it applies `en` instead.
+         * omitting it applies `en` instead. For `reson8/turns`, supported values are `auto` (or
+         * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
+         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -166,6 +172,8 @@ private constructor(
          * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
          * - `humain/realtime` for live streaming transcription with native Arabic and
          *   Arabic/English code-switching support.
+         * - `reson8/turns` for live streaming turn-based transcription of 10 European languages
+         *   with automatic language detection.
          * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported
          *   regions require `api_key_ref`.
          * - `google/latest_long` for non-streaming multilingual transcription.
@@ -262,6 +270,8 @@ private constructor(
      * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `humain/realtime` for live streaming transcription with native Arabic and Arabic/English
      *   code-switching support.
+     * - `reson8/turns` for live streaming turn-based transcription of 10 European languages with
+     *   automatic language detection.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -306,6 +316,8 @@ private constructor(
 
             @JvmField val HUMAIN_REALTIME = of("humain/realtime")
 
+            @JvmField val RESON8_TURNS = of("reson8/turns")
+
             @JvmField val AZURE_FAST = of("azure/fast")
 
             @JvmField val AZURE_REALTIME = of("azure/realtime")
@@ -332,6 +344,7 @@ private constructor(
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
+            RESON8_TURNS,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -360,6 +373,7 @@ private constructor(
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
+            RESON8_TURNS,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -389,6 +403,7 @@ private constructor(
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
+                RESON8_TURNS -> Value.RESON8_TURNS
                 AZURE_FAST -> Value.AZURE_FAST
                 AZURE_REALTIME -> Value.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Value.GOOGLE_LATEST_LONG
@@ -419,6 +434,7 @@ private constructor(
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
+                RESON8_TURNS -> Known.RESON8_TURNS
                 AZURE_FAST -> Known.AZURE_FAST
                 AZURE_REALTIME -> Known.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Known.GOOGLE_LATEST_LONG

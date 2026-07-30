@@ -272,6 +272,8 @@ private constructor(
 
             @JvmField val HUMAIN = of("humain")
 
+            @JvmField val RESON8 = of("reson8")
+
             @JvmField val AZURE = of("azure")
 
             @JvmField val OPENAI = of("openai")
@@ -292,6 +294,7 @@ private constructor(
             SONIOX,
             PARAKEET,
             HUMAIN,
+            RESON8,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -315,6 +318,7 @@ private constructor(
             SONIOX,
             PARAKEET,
             HUMAIN,
+            RESON8,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -339,6 +343,7 @@ private constructor(
                 SONIOX -> Value.SONIOX
                 PARAKEET -> Value.PARAKEET
                 HUMAIN -> Value.HUMAIN
+                RESON8 -> Value.RESON8
                 AZURE -> Value.AZURE
                 OPENAI -> Value.OPENAI
                 GOOGLE -> Value.GOOGLE
@@ -364,6 +369,7 @@ private constructor(
                 SONIOX -> Known.SONIOX
                 PARAKEET -> Known.PARAKEET
                 HUMAIN -> Known.HUMAIN
+                RESON8 -> Known.RESON8
                 AZURE -> Known.AZURE
                 OPENAI -> Known.OPENAI
                 GOOGLE -> Known.GOOGLE

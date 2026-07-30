@@ -18,7 +18,7 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
- * `Parakeet`, `Humain`.
+ * `Parakeet`, `Humain`, `Reson8`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying engine, input format, and language.
@@ -540,6 +540,8 @@ private constructor(
 
             @JvmField val HUMAIN = of("Humain")
 
+            @JvmField val RESON8 = of("Reson8")
+
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
@@ -554,6 +556,7 @@ private constructor(
             SONIOX,
             PARAKEET,
             HUMAIN,
+            RESON8,
         }
 
         /**
@@ -575,6 +578,7 @@ private constructor(
             SONIOX,
             PARAKEET,
             HUMAIN,
+            RESON8,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -600,6 +604,7 @@ private constructor(
                 SONIOX -> Value.SONIOX
                 PARAKEET -> Value.PARAKEET
                 HUMAIN -> Value.HUMAIN
+                RESON8 -> Value.RESON8
                 else -> Value._UNKNOWN
             }
 
@@ -623,6 +628,7 @@ private constructor(
                 SONIOX -> Known.SONIOX
                 PARAKEET -> Known.PARAKEET
                 HUMAIN -> Known.HUMAIN
+                RESON8 -> Known.RESON8
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 
@@ -738,6 +744,8 @@ private constructor(
 
             @JvmField val HUMAIN_REALTIME = of("humain/realtime")
 
+            @JvmField val RESON8_TURNS = of("reson8/turns")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -761,6 +769,7 @@ private constructor(
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
+            RESON8_TURNS,
         }
 
         /**
@@ -791,6 +800,7 @@ private constructor(
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
+            RESON8_TURNS,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -822,6 +832,7 @@ private constructor(
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
+                RESON8_TURNS -> Value.RESON8_TURNS
                 else -> Value._UNKNOWN
             }
 
@@ -854,6 +865,7 @@ private constructor(
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
+                RESON8_TURNS -> Known.RESON8_TURNS
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
