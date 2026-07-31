@@ -38,6 +38,14 @@ import kotlin.jvm.optionals.getOrNull
  * details did not change keep their existing call, code, and the notice already sent to them.
  *
  * The response always echoes the stored references in the same shape as the GET.
+ *
+ * Who qualifies: the two business references confirm the company's reputation and operations. Each
+ * should be a senior contact at an organization the business works with, such as a vendor, partner,
+ * or client: a C-suite executive (CEO, CFO, CTO, COO), an owner or founder as reflected in the
+ * company's corporate records, or a senior manager, director, or executive. The financial reference
+ * confirms the company pays its bills and should be a licensed certified public accountant (CPA)
+ * the company uses, a contact at a bank or financial institution that has a relationship with the
+ * company, or a reasonable alternative banking or financial reference.
  */
 class ReferenceCreateParams
 private constructor(
@@ -52,7 +60,10 @@ private constructor(
     /**
      * Exactly two business references. Array order determines each one's slot: the first entry
      * becomes slot 1 and the second becomes slot 2. Those slots are what you pass when updating a
-     * single reference later.
+     * single reference later. Each should be a senior contact who can speak to your company's
+     * reputation and operations: a C-suite executive (CEO, CFO, CTO, COO), an owner or founder as
+     * reflected in your corporate records, or a senior manager, director, or executive at an
+     * organization you work with, such as a vendor, partner, or client.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -143,7 +154,10 @@ private constructor(
         /**
          * Exactly two business references. Array order determines each one's slot: the first entry
          * becomes slot 1 and the second becomes slot 2. Those slots are what you pass when updating
-         * a single reference later.
+         * a single reference later. Each should be a senior contact who can speak to your company's
+         * reputation and operations: a C-suite executive (CEO, CFO, CTO, COO), an owner or founder
+         * as reflected in your corporate records, or a senior manager, director, or executive at an
+         * organization you work with, such as a vendor, partner, or client.
          */
         fun businessReferences(businessReferences: List<ReferenceInput>) = apply {
             body.businessReferences(businessReferences)
@@ -365,7 +379,10 @@ private constructor(
         /**
          * Exactly two business references. Array order determines each one's slot: the first entry
          * becomes slot 1 and the second becomes slot 2. Those slots are what you pass when updating
-         * a single reference later.
+         * a single reference later. Each should be a senior contact who can speak to your company's
+         * reputation and operations: a C-suite executive (CEO, CFO, CTO, COO), an owner or founder
+         * as reflected in your corporate records, or a senior manager, director, or executive at an
+         * organization you work with, such as a vendor, partner, or client.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -446,7 +463,11 @@ private constructor(
             /**
              * Exactly two business references. Array order determines each one's slot: the first
              * entry becomes slot 1 and the second becomes slot 2. Those slots are what you pass
-             * when updating a single reference later.
+             * when updating a single reference later. Each should be a senior contact who can speak
+             * to your company's reputation and operations: a C-suite executive (CEO, CFO, CTO,
+             * COO), an owner or founder as reflected in your corporate records, or a senior
+             * manager, director, or executive at an organization you work with, such as a vendor,
+             * partner, or client.
              */
             fun businessReferences(businessReferences: List<ReferenceInput>) =
                 businessReferences(JsonField.of(businessReferences))

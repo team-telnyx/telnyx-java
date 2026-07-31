@@ -292,8 +292,9 @@ interface DirService {
      * When re-submitting from `verified`, the existing registration stays live throughout the new
      * vetting cycle.
      *
-     * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `409` if the DIR
-     * has an unresolved infringement claim.
+     * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400` if the DIR's
+     * business and financial references have not been submitted. Returns `409` if the DIR has an
+     * unresolved infringement claim.
      */
     fun submit(dirId: String): DirWrapped = submit(dirId, DirSubmitParams.none())
 
