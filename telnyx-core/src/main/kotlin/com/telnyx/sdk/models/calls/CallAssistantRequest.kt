@@ -34,6 +34,7 @@ import com.telnyx.sdk.models.CheckAvailabilityToolParams
 import com.telnyx.sdk.models.ai.assistants.HangupTool
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.ai.assistants.TransferTool
+import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.ai.assistants.WebhookTool
 import java.util.Collections
 import java.util.Objects
@@ -60,6 +61,7 @@ private constructor(
     private val observabilitySettings: JsonField<ObservabilitySettings>,
     private val openaiApiKeyRef: JsonField<String>,
     private val tools: JsonField<List<Tool>>,
+    private val voiceSettings: JsonField<VoiceSettings>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -94,6 +96,9 @@ private constructor(
         @ExcludeMissing
         openaiApiKeyRef: JsonField<String> = JsonMissing.of(),
         @JsonProperty("tools") @ExcludeMissing tools: JsonField<List<Tool>> = JsonMissing.of(),
+        @JsonProperty("voice_settings")
+        @ExcludeMissing
+        voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
     ) : this(
         id,
         dynamicVariables,
@@ -108,6 +113,7 @@ private constructor(
         observabilitySettings,
         openaiApiKeyRef,
         tools,
+        voiceSettings,
         mutableMapOf(),
     )
 
@@ -233,6 +239,12 @@ private constructor(
     fun tools(): Optional<List<Tool>> = tools.getOptional("tools")
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -342,6 +354,15 @@ private constructor(
      */
     @JsonProperty("tools") @ExcludeMissing fun _tools(): JsonField<List<Tool>> = tools
 
+    /**
+     * Returns the raw JSON value of [voiceSettings].
+     *
+     * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("voice_settings")
+    @ExcludeMissing
+    fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -383,6 +404,7 @@ private constructor(
         private var observabilitySettings: JsonField<ObservabilitySettings> = JsonMissing.of()
         private var openaiApiKeyRef: JsonField<String> = JsonMissing.of()
         private var tools: JsonField<MutableList<Tool>>? = null
+        private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -400,6 +422,7 @@ private constructor(
             observabilitySettings = callAssistantRequest.observabilitySettings
             openaiApiKeyRef = callAssistantRequest.openaiApiKeyRef
             tools = callAssistantRequest.tools.map { it.toMutableList() }
+            voiceSettings = callAssistantRequest.voiceSettings
             additionalProperties = callAssistantRequest.additionalProperties.toMutableMap()
         }
 
@@ -744,6 +767,19 @@ private constructor(
                     .build()
             )
 
+        fun voiceSettings(voiceSettings: VoiceSettings) = voiceSettings(JsonField.of(voiceSettings))
+
+        /**
+         * Sets [Builder.voiceSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+            this.voiceSettings = voiceSettings
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -790,6 +826,7 @@ private constructor(
                 observabilitySettings,
                 openaiApiKeyRef,
                 (tools ?: JsonMissing.of()).map { it.toImmutable() },
+                voiceSettings,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -822,6 +859,7 @@ private constructor(
         observabilitySettings().ifPresent { it.validate() }
         openaiApiKeyRef()
         tools().ifPresent { it.forEach { it.validate() } }
+        voiceSettings().ifPresent { it.validate() }
         validated = true
     }
 
@@ -852,7 +890,8 @@ private constructor(
             (if (name.asKnown().isPresent) 1 else 0) +
             (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (openaiApiKeyRef.asKnown().isPresent) 1 else 0) +
-            (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+            (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
      * Map of dynamic variables and their default values. Dynamic variables can be referenced in
@@ -2955,6 +2994,7 @@ private constructor(
             observabilitySettings == other.observabilitySettings &&
             openaiApiKeyRef == other.openaiApiKeyRef &&
             tools == other.tools &&
+            voiceSettings == other.voiceSettings &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2973,6 +3013,7 @@ private constructor(
             observabilitySettings,
             openaiApiKeyRef,
             tools,
+            voiceSettings,
             additionalProperties,
         )
     }
@@ -2980,5 +3021,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CallAssistantRequest{id=$id, dynamicVariables=$dynamicVariables, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, model=$model, name=$name, observabilitySettings=$observabilitySettings, openaiApiKeyRef=$openaiApiKeyRef, tools=$tools, additionalProperties=$additionalProperties}"
+        "CallAssistantRequest{id=$id, dynamicVariables=$dynamicVariables, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, model=$model, name=$name, observabilitySettings=$observabilitySettings, openaiApiKeyRef=$openaiApiKeyRef, tools=$tools, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
 }

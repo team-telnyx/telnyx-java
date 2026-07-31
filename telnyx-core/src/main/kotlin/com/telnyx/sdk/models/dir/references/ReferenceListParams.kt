@@ -11,9 +11,11 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * List the business and financial references submitted for a DIR.
  *
- * Returns the two business references (slots 0 and 1) followed by the single financial reference.
- * Each entry carries only the customer-supplied details (name, title, organization, relationship,
- * phone, email, timezone). Returns an empty list when no references were submitted.
+ * Returns the two business references (slots 1 and 2) followed by the single financial reference.
+ * Each entry carries its `ref_type` and `slot`, which together address the reference when updating
+ * it, alongside the details supplied when it was submitted (name, title, organization,
+ * relationship, phone, email, timezone). No internal identifiers are exposed. Returns an empty list
+ * when no references were submitted.
  */
 class ReferenceListParams
 private constructor(
