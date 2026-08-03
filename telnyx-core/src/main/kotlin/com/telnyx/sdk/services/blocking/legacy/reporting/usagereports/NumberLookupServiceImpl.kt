@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPage
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.function.Consumer
@@ -57,7 +58,7 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: NumberLookupListParams,
         requestOptions: RequestOptions,
-    ): NumberLookupListResponse =
+    ): NumberLookupListPage =
         // get /legacy/reporting/usage_reports/number_lookup
         withRawResponse().list(params, requestOptions).parse()
 
@@ -143,13 +144,13 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<NumberLookupListResponse> =
-            jsonHandler<NumberLookupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberLookupListPageResponse> =
+            jsonHandler<NumberLookupListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberLookupListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberLookupListResponse> {
+        ): HttpResponseFor<NumberLookupListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -166,6 +167,13 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NumberLookupListPage.builder()
+                            .service(NumberLookupServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

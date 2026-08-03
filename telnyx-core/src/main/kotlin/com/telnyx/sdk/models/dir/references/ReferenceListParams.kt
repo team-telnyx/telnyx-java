@@ -3,7 +3,6 @@
 package com.telnyx.sdk.models.dir.references
 
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
@@ -12,21 +11,23 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * List the business and financial references submitted for a DIR.
  *
- * Returns the two business references (slots 0 and 1) followed by the single financial reference.
- * Each entry carries only the customer-supplied details (name, title, organization, relationship,
- * phone, email, timezone). Returns an empty list when no references were submitted.
+ * Returns the two business references (slots 1 and 2) followed by the single financial reference.
+ * Each entry carries its `ref_type` and `slot`, which together address the reference when updating
+ * it, alongside the details supplied when it was submitted (name, title, organization,
+ * relationship, phone, email, timezone). No internal identifiers are exposed. Returns an empty list
+ * when no references were submitted.
  */
 class ReferenceListParams
 private constructor(
     private val dirId: String?,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun dirId(): Optional<String> = Optional.ofNullable(dirId)
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -45,7 +46,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var dirId: String? = null
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -60,7 +62,7 @@ private constructor(
         /** Alias for calling [Builder.dirId] with `dirId.orElse(null)`. */
         fun dirId(dirId: Optional<String>) = dirId(dirId.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -78,7 +80,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -94,9 +96,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -173,7 +176,7 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 

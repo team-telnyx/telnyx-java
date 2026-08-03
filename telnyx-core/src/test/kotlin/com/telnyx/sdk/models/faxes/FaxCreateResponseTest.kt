@@ -21,8 +21,10 @@ internal class FaxCreateResponseTest {
                         .connectionId("c-1")
                         .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                         .direction(Fax.Direction.OUTBOUND)
+                        .failureReason(null)
                         .from("+123")
                         .fromDisplayName("Company Name")
+                        .internalFailureReason(null)
                         .mediaName("my_media_uploaded_to_media_storage_api")
                         .mediaUrl("http://www.example.com/fax.pdf")
                         .previewUrl(
@@ -51,8 +53,10 @@ internal class FaxCreateResponseTest {
                     .connectionId("c-1")
                     .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                     .direction(Fax.Direction.OUTBOUND)
+                    .failureReason(null)
                     .from("+123")
                     .fromDisplayName("Company Name")
+                    .internalFailureReason(null)
                     .mediaName("my_media_uploaded_to_media_storage_api")
                     .mediaUrl("http://www.example.com/fax.pdf")
                     .previewUrl(
@@ -85,8 +89,10 @@ internal class FaxCreateResponseTest {
                         .connectionId("c-1")
                         .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                         .direction(Fax.Direction.OUTBOUND)
+                        .failureReason(null)
                         .from("+123")
                         .fromDisplayName("Company Name")
+                        .internalFailureReason(null)
                         .mediaName("my_media_uploaded_to_media_storage_api")
                         .mediaUrl("http://www.example.com/fax.pdf")
                         .previewUrl(

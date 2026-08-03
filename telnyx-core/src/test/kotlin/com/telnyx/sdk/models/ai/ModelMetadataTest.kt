@@ -44,6 +44,7 @@ internal class ModelMetadataTest {
                 .recommendedForAssistants(true)
                 .addRegion("us-central-1")
                 .addRegion("us-east-1")
+                .addServiceTier(ModelMetadata.ServiceTier.DEFAULT)
                 .task("text-generation")
                 .build()
 
@@ -76,6 +77,8 @@ internal class ModelMetadataTest {
             )
         assertThat(modelMetadata.recommendedForAssistants()).contains(true)
         assertThat(modelMetadata.regions().getOrNull()).containsExactly("us-central-1", "us-east-1")
+        assertThat(modelMetadata.serviceTiers().getOrNull())
+            .containsExactly(ModelMetadata.ServiceTier.DEFAULT)
         assertThat(modelMetadata.task()).contains("text-generation")
     }
 
@@ -112,6 +115,7 @@ internal class ModelMetadataTest {
                 .recommendedForAssistants(true)
                 .addRegion("us-central-1")
                 .addRegion("us-east-1")
+                .addServiceTier(ModelMetadata.ServiceTier.DEFAULT)
                 .task("text-generation")
                 .build()
 

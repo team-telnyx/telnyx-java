@@ -31,6 +31,7 @@ private constructor(
     private val password: JsonField<String>,
     private val proxy: JsonField<String>,
     private val transport: JsonField<Transport>,
+    private val userAgent: JsonField<String>,
     private val username: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -52,6 +53,7 @@ private constructor(
         @JsonProperty("transport")
         @ExcludeMissing
         transport: JsonField<Transport> = JsonMissing.of(),
+        @JsonProperty("user_agent") @ExcludeMissing userAgent: JsonField<String> = JsonMissing.of(),
         @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
     ) : this(
         authUsername,
@@ -61,6 +63,7 @@ private constructor(
         password,
         proxy,
         transport,
+        userAgent,
         username,
         mutableMapOf(),
     )
@@ -125,6 +128,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun transport(): Optional<Transport> = transport.getOptional("transport")
+
+    /**
+     * Custom SIP User-Agent header value that Telnyx uses on outbound REGISTER and INVITE messages.
+     * Set to null to use Telnyx's default User-Agent.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun userAgent(): Optional<String> = userAgent.getOptional("user_agent")
 
     /**
      * The SIP username used to authenticate with the external SIP peer for registrations and
@@ -192,6 +204,13 @@ private constructor(
     @JsonProperty("transport") @ExcludeMissing fun _transport(): JsonField<Transport> = transport
 
     /**
+     * Returns the raw JSON value of [userAgent].
+     *
+     * Unlike [userAgent], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("user_agent") @ExcludeMissing fun _userAgent(): JsonField<String> = userAgent
+
+    /**
      * Returns the raw JSON value of [username].
      *
      * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
@@ -226,6 +245,7 @@ private constructor(
         private var password: JsonField<String> = JsonMissing.of()
         private var proxy: JsonField<String> = JsonMissing.of()
         private var transport: JsonField<Transport> = JsonMissing.of()
+        private var userAgent: JsonField<String> = JsonMissing.of()
         private var username: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -238,6 +258,7 @@ private constructor(
             password = uacExternalSettings.password
             proxy = uacExternalSettings.proxy
             transport = uacExternalSettings.transport
+            userAgent = uacExternalSettings.userAgent
             username = uacExternalSettings.username
             additionalProperties = uacExternalSettings.additionalProperties.toMutableMap()
         }
@@ -372,6 +393,24 @@ private constructor(
         fun transport(transport: JsonField<Transport>) = apply { this.transport = transport }
 
         /**
+         * Custom SIP User-Agent header value that Telnyx uses on outbound REGISTER and INVITE
+         * messages. Set to null to use Telnyx's default User-Agent.
+         */
+        fun userAgent(userAgent: String?) = userAgent(JsonField.ofNullable(userAgent))
+
+        /** Alias for calling [Builder.userAgent] with `userAgent.orElse(null)`. */
+        fun userAgent(userAgent: Optional<String>) = userAgent(userAgent.getOrNull())
+
+        /**
+         * Sets [Builder.userAgent] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.userAgent] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun userAgent(userAgent: JsonField<String>) = apply { this.userAgent = userAgent }
+
+        /**
          * The SIP username used to authenticate with the external SIP peer for registrations and
          * outbound calls. Must start with a letter or number and contain only letters, numbers,
          * hyphens, and underscores.
@@ -419,6 +458,7 @@ private constructor(
                 password,
                 proxy,
                 transport,
+                userAgent,
                 username,
                 additionalProperties.toMutableMap(),
             )
@@ -446,6 +486,7 @@ private constructor(
         password()
         proxy()
         transport().ifPresent { it.validate() }
+        userAgent()
         username()
         validated = true
     }
@@ -472,6 +513,7 @@ private constructor(
             (if (password.asKnown().isPresent) 1 else 0) +
             (if (proxy.asKnown().isPresent) 1 else 0) +
             (transport.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (userAgent.asKnown().isPresent) 1 else 0) +
             (if (username.asKnown().isPresent) 1 else 0)
 
     /**
@@ -633,6 +675,7 @@ private constructor(
             password == other.password &&
             proxy == other.proxy &&
             transport == other.transport &&
+            userAgent == other.userAgent &&
             username == other.username &&
             additionalProperties == other.additionalProperties
     }
@@ -646,6 +689,7 @@ private constructor(
             password,
             proxy,
             transport,
+            userAgent,
             username,
             additionalProperties,
         )
@@ -654,5 +698,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UacExternalSettings{authUsername=$authUsername, expirationSec=$expirationSec, fromUser=$fromUser, outboundProxy=$outboundProxy, password=$password, proxy=$proxy, transport=$transport, username=$username, additionalProperties=$additionalProperties}"
+        "UacExternalSettings{authUsername=$authUsername, expirationSec=$expirationSec, fromUser=$fromUser, outboundProxy=$outboundProxy, password=$password, proxy=$proxy, transport=$transport, userAgent=$userAgent, username=$username, additionalProperties=$additionalProperties}"
 }

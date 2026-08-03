@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.dir
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -47,8 +48,18 @@ internal class DirListParamsTest {
                     .put("filter[call_reason][contains]", "filter[call_reason][contains]")
                     .put("filter[display_name][contains]", "filter[display_name][contains]")
                     .put("filter[enterprise_id]", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .put("filter[expiring_at][gte]", "2019-12-27T18:11:19.117Z")
-                    .put("filter[expiring_at][lte]", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "filter[expiring_at][gte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
+                    .put(
+                        "filter[expiring_at][lte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("filter[status]", "draft")
                     .put("page[number]", "1")
                     .put("page[size]", "20")

@@ -103,8 +103,10 @@ private constructor(
     fun refType(): RefType = refType.getRequired("ref_type")
 
     /**
-     * Position within the reference type. Business references occupy slots 0 and 1; the financial
-     * reference occupies slot 0.
+     * Position within the reference type, counting from 1. Business references occupy slots 1 and
+     * 2, in the order they were sent in the `business_references` array; the financial reference
+     * occupies slot 1. Use this value together with `ref_type` to address the reference when
+     * updating it.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -337,8 +339,10 @@ private constructor(
         fun refType(refType: JsonField<RefType>) = apply { this.refType = refType }
 
         /**
-         * Position within the reference type. Business references occupy slots 0 and 1; the
-         * financial reference occupies slot 0.
+         * Position within the reference type, counting from 1. Business references occupy slots 1
+         * and 2, in the order they were sent in the `business_references` array; the financial
+         * reference occupies slot 1. Use this value together with `ref_type` to address the
+         * reference when updating it.
          */
         fun slot(slot: Long) = slot(JsonField.of(slot))
 

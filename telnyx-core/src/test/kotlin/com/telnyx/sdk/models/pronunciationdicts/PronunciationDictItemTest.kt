@@ -47,7 +47,8 @@ internal class PronunciationDictItemTest {
                 jacksonTypeRef<PronunciationDictItem>(),
             )
 
-        assertThat(roundtrippedPronunciationDictItem).isEqualTo(pronunciationDictItem)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPronunciationDictItem))
+            .isEqualTo(jsonMapper.writeValueAsString(pronunciationDictItem))
     }
 
     @Test
@@ -85,7 +86,8 @@ internal class PronunciationDictItemTest {
                 jacksonTypeRef<PronunciationDictItem>(),
             )
 
-        assertThat(roundtrippedPronunciationDictItem).isEqualTo(pronunciationDictItem)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPronunciationDictItem))
+            .isEqualTo(jsonMapper.writeValueAsString(pronunciationDictItem))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

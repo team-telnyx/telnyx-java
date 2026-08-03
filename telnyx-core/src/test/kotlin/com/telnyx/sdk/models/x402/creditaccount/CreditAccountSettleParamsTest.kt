@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.x402.creditaccount
 
-import com.telnyx.sdk.core.http.Headers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +28,11 @@ internal class CreditAccountSettleParamsTest {
         val headers = params._headers()
 
         assertThat(headers)
-            .isEqualTo(Headers.builder().put("PAYMENT-SIGNATURE", "PAYMENT-SIGNATURE").build())
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("PAYMENT-SIGNATURE", "PAYMENT-SIGNATURE")
+                    .build()
+            )
     }
 
     @Test
@@ -38,7 +41,7 @@ internal class CreditAccountSettleParamsTest {
 
         val headers = params._headers()
 
-        assertThat(headers).isEqualTo(Headers.builder().build())
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
     }
 
     @Test

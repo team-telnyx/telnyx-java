@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.bundlepricing.userbundles
 
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -43,7 +42,9 @@ internal class UserBundleListParamsTest {
 
         assertThat(headers)
             .isEqualTo(
-                Headers.builder().put("authorization_bearer", "authorization_bearer").build()
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("authorization_bearer", "authorization_bearer")
+                    .build()
             )
     }
 
@@ -53,7 +54,7 @@ internal class UserBundleListParamsTest {
 
         val headers = params._headers()
 
-        assertThat(headers).isEqualTo(Headers.builder().build())
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
     }
 
     @Test

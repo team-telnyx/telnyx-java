@@ -47,9 +47,9 @@ internal class NumberLookupServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberLookupService = client.legacy().reporting().usageReports().numberLookup()
 
-        val numberLookups = numberLookupService.list()
+        val page = numberLookupService.list()
 
-        numberLookups.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

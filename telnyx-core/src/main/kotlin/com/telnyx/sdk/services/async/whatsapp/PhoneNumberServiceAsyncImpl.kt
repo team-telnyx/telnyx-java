@@ -27,6 +27,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversati
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsyncImpl
+import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ConversationalComponentServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ConversationalComponentServiceAsyncImpl
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ProfileServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ProfileServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -47,6 +49,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
 
     private val profile: ProfileServiceAsync by lazy { ProfileServiceAsyncImpl(clientOptions) }
 
+    private val conversationalComponents: ConversationalComponentServiceAsync by lazy {
+        ConversationalComponentServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): PhoneNumberServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberServiceAsync =
@@ -57,6 +63,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
 
     /** Manage Whatsapp phone numbers */
     override fun profile(): ProfileServiceAsync = profile
+
+    /** Manage Whatsapp phone numbers */
+    override fun conversationalComponents(): ConversationalComponentServiceAsync =
+        conversationalComponents
 
     override fun list(
         params: PhoneNumberListParams,
@@ -109,6 +119,11 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
             ProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val conversationalComponents:
+            ConversationalComponentServiceAsync.WithRawResponse by lazy {
+            ConversationalComponentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberServiceAsync.WithRawResponse =
@@ -121,6 +136,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
 
         /** Manage Whatsapp phone numbers */
         override fun profile(): ProfileServiceAsync.WithRawResponse = profile
+
+        /** Manage Whatsapp phone numbers */
+        override fun conversationalComponents():
+            ConversationalComponentServiceAsync.WithRawResponse = conversationalComponents
 
         private val listHandler: Handler<PhoneNumberListPageResponse> =
             jsonHandler<PhoneNumberListPageResponse>(clientOptions.jsonMapper)

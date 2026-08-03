@@ -10,7 +10,6 @@ import com.telnyx.sdk.core.LogLevel
 import com.telnyx.sdk.core.Sleeper
 import com.telnyx.sdk.core.Timeout
 import com.telnyx.sdk.core.http.AsyncStreamResponse
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.HttpClient
 import com.telnyx.sdk.core.http.ProxyAuthenticator
 import com.telnyx.sdk.core.http.QueryParams
@@ -320,7 +319,9 @@ class TelnyxOkHttpClient private constructor() {
         /** Alias for calling [Builder.clientSecret] with `clientSecret.orElse(null)`. */
         fun clientSecret(clientSecret: Optional<String>) = clientSecret(clientSecret.getOrNull())
 
-        fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
+        fun headers(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            clientOptions.headers(headers)
+        }
 
         fun headers(headers: Map<String, Iterable<String>>) = apply {
             clientOptions.headers(headers)
@@ -332,7 +333,9 @@ class TelnyxOkHttpClient private constructor() {
             clientOptions.putHeaders(name, values)
         }
 
-        fun putAllHeaders(headers: Headers) = apply { clientOptions.putAllHeaders(headers) }
+        fun putAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            clientOptions.putAllHeaders(headers)
+        }
 
         fun putAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             clientOptions.putAllHeaders(headers)
@@ -346,7 +349,9 @@ class TelnyxOkHttpClient private constructor() {
             clientOptions.replaceHeaders(name, values)
         }
 
-        fun replaceAllHeaders(headers: Headers) = apply { clientOptions.replaceAllHeaders(headers) }
+        fun replaceAllHeaders(headers: com.telnyx.sdk.core.http.Headers) = apply {
+            clientOptions.replaceAllHeaders(headers)
+        }
 
         fun replaceAllHeaders(headers: Map<String, Iterable<String>>) = apply {
             clientOptions.replaceAllHeaders(headers)

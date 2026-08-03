@@ -40,6 +40,8 @@ import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueResponse
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingResponse
+import com.telnyx.sdk.models.calls.actions.ActionPayParams
+import com.telnyx.sdk.models.calls.actions.ActionPayResponse
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionReferResponse
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
@@ -195,6 +197,10 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
     ): ActionPauseRecordingResponse =
         // post /calls/{call_control_id}/actions/record_pause
         withRawResponse().pauseRecording(params, requestOptions).parse()
+
+    override fun pay(params: ActionPayParams, requestOptions: RequestOptions): ActionPayResponse =
+        // post /calls/{call_control_id}/actions/pay
+        withRawResponse().pay(params, requestOptions).parse()
 
     override fun refer(
         params: ActionReferParams,
@@ -774,6 +780,37 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { pauseRecordingHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val payHandler: Handler<ActionPayResponse> =
+            jsonHandler<ActionPayResponse>(clientOptions.jsonMapper)
+
+        override fun pay(
+            params: ActionPayParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionPayResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("calls", params._pathParam(0), "actions", "pay")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { payHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

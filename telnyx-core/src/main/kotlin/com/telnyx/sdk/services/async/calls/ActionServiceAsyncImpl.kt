@@ -40,6 +40,8 @@ import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueResponse
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingResponse
+import com.telnyx.sdk.models.calls.actions.ActionPayParams
+import com.telnyx.sdk.models.calls.actions.ActionPayResponse
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionReferResponse
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
@@ -196,6 +198,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<ActionPauseRecordingResponse> =
         // post /calls/{call_control_id}/actions/record_pause
         withRawResponse().pauseRecording(params, requestOptions).thenApply { it.parse() }
+
+    override fun pay(
+        params: ActionPayParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionPayResponse> =
+        // post /calls/{call_control_id}/actions/pay
+        withRawResponse().pay(params, requestOptions).thenApply { it.parse() }
 
     override fun refer(
         params: ActionReferParams,
@@ -810,6 +819,40 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { pauseRecordingHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val payHandler: Handler<ActionPayResponse> =
+            jsonHandler<ActionPayResponse>(clientOptions.jsonMapper)
+
+        override fun pay(
+            params: ActionPayParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionPayResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("calls", params._pathParam(0), "actions", "pay")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { payHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

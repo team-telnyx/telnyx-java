@@ -52,7 +52,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -105,7 +106,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -146,7 +148,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -176,7 +179,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -206,7 +210,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -236,7 +241,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     @Test
@@ -266,7 +272,8 @@ internal class ExpressionTest {
                 jacksonTypeRef<Expression>(),
             )
 
-        assertThat(roundtrippedExpression).isEqualTo(expression)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedExpression))
+            .isEqualTo(jsonMapper.writeValueAsString(expression))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

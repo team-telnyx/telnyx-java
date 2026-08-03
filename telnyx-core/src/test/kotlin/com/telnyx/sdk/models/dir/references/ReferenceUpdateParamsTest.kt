@@ -12,7 +12,7 @@ internal class ReferenceUpdateParamsTest {
         ReferenceUpdateParams.builder()
             .dirId("16635d38-75a6-4481-82e8-69af60e05011")
             .refType(ReferenceUpdateParams.RefType.BUSINESS)
-            .slot(0L)
+            .slot(1L)
             .email("dana.reyes@example.com")
             .fullName("Dana Reyes")
             .jobTitle("VP of Operations")
@@ -29,12 +29,12 @@ internal class ReferenceUpdateParamsTest {
             ReferenceUpdateParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .refType(ReferenceUpdateParams.RefType.BUSINESS)
-                .slot(0L)
+                .slot(1L)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("16635d38-75a6-4481-82e8-69af60e05011")
         assertThat(params._pathParam(1)).isEqualTo("business")
-        assertThat(params._pathParam(2)).isEqualTo("0")
+        assertThat(params._pathParam(2)).isEqualTo("1")
         // out-of-bound path param
         assertThat(params._pathParam(3)).isEqualTo("")
     }
@@ -45,7 +45,7 @@ internal class ReferenceUpdateParamsTest {
             ReferenceUpdateParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .refType(ReferenceUpdateParams.RefType.BUSINESS)
-                .slot(0L)
+                .slot(1L)
                 .email("dana.reyes@example.com")
                 .fullName("Dana Reyes")
                 .jobTitle("VP of Operations")
@@ -72,7 +72,7 @@ internal class ReferenceUpdateParamsTest {
             ReferenceUpdateParams.builder()
                 .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                 .refType(ReferenceUpdateParams.RefType.BUSINESS)
-                .slot(0L)
+                .slot(1L)
                 .build()
 
         val body = params._body()

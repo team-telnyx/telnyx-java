@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.enterprises.dir
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.models.dir.DirStatus
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -59,8 +60,18 @@ internal class DirListParamsTest {
                 QueryParams.builder()
                     .put("filter[call_reason][contains]", "filter[call_reason][contains]")
                     .put("filter[display_name][contains]", "filter[display_name][contains]")
-                    .put("filter[expiring_at][gte]", "2019-12-27T18:11:19.117Z")
-                    .put("filter[expiring_at][lte]", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "filter[expiring_at][gte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
+                    .put(
+                        "filter[expiring_at][lte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("filter[expiring_within_days]", "1")
                     .put("filter[status]", "draft")
                     .put("page[number]", "1")

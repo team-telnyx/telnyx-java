@@ -14,6 +14,7 @@ internal class AssistantChatParamsTest {
             .content("Tell me a joke about cats")
             .conversationId("42b20469-1215-4a9a-8964-c36f66b406f4")
             .name("Charlie")
+            .stream(true)
             .build()
     }
 
@@ -39,6 +40,7 @@ internal class AssistantChatParamsTest {
                 .content("Tell me a joke about cats")
                 .conversationId("42b20469-1215-4a9a-8964-c36f66b406f4")
                 .name("Charlie")
+                .stream(true)
                 .build()
 
         val body = params._body()
@@ -46,6 +48,7 @@ internal class AssistantChatParamsTest {
         assertThat(body.content()).isEqualTo("Tell me a joke about cats")
         assertThat(body.conversationId()).isEqualTo("42b20469-1215-4a9a-8964-c36f66b406f4")
         assertThat(body.name()).contains("Charlie")
+        assertThat(body.stream()).contains(true)
     }
 
     @Test

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.calls.actions
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
+import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -82,6 +83,30 @@ internal class ActionStartAiAssistantParamsTest {
                             .attendeeTimezone("attendee_timezone")
                             .build()
                     )
+                    .voiceSettings(
+                        VoiceSettings.builder()
+                            .voice("voice")
+                            .apiKeyRef("api_key_ref")
+                            .backgroundAudio(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia
+                                            .PredefinedMediaValue
+                                            .SILENCE
+                                    )
+                                    .volume(0.1)
+                                    .build()
+                            )
+                            .expressiveMode(true)
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
+                            .voiceSpeed(0.0)
+                            .build()
+                    )
                     .build()
             )
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -112,13 +137,6 @@ internal class ActionStartAiAssistantParamsTest {
                 TranscriptionConfig.builder()
                     .language("auto")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-                    .build()
-            )
-            .voice("Telnyx.KokoroTTS.af")
-            .voiceSettings(
-                ElevenLabsVoiceSettings.builder()
-                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                    .apiKeyRef("my_elevenlabs_api_key")
                     .build()
             )
             .build()
@@ -205,6 +223,30 @@ internal class ActionStartAiAssistantParamsTest {
                                 .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
+                        .voiceSettings(
+                            VoiceSettings.builder()
+                                .voice("voice")
+                                .apiKeyRef("api_key_ref")
+                                .backgroundAudio(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        .value(
+                                            VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                .PredefinedMediaValue
+                                                .SILENCE
+                                        )
+                                        .volume(0.1)
+                                        .build()
+                                )
+                                .expressiveMode(true)
+                                .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                .similarityBoost(0.0)
+                                .speed(0.0)
+                                .style(0.0)
+                                .temperature(0.0)
+                                .useSpeakerBoost(true)
+                                .voiceSpeed(0.0)
+                                .build()
+                        )
                         .build()
                 )
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -235,13 +277,6 @@ internal class ActionStartAiAssistantParamsTest {
                     TranscriptionConfig.builder()
                         .language("auto")
                         .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-                        .build()
-                )
-                .voice("Telnyx.KokoroTTS.af")
-                .voiceSettings(
-                    ElevenLabsVoiceSettings.builder()
-                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                        .apiKeyRef("my_elevenlabs_api_key")
                         .build()
                 )
                 .build()
@@ -316,6 +351,30 @@ internal class ActionStartAiAssistantParamsTest {
                             .attendeeTimezone("attendee_timezone")
                             .build()
                     )
+                    .voiceSettings(
+                        VoiceSettings.builder()
+                            .voice("voice")
+                            .apiKeyRef("api_key_ref")
+                            .backgroundAudio(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia
+                                            .PredefinedMediaValue
+                                            .SILENCE
+                                    )
+                                    .volume(0.1)
+                                    .build()
+                            )
+                            .expressiveMode(true)
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
+                            .voiceSpeed(0.0)
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -353,16 +412,6 @@ internal class ActionStartAiAssistantParamsTest {
                     .language("auto")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
-            )
-        assertThat(body.voice()).contains("Telnyx.KokoroTTS.af")
-        assertThat(body.voiceSettings())
-            .contains(
-                ActionStartAiAssistantParams.VoiceSettings.ofElevenlabs(
-                    ElevenLabsVoiceSettings.builder()
-                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                        .apiKeyRef("my_elevenlabs_api_key")
-                        .build()
-                )
             )
     }
 

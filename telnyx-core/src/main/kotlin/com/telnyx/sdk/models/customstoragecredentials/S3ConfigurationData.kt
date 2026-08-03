@@ -15,15 +15,14 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class S3ConfigurationData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val backend: JsonField<Backend>,
     private val awsAccessKeyId: JsonField<String>,
     private val awsSecretAccessKey: JsonField<String>,
+    private val backend: JsonField<Backend>,
     private val bucket: JsonField<String>,
     private val region: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,16 +30,32 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("backend") @ExcludeMissing backend: JsonField<Backend> = JsonMissing.of(),
         @JsonProperty("aws_access_key_id")
         @ExcludeMissing
         awsAccessKeyId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("aws_secret_access_key")
         @ExcludeMissing
         awsSecretAccessKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("backend") @ExcludeMissing backend: JsonField<Backend> = JsonMissing.of(),
         @JsonProperty("bucket") @ExcludeMissing bucket: JsonField<String> = JsonMissing.of(),
         @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
-    ) : this(backend, awsAccessKeyId, awsSecretAccessKey, bucket, region, mutableMapOf())
+    ) : this(awsAccessKeyId, awsSecretAccessKey, backend, bucket, region, mutableMapOf())
+
+    /**
+     * AWS credentials access key id.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun awsAccessKeyId(): String = awsAccessKeyId.getRequired("aws_access_key_id")
+
+    /**
+     * AWS secret access key.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun awsSecretAccessKey(): String = awsSecretAccessKey.getRequired("aws_secret_access_key")
 
     /**
      * Storage backend type
@@ -51,44 +66,20 @@ private constructor(
     fun backend(): Backend = backend.getRequired("backend")
 
     /**
-     * AWS credentials access key id.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun awsAccessKeyId(): Optional<String> = awsAccessKeyId.getOptional("aws_access_key_id")
-
-    /**
-     * AWS secret access key.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun awsSecretAccessKey(): Optional<String> =
-        awsSecretAccessKey.getOptional("aws_secret_access_key")
-
-    /**
      * Name of the bucket to be used to store recording files.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun bucket(): Optional<String> = bucket.getOptional("bucket")
+    fun bucket(): String = bucket.getRequired("bucket")
 
     /**
      * Region where the bucket is located.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun region(): Optional<String> = region.getOptional("region")
-
-    /**
-     * Returns the raw JSON value of [backend].
-     *
-     * Unlike [backend], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("backend") @ExcludeMissing fun _backend(): JsonField<Backend> = backend
+    fun region(): String = region.getRequired("region")
 
     /**
      * Returns the raw JSON value of [awsAccessKeyId].
@@ -108,6 +99,13 @@ private constructor(
     @JsonProperty("aws_secret_access_key")
     @ExcludeMissing
     fun _awsSecretAccessKey(): JsonField<String> = awsSecretAccessKey
+
+    /**
+     * Returns the raw JSON value of [backend].
+     *
+     * Unlike [backend], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("backend") @ExcludeMissing fun _backend(): JsonField<Backend> = backend
 
     /**
      * Returns the raw JSON value of [bucket].
@@ -142,7 +140,11 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .awsAccessKeyId()
+         * .awsSecretAccessKey()
          * .backend()
+         * .bucket()
+         * .region()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -151,33 +153,22 @@ private constructor(
     /** A builder for [S3ConfigurationData]. */
     class Builder internal constructor() {
 
+        private var awsAccessKeyId: JsonField<String>? = null
+        private var awsSecretAccessKey: JsonField<String>? = null
         private var backend: JsonField<Backend>? = null
-        private var awsAccessKeyId: JsonField<String> = JsonMissing.of()
-        private var awsSecretAccessKey: JsonField<String> = JsonMissing.of()
-        private var bucket: JsonField<String> = JsonMissing.of()
-        private var region: JsonField<String> = JsonMissing.of()
+        private var bucket: JsonField<String>? = null
+        private var region: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(s3ConfigurationData: S3ConfigurationData) = apply {
-            backend = s3ConfigurationData.backend
             awsAccessKeyId = s3ConfigurationData.awsAccessKeyId
             awsSecretAccessKey = s3ConfigurationData.awsSecretAccessKey
+            backend = s3ConfigurationData.backend
             bucket = s3ConfigurationData.bucket
             region = s3ConfigurationData.region
             additionalProperties = s3ConfigurationData.additionalProperties.toMutableMap()
         }
-
-        /** Storage backend type */
-        fun backend(backend: Backend) = backend(JsonField.of(backend))
-
-        /**
-         * Sets [Builder.backend] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.backend] with a well-typed [Backend] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun backend(backend: JsonField<Backend>) = apply { this.backend = backend }
 
         /** AWS credentials access key id. */
         fun awsAccessKeyId(awsAccessKeyId: String) = awsAccessKeyId(JsonField.of(awsAccessKeyId))
@@ -207,6 +198,17 @@ private constructor(
         fun awsSecretAccessKey(awsSecretAccessKey: JsonField<String>) = apply {
             this.awsSecretAccessKey = awsSecretAccessKey
         }
+
+        /** Storage backend type */
+        fun backend(backend: Backend) = backend(JsonField.of(backend))
+
+        /**
+         * Sets [Builder.backend] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backend] with a well-typed [Backend] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun backend(backend: JsonField<Backend>) = apply { this.backend = backend }
 
         /** Name of the bucket to be used to store recording files. */
         fun bucket(bucket: String) = bucket(JsonField.of(bucket))
@@ -256,18 +258,22 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .awsAccessKeyId()
+         * .awsSecretAccessKey()
          * .backend()
+         * .bucket()
+         * .region()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): S3ConfigurationData =
             S3ConfigurationData(
+                checkRequired("awsAccessKeyId", awsAccessKeyId),
+                checkRequired("awsSecretAccessKey", awsSecretAccessKey),
                 checkRequired("backend", backend),
-                awsAccessKeyId,
-                awsSecretAccessKey,
-                bucket,
-                region,
+                checkRequired("bucket", bucket),
+                checkRequired("region", region),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -287,9 +293,9 @@ private constructor(
             return@apply
         }
 
-        backend().validate()
         awsAccessKeyId()
         awsSecretAccessKey()
+        backend().validate()
         bucket()
         region()
         validated = true
@@ -310,9 +316,9 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (backend.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (awsAccessKeyId.asKnown().isPresent) 1 else 0) +
+        (if (awsAccessKeyId.asKnown().isPresent) 1 else 0) +
             (if (awsSecretAccessKey.asKnown().isPresent) 1 else 0) +
+            (backend.asKnown().getOrNull()?.validity() ?: 0) +
             (if (bucket.asKnown().isPresent) 1 else 0) +
             (if (region.asKnown().isPresent) 1 else 0)
 
@@ -451,9 +457,9 @@ private constructor(
         }
 
         return other is S3ConfigurationData &&
-            backend == other.backend &&
             awsAccessKeyId == other.awsAccessKeyId &&
             awsSecretAccessKey == other.awsSecretAccessKey &&
+            backend == other.backend &&
             bucket == other.bucket &&
             region == other.region &&
             additionalProperties == other.additionalProperties
@@ -461,9 +467,9 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            backend,
             awsAccessKeyId,
             awsSecretAccessKey,
+            backend,
             bucket,
             region,
             additionalProperties,
@@ -473,5 +479,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "S3ConfigurationData{backend=$backend, awsAccessKeyId=$awsAccessKeyId, awsSecretAccessKey=$awsSecretAccessKey, bucket=$bucket, region=$region, additionalProperties=$additionalProperties}"
+        "S3ConfigurationData{awsAccessKeyId=$awsAccessKeyId, awsSecretAccessKey=$awsSecretAccessKey, backend=$backend, bucket=$bucket, region=$region, additionalProperties=$additionalProperties}"
 }

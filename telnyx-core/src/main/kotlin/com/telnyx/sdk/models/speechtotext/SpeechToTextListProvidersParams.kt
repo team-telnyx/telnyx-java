@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
@@ -32,7 +31,7 @@ class SpeechToTextListProvidersParams
 private constructor(
     private val provider: Provider?,
     private val serviceType: SttServiceType?,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -54,7 +53,7 @@ private constructor(
     fun serviceType(): Optional<SttServiceType> = Optional.ofNullable(serviceType)
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -77,7 +76,8 @@ private constructor(
 
         private var provider: Provider? = null
         private var serviceType: SttServiceType? = null
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -114,7 +114,7 @@ private constructor(
         fun serviceType(serviceType: Optional<SttServiceType>) =
             serviceType(serviceType.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -132,7 +132,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -148,9 +148,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -226,7 +227,7 @@ private constructor(
             )
     }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
@@ -269,6 +270,10 @@ private constructor(
 
             @JvmField val PARAKEET = of("parakeet")
 
+            @JvmField val HUMAIN = of("humain")
+
+            @JvmField val RESON8 = of("reson8")
+
             @JvmField val AZURE = of("azure")
 
             @JvmField val OPENAI = of("openai")
@@ -288,6 +293,8 @@ private constructor(
             XAI,
             SONIOX,
             PARAKEET,
+            HUMAIN,
+            RESON8,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -310,6 +317,8 @@ private constructor(
             XAI,
             SONIOX,
             PARAKEET,
+            HUMAIN,
+            RESON8,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -333,6 +342,8 @@ private constructor(
                 XAI -> Value.XAI
                 SONIOX -> Value.SONIOX
                 PARAKEET -> Value.PARAKEET
+                HUMAIN -> Value.HUMAIN
+                RESON8 -> Value.RESON8
                 AZURE -> Value.AZURE
                 OPENAI -> Value.OPENAI
                 GOOGLE -> Value.GOOGLE
@@ -357,6 +368,8 @@ private constructor(
                 XAI -> Known.XAI
                 SONIOX -> Known.SONIOX
                 PARAKEET -> Known.PARAKEET
+                HUMAIN -> Known.HUMAIN
+                RESON8 -> Known.RESON8
                 AZURE -> Known.AZURE
                 OPENAI -> Known.OPENAI
                 GOOGLE -> Known.GOOGLE

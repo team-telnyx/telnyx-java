@@ -1106,6 +1106,7 @@ internal class AssistantServiceTest {
                     .content("Tell me a joke about cats")
                     .conversationId("42b20469-1215-4a9a-8964-c36f66b406f4")
                     .name("Charlie")
+                    .stream(true)
                     .build()
             )
 

@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
@@ -19,7 +18,7 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
- * `Parakeet`.
+ * `Parakeet`, `Humain`, `Reson8`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying engine, input format, and language.
@@ -38,7 +37,7 @@ private constructor(
     private val language: String?,
     private val model: Model?,
     private val redact: String?,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -84,7 +83,7 @@ private constructor(
     fun redact(): Optional<String> = Optional.ofNullable(redact)
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -118,7 +117,8 @@ private constructor(
         private var language: String? = null
         private var model: Model? = null
         private var redact: String? = null
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -221,7 +221,7 @@ private constructor(
         /** Alias for calling [Builder.redact] with `redact.orElse(null)`. */
         fun redact(redact: Optional<String>) = redact(redact.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -239,7 +239,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -255,9 +255,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -348,7 +349,7 @@ private constructor(
             )
     }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
@@ -537,6 +538,10 @@ private constructor(
 
             @JvmField val PARAKEET = of("Parakeet")
 
+            @JvmField val HUMAIN = of("Humain")
+
+            @JvmField val RESON8 = of("Reson8")
+
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
@@ -550,6 +555,8 @@ private constructor(
             SPEECHMATICS,
             SONIOX,
             PARAKEET,
+            HUMAIN,
+            RESON8,
         }
 
         /**
@@ -570,6 +577,8 @@ private constructor(
             SPEECHMATICS,
             SONIOX,
             PARAKEET,
+            HUMAIN,
+            RESON8,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -594,6 +603,8 @@ private constructor(
                 SPEECHMATICS -> Value.SPEECHMATICS
                 SONIOX -> Value.SONIOX
                 PARAKEET -> Value.PARAKEET
+                HUMAIN -> Value.HUMAIN
+                RESON8 -> Value.RESON8
                 else -> Value._UNKNOWN
             }
 
@@ -616,6 +627,8 @@ private constructor(
                 SPEECHMATICS -> Known.SPEECHMATICS
                 SONIOX -> Known.SONIOX
                 PARAKEET -> Known.PARAKEET
+                HUMAIN -> Known.HUMAIN
+                RESON8 -> Known.RESON8
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 
@@ -729,6 +742,10 @@ private constructor(
 
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
+            @JvmField val HUMAIN_REALTIME = of("humain/realtime")
+
+            @JvmField val RESON8_TURNS = of("reson8/turns")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -751,6 +768,8 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
+            RESON8_TURNS,
         }
 
         /**
@@ -780,6 +799,8 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
+            RESON8_TURNS,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -810,6 +831,8 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
+                RESON8_TURNS -> Value.RESON8_TURNS
                 else -> Value._UNKNOWN
             }
 
@@ -841,6 +864,8 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
+                RESON8_TURNS -> Known.RESON8_TURNS
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 

@@ -20,6 +20,7 @@ internal class UacExternalSettingsTest {
                 .password("testtesttest")
                 .proxy("sip-pbx.acme.example")
                 .transport(UacExternalSettings.Transport.TLS)
+                .userAgent("Telnyx-Usage-Voice-Trunk/1.0")
                 .username("ext8492")
                 .build()
 
@@ -31,6 +32,7 @@ internal class UacExternalSettingsTest {
         assertThat(uacExternalSettings.password()).contains("testtesttest")
         assertThat(uacExternalSettings.proxy()).contains("sip-pbx.acme.example")
         assertThat(uacExternalSettings.transport()).contains(UacExternalSettings.Transport.TLS)
+        assertThat(uacExternalSettings.userAgent()).contains("Telnyx-Usage-Voice-Trunk/1.0")
         assertThat(uacExternalSettings.username()).contains("ext8492")
     }
 
@@ -46,6 +48,7 @@ internal class UacExternalSettingsTest {
                 .password("testtesttest")
                 .proxy("sip-pbx.acme.example")
                 .transport(UacExternalSettings.Transport.TLS)
+                .userAgent("Telnyx-Usage-Voice-Trunk/1.0")
                 .username("ext8492")
                 .build()
 

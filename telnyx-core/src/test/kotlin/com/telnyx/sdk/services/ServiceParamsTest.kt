@@ -16,6 +16,7 @@ import com.telnyx.sdk.client.TelnyxClient
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
+import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.CallDialParams
 import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
@@ -190,6 +191,30 @@ internal class ServiceParamsTest {
                                 .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
+                        .voiceSettings(
+                            VoiceSettings.builder()
+                                .voice("voice")
+                                .apiKeyRef("api_key_ref")
+                                .backgroundAudio(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        .value(
+                                            VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                .PredefinedMediaValue
+                                                .SILENCE
+                                        )
+                                        .volume(0.1)
+                                        .build()
+                                )
+                                .expressiveMode(true)
+                                .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                .similarityBoost(0.0)
+                                .speed(0.0)
+                                .style(0.0)
+                                .temperature(0.0)
+                                .useSpeakerBoost(true)
+                                .voiceSpeed(0.0)
+                                .build()
+                        )
                         .build()
                 )
                 .audioUrl("http://www.example.com/sounds/greeting.wav")
@@ -328,6 +353,7 @@ internal class ServiceParamsTest {
                 .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
                 .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)
                 .retryOnTimeout(true)
+                .routeToMobile(true)
                 .sendDigitsOnAnswer("wwww200")
                 .sendSilenceWhenIdle(true)
                 .sipAuthPassword("password")

@@ -26,8 +26,10 @@ private constructor(
     private val connectionId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val direction: JsonField<Direction>,
+    private val failureReason: JsonField<String>,
     private val from: JsonField<String>,
     private val fromDisplayName: JsonField<String>,
+    private val internalFailureReason: JsonField<String>,
     private val mediaName: JsonField<String>,
     private val mediaUrl: JsonField<String>,
     private val previewUrl: JsonField<String>,
@@ -58,10 +60,16 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("failure_reason")
+        @ExcludeMissing
+        failureReason: JsonField<String> = JsonMissing.of(),
         @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
         @JsonProperty("from_display_name")
         @ExcludeMissing
         fromDisplayName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("internal_failure_reason")
+        @ExcludeMissing
+        internalFailureReason: JsonField<String> = JsonMissing.of(),
         @JsonProperty("media_name") @ExcludeMissing mediaName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("media_url") @ExcludeMissing mediaUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("preview_url")
@@ -94,8 +102,10 @@ private constructor(
         connectionId,
         createdAt,
         direction,
+        failureReason,
         from,
         fromDisplayName,
+        internalFailureReason,
         mediaName,
         mediaUrl,
         previewUrl,
@@ -152,6 +162,28 @@ private constructor(
     fun direction(): Optional<Direction> = direction.getOptional("direction")
 
     /**
+     * Customer-facing failure reason for the fax. Present on every fax object (null when the fax
+     * has not failed). Mapped from the more granular `internal_failure_reason`. Common values
+     * include: `receiver_call_dropped`, `sender_call_dropped`, `sender_canceled`, `carrier_lost`,
+     * `service_unavailable`, `fax_signaling_error`, `receiver_communication_error`,
+     * `sender_communication_error`, `receiver_decline`, `receiver_recovery_on_timer_expire`,
+     * `receiver_no_response`, `receiver_invalid_number_format`, `receiver_no_answer`,
+     * `receiver_incompatible_destination`, `receiver_unallocated_number`,
+     * `destination_unreachable`, `user_busy`, `invalid_ecm_response_from_receiver`,
+     * `fax_initial_communication_timeout`, `destination_not_in_service_plan`, `account_disabled`,
+     * `destination_invalid`, `no_outbound_profile`, `destination_not_in_countries_whitelist`,
+     * `user_channel_limit_exceeded`, `outbound_profile_channel_limit_exceeded`,
+     * `connection_channel_limit_exceeded`, `outbound_profile_daily_spend_limit_exceeded`,
+     * `unverified_origination_number`, `unverified_destination_not_allowed`, `file_format_invalid`,
+     * `file_download_failed`, `file_size_limit_exceeded`, `page_count_limit_exceeded`,
+     * `media_processing_exception`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun failureReason(): Optional<String> = failureReason.getOptional("failure_reason")
+
+    /**
      * The phone number, in E.164 format, the fax will be sent from.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -167,6 +199,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun fromDisplayName(): Optional<String> = fromDisplayName.getOptional("from_display_name")
+
+    /**
+     * Internal, more granular failure reason for the fax. Present on every fax object (null when
+     * the fax has not failed). Useful for deeper debugging beyond the customer-facing
+     * `failure_reason`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun internalFailureReason(): Optional<String> =
+        internalFailureReason.getOptional("internal_failure_reason")
 
     /**
      * The media_name used for the fax's media. Must point to a file previously uploaded to
@@ -315,6 +358,15 @@ private constructor(
     @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /**
+     * Returns the raw JSON value of [failureReason].
+     *
+     * Unlike [failureReason], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("failure_reason")
+    @ExcludeMissing
+    fun _failureReason(): JsonField<String> = failureReason
+
+    /**
      * Returns the raw JSON value of [from].
      *
      * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
@@ -329,6 +381,16 @@ private constructor(
     @JsonProperty("from_display_name")
     @ExcludeMissing
     fun _fromDisplayName(): JsonField<String> = fromDisplayName
+
+    /**
+     * Returns the raw JSON value of [internalFailureReason].
+     *
+     * Unlike [internalFailureReason], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("internal_failure_reason")
+    @ExcludeMissing
+    fun _internalFailureReason(): JsonField<String> = internalFailureReason
 
     /**
      * Returns the raw JSON value of [mediaName].
@@ -449,8 +511,10 @@ private constructor(
         private var connectionId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
+        private var failureReason: JsonField<String> = JsonMissing.of()
         private var from: JsonField<String> = JsonMissing.of()
         private var fromDisplayName: JsonField<String> = JsonMissing.of()
+        private var internalFailureReason: JsonField<String> = JsonMissing.of()
         private var mediaName: JsonField<String> = JsonMissing.of()
         private var mediaUrl: JsonField<String> = JsonMissing.of()
         private var previewUrl: JsonField<String> = JsonMissing.of()
@@ -472,8 +536,10 @@ private constructor(
             connectionId = fax.connectionId
             createdAt = fax.createdAt
             direction = fax.direction
+            failureReason = fax.failureReason
             from = fax.from
             fromDisplayName = fax.fromDisplayName
+            internalFailureReason = fax.internalFailureReason
             mediaName = fax.mediaName
             mediaUrl = fax.mediaUrl
             previewUrl = fax.previewUrl
@@ -550,6 +616,42 @@ private constructor(
          */
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
+        /**
+         * Customer-facing failure reason for the fax. Present on every fax object (null when the
+         * fax has not failed). Mapped from the more granular `internal_failure_reason`. Common
+         * values include: `receiver_call_dropped`, `sender_call_dropped`, `sender_canceled`,
+         * `carrier_lost`, `service_unavailable`, `fax_signaling_error`,
+         * `receiver_communication_error`, `sender_communication_error`, `receiver_decline`,
+         * `receiver_recovery_on_timer_expire`, `receiver_no_response`,
+         * `receiver_invalid_number_format`, `receiver_no_answer`,
+         * `receiver_incompatible_destination`, `receiver_unallocated_number`,
+         * `destination_unreachable`, `user_busy`, `invalid_ecm_response_from_receiver`,
+         * `fax_initial_communication_timeout`, `destination_not_in_service_plan`,
+         * `account_disabled`, `destination_invalid`, `no_outbound_profile`,
+         * `destination_not_in_countries_whitelist`, `user_channel_limit_exceeded`,
+         * `outbound_profile_channel_limit_exceeded`, `connection_channel_limit_exceeded`,
+         * `outbound_profile_daily_spend_limit_exceeded`, `unverified_origination_number`,
+         * `unverified_destination_not_allowed`, `file_format_invalid`, `file_download_failed`,
+         * `file_size_limit_exceeded`, `page_count_limit_exceeded`, `media_processing_exception`.
+         */
+        fun failureReason(failureReason: String?) =
+            failureReason(JsonField.ofNullable(failureReason))
+
+        /** Alias for calling [Builder.failureReason] with `failureReason.orElse(null)`. */
+        fun failureReason(failureReason: Optional<String>) =
+            failureReason(failureReason.getOrNull())
+
+        /**
+         * Sets [Builder.failureReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.failureReason] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun failureReason(failureReason: JsonField<String>) = apply {
+            this.failureReason = failureReason
+        }
+
         /** The phone number, in E.164 format, the fax will be sent from. */
         fun from(from: String) = from(JsonField.of(from))
 
@@ -577,6 +679,32 @@ private constructor(
          */
         fun fromDisplayName(fromDisplayName: JsonField<String>) = apply {
             this.fromDisplayName = fromDisplayName
+        }
+
+        /**
+         * Internal, more granular failure reason for the fax. Present on every fax object (null
+         * when the fax has not failed). Useful for deeper debugging beyond the customer-facing
+         * `failure_reason`.
+         */
+        fun internalFailureReason(internalFailureReason: String?) =
+            internalFailureReason(JsonField.ofNullable(internalFailureReason))
+
+        /**
+         * Alias for calling [Builder.internalFailureReason] with
+         * `internalFailureReason.orElse(null)`.
+         */
+        fun internalFailureReason(internalFailureReason: Optional<String>) =
+            internalFailureReason(internalFailureReason.getOrNull())
+
+        /**
+         * Sets [Builder.internalFailureReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalFailureReason] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun internalFailureReason(internalFailureReason: JsonField<String>) = apply {
+            this.internalFailureReason = internalFailureReason
         }
 
         /**
@@ -776,8 +904,10 @@ private constructor(
                 connectionId,
                 createdAt,
                 direction,
+                failureReason,
                 from,
                 fromDisplayName,
+                internalFailureReason,
                 mediaName,
                 mediaUrl,
                 previewUrl,
@@ -814,8 +944,10 @@ private constructor(
         connectionId()
         createdAt()
         direction().ifPresent { it.validate() }
+        failureReason()
         from()
         fromDisplayName()
+        internalFailureReason()
         mediaName()
         mediaUrl()
         previewUrl()
@@ -851,8 +983,10 @@ private constructor(
             (if (connectionId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (direction.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (failureReason.asKnown().isPresent) 1 else 0) +
             (if (from.asKnown().isPresent) 1 else 0) +
             (if (fromDisplayName.asKnown().isPresent) 1 else 0) +
+            (if (internalFailureReason.asKnown().isPresent) 1 else 0) +
             (if (mediaName.asKnown().isPresent) 1 else 0) +
             (if (mediaUrl.asKnown().isPresent) 1 else 0) +
             (if (previewUrl.asKnown().isPresent) 1 else 0) +
@@ -1328,8 +1462,10 @@ private constructor(
             connectionId == other.connectionId &&
             createdAt == other.createdAt &&
             direction == other.direction &&
+            failureReason == other.failureReason &&
             from == other.from &&
             fromDisplayName == other.fromDisplayName &&
+            internalFailureReason == other.internalFailureReason &&
             mediaName == other.mediaName &&
             mediaUrl == other.mediaUrl &&
             previewUrl == other.previewUrl &&
@@ -1352,8 +1488,10 @@ private constructor(
             connectionId,
             createdAt,
             direction,
+            failureReason,
             from,
             fromDisplayName,
+            internalFailureReason,
             mediaName,
             mediaUrl,
             previewUrl,
@@ -1373,5 +1511,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Fax{id=$id, clientState=$clientState, connectionId=$connectionId, createdAt=$createdAt, direction=$direction, from=$from, fromDisplayName=$fromDisplayName, mediaName=$mediaName, mediaUrl=$mediaUrl, previewUrl=$previewUrl, quality=$quality, recordType=$recordType, status=$status, storeMedia=$storeMedia, storedMediaUrl=$storedMediaUrl, to=$to, updatedAt=$updatedAt, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "Fax{id=$id, clientState=$clientState, connectionId=$connectionId, createdAt=$createdAt, direction=$direction, failureReason=$failureReason, from=$from, fromDisplayName=$fromDisplayName, internalFailureReason=$internalFailureReason, mediaName=$mediaName, mediaUrl=$mediaUrl, previewUrl=$previewUrl, quality=$quality, recordType=$recordType, status=$status, storeMedia=$storeMedia, storedMediaUrl=$storedMediaUrl, to=$to, updatedAt=$updatedAt, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

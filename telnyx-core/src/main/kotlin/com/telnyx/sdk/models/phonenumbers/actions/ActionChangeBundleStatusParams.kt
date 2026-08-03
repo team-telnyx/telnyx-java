@@ -12,7 +12,6 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
@@ -27,7 +26,7 @@ class ActionChangeBundleStatusParams
 private constructor(
     private val id: String?,
     private val body: Body,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -39,10 +38,10 @@ private constructor(
      * this must be null. You cannot assign a number from one bundle to another directly. You must
      * first remove it from a bundle, and then assign it to a new bundle.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun bundleId(): String = body.bundleId()
+    fun bundleId(): Optional<String> = body.bundleId()
 
     /**
      * Returns the raw JSON value of [bundleId].
@@ -54,7 +53,7 @@ private constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -80,7 +79,8 @@ private constructor(
 
         private var id: String? = null
         private var body: Body.Builder = Body.builder()
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -111,7 +111,10 @@ private constructor(
          * a bundle, this must be null. You cannot assign a number from one bundle to another
          * directly. You must first remove it from a bundle, and then assign it to a new bundle.
          */
-        fun bundleId(bundleId: String) = apply { body.bundleId(bundleId) }
+        fun bundleId(bundleId: String?) = apply { body.bundleId(bundleId) }
+
+        /** Alias for calling [Builder.bundleId] with `bundleId.orElse(null)`. */
+        fun bundleId(bundleId: Optional<String>) = bundleId(bundleId.getOrNull())
 
         /**
          * Sets [Builder.bundleId] to an arbitrary JSON value.
@@ -140,7 +143,7 @@ private constructor(
             body.removeAllAdditionalProperties(keys)
         }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -158,7 +161,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -174,9 +177,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -267,7 +271,7 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -291,10 +295,10 @@ private constructor(
          * a bundle, this must be null. You cannot assign a number from one bundle to another
          * directly. You must first remove it from a bundle, and then assign it to a new bundle.
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        fun bundleId(): String = bundleId.getRequired("bundle_id")
+        fun bundleId(): Optional<String> = bundleId.getOptional("bundle_id")
 
         /**
          * Returns the raw JSON value of [bundleId].
@@ -347,7 +351,10 @@ private constructor(
              * to another directly. You must first remove it from a bundle, and then assign it to a
              * new bundle.
              */
-            fun bundleId(bundleId: String) = bundleId(JsonField.of(bundleId))
+            fun bundleId(bundleId: String?) = bundleId(JsonField.ofNullable(bundleId))
+
+            /** Alias for calling [Builder.bundleId] with `bundleId.orElse(null)`. */
+            fun bundleId(bundleId: Optional<String>) = bundleId(bundleId.getOrNull())
 
             /**
              * Sets [Builder.bundleId] to an arbitrary JSON value.

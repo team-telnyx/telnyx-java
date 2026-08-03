@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.accessipaddress
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -44,7 +45,12 @@ internal class AccessIpAddressListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[created_at]", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "filter[created_at]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("filter[ip_address]", "ip_address")
                     .put("filter[ip_source]", "ip_source")
                     .put("page[number]", "0")

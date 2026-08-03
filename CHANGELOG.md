@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.84.0](https://github.com/team-telnyx/telnyx-java/compare/v6.83.0...v6.84.0) (2026-08-03)
+
+
+### Features
+
+* promote from staging 16a1f94 ([8074f01](https://github.com/team-telnyx/telnyx-java/commit/8074f014a66ee87e1669e94168344748f1877b6d))
+
+
+### Chores
+
+* add repository code owner ([#214](https://github.com/team-telnyx/telnyx-java/issues/214)) ([ceb5a38](https://github.com/team-telnyx/telnyx-java/commit/ceb5a38f83218c68d20af76879fbd3e998f9a025))
+
 ## [6.83.0](https://github.com/team-telnyx/telnyx-java/compare/v6.82.0...v6.83.0) (2026-07-21)
 
 

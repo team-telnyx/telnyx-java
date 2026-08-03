@@ -3,19 +3,28 @@
 package com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup
 
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a paginated list of telco data usage reports */
 class NumberLookupListParams
 private constructor(
-    private val additionalHeaders: Headers,
+    private val page: Int?,
+    private val perPage: Int?,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Page number to retrieve (1-based). */
+    fun page(): Optional<Int> = Optional.ofNullable(page)
+
+    /** Filter results by per page. */
+    fun perPage(): Optional<Int> = Optional.ofNullable(perPage)
+
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -33,16 +42,47 @@ private constructor(
     /** A builder for [NumberLookupListParams]. */
     class Builder internal constructor() {
 
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var page: Int? = null
+        private var perPage: Int? = null
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(numberLookupListParams: NumberLookupListParams) = apply {
+            page = numberLookupListParams.page
+            perPage = numberLookupListParams.perPage
             additionalHeaders = numberLookupListParams.additionalHeaders.toBuilder()
             additionalQueryParams = numberLookupListParams.additionalQueryParams.toBuilder()
         }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        /** Page number to retrieve (1-based). */
+        fun page(page: Int?) = apply { this.page = page }
+
+        /**
+         * Alias for [Builder.page].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun page(page: Int) = page(page as Int?)
+
+        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
+        fun page(page: Optional<Int>) = page(page.getOrNull())
+
+        /** Filter results by per page. */
+        fun perPage(perPage: Int?) = apply { this.perPage = perPage }
+
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun perPage(perPage: Int) = perPage(perPage as Int?)
+
+        /** Alias for calling [Builder.perPage] with `perPage.orElse(null)`. */
+        fun perPage(perPage: Optional<Int>) = perPage(perPage.getOrNull())
+
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -60,7 +100,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -76,9 +116,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -146,12 +187,24 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): NumberLookupListParams =
-            NumberLookupListParams(additionalHeaders.build(), additionalQueryParams.build())
+            NumberLookupListParams(
+                page,
+                perPage,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                page?.let { put("page", it.toString()) }
+                perPage?.let { put("per_page", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -159,12 +212,15 @@ private constructor(
         }
 
         return other is NumberLookupListParams &&
+            page == other.page &&
+            perPage == other.perPage &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(page, perPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NumberLookupListParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberLookupListParams{page=$page, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
