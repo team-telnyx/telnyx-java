@@ -89,7 +89,7 @@ interface PhoneNumberCampaignService {
     fun retrieve(phoneNumber: String, requestOptions: RequestOptions): PhoneNumberCampaign =
         retrieve(phoneNumber, PhoneNumberCampaignRetrieveParams.none(), requestOptions)
 
-    /** Create New Phone Number Campaign */
+    /** Update Phone Number Campaign */
     fun update(
         campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,

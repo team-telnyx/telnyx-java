@@ -13,7 +13,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.BatchCsvPaginationMeta
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.BatchCsvPaginationMeta705dfa7312
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -23,7 +23,7 @@ class VoiceListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<CdrDetailedReqResponse>>,
-    private val meta: JsonField<BatchCsvPaginationMeta>,
+    private val meta: JsonField<BatchCsvPaginationMeta705dfa7312>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -34,7 +34,7 @@ private constructor(
         data: JsonField<List<CdrDetailedReqResponse>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
-        meta: JsonField<BatchCsvPaginationMeta> = JsonMissing.of(),
+        meta: JsonField<BatchCsvPaginationMeta705dfa7312> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -47,7 +47,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun meta(): Optional<BatchCsvPaginationMeta> = meta.getOptional("meta")
+    fun meta(): Optional<BatchCsvPaginationMeta705dfa7312> = meta.getOptional("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -63,7 +63,9 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<BatchCsvPaginationMeta> = meta
+    @JsonProperty("meta")
+    @ExcludeMissing
+    fun _meta(): JsonField<BatchCsvPaginationMeta705dfa7312> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -87,7 +89,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<CdrDetailedReqResponse>>? = null
-        private var meta: JsonField<BatchCsvPaginationMeta> = JsonMissing.of()
+        private var meta: JsonField<BatchCsvPaginationMeta705dfa7312> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -122,16 +124,16 @@ private constructor(
                 }
         }
 
-        fun meta(meta: BatchCsvPaginationMeta) = meta(JsonField.of(meta))
+        fun meta(meta: BatchCsvPaginationMeta705dfa7312) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [BatchCsvPaginationMeta] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.meta] with a well-typed
+         * [BatchCsvPaginationMeta705dfa7312] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun meta(meta: JsonField<BatchCsvPaginationMeta>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<BatchCsvPaginationMeta705dfa7312>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

@@ -17,17 +17,17 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationVerificationRequestEgress
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageAsync
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestStatus
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -48,21 +48,21 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun create(
         params: RequestCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerificationRequestEgress> =
+    ): CompletableFuture<MessagingTollFreeVerificationVerificationRequestEgress> =
         // post /messaging_tollfree/verification/requests
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: RequestRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerificationRequestStatus> =
+    ): CompletableFuture<RequestRetrieveResponse> =
         // get /messaging_tollfree/verification/requests/{id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: RequestUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerificationRequestEgress> =
+    ): CompletableFuture<MessagingTollFreeVerificationVerificationRequestEgress> =
         // patch /messaging_tollfree/verification/requests/{id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -100,13 +100,17 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<VerificationRequestEgress> =
-            jsonHandler<VerificationRequestEgress>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MessagingTollFreeVerificationVerificationRequestEgress> =
+            jsonHandler<MessagingTollFreeVerificationVerificationRequestEgress>(
+                clientOptions.jsonMapper
+            )
 
         override fun create(
             params: RequestCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerificationRequestEgress>> {
+        ): CompletableFuture<
+            HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress>
+        > {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -131,13 +135,13 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val retrieveHandler: Handler<VerificationRequestStatus> =
-            jsonHandler<VerificationRequestStatus>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<RequestRetrieveResponse> =
+            jsonHandler<RequestRetrieveResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: RequestRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerificationRequestStatus>> {
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -169,13 +173,17 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val updateHandler: Handler<VerificationRequestEgress> =
-            jsonHandler<VerificationRequestEgress>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<MessagingTollFreeVerificationVerificationRequestEgress> =
+            jsonHandler<MessagingTollFreeVerificationVerificationRequestEgress>(
+                clientOptions.jsonMapper
+            )
 
         override fun update(
             params: RequestUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerificationRequestEgress>> {
+        ): CompletableFuture<
+            HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress>
+        > {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())

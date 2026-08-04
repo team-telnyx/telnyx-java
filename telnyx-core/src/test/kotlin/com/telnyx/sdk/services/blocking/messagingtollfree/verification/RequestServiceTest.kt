@@ -3,12 +3,12 @@
 package com.telnyx.sdk.services.blocking.messagingtollfree.verification
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationEntityType
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationTfVerificationRequest
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfPhoneNumber
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.TollFreeVerificationEntityType
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Url
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.UseCaseCategories
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Volume
@@ -23,9 +23,9 @@ internal class RequestServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
-        val verificationRequestEgress =
+        val messagingTollFreeVerificationVerificationRequestEgress =
             requestService.create(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -61,7 +61,7 @@ internal class RequestServiceTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -76,7 +76,7 @@ internal class RequestServiceTest {
                     .build()
             )
 
-        verificationRequestEgress.validate()
+        messagingTollFreeVerificationVerificationRequestEgress.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -85,10 +85,9 @@ internal class RequestServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
-        val verificationRequestStatus =
-            requestService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val request = requestService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        verificationRequestStatus.validate()
+        request.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -97,12 +96,12 @@ internal class RequestServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
-        val verificationRequestEgress =
+        val messagingTollFreeVerificationVerificationRequestEgress =
             requestService.update(
                 RequestUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .tfVerificationRequest(
-                        TfVerificationRequest.builder()
+                    .messagingTollFreeVerificationTfVerificationRequest(
+                        MessagingTollFreeVerificationTfVerificationRequest.builder()
                             .additionalInformation("additionalInformation")
                             .businessAddr1("600 Congress Avenue")
                             .businessCity("Austin")
@@ -142,7 +141,7 @@ internal class RequestServiceTest {
                             .businessRegistrationType("EIN")
                             .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                             .doingBusinessAs("Acme Services")
-                            .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                            .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                             .helpMessageResponse(
                                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                             )
@@ -159,7 +158,7 @@ internal class RequestServiceTest {
                     .build()
             )
 
-        verificationRequestEgress.validate()
+        messagingTollFreeVerificationVerificationRequestEgress.validate()
     }
 
     @Disabled("Mock server tests are disabled")

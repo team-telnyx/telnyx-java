@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.messages
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MessagingError
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -52,17 +51,13 @@ internal class MessageCancelScheduledResponseTest {
                 .direction(MessageCancelScheduledResponse.Direction.OUTBOUND)
                 .encoding("GSM-7")
                 .addError(
-                    MessagingError.builder()
+                    MessagingError0b38e7044b.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(
-                            MessagingError.Meta.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .meta(JsonValue.from(mapOf<String, Any>()))
                         .source(
-                            MessagingError.Source.builder()
+                            MessagingError0b38e7044b.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()
@@ -150,17 +145,13 @@ internal class MessageCancelScheduledResponseTest {
         assertThat(messageCancelScheduledResponse.encoding()).contains("GSM-7")
         assertThat(messageCancelScheduledResponse.errors().getOrNull())
             .containsExactly(
-                MessagingError.builder()
+                MessagingError0b38e7044b.builder()
                     .code("code")
                     .title("title")
                     .detail("detail")
-                    .meta(
-                        MessagingError.Meta.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .meta(JsonValue.from(mapOf<String, Any>()))
                     .source(
-                        MessagingError.Source.builder()
+                        MessagingError0b38e7044b.Source.builder()
                             .parameter("parameter")
                             .pointer("pointer")
                             .build()
@@ -260,17 +251,13 @@ internal class MessageCancelScheduledResponseTest {
                 .direction(MessageCancelScheduledResponse.Direction.OUTBOUND)
                 .encoding("GSM-7")
                 .addError(
-                    MessagingError.builder()
+                    MessagingError0b38e7044b.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(
-                            MessagingError.Meta.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .meta(JsonValue.from(mapOf<String, Any>()))
                         .source(
-                            MessagingError.Source.builder()
+                            MessagingError0b38e7044b.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()

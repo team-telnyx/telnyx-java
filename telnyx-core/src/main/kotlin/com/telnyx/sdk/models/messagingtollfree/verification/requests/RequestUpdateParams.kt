@@ -17,7 +17,8 @@ import kotlin.jvm.optionals.getOrNull
 class RequestUpdateParams
 private constructor(
     private val id: String?,
-    private val tfVerificationRequest: TfVerificationRequest,
+    private val messagingTollFreeVerificationTfVerificationRequest:
+        MessagingTollFreeVerificationTfVerificationRequest,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -25,10 +26,12 @@ private constructor(
     fun id(): Optional<String> = Optional.ofNullable(id)
 
     /** The body of a tollfree verification request */
-    fun tfVerificationRequest(): TfVerificationRequest = tfVerificationRequest
+    fun messagingTollFreeVerificationTfVerificationRequest():
+        MessagingTollFreeVerificationTfVerificationRequest =
+        messagingTollFreeVerificationTfVerificationRequest
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        tfVerificationRequest._additionalProperties()
+        messagingTollFreeVerificationTfVerificationRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -45,7 +48,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .tfVerificationRequest()
+         * .messagingTollFreeVerificationTfVerificationRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -55,7 +58,9 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var tfVerificationRequest: TfVerificationRequest? = null
+        private var messagingTollFreeVerificationTfVerificationRequest:
+            MessagingTollFreeVerificationTfVerificationRequest? =
+            null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -63,7 +68,8 @@ private constructor(
         @JvmSynthetic
         internal fun from(requestUpdateParams: RequestUpdateParams) = apply {
             id = requestUpdateParams.id
-            tfVerificationRequest = requestUpdateParams.tfVerificationRequest
+            messagingTollFreeVerificationTfVerificationRequest =
+                requestUpdateParams.messagingTollFreeVerificationTfVerificationRequest
             additionalHeaders = requestUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = requestUpdateParams.additionalQueryParams.toBuilder()
         }
@@ -74,8 +80,12 @@ private constructor(
         fun id(id: Optional<String>) = id(id.getOrNull())
 
         /** The body of a tollfree verification request */
-        fun tfVerificationRequest(tfVerificationRequest: TfVerificationRequest) = apply {
-            this.tfVerificationRequest = tfVerificationRequest
+        fun messagingTollFreeVerificationTfVerificationRequest(
+            messagingTollFreeVerificationTfVerificationRequest:
+                MessagingTollFreeVerificationTfVerificationRequest
+        ) = apply {
+            this.messagingTollFreeVerificationTfVerificationRequest =
+                messagingTollFreeVerificationTfVerificationRequest
         }
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
@@ -184,7 +194,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .tfVerificationRequest()
+         * .messagingTollFreeVerificationTfVerificationRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -192,13 +202,17 @@ private constructor(
         fun build(): RequestUpdateParams =
             RequestUpdateParams(
                 id,
-                checkRequired("tfVerificationRequest", tfVerificationRequest),
+                checkRequired(
+                    "messagingTollFreeVerificationTfVerificationRequest",
+                    messagingTollFreeVerificationTfVerificationRequest,
+                ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): TfVerificationRequest = tfVerificationRequest
+    fun _body(): MessagingTollFreeVerificationTfVerificationRequest =
+        messagingTollFreeVerificationTfVerificationRequest
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -217,14 +231,20 @@ private constructor(
 
         return other is RequestUpdateParams &&
             id == other.id &&
-            tfVerificationRequest == other.tfVerificationRequest &&
+            messagingTollFreeVerificationTfVerificationRequest ==
+                other.messagingTollFreeVerificationTfVerificationRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(id, tfVerificationRequest, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            id,
+            messagingTollFreeVerificationTfVerificationRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "RequestUpdateParams{id=$id, tfVerificationRequest=$tfVerificationRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RequestUpdateParams{id=$id, messagingTollFreeVerificationTfVerificationRequest=$messagingTollFreeVerificationTfVerificationRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

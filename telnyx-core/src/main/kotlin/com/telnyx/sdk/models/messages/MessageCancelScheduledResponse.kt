@@ -14,7 +14,6 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.MessagingError
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -31,7 +30,7 @@ private constructor(
     private val costBreakdown: JsonField<CostBreakdown>,
     private val direction: JsonField<Direction>,
     private val encoding: JsonField<String>,
-    private val errors: JsonField<List<MessagingError>>,
+    private val errors: JsonField<List<MessagingError0b38e7044b>>,
     private val from: JsonField<From>,
     private val media: JsonField<List<Media>>,
     private val messagingProfileId: JsonField<String>,
@@ -73,7 +72,7 @@ private constructor(
         @JsonProperty("encoding") @ExcludeMissing encoding: JsonField<String> = JsonMissing.of(),
         @JsonProperty("errors")
         @ExcludeMissing
-        errors: JsonField<List<MessagingError>> = JsonMissing.of(),
+        errors: JsonField<List<MessagingError0b38e7044b>> = JsonMissing.of(),
         @JsonProperty("from") @ExcludeMissing from: JsonField<From> = JsonMissing.of(),
         @JsonProperty("media") @ExcludeMissing media: JsonField<List<Media>> = JsonMissing.of(),
         @JsonProperty("messaging_profile_id")
@@ -212,7 +211,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun errors(): Optional<List<MessagingError>> = errors.getOptional("errors")
+    fun errors(): Optional<List<MessagingError0b38e7044b>> = errors.getOptional("errors")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -445,7 +444,9 @@ private constructor(
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<MessagingError>> = errors
+    @JsonProperty("errors")
+    @ExcludeMissing
+    fun _errors(): JsonField<List<MessagingError0b38e7044b>> = errors
 
     /**
      * Returns the raw JSON value of [from].
@@ -650,7 +651,7 @@ private constructor(
         private var costBreakdown: JsonField<CostBreakdown> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
         private var encoding: JsonField<String> = JsonMissing.of()
-        private var errors: JsonField<MutableList<MessagingError>>? = null
+        private var errors: JsonField<MutableList<MessagingError0b38e7044b>>? = null
         private var from: JsonField<From> = JsonMissing.of()
         private var media: JsonField<MutableList<Media>>? = null
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
@@ -821,25 +822,25 @@ private constructor(
          * These errors may point at addressees when referring to unsuccessful/unconfirmed delivery
          * statuses.
          */
-        fun errors(errors: List<MessagingError>) = errors(JsonField.of(errors))
+        fun errors(errors: List<MessagingError0b38e7044b>) = errors(JsonField.of(errors))
 
         /**
          * Sets [Builder.errors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.errors] with a well-typed `List<MessagingError>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.errors] with a well-typed
+         * `List<MessagingError0b38e7044b>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun errors(errors: JsonField<List<MessagingError>>) = apply {
+        fun errors(errors: JsonField<List<MessagingError0b38e7044b>>) = apply {
             this.errors = errors.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MessagingError] to [errors].
+         * Adds a single [MessagingError0b38e7044b] to [errors].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addError(error: MessagingError) = apply {
+        fun addError(error: MessagingError0b38e7044b) = apply {
             errors =
                 (errors ?: JsonField.of(mutableListOf())).also {
                     checkKnown("errors", it).add(error)

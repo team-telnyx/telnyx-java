@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create New Phone Number Campaign */
+/** Update Phone Number Campaign */
 class PhoneNumberCampaignUpdateParams
 private constructor(
     private val campaignPhoneNumber: String?,

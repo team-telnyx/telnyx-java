@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingHostedNumberOrder
-import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -39,7 +39,7 @@ private constructor(
      *
      * @see MessagingHostedNumberOrderListPageResponse.meta
      */
-    fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
     override fun items(): List<MessagingHostedNumberOrder> = data()
 

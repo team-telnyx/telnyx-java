@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
@@ -32,6 +33,21 @@ internal class PhoneNumberServiceAsyncTest {
         val future = phoneNumberServiceAsync.delete("phone_number")
 
         val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val phoneNumberServiceAsync = client.whatsapp().phoneNumbers()
+
+        val phoneNumberFuture =
+            phoneNumberServiceAsync.get(
+                PhoneNumberGetParams.builder().pageNumber(0L).pageSize(0L).build()
+            )
+
+        val phoneNumber = phoneNumberFuture.get()
+        phoneNumber.validate()
     }
 
     @Disabled("Mock server tests are disabled")

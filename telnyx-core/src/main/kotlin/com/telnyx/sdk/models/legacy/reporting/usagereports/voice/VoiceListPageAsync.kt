@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.legacy.reporting.usagereports.voice
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.StandardPaginationMeta
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.StandardPaginationMetaFfba4faa88
 import com.telnyx.sdk.services.async.legacy.reporting.usagereports.VoiceServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -36,7 +36,7 @@ private constructor(
      *
      * @see VoiceListPageResponse.meta
      */
-    fun meta(): Optional<StandardPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<StandardPaginationMetaFfba4faa88> = response._meta().getOptional("meta")
 
     override fun items(): List<CdrUsageReportResponseLegacy> = data()
 

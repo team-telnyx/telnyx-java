@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
@@ -81,6 +83,13 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
     ): CompletableFuture<Void?> =
         // delete /v2/whatsapp/phone_numbers/{phone_number}
         withRawResponse().delete(params, requestOptions).thenAccept {}
+
+    override fun get(
+        params: PhoneNumberGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhoneNumberGetResponse> =
+        // get /whatsapp/phone_numbers
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun resendVerification(
         params: PhoneNumberResendVerificationParams,
@@ -202,6 +211,36 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val getHandler: Handler<PhoneNumberGetResponse> =
+            jsonHandler<PhoneNumberGetResponse>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: PhoneNumberGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhoneNumberGetResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("whatsapp", "phone_numbers")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

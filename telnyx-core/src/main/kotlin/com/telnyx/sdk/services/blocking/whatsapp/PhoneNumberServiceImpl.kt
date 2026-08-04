@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
@@ -78,6 +80,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         // delete /v2/whatsapp/phone_numbers/{phone_number}
         withRawResponse().delete(params, requestOptions)
     }
+
+    override fun get(
+        params: PhoneNumberGetParams,
+        requestOptions: RequestOptions,
+    ): PhoneNumberGetResponse =
+        // get /whatsapp/phone_numbers
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun resendVerification(
         params: PhoneNumberResendVerificationParams,
@@ -190,6 +199,33 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
+            }
+        }
+
+        private val getHandler: Handler<PhoneNumberGetResponse> =
+            jsonHandler<PhoneNumberGetResponse>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: PhoneNumberGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhoneNumberGetResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("whatsapp", "phone_numbers")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 

@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class MessageRetrieveGroupMessagesResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<OutboundMessagePayload>>,
+    private val data: JsonField<List<MessagingOutboundMessagePayload>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -29,14 +29,14 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<OutboundMessagePayload>> = JsonMissing.of()
+        data: JsonField<List<MessagingOutboundMessagePayload>> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<OutboundMessagePayload>> = data.getOptional("data")
+    fun data(): Optional<List<MessagingOutboundMessagePayload>> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
@@ -45,7 +45,7 @@ private constructor(
      */
     @JsonProperty("data")
     @ExcludeMissing
-    fun _data(): JsonField<List<OutboundMessagePayload>> = data
+    fun _data(): JsonField<List<MessagingOutboundMessagePayload>> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -71,7 +71,7 @@ private constructor(
     /** A builder for [MessageRetrieveGroupMessagesResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<OutboundMessagePayload>>? = null
+        private var data: JsonField<MutableList<MessagingOutboundMessagePayload>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -83,25 +83,25 @@ private constructor(
                 messageRetrieveGroupMessagesResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<OutboundMessagePayload>) = data(JsonField.of(data))
+        fun data(data: List<MessagingOutboundMessagePayload>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<OutboundMessagePayload>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<MessagingOutboundMessagePayload>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<OutboundMessagePayload>>) = apply {
+        fun data(data: JsonField<List<MessagingOutboundMessagePayload>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [OutboundMessagePayload] to [Builder.data].
+         * Adds a single [MessagingOutboundMessagePayload] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: OutboundMessagePayload) = apply {
+        fun addData(data: MessagingOutboundMessagePayload) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

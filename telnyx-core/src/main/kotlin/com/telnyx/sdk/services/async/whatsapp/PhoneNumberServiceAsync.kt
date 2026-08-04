@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
@@ -92,6 +94,24 @@ interface PhoneNumberServiceAsync {
     /** @see delete */
     fun delete(phoneNumber: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
+
+    /** List Whatsapp phone numbers */
+    fun get(): CompletableFuture<PhoneNumberGetResponse> = get(PhoneNumberGetParams.none())
+
+    /** @see get */
+    fun get(
+        params: PhoneNumberGetParams = PhoneNumberGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhoneNumberGetResponse>
+
+    /** @see get */
+    fun get(
+        params: PhoneNumberGetParams = PhoneNumberGetParams.none()
+    ): CompletableFuture<PhoneNumberGetResponse> = get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(requestOptions: RequestOptions): CompletableFuture<PhoneNumberGetResponse> =
+        get(PhoneNumberGetParams.none(), requestOptions)
 
     /** Resend verification code */
     fun resendVerification(phoneNumber: String): CompletableFuture<Void?> =
@@ -269,6 +289,31 @@ interface PhoneNumberServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /whatsapp/phone_numbers`, but is otherwise the same
+         * as [PhoneNumberServiceAsync.get].
+         */
+        fun get(): CompletableFuture<HttpResponseFor<PhoneNumberGetResponse>> =
+            get(PhoneNumberGetParams.none())
+
+        /** @see get */
+        fun get(
+            params: PhoneNumberGetParams = PhoneNumberGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhoneNumberGetResponse>>
+
+        /** @see get */
+        fun get(
+            params: PhoneNumberGetParams = PhoneNumberGetParams.none()
+        ): CompletableFuture<HttpResponseFor<PhoneNumberGetResponse>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<PhoneNumberGetResponse>> =
+            get(PhoneNumberGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

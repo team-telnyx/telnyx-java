@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.SimpleSimCard
-import com.telnyx.sdk.models.actions.WirelessError
+import com.telnyx.sdk.models.actions.purchase.WirelessErrorC5290d5308
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -24,7 +24,7 @@ class RegisterCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<SimpleSimCard>>,
-    private val errors: JsonField<List<WirelessError>>,
+    private val errors: JsonField<List<WirelessErrorC5290d5308>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -35,7 +35,7 @@ private constructor(
         data: JsonField<List<SimpleSimCard>> = JsonMissing.of(),
         @JsonProperty("errors")
         @ExcludeMissing
-        errors: JsonField<List<WirelessError>> = JsonMissing.of(),
+        errors: JsonField<List<WirelessErrorC5290d5308>> = JsonMissing.of(),
     ) : this(data, errors, mutableMapOf())
 
     /**
@@ -50,7 +50,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun errors(): Optional<List<WirelessError>> = errors.getOptional("errors")
+    fun errors(): Optional<List<WirelessErrorC5290d5308>> = errors.getOptional("errors")
 
     /**
      * Returns the raw JSON value of [data].
@@ -64,7 +64,9 @@ private constructor(
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<WirelessError>> = errors
+    @JsonProperty("errors")
+    @ExcludeMissing
+    fun _errors(): JsonField<List<WirelessErrorC5290d5308>> = errors
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -88,7 +90,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<SimpleSimCard>>? = null
-        private var errors: JsonField<MutableList<WirelessError>>? = null
+        private var errors: JsonField<MutableList<WirelessErrorC5290d5308>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -124,25 +126,25 @@ private constructor(
                 }
         }
 
-        fun errors(errors: List<WirelessError>) = errors(JsonField.of(errors))
+        fun errors(errors: List<WirelessErrorC5290d5308>) = errors(JsonField.of(errors))
 
         /**
          * Sets [Builder.errors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.errors] with a well-typed `List<WirelessError>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.errors] with a well-typed
+         * `List<WirelessErrorC5290d5308>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun errors(errors: JsonField<List<WirelessError>>) = apply {
+        fun errors(errors: JsonField<List<WirelessErrorC5290d5308>>) = apply {
             this.errors = errors.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [WirelessError] to [errors].
+         * Adds a single [WirelessErrorC5290d5308] to [errors].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addError(error: WirelessError) = apply {
+        fun addError(error: WirelessErrorC5290d5308) = apply {
             errors =
                 (errors ?: JsonField.of(mutableListOf())).also {
                     checkKnown("errors", it).add(error)

@@ -7,17 +7,17 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationTfVerificationRequest
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationVerificationRequestEgress
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPage
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestStatus
 import java.util.function.Consumer
 
 /** Manage your tollfree verification requests */
@@ -36,64 +36,77 @@ interface RequestService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequestService
 
     /** Submit a new tollfree verification request */
-    fun create(params: RequestCreateParams): VerificationRequestEgress =
+    fun create(
+        params: RequestCreateParams
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: RequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestEgress
+    ): MessagingTollFreeVerificationVerificationRequestEgress
 
     /** @see create */
     fun create(
-        tfVerificationRequest: TfVerificationRequest,
+        messagingTollFreeVerificationTfVerificationRequest:
+            MessagingTollFreeVerificationTfVerificationRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestEgress =
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
         create(
-            RequestCreateParams.builder().tfVerificationRequest(tfVerificationRequest).build(),
+            RequestCreateParams.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    messagingTollFreeVerificationTfVerificationRequest
+                )
+                .build(),
             requestOptions,
         )
 
     /** @see create */
-    fun create(tfVerificationRequest: TfVerificationRequest): VerificationRequestEgress =
-        create(tfVerificationRequest, RequestOptions.none())
+    fun create(
+        messagingTollFreeVerificationTfVerificationRequest:
+            MessagingTollFreeVerificationTfVerificationRequest
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
+        create(messagingTollFreeVerificationTfVerificationRequest, RequestOptions.none())
 
     /** Get a single verification request by its ID. */
-    fun retrieve(id: String): VerificationRequestStatus = retrieve(id, RequestRetrieveParams.none())
+    fun retrieve(id: String): RequestRetrieveResponse = retrieve(id, RequestRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: RequestRetrieveParams = RequestRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestStatus = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): RequestRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: RequestRetrieveParams = RequestRetrieveParams.none(),
-    ): VerificationRequestStatus = retrieve(id, params, RequestOptions.none())
+    ): RequestRetrieveResponse = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: RequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestStatus
+    ): RequestRetrieveResponse
 
     /** @see retrieve */
-    fun retrieve(params: RequestRetrieveParams): VerificationRequestStatus =
+    fun retrieve(params: RequestRetrieveParams): RequestRetrieveResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): VerificationRequestStatus =
+    fun retrieve(id: String, requestOptions: RequestOptions): RequestRetrieveResponse =
         retrieve(id, RequestRetrieveParams.none(), requestOptions)
 
     /**
      * Update an existing tollfree verification request. This is particularly useful when there are
      * pending customer actions to be taken.
      */
-    fun update(id: String, params: RequestUpdateParams): VerificationRequestEgress =
+    fun update(
+        id: String,
+        params: RequestUpdateParams,
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
         update(id, params, RequestOptions.none())
 
     /** @see update */
@@ -101,17 +114,20 @@ interface RequestService {
         id: String,
         params: RequestUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestEgress = update(params.toBuilder().id(id).build(), requestOptions)
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
+        update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
-    fun update(params: RequestUpdateParams): VerificationRequestEgress =
+    fun update(
+        params: RequestUpdateParams
+    ): MessagingTollFreeVerificationVerificationRequestEgress =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: RequestUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationRequestEgress
+    ): MessagingTollFreeVerificationVerificationRequestEgress
 
     /** Get a list of previously-submitted tollfree verification requests */
     fun list(params: RequestListParams): RequestListPage = list(params, RequestOptions.none())
@@ -199,7 +215,9 @@ interface RequestService {
          * otherwise the same as [RequestService.create].
          */
         @MustBeClosed
-        fun create(params: RequestCreateParams): HttpResponseFor<VerificationRequestEgress> =
+        fun create(
+            params: RequestCreateParams
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -207,32 +225,38 @@ interface RequestService {
         fun create(
             params: RequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestEgress>
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            tfVerificationRequest: TfVerificationRequest,
+            messagingTollFreeVerificationTfVerificationRequest:
+                MessagingTollFreeVerificationTfVerificationRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestEgress> =
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
             create(
-                RequestCreateParams.builder().tfVerificationRequest(tfVerificationRequest).build(),
+                RequestCreateParams.builder()
+                    .messagingTollFreeVerificationTfVerificationRequest(
+                        messagingTollFreeVerificationTfVerificationRequest
+                    )
+                    .build(),
                 requestOptions,
             )
 
         /** @see create */
         @MustBeClosed
         fun create(
-            tfVerificationRequest: TfVerificationRequest
-        ): HttpResponseFor<VerificationRequestEgress> =
-            create(tfVerificationRequest, RequestOptions.none())
+            messagingTollFreeVerificationTfVerificationRequest:
+                MessagingTollFreeVerificationTfVerificationRequest
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
+            create(messagingTollFreeVerificationTfVerificationRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /messaging_tollfree/verification/requests/{id}`, but
          * is otherwise the same as [RequestService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponseFor<VerificationRequestStatus> =
+        fun retrieve(id: String): HttpResponseFor<RequestRetrieveResponse> =
             retrieve(id, RequestRetrieveParams.none())
 
         /** @see retrieve */
@@ -241,7 +265,7 @@ interface RequestService {
             id: String,
             params: RequestRetrieveParams = RequestRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestStatus> =
+        ): HttpResponseFor<RequestRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -249,18 +273,18 @@ interface RequestService {
         fun retrieve(
             id: String,
             params: RequestRetrieveParams = RequestRetrieveParams.none(),
-        ): HttpResponseFor<VerificationRequestStatus> = retrieve(id, params, RequestOptions.none())
+        ): HttpResponseFor<RequestRetrieveResponse> = retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: RequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestStatus>
+        ): HttpResponseFor<RequestRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: RequestRetrieveParams): HttpResponseFor<VerificationRequestStatus> =
+        fun retrieve(params: RequestRetrieveParams): HttpResponseFor<RequestRetrieveResponse> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -268,7 +292,7 @@ interface RequestService {
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerificationRequestStatus> =
+        ): HttpResponseFor<RequestRetrieveResponse> =
             retrieve(id, RequestRetrieveParams.none(), requestOptions)
 
         /**
@@ -279,7 +303,8 @@ interface RequestService {
         fun update(
             id: String,
             params: RequestUpdateParams,
-        ): HttpResponseFor<VerificationRequestEgress> = update(id, params, RequestOptions.none())
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
+            update(id, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -287,12 +312,14 @@ interface RequestService {
             id: String,
             params: RequestUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestEgress> =
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: RequestUpdateParams): HttpResponseFor<VerificationRequestEgress> =
+        fun update(
+            params: RequestUpdateParams
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -300,7 +327,7 @@ interface RequestService {
         fun update(
             params: RequestUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationRequestEgress>
+        ): HttpResponseFor<MessagingTollFreeVerificationVerificationRequestEgress>
 
         /**
          * Returns a raw HTTP response for `get /messaging_tollfree/verification/requests`, but is

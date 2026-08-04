@@ -19,27 +19,29 @@ import kotlin.jvm.optionals.getOrNull
 class UserAddressRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<UserAddress>,
+    private val data: JsonField<UserAddressesUserAddress>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<UserAddress> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<UserAddressesUserAddress> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<UserAddress> = data.getOptional("data")
+    fun data(): Optional<UserAddressesUserAddress> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<UserAddress> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<UserAddressesUserAddress> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -64,7 +66,7 @@ private constructor(
     /** A builder for [UserAddressRetrieveResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<UserAddress> = JsonMissing.of()
+        private var data: JsonField<UserAddressesUserAddress> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -73,16 +75,16 @@ private constructor(
             additionalProperties = userAddressRetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: UserAddress) = data(JsonField.of(data))
+        fun data(data: UserAddressesUserAddress) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [UserAddress] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.data] with a well-typed [UserAddressesUserAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<UserAddress>) = apply { this.data = data }
+        fun data(data: JsonField<UserAddressesUserAddress>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

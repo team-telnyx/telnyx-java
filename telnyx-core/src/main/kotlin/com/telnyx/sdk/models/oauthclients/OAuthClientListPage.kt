@@ -31,7 +31,7 @@ private constructor(
      *
      * @see OAuthClientListPageResponse.meta
      */
-    fun meta(): Optional<PaginationMetaOAuth> = response._meta().getOptional("meta")
+    fun meta(): Optional<OAuthOAuthPaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<OAuthClient> = data()
 

@@ -21,14 +21,15 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: UserAddressListParams,
     private val response: UserAddressListPageResponse,
-) : PageAsync<UserAddress> {
+) : PageAsync<UserAddressesUserAddress> {
 
     /**
      * Delegates to [UserAddressListPageResponse], but gracefully handles missing data.
      *
      * @see UserAddressListPageResponse.data
      */
-    fun data(): List<UserAddress> = response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<UserAddressesUserAddress> =
+        response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [UserAddressListPageResponse], but gracefully handles missing data.
@@ -37,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<UserAddress> = data()
+    override fun items(): List<UserAddressesUserAddress> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -67,7 +68,8 @@ private constructor(
     override fun nextPage(): CompletableFuture<UserAddressListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<UserAddress> = AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<UserAddressesUserAddress> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): UserAddressListParams = params

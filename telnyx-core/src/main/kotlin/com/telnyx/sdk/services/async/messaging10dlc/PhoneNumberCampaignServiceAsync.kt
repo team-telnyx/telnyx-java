@@ -95,7 +95,7 @@ interface PhoneNumberCampaignServiceAsync {
     ): CompletableFuture<PhoneNumberCampaign> =
         retrieve(phoneNumber, PhoneNumberCampaignRetrieveParams.none(), requestOptions)
 
-    /** Create New Phone Number Campaign */
+    /** Update Phone Number Campaign */
     fun update(
         campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
