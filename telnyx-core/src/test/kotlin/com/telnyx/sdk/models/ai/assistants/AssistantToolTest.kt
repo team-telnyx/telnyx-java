@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
 import com.telnyx.sdk.models.ai.tools.PayToolParams
+import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -111,6 +112,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -258,6 +260,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -330,6 +333,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -384,6 +388,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -438,6 +443,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -552,6 +558,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -700,6 +707,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -802,6 +810,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -874,6 +883,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -925,6 +935,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).contains(sendMessage)
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -976,6 +987,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).contains(skipTurn)
         assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -1030,6 +1042,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
         assertThat(assistantTool.pay()).contains(pay)
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
 
     @Test
@@ -1044,6 +1057,74 @@ internal class AssistantToolTest {
                             .currency("currency")
                             .description("description")
                             .paymentMethod("payment_method")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
+    }
+
+    @Test
+    fun ofUpdateDynamicVariables() {
+        val updateDynamicVariables =
+            AssistantTool.UpdateDynamicVariables.builder()
+                .updateDynamicVariables(
+                    UpdateDynamicVariablesToolParams.builder()
+                        .description("Collect caller details into conversation variables.")
+                        .name("collect_details")
+                        .addUpdatableVariable(
+                            UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                .name("customer_name")
+                                .description("The caller's full name.")
+                                .type("string")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val assistantTool = AssistantTool.ofUpdateDynamicVariables(updateDynamicVariables)
+
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).contains(updateDynamicVariables)
+    }
+
+    @Test
+    fun ofUpdateDynamicVariablesRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofUpdateDynamicVariables(
+                AssistantTool.UpdateDynamicVariables.builder()
+                    .updateDynamicVariables(
+                        UpdateDynamicVariablesToolParams.builder()
+                            .description("Collect caller details into conversation variables.")
+                            .name("collect_details")
+                            .addUpdatableVariable(
+                                UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                    .name("customer_name")
+                                    .description("The caller's full name.")
+                                    .type("string")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

@@ -85,6 +85,15 @@ private constructor(
     fun type(): Optional<String> = body.type()
 
     /**
+     * Configuration for an update_dynamic_variables tool.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updateDynamicVariables(): Optional<UpdateDynamicVariablesToolParams> =
+        body.updateDynamicVariables()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -152,6 +161,15 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _type(): JsonField<String> = body._type()
+
+    /**
+     * Returns the raw JSON value of [updateDynamicVariables].
+     *
+     * Unlike [updateDynamicVariables], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _updateDynamicVariables(): JsonField<UpdateDynamicVariablesToolParams> =
+        body._updateDynamicVariables()
 
     /**
      * Returns the raw JSON value of [webhook].
@@ -312,6 +330,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<String>) = apply { body.type(type) }
+
+        /** Configuration for an update_dynamic_variables tool. */
+        fun updateDynamicVariables(updateDynamicVariables: UpdateDynamicVariablesToolParams) =
+            apply {
+                body.updateDynamicVariables(updateDynamicVariables)
+            }
+
+        /**
+         * Sets [Builder.updateDynamicVariables] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updateDynamicVariables] with a well-typed
+         * [UpdateDynamicVariablesToolParams] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
+        fun updateDynamicVariables(
+            updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
+        ) = apply { body.updateDynamicVariables(updateDynamicVariables) }
 
         fun webhook(webhook: Webhook) = apply { body.webhook(webhook) }
 
@@ -480,6 +515,7 @@ private constructor(
         private val retrieval: JsonField<Retrieval>,
         private val timeoutMs: JsonField<Long>,
         private val type: JsonField<String>,
+        private val updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>,
         private val webhook: JsonField<Webhook>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -505,6 +541,9 @@ private constructor(
             @ExcludeMissing
             timeoutMs: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("update_dynamic_variables")
+            @ExcludeMissing
+            updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> = JsonMissing.of(),
             @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
         ) : this(
             clientSideTool,
@@ -516,6 +555,7 @@ private constructor(
             retrieval,
             timeoutMs,
             type,
+            updateDynamicVariables,
             webhook,
             mutableMapOf(),
         )
@@ -574,6 +614,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun type(): Optional<String> = type.getOptional("type")
+
+        /**
+         * Configuration for an update_dynamic_variables tool.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun updateDynamicVariables(): Optional<UpdateDynamicVariablesToolParams> =
+            updateDynamicVariables.getOptional("update_dynamic_variables")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -652,6 +701,17 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
         /**
+         * Returns the raw JSON value of [updateDynamicVariables].
+         *
+         * Unlike [updateDynamicVariables], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("update_dynamic_variables")
+        @ExcludeMissing
+        fun _updateDynamicVariables(): JsonField<UpdateDynamicVariablesToolParams> =
+            updateDynamicVariables
+
+        /**
          * Returns the raw JSON value of [webhook].
          *
          * Unlike [webhook], this method doesn't throw if the JSON field has an unexpected type.
@@ -688,6 +748,8 @@ private constructor(
             private var retrieval: JsonField<Retrieval> = JsonMissing.of()
             private var timeoutMs: JsonField<Long> = JsonMissing.of()
             private var type: JsonField<String> = JsonMissing.of()
+            private var updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> =
+                JsonMissing.of()
             private var webhook: JsonField<Webhook> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -702,6 +764,7 @@ private constructor(
                 retrieval = body.retrieval
                 timeoutMs = body.timeoutMs
                 type = body.type
+                updateDynamicVariables = body.updateDynamicVariables
                 webhook = body.webhook
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -810,6 +873,21 @@ private constructor(
              */
             fun type(type: JsonField<String>) = apply { this.type = type }
 
+            /** Configuration for an update_dynamic_variables tool. */
+            fun updateDynamicVariables(updateDynamicVariables: UpdateDynamicVariablesToolParams) =
+                updateDynamicVariables(JsonField.of(updateDynamicVariables))
+
+            /**
+             * Sets [Builder.updateDynamicVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updateDynamicVariables] with a well-typed
+             * [UpdateDynamicVariablesToolParams] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun updateDynamicVariables(
+                updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
+            ) = apply { this.updateDynamicVariables = updateDynamicVariables }
+
             fun webhook(webhook: Webhook) = webhook(JsonField.of(webhook))
 
             /**
@@ -856,6 +934,7 @@ private constructor(
                     retrieval,
                     timeoutMs,
                     type,
+                    updateDynamicVariables,
                     webhook,
                     additionalProperties.toMutableMap(),
                 )
@@ -886,6 +965,7 @@ private constructor(
             retrieval().ifPresent { it.validate() }
             timeoutMs()
             type()
+            updateDynamicVariables().ifPresent { it.validate() }
             webhook().ifPresent { it.validate() }
             validated = true
         }
@@ -915,6 +995,7 @@ private constructor(
                 (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (timeoutMs.asKnown().isPresent) 1 else 0) +
                 (if (type.asKnown().isPresent) 1 else 0) +
+                (updateDynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (webhook.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -932,6 +1013,7 @@ private constructor(
                 retrieval == other.retrieval &&
                 timeoutMs == other.timeoutMs &&
                 type == other.type &&
+                updateDynamicVariables == other.updateDynamicVariables &&
                 webhook == other.webhook &&
                 additionalProperties == other.additionalProperties
         }
@@ -947,6 +1029,7 @@ private constructor(
                 retrieval,
                 timeoutMs,
                 type,
+                updateDynamicVariables,
                 webhook,
                 additionalProperties,
             )
@@ -955,7 +1038,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientSideTool=$clientSideTool, displayName=$displayName, function=$function, handoff=$handoff, invite=$invite, pay=$pay, retrieval=$retrieval, timeoutMs=$timeoutMs, type=$type, webhook=$webhook, additionalProperties=$additionalProperties}"
+            "Body{clientSideTool=$clientSideTool, displayName=$displayName, function=$function, handoff=$handoff, invite=$invite, pay=$pay, retrieval=$retrieval, timeoutMs=$timeoutMs, type=$type, updateDynamicVariables=$updateDynamicVariables, webhook=$webhook, additionalProperties=$additionalProperties}"
     }
 
     class ClientSideTool

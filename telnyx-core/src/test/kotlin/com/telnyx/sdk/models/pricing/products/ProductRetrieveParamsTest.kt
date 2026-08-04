@@ -10,7 +10,12 @@ internal class ProductRetrieveParamsTest {
 
     @Test
     fun create() {
-        ProductRetrieveParams.builder().slug("slug").pageNumber(1L).pageSize(1L).build()
+        ProductRetrieveParams.builder()
+            .slug("slug")
+            .filterCountryIso("SE")
+            .pageNumber(1L)
+            .pageSize(1L)
+            .build()
     }
 
     @Test
@@ -25,12 +30,23 @@ internal class ProductRetrieveParamsTest {
     @Test
     fun queryParams() {
         val params =
-            ProductRetrieveParams.builder().slug("slug").pageNumber(1L).pageSize(1L).build()
+            ProductRetrieveParams.builder()
+                .slug("slug")
+                .filterCountryIso("SE")
+                .pageNumber(1L)
+                .pageSize(1L)
+                .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("page_number", "1").put("page_size", "1").build())
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("filter[country_iso]", "SE")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
+                    .build()
+            )
     }
 
     @Test

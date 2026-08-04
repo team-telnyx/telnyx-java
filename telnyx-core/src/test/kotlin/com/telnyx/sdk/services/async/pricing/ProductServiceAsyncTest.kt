@@ -17,7 +17,12 @@ internal class ProductServiceAsyncTest {
 
         val productFuture =
             productServiceAsync.retrieve(
-                ProductRetrieveParams.builder().slug("slug").pageNumber(1L).pageSize(1L).build()
+                ProductRetrieveParams.builder()
+                    .slug("slug")
+                    .filterCountryIso("SE")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
             )
 
         val product = productFuture.get()

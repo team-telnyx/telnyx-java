@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
+import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -57,6 +58,19 @@ internal class ToolServiceTest {
                             .build()
                     )
                     .timeoutMs(0L)
+                    .updateDynamicVariables(
+                        UpdateDynamicVariablesToolParams.builder()
+                            .description("Collect caller details into conversation variables.")
+                            .name("collect_details")
+                            .addUpdatableVariable(
+                                UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                    .name("customer_name")
+                                    .description("The caller's full name.")
+                                    .type("string")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .webhook(
                         ToolCreateParams.Webhook.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -125,6 +139,19 @@ internal class ToolServiceTest {
                     )
                     .timeoutMs(0L)
                     .type("type")
+                    .updateDynamicVariables(
+                        UpdateDynamicVariablesToolParams.builder()
+                            .description("Collect caller details into conversation variables.")
+                            .name("collect_details")
+                            .addUpdatableVariable(
+                                UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                    .name("customer_name")
+                                    .description("The caller's full name.")
+                                    .type("string")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .webhook(
                         ToolUpdateParams.Webhook.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
