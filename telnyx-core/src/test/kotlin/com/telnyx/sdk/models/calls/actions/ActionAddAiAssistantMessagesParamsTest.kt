@@ -26,6 +26,7 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                     )
                     .build()
             )
+            .triggerResponse(false)
             .build()
     }
 
@@ -57,6 +58,7 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                         )
                         .build()
                 )
+                .triggerResponse(false)
                 .build()
 
         val body = params._body()
@@ -77,6 +79,7 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                         .build()
                 )
             )
+        assertThat(body.triggerResponse()).contains(false)
     }
 
     @Test

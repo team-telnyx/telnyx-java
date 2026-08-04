@@ -19,8 +19,10 @@ internal class FaxTest {
                 .connectionId("c-1")
                 .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .direction(Fax.Direction.OUTBOUND)
+                .failureReason(null)
                 .from("+123")
                 .fromDisplayName("Company Name")
+                .internalFailureReason(null)
                 .mediaName("my_media_uploaded_to_media_storage_api")
                 .mediaUrl("http://www.example.com/fax.pdf")
                 .previewUrl(
@@ -44,8 +46,10 @@ internal class FaxTest {
         assertThat(fax.connectionId()).contains("c-1")
         assertThat(fax.createdAt()).contains(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
         assertThat(fax.direction()).contains(Fax.Direction.OUTBOUND)
+        assertThat(fax.failureReason()).isEmpty
         assertThat(fax.from()).contains("+123")
         assertThat(fax.fromDisplayName()).contains("Company Name")
+        assertThat(fax.internalFailureReason()).isEmpty
         assertThat(fax.mediaName()).contains("my_media_uploaded_to_media_storage_api")
         assertThat(fax.mediaUrl()).contains("http://www.example.com/fax.pdf")
         assertThat(fax.previewUrl())
@@ -76,8 +80,10 @@ internal class FaxTest {
                 .connectionId("c-1")
                 .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .direction(Fax.Direction.OUTBOUND)
+                .failureReason(null)
                 .from("+123")
                 .fromDisplayName("Company Name")
+                .internalFailureReason(null)
                 .mediaName("my_media_uploaded_to_media_storage_api")
                 .mediaUrl("http://www.example.com/fax.pdf")
                 .previewUrl(

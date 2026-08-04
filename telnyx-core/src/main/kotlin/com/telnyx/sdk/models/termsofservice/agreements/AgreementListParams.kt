@@ -3,7 +3,6 @@
 package com.telnyx.sdk.models.termsofservice.agreements
 
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
@@ -25,7 +24,7 @@ private constructor(
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val productType: TosProductType?,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -42,7 +41,7 @@ private constructor(
     fun productType(): Optional<TosProductType> = Optional.ofNullable(productType)
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -63,7 +62,8 @@ private constructor(
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var productType: TosProductType? = null
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -112,7 +112,7 @@ private constructor(
         fun productType(productType: Optional<TosProductType>) =
             productType(productType.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -130,7 +130,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -146,9 +146,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -225,7 +226,7 @@ private constructor(
             )
     }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams =
         QueryParams.builder()

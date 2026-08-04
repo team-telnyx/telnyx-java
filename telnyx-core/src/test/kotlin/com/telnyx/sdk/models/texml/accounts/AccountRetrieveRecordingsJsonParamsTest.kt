@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.texml.accounts
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -43,7 +44,12 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("DateCreated", "2023-05-22T00:00:00Z")
+                    .put(
+                        "DateCreated",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2023-05-22T00:00:00Z")
+                        ),
+                    )
                     .put("Page", "0")
                     .put("PageSize", "0")
                     .build()

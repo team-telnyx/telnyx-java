@@ -70,8 +70,8 @@ internal class TranscriptionEngineDeepgramConfigTest {
                 jacksonTypeRef<TranscriptionEngineDeepgramConfig>(),
             )
 
-        assertThat(roundtrippedTranscriptionEngineDeepgramConfig)
-            .isEqualTo(transcriptionEngineDeepgramConfig)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedTranscriptionEngineDeepgramConfig))
+            .isEqualTo(jsonMapper.writeValueAsString(transcriptionEngineDeepgramConfig))
     }
 
     @Test
@@ -130,8 +130,8 @@ internal class TranscriptionEngineDeepgramConfigTest {
                 jacksonTypeRef<TranscriptionEngineDeepgramConfig>(),
             )
 
-        assertThat(roundtrippedTranscriptionEngineDeepgramConfig)
-            .isEqualTo(transcriptionEngineDeepgramConfig)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedTranscriptionEngineDeepgramConfig))
+            .isEqualTo(jsonMapper.writeValueAsString(transcriptionEngineDeepgramConfig))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

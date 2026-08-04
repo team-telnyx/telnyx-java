@@ -22,7 +22,6 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.getOrThrow
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -36,7 +35,7 @@ class ActionAddAiAssistantMessagesParams
 private constructor(
     private val callControlId: String?,
     private val body: Body,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -69,6 +68,16 @@ private constructor(
     fun messages(): Optional<List<Message>> = body.messages()
 
     /**
+     * When `true`, the injected messages immediately trigger an assistant response/turn instead of
+     * waiting for the next natural turn or idle timeout. This may interrupt a user who is still
+     * speaking.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun triggerResponse(): Optional<Boolean> = body.triggerResponse()
+
+    /**
      * Returns the raw JSON value of [clientState].
      *
      * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -89,10 +98,17 @@ private constructor(
      */
     fun _messages(): JsonField<List<Message>> = body._messages()
 
+    /**
+     * Returns the raw JSON value of [triggerResponse].
+     *
+     * Unlike [triggerResponse], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _triggerResponse(): JsonField<Boolean> = body._triggerResponse()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -115,7 +131,8 @@ private constructor(
 
         private var callControlId: String? = null
         private var body: Body.Builder = Body.builder()
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -142,6 +159,7 @@ private constructor(
          * - [clientState]
          * - [commandId]
          * - [messages]
+         * - [triggerResponse]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -242,6 +260,26 @@ private constructor(
          */
         fun addDeveloperMessage(content: String) = apply { body.addDeveloperMessage(content) }
 
+        /**
+         * When `true`, the injected messages immediately trigger an assistant response/turn instead
+         * of waiting for the next natural turn or idle timeout. This may interrupt a user who is
+         * still speaking.
+         */
+        fun triggerResponse(triggerResponse: Boolean) = apply {
+            body.triggerResponse(triggerResponse)
+        }
+
+        /**
+         * Sets [Builder.triggerResponse] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.triggerResponse] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun triggerResponse(triggerResponse: JsonField<Boolean>) = apply {
+            body.triggerResponse(triggerResponse)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -261,7 +299,7 @@ private constructor(
             body.removeAllAdditionalProperties(keys)
         }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -279,7 +317,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -295,9 +333,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -381,7 +420,7 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -391,6 +430,7 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val messages: JsonField<List<Message>>,
+        private val triggerResponse: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -405,7 +445,10 @@ private constructor(
             @JsonProperty("messages")
             @ExcludeMissing
             messages: JsonField<List<Message>> = JsonMissing.of(),
-        ) : this(clientState, commandId, messages, mutableMapOf())
+            @JsonProperty("trigger_response")
+            @ExcludeMissing
+            triggerResponse: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(clientState, commandId, messages, triggerResponse, mutableMapOf())
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -434,6 +477,16 @@ private constructor(
         fun messages(): Optional<List<Message>> = messages.getOptional("messages")
 
         /**
+         * When `true`, the injected messages immediately trigger an assistant response/turn instead
+         * of waiting for the next natural turn or idle timeout. This may interrupt a user who is
+         * still speaking.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun triggerResponse(): Optional<Boolean> = triggerResponse.getOptional("trigger_response")
+
+        /**
          * Returns the raw JSON value of [clientState].
          *
          * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -457,6 +510,16 @@ private constructor(
         @JsonProperty("messages")
         @ExcludeMissing
         fun _messages(): JsonField<List<Message>> = messages
+
+        /**
+         * Returns the raw JSON value of [triggerResponse].
+         *
+         * Unlike [triggerResponse], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("trigger_response")
+        @ExcludeMissing
+        fun _triggerResponse(): JsonField<Boolean> = triggerResponse
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -482,6 +545,7 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var messages: JsonField<MutableList<Message>>? = null
+            private var triggerResponse: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -489,6 +553,7 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 messages = body.messages.map { it.toMutableList() }
+                triggerResponse = body.triggerResponse
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -610,6 +675,25 @@ private constructor(
                         .build()
                 )
 
+            /**
+             * When `true`, the injected messages immediately trigger an assistant response/turn
+             * instead of waiting for the next natural turn or idle timeout. This may interrupt a
+             * user who is still speaking.
+             */
+            fun triggerResponse(triggerResponse: Boolean) =
+                triggerResponse(JsonField.of(triggerResponse))
+
+            /**
+             * Sets [Builder.triggerResponse] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.triggerResponse] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun triggerResponse(triggerResponse: JsonField<Boolean>) = apply {
+                this.triggerResponse = triggerResponse
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -639,6 +723,7 @@ private constructor(
                     clientState,
                     commandId,
                     (messages ?: JsonMissing.of()).map { it.toImmutable() },
+                    triggerResponse,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -662,6 +747,7 @@ private constructor(
             clientState()
             commandId()
             messages().ifPresent { it.forEach { it.validate() } }
+            triggerResponse()
             validated = true
         }
 
@@ -683,7 +769,8 @@ private constructor(
         internal fun validity(): Int =
             (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
-                (messages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+                (messages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (triggerResponse.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -694,17 +781,18 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 messages == other.messages &&
+                triggerResponse == other.triggerResponse &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(clientState, commandId, messages, additionalProperties)
+            Objects.hash(clientState, commandId, messages, triggerResponse, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientState=$clientState, commandId=$commandId, messages=$messages, additionalProperties=$additionalProperties}"
+            "Body{clientState=$clientState, commandId=$commandId, messages=$messages, triggerResponse=$triggerResponse, additionalProperties=$additionalProperties}"
     }
 
     /** Messages sent by an end user */

@@ -32,8 +32,8 @@ internal class ChargesBreakdownRetrieveParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("start_date", "2025-05-01")
-                    .put("end_date", "2025-06-01")
+                    .put("start_date", LocalDate.parse("2025-05-01").toString())
+                    .put("end_date", LocalDate.parse("2025-06-01").toString())
                     .put("format", "json")
                     .build()
             )
@@ -49,6 +49,10 @@ internal class ChargesBreakdownRetrieveParamsTest {
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("start_date", "2025-05-01").build())
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("start_date", LocalDate.parse("2025-05-01").toString())
+                    .build()
+            )
     }
 }

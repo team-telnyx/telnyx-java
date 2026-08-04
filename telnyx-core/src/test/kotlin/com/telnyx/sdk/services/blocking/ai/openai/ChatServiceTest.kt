@@ -56,6 +56,7 @@ internal class ChatServiceTest {
                             .build()
                     )
                     .seed(0L)
+                    .serviceTier("service_tier")
                     .stop("string")
                     .stream(true)
                     .temperature(0.0)

@@ -27,6 +27,7 @@ internal class OpenAIServiceAsyncTest {
                     )
                     .instructions("You are a friendly chatbot.")
                     .model("zai-org/GLM-5.1-FP8")
+                    .serviceTier("service_tier")
                     .stream(true)
                     .build()
             )

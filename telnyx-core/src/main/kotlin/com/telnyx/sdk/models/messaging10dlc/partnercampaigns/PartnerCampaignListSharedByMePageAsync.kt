@@ -54,8 +54,8 @@ private constructor(
             return false
         }
 
-        val pageNumber = page().getOrDefault(1)
-        val pageCount = totalRecords().getOrNull()
+        val pageNumber = response._page().getOptional("page").getOrDefault(1)
+        val pageCount = response._totalRecords().getOptional("totalRecords").getOrNull()
         return pageCount == null || pageNumber < pageCount
     }
 

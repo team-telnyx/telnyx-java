@@ -37,9 +37,27 @@ interface ReferenceServiceAsync {
      * The DIR's authorizer email must be verified first (see the email-verification endpoint).
      * Until it is, this returns `409` and no references are stored.
      *
-     * The request body carries exactly two business references plus one financial reference. On
-     * success the references are stored and the response echoes them in the same shape as the GET.
-     * Submitting again converges on the already-stored references rather than erroring.
+     * The request body carries exactly two business references plus one financial reference. The
+     * first submission stores them and returns `201`. Resubmitting returns `200`: identical values
+     * are simply confirmed and nothing is written, while changed values replace those references.
+     *
+     * Replacing a reference is allowed only while the DIR itself is still editable, the same window
+     * in which a single reference may be updated; once the DIR has been submitted for vetting this
+     * returns `400`. A replaced reference's pending verification call is cancelled and its dial-in
+     * code stops working, and the replacement contact is emailed fresh scheduling details.
+     * References whose details did not change keep their existing call, code, and the notice
+     * already sent to them.
+     *
+     * The response always echoes the stored references in the same shape as the GET.
+     *
+     * Who qualifies: the two business references confirm the company's reputation and operations.
+     * Each should be a senior contact at an organization the business works with, such as a vendor,
+     * partner, or client: a C-suite executive (CEO, CFO, CTO, COO), an owner or founder as
+     * reflected in the company's corporate records, or a senior manager, director, or executive.
+     * The financial reference confirms the company pays its bills and should be a licensed
+     * certified public accountant (CPA) the company uses, a contact at a bank or financial
+     * institution that has a relationship with the company, or a reasonable alternative banking or
+     * financial reference.
      */
     fun create(dirId: String, params: ReferenceCreateParams): CompletableFuture<ReferenceList> =
         create(dirId, params, RequestOptions.none())
@@ -97,10 +115,11 @@ interface ReferenceServiceAsync {
     /**
      * List the business and financial references submitted for a DIR.
      *
-     * Returns the two business references (slots 0 and 1) followed by the single financial
-     * reference. Each entry carries only the customer-supplied details (name, title, organization,
-     * relationship, phone, email, timezone). Returns an empty list when no references were
-     * submitted.
+     * Returns the two business references (slots 1 and 2) followed by the single financial
+     * reference. Each entry carries its `ref_type` and `slot`, which together address the reference
+     * when updating it, alongside the details supplied when it was submitted (name, title,
+     * organization, relationship, phone, email, timezone). No internal identifiers are exposed.
+     * Returns an empty list when no references were submitted.
      */
     fun list(dirId: String): CompletableFuture<ReferenceList> =
         list(dirId, ReferenceListParams.none())

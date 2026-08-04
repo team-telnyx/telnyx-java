@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListPageAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -87,21 +87,21 @@ interface NumberLookupServiceAsync {
         retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of telco data usage reports */
-    fun list(): CompletableFuture<NumberLookupListResponse> = list(NumberLookupListParams.none())
+    fun list(): CompletableFuture<NumberLookupListPageAsync> = list(NumberLookupListParams.none())
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberLookupListResponse>
+    ): CompletableFuture<NumberLookupListPageAsync>
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none()
-    ): CompletableFuture<NumberLookupListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<NumberLookupListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NumberLookupListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NumberLookupListPageAsync> =
         list(NumberLookupListParams.none(), requestOptions)
 
     /** Delete a specific telco data usage report by its ID */
@@ -219,25 +219,25 @@ interface NumberLookupServiceAsync {
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/number_lookup`, but
          * is otherwise the same as [NumberLookupServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<NumberLookupListPageAsync>> =
             list(NumberLookupListParams.none())
 
         /** @see list */
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>>
+        ): CompletableFuture<HttpResponseFor<NumberLookupListPageAsync>>
 
         /** @see list */
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none()
-        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NumberLookupListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NumberLookupListPageAsync>> =
             list(NumberLookupListParams.none(), requestOptions)
 
         /**

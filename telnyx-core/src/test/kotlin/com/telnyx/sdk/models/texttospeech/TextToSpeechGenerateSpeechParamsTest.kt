@@ -44,6 +44,12 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                     )
                     .build()
             )
+            .humain(
+                TextToSpeechGenerateSpeechParams.Humain.builder()
+                    .voiceId(TextToSpeechGenerateSpeechParams.Humain.VoiceId.SARA_EN)
+                    .ttfbEagerness(0.0f)
+                    .build()
+            )
             .language("language")
             .minimax(
                 TextToSpeechGenerateSpeechParams.Minimax.builder()
@@ -137,6 +143,12 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                         )
                         .build()
                 )
+                .humain(
+                    TextToSpeechGenerateSpeechParams.Humain.builder()
+                        .voiceId(TextToSpeechGenerateSpeechParams.Humain.VoiceId.SARA_EN)
+                        .ttfbEagerness(0.0f)
+                        .build()
+                )
                 .language("language")
                 .minimax(
                     TextToSpeechGenerateSpeechParams.Minimax.builder()
@@ -228,6 +240,13 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .build()
+            )
+        assertThat(body.humain())
+            .contains(
+                TextToSpeechGenerateSpeechParams.Humain.builder()
+                    .voiceId(TextToSpeechGenerateSpeechParams.Humain.VoiceId.SARA_EN)
+                    .ttfbEagerness(0.0f)
                     .build()
             )
         assertThat(body.language()).contains("language")

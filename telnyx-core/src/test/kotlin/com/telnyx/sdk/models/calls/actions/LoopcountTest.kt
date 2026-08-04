@@ -35,7 +35,8 @@ internal class LoopcountTest {
                 jacksonTypeRef<Loopcount>(),
             )
 
-        assertThat(roundtrippedLoopcount).isEqualTo(loopcount)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedLoopcount))
+            .isEqualTo(jsonMapper.writeValueAsString(loopcount))
     }
 
     @Test
@@ -59,7 +60,8 @@ internal class LoopcountTest {
                 jacksonTypeRef<Loopcount>(),
             )
 
-        assertThat(roundtrippedLoopcount).isEqualTo(loopcount)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedLoopcount))
+            .isEqualTo(jsonMapper.writeValueAsString(loopcount))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

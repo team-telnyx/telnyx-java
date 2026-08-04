@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.calls
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
+import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
@@ -102,6 +103,30 @@ internal class CallDialParamsTest {
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
                             .attendeeTimezone("attendee_timezone")
+                            .build()
+                    )
+                    .voiceSettings(
+                        VoiceSettings.builder()
+                            .voice("voice")
+                            .apiKeyRef("api_key_ref")
+                            .backgroundAudio(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia
+                                            .PredefinedMediaValue
+                                            .SILENCE
+                                    )
+                                    .volume(0.1)
+                                    .build()
+                            )
+                            .expressiveMode(true)
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
+                            .voiceSpeed(0.0)
                             .build()
                     )
                     .build()
@@ -240,6 +265,7 @@ internal class CallDialParamsTest {
             .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
             .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)
             .retryOnTimeout(true)
+            .routeToMobile(true)
             .sendDigitsOnAnswer("wwww200")
             .sendSilenceWhenIdle(true)
             .sipAuthPassword("password")
@@ -416,6 +442,30 @@ internal class CallDialParamsTest {
                                 .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
+                        .voiceSettings(
+                            VoiceSettings.builder()
+                                .voice("voice")
+                                .apiKeyRef("api_key_ref")
+                                .backgroundAudio(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        .value(
+                                            VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                .PredefinedMediaValue
+                                                .SILENCE
+                                        )
+                                        .volume(0.1)
+                                        .build()
+                                )
+                                .expressiveMode(true)
+                                .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                .similarityBoost(0.0)
+                                .speed(0.0)
+                                .style(0.0)
+                                .temperature(0.0)
+                                .useSpeakerBoost(true)
+                                .voiceSpeed(0.0)
+                                .build()
+                        )
                         .build()
                 )
                 .audioUrl("http://www.example.com/sounds/greeting.wav")
@@ -554,6 +604,7 @@ internal class CallDialParamsTest {
                 .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
                 .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)
                 .retryOnTimeout(true)
+                .routeToMobile(true)
                 .sendDigitsOnAnswer("wwww200")
                 .sendSilenceWhenIdle(true)
                 .sipAuthPassword("password")
@@ -735,6 +786,30 @@ internal class CallDialParamsTest {
                             .attendeeTimezone("attendee_timezone")
                             .build()
                     )
+                    .voiceSettings(
+                        VoiceSettings.builder()
+                            .voice("voice")
+                            .apiKeyRef("api_key_ref")
+                            .backgroundAudio(
+                                VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia
+                                            .PredefinedMediaValue
+                                            .SILENCE
+                                    )
+                                    .volume(0.1)
+                                    .build()
+                            )
+                            .expressiveMode(true)
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
+                            .voiceSpeed(0.0)
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.audioUrl()).contains("http://www.example.com/sounds/greeting.wav")
@@ -879,6 +954,7 @@ internal class CallDialParamsTest {
         assertThat(body.recordTrack()).contains(CallDialParams.RecordTrack.OUTBOUND)
         assertThat(body.recordTrim()).contains(CallDialParams.RecordTrim.TRIM_SILENCE)
         assertThat(body.retryOnTimeout()).contains(true)
+        assertThat(body.routeToMobile()).contains(true)
         assertThat(body.sendDigitsOnAnswer()).contains("wwww200")
         assertThat(body.sendSilenceWhenIdle()).contains(true)
         assertThat(body.sipAuthPassword()).contains("password")

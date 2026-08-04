@@ -56,7 +56,13 @@ private constructor(
      * `auto` (Telnyx language detection controls the language hint), `multi` (no language hint),
      * and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
      * For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO 639-1
-     * codes (e.g. `en`, `es`) bias detection toward that language.
+     * codes (e.g. `en`, `es`) bias detection toward that language. For `humain/realtime`, supported
+     * values are `ar`, `en`, `codeswitch` (Arabic/English code-switching), and `auto` (resolves
+     * server-side to code-switching). Unlike other models, `humain/realtime` does not fall back to
+     * `auto` when `language` is omitted — omitting it applies `en` instead. For `reson8/turns`,
+     * supported values are `auto` (or unset) for automatic language detection, and the language
+     * codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription
+     * language.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -77,6 +83,10 @@ private constructor(
      *   configurable endpointing.
      * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
+     * - `humain/realtime` is a streaming model with native Arabic and Arabic/English code-switching
+     *   support.
+     * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
+     *   automatic language detection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -194,7 +204,13 @@ private constructor(
          * `auto` (Telnyx language detection controls the language hint), `multi` (no language
          * hint), and language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`,
          * and `nl`. For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox
-         * auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
+         * auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
+         * `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
+         * code-switching), and `auto` (resolves server-side to code-switching). Unlike other
+         * models, `humain/realtime` does not fall back to `auto` when `language` is omitted —
+         * omitting it applies `en` instead. For `reson8/turns`, supported values are `auto` (or
+         * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
+         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -220,6 +236,10 @@ private constructor(
          *   and configurable endpointing.
          * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
          *   detection.
+         * - `humain/realtime` is a streaming model with native Arabic and Arabic/English
+         *   code-switching support.
+         * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
+         *   automatic language detection.
          */
         fun model(model: Model) = model(JsonField.of(model))
 
@@ -351,6 +371,10 @@ private constructor(
      *   configurable endpointing.
      * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
+     * - `humain/realtime` is a streaming model with native Arabic and Arabic/English code-switching
+     *   support.
+     * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
+     *   automatic language detection.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -382,6 +406,10 @@ private constructor(
 
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
+            @JvmField val HUMAIN_REALTIME = of("humain/realtime")
+
+            @JvmField val RESON8_TURNS = of("reson8/turns")
+
             @JvmField val DISTIL_WHISPER_DISTIL_LARGE_V2 = of("distil-whisper/distil-large-v2")
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
@@ -399,6 +427,8 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
+            RESON8_TURNS,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
         }
@@ -421,6 +451,8 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            HUMAIN_REALTIME,
+            RESON8_TURNS,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -444,6 +476,8 @@ private constructor(
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
+                RESON8_TURNS -> Value.RESON8_TURNS
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> Value._UNKNOWN
@@ -468,6 +502,8 @@ private constructor(
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
+                RESON8_TURNS -> Known.RESON8_TURNS
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")

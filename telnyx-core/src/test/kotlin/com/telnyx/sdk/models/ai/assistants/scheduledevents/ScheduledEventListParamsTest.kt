@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants.scheduledevents
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -48,10 +49,20 @@ internal class ScheduledEventListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("conversation_channel", "phone_call")
-                    .put("from_date", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "from_date",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .put("page[number]", "0")
                     .put("page[size]", "0")
-                    .put("to_date", "2019-12-27T18:11:19.117Z")
+                    .put(
+                        "to_date",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                        ),
+                    )
                     .build()
             )
     }

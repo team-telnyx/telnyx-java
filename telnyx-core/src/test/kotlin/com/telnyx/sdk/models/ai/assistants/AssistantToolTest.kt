@@ -210,7 +210,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -303,7 +304,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -347,7 +349,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -409,7 +412,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -453,7 +457,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -637,7 +642,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -748,7 +754,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -838,7 +845,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -888,7 +896,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -938,7 +947,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -988,7 +998,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     @Test
@@ -1044,7 +1055,8 @@ internal class AssistantToolTest {
                 jacksonTypeRef<AssistantTool>(),
             )
 
-        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

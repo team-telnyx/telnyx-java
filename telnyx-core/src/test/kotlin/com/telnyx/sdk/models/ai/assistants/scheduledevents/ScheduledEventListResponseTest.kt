@@ -124,7 +124,8 @@ internal class ScheduledEventListResponseTest {
                 jacksonTypeRef<ScheduledEventListResponse>(),
             )
 
-        assertThat(roundtrippedScheduledEventListResponse).isEqualTo(scheduledEventListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedScheduledEventListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(scheduledEventListResponse))
     }
 
     @Test
@@ -198,7 +199,8 @@ internal class ScheduledEventListResponseTest {
                 jacksonTypeRef<ScheduledEventListResponse>(),
             )
 
-        assertThat(roundtrippedScheduledEventListResponse).isEqualTo(scheduledEventListResponse)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedScheduledEventListResponse))
+            .isEqualTo(jsonMapper.writeValueAsString(scheduledEventListResponse))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

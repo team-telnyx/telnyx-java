@@ -89,7 +89,8 @@ internal class PortoutEventTest {
                 jacksonTypeRef<PortoutEvent>(),
             )
 
-        assertThat(roundtrippedPortoutEvent).isEqualTo(portoutEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortoutEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portoutEvent))
     }
 
     @Test
@@ -156,7 +157,8 @@ internal class PortoutEventTest {
                 jacksonTypeRef<PortoutEvent>(),
             )
 
-        assertThat(roundtrippedPortoutEvent).isEqualTo(portoutEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortoutEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portoutEvent))
     }
 
     @Test
@@ -222,7 +224,8 @@ internal class PortoutEventTest {
                 jacksonTypeRef<PortoutEvent>(),
             )
 
-        assertThat(roundtrippedPortoutEvent).isEqualTo(portoutEvent)
+        assertThat(jsonMapper.writeValueAsString(roundtrippedPortoutEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(portoutEvent))
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {

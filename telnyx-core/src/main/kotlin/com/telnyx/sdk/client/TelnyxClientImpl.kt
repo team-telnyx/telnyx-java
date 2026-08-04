@@ -76,6 +76,24 @@ import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressServiceImpl
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointServiceImpl
+import com.telnyx.sdk.services.blocking.EmailBlockService
+import com.telnyx.sdk.services.blocking.EmailBlockServiceImpl
+import com.telnyx.sdk.services.blocking.EmailDomainService
+import com.telnyx.sdk.services.blocking.EmailDomainServiceImpl
+import com.telnyx.sdk.services.blocking.EmailEventService
+import com.telnyx.sdk.services.blocking.EmailEventServiceImpl
+import com.telnyx.sdk.services.blocking.EmailInboxService
+import com.telnyx.sdk.services.blocking.EmailInboxServiceImpl
+import com.telnyx.sdk.services.blocking.EmailMessageService
+import com.telnyx.sdk.services.blocking.EmailMessageServiceImpl
+import com.telnyx.sdk.services.blocking.EmailTemplateService
+import com.telnyx.sdk.services.blocking.EmailTemplateServiceImpl
+import com.telnyx.sdk.services.blocking.EmailThreadService
+import com.telnyx.sdk.services.blocking.EmailThreadServiceImpl
+import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupService
+import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupServiceImpl
+import com.telnyx.sdk.services.blocking.EmailValidationService
+import com.telnyx.sdk.services.blocking.EmailValidationServiceImpl
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.EnterpriseServiceImpl
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
@@ -222,6 +240,8 @@ import com.telnyx.sdk.services.blocking.PortingService
 import com.telnyx.sdk.services.blocking.PortingServiceImpl
 import com.telnyx.sdk.services.blocking.PortoutService
 import com.telnyx.sdk.services.blocking.PortoutServiceImpl
+import com.telnyx.sdk.services.blocking.PricingService
+import com.telnyx.sdk.services.blocking.PricingServiceImpl
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.PronunciationDictService
@@ -982,6 +1002,44 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         InfringementClaimServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val emailBlocks: EmailBlockService by lazy {
+        EmailBlockServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailDomains: EmailDomainService by lazy {
+        EmailDomainServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailEvents: EmailEventService by lazy {
+        EmailEventServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailInboxes: EmailInboxService by lazy {
+        EmailInboxServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailMessages: EmailMessageService by lazy {
+        EmailMessageServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailTemplates: EmailTemplateService by lazy {
+        EmailTemplateServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailThreads: EmailThreadService by lazy {
+        EmailThreadServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailUnsubscribeGroups: EmailUnsubscribeGroupService by lazy {
+        EmailUnsubscribeGroupServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val emailValidations: EmailValidationService by lazy {
+        EmailValidationServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val pricing: PricingService by lazy { PricingServiceImpl(clientOptionsWithUserAgent) }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1497,6 +1555,42 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      * supporting evidence.
      */
     override fun infringementClaims(): InfringementClaimService = infringementClaims
+
+    /** Recipient suppression records (`/v2/email_blocks`). */
+    override fun emailBlocks(): EmailBlockService = emailBlocks
+
+    override fun emailDomains(): EmailDomainService = emailDomains
+
+    /** Retrieve account-level email events and event statistics. */
+    override fun emailEvents(): EmailEventService = emailEvents
+
+    /**
+     * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+     * forward messages.
+     */
+    override fun emailInboxes(): EmailInboxService = emailInboxes
+
+    /**
+     * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these endpoints.
+     */
+    override fun emailMessages(): EmailMessageService = emailMessages
+
+    /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+    override fun emailTemplates(): EmailTemplateService = emailTemplates
+
+    /**
+     * Account-wide conversation threads across every inbox, for agents operating many inboxes at
+     * once.
+     */
+    override fun emailThreads(): EmailThreadService = emailThreads
+
+    /** Named groups and group-scoped suppressions. */
+    override fun emailUnsubscribeGroups(): EmailUnsubscribeGroupService = emailUnsubscribeGroups
+
+    /** Validate email addresses synchronously or in asynchronous batches. */
+    override fun emailValidations(): EmailValidationService = emailValidations
+
+    override fun pricing(): PricingService = pricing
 
     override fun close() = clientOptions.close()
 
@@ -2198,6 +2292,46 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             InfringementClaimServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val emailBlocks: EmailBlockService.WithRawResponse by lazy {
+            EmailBlockServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailDomains: EmailDomainService.WithRawResponse by lazy {
+            EmailDomainServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailEvents: EmailEventService.WithRawResponse by lazy {
+            EmailEventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailInboxes: EmailInboxService.WithRawResponse by lazy {
+            EmailInboxServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailMessages: EmailMessageService.WithRawResponse by lazy {
+            EmailMessageServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailTemplates: EmailTemplateService.WithRawResponse by lazy {
+            EmailTemplateServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailThreads: EmailThreadService.WithRawResponse by lazy {
+            EmailThreadServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailUnsubscribeGroups: EmailUnsubscribeGroupService.WithRawResponse by lazy {
+            EmailUnsubscribeGroupServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emailValidations: EmailValidationService.WithRawResponse by lazy {
+            EmailValidationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val pricing: PricingService.WithRawResponse by lazy {
+            PricingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2770,5 +2904,43 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          */
         override fun infringementClaims(): InfringementClaimService.WithRawResponse =
             infringementClaims
+
+        /** Recipient suppression records (`/v2/email_blocks`). */
+        override fun emailBlocks(): EmailBlockService.WithRawResponse = emailBlocks
+
+        override fun emailDomains(): EmailDomainService.WithRawResponse = emailDomains
+
+        /** Retrieve account-level email events and event statistics. */
+        override fun emailEvents(): EmailEventService.WithRawResponse = emailEvents
+
+        /**
+         * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or
+         * forward messages.
+         */
+        override fun emailInboxes(): EmailInboxService.WithRawResponse = emailInboxes
+
+        /**
+         * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these
+         * endpoints.
+         */
+        override fun emailMessages(): EmailMessageService.WithRawResponse = emailMessages
+
+        /** Create, list, retrieve, update, delete, and render Liquid email templates. */
+        override fun emailTemplates(): EmailTemplateService.WithRawResponse = emailTemplates
+
+        /**
+         * Account-wide conversation threads across every inbox, for agents operating many inboxes
+         * at once.
+         */
+        override fun emailThreads(): EmailThreadService.WithRawResponse = emailThreads
+
+        /** Named groups and group-scoped suppressions. */
+        override fun emailUnsubscribeGroups(): EmailUnsubscribeGroupService.WithRawResponse =
+            emailUnsubscribeGroups
+
+        /** Validate email addresses synchronously or in asynchronous batches. */
+        override fun emailValidations(): EmailValidationService.WithRawResponse = emailValidations
+
+        override fun pricing(): PricingService.WithRawResponse = pricing
     }
 }

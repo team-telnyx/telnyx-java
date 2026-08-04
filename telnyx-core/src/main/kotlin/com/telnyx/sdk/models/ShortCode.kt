@@ -117,6 +117,8 @@ private constructor(
     fun shortCode(): Optional<String> = shortCode.getOptional("short_code")
 
     /**
+     * Tags associated with the resource.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -328,6 +330,7 @@ private constructor(
          */
         fun shortCode(shortCode: JsonField<String>) = apply { this.shortCode = shortCode }
 
+        /** Tags associated with the resource. */
         fun tags(tags: List<String>) = tags(JsonField.of(tags))
 
         /**

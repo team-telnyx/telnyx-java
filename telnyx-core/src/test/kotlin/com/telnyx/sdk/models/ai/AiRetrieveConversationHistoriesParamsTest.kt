@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -53,15 +54,35 @@ internal class AiRetrieveConversationHistoriesParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("q", "customer called about billing issue")
-                    .put("filter[ingested_at][gte]", "2026-01-01T00:00:00Z")
-                    .put("filter[ingested_at][lte]", "2026-12-31T23:59:59Z")
-                    .put("filter[record_created_at][gte]", "2026-01-01T00:00:00Z")
-                    .put("filter[record_created_at][lte]", "2026-12-31T23:59:59Z")
+                    .put(
+                        "filter[ingested_at][gte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2026-01-01T00:00:00Z")
+                        ),
+                    )
+                    .put(
+                        "filter[ingested_at][lte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2026-12-31T23:59:59Z")
+                        ),
+                    )
+                    .put(
+                        "filter[record_created_at][gte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2026-01-01T00:00:00Z")
+                        ),
+                    )
+                    .put(
+                        "filter[record_created_at][lte]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2026-12-31T23:59:59Z")
+                        ),
+                    )
                     .put("filter[record_id]", "rec-001")
                     .put("filter[region][in]", "USA,DEU")
                     .put("filter[retention]", "filter[retention]")
                     .put("filter[user_id]", "user-123")
-                    .put("min_score", "0.5")
+                    .put("min_score", 0.5f.toString())
                     .put("page[number]", "1")
                     .put("page[size]", "10")
                     .put("region", "USA")

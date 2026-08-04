@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import com.telnyx.sdk.models.ai.assistants.HangupToolParams
+import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
 import com.telnyx.sdk.models.calls.ConversationRelayInterruptionSettings
@@ -32,6 +33,7 @@ import com.telnyx.sdk.models.calls.actions.ActionHangupParams
 import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
+import com.telnyx.sdk.models.calls.actions.ActionPayParams
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
 import com.telnyx.sdk.models.calls.actions.ActionResumeRecordingParams
@@ -65,6 +67,7 @@ import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
+import com.telnyx.sdk.models.calls.actions.PayPromptValue
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.calls.actions.SystemMessage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -100,6 +103,7 @@ internal class ActionServiceAsyncTest {
                             )
                             .build()
                     )
+                    .triggerResponse(false)
                     .build()
             )
 
@@ -181,6 +185,30 @@ internal class ActionServiceAsyncTest {
                             .openaiApiKeyRef("my_openai_api_key")
                             .addHangupTool(
                                 HangupToolParams.builder().description("description").build()
+                            )
+                            .voiceSettings(
+                                VoiceSettings.builder()
+                                    .voice("voice")
+                                    .apiKeyRef("api_key_ref")
+                                    .backgroundAudio(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            .value(
+                                                VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                    .PredefinedMediaValue
+                                                    .SILENCE
+                                            )
+                                            .volume(0.1)
+                                            .build()
+                                    )
+                                    .expressiveMode(true)
+                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .similarityBoost(0.0)
+                                    .speed(0.0)
+                                    .style(0.0)
+                                    .temperature(0.0)
+                                    .useSpeakerBoost(true)
+                                    .voiceSpeed(0.0)
+                                    .build()
                             )
                             .build()
                     )
@@ -697,6 +725,79 @@ internal class ActionServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun pay() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val actionServiceAsync = client.calls().actions()
+
+        val responseFuture =
+            actionServiceAsync.pay(
+                ActionPayParams.builder()
+                    .callControlId("call_control_id")
+                    .amount(10.5)
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .connectorName("Default")
+                    .currency(ActionPayParams.Currency.USD)
+                    .description("Order 12345")
+                    .interDigitTimeoutMillis(5000)
+                    .language("en-US")
+                    .maxAttempts(3)
+                    .metadata(
+                        ActionPayParams.Metadata.builder()
+                            .putAdditionalProperty("order_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .parameters(
+                        ActionPayParams.Parameters.builder()
+                            .putAdditionalProperty("customer_id", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .paymentMethod(ActionPayParams.PaymentMethod.CREDIT_CARD)
+                    .paymentToken("tok_abc123")
+                    .prompts(
+                        ActionPayParams.Prompts.builder()
+                            .bankAccountNumber("x")
+                            .bankRoutingNumber("x")
+                            .expirationDate("x")
+                            .paymentCardNumberOfPrompts(
+                                listOf(
+                                    PayPromptValue.PayPrompt.builder()
+                                        .text("Please enter your card number.")
+                                        .attempt("2 3")
+                                        .cardType(PayPromptValue.PayPrompt.CardType.AMEX)
+                                        .errorType(
+                                            PayPromptValue.PayPrompt.ErrorType.INVALID_CARD_NUMBER
+                                        )
+                                        .build(),
+                                    PayPromptValue.PayPrompt.builder()
+                                        .text(
+                                            "That card number was not accepted. Please try again."
+                                        )
+                                        .attempt("2 3")
+                                        .cardType(PayPromptValue.PayPrompt.CardType.AMEX)
+                                        .errorType(
+                                            PayPromptValue.PayPrompt.ErrorType.INVALID_CARD_NUMBER
+                                        )
+                                        .build(),
+                                )
+                            )
+                            .postalCode("x")
+                            .securityCode("x")
+                            .build()
+                    )
+                    .serviceLevel("service_level")
+                    .timeoutMillis(5000)
+                    .transactionType(ActionPayParams.TransactionType.CHARGE)
+                    .voice("female")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun refer() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.calls().actions()
@@ -921,6 +1022,30 @@ internal class ActionServiceAsyncTest {
                                     .attendeeTimezone("attendee_timezone")
                                     .build()
                             )
+                            .voiceSettings(
+                                VoiceSettings.builder()
+                                    .voice("voice")
+                                    .apiKeyRef("api_key_ref")
+                                    .backgroundAudio(
+                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            .value(
+                                                VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                    .PredefinedMediaValue
+                                                    .SILENCE
+                                            )
+                                            .volume(0.1)
+                                            .build()
+                                    )
+                                    .expressiveMode(true)
+                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .similarityBoost(0.0)
+                                    .speed(0.0)
+                                    .style(0.0)
+                                    .temperature(0.0)
+                                    .useSpeakerBoost(true)
+                                    .voiceSpeed(0.0)
+                                    .build()
+                            )
                             .build()
                     )
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -951,13 +1076,6 @@ internal class ActionServiceAsyncTest {
                         TranscriptionConfig.builder()
                             .language("auto")
                             .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-                            .build()
-                    )
-                    .voice("Telnyx.KokoroTTS.af")
-                    .voiceSettings(
-                        ElevenLabsVoiceSettings.builder()
-                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                            .apiKeyRef("my_elevenlabs_api_key")
                             .build()
                     )
                     .build()
@@ -1633,6 +1751,7 @@ internal class ActionServiceAsyncTest {
                     .recordTimeoutSecs(100)
                     .recordTrack(ActionTransferParams.RecordTrack.OUTBOUND)
                     .recordTrim(ActionTransferParams.RecordTrim.TRIM_SILENCE)
+                    .routeToMobile(true)
                     .sendDigitsOnAnswer("wwww200")
                     .sipAuthPassword("password")
                     .sipAuthUsername("username")

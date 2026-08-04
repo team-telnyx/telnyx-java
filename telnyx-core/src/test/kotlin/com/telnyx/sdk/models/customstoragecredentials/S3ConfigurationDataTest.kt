@@ -13,19 +13,19 @@ internal class S3ConfigurationDataTest {
     fun create() {
         val s3ConfigurationData =
             S3ConfigurationData.builder()
-                .backend(S3ConfigurationData.Backend.S3)
                 .awsAccessKeyId("AKIAIOSFODNN7EXAMPLE")
                 .awsSecretAccessKey("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+                .backend(S3ConfigurationData.Backend.S3)
                 .bucket("example-bucket")
                 .region("us-east-1")
                 .build()
 
-        assertThat(s3ConfigurationData.backend()).isEqualTo(S3ConfigurationData.Backend.S3)
-        assertThat(s3ConfigurationData.awsAccessKeyId()).contains("AKIAIOSFODNN7EXAMPLE")
+        assertThat(s3ConfigurationData.awsAccessKeyId()).isEqualTo("AKIAIOSFODNN7EXAMPLE")
         assertThat(s3ConfigurationData.awsSecretAccessKey())
-            .contains("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
-        assertThat(s3ConfigurationData.bucket()).contains("example-bucket")
-        assertThat(s3ConfigurationData.region()).contains("us-east-1")
+            .isEqualTo("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+        assertThat(s3ConfigurationData.backend()).isEqualTo(S3ConfigurationData.Backend.S3)
+        assertThat(s3ConfigurationData.bucket()).isEqualTo("example-bucket")
+        assertThat(s3ConfigurationData.region()).isEqualTo("us-east-1")
     }
 
     @Test
@@ -33,9 +33,9 @@ internal class S3ConfigurationDataTest {
         val jsonMapper = jsonMapper()
         val s3ConfigurationData =
             S3ConfigurationData.builder()
-                .backend(S3ConfigurationData.Backend.S3)
                 .awsAccessKeyId("AKIAIOSFODNN7EXAMPLE")
                 .awsSecretAccessKey("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+                .backend(S3ConfigurationData.Backend.S3)
                 .bucket("example-bucket")
                 .region("us-east-1")
                 .build()

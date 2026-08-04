@@ -71,7 +71,7 @@ internal class ReferenceServiceTest {
                 ReferenceUpdateParams.builder()
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                     .refType(ReferenceUpdateParams.RefType.BUSINESS)
-                    .slot(0L)
+                    .slot(1L)
                     .email("dana.reyes@example.com")
                     .fullName("Dana Reyes")
                     .jobTitle("VP of Operations")

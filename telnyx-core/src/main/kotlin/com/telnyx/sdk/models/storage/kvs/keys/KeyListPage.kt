@@ -36,12 +36,20 @@ private constructor(
     override fun items(): List<KeyListResponse> = data()
 
     override fun hasNextPage(): Boolean =
-        items().isNotEmpty() && meta().flatMap { it._cursor().getOptional("cursor") }.isPresent
+        items().isNotEmpty() &&
+            response
+                ._meta()
+                .getOptional("meta")
+                .flatMap { it._cursor().getOptional("cursor") }
+                .isPresent
 
     fun nextPageParams(): KeyListParams {
         val nextCursor =
-            meta().flatMap { it._cursor().getOptional("cursor") }.getOrNull()
-                ?: throw IllegalStateException("Cannot construct next page params")
+            response
+                ._meta()
+                .getOptional("meta")
+                .flatMap { it._cursor().getOptional("cursor") }
+                .getOrNull() ?: throw IllegalStateException("Cannot construct next page params")
         return params.toBuilder().cursor(nextCursor).build()
     }
 

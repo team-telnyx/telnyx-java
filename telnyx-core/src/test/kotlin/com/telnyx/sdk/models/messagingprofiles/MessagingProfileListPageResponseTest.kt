@@ -19,7 +19,7 @@ internal class MessagingProfileListPageResponseTest {
                 .addData(
                     MessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                        .aiAssistantId("ai_assistant_id")
+                        .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                         .alphaSender("sqF")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .dailySpendLimit("100.00")
@@ -75,7 +75,7 @@ internal class MessagingProfileListPageResponseTest {
             .containsExactly(
                 MessagingProfile.builder()
                     .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                    .aiAssistantId("ai_assistant_id")
+                    .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                     .alphaSender("sqF")
                     .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .dailySpendLimit("100.00")
@@ -136,7 +136,7 @@ internal class MessagingProfileListPageResponseTest {
                 .addData(
                     MessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                        .aiAssistantId("ai_assistant_id")
+                        .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                         .alphaSender("sqF")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .dailySpendLimit("100.00")

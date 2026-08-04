@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.dir.verifyemail
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -20,6 +21,8 @@ internal class EmailVerificationStatusWrappedTest {
                             EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION
                         )
                         .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                        .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
+                        .sendsRemainingToday(9L)
                         .build()
                 )
                 .build()
@@ -30,6 +33,8 @@ internal class EmailVerificationStatusWrappedTest {
                     .emailVerified(false)
                     .recordType(EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION)
                     .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                    .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
+                    .sendsRemainingToday(9L)
                     .build()
             )
     }
@@ -46,6 +51,8 @@ internal class EmailVerificationStatusWrappedTest {
                             EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION
                         )
                         .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                        .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
+                        .sendsRemainingToday(9L)
                         .build()
                 )
                 .build()

@@ -11,7 +11,6 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -49,7 +48,7 @@ import kotlin.jvm.optionals.getOrNull
 class OpenAICreateResponseParams
 private constructor(
     private val body: Body,
-    private val additionalHeaders: Headers,
+    private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
@@ -92,6 +91,16 @@ private constructor(
     fun model(): Optional<String> = body.model()
 
     /**
+     * The service tier to use for this request. Supported values vary by model; use `GET
+     * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+     * Telnyx-hosted models use `default`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun serviceTier(): Optional<String> = body.serviceTier()
+
+    /**
      * Set to `true` to stream Server-Sent Events, matching OpenAI's Responses streaming format.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -128,6 +137,13 @@ private constructor(
     fun _model(): JsonField<String> = body._model()
 
     /**
+     * Returns the raw JSON value of [serviceTier].
+     *
+     * Unlike [serviceTier], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _serviceTier(): JsonField<String> = body._serviceTier()
+
+    /**
      * Returns the raw JSON value of [stream].
      *
      * Unlike [stream], this method doesn't throw if the JSON field has an unexpected type.
@@ -137,7 +153,7 @@ private constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
-    fun _additionalHeaders(): Headers = additionalHeaders
+    fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -158,7 +174,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
-        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
+            com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
@@ -177,7 +194,7 @@ private constructor(
          * - [input]
          * - [instructions]
          * - [model]
-         * - [stream]
+         * - [serviceTier]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -245,6 +262,22 @@ private constructor(
         fun model(model: JsonField<String>) = apply { body.model(model) }
 
         /**
+         * The service tier to use for this request. Supported values vary by model; use `GET
+         * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+         * Telnyx-hosted models use `default`.
+         */
+        fun serviceTier(serviceTier: String) = apply { body.serviceTier(serviceTier) }
+
+        /**
+         * Sets [Builder.serviceTier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.serviceTier] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun serviceTier(serviceTier: JsonField<String>) = apply { body.serviceTier(serviceTier) }
+
+        /**
          * Set to `true` to stream Server-Sent Events, matching OpenAI's Responses streaming format.
          */
         fun stream(stream: Boolean) = apply { body.stream(stream) }
@@ -276,7 +309,7 @@ private constructor(
             body.removeAllAdditionalProperties(keys)
         }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
+        fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
         }
@@ -294,7 +327,7 @@ private constructor(
             additionalHeaders.put(name, values)
         }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
@@ -310,9 +343,10 @@ private constructor(
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
@@ -389,7 +423,7 @@ private constructor(
 
     fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -400,6 +434,7 @@ private constructor(
         private val input: JsonField<Input>,
         private val instructions: JsonField<String>,
         private val model: JsonField<String>,
+        private val serviceTier: JsonField<String>,
         private val stream: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -414,8 +449,11 @@ private constructor(
             @ExcludeMissing
             instructions: JsonField<String> = JsonMissing.of(),
             @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("service_tier")
+            @ExcludeMissing
+            serviceTier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("stream") @ExcludeMissing stream: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(conversation, input, instructions, model, stream, mutableMapOf())
+        ) : this(conversation, input, instructions, model, serviceTier, stream, mutableMapOf())
 
         /**
          * Optional Telnyx Conversation ID from `POST /ai/conversations`. When provided, Telnyx
@@ -454,6 +492,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun model(): Optional<String> = model.getOptional("model")
+
+        /**
+         * The service tier to use for this request. Supported values vary by model; use `GET
+         * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+         * Telnyx-hosted models use `default`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun serviceTier(): Optional<String> = serviceTier.getOptional("service_tier")
 
         /**
          * Set to `true` to stream Server-Sent Events, matching OpenAI's Responses streaming format.
@@ -498,6 +546,15 @@ private constructor(
         @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
 
         /**
+         * Returns the raw JSON value of [serviceTier].
+         *
+         * Unlike [serviceTier], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("service_tier")
+        @ExcludeMissing
+        fun _serviceTier(): JsonField<String> = serviceTier
+
+        /**
          * Returns the raw JSON value of [stream].
          *
          * Unlike [stream], this method doesn't throw if the JSON field has an unexpected type.
@@ -529,6 +586,7 @@ private constructor(
             private var input: JsonField<Input> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
+            private var serviceTier: JsonField<String> = JsonMissing.of()
             private var stream: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -538,6 +596,7 @@ private constructor(
                 input = body.input
                 instructions = body.instructions
                 model = body.model
+                serviceTier = body.serviceTier
                 stream = body.stream
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -607,6 +666,24 @@ private constructor(
             fun model(model: JsonField<String>) = apply { this.model = model }
 
             /**
+             * The service tier to use for this request. Supported values vary by model; use `GET
+             * /v2/ai/openai/models` and inspect the model's `service_tiers` field. If omitted,
+             * Telnyx-hosted models use `default`.
+             */
+            fun serviceTier(serviceTier: String) = serviceTier(JsonField.of(serviceTier))
+
+            /**
+             * Sets [Builder.serviceTier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serviceTier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun serviceTier(serviceTier: JsonField<String>) = apply {
+                this.serviceTier = serviceTier
+            }
+
+            /**
              * Set to `true` to stream Server-Sent Events, matching OpenAI's Responses streaming
              * format.
              */
@@ -651,6 +728,7 @@ private constructor(
                     input,
                     instructions,
                     model,
+                    serviceTier,
                     stream,
                     additionalProperties.toMutableMap(),
                 )
@@ -676,6 +754,7 @@ private constructor(
             input().ifPresent { it.validate() }
             instructions()
             model()
+            serviceTier()
             stream()
             validated = true
         }
@@ -700,6 +779,7 @@ private constructor(
                 (input.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (instructions.asKnown().isPresent) 1 else 0) +
                 (if (model.asKnown().isPresent) 1 else 0) +
+                (if (serviceTier.asKnown().isPresent) 1 else 0) +
                 (if (stream.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -712,18 +792,27 @@ private constructor(
                 input == other.input &&
                 instructions == other.instructions &&
                 model == other.model &&
+                serviceTier == other.serviceTier &&
                 stream == other.stream &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(conversation, input, instructions, model, stream, additionalProperties)
+            Objects.hash(
+                conversation,
+                input,
+                instructions,
+                model,
+                serviceTier,
+                stream,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{conversation=$conversation, input=$input, instructions=$instructions, model=$model, stream=$stream, additionalProperties=$additionalProperties}"
+            "Body{conversation=$conversation, input=$input, instructions=$instructions, model=$model, serviceTier=$serviceTier, stream=$stream, additionalProperties=$additionalProperties}"
     }
 
     /** The input items for this turn, using the OpenAI Responses API input format. */

@@ -13,8 +13,10 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class EmailVerificationStatusWrapped
@@ -173,6 +175,8 @@ private constructor(
         private val emailVerified: JsonField<Boolean>,
         private val recordType: JsonField<RecordType>,
         private val status: JsonField<Status>,
+        private val expiresAt: JsonField<OffsetDateTime>,
+        private val sendsRemainingToday: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -185,7 +189,13 @@ private constructor(
             @ExcludeMissing
             recordType: JsonField<RecordType> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        ) : this(emailVerified, recordType, status, mutableMapOf())
+            @JsonProperty("expires_at")
+            @ExcludeMissing
+            expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("sends_remaining_today")
+            @ExcludeMissing
+            sendsRemainingToday: JsonField<Long> = JsonMissing.of(),
+        ) : this(emailVerified, recordType, status, expiresAt, sendsRemainingToday, mutableMapOf())
 
         /**
          * Whether the DIR's authorizer email has been confirmed.
@@ -213,6 +223,24 @@ private constructor(
         fun status(): Status = status.getRequired("status")
 
         /**
+         * When the outstanding code stops being accepted. Null when no verification is in progress.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun expiresAt(): Optional<OffsetDateTime> = expiresAt.getOptional("expires_at")
+
+        /**
+         * How many more codes may be requested for this DIR today. Null when the daily cap does not
+         * apply.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sendsRemainingToday(): Optional<Long> =
+            sendsRemainingToday.getOptional("sends_remaining_today")
+
+        /**
          * Returns the raw JSON value of [emailVerified].
          *
          * Unlike [emailVerified], this method doesn't throw if the JSON field has an unexpected
@@ -237,6 +265,25 @@ private constructor(
          * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        /**
+         * Returns the raw JSON value of [expiresAt].
+         *
+         * Unlike [expiresAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("expires_at")
+        @ExcludeMissing
+        fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
+
+        /**
+         * Returns the raw JSON value of [sendsRemainingToday].
+         *
+         * Unlike [sendsRemainingToday], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("sends_remaining_today")
+        @ExcludeMissing
+        fun _sendsRemainingToday(): JsonField<Long> = sendsRemainingToday
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -271,6 +318,8 @@ private constructor(
             private var emailVerified: JsonField<Boolean>? = null
             private var recordType: JsonField<RecordType>? = null
             private var status: JsonField<Status>? = null
+            private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var sendsRemainingToday: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -278,6 +327,8 @@ private constructor(
                 emailVerified = data.emailVerified
                 recordType = data.recordType
                 status = data.status
+                expiresAt = data.expiresAt
+                sendsRemainingToday = data.sendsRemainingToday
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -324,6 +375,59 @@ private constructor(
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
+            /**
+             * When the outstanding code stops being accepted. Null when no verification is in
+             * progress.
+             */
+            fun expiresAt(expiresAt: OffsetDateTime?) = expiresAt(JsonField.ofNullable(expiresAt))
+
+            /** Alias for calling [Builder.expiresAt] with `expiresAt.orElse(null)`. */
+            fun expiresAt(expiresAt: Optional<OffsetDateTime>) = expiresAt(expiresAt.getOrNull())
+
+            /**
+             * Sets [Builder.expiresAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
+                this.expiresAt = expiresAt
+            }
+
+            /**
+             * How many more codes may be requested for this DIR today. Null when the daily cap does
+             * not apply.
+             */
+            fun sendsRemainingToday(sendsRemainingToday: Long?) =
+                sendsRemainingToday(JsonField.ofNullable(sendsRemainingToday))
+
+            /**
+             * Alias for [Builder.sendsRemainingToday].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun sendsRemainingToday(sendsRemainingToday: Long) =
+                sendsRemainingToday(sendsRemainingToday as Long?)
+
+            /**
+             * Alias for calling [Builder.sendsRemainingToday] with
+             * `sendsRemainingToday.orElse(null)`.
+             */
+            fun sendsRemainingToday(sendsRemainingToday: Optional<Long>) =
+                sendsRemainingToday(sendsRemainingToday.getOrNull())
+
+            /**
+             * Sets [Builder.sendsRemainingToday] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendsRemainingToday] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sendsRemainingToday(sendsRemainingToday: JsonField<Long>) = apply {
+                this.sendsRemainingToday = sendsRemainingToday
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -362,6 +466,8 @@ private constructor(
                     checkRequired("emailVerified", emailVerified),
                     checkRequired("recordType", recordType),
                     checkRequired("status", status),
+                    expiresAt,
+                    sendsRemainingToday,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -385,6 +491,8 @@ private constructor(
             emailVerified()
             recordType().validate()
             status().validate()
+            expiresAt()
+            sendsRemainingToday()
             validated = true
         }
 
@@ -406,7 +514,9 @@ private constructor(
         internal fun validity(): Int =
             (if (emailVerified.asKnown().isPresent) 1 else 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0)
+                (status.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (expiresAt.asKnown().isPresent) 1 else 0) +
+                (if (sendsRemainingToday.asKnown().isPresent) 1 else 0)
 
         /** Always `email_verification`. */
         class RecordType @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -702,17 +812,26 @@ private constructor(
                 emailVerified == other.emailVerified &&
                 recordType == other.recordType &&
                 status == other.status &&
+                expiresAt == other.expiresAt &&
+                sendsRemainingToday == other.sendsRemainingToday &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(emailVerified, recordType, status, additionalProperties)
+            Objects.hash(
+                emailVerified,
+                recordType,
+                status,
+                expiresAt,
+                sendsRemainingToday,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{emailVerified=$emailVerified, recordType=$recordType, status=$status, additionalProperties=$additionalProperties}"
+            "Data{emailVerified=$emailVerified, recordType=$recordType, status=$status, expiresAt=$expiresAt, sendsRemainingToday=$sendsRemainingToday, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

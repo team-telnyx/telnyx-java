@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.storage.cloudfs.actions
 
-import com.telnyx.sdk.core.http.Headers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -40,6 +39,10 @@ internal class ActionRotateMetaTokenParamsTest {
         val headers = params._headers()
 
         assertThat(headers)
-            .isEqualTo(Headers.builder().put("Idempotency-Key", "Idempotency-Key").build())
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "Idempotency-Key")
+                    .build()
+            )
     }
 }

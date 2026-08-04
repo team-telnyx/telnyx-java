@@ -49,6 +49,7 @@ private constructor(
     private val pricing: JsonField<Pricing>,
     private val recommendedForAssistants: JsonField<Boolean>,
     private val regions: JsonField<List<String>>,
+    private val serviceTiers: JsonField<List<ServiceTier>>,
     private val task: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -96,6 +97,9 @@ private constructor(
         @JsonProperty("regions")
         @ExcludeMissing
         regions: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("service_tiers")
+        @ExcludeMissing
+        serviceTiers: JsonField<List<ServiceTier>> = JsonMissing.of(),
         @JsonProperty("task") @ExcludeMissing task: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
@@ -117,6 +121,7 @@ private constructor(
         pricing,
         recommendedForAssistants,
         regions,
+        serviceTiers,
         task,
         mutableMapOf(),
     )
@@ -288,6 +293,16 @@ private constructor(
     fun regions(): Optional<List<String>> = regions.getOptional("regions")
 
     /**
+     * Service tiers supported by this Telnyx-hosted model. Use one of these values as
+     * `service_tier` in Chat Completions or Responses requests. This field is omitted for
+     * externally hosted models.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun serviceTiers(): Optional<List<ServiceTier>> = serviceTiers.getOptional("service_tiers")
+
+    /**
      * Primary task the model is intended for, e.g. `text-generation`, `audio-text-to-text`,
      * `feature-extraction` (embeddings).
      *
@@ -447,6 +462,15 @@ private constructor(
     @JsonProperty("regions") @ExcludeMissing fun _regions(): JsonField<List<String>> = regions
 
     /**
+     * Returns the raw JSON value of [serviceTiers].
+     *
+     * Unlike [serviceTiers], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("service_tiers")
+    @ExcludeMissing
+    fun _serviceTiers(): JsonField<List<ServiceTier>> = serviceTiers
+
+    /**
      * Returns the raw JSON value of [task].
      *
      * Unlike [task], this method doesn't throw if the JSON field has an unexpected type.
@@ -508,6 +532,7 @@ private constructor(
         private var pricing: JsonField<Pricing> = JsonMissing.of()
         private var recommendedForAssistants: JsonField<Boolean> = JsonMissing.of()
         private var regions: JsonField<MutableList<String>>? = null
+        private var serviceTiers: JsonField<MutableList<ServiceTier>>? = null
         private var task: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -532,6 +557,7 @@ private constructor(
             pricing = modelMetadata.pricing
             recommendedForAssistants = modelMetadata.recommendedForAssistants
             regions = modelMetadata.regions.map { it.toMutableList() }
+            serviceTiers = modelMetadata.serviceTiers.map { it.toMutableList() }
             task = modelMetadata.task
             additionalProperties = modelMetadata.additionalProperties.toMutableMap()
         }
@@ -865,6 +891,36 @@ private constructor(
         }
 
         /**
+         * Service tiers supported by this Telnyx-hosted model. Use one of these values as
+         * `service_tier` in Chat Completions or Responses requests. This field is omitted for
+         * externally hosted models.
+         */
+        fun serviceTiers(serviceTiers: List<ServiceTier>) = serviceTiers(JsonField.of(serviceTiers))
+
+        /**
+         * Sets [Builder.serviceTiers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.serviceTiers] with a well-typed `List<ServiceTier>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun serviceTiers(serviceTiers: JsonField<List<ServiceTier>>) = apply {
+            this.serviceTiers = serviceTiers.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [ServiceTier] to [serviceTiers].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addServiceTier(serviceTier: ServiceTier) = apply {
+            serviceTiers =
+                (serviceTiers ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("serviceTiers", it).add(serviceTier)
+                }
+        }
+
+        /**
          * Primary task the model is intended for, e.g. `text-generation`, `audio-text-to-text`,
          * `feature-extraction` (embeddings).
          */
@@ -938,6 +994,7 @@ private constructor(
                 pricing,
                 recommendedForAssistants,
                 (regions ?: JsonMissing.of()).map { it.toImmutable() },
+                (serviceTiers ?: JsonMissing.of()).map { it.toImmutable() },
                 task,
                 additionalProperties.toMutableMap(),
             )
@@ -977,6 +1034,7 @@ private constructor(
         pricing().ifPresent { it.validate() }
         recommendedForAssistants()
         regions()
+        serviceTiers().ifPresent { it.forEach { it.validate() } }
         task()
         validated = true
     }
@@ -1015,6 +1073,7 @@ private constructor(
             (pricing.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recommendedForAssistants.asKnown().isPresent) 1 else 0) +
             (regions.asKnown().getOrNull()?.size ?: 0) +
+            (serviceTiers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (task.asKnown().isPresent) 1 else 0)
 
     /**
@@ -1281,6 +1340,149 @@ private constructor(
         override fun toString() = "Pricing{additionalProperties=$additionalProperties}"
     }
 
+    class ServiceTier @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DEFAULT = of("default")
+
+            @JvmField val PRIORITY = of("priority")
+
+            @JvmField val FLEX = of("flex")
+
+            @JvmStatic fun of(value: String) = ServiceTier(JsonField.of(value))
+        }
+
+        /** An enum containing [ServiceTier]'s known values. */
+        enum class Known {
+            DEFAULT,
+            PRIORITY,
+            FLEX,
+        }
+
+        /**
+         * An enum containing [ServiceTier]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ServiceTier] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DEFAULT,
+            PRIORITY,
+            FLEX,
+            /**
+             * An enum member indicating that [ServiceTier] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DEFAULT -> Value.DEFAULT
+                PRIORITY -> Value.PRIORITY
+                FLEX -> Value.FLEX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DEFAULT -> Known.DEFAULT
+                PRIORITY -> Known.PRIORITY
+                FLEX -> Known.FLEX
+                else -> throw TelnyxInvalidDataException("Unknown ServiceTier: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ServiceTier = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ServiceTier && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1306,6 +1508,7 @@ private constructor(
             pricing == other.pricing &&
             recommendedForAssistants == other.recommendedForAssistants &&
             regions == other.regions &&
+            serviceTiers == other.serviceTiers &&
             task == other.task &&
             additionalProperties == other.additionalProperties
     }
@@ -1331,6 +1534,7 @@ private constructor(
             pricing,
             recommendedForAssistants,
             regions,
+            serviceTiers,
             task,
             additionalProperties,
         )
@@ -1339,5 +1543,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ModelMetadata{id=$id, contextLength=$contextLength, created=$created, languages=$languages, license=$license, organization=$organization, ownedBy=$ownedBy, parameters=$parameters, tier=$tier, baseModel=$baseModel, description=$description, isFineTunable=$isFineTunable, isVisionSupported=$isVisionSupported, maxCompletionTokens=$maxCompletionTokens, modelObject=$modelObject, parametersStr=$parametersStr, pricing=$pricing, recommendedForAssistants=$recommendedForAssistants, regions=$regions, task=$task, additionalProperties=$additionalProperties}"
+        "ModelMetadata{id=$id, contextLength=$contextLength, created=$created, languages=$languages, license=$license, organization=$organization, ownedBy=$ownedBy, parameters=$parameters, tier=$tier, baseModel=$baseModel, description=$description, isFineTunable=$isFineTunable, isVisionSupported=$isVisionSupported, maxCompletionTokens=$maxCompletionTokens, modelObject=$modelObject, parametersStr=$parametersStr, pricing=$pricing, recommendedForAssistants=$recommendedForAssistants, regions=$regions, serviceTiers=$serviceTiers, task=$task, additionalProperties=$additionalProperties}"
 }

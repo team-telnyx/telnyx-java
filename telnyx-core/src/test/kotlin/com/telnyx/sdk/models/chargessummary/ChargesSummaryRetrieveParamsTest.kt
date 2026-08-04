@@ -30,8 +30,8 @@ internal class ChargesSummaryRetrieveParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("end_date", "2025-06-01")
-                    .put("start_date", "2025-05-01")
+                    .put("end_date", LocalDate.parse("2025-06-01").toString())
+                    .put("start_date", LocalDate.parse("2025-05-01").toString())
                     .build()
             )
     }

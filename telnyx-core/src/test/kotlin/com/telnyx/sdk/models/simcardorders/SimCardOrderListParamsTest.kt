@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.simcardorders
 
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -71,9 +72,19 @@ internal class SimCardOrderListParamsTest {
                     .put("filter[address.street_address]", "600 Congress Avenue")
                     .put("filter[cost.amount]", "2.53")
                     .put("filter[cost.currency]", "USD")
-                    .put("filter[created_at]", "2018-02-02T22:25:27.521Z")
+                    .put(
+                        "filter[created_at]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2018-02-02T22:25:27.521Z")
+                        ),
+                    )
                     .put("filter[quantity]", "21")
-                    .put("filter[updated_at]", "2018-02-02T22:25:27.521Z")
+                    .put(
+                        "filter[updated_at]",
+                        DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                            OffsetDateTime.parse("2018-02-02T22:25:27.521Z")
+                        ),
+                    )
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .build()
