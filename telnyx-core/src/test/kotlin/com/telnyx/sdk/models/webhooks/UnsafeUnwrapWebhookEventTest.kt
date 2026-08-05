@@ -7,12 +7,9 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingError
-import com.telnyx.sdk.models.SubNumberOrderRegulatoryRequirementWithValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.messages.MessagingError0b38e7044b
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
-import com.telnyx.sdk.models.numberorders.NumberOrderWithPhoneNumbers
-import com.telnyx.sdk.models.numberorders.PhoneNumber
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -10370,14 +10367,14 @@ internal class UnsafeUnwrapWebhookEventTest {
     @Test
     fun ofNumberOrderStatusUpdate() {
         val numberOrderStatusUpdate =
-            NumberOrderStatusUpdate.builder()
+            NumberOrderStatusUpdateWebhookEvent.builder()
                 .data(
-                    NumberOrderStatusUpdate.Data.builder()
+                    NumberOrderStatusUpdateWebhookEvent.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
                         .eventType("number_order.complete")
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                         .payload(
-                            NumberOrderWithPhoneNumbers.builder()
+                            NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()
                                 .id("12ade33a-21c0-473b-b055-b3c836e1c292")
                                 .billingGroupId("abc85f64-5717-4562-b3fc-2c9600")
                                 .connectionId("346789098765567")
@@ -10385,18 +10382,29 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .customerReference("MY REF 001")
                                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                                 .addPhoneNumber(
-                                    PhoneNumber.builder()
+                                    NumberOrderStatusUpdateWebhookEvent.Data.Payload.PhoneNumber
+                                        .builder()
                                         .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                                         .bundleId("bc8e4d67-33a0-4cbb-af74-7b58f05bd474")
                                         .countryCode("US")
                                         .countryIsoAlpha2("US")
                                         .phoneNumber("+19705555098")
-                                        .phoneNumberType(PhoneNumber.PhoneNumberType.LOCAL)
+                                        .phoneNumberType(
+                                            NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                .PhoneNumber
+                                                .PhoneNumberType
+                                                .LOCAL
+                                        )
                                         .recordType("number_order_phone_number")
                                         .addRegulatoryRequirement(
-                                            SubNumberOrderRegulatoryRequirementWithValue.builder()
+                                            NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                .PhoneNumber
+                                                .RegulatoryRequirement
+                                                .builder()
                                                 .fieldType(
-                                                    SubNumberOrderRegulatoryRequirementWithValue
+                                                    NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                        .PhoneNumber
+                                                        .RegulatoryRequirement
                                                         .FieldType
                                                         .ADDRESS
                                                 )
@@ -10408,14 +10416,26 @@ internal class UnsafeUnwrapWebhookEventTest {
                                                 .build()
                                         )
                                         .requirementsMet(true)
-                                        .requirementsStatus(PhoneNumber.RequirementsStatus.PENDING)
-                                        .status(PhoneNumber.Status.SUCCESS)
+                                        .requirementsStatus(
+                                            NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                .PhoneNumber
+                                                .RequirementsStatus
+                                                .PENDING
+                                        )
+                                        .status(
+                                            NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                .PhoneNumber
+                                                .Status
+                                                .SUCCESS
+                                        )
                                         .build()
                                 )
                                 .phoneNumbersCount(1L)
                                 .recordType("number_order")
                                 .requirementsMet(true)
-                                .status(NumberOrderWithPhoneNumbers.Status.PENDING)
+                                .status(
+                                    NumberOrderStatusUpdateWebhookEvent.Data.Payload.Status.PENDING
+                                )
                                 .addSubNumberOrdersId("string")
                                 .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                                 .build()
@@ -10424,7 +10444,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                         .build()
                 )
                 .meta(
-                    NumberOrderStatusUpdate.Meta.builder()
+                    NumberOrderStatusUpdateWebhookEvent.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://sample-api.com/webhook")
                         .build()
@@ -10510,14 +10530,14 @@ internal class UnsafeUnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unsafeUnwrapWebhookEvent =
             UnsafeUnwrapWebhookEvent.ofNumberOrderStatusUpdate(
-                NumberOrderStatusUpdate.builder()
+                NumberOrderStatusUpdateWebhookEvent.builder()
                     .data(
-                        NumberOrderStatusUpdate.Data.builder()
+                        NumberOrderStatusUpdateWebhookEvent.Data.builder()
                             .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
                             .eventType("number_order.complete")
                             .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                             .payload(
-                                NumberOrderWithPhoneNumbers.builder()
+                                NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()
                                     .id("12ade33a-21c0-473b-b055-b3c836e1c292")
                                     .billingGroupId("abc85f64-5717-4562-b3fc-2c9600")
                                     .connectionId("346789098765567")
@@ -10525,19 +10545,30 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .customerReference("MY REF 001")
                                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                                     .addPhoneNumber(
-                                        PhoneNumber.builder()
+                                        NumberOrderStatusUpdateWebhookEvent.Data.Payload.PhoneNumber
+                                            .builder()
                                             .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                                             .bundleId("bc8e4d67-33a0-4cbb-af74-7b58f05bd474")
                                             .countryCode("US")
                                             .countryIsoAlpha2("US")
                                             .phoneNumber("+19705555098")
-                                            .phoneNumberType(PhoneNumber.PhoneNumberType.LOCAL)
+                                            .phoneNumberType(
+                                                NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                    .PhoneNumber
+                                                    .PhoneNumberType
+                                                    .LOCAL
+                                            )
                                             .recordType("number_order_phone_number")
                                             .addRegulatoryRequirement(
-                                                SubNumberOrderRegulatoryRequirementWithValue
+                                                NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                    .PhoneNumber
+                                                    .RegulatoryRequirement
                                                     .builder()
                                                     .fieldType(
-                                                        SubNumberOrderRegulatoryRequirementWithValue
+                                                        NumberOrderStatusUpdateWebhookEvent.Data
+                                                            .Payload
+                                                            .PhoneNumber
+                                                            .RegulatoryRequirement
                                                             .FieldType
                                                             .ADDRESS
                                                     )
@@ -10554,15 +10585,26 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             )
                                             .requirementsMet(true)
                                             .requirementsStatus(
-                                                PhoneNumber.RequirementsStatus.PENDING
+                                                NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                    .PhoneNumber
+                                                    .RequirementsStatus
+                                                    .PENDING
                                             )
-                                            .status(PhoneNumber.Status.SUCCESS)
+                                            .status(
+                                                NumberOrderStatusUpdateWebhookEvent.Data.Payload
+                                                    .PhoneNumber
+                                                    .Status
+                                                    .SUCCESS
+                                            )
                                             .build()
                                     )
                                     .phoneNumbersCount(1L)
                                     .recordType("number_order")
                                     .requirementsMet(true)
-                                    .status(NumberOrderWithPhoneNumbers.Status.PENDING)
+                                    .status(
+                                        NumberOrderStatusUpdateWebhookEvent.Data.Payload.Status
+                                            .PENDING
+                                    )
                                     .addSubNumberOrdersId("string")
                                     .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                                     .build()
@@ -10571,7 +10613,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                             .build()
                     )
                     .meta(
-                        NumberOrderStatusUpdate.Meta.builder()
+                        NumberOrderStatusUpdateWebhookEvent.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://sample-api.com/webhook")
                             .build()
