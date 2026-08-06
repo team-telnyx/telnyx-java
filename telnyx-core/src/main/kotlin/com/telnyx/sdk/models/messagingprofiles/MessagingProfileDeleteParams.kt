@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a messaging profile */
+/** Deletes the specified messaging profile and returns the profile's final configuration. */
 class MessagingProfileDeleteParams
 private constructor(
     private val messagingProfileId: String?,

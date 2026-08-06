@@ -27,7 +27,7 @@ interface TemplateService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TemplateService
 
-    /** Create a Whatsapp message template */
+    /** Creates a WhatsApp message template for review and subsequent use in template messages. */
     fun create(params: TemplateCreateParams): TemplateCreateResponse =
         create(params, RequestOptions.none())
 
@@ -37,7 +37,10 @@ interface TemplateService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TemplateCreateResponse
 
-    /** List Whatsapp message templates */
+    /**
+     * Returns WhatsApp message templates owned by the authenticated account, including their
+     * current review state.
+     */
     fun list(): TemplateListPage = list(TemplateListParams.none())
 
     /** @see list */

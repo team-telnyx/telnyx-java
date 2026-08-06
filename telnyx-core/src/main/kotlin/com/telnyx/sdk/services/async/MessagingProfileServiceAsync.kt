@@ -47,7 +47,10 @@ interface MessagingProfileServiceAsync {
 
     fun actions(): ActionServiceAsync
 
-    /** Create a messaging profile */
+    /**
+     * Creates a messaging profile that controls outbound sender selection, webhook delivery, and
+     * inbound message handling for associated numbers and short codes.
+     */
     fun create(
         params: MessagingProfileCreateParams
     ): CompletableFuture<MessagingProfileCreateResponse> = create(params, RequestOptions.none())
@@ -58,7 +61,10 @@ interface MessagingProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingProfileCreateResponse>
 
-    /** Retrieve a messaging profile */
+    /**
+     * Returns the complete configuration of the specified messaging profile, including webhook and
+     * sender-selection settings.
+     */
     fun retrieve(messagingProfileId: String): CompletableFuture<MessagingProfileRetrieveResponse> =
         retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
@@ -95,7 +101,10 @@ interface MessagingProfileServiceAsync {
     ): CompletableFuture<MessagingProfileRetrieveResponse> =
         retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
-    /** Update a messaging profile */
+    /**
+     * Updates the supplied settings on the specified messaging profile. Settings omitted from the
+     * request remain unchanged.
+     */
     fun update(messagingProfileId: String): CompletableFuture<MessagingProfileUpdateResponse> =
         update(messagingProfileId, MessagingProfileUpdateParams.none())
 
@@ -132,7 +141,10 @@ interface MessagingProfileServiceAsync {
     ): CompletableFuture<MessagingProfileUpdateResponse> =
         update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
-    /** List messaging profiles */
+    /**
+     * Returns messaging profiles owned by the authenticated account. Apply the documented filters
+     * and pagination parameters to narrow the result set.
+     */
     fun list(): CompletableFuture<MessagingProfileListPageAsync> =
         list(MessagingProfileListParams.none())
 
@@ -151,7 +163,7 @@ interface MessagingProfileServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<MessagingProfileListPageAsync> =
         list(MessagingProfileListParams.none(), requestOptions)
 
-    /** Delete a messaging profile */
+    /** Deletes the specified messaging profile and returns the profile's final configuration. */
     fun delete(messagingProfileId: String): CompletableFuture<MessagingProfileDeleteResponse> =
         delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
@@ -234,7 +246,7 @@ interface MessagingProfileServiceAsync {
             requestOptions,
         )
 
-    /** List phone numbers associated with a messaging profile */
+    /** Returns the phone numbers currently associated with the specified messaging profile. */
     fun listPhoneNumbers(
         messagingProfileId: String
     ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
@@ -283,7 +295,7 @@ interface MessagingProfileServiceAsync {
             requestOptions,
         )
 
-    /** List short codes associated with a messaging profile */
+    /** Returns the short codes currently associated with the specified messaging profile. */
     fun listShortCodes(
         messagingProfileId: String
     ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =

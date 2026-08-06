@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a single Whatsapp Business Account */
+/** Returns the configuration and status of the specified WhatsApp Business Account. */
 class BusinessAccountRetrieveParams
 private constructor(
     private val id: String?,

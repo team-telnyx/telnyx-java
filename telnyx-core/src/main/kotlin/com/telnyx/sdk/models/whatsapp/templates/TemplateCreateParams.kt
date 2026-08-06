@@ -32,7 +32,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a Whatsapp message template */
+/** Creates a WhatsApp message template for review and subsequent use in template messages. */
 class TemplateCreateParams
 private constructor(
     private val body: Body,

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update Phone Number Campaign */
+/** Replaces the 10DLC campaign assignment for the specified phone number. */
 class PhoneNumberCampaignUpdateParams
 private constructor(
     private val campaignPhoneNumber: String?,

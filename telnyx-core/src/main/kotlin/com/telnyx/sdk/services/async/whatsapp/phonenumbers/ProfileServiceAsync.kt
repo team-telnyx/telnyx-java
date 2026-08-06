@@ -31,7 +31,7 @@ interface ProfileServiceAsync {
     /** Manage Whatsapp phone numbers */
     fun photo(): PhotoServiceAsync
 
-    /** Get phone number business profile */
+    /** Returns the business profile displayed for the specified WhatsApp phone number. */
     fun retrieve(phoneNumber: String): CompletableFuture<ProfileRetrieveResponse> =
         retrieve(phoneNumber, ProfileRetrieveParams.none())
 
@@ -67,7 +67,7 @@ interface ProfileServiceAsync {
     ): CompletableFuture<ProfileRetrieveResponse> =
         retrieve(phoneNumber, ProfileRetrieveParams.none(), requestOptions)
 
-    /** Update phone number business profile */
+    /** Updates the supplied business-profile fields for the specified WhatsApp phone number. */
     fun update(phoneNumber: String): CompletableFuture<ProfileUpdateResponse> =
         update(phoneNumber, ProfileUpdateParams.none())
 

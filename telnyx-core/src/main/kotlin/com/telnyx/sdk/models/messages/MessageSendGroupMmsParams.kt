@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Send a group MMS message */
+/**
+ * Queues an MMS addressed to multiple recipients as a group conversation. Delivery events are
+ * reported asynchronously through messaging webhooks.
+ */
 class MessageSendGroupMmsParams
 private constructor(
     private val body: Body,

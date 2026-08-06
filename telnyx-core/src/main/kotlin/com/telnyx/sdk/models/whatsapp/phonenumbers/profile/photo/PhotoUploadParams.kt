@@ -22,7 +22,7 @@ import kotlin.io.path.inputStream
 import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
-/** Upload Whatsapp profile photo */
+/** Uploads and assigns a business-profile photo to the specified WhatsApp phone number. */
 class PhotoUploadParams
 private constructor(
     private val phoneNumber: String?,

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a Whatsapp message template by ID */
+/**
+ * Returns the content, components, language, and current review state of the specified WhatsApp
+ * message template.
+ */
 class WhatsappMessageTemplateRetrieveParams
 private constructor(
     private val id: String?,

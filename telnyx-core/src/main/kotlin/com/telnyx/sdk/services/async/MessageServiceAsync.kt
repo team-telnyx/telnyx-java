@@ -197,7 +197,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendResponse>
 
-    /** Send a group MMS message */
+    /**
+     * Queues an MMS addressed to multiple recipients as a group conversation. Delivery events are
+     * reported asynchronously through messaging webhooks.
+     */
     fun sendGroupMms(
         params: MessageSendGroupMmsParams
     ): CompletableFuture<MessageSendGroupMmsResponse> = sendGroupMms(params, RequestOptions.none())
@@ -208,7 +211,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendGroupMmsResponse>
 
-    /** Send a long code message */
+    /**
+     * Queues an outbound SMS or MMS using a long-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendLongCode(
         params: MessageSendLongCodeParams
     ): CompletableFuture<MessageSendLongCodeResponse> = sendLongCode(params, RequestOptions.none())
@@ -219,7 +225,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendLongCodeResponse>
 
-    /** Send a message using number pool */
+    /**
+     * Queues an outbound message using a number pool. Telnyx selects an eligible sender from the
+     * pool according to its messaging profile configuration.
+     */
     fun sendNumberPool(
         params: MessageSendNumberPoolParams
     ): CompletableFuture<MessageSendNumberPoolResponse> =
@@ -231,7 +240,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendNumberPoolResponse>
 
-    /** Send a short code message */
+    /**
+     * Queues an outbound SMS or MMS using a short-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendShortCode(
         params: MessageSendShortCodeParams
     ): CompletableFuture<MessageSendShortCodeResponse> =

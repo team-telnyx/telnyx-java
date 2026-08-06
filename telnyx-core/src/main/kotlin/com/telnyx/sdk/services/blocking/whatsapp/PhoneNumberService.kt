@@ -45,7 +45,7 @@ interface PhoneNumberService {
     /** Manage Whatsapp phone numbers */
     fun conversationalComponents(): ConversationalComponentService
 
-    /** List Whatsapp phone numbers */
+    /** Returns WhatsApp phone numbers linked to the authenticated Telnyx account. */
     fun list(): PhoneNumberListPage = list(PhoneNumberListParams.none())
 
     /** @see list */
@@ -62,7 +62,7 @@ interface PhoneNumberService {
     fun list(requestOptions: RequestOptions): PhoneNumberListPage =
         list(PhoneNumberListParams.none(), requestOptions)
 
-    /** Delete a Whatsapp phone number */
+    /** Removes the specified phone number from Telnyx WhatsApp management. */
     fun delete(phoneNumber: String) = delete(phoneNumber, PhoneNumberDeleteParams.none())
 
     /** @see delete */
@@ -108,7 +108,7 @@ interface PhoneNumberService {
     fun get(requestOptions: RequestOptions): PhoneNumberGetResponse =
         get(PhoneNumberGetParams.none(), requestOptions)
 
-    /** Resend verification code */
+    /** Requests a new verification code for the specified WhatsApp phone number. */
     fun resendVerification(phoneNumber: String) =
         resendVerification(phoneNumber, PhoneNumberResendVerificationParams.none())
 
@@ -172,7 +172,7 @@ interface PhoneNumberService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberRetrieveConversationWindowResponse
 
-    /** Submit verification code for a phone number */
+    /** Submits the verification code received for the specified WhatsApp phone number. */
     fun verify(phoneNumber: String, params: PhoneNumberVerifyParams) =
         verify(phoneNumber, params, RequestOptions.none())
 

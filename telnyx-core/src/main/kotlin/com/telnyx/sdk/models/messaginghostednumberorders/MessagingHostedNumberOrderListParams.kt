@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List messaging hosted number orders */
+/**
+ * Returns hosted-messaging orders for the authenticated account. Apply the documented filters and
+ * pagination parameters to narrow the result set.
+ */
 class MessagingHostedNumberOrderListParams
 private constructor(
     private val pageNumber: Long?,

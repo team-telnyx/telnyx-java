@@ -157,7 +157,7 @@ interface PartnerCampaignServiceAsync {
     ): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
         listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
-    /** Get Sharing Status */
+    /** Returns the partner-sharing state for the specified campaign. */
     fun retrieveSharingStatus(
         campaignId: String
     ): CompletableFuture<PartnerCampaignRetrieveSharingStatusResponse> =

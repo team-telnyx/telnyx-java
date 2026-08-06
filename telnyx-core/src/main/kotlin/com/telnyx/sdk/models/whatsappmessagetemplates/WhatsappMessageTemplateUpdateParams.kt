@@ -36,7 +36,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Whatsapp message template */
+/** Updates the editable fields of the specified WhatsApp message template. */
 class WhatsappMessageTemplateUpdateParams
 private constructor(
     private val id: String?,

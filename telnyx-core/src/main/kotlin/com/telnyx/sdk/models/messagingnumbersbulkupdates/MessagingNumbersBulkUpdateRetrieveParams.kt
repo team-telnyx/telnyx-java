@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve bulk update status */
+/** Returns processing status and results for a bulk messaging-settings update order. */
 class MessagingNumbersBulkUpdateRetrieveParams
 private constructor(
     private val orderId: String?,

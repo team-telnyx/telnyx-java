@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a mobile phone number with messaging settings */
+/** Returns the messaging configuration for the specified mobile phone number. */
 class MessagingRetrieveParams
 private constructor(
     private val id: String?,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve an RCS agent */
+/** Returns the configuration and current state of the specified RCS agent. */
 class AgentRetrieveParams
 private constructor(
     private val id: String?,

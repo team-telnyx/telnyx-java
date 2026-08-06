@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all RCS agents */
+/** Returns RCS agents available to the authenticated account. */
 class AgentListParams
 private constructor(
     private val pageNumber: Long?,

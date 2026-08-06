@@ -29,7 +29,7 @@ interface ShortCodeService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ShortCodeService
 
-    /** Retrieve a short code */
+    /** Returns the messaging configuration and assignment details for the specified short code. */
     fun retrieve(id: String): ShortCodeRetrieveResponse =
         retrieve(id, ShortCodeRetrieveParams.none())
 
@@ -85,7 +85,10 @@ interface ShortCodeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ShortCodeUpdateResponse
 
-    /** List short codes */
+    /**
+     * Returns short codes owned by the authenticated account. Apply the documented filters and
+     * pagination parameters to narrow the result set.
+     */
     fun list(): ShortCodeListPage = list(ShortCodeListParams.none())
 
     /** @see list */

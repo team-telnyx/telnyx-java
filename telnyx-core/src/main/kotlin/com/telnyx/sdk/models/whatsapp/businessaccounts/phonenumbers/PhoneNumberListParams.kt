@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List phone numbers for a WABA */
+/** Returns phone numbers registered under the specified WhatsApp Business Account. */
 class PhoneNumberListParams
 private constructor(
     private val id: String?,

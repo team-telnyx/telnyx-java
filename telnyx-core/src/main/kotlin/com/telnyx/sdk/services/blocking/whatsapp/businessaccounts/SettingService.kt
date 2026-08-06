@@ -27,7 +27,7 @@ interface SettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService
 
-    /** Get WABA settings */
+    /** Returns account-level settings for the specified WhatsApp Business Account. */
     fun retrieve(id: String): SettingRetrieveResponse = retrieve(id, SettingRetrieveParams.none())
 
     /** @see retrieve */
@@ -57,7 +57,7 @@ interface SettingService {
     fun retrieve(id: String, requestOptions: RequestOptions): SettingRetrieveResponse =
         retrieve(id, SettingRetrieveParams.none(), requestOptions)
 
-    /** Update WABA settings */
+    /** Updates the supplied account-level settings for the specified WhatsApp Business Account. */
     fun update(id: String): SettingUpdateResponse = update(id, SettingUpdateParams.none())
 
     /** @see update */

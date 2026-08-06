@@ -23,7 +23,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Send an RCS message */
+/**
+ * Queues an outbound RCS message through the selected RCS agent. Check recipient capabilities
+ * before sending features that require RCS support.
+ */
 class RcSendParams
 private constructor(
     private val body: Body,

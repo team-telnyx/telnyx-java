@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get WABA settings */
+/** Returns account-level settings for the specified WhatsApp Business Account. */
 class SettingRetrieveParams
 private constructor(
     private val id: String?,

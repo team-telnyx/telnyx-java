@@ -28,7 +28,7 @@ interface AgentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AgentServiceAsync
 
-    /** Retrieve an RCS agent */
+    /** Returns the configuration and current state of the specified RCS agent. */
     fun retrieve(id: String): CompletableFuture<RcsAgentResponse> =
         retrieve(id, AgentRetrieveParams.none())
 
@@ -60,7 +60,7 @@ interface AgentServiceAsync {
     fun retrieve(id: String, requestOptions: RequestOptions): CompletableFuture<RcsAgentResponse> =
         retrieve(id, AgentRetrieveParams.none(), requestOptions)
 
-    /** Modify an RCS agent */
+    /** Updates the supplied configuration fields on the specified RCS agent. */
     fun update(id: String): CompletableFuture<RcsAgentResponse> =
         update(id, AgentUpdateParams.none())
 
@@ -92,7 +92,7 @@ interface AgentServiceAsync {
     fun update(id: String, requestOptions: RequestOptions): CompletableFuture<RcsAgentResponse> =
         update(id, AgentUpdateParams.none(), requestOptions)
 
-    /** List all RCS agents */
+    /** Returns RCS agents available to the authenticated account. */
     fun list(): CompletableFuture<AgentListPageAsync> = list(AgentListParams.none())
 
     /** @see list */

@@ -30,7 +30,10 @@ interface AutorespConfigServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutorespConfigServiceAsync
 
-    /** Create auto-response setting */
+    /**
+     * Creates an auto-response rule on the specified messaging profile. Matching inbound messages
+     * trigger the configured response.
+     */
     fun create(
         profileId: String,
         params: AutorespConfigCreateParams,
@@ -54,7 +57,7 @@ interface AutorespConfigServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AutoRespConfigResponse>
 
-    /** Get Auto-Response Setting */
+    /** Returns the matching criteria and response content for the specified auto-response rule. */
     fun retrieve(
         autorespCfgId: String,
         params: AutorespConfigRetrieveParams,
@@ -79,7 +82,7 @@ interface AutorespConfigServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AutoRespConfigResponse>
 
-    /** Update Auto-Response Setting */
+    /** Replaces the configuration of the specified auto-response rule. */
     fun update(
         autorespCfgId: String,
         params: AutorespConfigUpdateParams,
@@ -104,7 +107,7 @@ interface AutorespConfigServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AutoRespConfigResponse>
 
-    /** List Auto-Response Settings */
+    /** Returns the auto-response rules configured for the specified messaging profile. */
     fun list(profileId: String): CompletableFuture<AutorespConfigListResponse> =
         list(profileId, AutorespConfigListParams.none())
 
@@ -140,7 +143,7 @@ interface AutorespConfigServiceAsync {
     ): CompletableFuture<AutorespConfigListResponse> =
         list(profileId, AutorespConfigListParams.none(), requestOptions)
 
-    /** Delete Auto-Response Setting */
+    /** Deletes the specified auto-response rule from the messaging profile. */
     fun delete(
         autorespCfgId: String,
         params: AutorespConfigDeleteParams,

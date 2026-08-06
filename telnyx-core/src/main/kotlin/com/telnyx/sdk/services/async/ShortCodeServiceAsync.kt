@@ -29,7 +29,7 @@ interface ShortCodeServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ShortCodeServiceAsync
 
-    /** Retrieve a short code */
+    /** Returns the messaging configuration and assignment details for the specified short code. */
     fun retrieve(id: String): CompletableFuture<ShortCodeRetrieveResponse> =
         retrieve(id, ShortCodeRetrieveParams.none())
 
@@ -92,7 +92,10 @@ interface ShortCodeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ShortCodeUpdateResponse>
 
-    /** List short codes */
+    /**
+     * Returns short codes owned by the authenticated account. Apply the documented filters and
+     * pagination parameters to narrow the result set.
+     */
     fun list(): CompletableFuture<ShortCodeListPageAsync> = list(ShortCodeListParams.none())
 
     /** @see list */

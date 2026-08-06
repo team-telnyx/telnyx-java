@@ -31,7 +31,10 @@ interface PhoneNumberCampaignService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberCampaignService
 
-    /** Create New Phone Number Campaign */
+    /**
+     * Assigns a phone number to a 10DLC campaign. The assignment controls which registered campaign
+     * is used for traffic from that number.
+     */
     fun create(params: PhoneNumberCampaignCreateParams): PhoneNumberCampaign =
         create(params, RequestOptions.none())
 
@@ -89,7 +92,7 @@ interface PhoneNumberCampaignService {
     fun retrieve(phoneNumber: String, requestOptions: RequestOptions): PhoneNumberCampaign =
         retrieve(phoneNumber, PhoneNumberCampaignRetrieveParams.none(), requestOptions)
 
-    /** Update Phone Number Campaign */
+    /** Replaces the 10DLC campaign assignment for the specified phone number. */
     fun update(
         campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
@@ -113,7 +116,10 @@ interface PhoneNumberCampaignService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberCampaign
 
-    /** List phone number campaigns */
+    /**
+     * Returns phone-number-to-campaign assignments for the authenticated account. Apply the
+     * documented filters and pagination parameters to narrow the result set.
+     */
     fun list(): PhoneNumberCampaignListPage = list(PhoneNumberCampaignListParams.none())
 
     /** @see list */

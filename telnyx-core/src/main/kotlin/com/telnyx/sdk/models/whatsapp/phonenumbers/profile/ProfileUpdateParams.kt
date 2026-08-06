@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update phone number business profile */
+/** Updates the supplied business-profile fields for the specified WhatsApp phone number. */
 class ProfileUpdateParams
 private constructor(
     private val phoneNumber: String?,

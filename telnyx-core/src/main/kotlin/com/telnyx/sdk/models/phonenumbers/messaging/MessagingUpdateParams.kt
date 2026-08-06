@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the messaging profile and/or messaging product of a phone number */
+/** Updates the messaging product, messaging profile, or both for the specified phone number. */
 class MessagingUpdateParams
 private constructor(
     private val id: String?,

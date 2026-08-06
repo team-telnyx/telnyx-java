@@ -64,7 +64,10 @@ interface RcService {
     ): RcGenerateDeeplinkResponse =
         generateDeeplink(agentId, RcGenerateDeeplinkParams.none(), requestOptions)
 
-    /** Send an RCS message */
+    /**
+     * Queues an outbound RCS message through the selected RCS agent. Check recipient capabilities
+     * before sending features that require RCS support.
+     */
     fun send(params: RcSendParams): RcSendResponse = send(params, RequestOptions.none())
 
     /** @see send */

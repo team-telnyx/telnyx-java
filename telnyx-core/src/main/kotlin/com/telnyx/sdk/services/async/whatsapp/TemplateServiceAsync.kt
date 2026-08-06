@@ -27,7 +27,7 @@ interface TemplateServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TemplateServiceAsync
 
-    /** Create a Whatsapp message template */
+    /** Creates a WhatsApp message template for review and subsequent use in template messages. */
     fun create(params: TemplateCreateParams): CompletableFuture<TemplateCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -37,7 +37,10 @@ interface TemplateServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TemplateCreateResponse>
 
-    /** List Whatsapp message templates */
+    /**
+     * Returns WhatsApp message templates owned by the authenticated account, including their
+     * current review state.
+     */
     fun list(): CompletableFuture<TemplateListPageAsync> = list(TemplateListParams.none())
 
     /** @see list */

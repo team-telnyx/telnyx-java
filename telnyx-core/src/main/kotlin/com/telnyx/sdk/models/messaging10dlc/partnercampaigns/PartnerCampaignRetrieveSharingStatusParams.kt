@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Sharing Status */
+/** Returns the partner-sharing state for the specified campaign. */
 class PartnerCampaignRetrieveSharingStatusParams
 private constructor(
     private val campaignId: String?,

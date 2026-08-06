@@ -17,7 +17,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Update Whatsapp user data */
+/** Updates the supplied WhatsApp user-data settings for the authenticated Telnyx account. */
 class UserDataUpdateParams
 private constructor(
     private val body: Body,

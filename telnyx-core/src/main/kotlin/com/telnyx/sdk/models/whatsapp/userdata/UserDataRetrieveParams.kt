@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Fetch Whatsapp user data */
+/** Returns the WhatsApp user-data settings associated with the authenticated Telnyx account. */
 class UserDataRetrieveParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

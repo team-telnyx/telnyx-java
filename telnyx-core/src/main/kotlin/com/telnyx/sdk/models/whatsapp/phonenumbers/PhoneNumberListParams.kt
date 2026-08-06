@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Whatsapp phone numbers */
+/** Returns WhatsApp phone numbers linked to the authenticated Telnyx account. */
 class PhoneNumberListParams
 private constructor(
     private val pageNumber: Long?,
