@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update requirement values in requirement group */
+/**
+ * Updates the customer reference or regulatory requirement values on the specified requirement
+ * group. The response contains the updated group.
+ */
 class RequirementGroupUpdateParams
 private constructor(
     private val id: String?,

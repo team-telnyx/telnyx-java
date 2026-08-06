@@ -44,7 +44,10 @@ interface EmailTemplateService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EmailTemplateResponse
 
-    /** Get an email template */
+    /**
+     * Returns the account-owned template identified by ID, including its Liquid subject and bodies,
+     * declared variables, and timestamps.
+     */
     fun retrieve(id: String): EmailTemplateResponse =
         retrieve(id, EmailTemplateRetrieveParams.none())
 
@@ -114,7 +117,10 @@ interface EmailTemplateService {
     fun list(requestOptions: RequestOptions): EmailTemplateListResponse =
         list(EmailTemplateListParams.none(), requestOptions)
 
-    /** Delete an email template */
+    /**
+     * Deletes the account-owned template. The operation returns `204` with no body and prevents
+     * future sends or renders from using the deleted template ID.
+     */
     fun delete(id: String) = delete(id, EmailTemplateDeleteParams.none())
 
     /** @see delete */

@@ -155,7 +155,10 @@ interface SubNumberOrderService {
     ): SubNumberOrderCancelResponse =
         cancel(subNumberOrderId, SubNumberOrderCancelParams.none(), requestOptions)
 
-    /** Update requirement group for a sub number order */
+    /**
+     * Associates an existing requirement group with the specified sub number order. The response
+     * contains the updated sub number order requirement-group relationship.
+     */
     fun updateRequirementGroup(
         id: String,
         params: SubNumberOrderUpdateRequirementGroupParams,

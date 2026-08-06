@@ -25,7 +25,10 @@ interface RegulatoryRequirementServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RegulatoryRequirementServiceAsync
 
-    /** Retrieve regulatory requirements */
+    /**
+     * Returns regulatory requirements for number ordering, porting, or other supported actions.
+     * Results can be filtered by phone number, requirement group, country, number type, and action.
+     */
     fun retrieve(): CompletableFuture<RegulatoryRequirementRetrieveResponse> =
         retrieve(RegulatoryRequirementRetrieveParams.none())
 

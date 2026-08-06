@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List CSV downloads */
+/**
+ * Returns CSV export jobs created for account phone numbers, including each export's current status
+ * and pagination metadata.
+ */
 class CsvDownloadListParams
 private constructor(
     private val pageNumber: Long?,

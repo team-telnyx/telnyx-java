@@ -9,15 +9,15 @@ internal class NumbersFeatureCreateParamsTest {
 
     @Test
     fun create() {
-        NumbersFeatureCreateParams.builder().addPhoneNumber("string").build()
+        NumbersFeatureCreateParams.builder().addPhoneNumber("+19705555098").build()
     }
 
     @Test
     fun body() {
-        val params = NumbersFeatureCreateParams.builder().addPhoneNumber("string").build()
+        val params = NumbersFeatureCreateParams.builder().addPhoneNumber("+19705555098").build()
 
         val body = params._body()
 
-        assertThat(body.phoneNumbers()).containsExactly("string")
+        assertThat(body.phoneNumbers()).containsExactly("+19705555098")
     }
 }

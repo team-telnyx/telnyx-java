@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a suppression */
+/**
+ * Returns the account-owned suppression identified by ID. Cross-account lookups and malformed IDs
+ * return `404` without exposing another account’s data.
+ */
 class EmailBlockRetrieveParams
 private constructor(
     private val id: String?,

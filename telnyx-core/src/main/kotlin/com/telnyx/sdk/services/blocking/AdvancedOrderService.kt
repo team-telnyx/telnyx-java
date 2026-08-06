@@ -29,7 +29,10 @@ interface AdvancedOrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdvancedOrderService
 
-    /** Create Advanced Order */
+    /**
+     * Creates an advanced number order from the requested order configuration. The response
+     * contains the resulting advanced order and its initial state.
+     */
     fun create(params: AdvancedOrderCreateParams): AdvancedOrder =
         create(params, RequestOptions.none())
 
@@ -53,7 +56,10 @@ interface AdvancedOrderService {
     fun create(advancedOrderRequest: AdvancedOrderRequest): AdvancedOrder =
         create(advancedOrderRequest, RequestOptions.none())
 
-    /** Get Advanced Order */
+    /**
+     * Returns the advanced number order identified by `order_id`, including its configuration and
+     * current state.
+     */
     fun retrieve(orderId: String): AdvancedOrder =
         retrieve(orderId, AdvancedOrderRetrieveParams.none())
 
@@ -84,7 +90,10 @@ interface AdvancedOrderService {
     fun retrieve(orderId: String, requestOptions: RequestOptions): AdvancedOrder =
         retrieve(orderId, AdvancedOrderRetrieveParams.none(), requestOptions)
 
-    /** List Advanced Orders */
+    /**
+     * Returns the advanced number orders associated with the account. Each result includes the
+     * order configuration and its current state.
+     */
     fun list(): AdvancedOrderListResponse = list(AdvancedOrderListParams.none())
 
     /** @see list */
@@ -102,7 +111,10 @@ interface AdvancedOrderService {
     fun list(requestOptions: RequestOptions): AdvancedOrderListResponse =
         list(AdvancedOrderListParams.none(), requestOptions)
 
-    /** Update Advanced Order */
+    /**
+     * Updates the requirement-group configuration for the specified advanced number order. The
+     * response contains the updated advanced order.
+     */
     fun updateRequirementGroup(
         advancedOrderId: String,
         params: AdvancedOrderUpdateRequirementGroupParams,

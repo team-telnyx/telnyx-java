@@ -11,7 +11,7 @@ internal class EmailUnsubscribeGroupUpdateParamsTest {
     fun create() {
         EmailUnsubscribeGroupUpdateParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .description("description")
+            .description("Weekly product updates and promotions")
             .name("x")
             .build()
     }
@@ -33,13 +33,13 @@ internal class EmailUnsubscribeGroupUpdateParamsTest {
         val params =
             EmailUnsubscribeGroupUpdateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .description("description")
+                .description("Weekly product updates and promotions")
                 .name("x")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
+        assertThat(body.description()).contains("Weekly product updates and promotions")
         assertThat(body.name()).contains("x")
     }
 

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a CSV download */
+/** Returns the current status and download details for the CSV export identified by `id`. */
 class CsvDownloadRetrieveParams
 private constructor(
     private val id: String?,

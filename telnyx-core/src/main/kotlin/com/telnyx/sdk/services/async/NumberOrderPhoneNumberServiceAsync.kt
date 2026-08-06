@@ -98,7 +98,10 @@ interface NumberOrderPhoneNumberServiceAsync {
     ): CompletableFuture<NumberOrderPhoneNumberListResponse> =
         list(NumberOrderPhoneNumberListParams.none(), requestOptions)
 
-    /** Update requirement group for a phone number order */
+    /**
+     * Associates an existing requirement group with a phone number in a number order. The response
+     * contains the updated number-order phone-number details.
+     */
     fun updateRequirementGroup(
         id: String,
         params: NumberOrderPhoneNumberUpdateRequirementGroupParams,

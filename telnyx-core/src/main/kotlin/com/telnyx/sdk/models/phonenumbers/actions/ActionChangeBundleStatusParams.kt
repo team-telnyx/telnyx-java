@@ -20,7 +20,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+ * Adds the specified phone number to a bundle or removes it from a bundle according to the
+ * requested status change. The response contains the phone number with its updated bundle state.
  */
 class ActionChangeBundleStatusParams
 private constructor(

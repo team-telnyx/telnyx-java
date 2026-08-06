@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Advanced Order */
+/**
+ * Returns the advanced number order identified by `order_id`, including its configuration and
+ * current state.
+ */
 class AdvancedOrderRetrieveParams
 private constructor(
     private val orderId: String?,

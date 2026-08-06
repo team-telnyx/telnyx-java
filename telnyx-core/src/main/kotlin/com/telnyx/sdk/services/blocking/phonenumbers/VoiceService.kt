@@ -29,7 +29,7 @@ interface VoiceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoiceService
 
-    /** Retrieve a phone number with voice settings */
+    /** Returns the specified phone number together with its current voice configuration. */
     fun retrieve(id: String): VoiceRetrieveResponse = retrieve(id, VoiceRetrieveParams.none())
 
     /** @see retrieve */
@@ -59,7 +59,10 @@ interface VoiceService {
     fun retrieve(id: String, requestOptions: RequestOptions): VoiceRetrieveResponse =
         retrieve(id, VoiceRetrieveParams.none(), requestOptions)
 
-    /** Update a phone number with voice settings */
+    /**
+     * Updates the voice configuration for the specified phone number. The response contains the
+     * phone number with its updated voice settings.
+     */
     fun update(id: String, params: VoiceUpdateParams): VoiceUpdateResponse =
         update(id, params, RequestOptions.none())
 
@@ -80,7 +83,11 @@ interface VoiceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VoiceUpdateResponse
 
-    /** List phone numbers with voice settings */
+    /**
+     * Returns account phone numbers together with their voice settings. Results support pagination,
+     * sorting, and filters for number, connection name, customer reference, and voice usage payment
+     * method.
+     */
     fun list(): VoiceListPage = list(VoiceListParams.none())
 
     /** @see list */

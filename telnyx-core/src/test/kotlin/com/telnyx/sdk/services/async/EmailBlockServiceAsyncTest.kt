@@ -21,9 +21,9 @@ internal class EmailBlockServiceAsyncTest {
         val emailBlockResponseFuture =
             emailBlockServiceAsync.create(
                 EmailBlockCreateParams.builder()
-                    .to("to")
+                    .to("spammer@bad.tld")
                     .domainId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .expiresAt(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
                     .from("from")
                     .build()
             )

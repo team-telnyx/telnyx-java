@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an email domain */
+/**
+ * Deletes an email domain configuration. Verified domains require `force=true`, and shared domains
+ * are read-only for non-owner accounts.
+ */
 class EmailDomainDeleteParams
 private constructor(
     private val id: String?,

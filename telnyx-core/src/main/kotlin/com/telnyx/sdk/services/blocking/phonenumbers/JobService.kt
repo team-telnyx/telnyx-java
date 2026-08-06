@@ -33,7 +33,7 @@ interface JobService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): JobService
 
-    /** Retrieve a phone numbers job */
+    /** Returns the status and details of the phone-number background job identified by `id`. */
     fun retrieve(id: String): JobRetrieveResponse = retrieve(id, JobRetrieveParams.none())
 
     /** @see retrieve */
@@ -63,7 +63,10 @@ interface JobService {
     fun retrieve(id: String, requestOptions: RequestOptions): JobRetrieveResponse =
         retrieve(id, JobRetrieveParams.none(), requestOptions)
 
-    /** Lists the phone numbers jobs */
+    /**
+     * Returns background jobs that operate on phone numbers. Results can be filtered by job type
+     * and sorted by creation time, and include pagination metadata.
+     */
     fun list(): JobListPage = list(JobListParams.none())
 
     /** @see list */

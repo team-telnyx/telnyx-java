@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve regulatory requirements */
+/**
+ * Returns regulatory requirements for number ordering, porting, or other supported actions. Results
+ * can be filtered by phone number, requirement group, country, number type, and action.
+ */
 class RegulatoryRequirementRetrieveParams
 private constructor(
     private val filter: Filter?,

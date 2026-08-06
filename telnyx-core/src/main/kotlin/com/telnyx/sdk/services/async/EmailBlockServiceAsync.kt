@@ -56,7 +56,10 @@ interface EmailBlockServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EmailBlockResponse>
 
-    /** Retrieve a suppression */
+    /**
+     * Returns the account-owned suppression identified by ID. Cross-account lookups and malformed
+     * IDs return `404` without exposing another account’s data.
+     */
     fun retrieve(id: String): CompletableFuture<EmailBlockResponse> =
         retrieve(id, EmailBlockRetrieveParams.none())
 

@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update Advanced Order */
+/**
+ * Updates the requirement-group configuration for the specified advanced number order. The response
+ * contains the updated advanced order.
+ */
 class AdvancedOrderUpdateRequirementGroupParams
 private constructor(
     private val advancedOrderId: String?,

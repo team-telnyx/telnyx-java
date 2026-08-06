@@ -30,8 +30,9 @@ interface ActionService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
     /**
-     * Change the bundle status for a phone number (set to being in a bundle or remove from a
-     * bundle)
+     * Adds the specified phone number to a bundle or removes it from a bundle according to the
+     * requested status change. The response contains the phone number with its updated bundle
+     * state.
      */
     fun changeBundleStatus(
         id: String,
@@ -57,7 +58,11 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionChangeBundleStatusResponse
 
-    /** Enable emergency for a phone number */
+    /**
+     * Associates emergency-service settings with the specified phone number. The operation returns
+     * the updated phone-number configuration when completed immediately or an accepted state when
+     * processing continues asynchronously.
+     */
     fun enableEmergency(
         id: String,
         params: ActionEnableEmergencyParams,

@@ -32,7 +32,10 @@ interface CommentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CommentService
 
-    /** Create a comment */
+    /**
+     * Creates a comment associated with a supported number-order record. The response contains the
+     * created comment.
+     */
     fun create(params: CommentCreateParams): CommentCreateResponse =
         create(params, RequestOptions.none())
 
@@ -52,7 +55,9 @@ interface CommentService {
     /** @see create */
     fun create(comment: Comment): CommentCreateResponse = create(comment, RequestOptions.none())
 
-    /** Retrieve a comment */
+    /**
+     * Returns the comment identified by `id`, including its associated record and comment metadata.
+     */
     fun retrieve(id: String): CommentRetrieveResponse = retrieve(id, CommentRetrieveParams.none())
 
     /** @see retrieve */
@@ -82,7 +87,10 @@ interface CommentService {
     fun retrieve(id: String, requestOptions: RequestOptions): CommentRetrieveResponse =
         retrieve(id, CommentRetrieveParams.none(), requestOptions)
 
-    /** Retrieve all comments */
+    /**
+     * Returns comments associated with number-order records. Results can be filtered by record type
+     * and record ID and include pagination metadata.
+     */
     fun list(): CommentListResponse = list(CommentListParams.none())
 
     /** @see list */
@@ -99,7 +107,10 @@ interface CommentService {
     fun list(requestOptions: RequestOptions): CommentListResponse =
         list(CommentListParams.none(), requestOptions)
 
-    /** Mark a comment as read */
+    /**
+     * Marks the specified comment as read. The response contains the updated read state for the
+     * comment.
+     */
     fun markAsRead(id: String): CommentMarkAsReadResponse =
         markAsRead(id, CommentMarkAsReadParams.none())
 

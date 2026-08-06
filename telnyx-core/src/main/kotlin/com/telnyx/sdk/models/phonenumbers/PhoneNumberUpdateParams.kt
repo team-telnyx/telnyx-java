@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a phone number */
+/**
+ * Updates the configurable settings of the specified phone number. The response contains the
+ * complete updated phone-number representation.
+ */
 class PhoneNumberUpdateParams
 private constructor(
     private val phoneNumberId: String?,

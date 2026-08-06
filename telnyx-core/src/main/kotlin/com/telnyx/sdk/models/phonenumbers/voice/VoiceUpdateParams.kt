@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a phone number with voice settings */
+/**
+ * Updates the voice configuration for the specified phone number. The response contains the phone
+ * number with its updated voice settings.
+ */
 class VoiceUpdateParams
 private constructor(
     private val id: String?,

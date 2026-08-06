@@ -11,7 +11,7 @@ internal class SuppressionCreateParamsTest {
     fun create() {
         SuppressionCreateParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .to("to")
+            .to("user@example.com")
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class SuppressionCreateParamsTest {
         val params =
             SuppressionCreateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .to("to")
+                .to("user@example.com")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -33,11 +33,11 @@ internal class SuppressionCreateParamsTest {
         val params =
             SuppressionCreateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .to("to")
+                .to("user@example.com")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.to()).isEqualTo("to")
+        assertThat(body.to()).isEqualTo("user@example.com")
     }
 }

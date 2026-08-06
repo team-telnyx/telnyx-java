@@ -9,26 +9,33 @@ internal class EmailUnsubscribeGroupCreateParamsTest {
 
     @Test
     fun create() {
-        EmailUnsubscribeGroupCreateParams.builder().name("x").description("description").build()
+        EmailUnsubscribeGroupCreateParams.builder()
+            .name("Marketing Newsletter")
+            .description("Weekly product updates and promotions")
+            .build()
     }
 
     @Test
     fun body() {
         val params =
-            EmailUnsubscribeGroupCreateParams.builder().name("x").description("description").build()
+            EmailUnsubscribeGroupCreateParams.builder()
+                .name("Marketing Newsletter")
+                .description("Weekly product updates and promotions")
+                .build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("x")
-        assertThat(body.description()).contains("description")
+        assertThat(body.name()).isEqualTo("Marketing Newsletter")
+        assertThat(body.description()).contains("Weekly product updates and promotions")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = EmailUnsubscribeGroupCreateParams.builder().name("x").build()
+        val params =
+            EmailUnsubscribeGroupCreateParams.builder().name("Marketing Newsletter").build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("x")
+        assertThat(body.name()).isEqualTo("Marketing Newsletter")
     }
 }

@@ -30,7 +30,10 @@ interface RequirementGroupService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequirementGroupService
 
-    /** Create a new requirement group */
+    /**
+     * Creates a regulatory requirement group for a country, number type, and ordering or porting
+     * action. Optional customer-reference and requirement values are retained on the created group.
+     */
     fun create(params: RequirementGroupCreateParams): RequirementGroup =
         create(params, RequestOptions.none())
 
@@ -40,7 +43,10 @@ interface RequirementGroupService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RequirementGroup
 
-    /** Get a single requirement group by ID */
+    /**
+     * Returns the regulatory requirement group identified by `id`, including its requirement values
+     * and current approval status.
+     */
     fun retrieve(id: String): RequirementGroup = retrieve(id, RequirementGroupRetrieveParams.none())
 
     /** @see retrieve */
@@ -70,7 +76,10 @@ interface RequirementGroupService {
     fun retrieve(id: String, requestOptions: RequestOptions): RequirementGroup =
         retrieve(id, RequirementGroupRetrieveParams.none(), requestOptions)
 
-    /** Update requirement values in requirement group */
+    /**
+     * Updates the customer reference or regulatory requirement values on the specified requirement
+     * group. The response contains the updated group.
+     */
     fun update(id: String): RequirementGroup = update(id, RequirementGroupUpdateParams.none())
 
     /** @see update */
@@ -100,7 +109,10 @@ interface RequirementGroupService {
     fun update(id: String, requestOptions: RequestOptions): RequirementGroup =
         update(id, RequirementGroupUpdateParams.none(), requestOptions)
 
-    /** List requirement groups */
+    /**
+     * Returns regulatory requirement groups for the account. Results can be filtered by country,
+     * number type, action, approval status, and customer reference.
+     */
     fun list(): List<RequirementGroup> = list(RequirementGroupListParams.none())
 
     /** @see list */
@@ -118,7 +130,10 @@ interface RequirementGroupService {
     fun list(requestOptions: RequestOptions): List<RequirementGroup> =
         list(RequirementGroupListParams.none(), requestOptions)
 
-    /** Delete a requirement group by ID */
+    /**
+     * Deletes the regulatory requirement group identified by `id`. The response contains the
+     * deleted requirement-group representation.
+     */
     fun delete(id: String): RequirementGroup = delete(id, RequirementGroupDeleteParams.none())
 
     /** @see delete */
@@ -148,7 +163,10 @@ interface RequirementGroupService {
     fun delete(id: String, requestOptions: RequestOptions): RequirementGroup =
         delete(id, RequirementGroupDeleteParams.none(), requestOptions)
 
-    /** Submit a Requirement Group for Approval */
+    /**
+     * Submits the specified regulatory requirement group for approval. The response contains the
+     * requirement group with its resulting approval status.
+     */
     fun submitForApproval(id: String): RequirementGroup =
         submitForApproval(id, RequirementGroupSubmitForApprovalParams.none())
 

@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List available phone number blocks */
+/**
+ * Searches the Telnyx inventory for available contiguous phone-number blocks. Results can be
+ * filtered by locality, country, national destination code, and number type.
+ */
 class AvailablePhoneNumberBlockListParams
 private constructor(
     private val filter: Filter?,

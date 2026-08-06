@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Mark a comment as read */
+/**
+ * Marks the specified comment as read. The response contains the updated read state for the
+ * comment.
+ */
 class CommentMarkAsReadParams
 private constructor(
     private val id: String?,

@@ -17,7 +17,7 @@ internal class NumbersFeatureServiceTest {
 
         val numbersFeature =
             numbersFeatureService.create(
-                NumbersFeatureCreateParams.builder().addPhoneNumber("string").build()
+                NumbersFeatureCreateParams.builder().addPhoneNumber("+19705555098").build()
             )
 
         numbersFeature.validate()
