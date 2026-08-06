@@ -29,7 +29,7 @@ interface ByPhoneNumberService {
     /** Two factor authentication API */
     fun actions(): ActionService
 
-    /** List verifications by phone number */
+    /** Returns a paginated list of verifications associated with the specified phone number. */
     fun list(phoneNumber: String): ByPhoneNumberListResponse =
         list(phoneNumber, ByPhoneNumberListParams.none())
 

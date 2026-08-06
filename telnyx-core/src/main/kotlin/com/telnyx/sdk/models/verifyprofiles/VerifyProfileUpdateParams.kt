@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update Verify profile */
+/**
+ * Updates the specified Verify profile's name, webhook destinations, language, daily spend limits,
+ * or channel-specific settings. Returns the updated profile.
+ */
 class VerifyProfileUpdateParams
 private constructor(
     private val verifyProfileId: String?,

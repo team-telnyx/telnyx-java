@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Trigger SMS verification */
+/**
+ * Starts a verification for the specified phone number and sends its code by SMS using the selected
+ * Verify profile. Returns the pending verification record.
+ */
 class VerificationTriggerSmsParams
 private constructor(
     private val createVerificationRequestSms: CreateVerificationRequestSms,

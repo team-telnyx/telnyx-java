@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a room session. */
+/**
+ * Returns the room session identified by `room_session_id`, including its room, active status, and
+ * lifecycle timestamps. Use `include_participants` to include its participant records.
+ */
 class SessionRetrieveParams
 private constructor(
     private val roomSessionId: String?,

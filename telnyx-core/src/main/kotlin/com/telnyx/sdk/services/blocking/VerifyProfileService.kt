@@ -77,7 +77,10 @@ interface VerifyProfileService {
     fun retrieve(verifyProfileId: String, requestOptions: RequestOptions): VerifyProfileData =
         retrieve(verifyProfileId, VerifyProfileRetrieveParams.none(), requestOptions)
 
-    /** Update Verify profile */
+    /**
+     * Updates the specified Verify profile's name, webhook destinations, language, daily spend
+     * limits, or channel-specific settings. Returns the updated profile.
+     */
     fun update(verifyProfileId: String): VerifyProfileData =
         update(verifyProfileId, VerifyProfileUpdateParams.none())
 
@@ -127,7 +130,7 @@ interface VerifyProfileService {
     fun list(requestOptions: RequestOptions): VerifyProfileListPage =
         list(VerifyProfileListParams.none(), requestOptions)
 
-    /** Delete Verify profile */
+    /** Deletes the specified Verify profile and returns the deleted profile record. */
     fun delete(verifyProfileId: String): VerifyProfileData =
         delete(verifyProfileId, VerifyProfileDeleteParams.none())
 

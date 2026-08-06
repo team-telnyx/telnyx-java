@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List verifications by phone number */
+/** Returns a paginated list of verifications associated with the specified phone number. */
 class ByPhoneNumberListParams
 private constructor(
     private val phoneNumber: String?,

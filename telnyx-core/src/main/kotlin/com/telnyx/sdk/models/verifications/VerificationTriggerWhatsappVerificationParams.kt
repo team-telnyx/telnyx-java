@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Trigger WhatsApp verification */
+/**
+ * Starts a verification for the specified phone number and sends its code over WhatsApp using the
+ * selected Verify profile. Returns the pending verification record.
+ */
 class VerificationTriggerWhatsappVerificationParams
 private constructor(
     private val body: Body,

@@ -9,7 +9,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of room sessions. */
+/**
+ * Returns a paginated list of room sessions across the account. Filter sessions by room, creation,
+ * update, or end date and active status, and use `include_participants` to include participant
+ * records.
+ */
 class SessionList0Params
 private constructor(
     private val filter: Filter?,

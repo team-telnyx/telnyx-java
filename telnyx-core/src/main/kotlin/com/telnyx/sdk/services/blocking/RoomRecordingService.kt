@@ -31,7 +31,10 @@ interface RoomRecordingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomRecordingService
 
-    /** View a room recording. */
+    /**
+     * Returns the recording identified by `room_recording_id`, including its room, session,
+     * participant, status, media details, lifecycle timestamps, and download URL.
+     */
     fun retrieve(roomRecordingId: String): RoomRecordingRetrieveResponse =
         retrieve(roomRecordingId, RoomRecordingRetrieveParams.none())
 
@@ -66,7 +69,10 @@ interface RoomRecordingService {
     ): RoomRecordingRetrieveResponse =
         retrieve(roomRecordingId, RoomRecordingRetrieveParams.none(), requestOptions)
 
-    /** View a list of room recordings. */
+    /**
+     * Returns a paginated list of room recordings. Filter recordings by room, session, participant,
+     * recording type, status, duration, or start and end dates.
+     */
     fun list(): RoomRecordingListPage = list(RoomRecordingListParams.none())
 
     /** @see list */
@@ -113,7 +119,11 @@ interface RoomRecordingService {
     fun delete(roomRecordingId: String, requestOptions: RequestOptions) =
         delete(roomRecordingId, RoomRecordingDeleteParams.none(), requestOptions)
 
-    /** Delete several room recordings in a bulk. */
+    /**
+     * Deletes the room recordings that match the supplied filters and returns the number of
+     * recordings affected. Filters support room, session, participant, recording type, status,
+     * duration, and start or end dates.
+     */
     fun deleteBulk(): RoomRecordingDeleteBulkResponse =
         deleteBulk(RoomRecordingDeleteBulkParams.none())
 

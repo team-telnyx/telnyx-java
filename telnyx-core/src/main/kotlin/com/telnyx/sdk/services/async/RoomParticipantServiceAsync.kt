@@ -27,7 +27,10 @@ interface RoomParticipantServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomParticipantServiceAsync
 
-    /** View a room participant. */
+    /**
+     * Returns the participant identified by `room_participant_id`, including its session, context,
+     * and join, update, and leave timestamps.
+     */
     fun retrieve(roomParticipantId: String): CompletableFuture<RoomParticipantRetrieveResponse> =
         retrieve(roomParticipantId, RoomParticipantRetrieveParams.none())
 
@@ -64,7 +67,10 @@ interface RoomParticipantServiceAsync {
     ): CompletableFuture<RoomParticipantRetrieveResponse> =
         retrieve(roomParticipantId, RoomParticipantRetrieveParams.none(), requestOptions)
 
-    /** View a list of room participants. */
+    /**
+     * Returns a paginated list of room participants across sessions. Filter participants by
+     * session, join, update, or leave date and by participant context.
+     */
     fun list(): CompletableFuture<RoomParticipantListPageAsync> =
         list(RoomParticipantListParams.none())
 

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete Verify profile */
+/** Deletes the specified Verify profile and returns the deleted profile record. */
 class VerifyProfileDeleteParams
 private constructor(
     private val verifyProfileId: String?,
