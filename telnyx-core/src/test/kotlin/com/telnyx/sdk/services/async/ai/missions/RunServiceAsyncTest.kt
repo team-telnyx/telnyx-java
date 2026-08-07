@@ -83,8 +83,8 @@ internal class RunServiceAsyncTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .resultSummary("result_summary")
-                    .status(RunStatus.PENDING)
+                    .resultSummary("Processed 24 customer records successfully.")
+                    .status(RunStatus.SUCCEEDED)
                     .build()
             )
 

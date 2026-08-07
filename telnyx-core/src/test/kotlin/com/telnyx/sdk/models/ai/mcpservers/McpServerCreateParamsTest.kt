@@ -11,9 +11,9 @@ internal class McpServerCreateParamsTest {
     @Test
     fun create() {
         McpServerCreateParams.builder()
-            .name("name")
-            .type("type")
-            .url("url")
+            .name("Name")
+            .type("Type")
+            .url("Url")
             .addAllowedTool("string")
             .apiKeyRef("api_key_ref")
             .build()
@@ -23,30 +23,30 @@ internal class McpServerCreateParamsTest {
     fun body() {
         val params =
             McpServerCreateParams.builder()
-                .name("name")
-                .type("type")
-                .url("url")
+                .name("Name")
+                .type("Type")
+                .url("Url")
                 .addAllowedTool("string")
                 .apiKeyRef("api_key_ref")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
-        assertThat(body.type()).isEqualTo("type")
-        assertThat(body.url()).isEqualTo("url")
+        assertThat(body.name()).isEqualTo("Name")
+        assertThat(body.type()).isEqualTo("Type")
+        assertThat(body.url()).isEqualTo("Url")
         assertThat(body.allowedTools().getOrNull()).containsExactly("string")
         assertThat(body.apiKeyRef()).contains("api_key_ref")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = McpServerCreateParams.builder().name("name").type("type").url("url").build()
+        val params = McpServerCreateParams.builder().name("Name").type("Type").url("Url").build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
-        assertThat(body.type()).isEqualTo("type")
-        assertThat(body.url()).isEqualTo("url")
+        assertThat(body.name()).isEqualTo("Name")
+        assertThat(body.type()).isEqualTo("Type")
+        assertThat(body.url()).isEqualTo("Url")
     }
 }

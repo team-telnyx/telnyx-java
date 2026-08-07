@@ -14,7 +14,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
             .id("id")
             .callForwarding(
                 MobilePhoneNumberUpdateParams.CallForwarding.builder()
-                    .callForwardingEnabled(true)
+                    .callForwardingEnabled(false)
                     .forwardingType(
                         MobilePhoneNumberUpdateParams.CallForwarding.ForwardingType.ALWAYS
                     )
@@ -27,17 +27,17 @@ internal class MobilePhoneNumberUpdateParamsTest {
                         MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingChannels
                             .SINGLE
                     )
-                    .inboundCallRecordingEnabled(true)
+                    .inboundCallRecordingEnabled(false)
                     .inboundCallRecordingFormat(
                         MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingFormat.WAV
                     )
                     .build()
             )
-            .callerIdNameEnabled(true)
+            .callerIdNameEnabled(false)
             .cnamListing(
                 MobilePhoneNumberUpdateParams.CnamListing.builder()
                     .cnamListingDetails("cnam_listing_details")
-                    .cnamListingEnabled(true)
+                    .cnamListingEnabled(false)
                     .build()
             )
             .connectionId("connection_id")
@@ -48,7 +48,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
                     .build()
             )
             .inboundCallScreening(MobilePhoneNumberUpdateParams.InboundCallScreening.DISABLED)
-            .noiseSuppression(true)
+            .noiseSuppression(false)
             .outbound(
                 MobilePhoneNumberUpdateParams.Outbound.builder()
                     .interceptionAppId("interception_app_id")
@@ -74,7 +74,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
                 .id("id")
                 .callForwarding(
                     MobilePhoneNumberUpdateParams.CallForwarding.builder()
-                        .callForwardingEnabled(true)
+                        .callForwardingEnabled(false)
                         .forwardingType(
                             MobilePhoneNumberUpdateParams.CallForwarding.ForwardingType.ALWAYS
                         )
@@ -87,18 +87,18 @@ internal class MobilePhoneNumberUpdateParamsTest {
                             MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingChannels
                                 .SINGLE
                         )
-                        .inboundCallRecordingEnabled(true)
+                        .inboundCallRecordingEnabled(false)
                         .inboundCallRecordingFormat(
                             MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingFormat
                                 .WAV
                         )
                         .build()
                 )
-                .callerIdNameEnabled(true)
+                .callerIdNameEnabled(false)
                 .cnamListing(
                     MobilePhoneNumberUpdateParams.CnamListing.builder()
                         .cnamListingDetails("cnam_listing_details")
-                        .cnamListingEnabled(true)
+                        .cnamListingEnabled(false)
                         .build()
                 )
                 .connectionId("connection_id")
@@ -109,7 +109,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
                         .build()
                 )
                 .inboundCallScreening(MobilePhoneNumberUpdateParams.InboundCallScreening.DISABLED)
-                .noiseSuppression(true)
+                .noiseSuppression(false)
                 .outbound(
                     MobilePhoneNumberUpdateParams.Outbound.builder()
                         .interceptionAppId("interception_app_id")
@@ -123,7 +123,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
         assertThat(body.callForwarding())
             .contains(
                 MobilePhoneNumberUpdateParams.CallForwarding.builder()
-                    .callForwardingEnabled(true)
+                    .callForwardingEnabled(false)
                     .forwardingType(
                         MobilePhoneNumberUpdateParams.CallForwarding.ForwardingType.ALWAYS
                     )
@@ -137,18 +137,18 @@ internal class MobilePhoneNumberUpdateParamsTest {
                         MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingChannels
                             .SINGLE
                     )
-                    .inboundCallRecordingEnabled(true)
+                    .inboundCallRecordingEnabled(false)
                     .inboundCallRecordingFormat(
                         MobilePhoneNumberUpdateParams.CallRecording.InboundCallRecordingFormat.WAV
                     )
                     .build()
             )
-        assertThat(body.callerIdNameEnabled()).contains(true)
+        assertThat(body.callerIdNameEnabled()).contains(false)
         assertThat(body.cnamListing())
             .contains(
                 MobilePhoneNumberUpdateParams.CnamListing.builder()
                     .cnamListingDetails("cnam_listing_details")
-                    .cnamListingEnabled(true)
+                    .cnamListingEnabled(false)
                     .build()
             )
         assertThat(body.connectionId()).contains("connection_id")
@@ -161,7 +161,7 @@ internal class MobilePhoneNumberUpdateParamsTest {
             )
         assertThat(body.inboundCallScreening())
             .contains(MobilePhoneNumberUpdateParams.InboundCallScreening.DISABLED)
-        assertThat(body.noiseSuppression()).contains(true)
+        assertThat(body.noiseSuppression()).contains(false)
         assertThat(body.outbound())
             .contains(
                 MobilePhoneNumberUpdateParams.Outbound.builder()

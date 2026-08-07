@@ -12,13 +12,13 @@ internal class MobileVoiceConnectionUpdateParamsTest {
     fun create() {
         MobileVoiceConnectionUpdateParams.builder()
             .id("id")
-            .active(true)
-            .connectionName("connection_name")
+            .active(false)
+            .connectionName("string")
             .inbound(MobileVoiceConnectionUpdateParams.Inbound.builder().channelLimit(0L).build())
             .outbound(
                 MobileVoiceConnectionUpdateParams.Outbound.builder()
                     .channelLimit(0L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("string")
                     .build()
             )
             .addTag("string")
@@ -43,15 +43,15 @@ internal class MobileVoiceConnectionUpdateParamsTest {
         val params =
             MobileVoiceConnectionUpdateParams.builder()
                 .id("id")
-                .active(true)
-                .connectionName("connection_name")
+                .active(false)
+                .connectionName("string")
                 .inbound(
                     MobileVoiceConnectionUpdateParams.Inbound.builder().channelLimit(0L).build()
                 )
                 .outbound(
                     MobileVoiceConnectionUpdateParams.Outbound.builder()
                         .channelLimit(0L)
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("string")
                         .build()
                 )
                 .addTag("string")
@@ -63,15 +63,15 @@ internal class MobileVoiceConnectionUpdateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.active()).contains(true)
-        assertThat(body.connectionName()).contains("connection_name")
+        assertThat(body.active()).contains(false)
+        assertThat(body.connectionName()).contains("string")
         assertThat(body.inbound())
             .contains(MobileVoiceConnectionUpdateParams.Inbound.builder().channelLimit(0L).build())
         assertThat(body.outbound())
             .contains(
                 MobileVoiceConnectionUpdateParams.Outbound.builder()
                     .channelLimit(0L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("string")
                     .build()
             )
         assertThat(body.tags().getOrNull()).containsExactly("string")

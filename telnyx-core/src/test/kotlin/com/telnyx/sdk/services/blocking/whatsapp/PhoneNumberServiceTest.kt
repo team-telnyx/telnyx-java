@@ -84,7 +84,7 @@ internal class PhoneNumberServiceTest {
         val phoneNumberService = client.whatsapp().phoneNumbers()
 
         phoneNumberService.verify(
-            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("code").build()
+            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("string").build()
         )
     }
 }

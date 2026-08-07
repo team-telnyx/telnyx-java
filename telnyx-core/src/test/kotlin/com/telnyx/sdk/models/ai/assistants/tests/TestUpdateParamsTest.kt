@@ -12,14 +12,14 @@ internal class TestUpdateParamsTest {
     fun create() {
         TestUpdateParams.builder()
             .testId("test_id")
-            .description("description")
-            .destination("x")
-            .instructions("x")
-            .maxDurationSeconds(1L)
-            .name("x")
-            .addRubric(TestUpdateParams.Rubric.builder().criteria("criteria").name("name").build())
+            .description("Description")
+            .destination("Destination")
+            .instructions("Instructions")
+            .maxDurationSeconds(30L)
+            .name("Name")
+            .addRubric(TestUpdateParams.Rubric.builder().criteria("string").name("string").build())
             .telnyxConversationChannel(TelnyxConversationChannel.PHONE_CALL)
-            .testSuite("test_suite")
+            .testSuite("Test Suite")
             .build()
     }
 
@@ -37,31 +37,31 @@ internal class TestUpdateParamsTest {
         val params =
             TestUpdateParams.builder()
                 .testId("test_id")
-                .description("description")
-                .destination("x")
-                .instructions("x")
-                .maxDurationSeconds(1L)
-                .name("x")
+                .description("Description")
+                .destination("Destination")
+                .instructions("Instructions")
+                .maxDurationSeconds(30L)
+                .name("Name")
                 .addRubric(
-                    TestUpdateParams.Rubric.builder().criteria("criteria").name("name").build()
+                    TestUpdateParams.Rubric.builder().criteria("string").name("string").build()
                 )
                 .telnyxConversationChannel(TelnyxConversationChannel.PHONE_CALL)
-                .testSuite("test_suite")
+                .testSuite("Test Suite")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
-        assertThat(body.destination()).contains("x")
-        assertThat(body.instructions()).contains("x")
-        assertThat(body.maxDurationSeconds()).contains(1L)
-        assertThat(body.name()).contains("x")
+        assertThat(body.description()).contains("Description")
+        assertThat(body.destination()).contains("Destination")
+        assertThat(body.instructions()).contains("Instructions")
+        assertThat(body.maxDurationSeconds()).contains(30L)
+        assertThat(body.name()).contains("Name")
         assertThat(body.rubric().getOrNull())
             .containsExactly(
-                TestUpdateParams.Rubric.builder().criteria("criteria").name("name").build()
+                TestUpdateParams.Rubric.builder().criteria("string").name("string").build()
             )
         assertThat(body.telnyxConversationChannel()).contains(TelnyxConversationChannel.PHONE_CALL)
-        assertThat(body.testSuite()).contains("test_suite")
+        assertThat(body.testSuite()).contains("Test Suite")
     }
 
     @Test

@@ -11,7 +11,7 @@ internal class CommentCreateParamsTest {
     fun create() {
         CommentCreateParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .commentBody("body")
+            .commentBody("string")
             .build()
     }
 
@@ -30,12 +30,12 @@ internal class CommentCreateParamsTest {
         val params =
             CommentCreateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .commentBody("body")
+                .commentBody("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.commentBody()).contains("body")
+        assertThat(body.commentBody()).contains("string")
     }
 
     @Test

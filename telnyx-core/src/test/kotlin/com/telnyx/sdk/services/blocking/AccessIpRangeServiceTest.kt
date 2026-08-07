@@ -18,8 +18,8 @@ internal class AccessIpRangeServiceTest {
         val accessIpRange =
             accessIpRangeService.create(
                 AccessIpRangeCreateParams.builder()
-                    .cidrBlock("cidr_block")
-                    .description("description")
+                    .cidrBlock("Cidr Block")
+                    .description("Description")
                     .build()
             )
 

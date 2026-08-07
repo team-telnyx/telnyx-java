@@ -29,8 +29,8 @@ internal class UserDataServiceTest {
         val userData =
             userDataService.update(
                 UserDataUpdateParams.builder()
-                    .webhookFailoverUrl("webhook_failover_url")
-                    .webhookUrl("webhook_url")
+                    .webhookFailoverUrl("https://example.com")
+                    .webhookUrl("https://example.com")
                     .build()
             )
 

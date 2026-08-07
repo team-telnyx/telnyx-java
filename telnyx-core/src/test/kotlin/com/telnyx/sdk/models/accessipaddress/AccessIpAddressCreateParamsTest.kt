@@ -10,8 +10,8 @@ internal class AccessIpAddressCreateParamsTest {
     @Test
     fun create() {
         AccessIpAddressCreateParams.builder()
-            .ipAddress("ip_address")
-            .description("description")
+            .ipAddress("Ip Address")
+            .description("Description")
             .build()
     }
 
@@ -19,22 +19,22 @@ internal class AccessIpAddressCreateParamsTest {
     fun body() {
         val params =
             AccessIpAddressCreateParams.builder()
-                .ipAddress("ip_address")
-                .description("description")
+                .ipAddress("Ip Address")
+                .description("Description")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.ipAddress()).isEqualTo("ip_address")
-        assertThat(body.description()).contains("description")
+        assertThat(body.ipAddress()).isEqualTo("Ip Address")
+        assertThat(body.description()).contains("Description")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = AccessIpAddressCreateParams.builder().ipAddress("ip_address").build()
+        val params = AccessIpAddressCreateParams.builder().ipAddress("Ip Address").build()
 
         val body = params._body()
 
-        assertThat(body.ipAddress()).isEqualTo("ip_address")
+        assertThat(body.ipAddress()).isEqualTo("Ip Address")
     }
 }

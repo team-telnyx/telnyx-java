@@ -11,16 +11,16 @@ internal class MissionCreateParamsTest {
     @Test
     fun create() {
         MissionCreateParams.builder()
-            .name("name")
-            .description("description")
+            .name("Name")
+            .description("Description")
             .executionMode(ExecutionMode.EXTERNAL)
-            .instructions("instructions")
+            .instructions("Instructions")
             .metadata(
                 MissionCreateParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-            .model("model")
+            .model("Model")
             .build()
     }
 
@@ -28,39 +28,39 @@ internal class MissionCreateParamsTest {
     fun body() {
         val params =
             MissionCreateParams.builder()
-                .name("name")
-                .description("description")
+                .name("Name")
+                .description("Description")
                 .executionMode(ExecutionMode.EXTERNAL)
-                .instructions("instructions")
+                .instructions("Instructions")
                 .metadata(
                     MissionCreateParams.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .model("model")
+                .model("Model")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
-        assertThat(body.description()).contains("description")
+        assertThat(body.name()).isEqualTo("Name")
+        assertThat(body.description()).contains("Description")
         assertThat(body.executionMode()).contains(ExecutionMode.EXTERNAL)
-        assertThat(body.instructions()).contains("instructions")
+        assertThat(body.instructions()).contains("Instructions")
         assertThat(body.metadata())
             .contains(
                 MissionCreateParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.model()).contains("model")
+        assertThat(body.model()).contains("Model")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = MissionCreateParams.builder().name("name").build()
+        val params = MissionCreateParams.builder().name("Name").build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.name()).isEqualTo("Name")
     }
 }

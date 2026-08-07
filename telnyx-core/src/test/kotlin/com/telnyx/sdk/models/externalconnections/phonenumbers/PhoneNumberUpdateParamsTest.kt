@@ -12,7 +12,7 @@ internal class PhoneNumberUpdateParamsTest {
         PhoneNumberUpdateParams.builder()
             .id("1293384261075731499")
             .phoneNumberId("1234567889")
-            .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .locationId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
             .build()
     }
 
@@ -36,12 +36,12 @@ internal class PhoneNumberUpdateParamsTest {
             PhoneNumberUpdateParams.builder()
                 .id("1293384261075731499")
                 .phoneNumberId("1234567889")
-                .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .locationId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.locationId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.locationId()).contains("3fa85f64-5717-4562-b3fc-2c963f66afa6")
     }
 
     @Test

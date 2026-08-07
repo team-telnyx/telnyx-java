@@ -18,10 +18,10 @@ internal class JobServiceTest {
         val fineTuningJob =
             jobService.create(
                 JobCreateParams.builder()
-                    .model("model")
-                    .trainingFile("training_file")
-                    .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(1L).build())
-                    .suffix("suffix")
+                    .model("string")
+                    .trainingFile("string")
+                    .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(3L).build())
+                    .suffix("string")
                     .build()
             )
 

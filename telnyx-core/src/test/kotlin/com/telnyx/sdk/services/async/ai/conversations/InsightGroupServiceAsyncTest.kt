@@ -33,9 +33,9 @@ internal class InsightGroupServiceAsyncTest {
             insightGroupServiceAsync.update(
                 InsightGroupUpdateParams.builder()
                     .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .description("description")
-                    .name("name")
-                    .webhook("webhook")
+                    .description("Description")
+                    .name("Name")
+                    .webhook("Webhook")
                     .build()
             )
 
@@ -63,9 +63,9 @@ internal class InsightGroupServiceAsyncTest {
         val insightTemplateGroupDetailFuture =
             insightGroupServiceAsync.insightGroups(
                 InsightGroupInsightGroupsParams.builder()
-                    .name("name")
-                    .description("description")
-                    .webhook("webhook")
+                    .name("Name")
+                    .description("Description")
+                    .webhook("")
                     .build()
             )
 

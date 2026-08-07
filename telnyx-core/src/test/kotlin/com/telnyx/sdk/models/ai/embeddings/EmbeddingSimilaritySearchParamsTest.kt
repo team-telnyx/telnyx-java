@@ -10,9 +10,9 @@ internal class EmbeddingSimilaritySearchParamsTest {
     @Test
     fun create() {
         EmbeddingSimilaritySearchParams.builder()
-            .bucketName("bucket_name")
-            .query("query")
-            .numOfDocs(0L)
+            .bucketName("Bucket Name")
+            .query("Query")
+            .numOfDocs(3L)
             .build()
     }
 
@@ -20,29 +20,29 @@ internal class EmbeddingSimilaritySearchParamsTest {
     fun body() {
         val params =
             EmbeddingSimilaritySearchParams.builder()
-                .bucketName("bucket_name")
-                .query("query")
-                .numOfDocs(0L)
+                .bucketName("Bucket Name")
+                .query("Query")
+                .numOfDocs(3L)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bucketName()).isEqualTo("bucket_name")
-        assertThat(body.query()).isEqualTo("query")
-        assertThat(body.numOfDocs()).contains(0L)
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
+        assertThat(body.query()).isEqualTo("Query")
+        assertThat(body.numOfDocs()).contains(3L)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             EmbeddingSimilaritySearchParams.builder()
-                .bucketName("bucket_name")
-                .query("query")
+                .bucketName("Bucket Name")
+                .query("Query")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bucketName()).isEqualTo("bucket_name")
-        assertThat(body.query()).isEqualTo("query")
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
+        assertThat(body.query()).isEqualTo("Query")
     }
 }

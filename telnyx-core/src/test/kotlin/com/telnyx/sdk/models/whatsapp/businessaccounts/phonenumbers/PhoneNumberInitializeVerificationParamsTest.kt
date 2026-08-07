@@ -11,9 +11,9 @@ internal class PhoneNumberInitializeVerificationParamsTest {
     fun create() {
         PhoneNumberInitializeVerificationParams.builder()
             .id("id")
-            .displayName("display_name")
-            .phoneNumber("phone_number")
-            .language("language")
+            .displayName("string")
+            .phoneNumber("string")
+            .language("en_US")
             .verificationMethod(PhoneNumberInitializeVerificationParams.VerificationMethod.SMS)
             .build()
     }
@@ -23,8 +23,8 @@ internal class PhoneNumberInitializeVerificationParamsTest {
         val params =
             PhoneNumberInitializeVerificationParams.builder()
                 .id("id")
-                .displayName("display_name")
-                .phoneNumber("phone_number")
+                .displayName("string")
+                .phoneNumber("string")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("id")
@@ -37,17 +37,17 @@ internal class PhoneNumberInitializeVerificationParamsTest {
         val params =
             PhoneNumberInitializeVerificationParams.builder()
                 .id("id")
-                .displayName("display_name")
-                .phoneNumber("phone_number")
-                .language("language")
+                .displayName("string")
+                .phoneNumber("string")
+                .language("en_US")
                 .verificationMethod(PhoneNumberInitializeVerificationParams.VerificationMethod.SMS)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.displayName()).isEqualTo("display_name")
-        assertThat(body.phoneNumber()).isEqualTo("phone_number")
-        assertThat(body.language()).contains("language")
+        assertThat(body.displayName()).isEqualTo("string")
+        assertThat(body.phoneNumber()).isEqualTo("string")
+        assertThat(body.language()).contains("en_US")
         assertThat(body.verificationMethod())
             .contains(PhoneNumberInitializeVerificationParams.VerificationMethod.SMS)
     }
@@ -57,13 +57,13 @@ internal class PhoneNumberInitializeVerificationParamsTest {
         val params =
             PhoneNumberInitializeVerificationParams.builder()
                 .id("id")
-                .displayName("display_name")
-                .phoneNumber("phone_number")
+                .displayName("string")
+                .phoneNumber("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.displayName()).isEqualTo("display_name")
-        assertThat(body.phoneNumber()).isEqualTo("phone_number")
+        assertThat(body.displayName()).isEqualTo("string")
+        assertThat(body.phoneNumber()).isEqualTo("string")
     }
 }

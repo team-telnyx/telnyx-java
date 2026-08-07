@@ -12,16 +12,16 @@ internal class MissionUpdateMissionParamsTest {
     fun create() {
         MissionUpdateMissionParams.builder()
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .description("description")
+            .description("Description")
             .executionMode(ExecutionMode.EXTERNAL)
-            .instructions("instructions")
+            .instructions("Instructions")
             .metadata(
                 MissionUpdateMissionParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-            .model("model")
-            .name("name")
+            .model("Model")
+            .name("Name")
             .build()
     }
 
@@ -42,31 +42,31 @@ internal class MissionUpdateMissionParamsTest {
         val params =
             MissionUpdateMissionParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .description("description")
+                .description("Description")
                 .executionMode(ExecutionMode.EXTERNAL)
-                .instructions("instructions")
+                .instructions("Instructions")
                 .metadata(
                     MissionUpdateMissionParams.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .model("model")
-                .name("name")
+                .model("Model")
+                .name("Name")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
+        assertThat(body.description()).contains("Description")
         assertThat(body.executionMode()).contains(ExecutionMode.EXTERNAL)
-        assertThat(body.instructions()).contains("instructions")
+        assertThat(body.instructions()).contains("Instructions")
         assertThat(body.metadata())
             .contains(
                 MissionUpdateMissionParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.model()).contains("model")
-        assertThat(body.name()).contains("name")
+        assertThat(body.model()).contains("Model")
+        assertThat(body.name()).contains("Name")
     }
 
     @Test

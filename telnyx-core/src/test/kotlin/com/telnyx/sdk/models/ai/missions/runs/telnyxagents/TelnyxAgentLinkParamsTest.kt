@@ -12,7 +12,7 @@ internal class TelnyxAgentLinkParamsTest {
         TelnyxAgentLinkParams.builder()
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .telnyxAgentId("telnyx_agent_id")
+            .telnyxAgentId("Telnyx Agent Id")
             .build()
     }
 
@@ -22,7 +22,7 @@ internal class TelnyxAgentLinkParamsTest {
             TelnyxAgentLinkParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .telnyxAgentId("telnyx_agent_id")
+                .telnyxAgentId("Telnyx Agent Id")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -37,11 +37,11 @@ internal class TelnyxAgentLinkParamsTest {
             TelnyxAgentLinkParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .telnyxAgentId("telnyx_agent_id")
+                .telnyxAgentId("Telnyx Agent Id")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.telnyxAgentId()).isEqualTo("telnyx_agent_id")
+        assertThat(body.telnyxAgentId()).isEqualTo("Telnyx Agent Id")
     }
 }

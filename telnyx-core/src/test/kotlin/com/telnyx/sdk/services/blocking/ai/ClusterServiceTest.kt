@@ -68,11 +68,11 @@ internal class ClusterServiceTest {
         val response =
             clusterService.compute(
                 ClusterComputeParams.builder()
-                    .bucket("bucket")
+                    .bucket("string")
                     .addFile("string")
-                    .minClusterSize(0L)
-                    .minSubclusterSize(0L)
-                    .prefix("prefix")
+                    .minClusterSize(25L)
+                    .minSubclusterSize(5L)
+                    .prefix("string")
                     .build()
             )
 

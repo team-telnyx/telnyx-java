@@ -1151,7 +1151,7 @@ internal class AssistantServiceAsyncTest {
         val assistantsListFuture =
             assistantServiceAsync.imports(
                 AssistantImportsParams.builder()
-                    .apiKeyRef("api_key_ref")
+                    .apiKeyRef("string")
                     .provider(AssistantImportsParams.Provider.ELEVENLABS)
                     .addImportId("string")
                     .build()
@@ -1171,15 +1171,15 @@ internal class AssistantServiceAsyncTest {
             assistantServiceAsync.sendSms(
                 AssistantSendSmsParams.builder()
                     .assistantId("assistant_id")
-                    .from("from")
-                    .to("to")
+                    .from("From")
+                    .to("To")
                     .conversationMetadata(
                         AssistantSendSmsParams.ConversationMetadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .shouldCreateConversation(true)
-                    .text("text")
+                    .shouldCreateConversation(false)
+                    .text("Text")
                     .build()
             )
 

@@ -49,9 +49,9 @@ internal class AiServiceAsyncTest {
         val responseFuture =
             aiServiceAsync.summarize(
                 AiSummarizeParams.builder()
-                    .bucket("bucket")
-                    .filename("filename")
-                    .systemPrompt("system_prompt")
+                    .bucket("string")
+                    .filename("string")
+                    .systemPrompt("string")
                     .build()
             )
 

@@ -19,10 +19,10 @@ internal class InsightServiceTest {
         val insightTemplateDetail =
             insightService.create(
                 InsightCreateParams.builder()
-                    .instructions("instructions")
-                    .name("name")
+                    .instructions("Instructions")
+                    .name("Name")
                     .jsonSchema("string")
-                    .webhook("webhook")
+                    .webhook("")
                     .build()
             )
 
@@ -50,10 +50,10 @@ internal class InsightServiceTest {
             insightService.update(
                 InsightUpdateParams.builder()
                     .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .instructions("instructions")
+                    .instructions("Instructions")
                     .jsonSchema("string")
-                    .name("name")
-                    .webhook("webhook")
+                    .name("Name")
+                    .webhook("Webhook")
                     .build()
             )
 

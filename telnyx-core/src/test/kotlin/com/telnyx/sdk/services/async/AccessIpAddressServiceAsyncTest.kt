@@ -18,8 +18,8 @@ internal class AccessIpAddressServiceAsyncTest {
         val accessIpAddressResponseFuture =
             accessIpAddressServiceAsync.create(
                 AccessIpAddressCreateParams.builder()
-                    .ipAddress("ip_address")
-                    .description("description")
+                    .ipAddress("Ip Address")
+                    .description("Description")
                     .build()
             )
 

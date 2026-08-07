@@ -40,7 +40,7 @@ internal class TelnyxAgentServiceAsyncTest {
                 TelnyxAgentLinkParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .telnyxAgentId("telnyx_agent_id")
+                    .telnyxAgentId("Telnyx Agent Id")
                     .build()
             )
 

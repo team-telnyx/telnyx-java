@@ -32,9 +32,9 @@ internal class ExternalVettingServiceAsyncTest {
             externalVettingServiceAsync.imports(
                 ExternalVettingImportsParams.builder()
                     .brandId("brandId")
-                    .evpId("evpId")
-                    .vettingId("vettingId")
-                    .vettingToken("vettingToken")
+                    .evpId("Evpid")
+                    .vettingId("Vettingid")
+                    .vettingToken("Vettingtoken")
                     .build()
             )
 
@@ -52,8 +52,8 @@ internal class ExternalVettingServiceAsyncTest {
             externalVettingServiceAsync.order(
                 ExternalVettingOrderParams.builder()
                     .brandId("brandId")
-                    .evpId("evpId")
-                    .vettingClass("vettingClass")
+                    .evpId("Evpid")
+                    .vettingClass("Vettingclass")
                     .build()
             )
 

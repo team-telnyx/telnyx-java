@@ -93,7 +93,7 @@ internal class PhoneNumberServiceAsyncTest {
 
         val future =
             phoneNumberServiceAsync.verify(
-                PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("code").build()
+                PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("string").build()
             )
 
         val response = future.get()
