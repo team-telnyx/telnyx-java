@@ -17,7 +17,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Create a stored payment transaction */
+/** Create a transaction that charges a stored payment method on the account. */
 class PaymentCreateStoredPaymentTransactionParams
 private constructor(
     private val body: Body,

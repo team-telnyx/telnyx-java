@@ -29,7 +29,7 @@ interface AccessIpAddressService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccessIpAddressService
 
-    /** Create new Access IP Address */
+    /** Create a new access IP address entry on your account. */
     fun create(params: AccessIpAddressCreateParams): AccessIpAddressResponse =
         create(params, RequestOptions.none())
 
@@ -39,7 +39,7 @@ interface AccessIpAddressService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccessIpAddressResponse
 
-    /** Retrieve an access IP address */
+    /** Retrieve the details of a specific access IP address. */
     fun retrieve(accessIpAddressId: String): AccessIpAddressResponse =
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none())
 
@@ -74,7 +74,7 @@ interface AccessIpAddressService {
     ): AccessIpAddressResponse =
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none(), requestOptions)
 
-    /** List all Access IP Addresses */
+    /** Retrieve a paginated list of access IP addresses configured on your account. */
     fun list(): AccessIpAddressListPage = list(AccessIpAddressListParams.none())
 
     /** @see list */
@@ -92,7 +92,7 @@ interface AccessIpAddressService {
     fun list(requestOptions: RequestOptions): AccessIpAddressListPage =
         list(AccessIpAddressListParams.none(), requestOptions)
 
-    /** Delete access IP address */
+    /** Delete an access IP address entry from your account. */
     fun delete(accessIpAddressId: String): AccessIpAddressResponse =
         delete(accessIpAddressId, AccessIpAddressDeleteParams.none())
 

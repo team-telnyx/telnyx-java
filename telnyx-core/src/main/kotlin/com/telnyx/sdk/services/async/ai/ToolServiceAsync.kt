@@ -31,7 +31,7 @@ interface ToolServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolServiceAsync
 
-    /** Create Tool */
+    /** Create a new custom AI tool that can be attached to AI assistants. */
     fun create(params: ToolCreateParams): CompletableFuture<SharedToolResponse> =
         create(params, RequestOptions.none())
 
@@ -41,7 +41,7 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SharedToolResponse>
 
-    /** Get Tool */
+    /** Retrieve the details of a specific AI tool. */
     fun retrieve(toolId: String): CompletableFuture<SharedToolResponse> =
         retrieve(toolId, ToolRetrieveParams.none())
 
@@ -76,7 +76,7 @@ interface ToolServiceAsync {
     ): CompletableFuture<SharedToolResponse> =
         retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
-    /** Update Tool */
+    /** Update the configuration of an existing AI tool. */
     fun update(toolId: String): CompletableFuture<SharedToolResponse> =
         update(toolId, ToolUpdateParams.none())
 
@@ -111,7 +111,7 @@ interface ToolServiceAsync {
     ): CompletableFuture<SharedToolResponse> =
         update(toolId, ToolUpdateParams.none(), requestOptions)
 
-    /** List Tools */
+    /** Retrieve a list of the custom AI tools configured on your account. */
     fun list(): CompletableFuture<ToolListPageAsync> = list(ToolListParams.none())
 
     /** @see list */
@@ -128,7 +128,7 @@ interface ToolServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ToolListPageAsync> =
         list(ToolListParams.none(), requestOptions)
 
-    /** Delete Tool */
+    /** Delete a custom AI tool. */
     fun delete(toolId: String): CompletableFuture<ToolDeleteResponse> =
         delete(toolId, ToolDeleteParams.none())
 

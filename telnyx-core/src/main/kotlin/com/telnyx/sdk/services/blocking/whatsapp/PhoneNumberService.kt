@@ -91,7 +91,7 @@ interface PhoneNumberService {
     fun delete(phoneNumber: String, requestOptions: RequestOptions) =
         delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
 
-    /** List Whatsapp phone numbers */
+    /** Retrieve a list of the phone numbers registered for WhatsApp on your account. */
     fun get(): PhoneNumberGetResponse = get(PhoneNumberGetParams.none())
 
     /** @see get */

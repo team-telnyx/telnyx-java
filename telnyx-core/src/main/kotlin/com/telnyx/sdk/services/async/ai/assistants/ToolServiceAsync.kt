@@ -29,7 +29,7 @@ interface ToolServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolServiceAsync
 
-    /** Add Assistant Tool */
+    /** Attach an existing tool to an AI assistant. */
     fun add(toolId: String, params: ToolAddParams): CompletableFuture<ToolAddResponse> =
         add(toolId, params, RequestOptions.none())
 
@@ -51,7 +51,7 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ToolAddResponse>
 
-    /** Remove Assistant Tool */
+    /** Detach a tool from an AI assistant. */
     fun remove(toolId: String, params: ToolRemoveParams): CompletableFuture<ToolRemoveResponse> =
         remove(toolId, params, RequestOptions.none())
 

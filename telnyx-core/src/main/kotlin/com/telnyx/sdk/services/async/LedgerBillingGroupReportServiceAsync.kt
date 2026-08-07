@@ -27,7 +27,7 @@ interface LedgerBillingGroupReportServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LedgerBillingGroupReportServiceAsync
 
-    /** Create a ledger billing group report */
+    /** Create a ledger billing group report, which aggregates ledger activity by billing group. */
     fun create(): CompletableFuture<LedgerBillingGroupReportCreateResponse> =
         create(LedgerBillingGroupReportCreateParams.none())
 
@@ -49,7 +49,7 @@ interface LedgerBillingGroupReportServiceAsync {
     ): CompletableFuture<LedgerBillingGroupReportCreateResponse> =
         create(LedgerBillingGroupReportCreateParams.none(), requestOptions)
 
-    /** Get a ledger billing group report */
+    /** Retrieve the details and status of a previously created ledger billing group report. */
     fun retrieve(id: String): CompletableFuture<LedgerBillingGroupReportRetrieveResponse> =
         retrieve(id, LedgerBillingGroupReportRetrieveParams.none())
 

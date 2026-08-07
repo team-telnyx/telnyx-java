@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create Tool */
+/** Create a new custom AI tool that can be attached to AI assistants. */
 class ToolCreateParams
 private constructor(
     private val body: Body,

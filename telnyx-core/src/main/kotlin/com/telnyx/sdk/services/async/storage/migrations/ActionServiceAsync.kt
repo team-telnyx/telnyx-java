@@ -25,7 +25,7 @@ interface ActionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
-    /** Stop a Migration */
+    /** Stop an in-progress storage migration. */
     fun stop(id: String): CompletableFuture<ActionStopResponse> = stop(id, ActionStopParams.none())
 
     /** @see stop */

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch a cluster visualization */
+/** Fetch a visualization image of the clusters computed by a clustering task. */
 class ClusterFetchGraphParams
 private constructor(
     private val taskId: String?,

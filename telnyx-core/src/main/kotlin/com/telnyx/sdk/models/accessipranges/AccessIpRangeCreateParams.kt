@@ -18,7 +18,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create new Access IP Range */
+/** Create a new access IP range on your account. */
 class AccessIpRangeCreateParams
 private constructor(
     private val body: Body,

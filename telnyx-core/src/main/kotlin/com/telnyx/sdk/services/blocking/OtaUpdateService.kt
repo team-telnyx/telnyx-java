@@ -58,7 +58,7 @@ interface OtaUpdateService {
     fun retrieve(id: String, requestOptions: RequestOptions): OtaUpdateRetrieveResponse =
         retrieve(id, OtaUpdateRetrieveParams.none(), requestOptions)
 
-    /** List OTA updates */
+    /** Retrieve a paginated list of over-the-air (OTA) update operations for your SIM cards. */
     fun list(): OtaUpdateListPage = list(OtaUpdateListParams.none())
 
     /** @see list */

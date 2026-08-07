@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a Migration */
+/** Retrieve the details and status of a specific storage migration. */
 class MigrationRetrieveParams
 private constructor(
     private val id: String?,

@@ -47,7 +47,7 @@ interface StorageServiceAsync {
      */
     fun cloudfs(): CloudfServiceAsync
 
-    /** List Migration Source coverage */
+    /** List the external storage providers and regions supported as migration sources. */
     fun listMigrationSourceCoverage():
         CompletableFuture<StorageListMigrationSourceCoverageResponse> =
         listMigrationSourceCoverage(StorageListMigrationSourceCoverageParams.none())

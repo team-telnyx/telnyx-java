@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Tool */
+/** Retrieve the details of a specific AI tool. */
 class ToolRetrieveParams
 private constructor(
     private val toolId: String?,

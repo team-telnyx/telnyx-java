@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Tools */
+/** Retrieve a list of the custom AI tools configured on your account. */
 class ToolListParams
 private constructor(
     private val filterName: String?,

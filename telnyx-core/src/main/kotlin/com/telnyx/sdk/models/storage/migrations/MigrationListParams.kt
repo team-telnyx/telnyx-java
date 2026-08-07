@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List all Migrations */
+/** Retrieve a list of the storage migrations on your account. */
 class MigrationListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

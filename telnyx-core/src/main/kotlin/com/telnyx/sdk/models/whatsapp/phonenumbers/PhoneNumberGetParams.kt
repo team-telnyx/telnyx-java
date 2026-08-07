@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Whatsapp phone numbers */
+/** Retrieve a list of the phone numbers registered for WhatsApp on your account. */
 class PhoneNumberGetParams
 private constructor(
     private val pageNumber: Long?,

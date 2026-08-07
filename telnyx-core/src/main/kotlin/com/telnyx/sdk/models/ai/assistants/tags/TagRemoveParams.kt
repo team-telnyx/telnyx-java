@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Remove Assistant Tag */
+/** Remove a tag from an AI assistant. */
 class TagRemoveParams
 private constructor(
     private val assistantId: String,

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Migration Source */
+/** Delete a migration source configuration. */
 class MigrationSourceDeleteParams
 private constructor(
     private val id: String?,

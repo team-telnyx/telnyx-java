@@ -58,7 +58,7 @@ interface MigrationSourceService {
     fun create(migrationSourceParams: MigrationSourceParams): MigrationSourceCreateResponse =
         create(migrationSourceParams, RequestOptions.none())
 
-    /** Get a Migration Source */
+    /** Retrieve the details of a specific migration source. */
     fun retrieve(id: String): MigrationSourceRetrieveResponse =
         retrieve(id, MigrationSourceRetrieveParams.none())
 
@@ -89,7 +89,10 @@ interface MigrationSourceService {
     fun retrieve(id: String, requestOptions: RequestOptions): MigrationSourceRetrieveResponse =
         retrieve(id, MigrationSourceRetrieveParams.none(), requestOptions)
 
-    /** List all Migration Sources */
+    /**
+     * List the migration sources configured on your account. A migration source is an external
+     * storage bucket from which data can be migrated into Telnyx Cloud Storage.
+     */
     fun list(): MigrationSourceListResponse = list(MigrationSourceListParams.none())
 
     /** @see list */
@@ -107,7 +110,7 @@ interface MigrationSourceService {
     fun list(requestOptions: RequestOptions): MigrationSourceListResponse =
         list(MigrationSourceListParams.none(), requestOptions)
 
-    /** Delete a Migration Source */
+    /** Delete a migration source configuration. */
     fun delete(id: String): MigrationSourceDeleteResponse =
         delete(id, MigrationSourceDeleteParams.none())
 

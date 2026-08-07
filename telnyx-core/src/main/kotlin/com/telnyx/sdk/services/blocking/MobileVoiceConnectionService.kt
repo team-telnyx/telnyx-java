@@ -33,7 +33,7 @@ interface MobileVoiceConnectionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobileVoiceConnectionService
 
-    /** Create a Mobile Voice Connection */
+    /** Create a new mobile voice connection. */
     fun create(): MobileVoiceConnectionCreateResponse =
         create(MobileVoiceConnectionCreateParams.none())
 
@@ -52,7 +52,7 @@ interface MobileVoiceConnectionService {
     fun create(requestOptions: RequestOptions): MobileVoiceConnectionCreateResponse =
         create(MobileVoiceConnectionCreateParams.none(), requestOptions)
 
-    /** Retrieve a Mobile Voice Connection */
+    /** Retrieve the details of a specific mobile voice connection. */
     fun retrieve(id: String): MobileVoiceConnectionRetrieveResponse =
         retrieve(id, MobileVoiceConnectionRetrieveParams.none())
 
@@ -88,7 +88,7 @@ interface MobileVoiceConnectionService {
     ): MobileVoiceConnectionRetrieveResponse =
         retrieve(id, MobileVoiceConnectionRetrieveParams.none(), requestOptions)
 
-    /** Update a Mobile Voice Connection */
+    /** Update the settings of a specific mobile voice connection. */
     fun update(id: String): MobileVoiceConnectionUpdateResponse =
         update(id, MobileVoiceConnectionUpdateParams.none())
 
@@ -120,7 +120,7 @@ interface MobileVoiceConnectionService {
     fun update(id: String, requestOptions: RequestOptions): MobileVoiceConnectionUpdateResponse =
         update(id, MobileVoiceConnectionUpdateParams.none(), requestOptions)
 
-    /** List Mobile Voice Connections */
+    /** Retrieve a paginated list of mobile voice connections on your account. */
     fun list(): MobileVoiceConnectionListPage = list(MobileVoiceConnectionListParams.none())
 
     /** @see list */
@@ -138,7 +138,7 @@ interface MobileVoiceConnectionService {
     fun list(requestOptions: RequestOptions): MobileVoiceConnectionListPage =
         list(MobileVoiceConnectionListParams.none(), requestOptions)
 
-    /** Delete a Mobile Voice Connection */
+    /** Delete a mobile voice connection from your account. */
     fun delete(id: String): MobileVoiceConnectionDeleteResponse =
         delete(id, MobileVoiceConnectionDeleteParams.none())
 

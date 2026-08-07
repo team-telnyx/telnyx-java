@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch a cluster */
+/** Fetch the results of a clustering task, including the discovered clusters. */
 class ClusterRetrieveParams
 private constructor(
     private val taskId: String?,

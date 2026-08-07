@@ -27,7 +27,7 @@ interface LedgerBillingGroupReportService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LedgerBillingGroupReportService
 
-    /** Create a ledger billing group report */
+    /** Create a ledger billing group report, which aggregates ledger activity by billing group. */
     fun create(): LedgerBillingGroupReportCreateResponse =
         create(LedgerBillingGroupReportCreateParams.none())
 
@@ -46,7 +46,7 @@ interface LedgerBillingGroupReportService {
     fun create(requestOptions: RequestOptions): LedgerBillingGroupReportCreateResponse =
         create(LedgerBillingGroupReportCreateParams.none(), requestOptions)
 
-    /** Get a ledger billing group report */
+    /** Retrieve the details and status of a previously created ledger billing group report. */
     fun retrieve(id: String): LedgerBillingGroupReportRetrieveResponse =
         retrieve(id, LedgerBillingGroupReportRetrieveParams.none())
 

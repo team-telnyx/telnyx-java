@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Mobile Voice Connections */
+/** Retrieve a paginated list of mobile voice connections on your account. */
 class MobileVoiceConnectionListParams
 private constructor(
     private val filterConnectionNameContains: String?,

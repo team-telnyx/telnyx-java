@@ -19,7 +19,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a location's static emergency address */
+/**
+ * Update the static emergency address assigned to a specific location of an external connection.
+ */
 class ExternalConnectionUpdateLocationParams
 private constructor(
     private val id: String,

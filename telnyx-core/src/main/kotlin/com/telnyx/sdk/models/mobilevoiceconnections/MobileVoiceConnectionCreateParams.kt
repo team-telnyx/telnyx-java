@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a Mobile Voice Connection */
+/** Create a new mobile voice connection. */
 class MobileVoiceConnectionCreateParams
 private constructor(
     private val body: Body,

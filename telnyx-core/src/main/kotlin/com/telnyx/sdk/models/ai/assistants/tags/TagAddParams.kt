@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Add Assistant Tag */
+/** Add a tag to an AI assistant. Tags help you organize and filter your assistants. */
 class TagAddParams
 private constructor(
     private val assistantId: String?,

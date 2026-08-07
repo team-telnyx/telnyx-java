@@ -95,7 +95,7 @@ interface PhoneNumberServiceAsync {
     fun delete(phoneNumber: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
 
-    /** List Whatsapp phone numbers */
+    /** Retrieve a list of the phone numbers registered for WhatsApp on your account. */
     fun get(): CompletableFuture<PhoneNumberGetResponse> = get(PhoneNumberGetParams.none())
 
     /** @see get */

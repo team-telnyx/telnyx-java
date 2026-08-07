@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Global IP Usage Metrics */
+/** Retrieve usage metrics for your Global IPs. */
 class GlobalIpUsageRetrieveParams
 private constructor(
     private val filter: Filter?,

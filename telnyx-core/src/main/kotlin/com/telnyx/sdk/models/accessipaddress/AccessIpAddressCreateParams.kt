@@ -18,7 +18,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create new Access IP Address */
+/** Create a new access IP address entry on your account. */
 class AccessIpAddressCreateParams
 private constructor(
     private val body: Body,

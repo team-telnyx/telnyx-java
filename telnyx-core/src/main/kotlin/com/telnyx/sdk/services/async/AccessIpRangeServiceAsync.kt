@@ -28,7 +28,7 @@ interface AccessIpRangeServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccessIpRangeServiceAsync
 
-    /** Create new Access IP Range */
+    /** Create a new access IP range on your account. */
     fun create(params: AccessIpRangeCreateParams): CompletableFuture<AccessIpRange> =
         create(params, RequestOptions.none())
 
@@ -38,7 +38,7 @@ interface AccessIpRangeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccessIpRange>
 
-    /** List all Access IP Ranges */
+    /** Retrieve a paginated list of access IP ranges configured on your account. */
     fun list(): CompletableFuture<AccessIpRangeListPageAsync> = list(AccessIpRangeListParams.none())
 
     /** @see list */
@@ -56,7 +56,7 @@ interface AccessIpRangeServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpRangeListPageAsync> =
         list(AccessIpRangeListParams.none(), requestOptions)
 
-    /** Delete access IP ranges */
+    /** Delete an access IP range from your account. */
     fun delete(accessIpRangeId: String): CompletableFuture<AccessIpRange> =
         delete(accessIpRangeId, AccessIpRangeDeleteParams.none())
 

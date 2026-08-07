@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Submit verification code */
+/**
+ * Submit the verification code received via the selected verification method to verify a phone
+ * number.
+ */
 class ActionSubmitVerificationCodeParams
 private constructor(
     private val phoneNumber: String?,

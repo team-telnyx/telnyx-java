@@ -32,7 +32,7 @@ interface MobilePhoneNumberServiceAsync {
 
     fun messaging(): MessagingServiceAsync
 
-    /** Retrieve a Mobile Phone Number */
+    /** Retrieve the details of a specific mobile phone number. */
     fun retrieve(id: String): CompletableFuture<MobilePhoneNumberRetrieveResponse> =
         retrieve(id, MobilePhoneNumberRetrieveParams.none())
 
@@ -70,7 +70,7 @@ interface MobilePhoneNumberServiceAsync {
     ): CompletableFuture<MobilePhoneNumberRetrieveResponse> =
         retrieve(id, MobilePhoneNumberRetrieveParams.none(), requestOptions)
 
-    /** Update a Mobile Phone Number */
+    /** Update the settings of a specific mobile phone number. */
     fun update(id: String): CompletableFuture<MobilePhoneNumberUpdateResponse> =
         update(id, MobilePhoneNumberUpdateParams.none())
 
@@ -107,7 +107,7 @@ interface MobilePhoneNumberServiceAsync {
     ): CompletableFuture<MobilePhoneNumberUpdateResponse> =
         update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
-    /** List Mobile Phone Numbers */
+    /** Retrieve a paginated list of mobile phone numbers on your account. */
     fun list(): CompletableFuture<MobilePhoneNumberListPageAsync> =
         list(MobilePhoneNumberListParams.none())
 

@@ -25,7 +25,7 @@ interface GlobalIpUsageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpUsageService
 
-    /** Global IP Usage Metrics */
+    /** Retrieve usage metrics for your Global IPs. */
     fun retrieve(): GlobalIpUsageRetrieveResponse = retrieve(GlobalIpUsageRetrieveParams.none())
 
     /** @see retrieve */

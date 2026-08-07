@@ -32,7 +32,7 @@ interface ClusterServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ClusterServiceAsync
 
-    /** Fetch a cluster */
+    /** Fetch the results of a clustering task, including the discovered clusters. */
     fun retrieve(taskId: String): CompletableFuture<ClusterRetrieveResponse> =
         retrieve(taskId, ClusterRetrieveParams.none())
 
@@ -67,7 +67,7 @@ interface ClusterServiceAsync {
     ): CompletableFuture<ClusterRetrieveResponse> =
         retrieve(taskId, ClusterRetrieveParams.none(), requestOptions)
 
-    /** List all clusters */
+    /** Retrieve a paginated list of clustering tasks and their statuses. */
     fun list(): CompletableFuture<ClusterListPageAsync> = list(ClusterListParams.none())
 
     /** @see list */
@@ -85,7 +85,7 @@ interface ClusterServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ClusterListPageAsync> =
         list(ClusterListParams.none(), requestOptions)
 
-    /** Delete a cluster */
+    /** Delete a clustering task and its computed results. */
     fun delete(taskId: String): CompletableFuture<Void?> =
         delete(taskId, ClusterDeleteParams.none())
 
@@ -130,7 +130,7 @@ interface ClusterServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ClusterComputeResponse>
 
-    /** Fetch a cluster visualization */
+    /** Fetch a visualization image of the clusters computed by a clustering task. */
     fun fetchGraph(taskId: String): CompletableFuture<HttpResponse> =
         fetchGraph(taskId, ClusterFetchGraphParams.none())
 

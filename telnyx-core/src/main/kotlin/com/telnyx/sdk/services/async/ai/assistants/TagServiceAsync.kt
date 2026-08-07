@@ -27,7 +27,7 @@ interface TagServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagServiceAsync
 
-    /** Get All Tags */
+    /** Retrieve all tags that have been applied to your AI assistants. */
     fun list(): CompletableFuture<TagsResponse> = list(TagListParams.none())
 
     /** @see list */
@@ -44,7 +44,7 @@ interface TagServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<TagsResponse> =
         list(TagListParams.none(), requestOptions)
 
-    /** Add Assistant Tag */
+    /** Add a tag to an AI assistant. Tags help you organize and filter your assistants. */
     fun add(assistantId: String, params: TagAddParams): CompletableFuture<TagsResponse> =
         add(assistantId, params, RequestOptions.none())
 
@@ -66,7 +66,7 @@ interface TagServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TagsResponse>
 
-    /** Remove Assistant Tag */
+    /** Remove a tag from an AI assistant. */
     fun remove(tag: String, params: TagRemoveParams): CompletableFuture<TagsResponse> =
         remove(tag, params, RequestOptions.none())
 

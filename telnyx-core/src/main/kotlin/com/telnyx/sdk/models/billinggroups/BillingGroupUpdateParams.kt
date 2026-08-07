@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a billing group */
+/** Update the properties of an existing billing group. */
 class BillingGroupUpdateParams
 private constructor(
     private val id: String?,

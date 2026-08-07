@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update Tool */
+/** Update the configuration of an existing AI tool. */
 class ToolUpdateParams
 private constructor(
     private val toolId: String?,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a ledger billing group report */
+/** Retrieve the details and status of a previously created ledger billing group report. */
 class LedgerBillingGroupReportRetrieveParams
 private constructor(
     private val id: String?,

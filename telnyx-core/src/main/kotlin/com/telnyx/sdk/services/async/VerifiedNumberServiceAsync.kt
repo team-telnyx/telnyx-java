@@ -48,7 +48,7 @@ interface VerifiedNumberServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VerifiedNumberCreateResponse>
 
-    /** Retrieve a verified number */
+    /** Retrieve the details of a verified number on your account. */
     fun retrieve(phoneNumber: String): CompletableFuture<VerifiedNumberDataWrapper> =
         retrieve(phoneNumber, VerifiedNumberRetrieveParams.none())
 
@@ -104,7 +104,7 @@ interface VerifiedNumberServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<VerifiedNumberListPageAsync> =
         list(VerifiedNumberListParams.none(), requestOptions)
 
-    /** Delete a verified number */
+    /** Remove a verified number from your account. */
     fun delete(phoneNumber: String): CompletableFuture<VerifiedNumberDataWrapper> =
         delete(phoneNumber, VerifiedNumberDeleteParams.none())
 
