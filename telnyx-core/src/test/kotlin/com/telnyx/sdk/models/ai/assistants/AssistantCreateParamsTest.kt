@@ -284,6 +284,7 @@ internal class AssistantCreateParamsTest {
             .telephonySettings(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
+                    .disableDtmf(true)
                     .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
@@ -761,6 +762,7 @@ internal class AssistantCreateParamsTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
+                        .disableDtmf(true)
                         .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
@@ -1243,6 +1245,7 @@ internal class AssistantCreateParamsTest {
             .contains(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
+                    .disableDtmf(true)
                     .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()

@@ -14,6 +14,7 @@ internal class TelephonySettingsTest {
         val telephonySettings =
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
+                .disableDtmf(true)
                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()
@@ -62,6 +63,7 @@ internal class TelephonySettingsTest {
                 .build()
 
         assertThat(telephonySettings.defaultTexmlAppId()).contains("default_texml_app_id")
+        assertThat(telephonySettings.disableDtmf()).contains(true)
         assertThat(telephonySettings.noiseSuppression())
             .contains(TelephonySettings.NoiseSuppression.KRISP)
         assertThat(telephonySettings.noiseSuppressionConfig())
@@ -119,6 +121,7 @@ internal class TelephonySettingsTest {
         val telephonySettings =
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
+                .disableDtmf(true)
                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()

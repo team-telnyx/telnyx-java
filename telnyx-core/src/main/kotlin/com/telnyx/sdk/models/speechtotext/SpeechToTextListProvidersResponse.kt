@@ -221,6 +221,7 @@ private constructor(
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val hosted: JsonField<Boolean>,
         private val model: JsonField<String>,
         private val provider: JsonField<String>,
         private val serviceTypes: JsonField<List<ServiceType>>,
@@ -229,6 +230,7 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("hosted") @ExcludeMissing hosted: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("provider")
             @ExcludeMissing
@@ -236,7 +238,16 @@ private constructor(
             @JsonProperty("service_types")
             @ExcludeMissing
             serviceTypes: JsonField<List<ServiceType>> = JsonMissing.of(),
-        ) : this(model, provider, serviceTypes, mutableMapOf())
+        ) : this(hosted, model, provider, serviceTypes, mutableMapOf())
+
+        /**
+         * Whether this model runs on Telnyx-hosted infrastructure (`true`) or is provided by a
+         * third-party vendor (`false`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun hosted(): Boolean = hosted.getRequired("hosted")
 
         /**
          * Provider-scoped model name.
@@ -262,6 +273,13 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun serviceTypes(): List<ServiceType> = serviceTypes.getRequired("service_types")
+
+        /**
+         * Returns the raw JSON value of [hosted].
+         *
+         * Unlike [hosted], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("hosted") @ExcludeMissing fun _hosted(): JsonField<Boolean> = hosted
 
         /**
          * Returns the raw JSON value of [model].
@@ -306,6 +324,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .hosted()
              * .model()
              * .provider()
              * .serviceTypes()
@@ -317,6 +336,7 @@ private constructor(
         /** A builder for [Data]. */
         class Builder internal constructor() {
 
+            private var hosted: JsonField<Boolean>? = null
             private var model: JsonField<String>? = null
             private var provider: JsonField<String>? = null
             private var serviceTypes: JsonField<MutableList<ServiceType>>? = null
@@ -324,11 +344,27 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(data: Data) = apply {
+                hosted = data.hosted
                 model = data.model
                 provider = data.provider
                 serviceTypes = data.serviceTypes.map { it.toMutableList() }
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
+
+            /**
+             * Whether this model runs on Telnyx-hosted infrastructure (`true`) or is provided by a
+             * third-party vendor (`false`).
+             */
+            fun hosted(hosted: Boolean) = hosted(JsonField.of(hosted))
+
+            /**
+             * Sets [Builder.hosted] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.hosted] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun hosted(hosted: JsonField<Boolean>) = apply { this.hosted = hosted }
 
             /** Provider-scoped model name. */
             fun model(model: String) = model(JsonField.of(model))
@@ -410,6 +446,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .hosted()
              * .model()
              * .provider()
              * .serviceTypes()
@@ -419,6 +456,7 @@ private constructor(
              */
             fun build(): Data =
                 Data(
+                    checkRequired("hosted", hosted),
                     checkRequired("model", model),
                     checkRequired("provider", provider),
                     checkRequired("serviceTypes", serviceTypes).map { it.toImmutable() },
@@ -442,6 +480,7 @@ private constructor(
                 return@apply
             }
 
+            hosted()
             model()
             provider()
             serviceTypes().forEach { it.validate() }
@@ -464,7 +503,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (model.asKnown().isPresent) 1 else 0) +
+            (if (hosted.asKnown().isPresent) 1 else 0) +
+                (if (model.asKnown().isPresent) 1 else 0) +
                 (if (provider.asKnown().isPresent) 1 else 0) +
                 (serviceTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
@@ -727,6 +767,7 @@ private constructor(
             }
 
             return other is Data &&
+                hosted == other.hosted &&
                 model == other.model &&
                 provider == other.provider &&
                 serviceTypes == other.serviceTypes &&
@@ -734,13 +775,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(model, provider, serviceTypes, additionalProperties)
+            Objects.hash(hosted, model, provider, serviceTypes, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{model=$model, provider=$provider, serviceTypes=$serviceTypes, additionalProperties=$additionalProperties}"
+            "Data{hosted=$hosted, model=$model, provider=$provider, serviceTypes=$serviceTypes, additionalProperties=$additionalProperties}"
     }
 
     class Meta

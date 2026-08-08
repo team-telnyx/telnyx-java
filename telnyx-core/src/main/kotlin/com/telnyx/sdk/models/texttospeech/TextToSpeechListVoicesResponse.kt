@@ -175,6 +175,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val gender: JsonField<String>,
+        private val hosted: JsonField<Boolean>,
         private val language: JsonField<String>,
         private val name: JsonField<String>,
         private val provider: JsonField<String>,
@@ -185,6 +186,7 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("gender") @ExcludeMissing gender: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("hosted") @ExcludeMissing hosted: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
@@ -193,7 +195,7 @@ private constructor(
             @ExcludeMissing
             provider: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice_id") @ExcludeMissing voiceId: JsonField<String> = JsonMissing.of(),
-        ) : this(gender, language, name, provider, voiceId, mutableMapOf())
+        ) : this(gender, hosted, language, name, provider, voiceId, mutableMapOf())
 
         /**
          * Voice gender.
@@ -202,6 +204,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun gender(): Optional<String> = gender.getOptional("gender")
+
+        /**
+         * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided by a
+         * third-party vendor (`false`).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun hosted(): Optional<Boolean> = hosted.getOptional("hosted")
 
         /**
          * Language code.
@@ -241,6 +252,13 @@ private constructor(
          * Unlike [gender], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("gender") @ExcludeMissing fun _gender(): JsonField<String> = gender
+
+        /**
+         * Returns the raw JSON value of [hosted].
+         *
+         * Unlike [hosted], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("hosted") @ExcludeMissing fun _hosted(): JsonField<Boolean> = hosted
 
         /**
          * Returns the raw JSON value of [language].
@@ -292,6 +310,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var gender: JsonField<String> = JsonMissing.of()
+            private var hosted: JsonField<Boolean> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var provider: JsonField<String> = JsonMissing.of()
@@ -301,6 +320,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(voice: Voice) = apply {
                 gender = voice.gender
+                hosted = voice.hosted
                 language = voice.language
                 name = voice.name
                 provider = voice.provider
@@ -319,6 +339,21 @@ private constructor(
              * supported value.
              */
             fun gender(gender: JsonField<String>) = apply { this.gender = gender }
+
+            /**
+             * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided by a
+             * third-party vendor (`false`).
+             */
+            fun hosted(hosted: Boolean) = hosted(JsonField.of(hosted))
+
+            /**
+             * Sets [Builder.hosted] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.hosted] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun hosted(hosted: JsonField<Boolean>) = apply { this.hosted = hosted }
 
             /** Language code. */
             fun language(language: String) = language(JsonField.of(language))
@@ -395,6 +430,7 @@ private constructor(
             fun build(): Voice =
                 Voice(
                     gender,
+                    hosted,
                     language,
                     name,
                     provider,
@@ -420,6 +456,7 @@ private constructor(
             }
 
             gender()
+            hosted()
             language()
             name()
             provider()
@@ -444,6 +481,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (gender.asKnown().isPresent) 1 else 0) +
+                (if (hosted.asKnown().isPresent) 1 else 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (provider.asKnown().isPresent) 1 else 0) +
@@ -456,6 +494,7 @@ private constructor(
 
             return other is Voice &&
                 gender == other.gender &&
+                hosted == other.hosted &&
                 language == other.language &&
                 name == other.name &&
                 provider == other.provider &&
@@ -464,13 +503,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(gender, language, name, provider, voiceId, additionalProperties)
+            Objects.hash(gender, hosted, language, name, provider, voiceId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Voice{gender=$gender, language=$language, name=$name, provider=$provider, voiceId=$voiceId, additionalProperties=$additionalProperties}"
+            "Voice{gender=$gender, hosted=$hosted, language=$language, name=$name, provider=$provider, voiceId=$voiceId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
