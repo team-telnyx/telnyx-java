@@ -60,7 +60,7 @@ internal class ConversationServiceAsyncTest {
                     .conversationId("conversation_id")
                     .metadata(
                         ConversationUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .putAdditionalProperty("ai_disabled", JsonValue.from("true"))
                             .build()
                     )
                     .build()
