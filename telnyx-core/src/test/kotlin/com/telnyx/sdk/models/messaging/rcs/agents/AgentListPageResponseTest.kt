@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.messaging.rcs.agents
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
-import com.telnyx.sdk.models.rcsagents.RcsAgent
+import com.telnyx.sdk.models.rcs.agents.RcsAgent
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat

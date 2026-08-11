@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.services.blocking
+package com.telnyx.sdk.services.blocking.rcs
 
 import com.telnyx.sdk.core.ClientOptions
 import java.util.function.Consumer
 
-interface RcsAgentService {
+interface AgentService {
 
     /**
      * Returns a view of this service that provides access to raw HTTP responses for each method.
@@ -17,9 +17,9 @@ interface RcsAgentService {
      *
      * The original service is not modified.
      */
-    fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcsAgentService
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): AgentService
 
-    /** A view of [RcsAgentService] that provides access to raw HTTP responses for each method. */
+    /** A view of [AgentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -27,6 +27,6 @@ interface RcsAgentService {
          *
          * The original service is not modified.
          */
-        fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcsAgentService.WithRawResponse
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): AgentService.WithRawResponse
     }
 }

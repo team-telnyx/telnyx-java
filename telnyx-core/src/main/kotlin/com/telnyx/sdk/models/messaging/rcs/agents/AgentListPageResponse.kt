@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
-import com.telnyx.sdk.models.rcsagents.RcsAgent
+import com.telnyx.sdk.models.rcs.agents.RcsAgent
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

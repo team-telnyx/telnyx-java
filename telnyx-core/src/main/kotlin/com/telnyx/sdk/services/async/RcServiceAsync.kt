@@ -3,9 +3,10 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.services.async.rcs.AgentServiceAsync
 import java.util.function.Consumer
 
-interface RcsAgentServiceAsync {
+interface RcServiceAsync {
 
     /**
      * Returns a view of this service that provides access to raw HTTP responses for each method.
@@ -17,11 +18,11 @@ interface RcsAgentServiceAsync {
      *
      * The original service is not modified.
      */
-    fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcsAgentServiceAsync
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcServiceAsync
 
-    /**
-     * A view of [RcsAgentServiceAsync] that provides access to raw HTTP responses for each method.
-     */
+    fun agents(): AgentServiceAsync
+
+    /** A view of [RcServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -29,8 +30,8 @@ interface RcsAgentServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: Consumer<ClientOptions.Builder>
-        ): RcsAgentServiceAsync.WithRawResponse
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcServiceAsync.WithRawResponse
+
+        fun agents(): AgentServiceAsync.WithRawResponse
     }
 }

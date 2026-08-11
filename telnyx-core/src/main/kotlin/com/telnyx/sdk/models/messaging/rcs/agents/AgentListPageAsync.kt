@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
-import com.telnyx.sdk.models.rcsagents.RcsAgent
+import com.telnyx.sdk.models.rcs.agents.RcsAgent
 import com.telnyx.sdk.services.async.messaging.rcs.AgentServiceAsync
 import java.util.Objects
 import java.util.Optional

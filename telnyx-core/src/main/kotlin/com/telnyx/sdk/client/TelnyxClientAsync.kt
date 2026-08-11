@@ -126,7 +126,7 @@ import com.telnyx.sdk.services.async.PrivateWirelessGatewayServiceAsync
 import com.telnyx.sdk.services.async.PronunciationDictServiceAsync
 import com.telnyx.sdk.services.async.PublicInternetGatewayServiceAsync
 import com.telnyx.sdk.services.async.QueueServiceAsync
-import com.telnyx.sdk.services.async.RcsAgentServiceAsync
+import com.telnyx.sdk.services.async.RcServiceAsync
 import com.telnyx.sdk.services.async.RecordingServiceAsync
 import com.telnyx.sdk.services.async.RecordingTranscriptionServiceAsync
 import com.telnyx.sdk.services.async.RegionServiceAsync
@@ -513,7 +513,7 @@ interface TelnyxClientAsync {
     /** Queue commands operations */
     fun queues(): QueueServiceAsync
 
-    fun rcsAgents(): RcsAgentServiceAsync
+    fun rcs(): RcServiceAsync
 
     /** Call Recordings operations. */
     fun recordingTranscriptions(): RecordingTranscriptionServiceAsync
@@ -1069,7 +1069,7 @@ interface TelnyxClientAsync {
         /** Queue commands operations */
         fun queues(): QueueServiceAsync.WithRawResponse
 
-        fun rcsAgents(): RcsAgentServiceAsync.WithRawResponse
+        fun rcs(): RcServiceAsync.WithRawResponse
 
         /** Call Recordings operations. */
         fun recordingTranscriptions(): RecordingTranscriptionServiceAsync.WithRawResponse

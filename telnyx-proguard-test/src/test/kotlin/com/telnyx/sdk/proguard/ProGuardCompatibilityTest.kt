@@ -157,7 +157,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.privateWirelessGateways()).isNotNull()
         assertThat(client.publicInternetGateways()).isNotNull()
         assertThat(client.queues()).isNotNull()
-        assertThat(client.rcsAgents()).isNotNull()
+        assertThat(client.rcs()).isNotNull()
         assertThat(client.recordingTranscriptions()).isNotNull()
         assertThat(client.recordings()).isNotNull()
         assertThat(client.regions()).isNotNull()

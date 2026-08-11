@@ -250,8 +250,8 @@ import com.telnyx.sdk.services.async.PublicInternetGatewayServiceAsync
 import com.telnyx.sdk.services.async.PublicInternetGatewayServiceAsyncImpl
 import com.telnyx.sdk.services.async.QueueServiceAsync
 import com.telnyx.sdk.services.async.QueueServiceAsyncImpl
-import com.telnyx.sdk.services.async.RcsAgentServiceAsync
-import com.telnyx.sdk.services.async.RcsAgentServiceAsyncImpl
+import com.telnyx.sdk.services.async.RcServiceAsync
+import com.telnyx.sdk.services.async.RcServiceAsyncImpl
 import com.telnyx.sdk.services.async.RecordingServiceAsync
 import com.telnyx.sdk.services.async.RecordingServiceAsyncImpl
 import com.telnyx.sdk.services.async.RecordingTranscriptionServiceAsync
@@ -780,9 +780,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         QueueServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val rcsAgents: RcsAgentServiceAsync by lazy {
-        RcsAgentServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
+    private val rcs: RcServiceAsync by lazy { RcServiceAsyncImpl(clientOptionsWithUserAgent) }
 
     private val recordingTranscriptions: RecordingTranscriptionServiceAsync by lazy {
         RecordingTranscriptionServiceAsyncImpl(clientOptionsWithUserAgent)
@@ -1403,7 +1401,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** Queue commands operations */
     override fun queues(): QueueServiceAsync = queues
 
-    override fun rcsAgents(): RcsAgentServiceAsync = rcsAgents
+    override fun rcs(): RcServiceAsync = rcs
 
     /** Call Recordings operations. */
     override fun recordingTranscriptions(): RecordingTranscriptionServiceAsync =
@@ -2089,8 +2087,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             QueueServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val rcsAgents: RcsAgentServiceAsync.WithRawResponse by lazy {
-            RcsAgentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val rcs: RcServiceAsync.WithRawResponse by lazy {
+            RcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val recordingTranscriptions:
@@ -2767,7 +2765,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Queue commands operations */
         override fun queues(): QueueServiceAsync.WithRawResponse = queues
 
-        override fun rcsAgents(): RcsAgentServiceAsync.WithRawResponse = rcsAgents
+        override fun rcs(): RcServiceAsync.WithRawResponse = rcs
 
         /** Call Recordings operations. */
         override fun recordingTranscriptions(): RecordingTranscriptionServiceAsync.WithRawResponse =
