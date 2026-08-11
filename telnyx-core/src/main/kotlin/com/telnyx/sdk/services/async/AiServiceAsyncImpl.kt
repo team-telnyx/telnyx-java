@@ -116,6 +116,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     /** Identify common themes and patterns in your embedded documents */
     override fun clusters(): ClusterServiceAsync = clusters
 
+    /**
+     * Create and manage logical collections of your Telnyx data, tune retrieval settings, manage
+     * sources, and run collection-scoped semantic search.
+     */
     override fun collections(): CollectionServiceAsync = collections
 
     /** Manage historical AI assistant conversations */
@@ -234,6 +238,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         /** Identify common themes and patterns in your embedded documents */
         override fun clusters(): ClusterServiceAsync.WithRawResponse = clusters
 
+        /**
+         * Create and manage logical collections of your Telnyx data, tune retrieval settings,
+         * manage sources, and run collection-scoped semantic search.
+         */
         override fun collections(): CollectionServiceAsync.WithRawResponse = collections
 
         /** Manage historical AI assistant conversations */

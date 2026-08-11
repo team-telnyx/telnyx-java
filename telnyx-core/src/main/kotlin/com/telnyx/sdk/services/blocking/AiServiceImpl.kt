@@ -100,6 +100,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     /** Identify common themes and patterns in your embedded documents */
     override fun clusters(): ClusterService = clusters
 
+    /**
+     * Create and manage logical collections of your Telnyx data, tune retrieval settings, manage
+     * sources, and run collection-scoped semantic search.
+     */
     override fun collections(): CollectionService = collections
 
     /** Manage historical AI assistant conversations */
@@ -216,6 +220,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         /** Identify common themes and patterns in your embedded documents */
         override fun clusters(): ClusterService.WithRawResponse = clusters
 
+        /**
+         * Create and manage logical collections of your Telnyx data, tune retrieval settings,
+         * manage sources, and run collection-scoped semantic search.
+         */
         override fun collections(): CollectionService.WithRawResponse = collections
 
         /** Manage historical AI assistant conversations */

@@ -147,6 +147,7 @@ internal class FqdnConnectionServiceTest {
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
                     .callCostInWebhooks(true)
                     .connectionName("string")
+                    .conversationPersistence(true)
                     .defaultOnHoldComfortNoiseEnabled(true)
                     .dtmfType(DtmfType.RFC_2833)
                     .encodeContactHeaderEnabled(true)
