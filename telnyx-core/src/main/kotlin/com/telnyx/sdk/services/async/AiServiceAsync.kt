@@ -14,6 +14,7 @@ import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
+import com.telnyx.sdk.services.async.ai.CollectionServiceAsync
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
@@ -48,6 +49,8 @@ interface AiServiceAsync {
 
     /** Identify common themes and patterns in your embedded documents */
     fun clusters(): ClusterServiceAsync
+
+    fun collections(): CollectionServiceAsync
 
     /** Manage historical AI assistant conversations */
     fun conversations(): ConversationServiceAsync
@@ -167,6 +170,8 @@ interface AiServiceAsync {
 
         /** Identify common themes and patterns in your embedded documents */
         fun clusters(): ClusterServiceAsync.WithRawResponse
+
+        fun collections(): CollectionServiceAsync.WithRawResponse
 
         /** Manage historical AI assistant conversations */
         fun conversations(): ConversationServiceAsync.WithRawResponse

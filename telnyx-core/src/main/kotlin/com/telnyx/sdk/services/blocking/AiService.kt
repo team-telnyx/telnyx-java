@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AudioService
 import com.telnyx.sdk.services.blocking.ai.ChatService
 import com.telnyx.sdk.services.blocking.ai.ClusterService
+import com.telnyx.sdk.services.blocking.ai.CollectionService
 import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.FineTuningService
@@ -48,6 +49,8 @@ interface AiService {
 
     /** Identify common themes and patterns in your embedded documents */
     fun clusters(): ClusterService
+
+    fun collections(): CollectionService
 
     /** Manage historical AI assistant conversations */
     fun conversations(): ConversationService
@@ -167,6 +170,8 @@ interface AiService {
 
         /** Identify common themes and patterns in your embedded documents */
         fun clusters(): ClusterService.WithRawResponse
+
+        fun collections(): CollectionService.WithRawResponse
 
         /** Manage historical AI assistant conversations */
         fun conversations(): ConversationService.WithRawResponse
