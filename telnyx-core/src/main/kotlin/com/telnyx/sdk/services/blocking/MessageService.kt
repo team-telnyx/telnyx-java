@@ -26,10 +26,11 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
+import com.telnyx.sdk.models.messages.MessageWhatsappParams
+import com.telnyx.sdk.models.messages.MessageWhatsappResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import java.util.function.Consumer
 
-/** Messages */
 interface MessageService {
 
     /**
@@ -248,6 +249,21 @@ interface MessageService {
         params: MessageSendWithAlphanumericSenderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendWithAlphanumericSenderResponse
+
+    /**
+     * Sends a WhatsApp message using a Telnyx WhatsApp-enabled number. The message body,
+     * interactive elements, media, location, and reaction content are specified in the
+     * `whatsapp_message` field. Delivery progress and final disposition are reported asynchronously
+     * through messaging webhooks.
+     */
+    fun whatsapp(params: MessageWhatsappParams): MessageWhatsappResponse =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: MessageWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageWhatsappResponse
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -520,5 +536,20 @@ interface MessageService {
             params: MessageSendWithAlphanumericSenderParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessageSendWithAlphanumericSenderResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
+         * [MessageService.whatsapp].
+         */
+        @MustBeClosed
+        fun whatsapp(params: MessageWhatsappParams): HttpResponseFor<MessageWhatsappResponse> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        @MustBeClosed
+        fun whatsapp(
+            params: MessageWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageWhatsappResponse>
     }
 }
