@@ -25,7 +25,11 @@ interface AvailablePhoneNumberService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AvailablePhoneNumberService
 
-    /** List available phone numbers */
+    /**
+     * Searches the Telnyx inventory for available phone numbers. Filters support number patterns,
+     * location, number type, features, reservability, and other inventory constraints; the response
+     * includes matching numbers and search metadata.
+     */
     fun list(): AvailablePhoneNumberListResponse = list(AvailablePhoneNumberListParams.none())
 
     /** @see list */

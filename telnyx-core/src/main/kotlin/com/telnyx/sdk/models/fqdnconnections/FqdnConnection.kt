@@ -37,6 +37,7 @@ private constructor(
     private val androidPushCredentialId: JsonField<String>,
     private val callCostEnabled: JsonField<Boolean>,
     private val callCostInWebhooks: JsonField<Boolean>,
+    private val conversationPersistence: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
     private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
     private val dtmfType: JsonField<DtmfType>,
@@ -94,6 +95,9 @@ private constructor(
         @JsonProperty("call_cost_in_webhooks")
         @ExcludeMissing
         callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("conversation_persistence")
+        @ExcludeMissing
+        conversationPersistence: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("default_on_hold_comfort_noise_enabled")
         @ExcludeMissing
@@ -179,6 +183,7 @@ private constructor(
         androidPushCredentialId,
         callCostEnabled,
         callCostInWebhooks,
+        conversationPersistence,
         createdAt,
         defaultOnHoldComfortNoiseEnabled,
         dtmfType,
@@ -283,6 +288,16 @@ private constructor(
      */
     fun callCostInWebhooks(): Optional<Boolean> =
         callCostInWebhooks.getOptional("call_cost_in_webhooks")
+
+    /**
+     * Whether conversation persistence is enabled for this connection. When enabled, calls handled
+     * by the connection are transcribed, stored, and indexed. Defaults to false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationPersistence(): Optional<Boolean> =
+        conversationPersistence.getOptional("conversation_persistence")
 
     /**
      * ISO 8601 formatted date indicating when the resource was created.
@@ -638,6 +653,16 @@ private constructor(
     fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
 
     /**
+     * Returns the raw JSON value of [conversationPersistence].
+     *
+     * Unlike [conversationPersistence], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("conversation_persistence")
+    @ExcludeMissing
+    fun _conversationPersistence(): JsonField<Boolean> = conversationPersistence
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -953,6 +978,7 @@ private constructor(
         private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
         private var callCostEnabled: JsonField<Boolean> = JsonMissing.of()
         private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
+        private var conversationPersistence: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
         private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
@@ -998,6 +1024,7 @@ private constructor(
             androidPushCredentialId = fqdnConnection.androidPushCredentialId
             callCostEnabled = fqdnConnection.callCostEnabled
             callCostInWebhooks = fqdnConnection.callCostInWebhooks
+            conversationPersistence = fqdnConnection.conversationPersistence
             createdAt = fqdnConnection.createdAt
             defaultOnHoldComfortNoiseEnabled = fqdnConnection.defaultOnHoldComfortNoiseEnabled
             dtmfType = fqdnConnection.dtmfType
@@ -1153,6 +1180,24 @@ private constructor(
          */
         fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
             this.callCostInWebhooks = callCostInWebhooks
+        }
+
+        /**
+         * Whether conversation persistence is enabled for this connection. When enabled, calls
+         * handled by the connection are transcribed, stored, and indexed. Defaults to false.
+         */
+        fun conversationPersistence(conversationPersistence: Boolean) =
+            conversationPersistence(JsonField.of(conversationPersistence))
+
+        /**
+         * Sets [Builder.conversationPersistence] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationPersistence] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun conversationPersistence(conversationPersistence: JsonField<Boolean>) = apply {
+            this.conversationPersistence = conversationPersistence
         }
 
         /** ISO 8601 formatted date indicating when the resource was created. */
@@ -1711,6 +1756,7 @@ private constructor(
                 androidPushCredentialId,
                 callCostEnabled,
                 callCostInWebhooks,
+                conversationPersistence,
                 createdAt,
                 defaultOnHoldComfortNoiseEnabled,
                 dtmfType,
@@ -1770,6 +1816,7 @@ private constructor(
         androidPushCredentialId()
         callCostEnabled()
         callCostInWebhooks()
+        conversationPersistence()
         createdAt()
         defaultOnHoldComfortNoiseEnabled()
         dtmfType().ifPresent { it.validate() }
@@ -1828,6 +1875,7 @@ private constructor(
             (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
             (if (callCostEnabled.asKnown().isPresent) 1 else 0) +
             (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
+            (if (conversationPersistence.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
             (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1875,6 +1923,7 @@ private constructor(
             androidPushCredentialId == other.androidPushCredentialId &&
             callCostEnabled == other.callCostEnabled &&
             callCostInWebhooks == other.callCostInWebhooks &&
+            conversationPersistence == other.conversationPersistence &&
             createdAt == other.createdAt &&
             defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
             dtmfType == other.dtmfType &&
@@ -1920,6 +1969,7 @@ private constructor(
             androidPushCredentialId,
             callCostEnabled,
             callCostInWebhooks,
+            conversationPersistence,
             createdAt,
             defaultOnHoldComfortNoiseEnabled,
             dtmfType,
@@ -1959,5 +2009,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, conversationPersistence=$conversationPersistence, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

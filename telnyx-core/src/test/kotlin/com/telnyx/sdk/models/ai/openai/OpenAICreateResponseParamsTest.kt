@@ -20,7 +20,7 @@ internal class OpenAICreateResponseParamsTest {
             .instructions("You are a friendly chatbot.")
             .model("zai-org/GLM-5.1-FP8")
             .serviceTier("service_tier")
-            .stream(true)
+            .stream(false)
             .build()
     }
 
@@ -37,7 +37,7 @@ internal class OpenAICreateResponseParamsTest {
                 .instructions("You are a friendly chatbot.")
                 .model("zai-org/GLM-5.1-FP8")
                 .serviceTier("service_tier")
-                .stream(true)
+                .stream(false)
                 .build()
 
         val body = params._body()
@@ -52,7 +52,7 @@ internal class OpenAICreateResponseParamsTest {
         assertThat(body.instructions()).contains("You are a friendly chatbot.")
         assertThat(body.model()).contains("zai-org/GLM-5.1-FP8")
         assertThat(body.serviceTier()).contains("service_tier")
-        assertThat(body.stream()).contains(true)
+        assertThat(body.stream()).contains(false)
     }
 
     @Test

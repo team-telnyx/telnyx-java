@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a messaging hosted number order */
+/**
+ * Returns the current state, phone numbers, and required actions for the specified hosted-messaging
+ * order.
+ */
 class MessagingHostedNumberOrderRetrieveParams
 private constructor(
     private val id: String?,

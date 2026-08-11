@@ -27,7 +27,10 @@ interface MessagingNumbersBulkUpdateService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingNumbersBulkUpdateService
 
-    /** Bulk update phone number profiles */
+    /**
+     * Starts a bulk update of messaging-profile assignments for the supplied phone numbers. The
+     * response identifies the order used to monitor processing.
+     */
     fun create(
         params: MessagingNumbersBulkUpdateCreateParams
     ): MessagingNumbersBulkUpdateCreateResponse = create(params, RequestOptions.none())
@@ -38,7 +41,7 @@ interface MessagingNumbersBulkUpdateService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessagingNumbersBulkUpdateCreateResponse
 
-    /** Retrieve bulk update status */
+    /** Returns processing status and results for a bulk messaging-settings update order. */
     fun retrieve(orderId: String): MessagingNumbersBulkUpdateRetrieveResponse =
         retrieve(orderId, MessagingNumbersBulkUpdateRetrieveParams.none())
 

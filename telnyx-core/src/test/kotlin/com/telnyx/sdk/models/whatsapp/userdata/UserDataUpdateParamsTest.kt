@@ -10,8 +10,8 @@ internal class UserDataUpdateParamsTest {
     @Test
     fun create() {
         UserDataUpdateParams.builder()
-            .webhookFailoverUrl("webhook_failover_url")
-            .webhookUrl("webhook_url")
+            .webhookFailoverUrl("https://example.com")
+            .webhookUrl("https://example.com")
             .build()
     }
 
@@ -19,14 +19,14 @@ internal class UserDataUpdateParamsTest {
     fun body() {
         val params =
             UserDataUpdateParams.builder()
-                .webhookFailoverUrl("webhook_failover_url")
-                .webhookUrl("webhook_url")
+                .webhookFailoverUrl("https://example.com")
+                .webhookUrl("https://example.com")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.webhookFailoverUrl()).contains("webhook_failover_url")
-        assertThat(body.webhookUrl()).contains("webhook_url")
+        assertThat(body.webhookFailoverUrl()).contains("https://example.com")
+        assertThat(body.webhookUrl()).contains("https://example.com")
     }
 
     @Test

@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Get user balance details */
+/** Retrieve the current balance, available credit, and credit limit for your account. */
 class BalanceRetrieveParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

@@ -29,7 +29,9 @@ interface JobServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): JobServiceAsync
 
-    /** Retrieves a phone number blocks job */
+    /**
+     * Returns the status and details of the phone-number-block background job identified by `id`.
+     */
     fun retrieve(id: String): CompletableFuture<JobRetrieveResponse> =
         retrieve(id, JobRetrieveParams.none())
 
@@ -64,7 +66,10 @@ interface JobServiceAsync {
     ): CompletableFuture<JobRetrieveResponse> =
         retrieve(id, JobRetrieveParams.none(), requestOptions)
 
-    /** Lists the phone number blocks jobs */
+    /**
+     * Returns background jobs that operate on phone-number blocks. Results can be filtered by job
+     * type and status, sorted by creation time, and include pagination metadata.
+     */
     fun list(): CompletableFuture<JobListPageAsync> = list(JobListParams.none())
 
     /** @see list */

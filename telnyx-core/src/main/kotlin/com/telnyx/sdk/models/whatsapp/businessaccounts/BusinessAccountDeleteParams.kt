@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Whatsapp Business Account */
+/** Unlinks and deletes the specified WhatsApp Business Account resource from Telnyx. */
 class BusinessAccountDeleteParams
 private constructor(
     private val id: String?,

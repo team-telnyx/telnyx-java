@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Whatsapp phone number */
+/** Removes the specified phone number from Telnyx WhatsApp management. */
 class PhoneNumberDeleteParams
 private constructor(
     private val phoneNumber: String?,

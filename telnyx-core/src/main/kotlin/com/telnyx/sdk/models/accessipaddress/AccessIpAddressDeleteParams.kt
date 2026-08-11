@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete access IP address */
+/** Delete an access IP address entry from your account. */
 class AccessIpAddressDeleteParams
 private constructor(
     private val accessIpAddressId: String?,

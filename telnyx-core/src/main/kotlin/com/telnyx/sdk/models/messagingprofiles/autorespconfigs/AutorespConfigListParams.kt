@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Auto-Response Settings */
+/** Returns the auto-response rules configured for the specified messaging profile. */
 class AutorespConfigListParams
 private constructor(
     private val profileId: String?,

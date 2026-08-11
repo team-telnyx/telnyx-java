@@ -17,7 +17,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a ledger billing group report */
+/** Create a ledger billing group report, which aggregates ledger activity by billing group. */
 class LedgerBillingGroupReportCreateParams
 private constructor(
     private val body: Body,

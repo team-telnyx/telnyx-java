@@ -25,11 +25,12 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
+import com.telnyx.sdk.models.messages.MessageWhatsappParams
+import com.telnyx.sdk.models.messages.MessageWhatsappResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Messages */
 interface MessageServiceAsync {
 
     /**
@@ -197,7 +198,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendResponse>
 
-    /** Send a group MMS message */
+    /**
+     * Queues an MMS addressed to multiple recipients as a group conversation. Delivery events are
+     * reported asynchronously through messaging webhooks.
+     */
     fun sendGroupMms(
         params: MessageSendGroupMmsParams
     ): CompletableFuture<MessageSendGroupMmsResponse> = sendGroupMms(params, RequestOptions.none())
@@ -208,7 +212,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendGroupMmsResponse>
 
-    /** Send a long code message */
+    /**
+     * Queues an outbound SMS or MMS using a long-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendLongCode(
         params: MessageSendLongCodeParams
     ): CompletableFuture<MessageSendLongCodeResponse> = sendLongCode(params, RequestOptions.none())
@@ -219,7 +226,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendLongCodeResponse>
 
-    /** Send a message using number pool */
+    /**
+     * Queues an outbound message using a number pool. Telnyx selects an eligible sender from the
+     * pool according to its messaging profile configuration.
+     */
     fun sendNumberPool(
         params: MessageSendNumberPoolParams
     ): CompletableFuture<MessageSendNumberPoolResponse> =
@@ -231,7 +241,10 @@ interface MessageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendNumberPoolResponse>
 
-    /** Send a short code message */
+    /**
+     * Queues an outbound SMS or MMS using a short-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendShortCode(
         params: MessageSendShortCodeParams
     ): CompletableFuture<MessageSendShortCodeResponse> =
@@ -254,6 +267,21 @@ interface MessageServiceAsync {
         params: MessageSendWithAlphanumericSenderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendWithAlphanumericSenderResponse>
+
+    /**
+     * Sends a WhatsApp message using a Telnyx WhatsApp-enabled number. The message body,
+     * interactive elements, media, location, and reaction content are specified in the
+     * `whatsapp_message` field. Delivery progress and final disposition are reported asynchronously
+     * through messaging webhooks.
+     */
+    fun whatsapp(params: MessageWhatsappParams): CompletableFuture<MessageWhatsappResponse> =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: MessageWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessageWhatsappResponse>
 
     /**
      * A view of [MessageServiceAsync] that provides access to raw HTTP responses for each method.
@@ -507,5 +535,20 @@ interface MessageServiceAsync {
             params: MessageSendWithAlphanumericSenderParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessageSendWithAlphanumericSenderResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
+         * [MessageServiceAsync.whatsapp].
+         */
+        fun whatsapp(
+            params: MessageWhatsappParams
+        ): CompletableFuture<HttpResponseFor<MessageWhatsappResponse>> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        fun whatsapp(
+            params: MessageWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessageWhatsappResponse>>
     }
 }

@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Send a long code message */
+/**
+ * Queues an outbound SMS or MMS using a long-code sender. Delivery progress and final disposition
+ * are reported asynchronously through messaging webhooks.
+ */
 class MessageSendLongCodeParams
 private constructor(
     private val body: Body,

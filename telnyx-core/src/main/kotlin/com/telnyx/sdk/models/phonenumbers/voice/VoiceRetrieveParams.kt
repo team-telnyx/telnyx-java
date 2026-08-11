@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a phone number with voice settings */
+/** Returns the specified phone number together with its current voice configuration. */
 class VoiceRetrieveParams
 private constructor(
     private val id: String?,

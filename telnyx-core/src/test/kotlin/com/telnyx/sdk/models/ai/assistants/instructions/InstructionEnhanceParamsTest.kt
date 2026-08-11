@@ -11,8 +11,8 @@ internal class InstructionEnhanceParamsTest {
     fun create() {
         InstructionEnhanceParams.builder()
             .assistantId("assistant_id")
-            .enhancementPrompt("enhancement_prompt")
-            .instructions("instructions")
+            .enhancementPrompt("string")
+            .instructions("string")
             .build()
     }
 
@@ -30,14 +30,14 @@ internal class InstructionEnhanceParamsTest {
         val params =
             InstructionEnhanceParams.builder()
                 .assistantId("assistant_id")
-                .enhancementPrompt("enhancement_prompt")
-                .instructions("instructions")
+                .enhancementPrompt("string")
+                .instructions("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.enhancementPrompt()).contains("enhancement_prompt")
-        assertThat(body.instructions()).contains("instructions")
+        assertThat(body.enhancementPrompt()).contains("string")
+        assertThat(body.instructions()).contains("string")
     }
 
     @Test

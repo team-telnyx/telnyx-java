@@ -28,12 +28,12 @@ internal class RunServiceAsyncTest {
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .input(
                         RunCreateParams.Input.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("objective", JsonValue.from("bar"))
                             .build()
                     )
                     .metadata(
                         RunCreateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("requested_by", JsonValue.from("bar"))
                             .build()
                     )
                     .build()
@@ -83,8 +83,8 @@ internal class RunServiceAsyncTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .resultSummary("result_summary")
-                    .status(RunStatus.PENDING)
+                    .resultSummary("Processed 24 customer records successfully.")
+                    .status(RunStatus.SUCCEEDED)
                     .build()
             )
 

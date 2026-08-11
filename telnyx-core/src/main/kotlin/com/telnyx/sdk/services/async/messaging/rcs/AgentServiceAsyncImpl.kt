@@ -21,7 +21,7 @@ import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPageResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
-import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
+import com.telnyx.sdk.models.rcs.agents.RcsAgentResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull

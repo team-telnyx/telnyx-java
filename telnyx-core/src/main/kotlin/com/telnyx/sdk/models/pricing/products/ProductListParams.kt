@@ -203,8 +203,8 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                pageNumber?.let { put("page_number", it.toString()) }
-                pageSize?.let { put("page_size", it.toString()) }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

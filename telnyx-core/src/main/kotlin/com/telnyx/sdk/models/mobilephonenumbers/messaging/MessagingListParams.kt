@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List mobile phone numbers with messaging settings */
+/** Returns mobile phone numbers with their current messaging configuration. */
 class MessagingListParams
 private constructor(
     private val pageNumber: Long?,

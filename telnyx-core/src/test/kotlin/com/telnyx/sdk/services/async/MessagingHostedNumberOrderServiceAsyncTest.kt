@@ -118,8 +118,8 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
                     .id("id")
                     .addVerificationCode(
                         MessagingHostedNumberOrderValidateCodesParams.VerificationCode.builder()
-                            .code("code")
-                            .phoneNumber("phone_number")
+                            .code("string")
+                            .phoneNumber("string")
                             .build()
                     )
                     .build()

@@ -11,8 +11,8 @@ internal class ExternalVettingOrderParamsTest {
     fun create() {
         ExternalVettingOrderParams.builder()
             .brandId("brandId")
-            .evpId("evpId")
-            .vettingClass("vettingClass")
+            .evpId("Evpid")
+            .vettingClass("Vettingclass")
             .build()
     }
 
@@ -21,8 +21,8 @@ internal class ExternalVettingOrderParamsTest {
         val params =
             ExternalVettingOrderParams.builder()
                 .brandId("brandId")
-                .evpId("evpId")
-                .vettingClass("vettingClass")
+                .evpId("Evpid")
+                .vettingClass("Vettingclass")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("brandId")
@@ -35,13 +35,13 @@ internal class ExternalVettingOrderParamsTest {
         val params =
             ExternalVettingOrderParams.builder()
                 .brandId("brandId")
-                .evpId("evpId")
-                .vettingClass("vettingClass")
+                .evpId("Evpid")
+                .vettingClass("Vettingclass")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.evpId()).isEqualTo("evpId")
-        assertThat(body.vettingClass()).isEqualTo("vettingClass")
+        assertThat(body.evpId()).isEqualTo("Evpid")
+        assertThat(body.vettingClass()).isEqualTo("Vettingclass")
     }
 }

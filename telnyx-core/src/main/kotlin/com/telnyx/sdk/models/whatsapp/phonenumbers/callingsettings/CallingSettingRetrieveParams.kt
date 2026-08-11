@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get calling settings for a phone number */
+/** Returns the WhatsApp calling configuration for the specified phone number. */
 class CallingSettingRetrieveParams
 private constructor(
     private val phoneNumber: String?,

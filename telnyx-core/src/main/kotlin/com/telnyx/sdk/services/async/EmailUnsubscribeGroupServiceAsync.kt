@@ -35,7 +35,10 @@ interface EmailUnsubscribeGroupServiceAsync {
     /** Named groups and group-scoped suppressions. */
     fun suppressions(): SuppressionServiceAsync
 
-    /** Create an unsubscribe group */
+    /**
+     * Creates an account-owned unsubscribe group for associating email categories with separate
+     * recipient suppression lists.
+     */
     fun create(
         params: EmailUnsubscribeGroupCreateParams
     ): CompletableFuture<UnsubscribeGroupResponse> = create(params, RequestOptions.none())
@@ -46,7 +49,7 @@ interface EmailUnsubscribeGroupServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<UnsubscribeGroupResponse>
 
-    /** Retrieve an unsubscribe group */
+    /** Returns the account-owned unsubscribe group identified by ID. */
     fun retrieve(id: String): CompletableFuture<UnsubscribeGroupResponse> =
         retrieve(id, EmailUnsubscribeGroupRetrieveParams.none())
 

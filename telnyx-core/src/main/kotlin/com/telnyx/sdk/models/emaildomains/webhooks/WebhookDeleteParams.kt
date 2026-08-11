@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a webhook */
+/**
+ * Deletes the webhook subscription identified by ID within the specified email domain and returns
+ * the deleted subscription.
+ */
 class WebhookDeleteParams
 private constructor(
     private val domainId: String,

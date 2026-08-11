@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update Auto-Response Setting */
+/** Replaces the configuration of the specified auto-response rule. */
 class AutorespConfigUpdateParams
 private constructor(
     private val profileId: String,

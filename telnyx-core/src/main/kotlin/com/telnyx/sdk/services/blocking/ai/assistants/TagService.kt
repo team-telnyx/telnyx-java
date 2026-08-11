@@ -27,7 +27,7 @@ interface TagService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService
 
-    /** Get All Tags */
+    /** Retrieve all tags that have been applied to your AI assistants. */
     fun list(): TagsResponse = list(TagListParams.none())
 
     /** @see list */
@@ -44,7 +44,7 @@ interface TagService {
     fun list(requestOptions: RequestOptions): TagsResponse =
         list(TagListParams.none(), requestOptions)
 
-    /** Add Assistant Tag */
+    /** Add a tag to an AI assistant. Tags help you organize and filter your assistants. */
     fun add(assistantId: String, params: TagAddParams): TagsResponse =
         add(assistantId, params, RequestOptions.none())
 
@@ -64,7 +64,7 @@ interface TagService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TagsResponse
 
-    /** Remove Assistant Tag */
+    /** Remove a tag from an AI assistant. */
     fun remove(tag: String, params: TagRemoveParams): TagsResponse =
         remove(tag, params, RequestOptions.none())
 

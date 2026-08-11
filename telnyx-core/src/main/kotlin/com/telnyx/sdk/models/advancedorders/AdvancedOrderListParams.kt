@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List Advanced Orders */
+/**
+ * Returns the advanced number orders associated with the account. Each result includes the order
+ * configuration and its current state.
+ */
 class AdvancedOrderListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

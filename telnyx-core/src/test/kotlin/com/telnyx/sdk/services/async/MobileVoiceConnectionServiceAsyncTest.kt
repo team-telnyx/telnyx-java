@@ -20,18 +20,18 @@ internal class MobileVoiceConnectionServiceAsyncTest {
             mobileVoiceConnectionServiceAsync.create(
                 MobileVoiceConnectionCreateParams.builder()
                     .active(true)
-                    .connectionName("connection_name")
+                    .connectionName("Telnyx Mobile Voice IMS")
                     .inbound(
                         MobileVoiceConnectionCreateParams.Inbound.builder().channelLimit(0L).build()
                     )
                     .outbound(
                         MobileVoiceConnectionCreateParams.Outbound.builder()
                             .channelLimit(0L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("string")
                             .build()
                     )
                     .addTag("string")
-                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion.V2)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -64,15 +64,15 @@ internal class MobileVoiceConnectionServiceAsyncTest {
             mobileVoiceConnectionServiceAsync.update(
                 MobileVoiceConnectionUpdateParams.builder()
                     .id("id")
-                    .active(true)
-                    .connectionName("connection_name")
+                    .active(false)
+                    .connectionName("string")
                     .inbound(
                         MobileVoiceConnectionUpdateParams.Inbound.builder().channelLimit(0L).build()
                     )
                     .outbound(
                         MobileVoiceConnectionUpdateParams.Outbound.builder()
                             .channelLimit(0L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("string")
                             .build()
                     )
                     .addTag("string")

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get OSR campaign attributes */
+/**
+ * Returns the optional shared-responsibility attributes recorded for the campaign. Use these values
+ * to inspect the campaign configuration submitted to the registry.
+ */
 class OsrGetAttributesParams
 private constructor(
     private val campaignId: String?,

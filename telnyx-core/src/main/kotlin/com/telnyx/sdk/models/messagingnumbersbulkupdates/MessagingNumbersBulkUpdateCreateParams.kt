@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Bulk update phone number profiles */
+/**
+ * Starts a bulk update of messaging-profile assignments for the supplied phone numbers. The
+ * response identifies the order used to monitor processing.
+ */
 class MessagingNumbersBulkUpdateCreateParams
 private constructor(
     private val body: Body,

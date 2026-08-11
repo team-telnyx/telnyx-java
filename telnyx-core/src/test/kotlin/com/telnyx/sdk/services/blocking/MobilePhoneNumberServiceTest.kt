@@ -32,7 +32,7 @@ internal class MobilePhoneNumberServiceTest {
                     .id("id")
                     .callForwarding(
                         MobilePhoneNumberUpdateParams.CallForwarding.builder()
-                            .callForwardingEnabled(true)
+                            .callForwardingEnabled(false)
                             .forwardingType(
                                 MobilePhoneNumberUpdateParams.CallForwarding.ForwardingType.ALWAYS
                             )
@@ -46,7 +46,7 @@ internal class MobilePhoneNumberServiceTest {
                                     .InboundCallRecordingChannels
                                     .SINGLE
                             )
-                            .inboundCallRecordingEnabled(true)
+                            .inboundCallRecordingEnabled(false)
                             .inboundCallRecordingFormat(
                                 MobilePhoneNumberUpdateParams.CallRecording
                                     .InboundCallRecordingFormat
@@ -54,11 +54,11 @@ internal class MobilePhoneNumberServiceTest {
                             )
                             .build()
                     )
-                    .callerIdNameEnabled(true)
+                    .callerIdNameEnabled(false)
                     .cnamListing(
                         MobilePhoneNumberUpdateParams.CnamListing.builder()
                             .cnamListingDetails("cnam_listing_details")
-                            .cnamListingEnabled(true)
+                            .cnamListingEnabled(false)
                             .build()
                     )
                     .connectionId("connection_id")
@@ -71,7 +71,7 @@ internal class MobilePhoneNumberServiceTest {
                     .inboundCallScreening(
                         MobilePhoneNumberUpdateParams.InboundCallScreening.DISABLED
                     )
-                    .noiseSuppression(true)
+                    .noiseSuppression(false)
                     .outbound(
                         MobilePhoneNumberUpdateParams.Outbound.builder()
                             .interceptionAppId("interception_app_id")

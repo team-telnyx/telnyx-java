@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of room participants. */
+/**
+ * Returns a paginated list of room participants across sessions. Filter participants by session,
+ * join, update, or leave date and by participant context.
+ */
 class RoomParticipantListParams
 private constructor(
     private val filter: Filter?,

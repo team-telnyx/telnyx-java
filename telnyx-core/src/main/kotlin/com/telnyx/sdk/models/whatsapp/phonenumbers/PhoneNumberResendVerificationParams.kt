@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Resend verification code */
+/** Requests a new verification code for the specified WhatsApp phone number. */
 class PhoneNumberResendVerificationParams
 private constructor(
     private val phoneNumber: String?,

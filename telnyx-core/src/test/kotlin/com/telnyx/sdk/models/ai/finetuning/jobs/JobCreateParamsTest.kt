@@ -10,10 +10,10 @@ internal class JobCreateParamsTest {
     @Test
     fun create() {
         JobCreateParams.builder()
-            .model("model")
-            .trainingFile("training_file")
-            .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(1L).build())
-            .suffix("suffix")
+            .model("string")
+            .trainingFile("string")
+            .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(3L).build())
+            .suffix("string")
             .build()
     }
 
@@ -21,28 +21,28 @@ internal class JobCreateParamsTest {
     fun body() {
         val params =
             JobCreateParams.builder()
-                .model("model")
-                .trainingFile("training_file")
-                .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(1L).build())
-                .suffix("suffix")
+                .model("string")
+                .trainingFile("string")
+                .hyperparameters(JobCreateParams.Hyperparameters.builder().nEpochs(3L).build())
+                .suffix("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.model()).isEqualTo("model")
-        assertThat(body.trainingFile()).isEqualTo("training_file")
+        assertThat(body.model()).isEqualTo("string")
+        assertThat(body.trainingFile()).isEqualTo("string")
         assertThat(body.hyperparameters())
-            .contains(JobCreateParams.Hyperparameters.builder().nEpochs(1L).build())
-        assertThat(body.suffix()).contains("suffix")
+            .contains(JobCreateParams.Hyperparameters.builder().nEpochs(3L).build())
+        assertThat(body.suffix()).contains("string")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = JobCreateParams.builder().model("model").trainingFile("training_file").build()
+        val params = JobCreateParams.builder().model("string").trainingFile("string").build()
 
         val body = params._body()
 
-        assertThat(body.model()).isEqualTo("model")
-        assertThat(body.trainingFile()).isEqualTo("training_file")
+        assertThat(body.model()).isEqualTo("string")
+        assertThat(body.trainingFile()).isEqualTo("string")
     }
 }

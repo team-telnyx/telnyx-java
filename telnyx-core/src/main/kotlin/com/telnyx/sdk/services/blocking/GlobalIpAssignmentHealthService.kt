@@ -25,7 +25,7 @@ interface GlobalIpAssignmentHealthService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpAssignmentHealthService
 
-    /** Global IP Assignment Health Check Metrics */
+    /** Retrieve health check metrics for your Global IP assignments. */
     fun retrieve(): GlobalIpAssignmentHealthRetrieveResponse =
         retrieve(GlobalIpAssignmentHealthRetrieveParams.none())
 

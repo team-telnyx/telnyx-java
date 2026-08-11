@@ -5,8 +5,8 @@ package com.telnyx.sdk.models.messagingprofiles
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MessagingPaginationMeta
 import com.telnyx.sdk.models.PhoneNumberWithMessagingSettings
+import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
 import com.telnyx.sdk.services.blocking.MessagingProfileService
 import java.util.Objects
 import java.util.Optional
@@ -36,7 +36,7 @@ private constructor(
      *
      * @see MessagingProfileListPhoneNumbersPageResponse.meta
      */
-    fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
     override fun items(): List<PhoneNumberWithMessagingSettings> = data()
 

@@ -27,6 +27,8 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateResponse
+import com.telnyx.sdk.services.async.fqdnconnections.FqdnAuthenticationServiceAsync
+import com.telnyx.sdk.services.async.fqdnconnections.FqdnAuthenticationServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -39,12 +41,19 @@ internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionS
         WithRawResponseImpl(clientOptions)
     }
 
+    private val fqdnAuthentication: FqdnAuthenticationServiceAsync by lazy {
+        FqdnAuthenticationServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): FqdnConnectionServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(
         modifier: Consumer<ClientOptions.Builder>
     ): FqdnConnectionServiceAsync =
         FqdnConnectionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /** FQDN connection operations */
+    override fun fqdnAuthentication(): FqdnAuthenticationServiceAsync = fqdnAuthentication
 
     override fun create(
         params: FqdnConnectionCreateParams,
@@ -87,12 +96,20 @@ internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionS
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val fqdnAuthentication: FqdnAuthenticationServiceAsync.WithRawResponse by lazy {
+            FqdnAuthenticationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FqdnConnectionServiceAsync.WithRawResponse =
             FqdnConnectionServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /** FQDN connection operations */
+        override fun fqdnAuthentication(): FqdnAuthenticationServiceAsync.WithRawResponse =
+            fqdnAuthentication
 
         private val createHandler: Handler<FqdnConnectionCreateResponse> =
             jsonHandler<FqdnConnectionCreateResponse>(clientOptions.jsonMapper)

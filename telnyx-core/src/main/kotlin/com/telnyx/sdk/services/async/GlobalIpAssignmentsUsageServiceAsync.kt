@@ -25,7 +25,7 @@ interface GlobalIpAssignmentsUsageServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpAssignmentsUsageServiceAsync
 
-    /** Global IP Assignment Usage Metrics */
+    /** Retrieve usage metrics for your Global IP assignments. */
     fun retrieve(): CompletableFuture<GlobalIpAssignmentsUsageRetrieveResponse> =
         retrieve(GlobalIpAssignmentsUsageRetrieveParams.none())
 

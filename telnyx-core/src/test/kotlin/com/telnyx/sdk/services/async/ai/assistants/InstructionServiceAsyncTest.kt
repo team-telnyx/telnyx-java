@@ -19,8 +19,8 @@ internal class InstructionServiceAsyncTest {
             instructionServiceAsync.enhance(
                 InstructionEnhanceParams.builder()
                     .assistantId("assistant_id")
-                    .enhancementPrompt("enhancement_prompt")
-                    .instructions("instructions")
+                    .enhancementPrompt("string")
+                    .instructions("string")
                     .build()
             )
 

@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
@@ -43,7 +45,7 @@ interface PhoneNumberService {
     /** Manage Whatsapp phone numbers */
     fun conversationalComponents(): ConversationalComponentService
 
-    /** List Whatsapp phone numbers */
+    /** Returns WhatsApp phone numbers linked to the authenticated Telnyx account. */
     fun list(): PhoneNumberListPage = list(PhoneNumberListParams.none())
 
     /** @see list */
@@ -60,7 +62,7 @@ interface PhoneNumberService {
     fun list(requestOptions: RequestOptions): PhoneNumberListPage =
         list(PhoneNumberListParams.none(), requestOptions)
 
-    /** Delete a Whatsapp phone number */
+    /** Removes the specified phone number from Telnyx WhatsApp management. */
     fun delete(phoneNumber: String) = delete(phoneNumber, PhoneNumberDeleteParams.none())
 
     /** @see delete */
@@ -89,7 +91,24 @@ interface PhoneNumberService {
     fun delete(phoneNumber: String, requestOptions: RequestOptions) =
         delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
 
-    /** Resend verification code */
+    /** Retrieve a list of the phone numbers registered for WhatsApp on your account. */
+    fun get(): PhoneNumberGetResponse = get(PhoneNumberGetParams.none())
+
+    /** @see get */
+    fun get(
+        params: PhoneNumberGetParams = PhoneNumberGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberGetResponse
+
+    /** @see get */
+    fun get(params: PhoneNumberGetParams = PhoneNumberGetParams.none()): PhoneNumberGetResponse =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(requestOptions: RequestOptions): PhoneNumberGetResponse =
+        get(PhoneNumberGetParams.none(), requestOptions)
+
+    /** Requests a new verification code for the specified WhatsApp phone number. */
     fun resendVerification(phoneNumber: String) =
         resendVerification(phoneNumber, PhoneNumberResendVerificationParams.none())
 
@@ -153,7 +172,7 @@ interface PhoneNumberService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberRetrieveConversationWindowResponse
 
-    /** Submit verification code for a phone number */
+    /** Submits the verification code received for the specified WhatsApp phone number. */
     fun verify(phoneNumber: String, params: PhoneNumberVerifyParams) =
         verify(phoneNumber, params, RequestOptions.none())
 
@@ -261,6 +280,31 @@ interface PhoneNumberService {
         @MustBeClosed
         fun delete(phoneNumber: String, requestOptions: RequestOptions): HttpResponse =
             delete(phoneNumber, PhoneNumberDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /whatsapp/phone_numbers`, but is otherwise the same
+         * as [PhoneNumberService.get].
+         */
+        @MustBeClosed
+        fun get(): HttpResponseFor<PhoneNumberGetResponse> = get(PhoneNumberGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: PhoneNumberGetParams = PhoneNumberGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberGetResponse>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: PhoneNumberGetParams = PhoneNumberGetParams.none()
+        ): HttpResponseFor<PhoneNumberGetResponse> = get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberGetResponse> =
+            get(PhoneNumberGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

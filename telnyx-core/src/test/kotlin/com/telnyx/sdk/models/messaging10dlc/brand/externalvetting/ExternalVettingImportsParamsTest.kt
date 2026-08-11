@@ -11,9 +11,9 @@ internal class ExternalVettingImportsParamsTest {
     fun create() {
         ExternalVettingImportsParams.builder()
             .brandId("brandId")
-            .evpId("evpId")
-            .vettingId("vettingId")
-            .vettingToken("vettingToken")
+            .evpId("Evpid")
+            .vettingId("Vettingid")
+            .vettingToken("Vettingtoken")
             .build()
     }
 
@@ -22,8 +22,8 @@ internal class ExternalVettingImportsParamsTest {
         val params =
             ExternalVettingImportsParams.builder()
                 .brandId("brandId")
-                .evpId("evpId")
-                .vettingId("vettingId")
+                .evpId("Evpid")
+                .vettingId("Vettingid")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("brandId")
@@ -36,16 +36,16 @@ internal class ExternalVettingImportsParamsTest {
         val params =
             ExternalVettingImportsParams.builder()
                 .brandId("brandId")
-                .evpId("evpId")
-                .vettingId("vettingId")
-                .vettingToken("vettingToken")
+                .evpId("Evpid")
+                .vettingId("Vettingid")
+                .vettingToken("Vettingtoken")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.evpId()).isEqualTo("evpId")
-        assertThat(body.vettingId()).isEqualTo("vettingId")
-        assertThat(body.vettingToken()).contains("vettingToken")
+        assertThat(body.evpId()).isEqualTo("Evpid")
+        assertThat(body.vettingId()).isEqualTo("Vettingid")
+        assertThat(body.vettingToken()).contains("Vettingtoken")
     }
 
     @Test
@@ -53,13 +53,13 @@ internal class ExternalVettingImportsParamsTest {
         val params =
             ExternalVettingImportsParams.builder()
                 .brandId("brandId")
-                .evpId("evpId")
-                .vettingId("vettingId")
+                .evpId("Evpid")
+                .vettingId("Vettingid")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.evpId()).isEqualTo("evpId")
-        assertThat(body.vettingId()).isEqualTo("vettingId")
+        assertThat(body.evpId()).isEqualTo("Evpid")
+        assertThat(body.vettingId()).isEqualTo("Vettingid")
     }
 }

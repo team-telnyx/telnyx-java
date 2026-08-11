@@ -7,7 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.SimCardStatus
 import com.telnyx.sdk.models.SimpleSimCard
-import com.telnyx.sdk.models.actions.WirelessError
+import com.telnyx.sdk.models.actions.purchase.WirelessErrorC5290d5308
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -66,17 +66,17 @@ internal class RegisterCreateResponseTest {
                         .build()
                 )
                 .addError(
-                    WirelessError.builder()
+                    WirelessErrorC5290d5308.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
                         .meta(
-                            WirelessError.Meta.builder()
+                            WirelessErrorC5290d5308.Meta.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .source(
-                            WirelessError.Source.builder()
+                            WirelessErrorC5290d5308.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()
@@ -135,17 +135,17 @@ internal class RegisterCreateResponseTest {
             )
         assertThat(registerCreateResponse.errors().getOrNull())
             .containsExactly(
-                WirelessError.builder()
+                WirelessErrorC5290d5308.builder()
                     .code("code")
                     .title("title")
                     .detail("detail")
                     .meta(
-                        WirelessError.Meta.builder()
+                        WirelessErrorC5290d5308.Meta.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
                     .source(
-                        WirelessError.Source.builder()
+                        WirelessErrorC5290d5308.Source.builder()
                             .parameter("parameter")
                             .pointer("pointer")
                             .build()
@@ -207,17 +207,17 @@ internal class RegisterCreateResponseTest {
                         .build()
                 )
                 .addError(
-                    WirelessError.builder()
+                    WirelessErrorC5290d5308.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
                         .meta(
-                            WirelessError.Meta.builder()
+                            WirelessErrorC5290d5308.Meta.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .source(
-                            WirelessError.Source.builder()
+                            WirelessErrorC5290d5308.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()

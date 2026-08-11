@@ -108,7 +108,7 @@ interface MessagingHostedNumberService {
     fun list(requestOptions: RequestOptions): MessagingHostedNumberListPage =
         list(MessagingHostedNumberListParams.none(), requestOptions)
 
-    /** Delete a messaging hosted number */
+    /** Removes the specified hosted number from Telnyx messaging management. */
     fun delete(id: String): MessagingHostedNumberDeleteResponse =
         delete(id, MessagingHostedNumberDeleteParams.none())
 

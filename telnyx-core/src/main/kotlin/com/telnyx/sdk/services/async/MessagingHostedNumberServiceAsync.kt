@@ -116,7 +116,7 @@ interface MessagingHostedNumberServiceAsync {
     ): CompletableFuture<MessagingHostedNumberListPageAsync> =
         list(MessagingHostedNumberListParams.none(), requestOptions)
 
-    /** Delete a messaging hosted number */
+    /** Removes the specified hosted number from Telnyx messaging management. */
     fun delete(id: String): CompletableFuture<MessagingHostedNumberDeleteResponse> =
         delete(id, MessagingHostedNumberDeleteParams.none())
 

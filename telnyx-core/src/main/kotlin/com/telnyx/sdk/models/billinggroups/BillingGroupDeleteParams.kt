@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a billing group */
+/** Delete a billing group from your account. */
 class BillingGroupDeleteParams
 private constructor(
     private val id: String?,

@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Mute participants in room session. */
+/**
+ * Mutes the selected participants in the specified room session. Apply the action to a list of
+ * participant IDs or to `all`, with optional participant IDs excluded from the action.
+ */
 class ActionMuteParams
 private constructor(
     private val roomSessionId: String?,

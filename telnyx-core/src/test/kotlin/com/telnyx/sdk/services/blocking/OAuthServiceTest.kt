@@ -32,7 +32,7 @@ internal class OAuthServiceTest {
 
         val response =
             oauthService.grants(
-                OAuthGrantsParams.builder().allowed(true).consentToken("consent_token").build()
+                OAuthGrantsParams.builder().allowed(false).consentToken("string").build()
             )
 
         response.validate()
@@ -45,7 +45,7 @@ internal class OAuthServiceTest {
         val oauthService = client.oauth()
 
         val response =
-            oauthService.introspect(OAuthIntrospectParams.builder().token("token").build())
+            oauthService.introspect(OAuthIntrospectParams.builder().token("string").build())
 
         response.validate()
     }

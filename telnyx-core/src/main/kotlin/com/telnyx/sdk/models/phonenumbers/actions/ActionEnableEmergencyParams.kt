@@ -19,7 +19,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Enable emergency for a phone number */
+/**
+ * Associates emergency-service settings with the specified phone number. The operation returns the
+ * updated phone-number configuration when completed immediately or an accepted state when
+ * processing continues asynchronously.
+ */
 class ActionEnableEmergencyParams
 private constructor(
     private val id: String?,

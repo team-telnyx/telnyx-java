@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a phone number */
+/**
+ * Deletes the specified phone number from the account. The response contains the phone number's
+ * final deleted representation.
+ */
 class PhoneNumberDeleteParams
 private constructor(
     private val id: String?,

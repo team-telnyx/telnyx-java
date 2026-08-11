@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update requirement group for a phone number order */
+/**
+ * Associates an existing requirement group with a phone number in a number order. The response
+ * contains the updated number-order phone-number details.
+ */
 class NumberOrderPhoneNumberUpdateRequirementGroupParams
 private constructor(
     private val id: String?,

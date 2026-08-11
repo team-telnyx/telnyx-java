@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a messaging hosted number */
+/** Removes the specified hosted number from Telnyx messaging management. */
 class MessagingHostedNumberDeleteParams
 private constructor(
     private val id: String?,

@@ -27,7 +27,7 @@ interface CallingSettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallingSettingService
 
-    /** Get calling settings for a phone number */
+    /** Returns the WhatsApp calling configuration for the specified phone number. */
     fun retrieve(phoneNumber: String): CallingSettingRetrieveResponse =
         retrieve(phoneNumber, CallingSettingRetrieveParams.none())
 
@@ -62,7 +62,7 @@ interface CallingSettingService {
     ): CallingSettingRetrieveResponse =
         retrieve(phoneNumber, CallingSettingRetrieveParams.none(), requestOptions)
 
-    /** Enable or disable Whatsapp calling for a phone number */
+    /** Enables or disables WhatsApp calling for the specified phone number. */
     fun update(
         phoneNumber: String,
         params: CallingSettingUpdateParams,

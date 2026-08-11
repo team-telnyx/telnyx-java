@@ -4,8 +4,8 @@ package com.telnyx.sdk.models.messagingprofiles
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MessagingPaginationMeta
 import com.telnyx.sdk.models.ShortCode
+import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -30,7 +30,7 @@ internal class MessagingProfileListShortCodesPageResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingPaginationMeta.builder()
+                    MessagingPaginationMeta0b38e7044b.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -54,7 +54,7 @@ internal class MessagingProfileListShortCodesPageResponseTest {
             )
         assertThat(messagingProfileListShortCodesPageResponse.meta())
             .contains(
-                MessagingPaginationMeta.builder()
+                MessagingPaginationMeta0b38e7044b.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -81,7 +81,7 @@ internal class MessagingProfileListShortCodesPageResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingPaginationMeta.builder()
+                    MessagingPaginationMeta0b38e7044b.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

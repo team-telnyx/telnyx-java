@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Access IP Ranges */
+/** Retrieve a paginated list of access IP ranges configured on your account. */
 class AccessIpRangeListParams
 private constructor(
     private val filter: Filter?,

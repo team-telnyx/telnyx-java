@@ -98,7 +98,7 @@ private constructor(
     private val faxSendingStarted: FaxSendingStarted? = null,
     private val hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
-    private val numberOrderStatusUpdate: NumberOrderStatusUpdate? = null,
+    private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
     private val _json: JsonValue? = null,
@@ -287,7 +287,7 @@ private constructor(
 
     fun inboundMessage(): Optional<InboundMessageWebhookEvent> = Optional.ofNullable(inboundMessage)
 
-    fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdate> =
+    fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdateWebhookEvent> =
         Optional.ofNullable(numberOrderStatusUpdate)
 
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
@@ -610,7 +610,7 @@ private constructor(
 
     fun asInboundMessage(): InboundMessageWebhookEvent = inboundMessage.getOrThrow("inboundMessage")
 
-    fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdate =
+    fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdateWebhookEvent =
         numberOrderStatusUpdate.getOrThrow("numberOrderStatusUpdate")
 
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
@@ -1104,7 +1104,7 @@ private constructor(
                 }
 
                 override fun visitNumberOrderStatusUpdate(
-                    numberOrderStatusUpdate: NumberOrderStatusUpdate
+                    numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
                 ) {
                     numberOrderStatusUpdate.validate()
                 }
@@ -1371,7 +1371,7 @@ private constructor(
                     inboundMessage.validity()
 
                 override fun visitNumberOrderStatusUpdate(
-                    numberOrderStatusUpdate: NumberOrderStatusUpdate
+                    numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
                 ) = numberOrderStatusUpdate.validity()
 
                 override fun visitReplacedLinkClick(
@@ -1961,8 +1961,9 @@ private constructor(
             UnsafeUnwrapWebhookEvent(inboundMessage = inboundMessage)
 
         @JvmStatic
-        fun ofNumberOrderStatusUpdate(numberOrderStatusUpdate: NumberOrderStatusUpdate) =
-            UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
+        fun ofNumberOrderStatusUpdate(
+            numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
+        ) = UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
 
         @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
@@ -2151,7 +2152,9 @@ private constructor(
 
         fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent): T
 
-        fun visitNumberOrderStatusUpdate(numberOrderStatusUpdate: NumberOrderStatusUpdate): T
+        fun visitNumberOrderStatusUpdate(
+            numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
+        ): T
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
@@ -2509,9 +2512,10 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<InboundMessageWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(inboundMessage = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<NumberOrderStatusUpdate>())?.let {
-                            UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
-                        },
+                        tryDeserialize(node, jacksonTypeRef<NumberOrderStatusUpdateWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },

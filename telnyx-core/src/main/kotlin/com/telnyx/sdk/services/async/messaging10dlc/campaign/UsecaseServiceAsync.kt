@@ -25,7 +25,9 @@ interface UsecaseServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsecaseServiceAsync
 
-    /** Get Campaign Cost */
+    /**
+     * Returns the upfront and monthly cost associated with the selected 10DLC campaign use case.
+     */
     fun getCost(params: UsecaseGetCostParams): CompletableFuture<UsecaseGetCostResponse> =
         getCost(params, RequestOptions.none())
 

@@ -28,7 +28,11 @@ interface CsvDownloadServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CsvDownloadServiceAsync
 
-    /** Create a CSV download */
+    /**
+     * Starts generation of a CSV export for phone numbers matching the supplied filters. The
+     * `csv_format` parameter selects the output format, and the response contains the resulting
+     * download record.
+     */
     fun create(): CompletableFuture<CsvDownloadCreateResponse> =
         create(CsvDownloadCreateParams.none())
 
@@ -47,7 +51,7 @@ interface CsvDownloadServiceAsync {
     fun create(requestOptions: RequestOptions): CompletableFuture<CsvDownloadCreateResponse> =
         create(CsvDownloadCreateParams.none(), requestOptions)
 
-    /** Retrieve a CSV download */
+    /** Returns the current status and download details for the CSV export identified by `id`. */
     fun retrieve(id: String): CompletableFuture<CsvDownloadRetrieveResponse> =
         retrieve(id, CsvDownloadRetrieveParams.none())
 
@@ -83,7 +87,10 @@ interface CsvDownloadServiceAsync {
     ): CompletableFuture<CsvDownloadRetrieveResponse> =
         retrieve(id, CsvDownloadRetrieveParams.none(), requestOptions)
 
-    /** List CSV downloads */
+    /**
+     * Returns CSV export jobs created for account phone numbers, including each export's current
+     * status and pagination metadata.
+     */
     fun list(): CompletableFuture<CsvDownloadListPageAsync> = list(CsvDownloadListParams.none())
 
     /** @see list */

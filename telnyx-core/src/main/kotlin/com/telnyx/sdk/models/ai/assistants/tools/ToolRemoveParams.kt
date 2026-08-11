@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Remove Assistant Tool */
+/** Detach a tool from an AI assistant. */
 class ToolRemoveParams
 private constructor(
     private val assistantId: String,

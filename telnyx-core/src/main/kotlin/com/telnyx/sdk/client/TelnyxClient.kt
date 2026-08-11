@@ -126,7 +126,7 @@ import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PronunciationDictService
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayService
 import com.telnyx.sdk.services.blocking.QueueService
-import com.telnyx.sdk.services.blocking.RcsAgentService
+import com.telnyx.sdk.services.blocking.RcService
 import com.telnyx.sdk.services.blocking.RecordingService
 import com.telnyx.sdk.services.blocking.RecordingTranscriptionService
 import com.telnyx.sdk.services.blocking.RegionService
@@ -406,7 +406,6 @@ interface TelnyxClient {
     /** Media Storage operations */
     fun media(): MediaService
 
-    /** Messages */
     fun messages(): MessageService
 
     fun messaging(): MessagingService
@@ -513,7 +512,7 @@ interface TelnyxClient {
     /** Queue commands operations */
     fun queues(): QueueService
 
-    fun rcsAgents(): RcsAgentService
+    fun rcs(): RcService
 
     /** Call Recordings operations. */
     fun recordingTranscriptions(): RecordingTranscriptionService
@@ -959,7 +958,6 @@ interface TelnyxClient {
         /** Media Storage operations */
         fun media(): MediaService.WithRawResponse
 
-        /** Messages */
         fun messages(): MessageService.WithRawResponse
 
         fun messaging(): MessagingService.WithRawResponse
@@ -1067,7 +1065,7 @@ interface TelnyxClient {
         /** Queue commands operations */
         fun queues(): QueueService.WithRawResponse
 
-        fun rcsAgents(): RcsAgentService.WithRawResponse
+        fun rcs(): RcService.WithRawResponse
 
         /** Call Recordings operations. */
         fun recordingTranscriptions(): RecordingTranscriptionService.WithRawResponse

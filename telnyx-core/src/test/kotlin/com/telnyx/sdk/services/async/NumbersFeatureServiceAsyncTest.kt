@@ -17,7 +17,7 @@ internal class NumbersFeatureServiceAsyncTest {
 
         val numbersFeatureFuture =
             numbersFeatureServiceAsync.create(
-                NumbersFeatureCreateParams.builder().addPhoneNumber("string").build()
+                NumbersFeatureCreateParams.builder().addPhoneNumber("+19705555098").build()
             )
 
         val numbersFeature = numbersFeatureFuture.get()

@@ -18,7 +18,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Noise Suppression Stop (BETA) */
+/**
+ * Stop noise suppression previously started on an active call. This feature is currently in beta.
+ */
 class ActionStopNoiseSuppressionParams
 private constructor(
     private val callControlId: String?,

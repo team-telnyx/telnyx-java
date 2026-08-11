@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Verify DNS records for an email domain */
+/**
+ * Checks the published DNS records against the records required for the email domain and returns
+ * the latest verification results.
+ */
 class EmailDomainVerifyParams
 private constructor(
     private val domainId: String?,

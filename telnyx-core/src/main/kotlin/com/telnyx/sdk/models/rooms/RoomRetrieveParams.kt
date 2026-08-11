@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a room. */
+/**
+ * Returns the room identified by `room_id`, including its participant limit, recording and webhook
+ * configuration, and active session identifier. Use `include_sessions` to include its sessions.
+ */
 class RoomRetrieveParams
 private constructor(
     private val roomId: String?,

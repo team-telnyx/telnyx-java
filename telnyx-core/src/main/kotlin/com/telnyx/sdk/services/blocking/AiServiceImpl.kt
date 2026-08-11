@@ -29,6 +29,8 @@ import com.telnyx.sdk.services.blocking.ai.ChatService
 import com.telnyx.sdk.services.blocking.ai.ChatServiceImpl
 import com.telnyx.sdk.services.blocking.ai.ClusterService
 import com.telnyx.sdk.services.blocking.ai.ClusterServiceImpl
+import com.telnyx.sdk.services.blocking.ai.CollectionService
+import com.telnyx.sdk.services.blocking.ai.CollectionServiceImpl
 import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.ConversationServiceImpl
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
@@ -60,6 +62,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     private val chat: ChatService by lazy { ChatServiceImpl(clientOptions) }
 
     private val clusters: ClusterService by lazy { ClusterServiceImpl(clientOptions) }
+
+    private val collections: CollectionService by lazy { CollectionServiceImpl(clientOptions) }
 
     private val conversations: ConversationService by lazy {
         ConversationServiceImpl(clientOptions)
@@ -95,6 +99,12 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     /** Identify common themes and patterns in your embedded documents */
     override fun clusters(): ClusterService = clusters
+
+    /**
+     * Create and manage logical collections of your Telnyx data, tune retrieval settings, manage
+     * sources, and run collection-scoped semantic search.
+     */
+    override fun collections(): CollectionService = collections
 
     /** Manage historical AI assistant conversations */
     override fun conversations(): ConversationService = conversations
@@ -153,6 +163,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             ClusterServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val collections: CollectionService.WithRawResponse by lazy {
+            CollectionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val conversations: ConversationService.WithRawResponse by lazy {
             ConversationServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -205,6 +219,12 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         /** Identify common themes and patterns in your embedded documents */
         override fun clusters(): ClusterService.WithRawResponse = clusters
+
+        /**
+         * Create and manage logical collections of your Telnyx data, tune retrieval settings,
+         * manage sources, and run collection-scoped semantic search.
+         */
+        override fun collections(): CollectionService.WithRawResponse = collections
 
         /** Manage historical AI assistant conversations */
         override fun conversations(): ConversationService.WithRawResponse = conversations

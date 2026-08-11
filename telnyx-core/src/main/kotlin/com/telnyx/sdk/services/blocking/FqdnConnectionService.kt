@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateResponse
+import com.telnyx.sdk.services.blocking.fqdnconnections.FqdnAuthenticationService
 import java.util.function.Consumer
 
 /** FQDN connection operations */
@@ -32,6 +33,9 @@ interface FqdnConnectionService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FqdnConnectionService
+
+    /** FQDN connection operations */
+    fun fqdnAuthentication(): FqdnAuthenticationService
 
     /** Creates a FQDN connection. */
     fun create(params: FqdnConnectionCreateParams): FqdnConnectionCreateResponse =
@@ -167,6 +171,9 @@ interface FqdnConnectionService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FqdnConnectionService.WithRawResponse
+
+        /** FQDN connection operations */
+        fun fqdnAuthentication(): FqdnAuthenticationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /fqdn_connections`, but is otherwise the same as

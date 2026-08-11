@@ -9,12 +9,12 @@ internal class TagAddParamsTest {
 
     @Test
     fun create() {
-        TagAddParams.builder().assistantId("assistant_id").tag("tag").build()
+        TagAddParams.builder().assistantId("assistant_id").tag("Tag").build()
     }
 
     @Test
     fun pathParams() {
-        val params = TagAddParams.builder().assistantId("assistant_id").tag("tag").build()
+        val params = TagAddParams.builder().assistantId("assistant_id").tag("Tag").build()
 
         assertThat(params._pathParam(0)).isEqualTo("assistant_id")
         // out-of-bound path param
@@ -23,10 +23,10 @@ internal class TagAddParamsTest {
 
     @Test
     fun body() {
-        val params = TagAddParams.builder().assistantId("assistant_id").tag("tag").build()
+        val params = TagAddParams.builder().assistantId("assistant_id").tag("Tag").build()
 
         val body = params._body()
 
-        assertThat(body.tag()).isEqualTo("tag")
+        assertThat(body.tag()).isEqualTo("Tag")
     }
 }

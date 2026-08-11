@@ -187,7 +187,10 @@ interface ExternalConnectionService {
     fun delete(id: String, requestOptions: RequestOptions): ExternalConnectionDeleteResponse =
         delete(id, ExternalConnectionDeleteParams.none(), requestOptions)
 
-    /** Update a location's static emergency address */
+    /**
+     * Update the static emergency address assigned to a specific location of an external
+     * connection.
+     */
     fun updateLocation(
         locationId: String,
         params: ExternalConnectionUpdateLocationParams,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a Migration Source */
+/** Retrieve the details of a specific migration source. */
 class MigrationSourceRetrieveParams
 private constructor(
     private val id: String?,

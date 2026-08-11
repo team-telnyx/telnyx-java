@@ -47,7 +47,10 @@ interface MessagingProfileService {
 
     fun actions(): ActionService
 
-    /** Create a messaging profile */
+    /**
+     * Creates a messaging profile that controls outbound sender selection, webhook delivery, and
+     * inbound message handling for associated numbers and short codes.
+     */
     fun create(params: MessagingProfileCreateParams): MessagingProfileCreateResponse =
         create(params, RequestOptions.none())
 
@@ -57,7 +60,10 @@ interface MessagingProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessagingProfileCreateResponse
 
-    /** Retrieve a messaging profile */
+    /**
+     * Returns the complete configuration of the specified messaging profile, including webhook and
+     * sender-selection settings.
+     */
     fun retrieve(messagingProfileId: String): MessagingProfileRetrieveResponse =
         retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
@@ -93,7 +99,10 @@ interface MessagingProfileService {
     ): MessagingProfileRetrieveResponse =
         retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
-    /** Update a messaging profile */
+    /**
+     * Updates the supplied settings on the specified messaging profile. Settings omitted from the
+     * request remain unchanged.
+     */
     fun update(messagingProfileId: String): MessagingProfileUpdateResponse =
         update(messagingProfileId, MessagingProfileUpdateParams.none())
 
@@ -128,7 +137,10 @@ interface MessagingProfileService {
     ): MessagingProfileUpdateResponse =
         update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
-    /** List messaging profiles */
+    /**
+     * Returns messaging profiles owned by the authenticated account. Apply the documented filters
+     * and pagination parameters to narrow the result set.
+     */
     fun list(): MessagingProfileListPage = list(MessagingProfileListParams.none())
 
     /** @see list */
@@ -146,7 +158,7 @@ interface MessagingProfileService {
     fun list(requestOptions: RequestOptions): MessagingProfileListPage =
         list(MessagingProfileListParams.none(), requestOptions)
 
-    /** Delete a messaging profile */
+    /** Deletes the specified messaging profile and returns the profile's final configuration. */
     fun delete(messagingProfileId: String): MessagingProfileDeleteResponse =
         delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
@@ -225,7 +237,7 @@ interface MessagingProfileService {
             requestOptions,
         )
 
-    /** List phone numbers associated with a messaging profile */
+    /** Returns the phone numbers currently associated with the specified messaging profile. */
     fun listPhoneNumbers(messagingProfileId: String): MessagingProfileListPhoneNumbersPage =
         listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
 
@@ -271,7 +283,7 @@ interface MessagingProfileService {
             requestOptions,
         )
 
-    /** List short codes associated with a messaging profile */
+    /** Returns the short codes currently associated with the specified messaging profile. */
     fun listShortCodes(messagingProfileId: String): MessagingProfileListShortCodesPage =
         listShortCodes(messagingProfileId, MessagingProfileListShortCodesParams.none())
 

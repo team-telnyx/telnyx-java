@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all clusters */
+/** Retrieve a paginated list of clustering tasks and their statuses. */
 class ClusterListParams
 private constructor(
     private val pageNumber: Long?,

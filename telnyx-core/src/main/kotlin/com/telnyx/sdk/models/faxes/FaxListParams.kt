@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of faxes */
+/** Retrieve a paginated list of faxes sent or received on your account. */
 class FaxListParams
 private constructor(
     private val filter: Filter?,

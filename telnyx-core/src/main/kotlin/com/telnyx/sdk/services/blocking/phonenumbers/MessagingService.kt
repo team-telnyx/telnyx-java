@@ -29,7 +29,10 @@ interface MessagingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingService
 
-    /** Retrieve a phone number with messaging settings */
+    /**
+     * Returns the messaging product and messaging-profile assignment for the specified phone
+     * number.
+     */
     fun retrieve(id: String): MessagingRetrieveResponse =
         retrieve(id, MessagingRetrieveParams.none())
 
@@ -60,7 +63,7 @@ interface MessagingService {
     fun retrieve(id: String, requestOptions: RequestOptions): MessagingRetrieveResponse =
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
-    /** Update the messaging profile and/or messaging product of a phone number */
+    /** Updates the messaging product, messaging profile, or both for the specified phone number. */
     fun update(id: String, params: MessagingUpdateParams): MessagingUpdateResponse =
         update(id, params, RequestOptions.none())
 
@@ -81,7 +84,9 @@ interface MessagingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessagingUpdateResponse
 
-    /** List phone numbers with messaging settings */
+    /**
+     * Returns phone numbers with their current messaging product and messaging-profile assignments.
+     */
     fun list(): MessagingListPage = list(MessagingListParams.none())
 
     /** @see list */

@@ -32,7 +32,7 @@ interface ClusterService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ClusterService
 
-    /** Fetch a cluster */
+    /** Fetch the results of a clustering task, including the discovered clusters. */
     fun retrieve(taskId: String): ClusterRetrieveResponse =
         retrieve(taskId, ClusterRetrieveParams.none())
 
@@ -63,7 +63,7 @@ interface ClusterService {
     fun retrieve(taskId: String, requestOptions: RequestOptions): ClusterRetrieveResponse =
         retrieve(taskId, ClusterRetrieveParams.none(), requestOptions)
 
-    /** List all clusters */
+    /** Retrieve a paginated list of clustering tasks and their statuses. */
     fun list(): ClusterListPage = list(ClusterListParams.none())
 
     /** @see list */
@@ -80,7 +80,7 @@ interface ClusterService {
     fun list(requestOptions: RequestOptions): ClusterListPage =
         list(ClusterListParams.none(), requestOptions)
 
-    /** Delete a cluster */
+    /** Delete a clustering task and its computed results. */
     fun delete(taskId: String) = delete(taskId, ClusterDeleteParams.none())
 
     /** @see delete */
@@ -118,7 +118,7 @@ interface ClusterService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ClusterComputeResponse
 
-    /** Fetch a cluster visualization */
+    /** Fetch a visualization image of the clusters computed by a clustering task. */
     @MustBeClosed
     fun fetchGraph(taskId: String): HttpResponse =
         fetchGraph(taskId, ClusterFetchGraphParams.none())

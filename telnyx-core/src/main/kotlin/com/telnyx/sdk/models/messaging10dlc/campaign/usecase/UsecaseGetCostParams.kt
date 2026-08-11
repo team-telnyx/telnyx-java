@@ -7,7 +7,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Get Campaign Cost */
+/** Returns the upfront and monthly cost associated with the selected 10DLC campaign use case. */
 class UsecaseGetCostParams
 private constructor(
     private val usecase: String,

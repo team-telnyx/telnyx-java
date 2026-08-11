@@ -10,10 +10,10 @@ internal class InsightCreateParamsTest {
     @Test
     fun create() {
         InsightCreateParams.builder()
-            .instructions("instructions")
-            .name("name")
+            .instructions("Instructions")
+            .name("Name")
             .jsonSchema("string")
-            .webhook("webhook")
+            .webhook("")
             .build()
     }
 
@@ -21,27 +21,27 @@ internal class InsightCreateParamsTest {
     fun body() {
         val params =
             InsightCreateParams.builder()
-                .instructions("instructions")
-                .name("name")
+                .instructions("Instructions")
+                .name("Name")
                 .jsonSchema("string")
-                .webhook("webhook")
+                .webhook("")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.instructions()).isEqualTo("instructions")
-        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.instructions()).isEqualTo("Instructions")
+        assertThat(body.name()).isEqualTo("Name")
         assertThat(body.jsonSchema()).contains(InsightCreateParams.JsonSchema.ofString("string"))
-        assertThat(body.webhook()).contains("webhook")
+        assertThat(body.webhook()).contains("")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = InsightCreateParams.builder().instructions("instructions").name("name").build()
+        val params = InsightCreateParams.builder().instructions("Instructions").name("Name").build()
 
         val body = params._body()
 
-        assertThat(body.instructions()).isEqualTo("instructions")
-        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.instructions()).isEqualTo("Instructions")
+        assertThat(body.name()).isEqualTo("Name")
     }
 }

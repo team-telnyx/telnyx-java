@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List OTA updates */
+/** Retrieve a paginated list of over-the-air (OTA) update operations for your SIM cards. */
 class OtaUpdateListParams
 private constructor(
     private val filter: Filter?,

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a single requirement group by ID */
+/**
+ * Returns the regulatory requirement group identified by `id`, including its requirement values and
+ * current approval status.
+ */
 class RequirementGroupRetrieveParams
 private constructor(
     private val id: String?,

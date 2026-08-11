@@ -29,7 +29,10 @@ interface WhatsappMessageTemplateService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappMessageTemplateService
 
-    /** Get a Whatsapp message template by ID */
+    /**
+     * Returns the content, components, language, and current review state of the specified WhatsApp
+     * message template.
+     */
     fun retrieve(id: String): WhatsappMessageTemplateRetrieveResponse =
         retrieve(id, WhatsappMessageTemplateRetrieveParams.none())
 
@@ -66,7 +69,7 @@ interface WhatsappMessageTemplateService {
     ): WhatsappMessageTemplateRetrieveResponse =
         retrieve(id, WhatsappMessageTemplateRetrieveParams.none(), requestOptions)
 
-    /** Update a Whatsapp message template */
+    /** Updates the editable fields of the specified WhatsApp message template. */
     fun update(id: String): WhatsappMessageTemplateUpdateResponse =
         update(id, WhatsappMessageTemplateUpdateParams.none())
 
@@ -98,7 +101,7 @@ interface WhatsappMessageTemplateService {
     fun update(id: String, requestOptions: RequestOptions): WhatsappMessageTemplateUpdateResponse =
         update(id, WhatsappMessageTemplateUpdateParams.none(), requestOptions)
 
-    /** Delete a Whatsapp message template */
+    /** Deletes the specified WhatsApp message template. */
     fun delete(id: String) = delete(id, WhatsappMessageTemplateDeleteParams.none())
 
     /** @see delete */

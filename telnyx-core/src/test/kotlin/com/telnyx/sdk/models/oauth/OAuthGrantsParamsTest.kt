@@ -9,16 +9,16 @@ internal class OAuthGrantsParamsTest {
 
     @Test
     fun create() {
-        OAuthGrantsParams.builder().allowed(true).consentToken("consent_token").build()
+        OAuthGrantsParams.builder().allowed(false).consentToken("string").build()
     }
 
     @Test
     fun body() {
-        val params = OAuthGrantsParams.builder().allowed(true).consentToken("consent_token").build()
+        val params = OAuthGrantsParams.builder().allowed(false).consentToken("string").build()
 
         val body = params._body()
 
-        assertThat(body.allowed()).isEqualTo(true)
-        assertThat(body.consentToken()).isEqualTo("consent_token")
+        assertThat(body.allowed()).isEqualTo(false)
+        assertThat(body.consentToken()).isEqualTo("string")
     }
 }

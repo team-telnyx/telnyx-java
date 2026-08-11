@@ -28,7 +28,7 @@ internal class TagServiceTest {
         val tagService = client.ai().assistants().tags()
 
         val tagsResponse =
-            tagService.add(TagAddParams.builder().assistantId("assistant_id").tag("tag").build())
+            tagService.add(TagAddParams.builder().assistantId("assistant_id").tag("Tag").build())
 
         tagsResponse.validate()
     }

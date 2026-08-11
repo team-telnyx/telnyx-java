@@ -26,7 +26,7 @@ interface PhoneNumberServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberServiceAsync
 
-    /** List phone numbers for a WABA */
+    /** Returns phone numbers registered under the specified WhatsApp Business Account. */
     fun list(id: String): CompletableFuture<PhoneNumberListPageAsync> =
         list(id, PhoneNumberListParams.none())
 
@@ -61,7 +61,10 @@ interface PhoneNumberServiceAsync {
     ): CompletableFuture<PhoneNumberListPageAsync> =
         list(id, PhoneNumberListParams.none(), requestOptions)
 
-    /** Initialize Whatsapp phone number verification */
+    /**
+     * Starts verification of a phone number for the specified WhatsApp Business Account using the
+     * requested verification method.
+     */
     fun initializeVerification(
         id: String,
         params: PhoneNumberInitializeVerificationParams,

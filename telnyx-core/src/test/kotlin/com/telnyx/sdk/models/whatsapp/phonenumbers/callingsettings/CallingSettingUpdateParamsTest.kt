@@ -9,13 +9,13 @@ internal class CallingSettingUpdateParamsTest {
 
     @Test
     fun create() {
-        CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(true).build()
+        CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(false).build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(true).build()
+            CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(false).build()
 
         assertThat(params._pathParam(0)).isEqualTo("phone_number")
         // out-of-bound path param
@@ -25,10 +25,10 @@ internal class CallingSettingUpdateParamsTest {
     @Test
     fun body() {
         val params =
-            CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(true).build()
+            CallingSettingUpdateParams.builder().phoneNumber("phone_number").enabled(false).build()
 
         val body = params._body()
 
-        assertThat(body.enabled()).isEqualTo(true)
+        assertThat(body.enabled()).isEqualTo(false)
     }
 }

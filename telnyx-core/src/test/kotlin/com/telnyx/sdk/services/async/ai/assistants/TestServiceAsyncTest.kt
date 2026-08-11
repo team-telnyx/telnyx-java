@@ -70,16 +70,16 @@ internal class TestServiceAsyncTest {
             testServiceAsync.update(
                 TestUpdateParams.builder()
                     .testId("test_id")
-                    .description("description")
-                    .destination("x")
-                    .instructions("x")
-                    .maxDurationSeconds(1L)
-                    .name("x")
+                    .description("Description")
+                    .destination("Destination")
+                    .instructions("Instructions")
+                    .maxDurationSeconds(30L)
+                    .name("Name")
                     .addRubric(
-                        TestUpdateParams.Rubric.builder().criteria("criteria").name("name").build()
+                        TestUpdateParams.Rubric.builder().criteria("string").name("string").build()
                     )
                     .telnyxConversationChannel(TelnyxConversationChannel.PHONE_CALL)
-                    .testSuite("test_suite")
+                    .testSuite("Test Suite")
                     .build()
             )
 

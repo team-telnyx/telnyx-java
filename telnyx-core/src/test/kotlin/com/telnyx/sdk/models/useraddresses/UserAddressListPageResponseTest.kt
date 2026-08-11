@@ -16,7 +16,7 @@ internal class UserAddressListPageResponseTest {
         val userAddressListPageResponse =
             UserAddressListPageResponse.builder()
                 .addData(
-                    UserAddress.builder()
+                    UserAddressesUserAddress.builder()
                         .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                         .administrativeArea("TX")
                         .borough("Guadalajara")
@@ -48,7 +48,7 @@ internal class UserAddressListPageResponseTest {
 
         assertThat(userAddressListPageResponse.data().getOrNull())
             .containsExactly(
-                UserAddress.builder()
+                UserAddressesUserAddress.builder()
                     .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                     .administrativeArea("TX")
                     .borough("Guadalajara")
@@ -85,7 +85,7 @@ internal class UserAddressListPageResponseTest {
         val userAddressListPageResponse =
             UserAddressListPageResponse.builder()
                 .addData(
-                    UserAddress.builder()
+                    UserAddressesUserAddress.builder()
                         .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                         .administrativeArea("TX")
                         .borough("Guadalajara")

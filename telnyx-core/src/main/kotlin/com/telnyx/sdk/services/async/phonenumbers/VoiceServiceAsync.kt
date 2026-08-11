@@ -29,7 +29,7 @@ interface VoiceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoiceServiceAsync
 
-    /** Retrieve a phone number with voice settings */
+    /** Returns the specified phone number together with its current voice configuration. */
     fun retrieve(id: String): CompletableFuture<VoiceRetrieveResponse> =
         retrieve(id, VoiceRetrieveParams.none())
 
@@ -64,7 +64,10 @@ interface VoiceServiceAsync {
     ): CompletableFuture<VoiceRetrieveResponse> =
         retrieve(id, VoiceRetrieveParams.none(), requestOptions)
 
-    /** Update a phone number with voice settings */
+    /**
+     * Updates the voice configuration for the specified phone number. The response contains the
+     * phone number with its updated voice settings.
+     */
     fun update(id: String, params: VoiceUpdateParams): CompletableFuture<VoiceUpdateResponse> =
         update(id, params, RequestOptions.none())
 
@@ -86,7 +89,11 @@ interface VoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VoiceUpdateResponse>
 
-    /** List phone numbers with voice settings */
+    /**
+     * Returns account phone numbers together with their voice settings. Results support pagination,
+     * sorting, and filters for number, connection name, customer reference, and voice usage payment
+     * method.
+     */
     fun list(): CompletableFuture<VoiceListPageAsync> = list(VoiceListParams.none())
 
     /** @see list */

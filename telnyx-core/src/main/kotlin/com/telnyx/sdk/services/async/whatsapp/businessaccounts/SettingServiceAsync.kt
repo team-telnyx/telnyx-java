@@ -27,7 +27,7 @@ interface SettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync
 
-    /** Get WABA settings */
+    /** Returns account-level settings for the specified WhatsApp Business Account. */
     fun retrieve(id: String): CompletableFuture<SettingRetrieveResponse> =
         retrieve(id, SettingRetrieveParams.none())
 
@@ -62,7 +62,7 @@ interface SettingServiceAsync {
     ): CompletableFuture<SettingRetrieveResponse> =
         retrieve(id, SettingRetrieveParams.none(), requestOptions)
 
-    /** Update WABA settings */
+    /** Updates the supplied account-level settings for the specified WhatsApp Business Account. */
     fun update(id: String): CompletableFuture<SettingUpdateResponse> =
         update(id, SettingUpdateParams.none())
 

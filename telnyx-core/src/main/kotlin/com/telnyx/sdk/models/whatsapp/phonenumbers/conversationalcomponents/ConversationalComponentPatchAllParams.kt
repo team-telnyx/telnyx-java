@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update phone number conversational components */
+/** Updates the conversational components configured for the specified WhatsApp phone number. */
 class ConversationalComponentPatchAllParams
 private constructor(
     private val phoneNumber: String?,

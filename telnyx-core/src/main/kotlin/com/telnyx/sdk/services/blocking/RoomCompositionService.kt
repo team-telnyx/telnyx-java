@@ -49,7 +49,10 @@ interface RoomCompositionService {
     fun create(requestOptions: RequestOptions): RoomCompositionCreateResponse =
         create(RoomCompositionCreateParams.none(), requestOptions)
 
-    /** View a room composition. */
+    /**
+     * Returns the composition identified by `room_composition_id`, including its room and session,
+     * processing status, media details, video layout, lifecycle timestamps, and download URL.
+     */
     fun retrieve(roomCompositionId: String): RoomCompositionRetrieveResponse =
         retrieve(roomCompositionId, RoomCompositionRetrieveParams.none())
 
@@ -84,7 +87,10 @@ interface RoomCompositionService {
     ): RoomCompositionRetrieveResponse =
         retrieve(roomCompositionId, RoomCompositionRetrieveParams.none(), requestOptions)
 
-    /** View a list of room compositions. */
+    /**
+     * Returns a paginated list of room compositions. Filter compositions by creation date, room
+     * session, or processing status.
+     */
     fun list(): RoomCompositionListPage = list(RoomCompositionListParams.none())
 
     /** @see list */

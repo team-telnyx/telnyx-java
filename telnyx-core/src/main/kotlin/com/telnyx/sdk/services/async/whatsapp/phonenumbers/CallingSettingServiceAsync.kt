@@ -27,7 +27,7 @@ interface CallingSettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallingSettingServiceAsync
 
-    /** Get calling settings for a phone number */
+    /** Returns the WhatsApp calling configuration for the specified phone number. */
     fun retrieve(phoneNumber: String): CompletableFuture<CallingSettingRetrieveResponse> =
         retrieve(phoneNumber, CallingSettingRetrieveParams.none())
 
@@ -64,7 +64,7 @@ interface CallingSettingServiceAsync {
     ): CompletableFuture<CallingSettingRetrieveResponse> =
         retrieve(phoneNumber, CallingSettingRetrieveParams.none(), requestOptions)
 
-    /** Enable or disable Whatsapp calling for a phone number */
+    /** Enables or disables WhatsApp calling for the specified phone number. */
     fun update(
         phoneNumber: String,
         params: CallingSettingUpdateParams,

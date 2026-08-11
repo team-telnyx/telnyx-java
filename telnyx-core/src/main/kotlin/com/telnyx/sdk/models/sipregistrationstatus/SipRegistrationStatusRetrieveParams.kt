@@ -14,9 +14,21 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Returns the live SIP registration state of a UAC connection: whether it is currently registered,
- * when it last registered, and the last response Telnyx received from the registrar. Only
- * `uac_external_credential` is supported today.
+ * Returns the live SIP registration status for a Telnyx endpoint: whether it is currently
+ * registered, when the current registration expires, and the last response Telnyx received from the
+ * registrar.
+ *
+ * The endpoint supports three credential types, selected with the `credential_type` query
+ * parameter. Each type is keyed by a different identifier:
+ *
+ * |`credential_type`          |Keyed by       |Use case                                                                  |
+ * |---------------------------|---------------|--------------------------------------------------------------------------|
+ * |`uac_external_credential`  |`connection_id`|A UAC (SIP attach) connection that registers to an external PBX.          |
+ * |`telephony_credential`     |`username`     |An ephemeral, one-time-use telephony credential.                          |
+ * |`sip_credential_connection`|`username`     |A traditional SIP credential connection that registers directly to Telnyx.|
+ *
+ * The authenticated account is taken from your API key; you can only read the registration status
+ * of connections and credentials your account owns.
  */
 class SipRegistrationStatusRetrieveParams
 private constructor(
@@ -29,7 +41,7 @@ private constructor(
 
     /**
      * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-     * `telephony_credential` is keyed by `username`.
+     * `telephony_credential` and `sip_credential_connection` are keyed by `username`.
      */
     fun credentialType(): CredentialType = credentialType
 
@@ -40,8 +52,8 @@ private constructor(
     fun connectionId(): Optional<String> = Optional.ofNullable(connectionId)
 
     /**
-     * SIP username of the telephony credential to look up. Required when `credential_type` is
-     * `telephony_credential`.
+     * SIP username to look up. Required when `credential_type` is `telephony_credential` or
+     * `sip_credential_connection`.
      */
     fun username(): Optional<String> = Optional.ofNullable(username)
 
@@ -91,7 +103,7 @@ private constructor(
 
         /**
          * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-         * `telephony_credential` is keyed by `username`.
+         * `telephony_credential` and `sip_credential_connection` are keyed by `username`.
          */
         fun credentialType(credentialType: CredentialType) = apply {
             this.credentialType = credentialType
@@ -107,8 +119,8 @@ private constructor(
         fun connectionId(connectionId: Optional<String>) = connectionId(connectionId.getOrNull())
 
         /**
-         * SIP username of the telephony credential to look up. Required when `credential_type` is
-         * `telephony_credential`.
+         * SIP username to look up. Required when `credential_type` is `telephony_credential` or
+         * `sip_credential_connection`.
          */
         fun username(username: String?) = apply { this.username = username }
 
@@ -250,7 +262,7 @@ private constructor(
 
     /**
      * The kind of credential to look up. `uac_external_credential` is keyed by `connection_id`;
-     * `telephony_credential` is keyed by `username`.
+     * `telephony_credential` and `sip_credential_connection` are keyed by `username`.
      */
     class CredentialType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -271,6 +283,8 @@ private constructor(
 
             @JvmField val TELEPHONY_CREDENTIAL = of("telephony_credential")
 
+            @JvmField val SIP_CREDENTIAL_CONNECTION = of("sip_credential_connection")
+
             @JvmStatic fun of(value: String) = CredentialType(JsonField.of(value))
         }
 
@@ -278,6 +292,7 @@ private constructor(
         enum class Known {
             UAC_EXTERNAL_CREDENTIAL,
             TELEPHONY_CREDENTIAL,
+            SIP_CREDENTIAL_CONNECTION,
         }
 
         /**
@@ -292,6 +307,7 @@ private constructor(
         enum class Value {
             UAC_EXTERNAL_CREDENTIAL,
             TELEPHONY_CREDENTIAL,
+            SIP_CREDENTIAL_CONNECTION,
             /**
              * An enum member indicating that [CredentialType] was instantiated with an unknown
              * value.
@@ -310,6 +326,7 @@ private constructor(
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Value.UAC_EXTERNAL_CREDENTIAL
                 TELEPHONY_CREDENTIAL -> Value.TELEPHONY_CREDENTIAL
+                SIP_CREDENTIAL_CONNECTION -> Value.SIP_CREDENTIAL_CONNECTION
                 else -> Value._UNKNOWN
             }
 
@@ -326,6 +343,7 @@ private constructor(
             when (this) {
                 UAC_EXTERNAL_CREDENTIAL -> Known.UAC_EXTERNAL_CREDENTIAL
                 TELEPHONY_CREDENTIAL -> Known.TELEPHONY_CREDENTIAL
+                SIP_CREDENTIAL_CONNECTION -> Known.SIP_CREDENTIAL_CONNECTION
                 else -> throw TelnyxInvalidDataException("Unknown CredentialType: $value")
             }
 

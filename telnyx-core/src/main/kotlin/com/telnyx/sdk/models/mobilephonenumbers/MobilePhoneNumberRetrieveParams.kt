@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Mobile Phone Number */
+/** Retrieve the details of a specific mobile phone number. */
 class MobilePhoneNumberRetrieveParams
 private constructor(
     private val id: String?,

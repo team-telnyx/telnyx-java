@@ -21,9 +21,9 @@ internal class EmbeddingServiceAsyncTest {
         val embeddingResponseFuture =
             embeddingServiceAsync.create(
                 EmbeddingCreateParams.builder()
-                    .bucketName("bucket_name")
-                    .documentChunkOverlapSize(0L)
-                    .documentChunkSize(0L)
+                    .bucketName("Bucket Name")
+                    .documentChunkOverlapSize(512L)
+                    .documentChunkSize(1024L)
                     .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
                     .loader(EmbeddingCreateParams.Loader.DEFAULT)
                     .build()
@@ -67,9 +67,9 @@ internal class EmbeddingServiceAsyncTest {
         val responseFuture =
             embeddingServiceAsync.similaritySearch(
                 EmbeddingSimilaritySearchParams.builder()
-                    .bucketName("bucket_name")
-                    .query("query")
-                    .numOfDocs(0L)
+                    .bucketName("Bucket Name")
+                    .query("Query")
+                    .numOfDocs(3L)
                     .build()
             )
 
@@ -85,7 +85,7 @@ internal class EmbeddingServiceAsyncTest {
 
         val embeddingResponseFuture =
             embeddingServiceAsync.url(
-                EmbeddingUrlParams.builder().bucketName("bucket_name").url("url").build()
+                EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
             )
 
         val embeddingResponse = embeddingResponseFuture.get()

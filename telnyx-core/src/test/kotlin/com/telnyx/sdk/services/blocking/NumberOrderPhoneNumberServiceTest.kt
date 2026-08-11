@@ -52,7 +52,7 @@ internal class NumberOrderPhoneNumberServiceTest {
             numberOrderPhoneNumberService.updateRequirementGroup(
                 NumberOrderPhoneNumberUpdateRequirementGroupParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .requirementGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .requirementGroupId("a4b201f9-8646-4e54-a7d2-b2e403eeaf8c")
                     .build()
             )
 

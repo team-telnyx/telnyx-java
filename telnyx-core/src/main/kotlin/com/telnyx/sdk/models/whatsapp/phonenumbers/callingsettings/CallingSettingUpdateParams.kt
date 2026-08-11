@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Enable or disable Whatsapp calling for a phone number */
+/** Enables or disables WhatsApp calling for the specified phone number. */
 class CallingSettingUpdateParams
 private constructor(
     private val phoneNumber: String?,

@@ -30,7 +30,10 @@ interface AutorespConfigService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutorespConfigService
 
-    /** Create auto-response setting */
+    /**
+     * Creates an auto-response rule on the specified messaging profile. Matching inbound messages
+     * trigger the configured response.
+     */
     fun create(profileId: String, params: AutorespConfigCreateParams): AutoRespConfigResponse =
         create(profileId, params, RequestOptions.none())
 
@@ -52,7 +55,7 @@ interface AutorespConfigService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AutoRespConfigResponse
 
-    /** Get Auto-Response Setting */
+    /** Returns the matching criteria and response content for the specified auto-response rule. */
     fun retrieve(
         autorespCfgId: String,
         params: AutorespConfigRetrieveParams,
@@ -76,7 +79,7 @@ interface AutorespConfigService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AutoRespConfigResponse
 
-    /** Update Auto-Response Setting */
+    /** Replaces the configuration of the specified auto-response rule. */
     fun update(autorespCfgId: String, params: AutorespConfigUpdateParams): AutoRespConfigResponse =
         update(autorespCfgId, params, RequestOptions.none())
 
@@ -98,7 +101,7 @@ interface AutorespConfigService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AutoRespConfigResponse
 
-    /** List Auto-Response Settings */
+    /** Returns the auto-response rules configured for the specified messaging profile. */
     fun list(profileId: String): AutorespConfigListResponse =
         list(profileId, AutorespConfigListParams.none())
 
@@ -130,7 +133,7 @@ interface AutorespConfigService {
     fun list(profileId: String, requestOptions: RequestOptions): AutorespConfigListResponse =
         list(profileId, AutorespConfigListParams.none(), requestOptions)
 
-    /** Delete Auto-Response Setting */
+    /** Deletes the specified auto-response rule from the messaging profile. */
     fun delete(autorespCfgId: String, params: AutorespConfigDeleteParams): String =
         delete(autorespCfgId, params, RequestOptions.none())
 

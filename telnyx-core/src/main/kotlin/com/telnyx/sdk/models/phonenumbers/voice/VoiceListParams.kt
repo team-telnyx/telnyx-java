@@ -12,7 +12,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List phone numbers with voice settings */
+/**
+ * Returns account phone numbers together with their voice settings. Results support pagination,
+ * sorting, and filters for number, connection name, customer reference, and voice usage payment
+ * method.
+ */
 class VoiceListParams
 private constructor(
     private val filter: Filter?,

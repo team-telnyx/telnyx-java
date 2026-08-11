@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a messaging profile */
+/**
+ * Updates the supplied settings on the specified messaging profile. Settings omitted from the
+ * request remain unchanged.
+ */
 class MessagingProfileUpdateParams
 private constructor(
     private val messagingProfileId: String?,

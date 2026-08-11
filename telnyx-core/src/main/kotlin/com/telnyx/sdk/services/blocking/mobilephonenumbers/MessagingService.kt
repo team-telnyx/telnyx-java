@@ -26,7 +26,7 @@ interface MessagingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingService
 
-    /** Retrieve a mobile phone number with messaging settings */
+    /** Returns the messaging configuration for the specified mobile phone number. */
     fun retrieve(id: String): MessagingRetrieveResponse =
         retrieve(id, MessagingRetrieveParams.none())
 
@@ -57,7 +57,7 @@ interface MessagingService {
     fun retrieve(id: String, requestOptions: RequestOptions): MessagingRetrieveResponse =
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
-    /** List mobile phone numbers with messaging settings */
+    /** Returns mobile phone numbers with their current messaging configuration. */
     fun list(): MessagingListPage = list(MessagingListParams.none())
 
     /** @see list */

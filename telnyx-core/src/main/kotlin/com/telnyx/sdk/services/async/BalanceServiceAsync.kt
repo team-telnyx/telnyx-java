@@ -25,7 +25,7 @@ interface BalanceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BalanceServiceAsync
 
-    /** Get user balance details */
+    /** Retrieve the current balance, available credit, and credit limit for your account. */
     fun retrieve(): CompletableFuture<BalanceRetrieveResponse> =
         retrieve(BalanceRetrieveParams.none())
 

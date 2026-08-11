@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Verify verification code by phone number */
+/**
+ * Submits a verification code for the specified phone number and Verify profile. The response
+ * indicates whether the code was accepted or rejected.
+ */
 class ActionVerifyParams
 private constructor(
     private val phoneNumber: String?,

@@ -11,8 +11,8 @@ internal class RequestUpdateParamsTest {
     fun create() {
         RequestUpdateParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .tfVerificationRequest(
-                TfVerificationRequest.builder()
+            .messagingTollFreeVerificationTfVerificationRequest(
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -48,7 +48,7 @@ internal class RequestUpdateParamsTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -70,8 +70,8 @@ internal class RequestUpdateParamsTest {
         val params =
             RequestUpdateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .tfVerificationRequest(
-                    TfVerificationRequest.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    MessagingTollFreeVerificationTfVerificationRequest.builder()
                         .additionalInformation("additionalInformation")
                         .businessAddr1("600 Congress Avenue")
                         .businessCity("Austin")
@@ -114,8 +114,8 @@ internal class RequestUpdateParamsTest {
         val params =
             RequestUpdateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .tfVerificationRequest(
-                    TfVerificationRequest.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    MessagingTollFreeVerificationTfVerificationRequest.builder()
                         .additionalInformation("additionalInformation")
                         .businessAddr1("600 Congress Avenue")
                         .businessCity("Austin")
@@ -151,7 +151,7 @@ internal class RequestUpdateParamsTest {
                         .businessRegistrationType("EIN")
                         .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                         .doingBusinessAs("Acme Services")
-                        .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                        .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
@@ -171,7 +171,7 @@ internal class RequestUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -207,7 +207,7 @@ internal class RequestUpdateParamsTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -228,8 +228,8 @@ internal class RequestUpdateParamsTest {
         val params =
             RequestUpdateParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .tfVerificationRequest(
-                    TfVerificationRequest.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    MessagingTollFreeVerificationTfVerificationRequest.builder()
                         .additionalInformation("additionalInformation")
                         .businessAddr1("600 Congress Avenue")
                         .businessCity("Austin")
@@ -266,7 +266,7 @@ internal class RequestUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")

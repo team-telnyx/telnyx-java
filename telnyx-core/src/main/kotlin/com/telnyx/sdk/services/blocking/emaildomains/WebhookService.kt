@@ -55,7 +55,7 @@ interface WebhookService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EmailWebhookResponse
 
-    /** Retrieve a webhook */
+    /** Returns the webhook subscription identified by ID within the specified email domain. */
     fun retrieve(id: String, params: WebhookRetrieveParams): EmailWebhookResponse =
         retrieve(id, params, RequestOptions.none())
 
@@ -100,7 +100,10 @@ interface WebhookService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EmailWebhookResponse
 
-    /** List webhooks for an email domain */
+    /**
+     * Returns a paginated list of webhook subscriptions scoped to the email domain. Results can be
+     * sorted by creation time.
+     */
     fun list(domainId: String): WebhookListPage = list(domainId, WebhookListParams.none())
 
     /** @see list */
@@ -129,7 +132,10 @@ interface WebhookService {
     fun list(domainId: String, requestOptions: RequestOptions): WebhookListPage =
         list(domainId, WebhookListParams.none(), requestOptions)
 
-    /** Delete a webhook */
+    /**
+     * Deletes the webhook subscription identified by ID within the specified email domain and
+     * returns the deleted subscription.
+     */
     fun delete(id: String, params: WebhookDeleteParams): EmailWebhookResponse =
         delete(id, params, RequestOptions.none())
 

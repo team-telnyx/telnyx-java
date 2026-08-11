@@ -57,8 +57,8 @@ internal class ReportListWdrsPageResponseTest {
                 .meta(
                     ReportListWdrsPageResponse.Meta.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )
@@ -108,8 +108,8 @@ internal class ReportListWdrsPageResponseTest {
             .contains(
                 ReportListWdrsPageResponse.Meta.builder()
                     .pageNumber(2)
-                    .totalPages(3)
                     .pageSize(25)
+                    .totalPages(3)
                     .totalResults(55)
                     .build()
             )
@@ -162,8 +162,8 @@ internal class ReportListWdrsPageResponseTest {
                 .meta(
                     ReportListWdrsPageResponse.Meta.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )

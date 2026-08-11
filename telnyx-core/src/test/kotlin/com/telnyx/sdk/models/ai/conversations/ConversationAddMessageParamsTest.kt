@@ -14,16 +14,16 @@ internal class ConversationAddMessageParamsTest {
     fun create() {
         ConversationAddMessageParams.builder()
             .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .role("role")
-            .content("content")
+            .role("Role")
+            .content("")
             .metadata(
                 ConversationAddMessageParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-            .name("name")
-            .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .toolCallId("tool_call_id")
+            .name("Name")
+            .sentAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+            .toolCallId("Tool Call Id")
             .addToolCall(
                 ConversationAddMessageParams.ToolCall.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -38,7 +38,7 @@ internal class ConversationAddMessageParamsTest {
         val params =
             ConversationAddMessageParams.builder()
                 .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .role("role")
+                .role("Role")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -51,16 +51,16 @@ internal class ConversationAddMessageParamsTest {
         val params =
             ConversationAddMessageParams.builder()
                 .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .role("role")
-                .content("content")
+                .role("Role")
+                .content("")
                 .metadata(
                     ConversationAddMessageParams.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .name("name")
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .toolCallId("tool_call_id")
+                .name("Name")
+                .sentAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                .toolCallId("Tool Call Id")
                 .addToolCall(
                     ConversationAddMessageParams.ToolCall.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -71,17 +71,17 @@ internal class ConversationAddMessageParamsTest {
 
         val body = params._body()
 
-        assertThat(body.role()).isEqualTo("role")
-        assertThat(body.content()).contains("content")
+        assertThat(body.role()).isEqualTo("Role")
+        assertThat(body.content()).contains("")
         assertThat(body.metadata())
             .contains(
                 ConversationAddMessageParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-        assertThat(body.name()).contains("name")
-        assertThat(body.sentAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.toolCallId()).contains("tool_call_id")
+        assertThat(body.name()).contains("Name")
+        assertThat(body.sentAt()).contains(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+        assertThat(body.toolCallId()).contains("Tool Call Id")
         assertThat(body.toolCalls().getOrNull())
             .containsExactly(
                 ConversationAddMessageParams.ToolCall.builder()
@@ -97,11 +97,11 @@ internal class ConversationAddMessageParamsTest {
         val params =
             ConversationAddMessageParams.builder()
                 .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .role("role")
+                .role("Role")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.role()).isEqualTo("role")
+        assertThat(body.role()).isEqualTo("Role")
     }
 }

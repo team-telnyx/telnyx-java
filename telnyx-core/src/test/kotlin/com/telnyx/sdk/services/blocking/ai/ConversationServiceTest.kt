@@ -28,7 +28,7 @@ internal class ConversationServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .name("name")
+                    .name("string")
                     .build()
             )
 
@@ -58,7 +58,7 @@ internal class ConversationServiceTest {
                     .conversationId("conversation_id")
                     .metadata(
                         ConversationUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .putAdditionalProperty("ai_disabled", JsonValue.from("true"))
                             .build()
                     )
                     .build()
@@ -112,16 +112,16 @@ internal class ConversationServiceTest {
         conversationService.addMessage(
             ConversationAddMessageParams.builder()
                 .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .role("role")
-                .content("content")
+                .role("Role")
+                .content("")
                 .metadata(
                     ConversationAddMessageParams.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .name("name")
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .toolCallId("tool_call_id")
+                .name("Name")
+                .sentAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                .toolCallId("Tool Call Id")
                 .addToolCall(
                     ConversationAddMessageParams.ToolCall.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))

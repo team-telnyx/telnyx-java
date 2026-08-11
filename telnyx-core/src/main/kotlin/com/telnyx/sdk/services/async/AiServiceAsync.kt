@@ -14,6 +14,7 @@ import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
+import com.telnyx.sdk.services.async.ai.CollectionServiceAsync
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
@@ -48,6 +49,12 @@ interface AiServiceAsync {
 
     /** Identify common themes and patterns in your embedded documents */
     fun clusters(): ClusterServiceAsync
+
+    /**
+     * Create and manage logical collections of your Telnyx data, tune retrieval settings, manage
+     * sources, and run collection-scoped semantic search.
+     */
+    fun collections(): CollectionServiceAsync
 
     /** Manage historical AI assistant conversations */
     fun conversations(): ConversationServiceAsync
@@ -109,14 +116,12 @@ interface AiServiceAsync {
      * - `contains` — wildcard substring match
      *
      * **Examples:**
-     *
-     * ```
-     * GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10
-     * GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5
-     * GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z
-     * GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU
-     * GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en
-     * ```
+     * - `GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10`
+     * - `GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5`
+     * - `GET
+     *   /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
+     * - `GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU`
+     * - `GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en`
      */
     fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams
@@ -167,6 +172,12 @@ interface AiServiceAsync {
 
         /** Identify common themes and patterns in your embedded documents */
         fun clusters(): ClusterServiceAsync.WithRawResponse
+
+        /**
+         * Create and manage logical collections of your Telnyx data, tune retrieval settings,
+         * manage sources, and run collection-scoped semantic search.
+         */
+        fun collections(): CollectionServiceAsync.WithRawResponse
 
         /** Manage historical AI assistant conversations */
         fun conversations(): ConversationServiceAsync.WithRawResponse

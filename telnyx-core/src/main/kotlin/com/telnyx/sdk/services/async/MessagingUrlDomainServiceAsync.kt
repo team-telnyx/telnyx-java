@@ -25,7 +25,9 @@ interface MessagingUrlDomainServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingUrlDomainServiceAsync
 
-    /** List messaging URL domains */
+    /**
+     * Returns the URL domains available to the authenticated account for message URL shortening.
+     */
     fun list(): CompletableFuture<MessagingUrlDomainListPageAsync> =
         list(MessagingUrlDomainListParams.none())
 

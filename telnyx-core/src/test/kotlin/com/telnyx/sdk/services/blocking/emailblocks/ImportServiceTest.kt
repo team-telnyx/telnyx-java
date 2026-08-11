@@ -19,7 +19,7 @@ internal class ImportServiceTest {
             importService.create(
                 ImportCreateParams.builder()
                     .file("Example data".byteInputStream())
-                    .blockTtlDays(1L)
+                    .blockTtlDays(30L)
                     .build()
             )
 

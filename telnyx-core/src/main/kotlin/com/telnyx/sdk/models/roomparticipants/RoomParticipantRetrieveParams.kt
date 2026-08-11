@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a room participant. */
+/**
+ * Returns the participant identified by `room_participant_id`, including its session, context, and
+ * join, update, and leave timestamps.
+ */
 class RoomParticipantRetrieveParams
 private constructor(
     private val roomParticipantId: String?,

@@ -30,7 +30,7 @@ internal class CallingSettingServiceTest {
             callingSettingService.update(
                 CallingSettingUpdateParams.builder()
                     .phoneNumber("phone_number")
-                    .enabled(true)
+                    .enabled(false)
                     .build()
             )
 

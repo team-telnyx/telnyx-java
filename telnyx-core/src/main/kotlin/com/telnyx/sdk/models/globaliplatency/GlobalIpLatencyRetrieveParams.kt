@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Global IP Latency Metrics */
+/** Retrieve latency metrics measured for your Global IPs. */
 class GlobalIpLatencyRetrieveParams
 private constructor(
     private val filter: Filter?,

@@ -10,8 +10,8 @@ internal class AccessIpRangeCreateParamsTest {
     @Test
     fun create() {
         AccessIpRangeCreateParams.builder()
-            .cidrBlock("cidr_block")
-            .description("description")
+            .cidrBlock("Cidr Block")
+            .description("Description")
             .build()
     }
 
@@ -19,22 +19,22 @@ internal class AccessIpRangeCreateParamsTest {
     fun body() {
         val params =
             AccessIpRangeCreateParams.builder()
-                .cidrBlock("cidr_block")
-                .description("description")
+                .cidrBlock("Cidr Block")
+                .description("Description")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.cidrBlock()).isEqualTo("cidr_block")
-        assertThat(body.description()).contains("description")
+        assertThat(body.cidrBlock()).isEqualTo("Cidr Block")
+        assertThat(body.description()).contains("Description")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = AccessIpRangeCreateParams.builder().cidrBlock("cidr_block").build()
+        val params = AccessIpRangeCreateParams.builder().cidrBlock("Cidr Block").build()
 
         val body = params._body()
 
-        assertThat(body.cidrBlock()).isEqualTo("cidr_block")
+        assertThat(body.cidrBlock()).isEqualTo("Cidr Block")
     }
 }

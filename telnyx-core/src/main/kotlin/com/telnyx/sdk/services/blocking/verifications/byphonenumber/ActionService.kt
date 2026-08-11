@@ -25,7 +25,10 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
-    /** Verify verification code by phone number */
+    /**
+     * Submits a verification code for the specified phone number and Verify profile. The response
+     * indicates whether the code was accepted or rejected.
+     */
     fun verify(phoneNumber: String, params: ActionVerifyParams): VerifyVerificationCodeResponse =
         verify(phoneNumber, params, RequestOptions.none())
 

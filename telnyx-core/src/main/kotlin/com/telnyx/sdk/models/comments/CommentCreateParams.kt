@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create a comment */
+/**
+ * Creates a comment associated with a supported number-order record. The response contains the
+ * created comment.
+ */
 class CommentCreateParams
 private constructor(
     private val comment: Comment,

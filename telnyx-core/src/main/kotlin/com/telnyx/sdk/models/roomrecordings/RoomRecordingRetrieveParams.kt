@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a room recording. */
+/**
+ * Returns the recording identified by `room_recording_id`, including its room, session,
+ * participant, status, media details, lifecycle timestamps, and download URL.
+ */
 class RoomRecordingRetrieveParams
 private constructor(
     private val roomRecordingId: String?,

@@ -13,13 +13,13 @@ internal class McpServerUpdateParamsTest {
     fun create() {
         McpServerUpdateParams.builder()
             .mcpServerId("mcp_server_id")
-            .id("id")
+            .id("Id")
             .addAllowedTool("string")
             .apiKeyRef("api_key_ref")
-            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .name("name")
-            .type("type")
-            .url("url")
+            .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+            .name("Name")
+            .type("Type")
+            .url("Url")
             .build()
     }
 
@@ -37,24 +37,24 @@ internal class McpServerUpdateParamsTest {
         val params =
             McpServerUpdateParams.builder()
                 .mcpServerId("mcp_server_id")
-                .id("id")
+                .id("Id")
                 .addAllowedTool("string")
                 .apiKeyRef("api_key_ref")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .name("name")
-                .type("type")
-                .url("url")
+                .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                .name("Name")
+                .type("Type")
+                .url("Url")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.id()).contains("id")
+        assertThat(body.id()).contains("Id")
         assertThat(body.allowedTools().getOrNull()).containsExactly("string")
         assertThat(body.apiKeyRef()).contains("api_key_ref")
-        assertThat(body.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.name()).contains("name")
-        assertThat(body.type()).contains("type")
-        assertThat(body.url()).contains("url")
+        assertThat(body.createdAt()).contains(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+        assertThat(body.name()).contains("Name")
+        assertThat(body.type()).contains("Type")
+        assertThat(body.url()).contains("Url")
     }
 
     @Test

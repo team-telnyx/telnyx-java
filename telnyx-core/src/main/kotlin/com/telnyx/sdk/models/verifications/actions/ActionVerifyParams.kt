@@ -19,7 +19,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Verify verification code by ID */
+/**
+ * Checks the supplied code, or the supplied status for a custom-code verification, against the
+ * verification identified by ID. The response indicates whether the verification was accepted or
+ * rejected.
+ */
 class ActionVerifyParams
 private constructor(
     private val verificationId: String?,

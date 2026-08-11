@@ -67,7 +67,7 @@ interface FaxServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FaxCreateResponse>
 
-    /** View a fax */
+    /** Retrieve the details of a single fax. */
     fun retrieve(id: String): CompletableFuture<FaxRetrieveResponse> =
         retrieve(id, FaxRetrieveParams.none())
 
@@ -102,7 +102,7 @@ interface FaxServiceAsync {
     ): CompletableFuture<FaxRetrieveResponse> =
         retrieve(id, FaxRetrieveParams.none(), requestOptions)
 
-    /** View a list of faxes */
+    /** Retrieve a paginated list of faxes sent or received on your account. */
     fun list(): CompletableFuture<FaxListPageAsync> = list(FaxListParams.none())
 
     /** @see list */
@@ -119,7 +119,7 @@ interface FaxServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<FaxListPageAsync> =
         list(FaxListParams.none(), requestOptions)
 
-    /** Delete a fax */
+    /** Delete a fax resource from your account. */
     fun delete(id: String): CompletableFuture<Void?> = delete(id, FaxDeleteParams.none())
 
     /** @see delete */

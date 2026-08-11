@@ -919,7 +919,10 @@ interface ActionService {
     ): ActionStartForkingResponse =
         startForking(callControlId, ActionStartForkingParams.none(), requestOptions)
 
-    /** Noise Suppression Start (BETA) */
+    /**
+     * Start noise suppression on an active call to reduce background noise. This feature is
+     * currently in beta.
+     */
     fun startNoiseSuppression(callControlId: String): ActionStartNoiseSuppressionResponse =
         startNoiseSuppression(callControlId, ActionStartNoiseSuppressionParams.none())
 
@@ -1317,7 +1320,10 @@ interface ActionService {
     ): ActionStopGatherResponse =
         stopGather(callControlId, ActionStopGatherParams.none(), requestOptions)
 
-    /** Noise Suppression Stop (BETA) */
+    /**
+     * Stop noise suppression previously started on an active call. This feature is currently in
+     * beta.
+     */
     fun stopNoiseSuppression(callControlId: String): ActionStopNoiseSuppressionResponse =
         stopNoiseSuppression(callControlId, ActionStopNoiseSuppressionParams.none())
 

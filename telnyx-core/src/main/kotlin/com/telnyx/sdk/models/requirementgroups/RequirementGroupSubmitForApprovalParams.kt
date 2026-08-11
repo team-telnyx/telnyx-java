@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Submit a Requirement Group for Approval */
+/**
+ * Submits the specified regulatory requirement group for approval. The response contains the
+ * requirement group with its resulting approval status.
+ */
 class RequirementGroupSubmitForApprovalParams
 private constructor(
     private val id: String?,

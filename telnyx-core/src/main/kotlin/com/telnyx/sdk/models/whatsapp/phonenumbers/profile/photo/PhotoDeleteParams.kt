@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete Whatsapp profile photo */
+/** Removes the business-profile photo from the specified WhatsApp phone number. */
 class PhotoDeleteParams
 private constructor(
     private val phoneNumber: String?,

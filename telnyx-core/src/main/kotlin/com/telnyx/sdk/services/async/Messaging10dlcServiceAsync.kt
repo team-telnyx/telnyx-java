@@ -47,7 +47,10 @@ interface Messaging10dlcServiceAsync {
     /** Phone number campaign bulk assignment */
     fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync
 
-    /** Get Enum */
+    /**
+     * Returns the accepted values for the selected 10DLC enumeration endpoint. Use these values
+     * when constructing brand and campaign requests.
+     */
     fun getEnum(
         endpoint: Messaging10dlcGetEnumParams.Endpoint
     ): CompletableFuture<Messaging10dlcGetEnumResponse> =

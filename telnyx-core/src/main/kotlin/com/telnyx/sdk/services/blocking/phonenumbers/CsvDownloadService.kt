@@ -28,7 +28,11 @@ interface CsvDownloadService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CsvDownloadService
 
-    /** Create a CSV download */
+    /**
+     * Starts generation of a CSV export for phone numbers matching the supplied filters. The
+     * `csv_format` parameter selects the output format, and the response contains the resulting
+     * download record.
+     */
     fun create(): CsvDownloadCreateResponse = create(CsvDownloadCreateParams.none())
 
     /** @see create */
@@ -46,7 +50,7 @@ interface CsvDownloadService {
     fun create(requestOptions: RequestOptions): CsvDownloadCreateResponse =
         create(CsvDownloadCreateParams.none(), requestOptions)
 
-    /** Retrieve a CSV download */
+    /** Returns the current status and download details for the CSV export identified by `id`. */
     fun retrieve(id: String): CsvDownloadRetrieveResponse =
         retrieve(id, CsvDownloadRetrieveParams.none())
 
@@ -77,7 +81,10 @@ interface CsvDownloadService {
     fun retrieve(id: String, requestOptions: RequestOptions): CsvDownloadRetrieveResponse =
         retrieve(id, CsvDownloadRetrieveParams.none(), requestOptions)
 
-    /** List CSV downloads */
+    /**
+     * Returns CSV export jobs created for account phone numbers, including each export's current
+     * status and pagination metadata.
+     */
     fun list(): CsvDownloadListPage = list(CsvDownloadListParams.none())
 
     /** @see list */

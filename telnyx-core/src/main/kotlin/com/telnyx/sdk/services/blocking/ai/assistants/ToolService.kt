@@ -29,7 +29,7 @@ interface ToolService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolService
 
-    /** Add Assistant Tool */
+    /** Attach an existing tool to an AI assistant. */
     fun add(toolId: String, params: ToolAddParams): ToolAddResponse =
         add(toolId, params, RequestOptions.none())
 
@@ -49,7 +49,7 @@ interface ToolService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ToolAddResponse
 
-    /** Remove Assistant Tool */
+    /** Detach a tool from an AI assistant. */
     fun remove(toolId: String, params: ToolRemoveParams): ToolRemoveResponse =
         remove(toolId, params, RequestOptions.none())
 

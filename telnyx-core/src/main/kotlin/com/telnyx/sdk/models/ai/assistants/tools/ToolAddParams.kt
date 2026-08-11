@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Add Assistant Tool */
+/** Attach an existing tool to an AI assistant. */
 class ToolAddParams
 private constructor(
     private val assistantId: String,

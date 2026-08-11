@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List Migration Source coverage */
+/** List the external storage providers and regions supported as migration sources. */
 class StorageListMigrationSourceCoverageParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

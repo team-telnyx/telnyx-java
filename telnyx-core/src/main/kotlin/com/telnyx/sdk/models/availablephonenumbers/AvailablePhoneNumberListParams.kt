@@ -13,7 +13,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List available phone numbers */
+/**
+ * Searches the Telnyx inventory for available phone numbers. Filters support number patterns,
+ * location, number type, features, reservability, and other inventory constraints; the response
+ * includes matching numbers and search metadata.
+ */
 class AvailablePhoneNumberListParams
 private constructor(
     private val filter: Filter?,

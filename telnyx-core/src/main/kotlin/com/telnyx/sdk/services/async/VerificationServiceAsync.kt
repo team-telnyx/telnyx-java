@@ -39,7 +39,10 @@ interface VerificationServiceAsync {
     /** Two factor authentication API */
     fun actions(): ActionServiceAsync
 
-    /** Retrieve verification */
+    /**
+     * Returns the verification identified by ID, including its channel, phone number, Verify
+     * profile, timeout, and current status.
+     */
     fun retrieve(verificationId: String): CompletableFuture<VerificationRetrieveResponse> =
         retrieve(verificationId, VerificationRetrieveParams.none())
 
@@ -76,7 +79,10 @@ interface VerificationServiceAsync {
     ): CompletableFuture<VerificationRetrieveResponse> =
         retrieve(verificationId, VerificationRetrieveParams.none(), requestOptions)
 
-    /** Trigger Call verification */
+    /**
+     * Starts a verification for the specified phone number and delivers its code in a voice call
+     * using the selected Verify profile. Returns the pending verification record.
+     */
     fun triggerCall(
         params: VerificationTriggerCallParams
     ): CompletableFuture<CreateVerificationResponse> = triggerCall(params, RequestOptions.none())
@@ -87,7 +93,10 @@ interface VerificationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CreateVerificationResponse>
 
-    /** Trigger Flash call verification */
+    /**
+     * Starts a verification for the specified phone number and places a brief call with the code
+     * embedded in the caller ID. Returns the pending verification record.
+     */
     fun triggerFlashcall(
         params: VerificationTriggerFlashcallParams
     ): CompletableFuture<CreateVerificationResponse> =
@@ -99,7 +108,10 @@ interface VerificationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CreateVerificationResponse>
 
-    /** Trigger SMS verification */
+    /**
+     * Starts a verification for the specified phone number and sends its code by SMS using the
+     * selected Verify profile. Returns the pending verification record.
+     */
     fun triggerSms(
         params: VerificationTriggerSmsParams
     ): CompletableFuture<CreateVerificationResponse> = triggerSms(params, RequestOptions.none())
@@ -128,7 +140,10 @@ interface VerificationServiceAsync {
     ): CompletableFuture<CreateVerificationResponse> =
         triggerSms(createVerificationRequestSms, RequestOptions.none())
 
-    /** Trigger WhatsApp verification */
+    /**
+     * Starts a verification for the specified phone number and sends its code over WhatsApp using
+     * the selected Verify profile. Returns the pending verification record.
+     */
     fun triggerWhatsappVerification(
         params: VerificationTriggerWhatsappVerificationParams
     ): CompletableFuture<CreateVerificationResponse> =

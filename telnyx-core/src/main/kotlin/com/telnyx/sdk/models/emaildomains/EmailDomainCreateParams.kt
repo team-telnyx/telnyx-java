@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create an email domain */
+/**
+ * Registers a domain for email sending and optional inbound delivery. The response includes the
+ * domain configuration and current verification state.
+ */
 class EmailDomainCreateParams
 private constructor(
     private val body: Body,

@@ -56,7 +56,9 @@ interface PhoneNumberService {
     /** Voicemail API */
     fun voicemail(): VoicemailService
 
-    /** Retrieve a phone number */
+    /**
+     * Returns the detailed configuration and current state of the phone number identified by `id`.
+     */
     fun retrieve(id: String): PhoneNumberRetrieveResponse =
         retrieve(id, PhoneNumberRetrieveParams.none())
 
@@ -87,7 +89,10 @@ interface PhoneNumberService {
     fun retrieve(id: String, requestOptions: RequestOptions): PhoneNumberRetrieveResponse =
         retrieve(id, PhoneNumberRetrieveParams.none(), requestOptions)
 
-    /** Update a phone number */
+    /**
+     * Updates the configurable settings of the specified phone number. The response contains the
+     * complete updated phone-number representation.
+     */
     fun update(phoneNumberId: String): PhoneNumberUpdateResponse =
         update(phoneNumberId, PhoneNumberUpdateParams.none())
 
@@ -119,7 +124,11 @@ interface PhoneNumberService {
     fun update(phoneNumberId: String, requestOptions: RequestOptions): PhoneNumberUpdateResponse =
         update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
-    /** List phone numbers */
+    /**
+     * Returns phone numbers associated with the account. Results support pagination, sorting, and
+     * filters for number attributes, status, source, connections, billing groups, emergency
+     * addresses, tags, and customer references.
+     */
     fun list(): PhoneNumberListPage = list(PhoneNumberListParams.none())
 
     /** @see list */
@@ -136,7 +145,10 @@ interface PhoneNumberService {
     fun list(requestOptions: RequestOptions): PhoneNumberListPage =
         list(PhoneNumberListParams.none(), requestOptions)
 
-    /** Delete a phone number */
+    /**
+     * Deletes the specified phone number from the account. The response contains the phone number's
+     * final deleted representation.
+     */
     fun delete(id: String): PhoneNumberDeleteResponse = delete(id, PhoneNumberDeleteParams.none())
 
     /** @see delete */

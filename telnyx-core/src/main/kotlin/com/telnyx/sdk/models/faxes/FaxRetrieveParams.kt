@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a fax */
+/** Retrieve the details of a single fax. */
 class FaxRetrieveParams
 private constructor(
     private val id: String?,

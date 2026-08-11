@@ -33,7 +33,7 @@ interface BillingGroupServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BillingGroupServiceAsync
 
-    /** Create a billing group */
+    /** Create a new billing group, which can be used to organize resources for billing purposes. */
     fun create(): CompletableFuture<BillingGroupCreateResponse> =
         create(BillingGroupCreateParams.none())
 
@@ -52,7 +52,7 @@ interface BillingGroupServiceAsync {
     fun create(requestOptions: RequestOptions): CompletableFuture<BillingGroupCreateResponse> =
         create(BillingGroupCreateParams.none(), requestOptions)
 
-    /** Get a billing group */
+    /** Retrieve the details of a specific billing group. */
     fun retrieve(id: String): CompletableFuture<BillingGroupRetrieveResponse> =
         retrieve(id, BillingGroupRetrieveParams.none())
 
@@ -88,7 +88,7 @@ interface BillingGroupServiceAsync {
     ): CompletableFuture<BillingGroupRetrieveResponse> =
         retrieve(id, BillingGroupRetrieveParams.none(), requestOptions)
 
-    /** Update a billing group */
+    /** Update the properties of an existing billing group. */
     fun update(id: String): CompletableFuture<BillingGroupUpdateResponse> =
         update(id, BillingGroupUpdateParams.none())
 
@@ -123,7 +123,7 @@ interface BillingGroupServiceAsync {
     ): CompletableFuture<BillingGroupUpdateResponse> =
         update(id, BillingGroupUpdateParams.none(), requestOptions)
 
-    /** List all billing groups */
+    /** Retrieve a paginated list of billing groups on your account. */
     fun list(): CompletableFuture<BillingGroupListPageAsync> = list(BillingGroupListParams.none())
 
     /** @see list */
@@ -141,7 +141,7 @@ interface BillingGroupServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<BillingGroupListPageAsync> =
         list(BillingGroupListParams.none(), requestOptions)
 
-    /** Delete a billing group */
+    /** Delete a billing group from your account. */
     fun delete(id: String): CompletableFuture<BillingGroupDeleteResponse> =
         delete(id, BillingGroupDeleteParams.none())
 

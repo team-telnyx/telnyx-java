@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Whatsapp message templates */
+/**
+ * Returns WhatsApp message templates owned by the authenticated account, including their current
+ * review state.
+ */
 class TemplateListParams
 private constructor(
     private val filterCategory: FilterCategory?,

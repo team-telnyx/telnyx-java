@@ -17,6 +17,7 @@ internal class TextToSpeechListVoicesResponseTest {
                 .addVoice(
                     TextToSpeechListVoicesResponse.Voice.builder()
                         .gender("gender")
+                        .hosted(true)
                         .language("language")
                         .name("name")
                         .provider("provider")
@@ -29,6 +30,7 @@ internal class TextToSpeechListVoicesResponseTest {
             .containsExactly(
                 TextToSpeechListVoicesResponse.Voice.builder()
                     .gender("gender")
+                    .hosted(true)
                     .language("language")
                     .name("name")
                     .provider("provider")
@@ -45,6 +47,7 @@ internal class TextToSpeechListVoicesResponseTest {
                 .addVoice(
                     TextToSpeechListVoicesResponse.Voice.builder()
                         .gender("gender")
+                        .hosted(true)
                         .language("language")
                         .name("name")
                         .provider("provider")

@@ -61,7 +61,7 @@ interface MigrationServiceAsync {
     fun create(migrationParams: MigrationParams): CompletableFuture<MigrationCreateResponse> =
         create(migrationParams, RequestOptions.none())
 
-    /** Get a Migration */
+    /** Retrieve the details and status of a specific storage migration. */
     fun retrieve(id: String): CompletableFuture<MigrationRetrieveResponse> =
         retrieve(id, MigrationRetrieveParams.none())
 
@@ -96,7 +96,7 @@ interface MigrationServiceAsync {
     ): CompletableFuture<MigrationRetrieveResponse> =
         retrieve(id, MigrationRetrieveParams.none(), requestOptions)
 
-    /** List all Migrations */
+    /** Retrieve a list of the storage migrations on your account. */
     fun list(): CompletableFuture<MigrationListResponse> = list(MigrationListParams.none())
 
     /** @see list */

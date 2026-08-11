@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a messaging profile */
+/**
+ * Returns the complete configuration of the specified messaging profile, including webhook and
+ * sender-selection settings.
+ */
 class MessagingProfileRetrieveParams
 private constructor(
     private val messagingProfileId: String?,

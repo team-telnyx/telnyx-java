@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a billing group */
+/** Retrieve the details of a specific billing group. */
 class BillingGroupRetrieveParams
 private constructor(
     private val id: String?,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve an access IP address */
+/** Retrieve the details of a specific access IP address. */
 class AccessIpAddressRetrieveParams
 private constructor(
     private val accessIpAddressId: String?,
