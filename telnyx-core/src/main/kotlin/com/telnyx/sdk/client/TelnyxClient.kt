@@ -172,6 +172,7 @@ import com.telnyx.sdk.services.blocking.VirtualCrossConnectsCoverageService
 import com.telnyx.sdk.services.blocking.VoiceCloneService
 import com.telnyx.sdk.services.blocking.VoiceDesignService
 import com.telnyx.sdk.services.blocking.VoiceSdkCallReportService
+import com.telnyx.sdk.services.blocking.WebSearchService
 import com.telnyx.sdk.services.blocking.WebhookDeliveryService
 import com.telnyx.sdk.services.blocking.WebhookService
 import com.telnyx.sdk.services.blocking.WellKnownService
@@ -750,6 +751,8 @@ interface TelnyxClient {
 
     fun pricing(): PricingService
 
+    fun webSearch(): WebSearchService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1305,5 +1308,7 @@ interface TelnyxClient {
         fun emailValidations(): EmailValidationService.WithRawResponse
 
         fun pricing(): PricingService.WithRawResponse
+
+        fun webSearch(): WebSearchService.WithRawResponse
     }
 }

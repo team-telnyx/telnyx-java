@@ -417,6 +417,10 @@ private constructor(
 
                 @JvmField val SET_PUBLIC_IP = of("set_public_ip")
 
+                @JvmField val ENABLE_VOICE = of("enable_voice")
+
+                @JvmField val DISABLE_VOICE = of("disable_voice")
+
                 @JvmStatic fun of(value: String) = ActionType(JsonField.of(value))
             }
 
@@ -428,6 +432,8 @@ private constructor(
                 SET_STANDBY,
                 REMOVE_PUBLIC_IP,
                 SET_PUBLIC_IP,
+                ENABLE_VOICE,
+                DISABLE_VOICE,
             }
 
             /**
@@ -446,6 +452,8 @@ private constructor(
                 SET_STANDBY,
                 REMOVE_PUBLIC_IP,
                 SET_PUBLIC_IP,
+                ENABLE_VOICE,
+                DISABLE_VOICE,
                 /**
                  * An enum member indicating that [ActionType] was instantiated with an unknown
                  * value.
@@ -468,6 +476,8 @@ private constructor(
                     SET_STANDBY -> Value.SET_STANDBY
                     REMOVE_PUBLIC_IP -> Value.REMOVE_PUBLIC_IP
                     SET_PUBLIC_IP -> Value.SET_PUBLIC_IP
+                    ENABLE_VOICE -> Value.ENABLE_VOICE
+                    DISABLE_VOICE -> Value.DISABLE_VOICE
                     else -> Value._UNKNOWN
                 }
 
@@ -488,6 +498,8 @@ private constructor(
                     SET_STANDBY -> Known.SET_STANDBY
                     REMOVE_PUBLIC_IP -> Known.REMOVE_PUBLIC_IP
                     SET_PUBLIC_IP -> Known.SET_PUBLIC_IP
+                    ENABLE_VOICE -> Known.ENABLE_VOICE
+                    DISABLE_VOICE -> Known.DISABLE_VOICE
                     else -> throw TelnyxInvalidDataException("Unknown ActionType: $value")
                 }
 

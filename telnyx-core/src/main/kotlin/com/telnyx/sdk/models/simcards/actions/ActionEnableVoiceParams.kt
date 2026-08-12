@@ -11,39 +11,33 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
- * This API triggers an asynchronous operation to enable voice on SIM cards belonging to a specified
- * SIM Card Group.<br/> For each SIM Card a SIM Card Action will be generated. The status of the SIM
- * Card Actions can be followed through the
+ * This API enables voice calling on a SIM card. When a <code>connection_id</code> is provided, the
+ * SIM is associated with the specified Mobile Voice Connection. The connection must be owned by the
+ * same user and of type <code>mobile_voice</code>.<br/> The API will trigger an asynchronous
+ * operation called a SIM Card Action. The status of the SIM Card Action can be followed through the
  * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
  * API.
- *
- * The overall status of the Bulk SIM Card Action can be followed through the
- * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
- * API.
  */
-class ActionBulkEnableVoiceParams
+class ActionEnableVoiceParams
 private constructor(
+    private val id: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun simCardGroupId(): String = body.simCardGroupId()
+    fun id(): Optional<String> = Optional.ofNullable(id)
 
     /**
-     * The identifier of the Mobile Voice Connection to associate with the SIM cards. The connection
+     * The identifier of the Mobile Voice Connection to associate with this SIM card. The connection
      * must be owned by the same user and of type <code>mobile_voice</code>. If omitted, voice is
      * enabled without a connection association.
      *
@@ -51,13 +45,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun connectionId(): Optional<String> = body.connectionId()
-
-    /**
-     * Returns the raw JSON value of [simCardGroupId].
-     *
-     * Unlike [simCardGroupId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _simCardGroupId(): JsonField<String> = body._simCardGroupId()
 
     /**
      * Returns the raw JSON value of [connectionId].
@@ -78,57 +65,45 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ActionBulkEnableVoiceParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .simCardGroupId()
-         * ```
-         */
+        @JvmStatic fun none(): ActionEnableVoiceParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ActionEnableVoiceParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionBulkEnableVoiceParams]. */
+    /** A builder for [ActionEnableVoiceParams]. */
     class Builder internal constructor() {
 
+        private var id: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(actionBulkEnableVoiceParams: ActionBulkEnableVoiceParams) = apply {
-            body = actionBulkEnableVoiceParams.body.toBuilder()
-            additionalHeaders = actionBulkEnableVoiceParams.additionalHeaders.toBuilder()
-            additionalQueryParams = actionBulkEnableVoiceParams.additionalQueryParams.toBuilder()
+        internal fun from(actionEnableVoiceParams: ActionEnableVoiceParams) = apply {
+            id = actionEnableVoiceParams.id
+            body = actionEnableVoiceParams.body.toBuilder()
+            additionalHeaders = actionEnableVoiceParams.additionalHeaders.toBuilder()
+            additionalQueryParams = actionEnableVoiceParams.additionalQueryParams.toBuilder()
         }
+
+        fun id(id: String?) = apply { this.id = id }
+
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<String>) = id(id.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [simCardGroupId]
          * - [connectionId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        fun simCardGroupId(simCardGroupId: String) = apply { body.simCardGroupId(simCardGroupId) }
-
         /**
-         * Sets [Builder.simCardGroupId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.simCardGroupId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun simCardGroupId(simCardGroupId: JsonField<String>) = apply {
-            body.simCardGroupId(simCardGroupId)
-        }
-
-        /**
-         * The identifier of the Mobile Voice Connection to associate with the SIM cards. The
+         * The identifier of the Mobile Voice Connection to associate with this SIM card. The
          * connection must be owned by the same user and of type <code>mobile_voice</code>. If
          * omitted, voice is enabled without a connection association.
          */
@@ -264,19 +239,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionBulkEnableVoiceParams].
+         * Returns an immutable instance of [ActionEnableVoiceParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .simCardGroupId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): ActionBulkEnableVoiceParams =
-            ActionBulkEnableVoiceParams(
+        fun build(): ActionEnableVoiceParams =
+            ActionEnableVoiceParams(
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -285,6 +254,12 @@ private constructor(
 
     fun _body(): Body = body
 
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id ?: ""
+            else -> ""
+        }
+
     override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
@@ -292,29 +267,19 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val simCardGroupId: JsonField<String>,
         private val connectionId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("sim_card_group_id")
-            @ExcludeMissing
-            simCardGroupId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("connection_id")
             @ExcludeMissing
-            connectionId: JsonField<String> = JsonMissing.of(),
-        ) : this(simCardGroupId, connectionId, mutableMapOf())
+            connectionId: JsonField<String> = JsonMissing.of()
+        ) : this(connectionId, mutableMapOf())
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun simCardGroupId(): String = simCardGroupId.getRequired("sim_card_group_id")
-
-        /**
-         * The identifier of the Mobile Voice Connection to associate with the SIM cards. The
+         * The identifier of the Mobile Voice Connection to associate with this SIM card. The
          * connection must be owned by the same user and of type <code>mobile_voice</code>. If
          * omitted, voice is enabled without a connection association.
          *
@@ -322,16 +287,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun connectionId(): Optional<String> = connectionId.getOptional("connection_id")
-
-        /**
-         * Returns the raw JSON value of [simCardGroupId].
-         *
-         * Unlike [simCardGroupId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("sim_card_group_id")
-        @ExcludeMissing
-        fun _simCardGroupId(): JsonField<String> = simCardGroupId
 
         /**
          * Returns the raw JSON value of [connectionId].
@@ -357,47 +312,24 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .simCardGroupId()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var simCardGroupId: JsonField<String>? = null
             private var connectionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                simCardGroupId = body.simCardGroupId
                 connectionId = body.connectionId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            fun simCardGroupId(simCardGroupId: String) =
-                simCardGroupId(JsonField.of(simCardGroupId))
-
             /**
-             * Sets [Builder.simCardGroupId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.simCardGroupId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun simCardGroupId(simCardGroupId: JsonField<String>) = apply {
-                this.simCardGroupId = simCardGroupId
-            }
-
-            /**
-             * The identifier of the Mobile Voice Connection to associate with the SIM cards. The
+             * The identifier of the Mobile Voice Connection to associate with this SIM card. The
              * connection must be owned by the same user and of type <code>mobile_voice</code>. If
              * omitted, voice is enabled without a connection association.
              */
@@ -437,20 +369,8 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .simCardGroupId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Body =
-                Body(
-                    checkRequired("simCardGroupId", simCardGroupId),
-                    connectionId,
-                    additionalProperties.toMutableMap(),
-                )
+            fun build(): Body = Body(connectionId, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -469,7 +389,6 @@ private constructor(
                 return@apply
             }
 
-            simCardGroupId()
             connectionId()
             validated = true
         }
@@ -489,9 +408,7 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int =
-            (if (simCardGroupId.asKnown().isPresent) 1 else 0) +
-                (if (connectionId.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int = (if (connectionId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -499,19 +416,16 @@ private constructor(
             }
 
             return other is Body &&
-                simCardGroupId == other.simCardGroupId &&
                 connectionId == other.connectionId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(simCardGroupId, connectionId, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(connectionId, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{simCardGroupId=$simCardGroupId, connectionId=$connectionId, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -519,14 +433,15 @@ private constructor(
             return true
         }
 
-        return other is ActionBulkEnableVoiceParams &&
+        return other is ActionEnableVoiceParams &&
+            id == other.id &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionBulkEnableVoiceParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionEnableVoiceParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

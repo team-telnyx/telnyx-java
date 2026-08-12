@@ -11,11 +11,26 @@ internal class ActionBulkEnableVoiceParamsTest {
     fun create() {
         ActionBulkEnableVoiceParams.builder()
             .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+            .connectionId("123456789")
             .build()
     }
 
     @Test
     fun body() {
+        val params =
+            ActionBulkEnableVoiceParams.builder()
+                .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+                .connectionId("123456789")
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.simCardGroupId()).isEqualTo("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+        assertThat(body.connectionId()).contains("123456789")
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params =
             ActionBulkEnableVoiceParams.builder()
                 .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
