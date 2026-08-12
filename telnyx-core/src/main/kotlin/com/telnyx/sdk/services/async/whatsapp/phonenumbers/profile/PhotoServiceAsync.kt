@@ -29,7 +29,7 @@ interface PhotoServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhotoServiceAsync
 
-    /** Get Whatsapp profile photo */
+    /** Returns the current business-profile photo for the specified WhatsApp phone number. */
     fun retrieve(phoneNumber: String): CompletableFuture<PhotoRetrieveResponse> =
         retrieve(phoneNumber, PhotoRetrieveParams.none())
 
@@ -65,7 +65,7 @@ interface PhotoServiceAsync {
     ): CompletableFuture<PhotoRetrieveResponse> =
         retrieve(phoneNumber, PhotoRetrieveParams.none(), requestOptions)
 
-    /** Delete Whatsapp profile photo */
+    /** Removes the business-profile photo from the specified WhatsApp phone number. */
     fun delete(phoneNumber: String): CompletableFuture<Void?> =
         delete(phoneNumber, PhotoDeleteParams.none())
 
@@ -97,7 +97,7 @@ interface PhotoServiceAsync {
     fun delete(phoneNumber: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(phoneNumber, PhotoDeleteParams.none(), requestOptions)
 
-    /** Upload Whatsapp profile photo */
+    /** Uploads and assigns a business-profile photo to the specified WhatsApp phone number. */
     fun upload(
         phoneNumber: String,
         params: PhotoUploadParams,

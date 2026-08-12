@@ -32,7 +32,7 @@ private constructor(
      *
      * @see MessagingListPageResponse.meta
      */
-    fun meta(): Optional<StandardPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<StandardPaginationMetaFfba4faa88> = response._meta().getOptional("meta")
 
     override fun items(): List<MdrUsageReportResponseLegacy> = data()
 

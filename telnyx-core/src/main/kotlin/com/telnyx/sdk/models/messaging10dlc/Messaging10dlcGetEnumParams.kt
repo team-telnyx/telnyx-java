@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Enum */
+/**
+ * Returns the accepted values for the selected 10DLC enumeration endpoint. Use these values when
+ * constructing brand and campaign requests.
+ */
 class Messaging10dlcGetEnumParams
 private constructor(
     private val endpoint: Endpoint?,

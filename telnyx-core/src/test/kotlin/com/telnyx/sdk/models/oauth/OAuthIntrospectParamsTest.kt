@@ -9,15 +9,15 @@ internal class OAuthIntrospectParamsTest {
 
     @Test
     fun create() {
-        OAuthIntrospectParams.builder().token("token").build()
+        OAuthIntrospectParams.builder().token("string").build()
     }
 
     @Test
     fun body() {
-        val params = OAuthIntrospectParams.builder().token("token").build()
+        val params = OAuthIntrospectParams.builder().token("string").build()
 
         val body = params._body()
 
-        assertThat(body.token()).isEqualTo("token")
+        assertThat(body.token()).isEqualTo("string")
     }
 }

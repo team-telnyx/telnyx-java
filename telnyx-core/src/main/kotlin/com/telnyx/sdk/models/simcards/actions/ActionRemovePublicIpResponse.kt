@@ -19,13 +19,15 @@ import kotlin.jvm.optionals.getOrNull
 class ActionRemovePublicIpResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<SimCardAction>,
+    private val data: JsonField<WirelessSimCardAction>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<SimCardAction> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<WirelessSimCardAction> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
@@ -35,14 +37,14 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<SimCardAction> = data.getOptional("data")
+    fun data(): Optional<WirelessSimCardAction> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<SimCardAction> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<WirelessSimCardAction> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -67,7 +69,7 @@ private constructor(
     /** A builder for [ActionRemovePublicIpResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<SimCardAction> = JsonMissing.of()
+        private var data: JsonField<WirelessSimCardAction> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -80,16 +82,16 @@ private constructor(
          * This object represents a SIM card action. It allows tracking the current status of an
          * operation that impacts the SIM card.
          */
-        fun data(data: SimCardAction) = data(JsonField.of(data))
+        fun data(data: WirelessSimCardAction) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [SimCardAction] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.data] with a well-typed [WirelessSimCardAction] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<SimCardAction>) = apply { this.data = data }
+        fun data(data: JsonField<WirelessSimCardAction>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

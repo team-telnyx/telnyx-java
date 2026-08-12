@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Mobile Phone Number */
+/** Update the settings of a specific mobile phone number. */
 class MobilePhoneNumberUpdateParams
 private constructor(
     private val id: String?,

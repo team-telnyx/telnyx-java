@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.oauthgrants
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.oauthclients.PaginationMetaOAuth
+import com.telnyx.sdk.models.oauthclients.OAuthOAuthPaginationMeta
 import com.telnyx.sdk.services.blocking.OAuthGrantService
 import java.util.Objects
 import java.util.Optional
@@ -32,7 +32,7 @@ private constructor(
      *
      * @see OAuthGrantListPageResponse.meta
      */
-    fun meta(): Optional<PaginationMetaOAuth> = response._meta().getOptional("meta")
+    fun meta(): Optional<OAuthOAuthPaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<OAuthGrant> = data()
 

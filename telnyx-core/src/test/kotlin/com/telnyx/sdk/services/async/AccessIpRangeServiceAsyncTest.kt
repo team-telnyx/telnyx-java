@@ -18,8 +18,8 @@ internal class AccessIpRangeServiceAsyncTest {
         val accessIpRangeFuture =
             accessIpRangeServiceAsync.create(
                 AccessIpRangeCreateParams.builder()
-                    .cidrBlock("cidr_block")
-                    .description("description")
+                    .cidrBlock("Cidr Block")
+                    .description("Description")
                     .build()
             )
 

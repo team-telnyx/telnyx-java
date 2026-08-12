@@ -21,6 +21,7 @@ class TelephonySettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val defaultTexmlAppId: JsonField<String>,
+    private val disableDtmf: JsonField<Boolean>,
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionConfig: JsonField<NoiseSuppressionConfig>,
     private val recordingSettings: JsonField<RecordingSettings>,
@@ -37,6 +38,9 @@ private constructor(
         @JsonProperty("default_texml_app_id")
         @ExcludeMissing
         defaultTexmlAppId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("disable_dtmf")
+        @ExcludeMissing
+        disableDtmf: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("noise_suppression")
         @ExcludeMissing
         noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of(),
@@ -63,6 +67,7 @@ private constructor(
         voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
     ) : this(
         defaultTexmlAppId,
+        disableDtmf,
         noiseSuppression,
         noiseSuppressionConfig,
         recordingSettings,
@@ -83,6 +88,16 @@ private constructor(
      */
     fun defaultTexmlAppId(): Optional<String> =
         defaultTexmlAppId.getOptional("default_texml_app_id")
+
+    /**
+     * Disable inbound DTMF for the entire call. Must be set to true if a 'pay' tool is configured
+     * anywhere on the assistant — on the main tool array or on any workflow node — enforced at
+     * write time.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun disableDtmf(): Optional<Boolean> = disableDtmf.getOptional("disable_dtmf")
 
     /**
      * The noise suppression engine to use. Use 'disabled' to turn off noise suppression.
@@ -176,6 +191,15 @@ private constructor(
     @JsonProperty("default_texml_app_id")
     @ExcludeMissing
     fun _defaultTexmlAppId(): JsonField<String> = defaultTexmlAppId
+
+    /**
+     * Returns the raw JSON value of [disableDtmf].
+     *
+     * Unlike [disableDtmf], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("disable_dtmf")
+    @ExcludeMissing
+    fun _disableDtmf(): JsonField<Boolean> = disableDtmf
 
     /**
      * Returns the raw JSON value of [noiseSuppression].
@@ -278,6 +302,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var defaultTexmlAppId: JsonField<String> = JsonMissing.of()
+        private var disableDtmf: JsonField<Boolean> = JsonMissing.of()
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionConfig: JsonField<NoiseSuppressionConfig> = JsonMissing.of()
         private var recordingSettings: JsonField<RecordingSettings> = JsonMissing.of()
@@ -291,6 +316,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(telephonySettings: TelephonySettings) = apply {
             defaultTexmlAppId = telephonySettings.defaultTexmlAppId
+            disableDtmf = telephonySettings.disableDtmf
             noiseSuppression = telephonySettings.noiseSuppression
             noiseSuppressionConfig = telephonySettings.noiseSuppressionConfig
             recordingSettings = telephonySettings.recordingSettings
@@ -319,6 +345,22 @@ private constructor(
         fun defaultTexmlAppId(defaultTexmlAppId: JsonField<String>) = apply {
             this.defaultTexmlAppId = defaultTexmlAppId
         }
+
+        /**
+         * Disable inbound DTMF for the entire call. Must be set to true if a 'pay' tool is
+         * configured anywhere on the assistant — on the main tool array or on any workflow node —
+         * enforced at write time.
+         */
+        fun disableDtmf(disableDtmf: Boolean) = disableDtmf(JsonField.of(disableDtmf))
+
+        /**
+         * Sets [Builder.disableDtmf] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.disableDtmf] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun disableDtmf(disableDtmf: JsonField<Boolean>) = apply { this.disableDtmf = disableDtmf }
 
         /** The noise suppression engine to use. Use 'disabled' to turn off noise suppression. */
         fun noiseSuppression(noiseSuppression: NoiseSuppression) =
@@ -494,6 +536,7 @@ private constructor(
         fun build(): TelephonySettings =
             TelephonySettings(
                 defaultTexmlAppId,
+                disableDtmf,
                 noiseSuppression,
                 noiseSuppressionConfig,
                 recordingSettings,
@@ -522,6 +565,7 @@ private constructor(
         }
 
         defaultTexmlAppId()
+        disableDtmf()
         noiseSuppression().ifPresent { it.validate() }
         noiseSuppressionConfig().ifPresent { it.validate() }
         recordingSettings().ifPresent { it.validate() }
@@ -549,6 +593,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (defaultTexmlAppId.asKnown().isPresent) 1 else 0) +
+            (if (disableDtmf.asKnown().isPresent) 1 else 0) +
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
             (noiseSuppressionConfig.asKnown().getOrNull()?.validity() ?: 0) +
             (recordingSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2544,6 +2589,7 @@ private constructor(
 
         return other is TelephonySettings &&
             defaultTexmlAppId == other.defaultTexmlAppId &&
+            disableDtmf == other.disableDtmf &&
             noiseSuppression == other.noiseSuppression &&
             noiseSuppressionConfig == other.noiseSuppressionConfig &&
             recordingSettings == other.recordingSettings &&
@@ -2558,6 +2604,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             defaultTexmlAppId,
+            disableDtmf,
             noiseSuppression,
             noiseSuppressionConfig,
             recordingSettings,
@@ -2573,5 +2620,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }

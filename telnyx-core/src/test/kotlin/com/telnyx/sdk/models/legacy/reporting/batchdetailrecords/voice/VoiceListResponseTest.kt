@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
-import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.BatchCsvPaginationMeta
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.BatchCsvPaginationMeta705dfa7312
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -51,10 +51,10 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    BatchCsvPaginationMeta.builder()
+                    BatchCsvPaginationMeta705dfa7312.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )
@@ -97,10 +97,10 @@ internal class VoiceListResponseTest {
             )
         assertThat(voiceListResponse.meta())
             .contains(
-                BatchCsvPaginationMeta.builder()
+                BatchCsvPaginationMeta705dfa7312.builder()
                     .pageNumber(2)
-                    .totalPages(3)
                     .pageSize(25)
+                    .totalPages(3)
                     .totalResults(55)
                     .build()
             )
@@ -146,10 +146,10 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    BatchCsvPaginationMeta.builder()
+                    BatchCsvPaginationMeta705dfa7312.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )

@@ -25,7 +25,7 @@ interface GlobalIpLatencyServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpLatencyServiceAsync
 
-    /** Global IP Latency Metrics */
+    /** Retrieve latency metrics measured for your Global IPs. */
     fun retrieve(): CompletableFuture<GlobalIpLatencyRetrieveResponse> =
         retrieve(GlobalIpLatencyRetrieveParams.none())
 

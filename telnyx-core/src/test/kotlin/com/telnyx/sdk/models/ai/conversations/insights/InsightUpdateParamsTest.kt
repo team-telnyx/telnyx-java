@@ -11,10 +11,10 @@ internal class InsightUpdateParamsTest {
     fun create() {
         InsightUpdateParams.builder()
             .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .instructions("instructions")
+            .instructions("Instructions")
             .jsonSchema("string")
-            .name("name")
-            .webhook("webhook")
+            .name("Name")
+            .webhook("Webhook")
             .build()
     }
 
@@ -33,18 +33,18 @@ internal class InsightUpdateParamsTest {
         val params =
             InsightUpdateParams.builder()
                 .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .instructions("instructions")
+                .instructions("Instructions")
                 .jsonSchema("string")
-                .name("name")
-                .webhook("webhook")
+                .name("Name")
+                .webhook("Webhook")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.instructions()).contains("instructions")
+        assertThat(body.instructions()).contains("Instructions")
         assertThat(body.jsonSchema()).contains(InsightUpdateParams.JsonSchema.ofString("string"))
-        assertThat(body.name()).contains("name")
-        assertThat(body.webhook()).contains("webhook")
+        assertThat(body.name()).contains("Name")
+        assertThat(body.webhook()).contains("Webhook")
     }
 
     @Test

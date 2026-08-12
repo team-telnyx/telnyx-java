@@ -14,7 +14,7 @@ internal class ConversationUpdateParamsTest {
             .conversationId("conversation_id")
             .metadata(
                 ConversationUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .putAdditionalProperty("ai_disabled", JsonValue.from("true"))
                     .build()
             )
             .build()
@@ -36,7 +36,7 @@ internal class ConversationUpdateParamsTest {
                 .conversationId("conversation_id")
                 .metadata(
                     ConversationUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .putAdditionalProperty("ai_disabled", JsonValue.from("true"))
                         .build()
                 )
                 .build()
@@ -46,7 +46,7 @@ internal class ConversationUpdateParamsTest {
         assertThat(body.metadata())
             .contains(
                 ConversationUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .putAdditionalProperty("ai_disabled", JsonValue.from("true"))
                     .build()
             )
     }

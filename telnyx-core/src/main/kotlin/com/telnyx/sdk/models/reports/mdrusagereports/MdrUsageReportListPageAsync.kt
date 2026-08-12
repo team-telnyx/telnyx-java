@@ -35,7 +35,7 @@ private constructor(
      *
      * @see MdrUsageReportListPageResponse.meta
      */
-    fun meta(): Optional<PaginationMetaReporting> = response._meta().getOptional("meta")
+    fun meta(): Optional<ReportingPaginationMeta77109e5d17> = response._meta().getOptional("meta")
 
     override fun items(): List<MdrUsageReport> = data()
 

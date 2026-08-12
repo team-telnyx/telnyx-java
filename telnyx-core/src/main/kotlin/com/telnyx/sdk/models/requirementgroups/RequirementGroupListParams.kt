@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List requirement groups */
+/**
+ * Returns regulatory requirement groups for the account. Results can be filtered by country, number
+ * type, action, approval status, and customer reference.
+ */
 class RequirementGroupListParams
 private constructor(
     private val filter: Filter?,

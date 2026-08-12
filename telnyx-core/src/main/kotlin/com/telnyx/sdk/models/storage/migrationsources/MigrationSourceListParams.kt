@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List all Migration Sources */
+/**
+ * List the migration sources configured on your account. A migration source is an external storage
+ * bucket from which data can be migrated into Telnyx Cloud Storage.
+ */
 class MigrationSourceListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

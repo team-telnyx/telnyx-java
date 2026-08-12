@@ -36,6 +36,7 @@ import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.chat.BucketIds
 import com.telnyx.sdk.models.ai.tools.PayToolParams
+import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -1463,6 +1464,30 @@ private constructor(
          * ```
          */
         fun addPayTool(pay: PayToolParams) = addTool(AssistantTool.Pay.builder().pay(pay).build())
+
+        /**
+         * Alias for calling [addTool] with
+         * `AssistantTool.ofUpdateDynamicVariables(updateDynamicVariables)`.
+         */
+        fun addTool(updateDynamicVariables: AssistantTool.UpdateDynamicVariables) =
+            addTool(AssistantTool.ofUpdateDynamicVariables(updateDynamicVariables))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.UpdateDynamicVariables.builder()
+         *     .updateDynamicVariables(updateDynamicVariables)
+         *     .build()
+         * ```
+         */
+        fun addUpdateDynamicVariablesTool(
+            updateDynamicVariables: UpdateDynamicVariablesToolParams
+        ) =
+            addTool(
+                AssistantTool.UpdateDynamicVariables.builder()
+                    .updateDynamicVariables(updateDynamicVariables)
+                    .build()
+            )
 
         fun transcription(transcription: TranscriptionSettings) =
             transcription(JsonField.of(transcription))

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a phone number */
+/** Returns the detailed configuration and current state of the phone number identified by `id`. */
 class PhoneNumberRetrieveParams
 private constructor(
     private val id: String?,

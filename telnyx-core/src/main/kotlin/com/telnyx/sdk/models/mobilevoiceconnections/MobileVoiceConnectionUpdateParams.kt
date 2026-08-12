@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Mobile Voice Connection */
+/** Update the settings of a specific mobile voice connection. */
 class MobileVoiceConnectionUpdateParams
 private constructor(
     private val id: String?,

@@ -10,7 +10,7 @@ import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPage
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
-import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
+import com.telnyx.sdk.models.rcs.agents.RcsAgentResponse
 import java.util.function.Consumer
 
 /** Send RCS messages */
@@ -28,7 +28,7 @@ interface AgentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AgentService
 
-    /** Retrieve an RCS agent */
+    /** Returns the configuration and current state of the specified RCS agent. */
     fun retrieve(id: String): RcsAgentResponse = retrieve(id, AgentRetrieveParams.none())
 
     /** @see retrieve */
@@ -58,7 +58,7 @@ interface AgentService {
     fun retrieve(id: String, requestOptions: RequestOptions): RcsAgentResponse =
         retrieve(id, AgentRetrieveParams.none(), requestOptions)
 
-    /** Modify an RCS agent */
+    /** Updates the supplied configuration fields on the specified RCS agent. */
     fun update(id: String): RcsAgentResponse = update(id, AgentUpdateParams.none())
 
     /** @see update */
@@ -85,7 +85,7 @@ interface AgentService {
     fun update(id: String, requestOptions: RequestOptions): RcsAgentResponse =
         update(id, AgentUpdateParams.none(), requestOptions)
 
-    /** List all RCS agents */
+    /** Returns RCS agents available to the authenticated account. */
     fun list(): AgentListPage = list(AgentListParams.none())
 
     /** @see list */

@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of rooms. */
+/**
+ * Returns a paginated list of rooms. Filter the results by creation or update date and unique name,
+ * and use `include_sessions` to include each room’s sessions.
+ */
 class RoomListParams
 private constructor(
     private val filter: Filter?,

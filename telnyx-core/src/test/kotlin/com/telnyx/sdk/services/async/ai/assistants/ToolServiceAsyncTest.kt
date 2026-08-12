@@ -55,12 +55,12 @@ internal class ToolServiceAsyncTest {
                     .toolId("tool_id")
                     .arguments(
                         ToolTestParams.Arguments.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("order_id", JsonValue.from("bar"))
                             .build()
                     )
                     .dynamicVariables(
                         ToolTestParams.DynamicVariables.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("customer_name", JsonValue.from("bar"))
                             .build()
                     )
                     .build()

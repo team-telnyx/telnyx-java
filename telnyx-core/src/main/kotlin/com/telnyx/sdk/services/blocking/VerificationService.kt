@@ -39,7 +39,10 @@ interface VerificationService {
     /** Two factor authentication API */
     fun actions(): ActionService
 
-    /** Retrieve verification */
+    /**
+     * Returns the verification identified by ID, including its channel, phone number, Verify
+     * profile, timeout, and current status.
+     */
     fun retrieve(verificationId: String): VerificationRetrieveResponse =
         retrieve(verificationId, VerificationRetrieveParams.none())
 
@@ -74,7 +77,10 @@ interface VerificationService {
     ): VerificationRetrieveResponse =
         retrieve(verificationId, VerificationRetrieveParams.none(), requestOptions)
 
-    /** Trigger Call verification */
+    /**
+     * Starts a verification for the specified phone number and delivers its code in a voice call
+     * using the selected Verify profile. Returns the pending verification record.
+     */
     fun triggerCall(params: VerificationTriggerCallParams): CreateVerificationResponse =
         triggerCall(params, RequestOptions.none())
 
@@ -84,7 +90,10 @@ interface VerificationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreateVerificationResponse
 
-    /** Trigger Flash call verification */
+    /**
+     * Starts a verification for the specified phone number and places a brief call with the code
+     * embedded in the caller ID. Returns the pending verification record.
+     */
     fun triggerFlashcall(params: VerificationTriggerFlashcallParams): CreateVerificationResponse =
         triggerFlashcall(params, RequestOptions.none())
 
@@ -94,7 +103,10 @@ interface VerificationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreateVerificationResponse
 
-    /** Trigger SMS verification */
+    /**
+     * Starts a verification for the specified phone number and sends its code by SMS using the
+     * selected Verify profile. Returns the pending verification record.
+     */
     fun triggerSms(params: VerificationTriggerSmsParams): CreateVerificationResponse =
         triggerSms(params, RequestOptions.none())
 
@@ -121,7 +133,10 @@ interface VerificationService {
         createVerificationRequestSms: CreateVerificationRequestSms
     ): CreateVerificationResponse = triggerSms(createVerificationRequestSms, RequestOptions.none())
 
-    /** Trigger WhatsApp verification */
+    /**
+     * Starts a verification for the specified phone number and sends its code over WhatsApp using
+     * the selected Verify profile. Returns the pending verification record.
+     */
     fun triggerWhatsappVerification(
         params: VerificationTriggerWhatsappVerificationParams
     ): CreateVerificationResponse = triggerWhatsappVerification(params, RequestOptions.none())

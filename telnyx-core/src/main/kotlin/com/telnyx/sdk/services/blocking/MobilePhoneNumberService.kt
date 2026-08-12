@@ -32,7 +32,7 @@ interface MobilePhoneNumberService {
 
     fun messaging(): MessagingService
 
-    /** Retrieve a Mobile Phone Number */
+    /** Retrieve the details of a specific mobile phone number. */
     fun retrieve(id: String): MobilePhoneNumberRetrieveResponse =
         retrieve(id, MobilePhoneNumberRetrieveParams.none())
 
@@ -64,7 +64,7 @@ interface MobilePhoneNumberService {
     fun retrieve(id: String, requestOptions: RequestOptions): MobilePhoneNumberRetrieveResponse =
         retrieve(id, MobilePhoneNumberRetrieveParams.none(), requestOptions)
 
-    /** Update a Mobile Phone Number */
+    /** Update the settings of a specific mobile phone number. */
     fun update(id: String): MobilePhoneNumberUpdateResponse =
         update(id, MobilePhoneNumberUpdateParams.none())
 
@@ -95,7 +95,7 @@ interface MobilePhoneNumberService {
     fun update(id: String, requestOptions: RequestOptions): MobilePhoneNumberUpdateResponse =
         update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
-    /** List Mobile Phone Numbers */
+    /** Retrieve a paginated list of mobile phone numbers on your account. */
     fun list(): MobilePhoneNumberListPage = list(MobilePhoneNumberListParams.none())
 
     /** @see list */

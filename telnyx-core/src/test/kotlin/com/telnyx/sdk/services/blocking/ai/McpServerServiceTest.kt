@@ -20,9 +20,9 @@ internal class McpServerServiceTest {
         val mcpServer =
             mcpServerService.create(
                 McpServerCreateParams.builder()
-                    .name("name")
-                    .type("type")
-                    .url("url")
+                    .name("Name")
+                    .type("Type")
+                    .url("Url")
                     .addAllowedTool("string")
                     .apiKeyRef("api_key_ref")
                     .build()
@@ -52,13 +52,13 @@ internal class McpServerServiceTest {
             mcpServerService.update(
                 McpServerUpdateParams.builder()
                     .mcpServerId("mcp_server_id")
-                    .id("id")
+                    .id("Id")
                     .addAllowedTool("string")
                     .apiKeyRef("api_key_ref")
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .name("name")
-                    .type("type")
-                    .url("url")
+                    .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                    .name("Name")
+                    .type("Type")
+                    .url("Url")
                     .build()
             )
 

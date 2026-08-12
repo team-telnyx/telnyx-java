@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create an unsubscribe group */
+/**
+ * Creates an account-owned unsubscribe group for associating email categories with separate
+ * recipient suppression lists.
+ */
 class EmailUnsubscribeGroupCreateParams
 private constructor(
     private val body: Body,

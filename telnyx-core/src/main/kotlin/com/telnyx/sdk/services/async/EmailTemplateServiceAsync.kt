@@ -44,7 +44,10 @@ interface EmailTemplateServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EmailTemplateResponse>
 
-    /** Get an email template */
+    /**
+     * Returns the account-owned template identified by ID, including its Liquid subject and bodies,
+     * declared variables, and timestamps.
+     */
     fun retrieve(id: String): CompletableFuture<EmailTemplateResponse> =
         retrieve(id, EmailTemplateRetrieveParams.none())
 
@@ -121,7 +124,10 @@ interface EmailTemplateServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<EmailTemplateListResponse> =
         list(EmailTemplateListParams.none(), requestOptions)
 
-    /** Delete an email template */
+    /**
+     * Deletes the account-owned template. The operation returns `204` with no body and prevents
+     * future sends or renders from using the deleted template ID.
+     */
     fun delete(id: String): CompletableFuture<Void?> = delete(id, EmailTemplateDeleteParams.none())
 
     /** @see delete */

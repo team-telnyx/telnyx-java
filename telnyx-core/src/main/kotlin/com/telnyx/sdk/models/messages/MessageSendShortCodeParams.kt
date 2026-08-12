@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Send a short code message */
+/**
+ * Queues an outbound SMS or MMS using a short-code sender. Delivery progress and final disposition
+ * are reported asynchronously through messaging webhooks.
+ */
 class MessageSendShortCodeParams
 private constructor(
     private val body: Body,

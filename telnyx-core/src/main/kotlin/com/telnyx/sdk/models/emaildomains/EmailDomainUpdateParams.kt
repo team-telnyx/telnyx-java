@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an email domain */
+/**
+ * Updates mutable settings for an existing email domain, including inbound delivery and tracking
+ * configuration. Shared domains are read-only for non-owner accounts.
+ */
 class EmailDomainUpdateParams
 private constructor(
     private val id: String?,

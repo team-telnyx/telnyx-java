@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete access IP ranges */
+/** Delete an access IP range from your account. */
 class AccessIpRangeDeleteParams
 private constructor(
     private val accessIpRangeId: String?,

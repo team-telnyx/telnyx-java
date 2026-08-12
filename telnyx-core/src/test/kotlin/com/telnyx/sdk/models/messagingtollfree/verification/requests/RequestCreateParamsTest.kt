@@ -10,8 +10,8 @@ internal class RequestCreateParamsTest {
     @Test
     fun create() {
         RequestCreateParams.builder()
-            .tfVerificationRequest(
-                TfVerificationRequest.builder()
+            .messagingTollFreeVerificationTfVerificationRequest(
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -47,7 +47,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -68,8 +68,8 @@ internal class RequestCreateParamsTest {
     fun body() {
         val params =
             RequestCreateParams.builder()
-                .tfVerificationRequest(
-                    TfVerificationRequest.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    MessagingTollFreeVerificationTfVerificationRequest.builder()
                         .additionalInformation("additionalInformation")
                         .businessAddr1("600 Congress Avenue")
                         .businessCity("Austin")
@@ -105,7 +105,7 @@ internal class RequestCreateParamsTest {
                         .businessRegistrationType("EIN")
                         .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                         .doingBusinessAs("Acme Services")
-                        .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                        .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
@@ -125,7 +125,7 @@ internal class RequestCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -161,7 +161,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -181,8 +181,8 @@ internal class RequestCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             RequestCreateParams.builder()
-                .tfVerificationRequest(
-                    TfVerificationRequest.builder()
+                .messagingTollFreeVerificationTfVerificationRequest(
+                    MessagingTollFreeVerificationTfVerificationRequest.builder()
                         .additionalInformation("additionalInformation")
                         .businessAddr1("600 Congress Avenue")
                         .businessCity("Austin")
@@ -219,7 +219,7 @@ internal class RequestCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")

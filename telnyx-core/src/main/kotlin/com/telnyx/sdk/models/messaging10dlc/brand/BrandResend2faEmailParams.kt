@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Resend brand 2FA email */
+/**
+ * Requests a new two-factor authentication email for the specified 10DLC brand. Complete
+ * verification through the link delivered to the brand contact before continuing registration.
+ */
 class BrandResend2faEmailParams
 private constructor(
     private val brandId: String?,

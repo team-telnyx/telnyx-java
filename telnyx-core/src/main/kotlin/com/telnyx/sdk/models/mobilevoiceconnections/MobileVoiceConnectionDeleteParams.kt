@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Mobile Voice Connection */
+/** Delete a mobile voice connection from your account. */
 class MobileVoiceConnectionDeleteParams
 private constructor(
     private val id: String?,

@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a requirement group by ID */
+/**
+ * Deletes the regulatory requirement group identified by `id`. The response contains the deleted
+ * requirement-group representation.
+ */
 class RequirementGroupDeleteParams
 private constructor(
     private val id: String?,

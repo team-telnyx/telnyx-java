@@ -29,7 +29,7 @@ interface PaymentServiceAsync {
     /** V2 Auto Recharge Preferences API */
     fun autoRechargePrefs(): AutoRechargePrefServiceAsync
 
-    /** Create a stored payment transaction */
+    /** Create a transaction that charges a stored payment method on the account. */
     fun createStoredPaymentTransaction(
         params: PaymentCreateStoredPaymentTransactionParams
     ): CompletableFuture<PaymentCreateStoredPaymentTransactionResponse> =

@@ -22,7 +22,7 @@ class OAuthClientListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<OAuthClient>>,
-    private val meta: JsonField<PaginationMetaOAuth>,
+    private val meta: JsonField<OAuthOAuthPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,7 +31,7 @@ private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<OAuthClient>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
-        meta: JsonField<PaginationMetaOAuth> = JsonMissing.of(),
+        meta: JsonField<OAuthOAuthPaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -44,7 +44,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun meta(): Optional<PaginationMetaOAuth> = meta.getOptional("meta")
+    fun meta(): Optional<OAuthOAuthPaginationMeta> = meta.getOptional("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -58,7 +58,7 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<PaginationMetaOAuth> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<OAuthOAuthPaginationMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -84,7 +84,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<OAuthClient>>? = null
-        private var meta: JsonField<PaginationMetaOAuth> = JsonMissing.of()
+        private var meta: JsonField<OAuthOAuthPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -119,16 +119,16 @@ private constructor(
                 }
         }
 
-        fun meta(meta: PaginationMetaOAuth) = meta(JsonField.of(meta))
+        fun meta(meta: OAuthOAuthPaginationMeta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [PaginationMetaOAuth] value
+         * You should usually call [Builder.meta] with a well-typed [OAuthOAuthPaginationMeta] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun meta(meta: JsonField<PaginationMetaOAuth>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<OAuthOAuthPaginationMeta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

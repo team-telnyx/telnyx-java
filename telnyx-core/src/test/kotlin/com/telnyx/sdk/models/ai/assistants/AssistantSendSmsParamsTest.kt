@@ -12,15 +12,15 @@ internal class AssistantSendSmsParamsTest {
     fun create() {
         AssistantSendSmsParams.builder()
             .assistantId("assistant_id")
-            .from("from")
-            .to("to")
+            .from("From")
+            .to("To")
             .conversationMetadata(
                 AssistantSendSmsParams.ConversationMetadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-            .shouldCreateConversation(true)
-            .text("text")
+            .shouldCreateConversation(false)
+            .text("Text")
             .build()
     }
 
@@ -29,8 +29,8 @@ internal class AssistantSendSmsParamsTest {
         val params =
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
-                .from("from")
-                .to("to")
+                .from("From")
+                .to("To")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("assistant_id")
@@ -43,29 +43,29 @@ internal class AssistantSendSmsParamsTest {
         val params =
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
-                .from("from")
-                .to("to")
+                .from("From")
+                .to("To")
                 .conversationMetadata(
                     AssistantSendSmsParams.ConversationMetadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .shouldCreateConversation(true)
-                .text("text")
+                .shouldCreateConversation(false)
+                .text("Text")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.from()).isEqualTo("from")
-        assertThat(body.to()).isEqualTo("to")
+        assertThat(body.from()).isEqualTo("From")
+        assertThat(body.to()).isEqualTo("To")
         assertThat(body.conversationMetadata())
             .contains(
                 AssistantSendSmsParams.ConversationMetadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-        assertThat(body.shouldCreateConversation()).contains(true)
-        assertThat(body.text()).contains("text")
+        assertThat(body.shouldCreateConversation()).contains(false)
+        assertThat(body.text()).contains("Text")
     }
 
     @Test
@@ -73,13 +73,13 @@ internal class AssistantSendSmsParamsTest {
         val params =
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
-                .from("from")
-                .to("to")
+                .from("From")
+                .to("To")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.from()).isEqualTo("from")
-        assertThat(body.to()).isEqualTo("to")
+        assertThat(body.from()).isEqualTo("From")
+        assertThat(body.to()).isEqualTo("To")
     }
 }

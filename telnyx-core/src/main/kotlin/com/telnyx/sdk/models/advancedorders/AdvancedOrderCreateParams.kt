@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create Advanced Order */
+/**
+ * Creates an advanced number order from the requested order configuration. The response contains
+ * the resulting advanced order and its initial state.
+ */
 class AdvancedOrderCreateParams
 private constructor(
     private val advancedOrderRequest: AdvancedOrderRequest,

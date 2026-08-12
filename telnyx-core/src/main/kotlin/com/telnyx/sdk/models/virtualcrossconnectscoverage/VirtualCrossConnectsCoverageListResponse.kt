@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.NetappsLocation
+import com.telnyx.sdk.models.networkcoverage.NetappsLocation17904fcfbc
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -26,7 +26,7 @@ private constructor(
     private val availableBandwidth: JsonField<List<Double>>,
     private val cloudProvider: JsonField<CloudProvider>,
     private val cloudProviderRegion: JsonField<String>,
-    private val location: JsonField<NetappsLocation>,
+    private val location: JsonField<NetappsLocation17904fcfbc>,
     private val recordType: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -44,7 +44,7 @@ private constructor(
         cloudProviderRegion: JsonField<String> = JsonMissing.of(),
         @JsonProperty("location")
         @ExcludeMissing
-        location: JsonField<NetappsLocation> = JsonMissing.of(),
+        location: JsonField<NetappsLocation17904fcfbc> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<String> = JsonMissing.of(),
@@ -88,7 +88,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun location(): Optional<NetappsLocation> = location.getOptional("location")
+    fun location(): Optional<NetappsLocation17904fcfbc> = location.getOptional("location")
 
     /**
      * Identifies the type of the resource.
@@ -132,7 +132,9 @@ private constructor(
      *
      * Unlike [location], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("location") @ExcludeMissing fun _location(): JsonField<NetappsLocation> = location
+    @JsonProperty("location")
+    @ExcludeMissing
+    fun _location(): JsonField<NetappsLocation17904fcfbc> = location
 
     /**
      * Returns the raw JSON value of [recordType].
@@ -168,7 +170,7 @@ private constructor(
         private var availableBandwidth: JsonField<MutableList<Double>>? = null
         private var cloudProvider: JsonField<CloudProvider> = JsonMissing.of()
         private var cloudProviderRegion: JsonField<String> = JsonMissing.of()
-        private var location: JsonField<NetappsLocation> = JsonMissing.of()
+        private var location: JsonField<NetappsLocation17904fcfbc> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -249,16 +251,18 @@ private constructor(
             this.cloudProviderRegion = cloudProviderRegion
         }
 
-        fun location(location: NetappsLocation) = location(JsonField.of(location))
+        fun location(location: NetappsLocation17904fcfbc) = location(JsonField.of(location))
 
         /**
          * Sets [Builder.location] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.location] with a well-typed [NetappsLocation] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.location] with a well-typed [NetappsLocation17904fcfbc]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun location(location: JsonField<NetappsLocation>) = apply { this.location = location }
+        fun location(location: JsonField<NetappsLocation17904fcfbc>) = apply {
+            this.location = location
+        }
 
         /** Identifies the type of the resource. */
         fun recordType(recordType: String) = recordType(JsonField.of(recordType))

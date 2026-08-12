@@ -30,7 +30,7 @@ internal class TagServiceAsyncTest {
 
         val tagsResponseFuture =
             tagServiceAsync.add(
-                TagAddParams.builder().assistantId("assistant_id").tag("tag").build()
+                TagAddParams.builder().assistantId("assistant_id").tag("Tag").build()
             )
 
         val tagsResponse = tagsResponseFuture.get()

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve verification */
+/**
+ * Returns the verification identified by ID, including its channel, phone number, Verify profile,
+ * timeout, and current status.
+ */
 class VerificationRetrieveParams
 private constructor(
     private val verificationId: String?,

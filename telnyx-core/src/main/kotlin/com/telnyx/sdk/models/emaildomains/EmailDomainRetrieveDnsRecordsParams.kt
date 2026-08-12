@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List DNS records for an email domain */
+/**
+ * Returns the DNS records Telnyx generated for domain ownership and DKIM verification, plus MX
+ * records when inbound delivery is enabled.
+ */
 class EmailDomainRetrieveDnsRecordsParams
 private constructor(
     private val domainId: String?,

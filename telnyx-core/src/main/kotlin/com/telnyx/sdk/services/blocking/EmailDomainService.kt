@@ -38,7 +38,10 @@ interface EmailDomainService {
     /** Per-domain webhook endpoints with event subscriptions */
     fun webhooks(): WebhookService
 
-    /** Create an email domain */
+    /**
+     * Registers a domain for email sending and optional inbound delivery. The response includes the
+     * domain configuration and current verification state.
+     */
     fun create(params: EmailDomainCreateParams): EmailDomainResponse =
         create(params, RequestOptions.none())
 
@@ -81,7 +84,10 @@ interface EmailDomainService {
     fun retrieve(id: String, requestOptions: RequestOptions): EmailDomainResponse =
         retrieve(id, EmailDomainRetrieveParams.none(), requestOptions)
 
-    /** Update an email domain */
+    /**
+     * Updates mutable settings for an existing email domain, including inbound delivery and
+     * tracking configuration. Shared domains are read-only for non-owner accounts.
+     */
     fun update(id: String): EmailDomainResponse = update(id, EmailDomainUpdateParams.none())
 
     /** @see update */
@@ -131,7 +137,10 @@ interface EmailDomainService {
     fun list(requestOptions: RequestOptions): EmailDomainListPage =
         list(EmailDomainListParams.none(), requestOptions)
 
-    /** Delete an email domain */
+    /**
+     * Deletes an email domain configuration. Verified domains require `force=true`, and shared
+     * domains are read-only for non-owner accounts.
+     */
     fun delete(id: String): EmailDomainResponse = delete(id, EmailDomainDeleteParams.none())
 
     /** @see delete */
@@ -161,7 +170,10 @@ interface EmailDomainService {
     fun delete(id: String, requestOptions: RequestOptions): EmailDomainResponse =
         delete(id, EmailDomainDeleteParams.none(), requestOptions)
 
-    /** List DNS records for an email domain */
+    /**
+     * Returns the DNS records Telnyx generated for domain ownership and DKIM verification, plus MX
+     * records when inbound delivery is enabled.
+     */
     fun retrieveDnsRecords(domainId: String): EmailDomainRetrieveDnsRecordsResponse =
         retrieveDnsRecords(domainId, EmailDomainRetrieveDnsRecordsParams.none())
 
@@ -233,7 +245,10 @@ interface EmailDomainService {
     ): EmailDomainRetrieveHealthResponse =
         retrieveHealth(id, EmailDomainRetrieveHealthParams.none(), requestOptions)
 
-    /** Verify DNS records for an email domain */
+    /**
+     * Checks the published DNS records against the records required for the email domain and
+     * returns the latest verification results.
+     */
     fun verify(domainId: String): EmailDomainResponse =
         verify(domainId, EmailDomainVerifyParams.none())
 

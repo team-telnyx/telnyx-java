@@ -43,7 +43,10 @@ interface MessagingHostedNumberOrderServiceAsync {
     /** Manage your messaging hosted numbers */
     fun actions(): ActionServiceAsync
 
-    /** Create a messaging hosted number order */
+    /**
+     * Creates an order to enable Telnyx messaging on phone numbers whose voice service remains with
+     * another carrier.
+     */
     fun create(): CompletableFuture<MessagingHostedNumberOrderCreateResponse> =
         create(MessagingHostedNumberOrderCreateParams.none())
 
@@ -67,7 +70,10 @@ interface MessagingHostedNumberOrderServiceAsync {
     ): CompletableFuture<MessagingHostedNumberOrderCreateResponse> =
         create(MessagingHostedNumberOrderCreateParams.none(), requestOptions)
 
-    /** Retrieve a messaging hosted number order */
+    /**
+     * Returns the current state, phone numbers, and required actions for the specified
+     * hosted-messaging order.
+     */
     fun retrieve(id: String): CompletableFuture<MessagingHostedNumberOrderRetrieveResponse> =
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none())
 
@@ -107,7 +113,10 @@ interface MessagingHostedNumberOrderServiceAsync {
     ): CompletableFuture<MessagingHostedNumberOrderRetrieveResponse> =
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none(), requestOptions)
 
-    /** List messaging hosted number orders */
+    /**
+     * Returns hosted-messaging orders for the authenticated account. Apply the documented filters
+     * and pagination parameters to narrow the result set.
+     */
     fun list(): CompletableFuture<MessagingHostedNumberOrderListPageAsync> =
         list(MessagingHostedNumberOrderListParams.none())
 
@@ -169,7 +178,10 @@ interface MessagingHostedNumberOrderServiceAsync {
     ): CompletableFuture<MessagingHostedNumberOrderDeleteResponse> =
         delete(id, MessagingHostedNumberOrderDeleteParams.none(), requestOptions)
 
-    /** Check hosted messaging eligibility */
+    /**
+     * Checks whether the supplied phone numbers are eligible for hosted messaging before an order
+     * is created.
+     */
     fun checkEligibility(
         params: MessagingHostedNumberOrderCheckEligibilityParams
     ): CompletableFuture<MessagingHostedNumberOrderCheckEligibilityResponse> =

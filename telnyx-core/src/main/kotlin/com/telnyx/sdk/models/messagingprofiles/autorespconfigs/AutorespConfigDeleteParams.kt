@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete Auto-Response Setting */
+/** Deletes the specified auto-response rule from the messaging profile. */
 class AutorespConfigDeleteParams
 private constructor(
     private val profileId: String,

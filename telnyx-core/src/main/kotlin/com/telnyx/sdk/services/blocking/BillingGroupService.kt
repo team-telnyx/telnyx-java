@@ -33,7 +33,7 @@ interface BillingGroupService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BillingGroupService
 
-    /** Create a billing group */
+    /** Create a new billing group, which can be used to organize resources for billing purposes. */
     fun create(): BillingGroupCreateResponse = create(BillingGroupCreateParams.none())
 
     /** @see create */
@@ -51,7 +51,7 @@ interface BillingGroupService {
     fun create(requestOptions: RequestOptions): BillingGroupCreateResponse =
         create(BillingGroupCreateParams.none(), requestOptions)
 
-    /** Get a billing group */
+    /** Retrieve the details of a specific billing group. */
     fun retrieve(id: String): BillingGroupRetrieveResponse =
         retrieve(id, BillingGroupRetrieveParams.none())
 
@@ -82,7 +82,7 @@ interface BillingGroupService {
     fun retrieve(id: String, requestOptions: RequestOptions): BillingGroupRetrieveResponse =
         retrieve(id, BillingGroupRetrieveParams.none(), requestOptions)
 
-    /** Update a billing group */
+    /** Update the properties of an existing billing group. */
     fun update(id: String): BillingGroupUpdateResponse = update(id, BillingGroupUpdateParams.none())
 
     /** @see update */
@@ -112,7 +112,7 @@ interface BillingGroupService {
     fun update(id: String, requestOptions: RequestOptions): BillingGroupUpdateResponse =
         update(id, BillingGroupUpdateParams.none(), requestOptions)
 
-    /** List all billing groups */
+    /** Retrieve a paginated list of billing groups on your account. */
     fun list(): BillingGroupListPage = list(BillingGroupListParams.none())
 
     /** @see list */
@@ -129,7 +129,7 @@ interface BillingGroupService {
     fun list(requestOptions: RequestOptions): BillingGroupListPage =
         list(BillingGroupListParams.none(), requestOptions)
 
-    /** Delete a billing group */
+    /** Delete a billing group from your account. */
     fun delete(id: String): BillingGroupDeleteResponse = delete(id, BillingGroupDeleteParams.none())
 
     /** @see delete */

@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update WABA settings */
+/** Updates the supplied account-level settings for the specified WhatsApp Business Account. */
 class SettingUpdateParams
 private constructor(
     private val id: String?,

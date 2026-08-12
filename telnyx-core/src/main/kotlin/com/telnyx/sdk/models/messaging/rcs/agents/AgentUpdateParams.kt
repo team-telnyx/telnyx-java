@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Modify an RCS agent */
+/** Updates the supplied configuration fields on the specified RCS agent. */
 class AgentUpdateParams
 private constructor(
     private val id: String?,

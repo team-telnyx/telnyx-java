@@ -15,6 +15,7 @@ internal class SpeechToTextListProvidersResponseTest {
             SpeechToTextListProvidersResponse.builder()
                 .addData(
                     SpeechToTextListProvidersResponse.Data.builder()
+                        .hosted(true)
                         .model("deepgram/nova-3")
                         .provider("deepgram")
                         .addServiceType(
@@ -31,6 +32,7 @@ internal class SpeechToTextListProvidersResponseTest {
         assertThat(speechToTextListProvidersResponse.data())
             .containsExactly(
                 SpeechToTextListProvidersResponse.Data.builder()
+                    .hosted(true)
                     .model("deepgram/nova-3")
                     .provider("deepgram")
                     .addServiceType(
@@ -52,6 +54,7 @@ internal class SpeechToTextListProvidersResponseTest {
             SpeechToTextListProvidersResponse.builder()
                 .addData(
                     SpeechToTextListProvidersResponse.Data.builder()
+                        .hosted(true)
                         .model("deepgram/nova-3")
                         .provider("deepgram")
                         .addServiceType(

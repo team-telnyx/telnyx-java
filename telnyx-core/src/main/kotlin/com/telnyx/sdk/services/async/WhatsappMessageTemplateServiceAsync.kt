@@ -29,7 +29,10 @@ interface WhatsappMessageTemplateServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappMessageTemplateServiceAsync
 
-    /** Get a Whatsapp message template by ID */
+    /**
+     * Returns the content, components, language, and current review state of the specified WhatsApp
+     * message template.
+     */
     fun retrieve(id: String): CompletableFuture<WhatsappMessageTemplateRetrieveResponse> =
         retrieve(id, WhatsappMessageTemplateRetrieveParams.none())
 
@@ -68,7 +71,7 @@ interface WhatsappMessageTemplateServiceAsync {
     ): CompletableFuture<WhatsappMessageTemplateRetrieveResponse> =
         retrieve(id, WhatsappMessageTemplateRetrieveParams.none(), requestOptions)
 
-    /** Update a Whatsapp message template */
+    /** Updates the editable fields of the specified WhatsApp message template. */
     fun update(id: String): CompletableFuture<WhatsappMessageTemplateUpdateResponse> =
         update(id, WhatsappMessageTemplateUpdateParams.none())
 
@@ -106,7 +109,7 @@ interface WhatsappMessageTemplateServiceAsync {
     ): CompletableFuture<WhatsappMessageTemplateUpdateResponse> =
         update(id, WhatsappMessageTemplateUpdateParams.none(), requestOptions)
 
-    /** Delete a Whatsapp message template */
+    /** Deletes the specified WhatsApp message template. */
     fun delete(id: String): CompletableFuture<Void?> =
         delete(id, WhatsappMessageTemplateDeleteParams.none())
 

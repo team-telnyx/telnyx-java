@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Auto-Response Setting */
+/** Returns the matching criteria and response content for the specified auto-response rule. */
 class AutorespConfigRetrieveParams
 private constructor(
     private val profileId: String,

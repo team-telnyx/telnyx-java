@@ -3,12 +3,12 @@
 package com.telnyx.sdk.services.async.messagingtollfree.verification
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationEntityType
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.MessagingTollFreeVerificationTfVerificationRequest
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfPhoneNumber
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.TollFreeVerificationEntityType
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Url
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.UseCaseCategories
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Volume
@@ -23,9 +23,9 @@ internal class RequestServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requestServiceAsync = client.messagingTollfree().verification().requests()
 
-        val verificationRequestEgressFuture =
+        val messagingTollFreeVerificationVerificationRequestEgressFuture =
             requestServiceAsync.create(
-                TfVerificationRequest.builder()
+                MessagingTollFreeVerificationTfVerificationRequest.builder()
                     .additionalInformation("additionalInformation")
                     .businessAddr1("600 Congress Avenue")
                     .businessCity("Austin")
@@ -61,7 +61,7 @@ internal class RequestServiceAsyncTest {
                     .businessRegistrationType("EIN")
                     .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -76,8 +76,9 @@ internal class RequestServiceAsyncTest {
                     .build()
             )
 
-        val verificationRequestEgress = verificationRequestEgressFuture.get()
-        verificationRequestEgress.validate()
+        val messagingTollFreeVerificationVerificationRequestEgress =
+            messagingTollFreeVerificationVerificationRequestEgressFuture.get()
+        messagingTollFreeVerificationVerificationRequestEgress.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -86,11 +87,10 @@ internal class RequestServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requestServiceAsync = client.messagingTollfree().verification().requests()
 
-        val verificationRequestStatusFuture =
-            requestServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val requestFuture = requestServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val verificationRequestStatus = verificationRequestStatusFuture.get()
-        verificationRequestStatus.validate()
+        val request = requestFuture.get()
+        request.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -99,12 +99,12 @@ internal class RequestServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requestServiceAsync = client.messagingTollfree().verification().requests()
 
-        val verificationRequestEgressFuture =
+        val messagingTollFreeVerificationVerificationRequestEgressFuture =
             requestServiceAsync.update(
                 RequestUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .tfVerificationRequest(
-                        TfVerificationRequest.builder()
+                    .messagingTollFreeVerificationTfVerificationRequest(
+                        MessagingTollFreeVerificationTfVerificationRequest.builder()
                             .additionalInformation("additionalInformation")
                             .businessAddr1("600 Congress Avenue")
                             .businessCity("Austin")
@@ -144,7 +144,7 @@ internal class RequestServiceAsyncTest {
                             .businessRegistrationType("EIN")
                             .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                             .doingBusinessAs("Acme Services")
-                            .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                            .entityType(MessagingTollFreeVerificationEntityType.SOLE_PROPRIETOR)
                             .helpMessageResponse(
                                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                             )
@@ -161,8 +161,9 @@ internal class RequestServiceAsyncTest {
                     .build()
             )
 
-        val verificationRequestEgress = verificationRequestEgressFuture.get()
-        verificationRequestEgress.validate()
+        val messagingTollFreeVerificationVerificationRequestEgress =
+            messagingTollFreeVerificationVerificationRequestEgressFuture.get()
+        messagingTollFreeVerificationVerificationRequestEgress.validate()
     }
 
     @Disabled("Mock server tests are disabled")

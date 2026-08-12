@@ -24,8 +24,8 @@ internal class RunUpdateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-            .resultSummary("result_summary")
-            .status(RunStatus.PENDING)
+            .resultSummary("Processed 24 customer records successfully.")
+            .status(RunStatus.SUCCEEDED)
             .build()
     }
 
@@ -60,8 +60,8 @@ internal class RunUpdateParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .resultSummary("result_summary")
-                .status(RunStatus.PENDING)
+                .resultSummary("Processed 24 customer records successfully.")
+                .status(RunStatus.SUCCEEDED)
                 .build()
 
         val body = params._body()
@@ -79,8 +79,8 @@ internal class RunUpdateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.resultSummary()).contains("result_summary")
-        assertThat(body.status()).contains(RunStatus.PENDING)
+        assertThat(body.resultSummary()).contains("Processed 24 customer records successfully.")
+        assertThat(body.status()).contains(RunStatus.SUCCEEDED)
     }
 
     @Test

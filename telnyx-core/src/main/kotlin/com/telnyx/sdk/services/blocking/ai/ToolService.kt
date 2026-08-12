@@ -31,7 +31,7 @@ interface ToolService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolService
 
-    /** Create Tool */
+    /** Create a new custom AI tool that can be attached to AI assistants. */
     fun create(params: ToolCreateParams): SharedToolResponse = create(params, RequestOptions.none())
 
     /** @see create */
@@ -40,7 +40,7 @@ interface ToolService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SharedToolResponse
 
-    /** Get Tool */
+    /** Retrieve the details of a specific AI tool. */
     fun retrieve(toolId: String): SharedToolResponse = retrieve(toolId, ToolRetrieveParams.none())
 
     /** @see retrieve */
@@ -70,7 +70,7 @@ interface ToolService {
     fun retrieve(toolId: String, requestOptions: RequestOptions): SharedToolResponse =
         retrieve(toolId, ToolRetrieveParams.none(), requestOptions)
 
-    /** Update Tool */
+    /** Update the configuration of an existing AI tool. */
     fun update(toolId: String): SharedToolResponse = update(toolId, ToolUpdateParams.none())
 
     /** @see update */
@@ -99,7 +99,7 @@ interface ToolService {
     fun update(toolId: String, requestOptions: RequestOptions): SharedToolResponse =
         update(toolId, ToolUpdateParams.none(), requestOptions)
 
-    /** List Tools */
+    /** Retrieve a list of the custom AI tools configured on your account. */
     fun list(): ToolListPage = list(ToolListParams.none())
 
     /** @see list */
@@ -116,7 +116,7 @@ interface ToolService {
     fun list(requestOptions: RequestOptions): ToolListPage =
         list(ToolListParams.none(), requestOptions)
 
-    /** Delete Tool */
+    /** Delete a custom AI tool. */
     fun delete(toolId: String): ToolDeleteResponse = delete(toolId, ToolDeleteParams.none())
 
     /** @see delete */

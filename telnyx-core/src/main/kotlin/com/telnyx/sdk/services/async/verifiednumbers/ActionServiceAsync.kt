@@ -25,7 +25,10 @@ interface ActionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
-    /** Submit verification code */
+    /**
+     * Submit the verification code received via the selected verification method to verify a phone
+     * number.
+     */
     fun submitVerificationCode(
         phoneNumber: String,
         params: ActionSubmitVerificationCodeParams,

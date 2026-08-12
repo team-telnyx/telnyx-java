@@ -13,7 +13,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of room compositions. */
+/**
+ * Returns a paginated list of room compositions. Filter compositions by creation date, room
+ * session, or processing status.
+ */
 class RoomCompositionListParams
 private constructor(
     private val filter: Filter?,

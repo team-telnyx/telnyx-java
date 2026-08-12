@@ -20,7 +20,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Check RCS capabilities (batch) */
+/** Returns RCS capability information for multiple recipients in one request. */
 class RcListBulkCapabilitiesParams
 private constructor(
     private val body: Body,

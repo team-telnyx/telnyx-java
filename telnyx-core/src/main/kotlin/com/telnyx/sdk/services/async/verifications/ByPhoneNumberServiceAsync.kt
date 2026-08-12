@@ -29,7 +29,7 @@ interface ByPhoneNumberServiceAsync {
     /** Two factor authentication API */
     fun actions(): ActionServiceAsync
 
-    /** List verifications by phone number */
+    /** Returns a paginated list of verifications associated with the specified phone number. */
     fun list(phoneNumber: String): CompletableFuture<ByPhoneNumberListResponse> =
         list(phoneNumber, ByPhoneNumberListParams.none())
 

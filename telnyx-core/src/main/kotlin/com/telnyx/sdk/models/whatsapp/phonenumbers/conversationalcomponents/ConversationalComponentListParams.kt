@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get phone number conversational components */
+/** Returns the conversational components configured for the specified WhatsApp phone number. */
 class ConversationalComponentListParams
 private constructor(
     private val phoneNumber: String?,

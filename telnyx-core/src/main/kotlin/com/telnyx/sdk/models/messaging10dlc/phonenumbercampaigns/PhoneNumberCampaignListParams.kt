@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List phone number campaigns */
+/**
+ * Returns phone-number-to-campaign assignments for the authenticated account. Apply the documented
+ * filters and pagination parameters to narrow the result set.
+ */
 class PhoneNumberCampaignListParams
 private constructor(
     private val filter: Filter?,

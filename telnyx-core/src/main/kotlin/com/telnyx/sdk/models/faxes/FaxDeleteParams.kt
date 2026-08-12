@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a fax */
+/** Delete a fax resource from your account. */
 class FaxDeleteParams
 private constructor(
     private val id: String?,

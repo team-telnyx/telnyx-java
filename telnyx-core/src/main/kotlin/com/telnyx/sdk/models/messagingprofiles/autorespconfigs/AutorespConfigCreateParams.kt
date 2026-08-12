@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create auto-response setting */
+/**
+ * Creates an auto-response rule on the specified messaging profile. Matching inbound messages
+ * trigger the configured response.
+ */
 class AutorespConfigCreateParams
 private constructor(
     private val profileId: String?,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Mobile Voice Connection */
+/** Retrieve the details of a specific mobile voice connection. */
 class MobileVoiceConnectionRetrieveParams
 private constructor(
     private val id: String?,

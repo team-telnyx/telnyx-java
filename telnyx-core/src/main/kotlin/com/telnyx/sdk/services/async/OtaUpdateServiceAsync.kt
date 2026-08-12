@@ -62,7 +62,7 @@ interface OtaUpdateServiceAsync {
     ): CompletableFuture<OtaUpdateRetrieveResponse> =
         retrieve(id, OtaUpdateRetrieveParams.none(), requestOptions)
 
-    /** List OTA updates */
+    /** Retrieve a paginated list of over-the-air (OTA) update operations for your SIM cards. */
     fun list(): CompletableFuture<OtaUpdateListPageAsync> = list(OtaUpdateListParams.none())
 
     /** @see list */

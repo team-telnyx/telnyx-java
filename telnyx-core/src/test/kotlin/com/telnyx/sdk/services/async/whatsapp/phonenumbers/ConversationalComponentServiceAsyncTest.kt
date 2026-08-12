@@ -36,8 +36,8 @@ internal class ConversationalComponentServiceAsyncTest {
                     .phoneNumber("phone_number")
                     .addCommand(
                         ConversationalComponentPatchAllParams.Command.builder()
-                            .command("command")
-                            .description("description")
+                            .command("string")
+                            .description("string")
                             .build()
                     )
                     .addIceBreaker("string")

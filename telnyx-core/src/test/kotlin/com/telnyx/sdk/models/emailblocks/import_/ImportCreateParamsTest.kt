@@ -11,7 +11,10 @@ internal class ImportCreateParamsTest {
 
     @Test
     fun create() {
-        ImportCreateParams.builder().file("Example data".byteInputStream()).blockTtlDays(1L).build()
+        ImportCreateParams.builder()
+            .file("Example data".byteInputStream())
+            .blockTtlDays(30L)
+            .build()
     }
 
     @Test
@@ -19,7 +22,7 @@ internal class ImportCreateParamsTest {
         val params =
             ImportCreateParams.builder()
                 .file("Example data".byteInputStream())
-                .blockTtlDays(1L)
+                .blockTtlDays(30L)
                 .build()
 
         val body = params._body()
@@ -35,7 +38,7 @@ internal class ImportCreateParamsTest {
             .isEqualTo(
                 mapOf(
                         "file" to MultipartField.of("Example data".byteInputStream()),
-                        "block_ttl_days" to MultipartField.of(1L),
+                        "block_ttl_days" to MultipartField.of(30L),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

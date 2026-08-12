@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Initialize Whatsapp phone number verification */
+/**
+ * Starts verification of a phone number for the specified WhatsApp Business Account using the
+ * requested verification method.
+ */
 class PhoneNumberInitializeVerificationParams
 private constructor(
     private val id: String?,

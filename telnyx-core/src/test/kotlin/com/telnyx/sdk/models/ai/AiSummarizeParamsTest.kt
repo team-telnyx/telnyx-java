@@ -10,9 +10,9 @@ internal class AiSummarizeParamsTest {
     @Test
     fun create() {
         AiSummarizeParams.builder()
-            .bucket("bucket")
-            .filename("filename")
-            .systemPrompt("system_prompt")
+            .bucket("string")
+            .filename("string")
+            .systemPrompt("string")
             .build()
     }
 
@@ -20,25 +20,25 @@ internal class AiSummarizeParamsTest {
     fun body() {
         val params =
             AiSummarizeParams.builder()
-                .bucket("bucket")
-                .filename("filename")
-                .systemPrompt("system_prompt")
+                .bucket("string")
+                .filename("string")
+                .systemPrompt("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bucket()).isEqualTo("bucket")
-        assertThat(body.filename()).isEqualTo("filename")
-        assertThat(body.systemPrompt()).contains("system_prompt")
+        assertThat(body.bucket()).isEqualTo("string")
+        assertThat(body.filename()).isEqualTo("string")
+        assertThat(body.systemPrompt()).contains("string")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = AiSummarizeParams.builder().bucket("bucket").filename("filename").build()
+        val params = AiSummarizeParams.builder().bucket("string").filename("string").build()
 
         val body = params._body()
 
-        assertThat(body.bucket()).isEqualTo("bucket")
-        assertThat(body.filename()).isEqualTo("filename")
+        assertThat(body.bucket()).isEqualTo("string")
+        assertThat(body.filename()).isEqualTo("string")
     }
 }

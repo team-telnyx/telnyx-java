@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve an unsubscribe group */
+/** Returns the account-owned unsubscribe group identified by ID. */
 class EmailUnsubscribeGroupRetrieveParams
 private constructor(
     private val id: String?,

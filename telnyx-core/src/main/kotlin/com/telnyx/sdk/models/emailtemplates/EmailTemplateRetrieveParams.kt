@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get an email template */
+/**
+ * Returns the account-owned template identified by ID, including its Liquid subject and bodies,
+ * declared variables, and timestamps.
+ */
 class EmailTemplateRetrieveParams
 private constructor(
     private val id: String?,

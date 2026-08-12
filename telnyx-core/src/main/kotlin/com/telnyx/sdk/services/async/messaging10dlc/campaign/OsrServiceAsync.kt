@@ -25,7 +25,10 @@ interface OsrServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrServiceAsync
 
-    /** Get OSR campaign attributes */
+    /**
+     * Returns the optional shared-responsibility attributes recorded for the campaign. Use these
+     * values to inspect the campaign configuration submitted to the registry.
+     */
     fun getAttributes(campaignId: String): CompletableFuture<OsrGetAttributesResponse> =
         getAttributes(campaignId, OsrGetAttributesParams.none())
 

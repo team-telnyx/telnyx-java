@@ -29,7 +29,7 @@ interface AccessIpAddressServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccessIpAddressServiceAsync
 
-    /** Create new Access IP Address */
+    /** Create a new access IP address entry on your account. */
     fun create(params: AccessIpAddressCreateParams): CompletableFuture<AccessIpAddressResponse> =
         create(params, RequestOptions.none())
 
@@ -39,7 +39,7 @@ interface AccessIpAddressServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccessIpAddressResponse>
 
-    /** Retrieve an access IP address */
+    /** Retrieve the details of a specific access IP address. */
     fun retrieve(accessIpAddressId: String): CompletableFuture<AccessIpAddressResponse> =
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none())
 
@@ -76,7 +76,7 @@ interface AccessIpAddressServiceAsync {
     ): CompletableFuture<AccessIpAddressResponse> =
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none(), requestOptions)
 
-    /** List all Access IP Addresses */
+    /** Retrieve a paginated list of access IP addresses configured on your account. */
     fun list(): CompletableFuture<AccessIpAddressListPageAsync> =
         list(AccessIpAddressListParams.none())
 
@@ -95,7 +95,7 @@ interface AccessIpAddressServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpAddressListPageAsync> =
         list(AccessIpAddressListParams.none(), requestOptions)
 
-    /** Delete access IP address */
+    /** Delete an access IP address entry from your account. */
     fun delete(accessIpAddressId: String): CompletableFuture<AccessIpAddressResponse> =
         delete(accessIpAddressId, AccessIpAddressDeleteParams.none())
 

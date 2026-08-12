@@ -22,14 +22,16 @@ import kotlin.jvm.optionals.getOrNull
 class UserAddressListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<UserAddress>>,
+    private val data: JsonField<List<UserAddressesUserAddress>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<List<UserAddress>> = JsonMissing.of(),
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<List<UserAddressesUserAddress>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -37,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<UserAddress>> = data.getOptional("data")
+    fun data(): Optional<List<UserAddressesUserAddress>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -50,7 +52,9 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<UserAddress>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<UserAddressesUserAddress>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +86,7 @@ private constructor(
     /** A builder for [UserAddressListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<UserAddress>>? = null
+        private var data: JsonField<MutableList<UserAddressesUserAddress>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,25 +97,25 @@ private constructor(
             additionalProperties = userAddressListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<UserAddress>) = data(JsonField.of(data))
+        fun data(data: List<UserAddressesUserAddress>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<UserAddress>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed `List<UserAddressesUserAddress>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<UserAddress>>) = apply {
+        fun data(data: JsonField<List<UserAddressesUserAddress>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [UserAddress] to [Builder.data].
+         * Adds a single [UserAddressesUserAddress] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: UserAddress) = apply {
+        fun addData(data: UserAddressesUserAddress) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

@@ -31,9 +31,9 @@ internal class ExternalVettingServiceTest {
             externalVettingService.imports(
                 ExternalVettingImportsParams.builder()
                     .brandId("brandId")
-                    .evpId("evpId")
-                    .vettingId("vettingId")
-                    .vettingToken("vettingToken")
+                    .evpId("Evpid")
+                    .vettingId("Vettingid")
+                    .vettingToken("Vettingtoken")
                     .build()
             )
 
@@ -50,8 +50,8 @@ internal class ExternalVettingServiceTest {
             externalVettingService.order(
                 ExternalVettingOrderParams.builder()
                     .brandId("brandId")
-                    .evpId("evpId")
-                    .vettingClass("vettingClass")
+                    .evpId("Evpid")
+                    .vettingClass("Vettingclass")
                     .build()
             )
 

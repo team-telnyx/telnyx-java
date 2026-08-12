@@ -29,7 +29,10 @@ interface MessagingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingServiceAsync
 
-    /** Retrieve a phone number with messaging settings */
+    /**
+     * Returns the messaging product and messaging-profile assignment for the specified phone
+     * number.
+     */
     fun retrieve(id: String): CompletableFuture<MessagingRetrieveResponse> =
         retrieve(id, MessagingRetrieveParams.none())
 
@@ -64,7 +67,7 @@ interface MessagingServiceAsync {
     ): CompletableFuture<MessagingRetrieveResponse> =
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
-    /** Update the messaging profile and/or messaging product of a phone number */
+    /** Updates the messaging product, messaging profile, or both for the specified phone number. */
     fun update(
         id: String,
         params: MessagingUpdateParams,
@@ -88,7 +91,9 @@ interface MessagingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingUpdateResponse>
 
-    /** List phone numbers with messaging settings */
+    /**
+     * Returns phone numbers with their current messaging product and messaging-profile assignments.
+     */
     fun list(): CompletableFuture<MessagingListPageAsync> = list(MessagingListParams.none())
 
     /** @see list */

@@ -11,7 +11,7 @@ internal class ActionAcceptSuggestionsParamsTest {
     fun create() {
         ActionAcceptSuggestionsParams.builder()
             .addressUuid("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .id("id")
+            .id("string")
             .build()
     }
 
@@ -32,12 +32,12 @@ internal class ActionAcceptSuggestionsParamsTest {
         val params =
             ActionAcceptSuggestionsParams.builder()
                 .addressUuid("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .id("id")
+                .id("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.id()).contains("id")
+        assertThat(body.id()).contains("string")
     }
 
     @Test

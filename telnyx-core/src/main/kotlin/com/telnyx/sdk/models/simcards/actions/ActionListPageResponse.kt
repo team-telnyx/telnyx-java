@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class ActionListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<SimCardAction>>,
+    private val data: JsonField<List<WirelessSimCardAction>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<SimCardAction>> = JsonMissing.of(),
+        data: JsonField<List<WirelessSimCardAction>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<SimCardAction>> = data.getOptional("data")
+    fun data(): Optional<List<WirelessSimCardAction>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<SimCardAction>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<WirelessSimCardAction>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -82,7 +82,7 @@ private constructor(
     /** A builder for [ActionListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<SimCardAction>>? = null
+        private var data: JsonField<MutableList<WirelessSimCardAction>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -93,25 +93,25 @@ private constructor(
             additionalProperties = actionListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<SimCardAction>) = data(JsonField.of(data))
+        fun data(data: List<WirelessSimCardAction>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<SimCardAction>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed `List<WirelessSimCardAction>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<SimCardAction>>) = apply {
+        fun data(data: JsonField<List<WirelessSimCardAction>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [SimCardAction] to [Builder.data].
+         * Adds a single [WirelessSimCardAction] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: SimCardAction) = apply {
+        fun addData(data: WirelessSimCardAction) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

@@ -11,9 +11,9 @@ internal class InsightGroupUpdateParamsTest {
     fun create() {
         InsightGroupUpdateParams.builder()
             .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .description("description")
-            .name("name")
-            .webhook("webhook")
+            .description("Description")
+            .name("Name")
+            .webhook("Webhook")
             .build()
     }
 
@@ -34,16 +34,16 @@ internal class InsightGroupUpdateParamsTest {
         val params =
             InsightGroupUpdateParams.builder()
                 .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .description("description")
-                .name("name")
-                .webhook("webhook")
+                .description("Description")
+                .name("Name")
+                .webhook("Webhook")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
-        assertThat(body.name()).contains("name")
-        assertThat(body.webhook()).contains("webhook")
+        assertThat(body.description()).contains("Description")
+        assertThat(body.name()).contains("Name")
+        assertThat(body.webhook()).contains("Webhook")
     }
 
     @Test

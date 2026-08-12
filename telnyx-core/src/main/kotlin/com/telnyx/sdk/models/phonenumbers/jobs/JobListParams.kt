@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists the phone numbers jobs */
+/**
+ * Returns background jobs that operate on phone numbers. Results can be filtered by job type and
+ * sorted by creation time, and include pagination metadata.
+ */
 class JobListParams
 private constructor(
     private val filter: Filter?,

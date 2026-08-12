@@ -27,7 +27,7 @@ interface UserDataService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserDataService
 
-    /** Fetch Whatsapp user data */
+    /** Returns the WhatsApp user-data settings associated with the authenticated Telnyx account. */
     fun retrieve(): UserDataRetrieveResponse = retrieve(UserDataRetrieveParams.none())
 
     /** @see retrieve */
@@ -45,7 +45,7 @@ interface UserDataService {
     fun retrieve(requestOptions: RequestOptions): UserDataRetrieveResponse =
         retrieve(UserDataRetrieveParams.none(), requestOptions)
 
-    /** Update Whatsapp user data */
+    /** Updates the supplied WhatsApp user-data settings for the authenticated Telnyx account. */
     fun update(): UserDataUpdateResponse = update(UserDataUpdateParams.none())
 
     /** @see update */

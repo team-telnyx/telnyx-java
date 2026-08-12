@@ -58,7 +58,7 @@ interface WebhookServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EmailWebhookResponse>
 
-    /** Retrieve a webhook */
+    /** Returns the webhook subscription identified by ID within the specified email domain. */
     fun retrieve(
         id: String,
         params: WebhookRetrieveParams,
@@ -107,7 +107,10 @@ interface WebhookServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EmailWebhookResponse>
 
-    /** List webhooks for an email domain */
+    /**
+     * Returns a paginated list of webhook subscriptions scoped to the email domain. Results can be
+     * sorted by creation time.
+     */
     fun list(domainId: String): CompletableFuture<WebhookListPageAsync> =
         list(domainId, WebhookListParams.none())
 
@@ -142,7 +145,10 @@ interface WebhookServiceAsync {
     ): CompletableFuture<WebhookListPageAsync> =
         list(domainId, WebhookListParams.none(), requestOptions)
 
-    /** Delete a webhook */
+    /**
+     * Deletes the webhook subscription identified by ID within the specified email domain and
+     * returns the deleted subscription.
+     */
     fun delete(id: String, params: WebhookDeleteParams): CompletableFuture<EmailWebhookResponse> =
         delete(id, params, RequestOptions.none())
 

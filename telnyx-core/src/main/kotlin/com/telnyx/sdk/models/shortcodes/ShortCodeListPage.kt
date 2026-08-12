@@ -5,8 +5,8 @@ package com.telnyx.sdk.models.shortcodes
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MessagingPaginationMeta
 import com.telnyx.sdk.models.ShortCode
+import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
 import com.telnyx.sdk.services.blocking.ShortCodeService
 import java.util.Objects
 import java.util.Optional
@@ -33,7 +33,7 @@ private constructor(
      *
      * @see ShortCodeListPageResponse.meta
      */
-    fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
     override fun items(): List<ShortCode> = data()
 

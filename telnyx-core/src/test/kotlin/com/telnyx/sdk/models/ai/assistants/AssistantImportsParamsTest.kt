@@ -11,7 +11,7 @@ internal class AssistantImportsParamsTest {
     @Test
     fun create() {
         AssistantImportsParams.builder()
-            .apiKeyRef("api_key_ref")
+            .apiKeyRef("string")
             .provider(AssistantImportsParams.Provider.ELEVENLABS)
             .addImportId("string")
             .build()
@@ -21,14 +21,14 @@ internal class AssistantImportsParamsTest {
     fun body() {
         val params =
             AssistantImportsParams.builder()
-                .apiKeyRef("api_key_ref")
+                .apiKeyRef("string")
                 .provider(AssistantImportsParams.Provider.ELEVENLABS)
                 .addImportId("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.apiKeyRef()).isEqualTo("api_key_ref")
+        assertThat(body.apiKeyRef()).isEqualTo("string")
         assertThat(body.provider()).isEqualTo(AssistantImportsParams.Provider.ELEVENLABS)
         assertThat(body.importIds().getOrNull()).containsExactly("string")
     }
@@ -37,13 +37,13 @@ internal class AssistantImportsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             AssistantImportsParams.builder()
-                .apiKeyRef("api_key_ref")
+                .apiKeyRef("string")
                 .provider(AssistantImportsParams.Provider.ELEVENLABS)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.apiKeyRef()).isEqualTo("api_key_ref")
+        assertThat(body.apiKeyRef()).isEqualTo("string")
         assertThat(body.provider()).isEqualTo(AssistantImportsParams.Provider.ELEVENLABS)
     }
 }

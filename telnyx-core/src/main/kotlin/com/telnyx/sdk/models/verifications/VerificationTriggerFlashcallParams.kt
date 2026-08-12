@@ -18,7 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Trigger Flash call verification */
+/**
+ * Starts a verification for the specified phone number and places a brief call with the code
+ * embedded in the caller ID. Returns the pending verification record.
+ */
 class VerificationTriggerFlashcallParams
 private constructor(
     private val body: Body,

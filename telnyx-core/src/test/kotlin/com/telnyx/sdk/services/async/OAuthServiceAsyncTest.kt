@@ -33,7 +33,7 @@ internal class OAuthServiceAsyncTest {
 
         val responseFuture =
             oauthServiceAsync.grants(
-                OAuthGrantsParams.builder().allowed(true).consentToken("consent_token").build()
+                OAuthGrantsParams.builder().allowed(false).consentToken("string").build()
             )
 
         val response = responseFuture.get()
@@ -47,7 +47,7 @@ internal class OAuthServiceAsyncTest {
         val oauthServiceAsync = client.oauth()
 
         val responseFuture =
-            oauthServiceAsync.introspect(OAuthIntrospectParams.builder().token("token").build())
+            oauthServiceAsync.introspect(OAuthIntrospectParams.builder().token("string").build())
 
         val response = responseFuture.get()
         response.validate()

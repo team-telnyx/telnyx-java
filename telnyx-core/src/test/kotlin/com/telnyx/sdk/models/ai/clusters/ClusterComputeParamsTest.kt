@@ -11,11 +11,11 @@ internal class ClusterComputeParamsTest {
     @Test
     fun create() {
         ClusterComputeParams.builder()
-            .bucket("bucket")
+            .bucket("string")
             .addFile("string")
-            .minClusterSize(0L)
-            .minSubclusterSize(0L)
-            .prefix("prefix")
+            .minClusterSize(25L)
+            .minSubclusterSize(5L)
+            .prefix("string")
             .build()
     }
 
@@ -23,28 +23,28 @@ internal class ClusterComputeParamsTest {
     fun body() {
         val params =
             ClusterComputeParams.builder()
-                .bucket("bucket")
+                .bucket("string")
                 .addFile("string")
-                .minClusterSize(0L)
-                .minSubclusterSize(0L)
-                .prefix("prefix")
+                .minClusterSize(25L)
+                .minSubclusterSize(5L)
+                .prefix("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bucket()).isEqualTo("bucket")
+        assertThat(body.bucket()).isEqualTo("string")
         assertThat(body.files().getOrNull()).containsExactly("string")
-        assertThat(body.minClusterSize()).contains(0L)
-        assertThat(body.minSubclusterSize()).contains(0L)
-        assertThat(body.prefix()).contains("prefix")
+        assertThat(body.minClusterSize()).contains(25L)
+        assertThat(body.minSubclusterSize()).contains(5L)
+        assertThat(body.prefix()).contains("string")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = ClusterComputeParams.builder().bucket("bucket").build()
+        val params = ClusterComputeParams.builder().bucket("string").build()
 
         val body = params._body()
 
-        assertThat(body.bucket()).isEqualTo("bucket")
+        assertThat(body.bucket()).isEqualTo("string")
     }
 }

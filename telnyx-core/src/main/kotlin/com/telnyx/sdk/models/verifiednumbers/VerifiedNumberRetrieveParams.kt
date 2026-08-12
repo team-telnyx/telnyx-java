@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a verified number */
+/** Retrieve the details of a verified number on your account. */
 class VerifiedNumberRetrieveParams
 private constructor(
     private val phoneNumber: String?,

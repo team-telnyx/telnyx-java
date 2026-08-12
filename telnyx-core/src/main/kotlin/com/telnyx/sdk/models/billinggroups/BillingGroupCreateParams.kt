@@ -17,7 +17,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a billing group */
+/** Create a new billing group, which can be used to organize resources for billing purposes. */
 class BillingGroupCreateParams
 private constructor(
     private val body: Body,

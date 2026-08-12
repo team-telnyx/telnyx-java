@@ -20,7 +20,9 @@ internal class ProductListParamsTest {
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("page_number", "1").put("page_size", "1").build())
+            .isEqualTo(
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
+            )
     }
 
     @Test

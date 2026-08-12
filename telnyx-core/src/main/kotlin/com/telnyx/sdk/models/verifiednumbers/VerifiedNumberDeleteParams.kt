@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a verified number */
+/** Remove a verified number from your account. */
 class VerifiedNumberDeleteParams
 private constructor(
     private val phoneNumber: String?,

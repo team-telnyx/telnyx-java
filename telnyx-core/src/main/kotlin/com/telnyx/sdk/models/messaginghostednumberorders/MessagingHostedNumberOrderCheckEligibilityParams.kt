@@ -20,7 +20,10 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Check hosted messaging eligibility */
+/**
+ * Checks whether the supplied phone numbers are eligible for hosted messaging before an order is
+ * created.
+ */
 class MessagingHostedNumberOrderCheckEligibilityParams
 private constructor(
     private val body: Body,

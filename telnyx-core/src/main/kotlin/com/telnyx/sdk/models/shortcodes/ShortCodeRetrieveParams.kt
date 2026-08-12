@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a short code */
+/** Returns the messaging configuration and assignment details for the specified short code. */
 class ShortCodeRetrieveParams
 private constructor(
     private val id: String?,

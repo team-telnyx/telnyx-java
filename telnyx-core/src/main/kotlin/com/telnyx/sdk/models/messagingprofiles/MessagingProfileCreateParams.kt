@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a messaging profile */
+/**
+ * Creates a messaging profile that controls outbound sender selection, webhook delivery, and
+ * inbound message handling for associated numbers and short codes.
+ */
 class MessagingProfileCreateParams
 private constructor(
     private val body: Body,

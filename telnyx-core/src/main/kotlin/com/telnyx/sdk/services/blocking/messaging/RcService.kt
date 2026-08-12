@@ -57,7 +57,7 @@ interface RcService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RcInviteTestNumberResponse
 
-    /** Check RCS capabilities (batch) */
+    /** Returns RCS capability information for multiple recipients in one request. */
     fun listBulkCapabilities(params: RcListBulkCapabilitiesParams): RcListBulkCapabilitiesResponse =
         listBulkCapabilities(params, RequestOptions.none())
 
@@ -67,7 +67,7 @@ interface RcService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RcListBulkCapabilitiesResponse
 
-    /** Check RCS capabilities */
+    /** Returns the RCS features supported by the specified recipient for the selected agent. */
     fun retrieveCapabilities(
         phoneNumber: String,
         params: RcRetrieveCapabilitiesParams,

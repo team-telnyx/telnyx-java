@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Access IP Addresses */
+/** Retrieve a paginated list of access IP addresses configured on your account. */
 class AccessIpAddressListParams
 private constructor(
     private val filter: Filter?,

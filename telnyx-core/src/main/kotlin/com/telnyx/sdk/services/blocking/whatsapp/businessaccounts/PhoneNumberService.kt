@@ -26,7 +26,7 @@ interface PhoneNumberService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberService
 
-    /** List phone numbers for a WABA */
+    /** Returns phone numbers registered under the specified WhatsApp Business Account. */
     fun list(id: String): PhoneNumberListPage = list(id, PhoneNumberListParams.none())
 
     /** @see list */
@@ -56,7 +56,10 @@ interface PhoneNumberService {
     fun list(id: String, requestOptions: RequestOptions): PhoneNumberListPage =
         list(id, PhoneNumberListParams.none(), requestOptions)
 
-    /** Initialize Whatsapp phone number verification */
+    /**
+     * Starts verification of a phone number for the specified WhatsApp Business Account using the
+     * requested verification method.
+     */
     fun initializeVerification(id: String, params: PhoneNumberInitializeVerificationParams) =
         initializeVerification(id, params, RequestOptions.none())
 

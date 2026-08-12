@@ -29,6 +29,8 @@ import com.telnyx.sdk.services.async.ai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.CollectionServiceAsync
+import com.telnyx.sdk.services.async.ai.CollectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
@@ -64,6 +66,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     private val chat: ChatServiceAsync by lazy { ChatServiceAsyncImpl(clientOptions) }
 
     private val clusters: ClusterServiceAsync by lazy { ClusterServiceAsyncImpl(clientOptions) }
+
+    private val collections: CollectionServiceAsync by lazy {
+        CollectionServiceAsyncImpl(clientOptions)
+    }
 
     private val conversations: ConversationServiceAsync by lazy {
         ConversationServiceAsyncImpl(clientOptions)
@@ -109,6 +115,12 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     /** Identify common themes and patterns in your embedded documents */
     override fun clusters(): ClusterServiceAsync = clusters
+
+    /**
+     * Create and manage logical collections of your Telnyx data, tune retrieval settings, manage
+     * sources, and run collection-scoped semantic search.
+     */
+    override fun collections(): CollectionServiceAsync = collections
 
     /** Manage historical AI assistant conversations */
     override fun conversations(): ConversationServiceAsync = conversations
@@ -169,6 +181,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             ClusterServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val collections: CollectionServiceAsync.WithRawResponse by lazy {
+            CollectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val conversations: ConversationServiceAsync.WithRawResponse by lazy {
             ConversationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -221,6 +237,12 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         /** Identify common themes and patterns in your embedded documents */
         override fun clusters(): ClusterServiceAsync.WithRawResponse = clusters
+
+        /**
+         * Create and manage logical collections of your Telnyx data, tune retrieval settings,
+         * manage sources, and run collection-scoped semantic search.
+         */
+        override fun collections(): CollectionServiceAsync.WithRawResponse = collections
 
         /** Manage historical AI assistant conversations */
         override fun conversations(): ConversationServiceAsync.WithRawResponse = conversations

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a room composition. */
+/**
+ * Returns the composition identified by `room_composition_id`, including its room and session,
+ * processing status, media details, video layout, lifecycle timestamps, and download URL.
+ */
 class RoomCompositionRetrieveParams
 private constructor(
     private val roomCompositionId: String?,

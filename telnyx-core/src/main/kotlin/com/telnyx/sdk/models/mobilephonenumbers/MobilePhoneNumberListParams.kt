@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Mobile Phone Numbers */
+/** Retrieve a paginated list of mobile phone numbers on your account. */
 class MobilePhoneNumberListParams
 private constructor(
     private val pageNumber: Long?,

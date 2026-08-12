@@ -47,7 +47,7 @@ interface VerifiedNumberService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VerifiedNumberCreateResponse
 
-    /** Retrieve a verified number */
+    /** Retrieve the details of a verified number on your account. */
     fun retrieve(phoneNumber: String): VerifiedNumberDataWrapper =
         retrieve(phoneNumber, VerifiedNumberRetrieveParams.none())
 
@@ -97,7 +97,7 @@ interface VerifiedNumberService {
     fun list(requestOptions: RequestOptions): VerifiedNumberListPage =
         list(VerifiedNumberListParams.none(), requestOptions)
 
-    /** Delete a verified number */
+    /** Remove a verified number from your account. */
     fun delete(phoneNumber: String): VerifiedNumberDataWrapper =
         delete(phoneNumber, VerifiedNumberDeleteParams.none())
 

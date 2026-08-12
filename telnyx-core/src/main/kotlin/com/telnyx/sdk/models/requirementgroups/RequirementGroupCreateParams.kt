@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new requirement group */
+/**
+ * Creates a regulatory requirement group for a country, number type, and ordering or porting
+ * action. Optional customer-reference and requirement values are retained on the created group.
+ */
 class RequirementGroupCreateParams
 private constructor(
     private val body: Body,

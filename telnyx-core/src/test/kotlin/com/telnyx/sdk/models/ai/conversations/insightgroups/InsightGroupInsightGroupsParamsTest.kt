@@ -10,9 +10,9 @@ internal class InsightGroupInsightGroupsParamsTest {
     @Test
     fun create() {
         InsightGroupInsightGroupsParams.builder()
-            .name("name")
-            .description("description")
-            .webhook("webhook")
+            .name("Name")
+            .description("Description")
+            .webhook("")
             .build()
     }
 
@@ -20,24 +20,24 @@ internal class InsightGroupInsightGroupsParamsTest {
     fun body() {
         val params =
             InsightGroupInsightGroupsParams.builder()
-                .name("name")
-                .description("description")
-                .webhook("webhook")
+                .name("Name")
+                .description("Description")
+                .webhook("")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
-        assertThat(body.description()).contains("description")
-        assertThat(body.webhook()).contains("webhook")
+        assertThat(body.name()).isEqualTo("Name")
+        assertThat(body.description()).contains("Description")
+        assertThat(body.webhook()).contains("")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = InsightGroupInsightGroupsParams.builder().name("name").build()
+        val params = InsightGroupInsightGroupsParams.builder().name("Name").build()
 
         val body = params._body()
 
-        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.name()).isEqualTo("Name")
     }
 }

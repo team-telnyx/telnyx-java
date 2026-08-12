@@ -20,14 +20,14 @@ internal class InexplicitNumberOrderServiceAsyncTest {
                 InexplicitNumberOrderCreateParams.builder()
                     .addOrderingGroup(
                         InexplicitNumberOrderCreateParams.OrderingGroup.builder()
-                            .countRequested("count_requested")
+                            .countRequested("5")
                             .countryIso(
                                 InexplicitNumberOrderCreateParams.OrderingGroup.CountryIso.US
                             )
-                            .phoneNumberType("phone_number_type")
-                            .administrativeArea("administrative_area")
+                            .phoneNumberType("local")
+                            .administrativeArea("CA")
                             .excludeHeldNumbers(true)
-                            .addFeature("string")
+                            .addFeature("voice")
                             .locality("locality")
                             .nationalDestinationCode("national_destination_code")
                             .phoneNumber(

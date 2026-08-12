@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Get All Tags */
+/** Retrieve all tags that have been applied to your AI assistants. */
 class TagListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

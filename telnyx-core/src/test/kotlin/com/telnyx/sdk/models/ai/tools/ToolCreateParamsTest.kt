@@ -47,6 +47,19 @@ internal class ToolCreateParamsTest {
                     .build()
             )
             .timeoutMs(0L)
+            .updateDynamicVariables(
+                UpdateDynamicVariablesToolParams.builder()
+                    .description("Collect caller details into conversation variables.")
+                    .name("collect_details")
+                    .addUpdatableVariable(
+                        UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                            .name("customer_name")
+                            .description("The caller's full name.")
+                            .type("string")
+                            .build()
+                    )
+                    .build()
+            )
             .webhook(
                 ToolCreateParams.Webhook.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -95,6 +108,19 @@ internal class ToolCreateParamsTest {
                         .build()
                 )
                 .timeoutMs(0L)
+                .updateDynamicVariables(
+                    UpdateDynamicVariablesToolParams.builder()
+                        .description("Collect caller details into conversation variables.")
+                        .name("collect_details")
+                        .addUpdatableVariable(
+                            UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                .name("customer_name")
+                                .description("The caller's full name.")
+                                .type("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .webhook(
                     ToolCreateParams.Webhook.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -146,6 +172,20 @@ internal class ToolCreateParamsTest {
                     .build()
             )
         assertThat(body.timeoutMs()).contains(0L)
+        assertThat(body.updateDynamicVariables())
+            .contains(
+                UpdateDynamicVariablesToolParams.builder()
+                    .description("Collect caller details into conversation variables.")
+                    .name("collect_details")
+                    .addUpdatableVariable(
+                        UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                            .name("customer_name")
+                            .description("The caller's full name.")
+                            .type("string")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.webhook())
             .contains(
                 ToolCreateParams.Webhook.builder()

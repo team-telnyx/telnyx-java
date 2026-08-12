@@ -31,7 +31,7 @@ interface ProfileService {
     /** Manage Whatsapp phone numbers */
     fun photo(): PhotoService
 
-    /** Get phone number business profile */
+    /** Returns the business profile displayed for the specified WhatsApp phone number. */
     fun retrieve(phoneNumber: String): ProfileRetrieveResponse =
         retrieve(phoneNumber, ProfileRetrieveParams.none())
 
@@ -63,7 +63,7 @@ interface ProfileService {
     fun retrieve(phoneNumber: String, requestOptions: RequestOptions): ProfileRetrieveResponse =
         retrieve(phoneNumber, ProfileRetrieveParams.none(), requestOptions)
 
-    /** Update phone number business profile */
+    /** Updates the supplied business-profile fields for the specified WhatsApp phone number. */
     fun update(phoneNumber: String): ProfileUpdateResponse =
         update(phoneNumber, ProfileUpdateParams.none())
 

@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List phone numbers with messaging settings */
+/** Returns phone numbers with their current messaging product and messaging-profile assignments. */
 class MessagingListParams
 private constructor(
     private val filterMessagingProfileId: String?,

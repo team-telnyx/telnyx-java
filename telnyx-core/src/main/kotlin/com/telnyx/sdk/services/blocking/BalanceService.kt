@@ -25,7 +25,7 @@ interface BalanceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BalanceService
 
-    /** Get user balance details */
+    /** Retrieve the current balance, available credit, and credit limit for your account. */
     fun retrieve(): BalanceRetrieveResponse = retrieve(BalanceRetrieveParams.none())
 
     /** @see retrieve */

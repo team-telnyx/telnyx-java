@@ -14,7 +14,7 @@ internal class UserAddressCreateResponseTest {
         val userAddressCreateResponse =
             UserAddressCreateResponse.builder()
                 .data(
-                    UserAddress.builder()
+                    UserAddressesUserAddress.builder()
                         .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                         .administrativeArea("TX")
                         .borough("Guadalajara")
@@ -38,7 +38,7 @@ internal class UserAddressCreateResponseTest {
 
         assertThat(userAddressCreateResponse.data())
             .contains(
-                UserAddress.builder()
+                UserAddressesUserAddress.builder()
                     .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                     .administrativeArea("TX")
                     .borough("Guadalajara")
@@ -66,7 +66,7 @@ internal class UserAddressCreateResponseTest {
         val userAddressCreateResponse =
             UserAddressCreateResponse.builder()
                 .data(
-                    UserAddress.builder()
+                    UserAddressesUserAddress.builder()
                         .id("c3527e69-dc5a-4b3e-8f44-99d209f83c1d")
                         .administrativeArea("TX")
                         .borough("Guadalajara")

@@ -18,16 +18,16 @@ internal class MigrationSourceServiceAsyncTest {
         val migrationSourceFuture =
             migrationSourceServiceAsync.create(
                 MigrationSourceParams.builder()
-                    .bucketName("bucket_name")
+                    .bucketName("string")
                     .provider(MigrationSourceParams.Provider.AWS)
                     .providerAuth(
                         MigrationSourceParams.ProviderAuth.builder()
-                            .accessKey("access_key")
-                            .secretAccessKey("secret_access_key")
+                            .accessKey("string")
+                            .secretAccessKey("string")
                             .build()
                     )
                     .id("id")
-                    .sourceRegion("source_region")
+                    .sourceRegion("string")
                     .build()
             )
 

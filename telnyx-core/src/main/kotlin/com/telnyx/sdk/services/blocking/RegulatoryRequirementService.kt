@@ -25,7 +25,10 @@ interface RegulatoryRequirementService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RegulatoryRequirementService
 
-    /** Retrieve regulatory requirements */
+    /**
+     * Returns regulatory requirements for number ordering, porting, or other supported actions.
+     * Results can be filtered by phone number, requirement group, country, number type, and action.
+     */
     fun retrieve(): RegulatoryRequirementRetrieveResponse =
         retrieve(RegulatoryRequirementRetrieveParams.none())
 

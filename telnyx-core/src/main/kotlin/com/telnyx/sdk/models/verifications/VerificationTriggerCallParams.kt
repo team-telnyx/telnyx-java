@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Trigger Call verification */
+/**
+ * Starts a verification for the specified phone number and delivers its code in a voice call using
+ * the selected Verify profile. Returns the pending verification record.
+ */
 class VerificationTriggerCallParams
 private constructor(
     private val body: Body,

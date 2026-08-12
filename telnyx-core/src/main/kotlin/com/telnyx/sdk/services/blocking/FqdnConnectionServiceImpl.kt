@@ -27,6 +27,8 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateResponse
+import com.telnyx.sdk.services.blocking.fqdnconnections.FqdnAuthenticationService
+import com.telnyx.sdk.services.blocking.fqdnconnections.FqdnAuthenticationServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -38,10 +40,17 @@ class FqdnConnectionServiceImpl internal constructor(private val clientOptions: 
         WithRawResponseImpl(clientOptions)
     }
 
+    private val fqdnAuthentication: FqdnAuthenticationService by lazy {
+        FqdnAuthenticationServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): FqdnConnectionService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FqdnConnectionService =
         FqdnConnectionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /** FQDN connection operations */
+    override fun fqdnAuthentication(): FqdnAuthenticationService = fqdnAuthentication
 
     override fun create(
         params: FqdnConnectionCreateParams,
@@ -84,12 +93,20 @@ class FqdnConnectionServiceImpl internal constructor(private val clientOptions: 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val fqdnAuthentication: FqdnAuthenticationService.WithRawResponse by lazy {
+            FqdnAuthenticationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FqdnConnectionService.WithRawResponse =
             FqdnConnectionServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /** FQDN connection operations */
+        override fun fqdnAuthentication(): FqdnAuthenticationService.WithRawResponse =
+            fqdnAuthentication
 
         private val createHandler: Handler<FqdnConnectionCreateResponse> =
             jsonHandler<FqdnConnectionCreateResponse>(clientOptions.jsonMapper)

@@ -28,7 +28,7 @@ interface AccessIpRangeService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccessIpRangeService
 
-    /** Create new Access IP Range */
+    /** Create a new access IP range on your account. */
     fun create(params: AccessIpRangeCreateParams): AccessIpRange =
         create(params, RequestOptions.none())
 
@@ -38,7 +38,7 @@ interface AccessIpRangeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccessIpRange
 
-    /** List all Access IP Ranges */
+    /** Retrieve a paginated list of access IP ranges configured on your account. */
     fun list(): AccessIpRangeListPage = list(AccessIpRangeListParams.none())
 
     /** @see list */
@@ -56,7 +56,7 @@ interface AccessIpRangeService {
     fun list(requestOptions: RequestOptions): AccessIpRangeListPage =
         list(AccessIpRangeListParams.none(), requestOptions)
 
-    /** Delete access IP ranges */
+    /** Delete an access IP range from your account. */
     fun delete(accessIpRangeId: String): AccessIpRange =
         delete(accessIpRangeId, AccessIpRangeDeleteParams.none())
 

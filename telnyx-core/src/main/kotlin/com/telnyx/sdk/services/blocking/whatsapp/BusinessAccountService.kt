@@ -36,7 +36,7 @@ interface BusinessAccountService {
     /** Manage Whatsapp business accounts */
     fun settings(): SettingService
 
-    /** Get a single Whatsapp Business Account */
+    /** Returns the configuration and status of the specified WhatsApp Business Account. */
     fun retrieve(id: String): BusinessAccountRetrieveResponse =
         retrieve(id, BusinessAccountRetrieveParams.none())
 
@@ -67,7 +67,7 @@ interface BusinessAccountService {
     fun retrieve(id: String, requestOptions: RequestOptions): BusinessAccountRetrieveResponse =
         retrieve(id, BusinessAccountRetrieveParams.none(), requestOptions)
 
-    /** List Whatsapp Business Accounts */
+    /** Returns WhatsApp Business Accounts linked to the authenticated Telnyx account. */
     fun list(): BusinessAccountListPage = list(BusinessAccountListParams.none())
 
     /** @see list */
@@ -85,7 +85,7 @@ interface BusinessAccountService {
     fun list(requestOptions: RequestOptions): BusinessAccountListPage =
         list(BusinessAccountListParams.none(), requestOptions)
 
-    /** Delete a Whatsapp Business Account */
+    /** Unlinks and deletes the specified WhatsApp Business Account resource from Telnyx. */
     fun delete(id: String) = delete(id, BusinessAccountDeleteParams.none())
 
     /** @see delete */

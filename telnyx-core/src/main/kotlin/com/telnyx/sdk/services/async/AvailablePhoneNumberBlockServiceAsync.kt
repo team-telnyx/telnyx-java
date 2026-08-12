@@ -27,7 +27,10 @@ interface AvailablePhoneNumberBlockServiceAsync {
         modifier: Consumer<ClientOptions.Builder>
     ): AvailablePhoneNumberBlockServiceAsync
 
-    /** List available phone number blocks */
+    /**
+     * Searches the Telnyx inventory for available contiguous phone-number blocks. Results can be
+     * filtered by locality, country, national destination code, and number type.
+     */
     fun list(): CompletableFuture<AvailablePhoneNumberBlockListResponse> =
         list(AvailablePhoneNumberBlockListParams.none())
 

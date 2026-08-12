@@ -26,10 +26,11 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
+import com.telnyx.sdk.models.messages.MessageWhatsappParams
+import com.telnyx.sdk.models.messages.MessageWhatsappResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import java.util.function.Consumer
 
-/** Messages */
 interface MessageService {
 
     /**
@@ -185,7 +186,10 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendResponse
 
-    /** Send a group MMS message */
+    /**
+     * Queues an MMS addressed to multiple recipients as a group conversation. Delivery events are
+     * reported asynchronously through messaging webhooks.
+     */
     fun sendGroupMms(params: MessageSendGroupMmsParams): MessageSendGroupMmsResponse =
         sendGroupMms(params, RequestOptions.none())
 
@@ -195,7 +199,10 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendGroupMmsResponse
 
-    /** Send a long code message */
+    /**
+     * Queues an outbound SMS or MMS using a long-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendLongCode(params: MessageSendLongCodeParams): MessageSendLongCodeResponse =
         sendLongCode(params, RequestOptions.none())
 
@@ -205,7 +212,10 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendLongCodeResponse
 
-    /** Send a message using number pool */
+    /**
+     * Queues an outbound message using a number pool. Telnyx selects an eligible sender from the
+     * pool according to its messaging profile configuration.
+     */
     fun sendNumberPool(params: MessageSendNumberPoolParams): MessageSendNumberPoolResponse =
         sendNumberPool(params, RequestOptions.none())
 
@@ -215,7 +225,10 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendNumberPoolResponse
 
-    /** Send a short code message */
+    /**
+     * Queues an outbound SMS or MMS using a short-code sender. Delivery progress and final
+     * disposition are reported asynchronously through messaging webhooks.
+     */
     fun sendShortCode(params: MessageSendShortCodeParams): MessageSendShortCodeResponse =
         sendShortCode(params, RequestOptions.none())
 
@@ -236,6 +249,21 @@ interface MessageService {
         params: MessageSendWithAlphanumericSenderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendWithAlphanumericSenderResponse
+
+    /**
+     * Sends a WhatsApp message using a Telnyx WhatsApp-enabled number. The message body,
+     * interactive elements, media, location, and reaction content are specified in the
+     * `whatsapp_message` field. Delivery progress and final disposition are reported asynchronously
+     * through messaging webhooks.
+     */
+    fun whatsapp(params: MessageWhatsappParams): MessageWhatsappResponse =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: MessageWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageWhatsappResponse
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -508,5 +536,20 @@ interface MessageService {
             params: MessageSendWithAlphanumericSenderParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessageSendWithAlphanumericSenderResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
+         * [MessageService.whatsapp].
+         */
+        @MustBeClosed
+        fun whatsapp(params: MessageWhatsappParams): HttpResponseFor<MessageWhatsappResponse> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        @MustBeClosed
+        fun whatsapp(
+            params: MessageWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageWhatsappResponse>
     }
 }

@@ -47,7 +47,7 @@ interface StorageService {
      */
     fun cloudfs(): CloudfService
 
-    /** List Migration Source coverage */
+    /** List the external storage providers and regions supported as migration sources. */
     fun listMigrationSourceCoverage(): StorageListMigrationSourceCoverageResponse =
         listMigrationSourceCoverage(StorageListMigrationSourceCoverageParams.none())
 

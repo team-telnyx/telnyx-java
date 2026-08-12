@@ -26,7 +26,7 @@ interface MessagingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingServiceAsync
 
-    /** Retrieve a mobile phone number with messaging settings */
+    /** Returns the messaging configuration for the specified mobile phone number. */
     fun retrieve(id: String): CompletableFuture<MessagingRetrieveResponse> =
         retrieve(id, MessagingRetrieveParams.none())
 
@@ -61,7 +61,7 @@ interface MessagingServiceAsync {
     ): CompletableFuture<MessagingRetrieveResponse> =
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
-    /** List mobile phone numbers with messaging settings */
+    /** Returns mobile phone numbers with their current messaging configuration. */
     fun list(): CompletableFuture<MessagingListPageAsync> = list(MessagingListParams.none())
 
     /** @see list */

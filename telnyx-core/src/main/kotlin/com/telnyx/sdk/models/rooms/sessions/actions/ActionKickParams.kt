@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Kick participants from a room session. */
+/**
+ * Removes the selected participants from the specified room session. Apply the action to a list of
+ * participant IDs or to `all`, with optional participant IDs excluded from the action.
+ */
 class ActionKickParams
 private constructor(
     private val roomSessionId: String?,

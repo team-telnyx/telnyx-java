@@ -4,7 +4,7 @@ package com.telnyx.sdk.models.reports
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.reports.mdrusagereports.PaginationMetaReporting
+import com.telnyx.sdk.models.reports.mdrusagereports.ReportingPaginationMeta77109e5d17
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -34,10 +34,10 @@ internal class ReportListMdrsResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMetaReporting.builder()
+                    ReportingPaginationMeta77109e5d17.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )
@@ -63,10 +63,10 @@ internal class ReportListMdrsResponseTest {
             )
         assertThat(reportListMdrsResponse.meta())
             .contains(
-                PaginationMetaReporting.builder()
+                ReportingPaginationMeta77109e5d17.builder()
                     .pageNumber(2)
-                    .totalPages(3)
                     .pageSize(25)
+                    .totalPages(3)
                     .totalResults(55)
                     .build()
             )
@@ -95,10 +95,10 @@ internal class ReportListMdrsResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMetaReporting.builder()
+                    ReportingPaginationMeta77109e5d17.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )

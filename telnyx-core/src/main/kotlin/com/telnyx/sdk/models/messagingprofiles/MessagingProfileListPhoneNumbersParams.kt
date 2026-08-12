@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List phone numbers associated with a messaging profile */
+/** Returns the phone numbers currently associated with the specified messaging profile. */
 class MessagingProfileListPhoneNumbersParams
 private constructor(
     private val messagingProfileId: String?,

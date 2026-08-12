@@ -103,8 +103,8 @@ internal class VoiceCloneServiceAsyncTest {
                             .Gender
                             .MALE
                     )
-                    .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
-                    .name("name")
+                    .language("en")
+                    .name("My cloned voice")
                     .provider(
                         VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.TelnyxQwen3TtsClone
                             .Provider

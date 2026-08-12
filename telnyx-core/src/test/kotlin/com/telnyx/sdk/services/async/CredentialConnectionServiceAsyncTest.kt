@@ -135,6 +135,7 @@ internal class CredentialConnectionServiceAsyncTest {
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
                     .callCostInWebhooks(false)
                     .connectionName("my name")
+                    .conversationPersistence(true)
                     .defaultOnHoldComfortNoiseEnabled(false)
                     .dtmfType(DtmfType.RFC_2833)
                     .encodeContactHeaderEnabled(true)

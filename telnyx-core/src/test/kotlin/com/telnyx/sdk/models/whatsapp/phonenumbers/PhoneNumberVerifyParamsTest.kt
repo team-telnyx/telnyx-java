@@ -9,13 +9,13 @@ internal class PhoneNumberVerifyParamsTest {
 
     @Test
     fun create() {
-        PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("code").build()
+        PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("string").build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("code").build()
+            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("string").build()
 
         assertThat(params._pathParam(0)).isEqualTo("phone_number")
         // out-of-bound path param
@@ -25,10 +25,10 @@ internal class PhoneNumberVerifyParamsTest {
     @Test
     fun body() {
         val params =
-            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("code").build()
+            PhoneNumberVerifyParams.builder().phoneNumber("phone_number").code("string").build()
 
         val body = params._body()
 
-        assertThat(body.code()).isEqualTo("code")
+        assertThat(body.code()).isEqualTo("string")
     }
 }

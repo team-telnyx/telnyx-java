@@ -57,7 +57,11 @@ interface RoomService {
     fun create(requestOptions: RequestOptions): RoomCreateResponse =
         create(RoomCreateParams.none(), requestOptions)
 
-    /** View a room. */
+    /**
+     * Returns the room identified by `room_id`, including its participant limit, recording and
+     * webhook configuration, and active session identifier. Use `include_sessions` to include its
+     * sessions.
+     */
     fun retrieve(roomId: String): RoomRetrieveResponse = retrieve(roomId, RoomRetrieveParams.none())
 
     /** @see retrieve */
@@ -116,7 +120,10 @@ interface RoomService {
     fun update(roomId: String, requestOptions: RequestOptions): RoomUpdateResponse =
         update(roomId, RoomUpdateParams.none(), requestOptions)
 
-    /** View a list of rooms. */
+    /**
+     * Returns a paginated list of rooms. Filter the results by creation or update date and unique
+     * name, and use `include_sessions` to include each room’s sessions.
+     */
     fun list(): RoomListPage = list(RoomListParams.none())
 
     /** @see list */

@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an email template */
+/**
+ * Deletes the account-owned template. The operation returns `204` with no body and prevents future
+ * sends or renders from using the deleted template ID.
+ */
 class EmailTemplateDeleteParams
 private constructor(
     private val id: String?,

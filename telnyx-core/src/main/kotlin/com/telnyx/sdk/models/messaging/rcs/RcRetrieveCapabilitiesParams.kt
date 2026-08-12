@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Check RCS capabilities */
+/** Returns the RCS features supported by the specified recipient for the selected agent. */
 class RcRetrieveCapabilitiesParams
 private constructor(
     private val agentId: String,

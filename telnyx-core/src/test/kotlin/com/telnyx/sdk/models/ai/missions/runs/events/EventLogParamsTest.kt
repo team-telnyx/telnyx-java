@@ -13,16 +13,16 @@ internal class EventLogParamsTest {
         EventLogParams.builder()
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .summary("summary")
+            .summary("Summary")
             .type(EventType.STATUS_CHANGE)
-            .agentId("agent_id")
-            .idempotencyKey("idempotency_key")
+            .agentId("Agent Id")
+            .idempotencyKey("Idempotency Key")
             .payload(
                 EventLogParams.Payload.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-            .stepId("step_id")
+            .stepId("Step Id")
             .build()
     }
 
@@ -32,7 +32,7 @@ internal class EventLogParamsTest {
             EventLogParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .summary("summary")
+                .summary("Summary")
                 .type(EventType.STATUS_CHANGE)
                 .build()
 
@@ -48,31 +48,31 @@ internal class EventLogParamsTest {
             EventLogParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .summary("summary")
+                .summary("Summary")
                 .type(EventType.STATUS_CHANGE)
-                .agentId("agent_id")
-                .idempotencyKey("idempotency_key")
+                .agentId("Agent Id")
+                .idempotencyKey("Idempotency Key")
                 .payload(
                     EventLogParams.Payload.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .stepId("step_id")
+                .stepId("Step Id")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.summary()).isEqualTo("summary")
+        assertThat(body.summary()).isEqualTo("Summary")
         assertThat(body.type()).isEqualTo(EventType.STATUS_CHANGE)
-        assertThat(body.agentId()).contains("agent_id")
-        assertThat(body.idempotencyKey()).contains("idempotency_key")
+        assertThat(body.agentId()).contains("Agent Id")
+        assertThat(body.idempotencyKey()).contains("Idempotency Key")
         assertThat(body.payload())
             .contains(
                 EventLogParams.Payload.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.stepId()).contains("step_id")
+        assertThat(body.stepId()).contains("Step Id")
     }
 
     @Test
@@ -81,13 +81,13 @@ internal class EventLogParamsTest {
             EventLogParams.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .summary("summary")
+                .summary("Summary")
                 .type(EventType.STATUS_CHANGE)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.summary()).isEqualTo("summary")
+        assertThat(body.summary()).isEqualTo("Summary")
         assertThat(body.type()).isEqualTo(EventType.STATUS_CHANGE)
     }
 }

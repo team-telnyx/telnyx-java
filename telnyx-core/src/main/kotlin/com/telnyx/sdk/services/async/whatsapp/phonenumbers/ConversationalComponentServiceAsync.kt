@@ -27,7 +27,7 @@ interface ConversationalComponentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationalComponentServiceAsync
 
-    /** Get phone number conversational components */
+    /** Returns the conversational components configured for the specified WhatsApp phone number. */
     fun list(phoneNumber: String): CompletableFuture<ConversationalComponentListResponse> =
         list(phoneNumber, ConversationalComponentListParams.none())
 
@@ -64,7 +64,7 @@ interface ConversationalComponentServiceAsync {
     ): CompletableFuture<ConversationalComponentListResponse> =
         list(phoneNumber, ConversationalComponentListParams.none(), requestOptions)
 
-    /** Update phone number conversational components */
+    /** Updates the conversational components configured for the specified WhatsApp phone number. */
     fun patchAll(phoneNumber: String): CompletableFuture<ConversationalComponentPatchAllResponse> =
         patchAll(phoneNumber, ConversationalComponentPatchAllParams.none())
 

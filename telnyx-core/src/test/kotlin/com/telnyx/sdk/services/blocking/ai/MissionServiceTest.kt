@@ -21,16 +21,16 @@ internal class MissionServiceTest {
         val missionResponse =
             missionService.create(
                 MissionCreateParams.builder()
-                    .name("name")
-                    .description("description")
+                    .name("Name")
+                    .description("Description")
                     .executionMode(ExecutionMode.EXTERNAL)
-                    .instructions("instructions")
+                    .instructions("Instructions")
                     .metadata(
                         MissionCreateParams.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .model("model")
+                    .model("Model")
                     .build()
             )
 
@@ -100,16 +100,16 @@ internal class MissionServiceTest {
             missionService.updateMission(
                 MissionUpdateMissionParams.builder()
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .description("description")
+                    .description("Description")
                     .executionMode(ExecutionMode.EXTERNAL)
-                    .instructions("instructions")
+                    .instructions("Instructions")
                     .metadata(
                         MissionUpdateMissionParams.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .model("model")
-                    .name("name")
+                    .model("Model")
+                    .name("Name")
                     .build()
             )
 

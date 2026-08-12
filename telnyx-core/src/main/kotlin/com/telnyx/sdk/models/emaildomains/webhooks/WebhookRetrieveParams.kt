@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a webhook */
+/** Returns the webhook subscription identified by ID within the specified email domain. */
 class WebhookRetrieveParams
 private constructor(
     private val domainId: String,

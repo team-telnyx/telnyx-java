@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all comments */
+/**
+ * Returns comments associated with number-order records. Results can be filtered by record type and
+ * record ID and include pagination metadata.
+ */
 class CommentListParams
 private constructor(
     private val filter: Filter?,

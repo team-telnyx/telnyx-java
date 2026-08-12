@@ -32,7 +32,10 @@ interface CommentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CommentServiceAsync
 
-    /** Create a comment */
+    /**
+     * Creates a comment associated with a supported number-order record. The response contains the
+     * created comment.
+     */
     fun create(params: CommentCreateParams): CompletableFuture<CommentCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -53,7 +56,9 @@ interface CommentServiceAsync {
     fun create(comment: Comment): CompletableFuture<CommentCreateResponse> =
         create(comment, RequestOptions.none())
 
-    /** Retrieve a comment */
+    /**
+     * Returns the comment identified by `id`, including its associated record and comment metadata.
+     */
     fun retrieve(id: String): CompletableFuture<CommentRetrieveResponse> =
         retrieve(id, CommentRetrieveParams.none())
 
@@ -88,7 +93,10 @@ interface CommentServiceAsync {
     ): CompletableFuture<CommentRetrieveResponse> =
         retrieve(id, CommentRetrieveParams.none(), requestOptions)
 
-    /** Retrieve all comments */
+    /**
+     * Returns comments associated with number-order records. Results can be filtered by record type
+     * and record ID and include pagination metadata.
+     */
     fun list(): CompletableFuture<CommentListResponse> = list(CommentListParams.none())
 
     /** @see list */
@@ -106,7 +114,10 @@ interface CommentServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<CommentListResponse> =
         list(CommentListParams.none(), requestOptions)
 
-    /** Mark a comment as read */
+    /**
+     * Marks the specified comment as read. The response contains the updated read state for the
+     * comment.
+     */
     fun markAsRead(id: String): CompletableFuture<CommentMarkAsReadResponse> =
         markAsRead(id, CommentMarkAsReadParams.none())
 

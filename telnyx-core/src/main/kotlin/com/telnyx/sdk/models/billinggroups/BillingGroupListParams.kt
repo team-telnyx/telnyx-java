@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all billing groups */
+/** Retrieve a paginated list of billing groups on your account. */
 class BillingGroupListParams
 private constructor(
     private val pageNumber: Long?,

@@ -20,8 +20,8 @@ internal class EmailUnsubscribeGroupServiceTest {
         val unsubscribeGroupResponse =
             emailUnsubscribeGroupService.create(
                 EmailUnsubscribeGroupCreateParams.builder()
-                    .name("x")
-                    .description("description")
+                    .name("Marketing Newsletter")
+                    .description("Weekly product updates and promotions")
                     .build()
             )
 
@@ -50,7 +50,7 @@ internal class EmailUnsubscribeGroupServiceTest {
             emailUnsubscribeGroupService.update(
                 EmailUnsubscribeGroupUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .description("description")
+                    .description("Weekly product updates and promotions")
                     .name("x")
                     .build()
             )

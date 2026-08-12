@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Whatsapp Business Accounts */
+/** Returns WhatsApp Business Accounts linked to the authenticated Telnyx account. */
 class BusinessAccountListParams
 private constructor(
     private val pageNumber: Long?,

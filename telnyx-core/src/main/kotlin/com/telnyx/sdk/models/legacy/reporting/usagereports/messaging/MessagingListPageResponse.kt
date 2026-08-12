@@ -22,7 +22,7 @@ class MessagingListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<MdrUsageReportResponseLegacy>>,
-    private val meta: JsonField<StandardPaginationMeta>,
+    private val meta: JsonField<StandardPaginationMetaFfba4faa88>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,7 +33,7 @@ private constructor(
         data: JsonField<List<MdrUsageReportResponseLegacy>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
-        meta: JsonField<StandardPaginationMeta> = JsonMissing.of(),
+        meta: JsonField<StandardPaginationMetaFfba4faa88> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -46,7 +46,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun meta(): Optional<StandardPaginationMeta> = meta.getOptional("meta")
+    fun meta(): Optional<StandardPaginationMetaFfba4faa88> = meta.getOptional("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -62,7 +62,9 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<StandardPaginationMeta> = meta
+    @JsonProperty("meta")
+    @ExcludeMissing
+    fun _meta(): JsonField<StandardPaginationMetaFfba4faa88> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -88,7 +90,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<MdrUsageReportResponseLegacy>>? = null
-        private var meta: JsonField<StandardPaginationMeta> = JsonMissing.of()
+        private var meta: JsonField<StandardPaginationMetaFfba4faa88> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -123,16 +125,16 @@ private constructor(
                 }
         }
 
-        fun meta(meta: StandardPaginationMeta) = meta(JsonField.of(meta))
+        fun meta(meta: StandardPaginationMetaFfba4faa88) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [StandardPaginationMeta] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.meta] with a well-typed
+         * [StandardPaginationMetaFfba4faa88] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun meta(meta: JsonField<StandardPaginationMeta>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<StandardPaginationMetaFfba4faa88>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a cluster */
+/** Delete a clustering task and its computed results. */
 class ClusterDeleteParams
 private constructor(
     private val taskId: String?,

@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** View a list of room recordings. */
+/**
+ * Returns a paginated list of room recordings. Filter recordings by room, session, participant,
+ * recording type, status, duration, or start and end dates.
+ */
 class RoomRecordingListParams
 private constructor(
     private val filter: Filter?,

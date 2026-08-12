@@ -9,16 +9,16 @@ internal class EmbeddingUrlParamsTest {
 
     @Test
     fun create() {
-        EmbeddingUrlParams.builder().bucketName("bucket_name").url("url").build()
+        EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
     }
 
     @Test
     fun body() {
-        val params = EmbeddingUrlParams.builder().bucketName("bucket_name").url("url").build()
+        val params = EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
 
         val body = params._body()
 
-        assertThat(body.bucketName()).isEqualTo("bucket_name")
-        assertThat(body.url()).isEqualTo("url")
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
+        assertThat(body.url()).isEqualTo("URL")
     }
 }

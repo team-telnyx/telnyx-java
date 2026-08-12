@@ -13,8 +13,8 @@ internal class MessagingHostedNumberOrderValidateCodesParamsTest {
             .id("id")
             .addVerificationCode(
                 MessagingHostedNumberOrderValidateCodesParams.VerificationCode.builder()
-                    .code("code")
-                    .phoneNumber("phone_number")
+                    .code("string")
+                    .phoneNumber("string")
                     .build()
             )
             .build()
@@ -27,8 +27,8 @@ internal class MessagingHostedNumberOrderValidateCodesParamsTest {
                 .id("id")
                 .addVerificationCode(
                     MessagingHostedNumberOrderValidateCodesParams.VerificationCode.builder()
-                        .code("code")
-                        .phoneNumber("phone_number")
+                        .code("string")
+                        .phoneNumber("string")
                         .build()
                 )
                 .build()
@@ -45,8 +45,8 @@ internal class MessagingHostedNumberOrderValidateCodesParamsTest {
                 .id("id")
                 .addVerificationCode(
                     MessagingHostedNumberOrderValidateCodesParams.VerificationCode.builder()
-                        .code("code")
-                        .phoneNumber("phone_number")
+                        .code("string")
+                        .phoneNumber("string")
                         .build()
                 )
                 .build()
@@ -56,8 +56,8 @@ internal class MessagingHostedNumberOrderValidateCodesParamsTest {
         assertThat(body.verificationCodes())
             .containsExactly(
                 MessagingHostedNumberOrderValidateCodesParams.VerificationCode.builder()
-                    .code("code")
-                    .phoneNumber("phone_number")
+                    .code("string")
+                    .phoneNumber("string")
                     .build()
             )
     }

@@ -27,6 +27,7 @@ import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.tools.PayToolParams
+import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -52,6 +53,7 @@ private constructor(
     private val sendMessage: SendMessage? = null,
     private val skipTurn: SkipTurn? = null,
     private val pay: Pay? = null,
+    private val updateDynamicVariables: UpdateDynamicVariables? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -95,6 +97,16 @@ private constructor(
      */
     fun pay(): Optional<Pay> = Optional.ofNullable(pay)
 
+    /**
+     * The update_dynamic_variables tool lets the assistant write values into the conversation's
+     * dynamic-variables context during the call. Updated variables are available to later
+     * `{{variable}}` interpolation (prompts, speak nodes, message templates) and to flow edge
+     * conditions. Declare each variable the assistant is allowed to set under
+     * `updatable_variables`.
+     */
+    fun updateDynamicVariables(): Optional<UpdateDynamicVariables> =
+        Optional.ofNullable(updateDynamicVariables)
+
     fun isWebhook(): Boolean = webhook != null
 
     fun isClientSide(): Boolean = clientSide != null
@@ -118,6 +130,8 @@ private constructor(
     fun isSkipTurn(): Boolean = skipTurn != null
 
     fun isPay(): Boolean = pay != null
+
+    fun isUpdateDynamicVariables(): Boolean = updateDynamicVariables != null
 
     fun asWebhook(): InferenceEmbeddingWebhookToolParams = webhook.getOrThrow("webhook")
 
@@ -158,6 +172,16 @@ private constructor(
      * configured in the Telnyx API.
      */
     fun asPay(): Pay = pay.getOrThrow("pay")
+
+    /**
+     * The update_dynamic_variables tool lets the assistant write values into the conversation's
+     * dynamic-variables context during the call. Updated variables are available to later
+     * `{{variable}}` interpolation (prompts, speak nodes, message templates) and to flow edge
+     * conditions. Declare each variable the assistant is allowed to set under
+     * `updatable_variables`.
+     */
+    fun asUpdateDynamicVariables(): UpdateDynamicVariables =
+        updateDynamicVariables.getOrThrow("updateDynamicVariables")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -204,6 +228,8 @@ private constructor(
             sendMessage != null -> visitor.visitSendMessage(sendMessage)
             skipTurn != null -> visitor.visitSkipTurn(skipTurn)
             pay != null -> visitor.visitPay(pay)
+            updateDynamicVariables != null ->
+                visitor.visitUpdateDynamicVariables(updateDynamicVariables)
             else -> visitor.unknown(_json)
         }
 
@@ -271,6 +297,12 @@ private constructor(
                 override fun visitPay(pay: Pay) {
                     pay.validate()
                 }
+
+                override fun visitUpdateDynamicVariables(
+                    updateDynamicVariables: UpdateDynamicVariables
+                ) {
+                    updateDynamicVariables.validate()
+                }
             }
         )
         validated = true
@@ -318,6 +350,10 @@ private constructor(
 
                 override fun visitPay(pay: Pay) = pay.validity()
 
+                override fun visitUpdateDynamicVariables(
+                    updateDynamicVariables: UpdateDynamicVariables
+                ) = updateDynamicVariables.validity()
+
                 override fun unknown(json: JsonValue?) = 0
             }
         )
@@ -339,7 +375,8 @@ private constructor(
             sendDtmf == other.sendDtmf &&
             sendMessage == other.sendMessage &&
             skipTurn == other.skipTurn &&
-            pay == other.pay
+            pay == other.pay &&
+            updateDynamicVariables == other.updateDynamicVariables
     }
 
     override fun hashCode(): Int =
@@ -356,6 +393,7 @@ private constructor(
             sendMessage,
             skipTurn,
             pay,
+            updateDynamicVariables,
         )
 
     override fun toString(): String =
@@ -372,6 +410,8 @@ private constructor(
             sendMessage != null -> "AssistantTool{sendMessage=$sendMessage}"
             skipTurn != null -> "AssistantTool{skipTurn=$skipTurn}"
             pay != null -> "AssistantTool{pay=$pay}"
+            updateDynamicVariables != null ->
+                "AssistantTool{updateDynamicVariables=$updateDynamicVariables}"
             _json != null -> "AssistantTool{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid AssistantTool")
         }
@@ -421,6 +461,17 @@ private constructor(
          * pay connector configured in the Telnyx API.
          */
         @JvmStatic fun ofPay(pay: Pay) = AssistantTool(pay = pay)
+
+        /**
+         * The update_dynamic_variables tool lets the assistant write values into the conversation's
+         * dynamic-variables context during the call. Updated variables are available to later
+         * `{{variable}}` interpolation (prompts, speak nodes, message templates) and to flow edge
+         * conditions. Declare each variable the assistant is allowed to set under
+         * `updatable_variables`.
+         */
+        @JvmStatic
+        fun ofUpdateDynamicVariables(updateDynamicVariables: UpdateDynamicVariables) =
+            AssistantTool(updateDynamicVariables = updateDynamicVariables)
     }
 
     /**
@@ -467,6 +518,15 @@ private constructor(
          * pay connector configured in the Telnyx API.
          */
         fun visitPay(pay: Pay): T
+
+        /**
+         * The update_dynamic_variables tool lets the assistant write values into the conversation's
+         * dynamic-variables context during the call. Updated variables are available to later
+         * `{{variable}}` interpolation (prompts, speak nodes, message templates) and to flow edge
+         * conditions. Declare each variable the assistant is allowed to set under
+         * `updatable_variables`.
+         */
+        fun visitUpdateDynamicVariables(updateDynamicVariables: UpdateDynamicVariables): T
 
         /**
          * Maps an unknown variant of [AssistantTool] to a value of type [T].
@@ -552,6 +612,11 @@ private constructor(
                         AssistantTool(pay = it, _json = json)
                     } ?: AssistantTool(_json = json)
                 }
+                "update_dynamic_variables" -> {
+                    return tryDeserialize(node, jacksonTypeRef<UpdateDynamicVariables>())?.let {
+                        AssistantTool(updateDynamicVariables = it, _json = json)
+                    } ?: AssistantTool(_json = json)
+                }
             }
 
             return AssistantTool(_json = json)
@@ -578,6 +643,8 @@ private constructor(
                 value.sendMessage != null -> generator.writeObject(value.sendMessage)
                 value.skipTurn != null -> generator.writeObject(value.skipTurn)
                 value.pay != null -> generator.writeObject(value.pay)
+                value.updateDynamicVariables != null ->
+                    generator.writeObject(value.updateDynamicVariables)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid AssistantTool")
             }
@@ -10236,5 +10303,231 @@ private constructor(
 
         override fun toString() =
             "Pay{pay=$pay, type=$type, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The update_dynamic_variables tool lets the assistant write values into the conversation's
+     * dynamic-variables context during the call. Updated variables are available to later
+     * `{{variable}}` interpolation (prompts, speak nodes, message templates) and to flow edge
+     * conditions. Declare each variable the assistant is allowed to set under
+     * `updatable_variables`.
+     */
+    class UpdateDynamicVariables
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val type: JsonValue,
+        private val updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("update_dynamic_variables")
+            @ExcludeMissing
+            updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> = JsonMissing.of(),
+        ) : this(type, updateDynamicVariables, mutableMapOf())
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("update_dynamic_variables")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Configuration for an update_dynamic_variables tool.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun updateDynamicVariables(): UpdateDynamicVariablesToolParams =
+            updateDynamicVariables.getRequired("update_dynamic_variables")
+
+        /**
+         * Returns the raw JSON value of [updateDynamicVariables].
+         *
+         * Unlike [updateDynamicVariables], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("update_dynamic_variables")
+        @ExcludeMissing
+        fun _updateDynamicVariables(): JsonField<UpdateDynamicVariablesToolParams> =
+            updateDynamicVariables
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [UpdateDynamicVariables].
+             *
+             * The following fields are required:
+             * ```java
+             * .updateDynamicVariables()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [UpdateDynamicVariables]. */
+        class Builder internal constructor() {
+
+            private var type: JsonValue = JsonValue.from("update_dynamic_variables")
+            private var updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(updateDynamicVariables: UpdateDynamicVariables) = apply {
+                type = updateDynamicVariables.type
+                this.updateDynamicVariables = updateDynamicVariables.updateDynamicVariables
+                additionalProperties = updateDynamicVariables.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("update_dynamic_variables")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            /** Configuration for an update_dynamic_variables tool. */
+            fun updateDynamicVariables(updateDynamicVariables: UpdateDynamicVariablesToolParams) =
+                updateDynamicVariables(JsonField.of(updateDynamicVariables))
+
+            /**
+             * Sets [Builder.updateDynamicVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updateDynamicVariables] with a well-typed
+             * [UpdateDynamicVariablesToolParams] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun updateDynamicVariables(
+                updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
+            ) = apply { this.updateDynamicVariables = updateDynamicVariables }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [UpdateDynamicVariables].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .updateDynamicVariables()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): UpdateDynamicVariables =
+                UpdateDynamicVariables(
+                    type,
+                    checkRequired("updateDynamicVariables", updateDynamicVariables),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): UpdateDynamicVariables = apply {
+            if (validated) {
+                return@apply
+            }
+
+            _type().let {
+                if (it != JsonValue.from("update_dynamic_variables")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            updateDynamicVariables().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            type.let { if (it == JsonValue.from("update_dynamic_variables")) 1 else 0 } +
+                (updateDynamicVariables.asKnown().getOrNull()?.validity() ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UpdateDynamicVariables &&
+                type == other.type &&
+                updateDynamicVariables == other.updateDynamicVariables &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(type, updateDynamicVariables, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "UpdateDynamicVariables{type=$type, updateDynamicVariables=$updateDynamicVariables, additionalProperties=$additionalProperties}"
     }
 }

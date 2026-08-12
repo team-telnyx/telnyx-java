@@ -15,12 +15,12 @@ internal class ToolTestParamsTest {
             .toolId("tool_id")
             .arguments(
                 ToolTestParams.Arguments.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("order_id", JsonValue.from("bar"))
                     .build()
             )
             .dynamicVariables(
                 ToolTestParams.DynamicVariables.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("customer_name", JsonValue.from("bar"))
                     .build()
             )
             .build()
@@ -44,12 +44,12 @@ internal class ToolTestParamsTest {
                 .toolId("tool_id")
                 .arguments(
                     ToolTestParams.Arguments.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("order_id", JsonValue.from("bar"))
                         .build()
                 )
                 .dynamicVariables(
                     ToolTestParams.DynamicVariables.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("customer_name", JsonValue.from("bar"))
                         .build()
                 )
                 .build()
@@ -59,13 +59,13 @@ internal class ToolTestParamsTest {
         assertThat(body.arguments())
             .contains(
                 ToolTestParams.Arguments.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("order_id", JsonValue.from("bar"))
                     .build()
             )
         assertThat(body.dynamicVariables())
             .contains(
                 ToolTestParams.DynamicVariables.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("customer_name", JsonValue.from("bar"))
                     .build()
             )
     }

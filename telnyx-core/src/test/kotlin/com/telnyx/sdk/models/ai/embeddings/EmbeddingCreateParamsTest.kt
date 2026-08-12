@@ -10,9 +10,9 @@ internal class EmbeddingCreateParamsTest {
     @Test
     fun create() {
         EmbeddingCreateParams.builder()
-            .bucketName("bucket_name")
-            .documentChunkOverlapSize(0L)
-            .documentChunkSize(0L)
+            .bucketName("Bucket Name")
+            .documentChunkOverlapSize(512L)
+            .documentChunkSize(1024L)
             .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
             .loader(EmbeddingCreateParams.Loader.DEFAULT)
             .build()
@@ -22,18 +22,18 @@ internal class EmbeddingCreateParamsTest {
     fun body() {
         val params =
             EmbeddingCreateParams.builder()
-                .bucketName("bucket_name")
-                .documentChunkOverlapSize(0L)
-                .documentChunkSize(0L)
+                .bucketName("Bucket Name")
+                .documentChunkOverlapSize(512L)
+                .documentChunkSize(1024L)
                 .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
                 .loader(EmbeddingCreateParams.Loader.DEFAULT)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bucketName()).isEqualTo("bucket_name")
-        assertThat(body.documentChunkOverlapSize()).contains(0L)
-        assertThat(body.documentChunkSize()).contains(0L)
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
+        assertThat(body.documentChunkOverlapSize()).contains(512L)
+        assertThat(body.documentChunkSize()).contains(1024L)
         assertThat(body.embeddingModel())
             .contains(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
         assertThat(body.loader()).contains(EmbeddingCreateParams.Loader.DEFAULT)
@@ -41,10 +41,10 @@ internal class EmbeddingCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = EmbeddingCreateParams.builder().bucketName("bucket_name").build()
+        val params = EmbeddingCreateParams.builder().bucketName("Bucket Name").build()
 
         val body = params._body()
 
-        assertThat(body.bucketName()).isEqualTo("bucket_name")
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
     }
 }

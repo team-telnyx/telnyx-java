@@ -29,7 +29,10 @@ interface AdvancedOrderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdvancedOrderServiceAsync
 
-    /** Create Advanced Order */
+    /**
+     * Creates an advanced number order from the requested order configuration. The response
+     * contains the resulting advanced order and its initial state.
+     */
     fun create(params: AdvancedOrderCreateParams): CompletableFuture<AdvancedOrder> =
         create(params, RequestOptions.none())
 
@@ -53,7 +56,10 @@ interface AdvancedOrderServiceAsync {
     fun create(advancedOrderRequest: AdvancedOrderRequest): CompletableFuture<AdvancedOrder> =
         create(advancedOrderRequest, RequestOptions.none())
 
-    /** Get Advanced Order */
+    /**
+     * Returns the advanced number order identified by `order_id`, including its configuration and
+     * current state.
+     */
     fun retrieve(orderId: String): CompletableFuture<AdvancedOrder> =
         retrieve(orderId, AdvancedOrderRetrieveParams.none())
 
@@ -88,7 +94,10 @@ interface AdvancedOrderServiceAsync {
     ): CompletableFuture<AdvancedOrder> =
         retrieve(orderId, AdvancedOrderRetrieveParams.none(), requestOptions)
 
-    /** List Advanced Orders */
+    /**
+     * Returns the advanced number orders associated with the account. Each result includes the
+     * order configuration and its current state.
+     */
     fun list(): CompletableFuture<AdvancedOrderListResponse> = list(AdvancedOrderListParams.none())
 
     /** @see list */
@@ -106,7 +115,10 @@ interface AdvancedOrderServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AdvancedOrderListResponse> =
         list(AdvancedOrderListParams.none(), requestOptions)
 
-    /** Update Advanced Order */
+    /**
+     * Updates the requirement-group configuration for the specified advanced number order. The
+     * response contains the updated advanced order.
+     */
     fun updateRequirementGroup(
         advancedOrderId: String,
         params: AdvancedOrderUpdateRequirementGroupParams,

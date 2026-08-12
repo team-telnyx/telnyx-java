@@ -66,7 +66,7 @@ interface FaxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FaxCreateResponse
 
-    /** View a fax */
+    /** Retrieve the details of a single fax. */
     fun retrieve(id: String): FaxRetrieveResponse = retrieve(id, FaxRetrieveParams.none())
 
     /** @see retrieve */
@@ -96,7 +96,7 @@ interface FaxService {
     fun retrieve(id: String, requestOptions: RequestOptions): FaxRetrieveResponse =
         retrieve(id, FaxRetrieveParams.none(), requestOptions)
 
-    /** View a list of faxes */
+    /** Retrieve a paginated list of faxes sent or received on your account. */
     fun list(): FaxListPage = list(FaxListParams.none())
 
     /** @see list */
@@ -113,7 +113,7 @@ interface FaxService {
     fun list(requestOptions: RequestOptions): FaxListPage =
         list(FaxListParams.none(), requestOptions)
 
-    /** Delete a fax */
+    /** Delete a fax resource from your account. */
     fun delete(id: String) = delete(id, FaxDeleteParams.none())
 
     /** @see delete */

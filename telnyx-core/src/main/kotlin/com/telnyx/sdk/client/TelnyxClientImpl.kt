@@ -250,8 +250,8 @@ import com.telnyx.sdk.services.blocking.PublicInternetGatewayService
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.QueueService
 import com.telnyx.sdk.services.blocking.QueueServiceImpl
-import com.telnyx.sdk.services.blocking.RcsAgentService
-import com.telnyx.sdk.services.blocking.RcsAgentServiceImpl
+import com.telnyx.sdk.services.blocking.RcService
+import com.telnyx.sdk.services.blocking.RcServiceImpl
 import com.telnyx.sdk.services.blocking.RecordingService
 import com.telnyx.sdk.services.blocking.RecordingServiceImpl
 import com.telnyx.sdk.services.blocking.RecordingTranscriptionService
@@ -750,9 +750,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val queues: QueueService by lazy { QueueServiceImpl(clientOptionsWithUserAgent) }
 
-    private val rcsAgents: RcsAgentService by lazy {
-        RcsAgentServiceImpl(clientOptionsWithUserAgent)
-    }
+    private val rcs: RcService by lazy { RcServiceImpl(clientOptionsWithUserAgent) }
 
     private val recordingTranscriptions: RecordingTranscriptionService by lazy {
         RecordingTranscriptionServiceImpl(clientOptionsWithUserAgent)
@@ -1240,7 +1238,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Media Storage operations */
     override fun media(): MediaService = media
 
-    /** Messages */
     override fun messages(): MessageService = messages
 
     override fun messaging(): MessagingService = messaging
@@ -1351,7 +1348,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Queue commands operations */
     override fun queues(): QueueService = queues
 
-    override fun rcsAgents(): RcsAgentService = rcsAgents
+    override fun rcs(): RcService = rcs
 
     /** Call Recordings operations. */
     override fun recordingTranscriptions(): RecordingTranscriptionService = recordingTranscriptions
@@ -2017,8 +2014,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             QueueServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val rcsAgents: RcsAgentService.WithRawResponse by lazy {
-            RcsAgentServiceImpl.WithRawResponseImpl(clientOptions)
+        private val rcs: RcService.WithRawResponse by lazy {
+            RcServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val recordingTranscriptions: RecordingTranscriptionService.WithRawResponse by lazy {
@@ -2546,7 +2543,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Media Storage operations */
         override fun media(): MediaService.WithRawResponse = media
 
-        /** Messages */
         override fun messages(): MessageService.WithRawResponse = messages
 
         override fun messaging(): MessagingService.WithRawResponse = messaging
@@ -2677,7 +2673,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Queue commands operations */
         override fun queues(): QueueService.WithRawResponse = queues
 
-        override fun rcsAgents(): RcsAgentService.WithRawResponse = rcsAgents
+        override fun rcs(): RcService.WithRawResponse = rcs
 
         /** Call Recordings operations. */
         override fun recordingTranscriptions(): RecordingTranscriptionService.WithRawResponse =

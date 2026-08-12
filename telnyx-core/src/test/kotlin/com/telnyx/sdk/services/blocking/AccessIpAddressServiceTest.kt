@@ -18,8 +18,8 @@ internal class AccessIpAddressServiceTest {
         val accessIpAddressResponse =
             accessIpAddressService.create(
                 AccessIpAddressCreateParams.builder()
-                    .ipAddress("ip_address")
-                    .description("description")
+                    .ipAddress("Ip Address")
+                    .description("Description")
                     .build()
             )
 

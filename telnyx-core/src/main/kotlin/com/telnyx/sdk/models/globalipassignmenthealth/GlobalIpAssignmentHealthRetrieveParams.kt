@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Global IP Assignment Health Check Metrics */
+/** Retrieve health check metrics for your Global IP assignments. */
 class GlobalIpAssignmentHealthRetrieveParams
 private constructor(
     private val filter: Filter?,

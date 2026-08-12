@@ -29,7 +29,10 @@ interface MessagingNumbersBulkUpdateServiceAsync {
         modifier: Consumer<ClientOptions.Builder>
     ): MessagingNumbersBulkUpdateServiceAsync
 
-    /** Bulk update phone number profiles */
+    /**
+     * Starts a bulk update of messaging-profile assignments for the supplied phone numbers. The
+     * response identifies the order used to monitor processing.
+     */
     fun create(
         params: MessagingNumbersBulkUpdateCreateParams
     ): CompletableFuture<MessagingNumbersBulkUpdateCreateResponse> =
@@ -41,7 +44,7 @@ interface MessagingNumbersBulkUpdateServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingNumbersBulkUpdateCreateResponse>
 
-    /** Retrieve bulk update status */
+    /** Returns processing status and results for a bulk messaging-settings update order. */
     fun retrieve(orderId: String): CompletableFuture<MessagingNumbersBulkUpdateRetrieveResponse> =
         retrieve(orderId, MessagingNumbersBulkUpdateRetrieveParams.none())
 

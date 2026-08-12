@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Whatsapp message template */
+/** Deletes the specified WhatsApp message template. */
 class WhatsappMessageTemplateDeleteParams
 private constructor(
     private val id: String?,

@@ -19,7 +19,7 @@ import kotlin.jvm.optionals.getOrNull
 class PhoneNumberUpdateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<PhoneNumberDetailed>,
+    private val data: JsonField<NumbersPhoneNumberDetailed>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -27,21 +27,21 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<PhoneNumberDetailed> = JsonMissing.of()
+        data: JsonField<NumbersPhoneNumberDetailed> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<PhoneNumberDetailed> = data.getOptional("data")
+    fun data(): Optional<NumbersPhoneNumberDetailed> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<PhoneNumberDetailed> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<NumbersPhoneNumberDetailed> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -66,7 +66,7 @@ private constructor(
     /** A builder for [PhoneNumberUpdateResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<PhoneNumberDetailed> = JsonMissing.of()
+        private var data: JsonField<NumbersPhoneNumberDetailed> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -75,16 +75,16 @@ private constructor(
             additionalProperties = phoneNumberUpdateResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: PhoneNumberDetailed) = data(JsonField.of(data))
+        fun data(data: NumbersPhoneNumberDetailed) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [PhoneNumberDetailed] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed [NumbersPhoneNumberDetailed]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<PhoneNumberDetailed>) = apply { this.data = data }
+        fun data(data: JsonField<NumbersPhoneNumberDetailed>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

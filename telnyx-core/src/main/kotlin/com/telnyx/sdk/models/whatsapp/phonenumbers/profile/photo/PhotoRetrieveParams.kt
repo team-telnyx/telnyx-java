@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Whatsapp profile photo */
+/** Returns the current business-profile photo for the specified WhatsApp phone number. */
 class PhotoRetrieveParams
 private constructor(
     private val phoneNumber: String?,

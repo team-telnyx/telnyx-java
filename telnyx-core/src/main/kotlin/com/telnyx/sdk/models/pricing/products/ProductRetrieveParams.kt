@@ -17,6 +17,7 @@ import kotlin.jvm.optionals.getOrNull
 class ProductRetrieveParams
 private constructor(
     private val slug: String?,
+    private val filterCountryIso: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -24,6 +25,8 @@ private constructor(
 ) : Params {
 
     fun slug(): Optional<String> = Optional.ofNullable(slug)
+
+    fun filterCountryIso(): Optional<String> = Optional.ofNullable(filterCountryIso)
 
     /** Page number (1-based). */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -51,6 +54,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var slug: String? = null
+        private var filterCountryIso: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -60,6 +64,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(productRetrieveParams: ProductRetrieveParams) = apply {
             slug = productRetrieveParams.slug
+            filterCountryIso = productRetrieveParams.filterCountryIso
             pageNumber = productRetrieveParams.pageNumber
             pageSize = productRetrieveParams.pageSize
             additionalHeaders = productRetrieveParams.additionalHeaders.toBuilder()
@@ -70,6 +75,14 @@ private constructor(
 
         /** Alias for calling [Builder.slug] with `slug.orElse(null)`. */
         fun slug(slug: Optional<String>) = slug(slug.getOrNull())
+
+        fun filterCountryIso(filterCountryIso: String?) = apply {
+            this.filterCountryIso = filterCountryIso
+        }
+
+        /** Alias for calling [Builder.filterCountryIso] with `filterCountryIso.orElse(null)`. */
+        fun filterCountryIso(filterCountryIso: Optional<String>) =
+            filterCountryIso(filterCountryIso.getOrNull())
 
         /** Page number (1-based). */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
@@ -204,6 +217,7 @@ private constructor(
         fun build(): ProductRetrieveParams =
             ProductRetrieveParams(
                 slug,
+                filterCountryIso,
                 pageNumber,
                 pageSize,
                 additionalHeaders.build(),
@@ -222,8 +236,9 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                pageNumber?.let { put("page_number", it.toString()) }
-                pageSize?.let { put("page_size", it.toString()) }
+                filterCountryIso?.let { put("filter[country_iso]", it) }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -235,6 +250,7 @@ private constructor(
 
         return other is ProductRetrieveParams &&
             slug == other.slug &&
+            filterCountryIso == other.filterCountryIso &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
@@ -242,8 +258,15 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(slug, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            slug,
+            filterCountryIso,
+            pageNumber,
+            pageSize,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "ProductRetrieveParams{slug=$slug, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ProductRetrieveParams{slug=$slug, filterCountryIso=$filterCountryIso, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

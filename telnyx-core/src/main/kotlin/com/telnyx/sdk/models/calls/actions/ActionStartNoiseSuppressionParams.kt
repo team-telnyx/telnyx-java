@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Noise Suppression Start (BETA) */
+/**
+ * Start noise suppression on an active call to reduce background noise. This feature is currently
+ * in beta.
+ */
 class ActionStartNoiseSuppressionParams
 private constructor(
     private val callControlId: String?,

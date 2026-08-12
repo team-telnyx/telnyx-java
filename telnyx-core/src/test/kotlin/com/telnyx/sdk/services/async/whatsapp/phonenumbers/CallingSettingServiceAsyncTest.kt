@@ -31,7 +31,7 @@ internal class CallingSettingServiceAsyncTest {
             callingSettingServiceAsync.update(
                 CallingSettingUpdateParams.builder()
                     .phoneNumber("phone_number")
-                    .enabled(true)
+                    .enabled(false)
                     .build()
             )
 

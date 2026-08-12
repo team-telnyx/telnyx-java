@@ -31,9 +31,9 @@ internal class PhoneNumberServiceAsyncTest {
             phoneNumberServiceAsync.initializeVerification(
                 PhoneNumberInitializeVerificationParams.builder()
                     .id("id")
-                    .displayName("display_name")
-                    .phoneNumber("phone_number")
-                    .language("language")
+                    .displayName("string")
+                    .phoneNumber("string")
+                    .language("en_US")
                     .verificationMethod(
                         PhoneNumberInitializeVerificationParams.VerificationMethod.SMS
                     )

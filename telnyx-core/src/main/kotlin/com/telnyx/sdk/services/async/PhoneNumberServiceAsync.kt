@@ -56,7 +56,9 @@ interface PhoneNumberServiceAsync {
     /** Voicemail API */
     fun voicemail(): VoicemailServiceAsync
 
-    /** Retrieve a phone number */
+    /**
+     * Returns the detailed configuration and current state of the phone number identified by `id`.
+     */
     fun retrieve(id: String): CompletableFuture<PhoneNumberRetrieveResponse> =
         retrieve(id, PhoneNumberRetrieveParams.none())
 
@@ -92,7 +94,10 @@ interface PhoneNumberServiceAsync {
     ): CompletableFuture<PhoneNumberRetrieveResponse> =
         retrieve(id, PhoneNumberRetrieveParams.none(), requestOptions)
 
-    /** Update a phone number */
+    /**
+     * Updates the configurable settings of the specified phone number. The response contains the
+     * complete updated phone-number representation.
+     */
     fun update(phoneNumberId: String): CompletableFuture<PhoneNumberUpdateResponse> =
         update(phoneNumberId, PhoneNumberUpdateParams.none())
 
@@ -128,7 +133,11 @@ interface PhoneNumberServiceAsync {
     ): CompletableFuture<PhoneNumberUpdateResponse> =
         update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
-    /** List phone numbers */
+    /**
+     * Returns phone numbers associated with the account. Results support pagination, sorting, and
+     * filters for number attributes, status, source, connections, billing groups, emergency
+     * addresses, tags, and customer references.
+     */
     fun list(): CompletableFuture<PhoneNumberListPageAsync> = list(PhoneNumberListParams.none())
 
     /** @see list */
@@ -146,7 +155,10 @@ interface PhoneNumberServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<PhoneNumberListPageAsync> =
         list(PhoneNumberListParams.none(), requestOptions)
 
-    /** Delete a phone number */
+    /**
+     * Deletes the specified phone number from the account. The response contains the phone number's
+     * final deleted representation.
+     */
     fun delete(id: String): CompletableFuture<PhoneNumberDeleteResponse> =
         delete(id, PhoneNumberDeleteParams.none())
 

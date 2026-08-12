@@ -61,7 +61,7 @@ interface MigrationService {
     fun create(migrationParams: MigrationParams): MigrationCreateResponse =
         create(migrationParams, RequestOptions.none())
 
-    /** Get a Migration */
+    /** Retrieve the details and status of a specific storage migration. */
     fun retrieve(id: String): MigrationRetrieveResponse =
         retrieve(id, MigrationRetrieveParams.none())
 
@@ -92,7 +92,7 @@ interface MigrationService {
     fun retrieve(id: String, requestOptions: RequestOptions): MigrationRetrieveResponse =
         retrieve(id, MigrationRetrieveParams.none(), requestOptions)
 
-    /** List all Migrations */
+    /** Retrieve a list of the storage migrations on your account. */
     fun list(): MigrationListResponse = list(MigrationListParams.none())
 
     /** @see list */

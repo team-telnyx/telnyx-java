@@ -14,12 +14,12 @@ internal class RunCreateParamsTest {
             .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .input(
                 RunCreateParams.Input.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("objective", JsonValue.from("bar"))
                     .build()
             )
             .metadata(
                 RunCreateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("requested_by", JsonValue.from("bar"))
                     .build()
             )
             .build()
@@ -42,12 +42,12 @@ internal class RunCreateParamsTest {
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .input(
                     RunCreateParams.Input.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("objective", JsonValue.from("bar"))
                         .build()
                 )
                 .metadata(
                     RunCreateParams.Metadata.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("requested_by", JsonValue.from("bar"))
                         .build()
                 )
                 .build()
@@ -57,13 +57,13 @@ internal class RunCreateParamsTest {
         assertThat(body.input())
             .contains(
                 RunCreateParams.Input.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("objective", JsonValue.from("bar"))
                     .build()
             )
         assertThat(body.metadata())
             .contains(
                 RunCreateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("requested_by", JsonValue.from("bar"))
                     .build()
             )
     }

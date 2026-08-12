@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create New Phone Number Campaign */
+/**
+ * Assigns a phone number to a 10DLC campaign. The assignment controls which registered campaign is
+ * used for traffic from that number.
+ */
 class PhoneNumberCampaignCreateParams
 private constructor(
     private val phoneNumberCampaignCreate: PhoneNumberCampaignCreate,

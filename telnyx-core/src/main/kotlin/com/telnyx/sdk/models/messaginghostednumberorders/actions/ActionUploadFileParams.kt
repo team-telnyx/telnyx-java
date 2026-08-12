@@ -21,7 +21,7 @@ import kotlin.io.path.inputStream
 import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
-/** Upload hosted number document */
+/** Uploads a supporting document to the specified hosted-messaging order. */
 class ActionUploadFileParams
 private constructor(
     private val id: String?,

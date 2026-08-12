@@ -262,7 +262,9 @@ interface CampaignService {
     ): CampaignGetOperationStatusResponse =
         getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
 
-    /** Get Sharing Status */
+    /**
+     * Returns whether the campaign is configured for partner sharing and the current sharing state.
+     */
     fun getSharingStatus(campaignId: String): CampaignGetSharingStatusResponse =
         getSharingStatus(campaignId, CampaignGetSharingStatusParams.none())
 

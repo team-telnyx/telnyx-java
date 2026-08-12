@@ -18,14 +18,14 @@ private constructor(
     private val service: ActionService,
     private val params: ActionListParams,
     private val response: ActionListPageResponse,
-) : Page<SimCardAction> {
+) : Page<WirelessSimCardAction> {
 
     /**
      * Delegates to [ActionListPageResponse], but gracefully handles missing data.
      *
      * @see ActionListPageResponse.data
      */
-    fun data(): List<SimCardAction> =
+    fun data(): List<WirelessSimCardAction> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<SimCardAction> = data()
+    override fun items(): List<WirelessSimCardAction> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -64,7 +64,7 @@ private constructor(
 
     override fun nextPage(): ActionListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<SimCardAction> = AutoPager.from(this)
+    fun autoPager(): AutoPager<WirelessSimCardAction> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ActionListParams = params

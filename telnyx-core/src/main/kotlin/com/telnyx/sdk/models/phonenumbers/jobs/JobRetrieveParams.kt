@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a phone numbers job */
+/** Returns the status and details of the phone-number background job identified by `id`. */
 class JobRetrieveParams
 private constructor(
     private val id: String?,

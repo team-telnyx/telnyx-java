@@ -322,6 +322,7 @@ internal class UpdateAssistantTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
+                        .disableDtmf(true)
                         .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
@@ -805,6 +806,7 @@ internal class UpdateAssistantTest {
             .contains(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
+                    .disableDtmf(true)
                     .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
@@ -1314,6 +1316,7 @@ internal class UpdateAssistantTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
+                        .disableDtmf(true)
                         .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()

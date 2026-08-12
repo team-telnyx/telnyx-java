@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Submit verification code for a phone number */
+/** Submits the verification code received for the specified WhatsApp phone number. */
 class PhoneNumberVerifyParams
 private constructor(
     private val phoneNumber: String?,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List messaging URL domains */
+/** Returns the URL domains available to the authenticated account for message URL shortening. */
 class MessagingUrlDomainListParams
 private constructor(
     private val pageNumber: Long?,

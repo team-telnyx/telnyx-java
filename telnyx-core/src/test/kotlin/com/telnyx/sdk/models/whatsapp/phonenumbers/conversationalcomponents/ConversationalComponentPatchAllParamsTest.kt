@@ -14,8 +14,8 @@ internal class ConversationalComponentPatchAllParamsTest {
             .phoneNumber("phone_number")
             .addCommand(
                 ConversationalComponentPatchAllParams.Command.builder()
-                    .command("command")
-                    .description("description")
+                    .command("string")
+                    .description("string")
                     .build()
             )
             .addIceBreaker("string")
@@ -39,8 +39,8 @@ internal class ConversationalComponentPatchAllParamsTest {
                 .phoneNumber("phone_number")
                 .addCommand(
                     ConversationalComponentPatchAllParams.Command.builder()
-                        .command("command")
-                        .description("description")
+                        .command("string")
+                        .description("string")
                         .build()
                 )
                 .addIceBreaker("string")
@@ -51,8 +51,8 @@ internal class ConversationalComponentPatchAllParamsTest {
         assertThat(body.commands().getOrNull())
             .containsExactly(
                 ConversationalComponentPatchAllParams.Command.builder()
-                    .command("command")
-                    .description("description")
+                    .command("string")
+                    .description("string")
                     .build()
             )
         assertThat(body.iceBreakers().getOrNull()).containsExactly("string")

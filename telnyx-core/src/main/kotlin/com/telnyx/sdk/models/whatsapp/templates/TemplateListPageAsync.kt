@@ -5,8 +5,8 @@ package com.telnyx.sdk.models.whatsapp.templates
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MessagingPaginationMeta
 import com.telnyx.sdk.models.WhatsappTemplateData
+import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
 import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -37,7 +37,7 @@ private constructor(
      *
      * @see TemplateListPageResponse.meta
      */
-    fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
     override fun items(): List<WhatsappTemplateData> = data()
 

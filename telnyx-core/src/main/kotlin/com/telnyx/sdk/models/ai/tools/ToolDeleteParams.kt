@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete Tool */
+/** Delete a custom AI tool. */
 class ToolDeleteParams
 private constructor(
     private val toolId: String?,

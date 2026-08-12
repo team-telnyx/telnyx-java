@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.legacy.reporting.usagereports.voice
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.StandardPaginationMeta
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.StandardPaginationMetaFfba4faa88
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -39,10 +39,10 @@ internal class VoiceListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    StandardPaginationMeta.builder()
+                    StandardPaginationMetaFfba4faa88.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )
@@ -72,10 +72,10 @@ internal class VoiceListPageResponseTest {
             )
         assertThat(voiceListPageResponse.meta())
             .contains(
-                StandardPaginationMeta.builder()
+                StandardPaginationMetaFfba4faa88.builder()
                     .pageNumber(2)
-                    .totalPages(3)
                     .pageSize(25)
+                    .totalPages(3)
                     .totalResults(55)
                     .build()
             )
@@ -108,10 +108,10 @@ internal class VoiceListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    StandardPaginationMeta.builder()
+                    StandardPaginationMetaFfba4faa88.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )

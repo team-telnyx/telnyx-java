@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a comment */
+/** Returns the comment identified by `id`, including its associated record and comment metadata. */
 class CommentRetrieveParams
 private constructor(
     private val id: String?,

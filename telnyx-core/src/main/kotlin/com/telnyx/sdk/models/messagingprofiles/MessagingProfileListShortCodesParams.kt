@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List short codes associated with a messaging profile */
+/** Returns the short codes currently associated with the specified messaging profile. */
 class MessagingProfileListShortCodesParams
 private constructor(
     private val messagingProfileId: String?,

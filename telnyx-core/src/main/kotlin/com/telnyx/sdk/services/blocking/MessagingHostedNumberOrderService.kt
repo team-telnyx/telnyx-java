@@ -41,7 +41,10 @@ interface MessagingHostedNumberOrderService {
     /** Manage your messaging hosted numbers */
     fun actions(): ActionService
 
-    /** Create a messaging hosted number order */
+    /**
+     * Creates an order to enable Telnyx messaging on phone numbers whose voice service remains with
+     * another carrier.
+     */
     fun create(): MessagingHostedNumberOrderCreateResponse =
         create(MessagingHostedNumberOrderCreateParams.none())
 
@@ -62,7 +65,10 @@ interface MessagingHostedNumberOrderService {
     fun create(requestOptions: RequestOptions): MessagingHostedNumberOrderCreateResponse =
         create(MessagingHostedNumberOrderCreateParams.none(), requestOptions)
 
-    /** Retrieve a messaging hosted number order */
+    /**
+     * Returns the current state, phone numbers, and required actions for the specified
+     * hosted-messaging order.
+     */
     fun retrieve(id: String): MessagingHostedNumberOrderRetrieveResponse =
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none())
 
@@ -100,7 +106,10 @@ interface MessagingHostedNumberOrderService {
     ): MessagingHostedNumberOrderRetrieveResponse =
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none(), requestOptions)
 
-    /** List messaging hosted number orders */
+    /**
+     * Returns hosted-messaging orders for the authenticated account. Apply the documented filters
+     * and pagination parameters to narrow the result set.
+     */
     fun list(): MessagingHostedNumberOrderListPage =
         list(MessagingHostedNumberOrderListParams.none())
 
@@ -157,7 +166,10 @@ interface MessagingHostedNumberOrderService {
     ): MessagingHostedNumberOrderDeleteResponse =
         delete(id, MessagingHostedNumberOrderDeleteParams.none(), requestOptions)
 
-    /** Check hosted messaging eligibility */
+    /**
+     * Checks whether the supplied phone numbers are eligible for hosted messaging before an order
+     * is created.
+     */
     fun checkEligibility(
         params: MessagingHostedNumberOrderCheckEligibilityParams
     ): MessagingHostedNumberOrderCheckEligibilityResponse =

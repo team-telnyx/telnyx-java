@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List webhooks for an email domain */
+/**
+ * Returns a paginated list of webhook subscriptions scoped to the email domain. Results can be
+ * sorted by creation time.
+ */
 class WebhookListParams
 private constructor(
     private val domainId: String?,

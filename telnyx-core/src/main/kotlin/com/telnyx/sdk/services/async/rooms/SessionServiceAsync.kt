@@ -34,7 +34,10 @@ interface SessionServiceAsync {
     /** Rooms Sessions operations. */
     fun actions(): ActionServiceAsync
 
-    /** View a room session. */
+    /**
+     * Returns the room session identified by `room_session_id`, including its room, active status,
+     * and lifecycle timestamps. Use `include_participants` to include its participant records.
+     */
     fun retrieve(roomSessionId: String): CompletableFuture<SessionRetrieveResponse> =
         retrieve(roomSessionId, SessionRetrieveParams.none())
 
@@ -70,7 +73,11 @@ interface SessionServiceAsync {
     ): CompletableFuture<SessionRetrieveResponse> =
         retrieve(roomSessionId, SessionRetrieveParams.none(), requestOptions)
 
-    /** View a list of room sessions. */
+    /**
+     * Returns a paginated list of room sessions across the account. Filter sessions by room,
+     * creation, update, or end date and active status, and use `include_participants` to include
+     * participant records.
+     */
     fun list0(): CompletableFuture<SessionList0PageAsync> = list0(SessionList0Params.none())
 
     /** @see list0 */
@@ -88,7 +95,11 @@ interface SessionServiceAsync {
     fun list0(requestOptions: RequestOptions): CompletableFuture<SessionList0PageAsync> =
         list0(SessionList0Params.none(), requestOptions)
 
-    /** View a list of room sessions. */
+    /**
+     * Returns a paginated list of sessions for the specified room. Filter sessions by creation,
+     * update, or end date and active status, and use `include_participants` to include participant
+     * records.
+     */
     fun list1(roomId: String): CompletableFuture<SessionList1PageAsync> =
         list1(roomId, SessionList1Params.none())
 
@@ -123,7 +134,10 @@ interface SessionServiceAsync {
     ): CompletableFuture<SessionList1PageAsync> =
         list1(roomId, SessionList1Params.none(), requestOptions)
 
-    /** View a list of room participants. */
+    /**
+     * Returns a paginated list of participants for the specified room session. Filter participants
+     * by join, update, or leave date and by participant context.
+     */
     fun retrieveParticipants(
         roomSessionId: String
     ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
