@@ -11,16 +11,43 @@ internal class VoicemailRequestTest {
 
     @Test
     fun create() {
-        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("1234").build()
+        val voicemailRequest =
+            VoicemailRequest.builder()
+                .enabled(true)
+                .greeting(
+                    VoicemailRequest.Greeting.builder()
+                        .mediaName("my_voicemail_greeting")
+                        .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                        .build()
+                )
+                .pin("1234")
+                .build()
 
         assertThat(voicemailRequest.enabled()).contains(true)
+        assertThat(voicemailRequest.greeting())
+            .contains(
+                VoicemailRequest.Greeting.builder()
+                    .mediaName("my_voicemail_greeting")
+                    .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                    .build()
+            )
         assertThat(voicemailRequest.pin()).contains("1234")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("1234").build()
+        val voicemailRequest =
+            VoicemailRequest.builder()
+                .enabled(true)
+                .greeting(
+                    VoicemailRequest.Greeting.builder()
+                        .mediaName("my_voicemail_greeting")
+                        .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                        .build()
+                )
+                .pin("1234")
+                .build()
 
         val roundtrippedVoicemailRequest =
             jsonMapper.readValue(

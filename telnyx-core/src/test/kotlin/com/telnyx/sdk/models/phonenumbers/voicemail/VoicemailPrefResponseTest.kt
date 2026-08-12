@@ -12,9 +12,25 @@ internal class VoicemailPrefResponseTest {
     @Test
     fun create() {
         val voicemailPrefResponse =
-            VoicemailPrefResponse.builder().enabled(true).pin("1234").build()
+            VoicemailPrefResponse.builder()
+                .enabled(true)
+                .greeting(
+                    VoicemailPrefResponse.Greeting.builder()
+                        .mediaName("my_voicemail_greeting")
+                        .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                        .build()
+                )
+                .pin("1234")
+                .build()
 
         assertThat(voicemailPrefResponse.enabled()).contains(true)
+        assertThat(voicemailPrefResponse.greeting())
+            .contains(
+                VoicemailPrefResponse.Greeting.builder()
+                    .mediaName("my_voicemail_greeting")
+                    .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                    .build()
+            )
         assertThat(voicemailPrefResponse.pin()).contains("1234")
     }
 
@@ -22,7 +38,16 @@ internal class VoicemailPrefResponseTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val voicemailPrefResponse =
-            VoicemailPrefResponse.builder().enabled(true).pin("1234").build()
+            VoicemailPrefResponse.builder()
+                .enabled(true)
+                .greeting(
+                    VoicemailPrefResponse.Greeting.builder()
+                        .mediaName("my_voicemail_greeting")
+                        .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                        .build()
+                )
+                .pin("1234")
+                .build()
 
         val roundtrippedVoicemailPrefResponse =
             jsonMapper.readValue(

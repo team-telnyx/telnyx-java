@@ -29,7 +29,12 @@ interface VoicemailServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoicemailServiceAsync
 
-    /** Create voicemail settings for a phone number */
+    /**
+     * Create voicemail settings for a phone number. You can also configure a custom greeting by
+     * setting the `greeting` object: use `mode` `custom_greeting` together with a `media_name` that
+     * points to an audio file uploaded through the Media Storage API, or `mode` `default` to use
+     * the standard system greeting.
+     */
     fun create(
         phoneNumberId: String,
         params: VoicemailCreateParams,
@@ -90,7 +95,12 @@ interface VoicemailServiceAsync {
     ): CompletableFuture<VoicemailRetrieveResponse> =
         retrieve(phoneNumberId, VoicemailRetrieveParams.none(), requestOptions)
 
-    /** Update voicemail settings for a phone number */
+    /**
+     * Update voicemail settings for a phone number. You can also configure a custom greeting by
+     * setting the `greeting` object: use `mode` `custom_greeting` together with a `media_name` that
+     * points to an audio file uploaded through the Media Storage API, or `mode` `default` to use
+     * the standard system greeting.
+     */
     fun update(
         phoneNumberId: String,
         params: VoicemailUpdateParams,
