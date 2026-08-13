@@ -26,6 +26,8 @@ import com.telnyx.sdk.services.async.storage.MigrationServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsyncImpl
+import com.telnyx.sdk.services.async.storage.SqldbServiceAsync
+import com.telnyx.sdk.services.async.storage.SqldbServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -51,6 +53,8 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val cloudfs: CloudfServiceAsync by lazy { CloudfServiceAsyncImpl(clientOptions) }
 
+    private val sqldbs: SqldbServiceAsync by lazy { SqldbServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): StorageServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageServiceAsync =
@@ -72,6 +76,9 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
      * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
      */
     override fun cloudfs(): CloudfServiceAsync = cloudfs
+
+    /** Manage SQL databases and run SQL against them */
+    override fun sqldbs(): SqldbServiceAsync = sqldbs
 
     override fun listMigrationSourceCoverage(
         params: StorageListMigrationSourceCoverageParams,
@@ -108,6 +115,10 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             CloudfServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sqldbs: SqldbServiceAsync.WithRawResponse by lazy {
+            SqldbServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): StorageServiceAsync.WithRawResponse =
@@ -133,6 +144,9 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
          * Storage
          */
         override fun cloudfs(): CloudfServiceAsync.WithRawResponse = cloudfs
+
+        /** Manage SQL databases and run SQL against them */
+        override fun sqldbs(): SqldbServiceAsync.WithRawResponse = sqldbs
 
         private val listMigrationSourceCoverageHandler:
             Handler<StorageListMigrationSourceCoverageResponse> =

@@ -1,39 +1,40 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.storage.kvs
+package com.telnyx.sdk.models.storage.sqldbs
 
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.services.blocking.storage.KvService
+import com.telnyx.sdk.models.storage.kvs.EdgeComputePaginationMeta
+import com.telnyx.sdk.services.blocking.storage.SqldbService
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrDefault
 import kotlin.jvm.optionals.getOrNull
 
-/** @see KvService.list */
-class KvListPage
+/** @see SqldbService.list */
+class SqldbListPage
 private constructor(
-    private val service: KvService,
-    private val params: KvListParams,
-    private val response: KvListPageResponse,
-) : Page<KvNamespace> {
+    private val service: SqldbService,
+    private val params: SqldbListParams,
+    private val response: SqldbListPageResponse,
+) : Page<SqlDatabase> {
 
     /**
-     * Delegates to [KvListPageResponse], but gracefully handles missing data.
+     * Delegates to [SqldbListPageResponse], but gracefully handles missing data.
      *
-     * @see KvListPageResponse.data
+     * @see SqldbListPageResponse.data
      */
-    fun data(): List<KvNamespace> = response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<SqlDatabase> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [KvListPageResponse], but gracefully handles missing data.
+     * Delegates to [SqldbListPageResponse], but gracefully handles missing data.
      *
-     * @see KvListPageResponse.meta
+     * @see SqldbListPageResponse.meta
      */
     fun meta(): Optional<EdgeComputePaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<KvNamespace> = data()
+    override fun items(): List<SqlDatabase> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,27 +56,27 @@ private constructor(
         return pageCount == null || pageNumber < pageCount
     }
 
-    fun nextPageParams(): KvListParams {
+    fun nextPageParams(): SqldbListParams {
         val pageNumber = params.pageNumber().getOrDefault(1)
         return params.toBuilder().pageNumber(pageNumber + 1).build()
     }
 
-    override fun nextPage(): KvListPage = service.list(nextPageParams())
+    override fun nextPage(): SqldbListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<KvNamespace> = AutoPager.from(this)
+    fun autoPager(): AutoPager<SqlDatabase> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
-    fun params(): KvListParams = params
+    fun params(): SqldbListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): KvListPageResponse = response
+    fun response(): SqldbListPageResponse = response
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [KvListPage].
+         * Returns a mutable builder for constructing an instance of [SqldbListPage].
          *
          * The following fields are required:
          * ```java
@@ -87,30 +88,30 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [KvListPage]. */
+    /** A builder for [SqldbListPage]. */
     class Builder internal constructor() {
 
-        private var service: KvService? = null
-        private var params: KvListParams? = null
-        private var response: KvListPageResponse? = null
+        private var service: SqldbService? = null
+        private var params: SqldbListParams? = null
+        private var response: SqldbListPageResponse? = null
 
         @JvmSynthetic
-        internal fun from(kvListPage: KvListPage) = apply {
-            service = kvListPage.service
-            params = kvListPage.params
-            response = kvListPage.response
+        internal fun from(sqldbListPage: SqldbListPage) = apply {
+            service = sqldbListPage.service
+            params = sqldbListPage.params
+            response = sqldbListPage.response
         }
 
-        fun service(service: KvService) = apply { this.service = service }
+        fun service(service: SqldbService) = apply { this.service = service }
 
         /** The parameters that were used to request this page. */
-        fun params(params: KvListParams) = apply { this.params = params }
+        fun params(params: SqldbListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: KvListPageResponse) = apply { this.response = response }
+        fun response(response: SqldbListPageResponse) = apply { this.response = response }
 
         /**
-         * Returns an immutable instance of [KvListPage].
+         * Returns an immutable instance of [SqldbListPage].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -123,8 +124,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): KvListPage =
-            KvListPage(
+        fun build(): SqldbListPage =
+            SqldbListPage(
                 checkRequired("service", service),
                 checkRequired("params", params),
                 checkRequired("response", response),
@@ -136,7 +137,7 @@ private constructor(
             return true
         }
 
-        return other is KvListPage &&
+        return other is SqldbListPage &&
             service == other.service &&
             params == other.params &&
             response == other.response
@@ -144,5 +145,5 @@ private constructor(
 
     override fun hashCode(): Int = Objects.hash(service, params, response)
 
-    override fun toString() = "KvListPage{service=$service, params=$params, response=$response}"
+    override fun toString() = "SqldbListPage{service=$service, params=$params, response=$response}"
 }

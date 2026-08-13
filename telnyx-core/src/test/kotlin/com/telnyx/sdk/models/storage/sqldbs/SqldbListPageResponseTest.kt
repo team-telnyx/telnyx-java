@@ -1,27 +1,28 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.storage.kvs
+package com.telnyx.sdk.models.storage.sqldbs
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.storage.kvs.EdgeComputePaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class KvListPageResponseTest {
+internal class SqldbListPageResponseTest {
 
     @Test
     fun create() {
-        val kvListPageResponse =
-            KvListPageResponse.builder()
+        val sqldbListPageResponse =
+            SqldbListPageResponse.builder()
                 .addData(
-                    KvNamespace.builder()
+                    SqlDatabase.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                        .name("my-cache")
-                        .recordType("storage_kv")
-                        .status(KvNamespace.Status.PROVISION_OK)
+                        .name("my-database")
+                        .recordType("storage_sqldb")
+                        .status(SqlDatabase.Status.PROVISION_OK)
                         .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
                         .build()
                 )
@@ -35,18 +36,18 @@ internal class KvListPageResponseTest {
                 )
                 .build()
 
-        assertThat(kvListPageResponse.data().getOrNull())
+        assertThat(sqldbListPageResponse.data().getOrNull())
             .containsExactly(
-                KvNamespace.builder()
+                SqlDatabase.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                    .name("my-cache")
-                    .recordType("storage_kv")
-                    .status(KvNamespace.Status.PROVISION_OK)
+                    .name("my-database")
+                    .recordType("storage_sqldb")
+                    .status(SqlDatabase.Status.PROVISION_OK)
                     .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
                     .build()
             )
-        assertThat(kvListPageResponse.meta())
+        assertThat(sqldbListPageResponse.meta())
             .contains(
                 EdgeComputePaginationMeta.builder()
                     .pageNumber(1L)
@@ -60,15 +61,15 @@ internal class KvListPageResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val kvListPageResponse =
-            KvListPageResponse.builder()
+        val sqldbListPageResponse =
+            SqldbListPageResponse.builder()
                 .addData(
-                    KvNamespace.builder()
+                    SqlDatabase.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
-                        .name("my-cache")
-                        .recordType("storage_kv")
-                        .status(KvNamespace.Status.PROVISION_OK)
+                        .name("my-database")
+                        .recordType("storage_sqldb")
+                        .status(SqlDatabase.Status.PROVISION_OK)
                         .updatedAt(OffsetDateTime.parse("2026-06-18T14:48:17Z"))
                         .build()
                 )
@@ -82,12 +83,12 @@ internal class KvListPageResponseTest {
                 )
                 .build()
 
-        val roundtrippedKvListPageResponse =
+        val roundtrippedSqldbListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(kvListPageResponse),
-                jacksonTypeRef<KvListPageResponse>(),
+                jsonMapper.writeValueAsString(sqldbListPageResponse),
+                jacksonTypeRef<SqldbListPageResponse>(),
             )
 
-        assertThat(roundtrippedKvListPageResponse).isEqualTo(kvListPageResponse)
+        assertThat(roundtrippedSqldbListPageResponse).isEqualTo(sqldbListPageResponse)
     }
 }

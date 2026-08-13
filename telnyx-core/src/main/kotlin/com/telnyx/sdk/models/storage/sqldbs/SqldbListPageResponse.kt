@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.storage.kvs
+package com.telnyx.sdk.models.storage.sqldbs
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -13,22 +13,23 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.storage.kvs.EdgeComputePaginationMeta
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class KvListPageResponse
+class SqldbListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<KvNamespace>>,
+    private val data: JsonField<List<SqlDatabase>>,
     private val meta: JsonField<EdgeComputePaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<List<KvNamespace>> = JsonMissing.of(),
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<SqlDatabase>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<EdgeComputePaginationMeta> = JsonMissing.of(),
@@ -38,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<KvNamespace>> = data.getOptional("data")
+    fun data(): Optional<List<SqlDatabase>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -51,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<KvNamespace>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<SqlDatabase>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -74,43 +75,43 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [KvListPageResponse]. */
+        /** Returns a mutable builder for constructing an instance of [SqldbListPageResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [KvListPageResponse]. */
+    /** A builder for [SqldbListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<KvNamespace>>? = null
+        private var data: JsonField<MutableList<SqlDatabase>>? = null
         private var meta: JsonField<EdgeComputePaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(kvListPageResponse: KvListPageResponse) = apply {
-            data = kvListPageResponse.data.map { it.toMutableList() }
-            meta = kvListPageResponse.meta
-            additionalProperties = kvListPageResponse.additionalProperties.toMutableMap()
+        internal fun from(sqldbListPageResponse: SqldbListPageResponse) = apply {
+            data = sqldbListPageResponse.data.map { it.toMutableList() }
+            meta = sqldbListPageResponse.meta
+            additionalProperties = sqldbListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<KvNamespace>) = data(JsonField.of(data))
+        fun data(data: List<SqlDatabase>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<KvNamespace>` value
+         * You should usually call [Builder.data] with a well-typed `List<SqlDatabase>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<KvNamespace>>) = apply {
+        fun data(data: JsonField<List<SqlDatabase>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [KvNamespace] to [Builder.data].
+         * Adds a single [SqlDatabase] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: KvNamespace) = apply {
+        fun addData(data: SqlDatabase) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -148,12 +149,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [KvListPageResponse].
+         * Returns an immutable instance of [SqldbListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): KvListPageResponse =
-            KvListPageResponse(
+        fun build(): SqldbListPageResponse =
+            SqldbListPageResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
                 additionalProperties.toMutableMap(),
@@ -170,7 +171,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): KvListPageResponse = apply {
+    fun validate(): SqldbListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -203,7 +204,7 @@ private constructor(
             return true
         }
 
-        return other is KvListPageResponse &&
+        return other is SqldbListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -214,5 +215,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "KvListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "SqldbListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }
