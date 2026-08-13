@@ -387,11 +387,11 @@ internal class ActionServiceAsyncTest {
                         ActionAnswerParams.WebhookUrls.builder()
                             .putAdditionalProperty(
                                 "call.hangup",
-                                JsonValue.from("https://www.example.com/webhooks/hangup"),
+                                JsonValue.from(listOf("https://www.example.com/webhooks/hangup")),
                             )
                             .putAdditionalProperty(
                                 "call.bridge",
-                                JsonValue.from("https://www.example.com/webhooks/bridge"),
+                                JsonValue.from(listOf("https://www.example.com/webhooks/bridge")),
                             )
                             .build()
                     )
@@ -1785,11 +1785,11 @@ internal class ActionServiceAsyncTest {
                         ActionTransferParams.WebhookUrls.builder()
                             .putAdditionalProperty(
                                 "call.answered",
-                                JsonValue.from("https://www.example.com/webhooks/answered"),
+                                JsonValue.from(listOf("https://www.example.com/webhooks/answered")),
                             )
                             .putAdditionalProperty(
                                 "call.hangup",
-                                JsonValue.from("https://www.example.com/webhooks/hangup"),
+                                JsonValue.from(listOf("https://www.example.com/webhooks/hangup")),
                             )
                             .build()
                     )
