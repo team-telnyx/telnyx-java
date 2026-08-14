@@ -31,7 +31,7 @@ private constructor(
      *
      * @see KvListPageResponse.meta
      */
-    fun meta(): Optional<KvListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<EdgeComputePaginationMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<KvNamespace> = data()
 

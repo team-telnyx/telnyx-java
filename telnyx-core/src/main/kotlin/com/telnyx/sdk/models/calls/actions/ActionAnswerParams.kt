@@ -323,9 +323,9 @@ private constructor(
     fun webhookUrlMethod(): Optional<WebhookUrlMethod> = body.webhookUrlMethod()
 
     /**
-     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
-     * URL associated with that event type will be called instead of `webhook_url`. Events not
-     * mapped here will use the default `webhook_url`.
+     * A map of event types to arrays of webhook URLs. When an event of the specified type occurs,
+     * the webhook URLs associated with that event type will be called instead of `webhook_url`.
+     * Events not mapped here will use the default `webhook_url`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1155,9 +1155,9 @@ private constructor(
         }
 
         /**
-         * A map of event types to webhook URLs. When an event of the specified type occurs, the
-         * webhook URL associated with that event type will be called instead of `webhook_url`.
-         * Events not mapped here will use the default `webhook_url`.
+         * A map of event types to arrays of webhook URLs. When an event of the specified type
+         * occurs, the webhook URLs associated with that event type will be called instead of
+         * `webhook_url`. Events not mapped here will use the default `webhook_url`.
          */
         fun webhookUrls(webhookUrls: WebhookUrls) = apply { body.webhookUrls(webhookUrls) }
 
@@ -1783,9 +1783,9 @@ private constructor(
             webhookUrlMethod.getOptional("webhook_url_method")
 
         /**
-         * A map of event types to webhook URLs. When an event of the specified type occurs, the
-         * webhook URL associated with that event type will be called instead of `webhook_url`.
-         * Events not mapped here will use the default `webhook_url`.
+         * A map of event types to arrays of webhook URLs. When an event of the specified type
+         * occurs, the webhook URLs associated with that event type will be called instead of
+         * `webhook_url`. Events not mapped here will use the default `webhook_url`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2723,9 +2723,9 @@ private constructor(
             }
 
             /**
-             * A map of event types to webhook URLs. When an event of the specified type occurs, the
-             * webhook URL associated with that event type will be called instead of `webhook_url`.
-             * Events not mapped here will use the default `webhook_url`.
+             * A map of event types to arrays of webhook URLs. When an event of the specified type
+             * occurs, the webhook URLs associated with that event type will be called instead of
+             * `webhook_url`. Events not mapped here will use the default `webhook_url`.
              */
             fun webhookUrls(webhookUrls: WebhookUrls) = webhookUrls(JsonField.of(webhookUrls))
 
@@ -4481,9 +4481,9 @@ private constructor(
     }
 
     /**
-     * A map of event types to webhook URLs. When an event of the specified type occurs, the webhook
-     * URL associated with that event type will be called instead of `webhook_url`. Events not
-     * mapped here will use the default `webhook_url`.
+     * A map of event types to arrays of webhook URLs. When an event of the specified type occurs,
+     * the webhook URLs associated with that event type will be called instead of `webhook_url`.
+     * Events not mapped here will use the default `webhook_url`.
      */
     class WebhookUrls
     @JsonCreator

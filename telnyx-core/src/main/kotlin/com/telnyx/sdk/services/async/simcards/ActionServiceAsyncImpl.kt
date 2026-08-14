@@ -24,8 +24,12 @@ import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsResponse
 import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
 import com.telnyx.sdk.models.simcards.actions.ActionDisableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionEnableParams
 import com.telnyx.sdk.models.simcards.actions.ActionEnableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListPageAsync
 import com.telnyx.sdk.models.simcards.actions.ActionListPageResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListParams
@@ -97,12 +101,26 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // post /sim_cards/{id}/actions/disable
         withRawResponse().disable(params, requestOptions).thenApply { it.parse() }
 
+    override fun disableVoice(
+        params: ActionDisableVoiceParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionDisableVoiceResponse> =
+        // post /sim_cards/{id}/actions/disable_voice
+        withRawResponse().disableVoice(params, requestOptions).thenApply { it.parse() }
+
     override fun enable(
         params: ActionEnableParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionEnableResponse> =
         // post /sim_cards/{id}/actions/enable
         withRawResponse().enable(params, requestOptions).thenApply { it.parse() }
+
+    override fun enableVoice(
+        params: ActionEnableVoiceParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionEnableVoiceResponse> =
+        // post /sim_cards/{id}/actions/enable_voice
+        withRawResponse().enableVoice(params, requestOptions).thenApply { it.parse() }
 
     override fun removePublicIp(
         params: ActionRemovePublicIpParams,
@@ -343,6 +361,40 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
+        private val disableVoiceHandler: Handler<ActionDisableVoiceResponse> =
+            jsonHandler<ActionDisableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun disableVoice(
+            params: ActionDisableVoiceParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", params._pathParam(0), "actions", "disable_voice")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { disableVoiceHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val enableHandler: Handler<ActionEnableResponse> =
             jsonHandler<ActionEnableResponse>(clientOptions.jsonMapper)
 
@@ -368,6 +420,40 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { enableHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val enableVoiceHandler: Handler<ActionEnableVoiceResponse> =
+            jsonHandler<ActionEnableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun enableVoice(
+            params: ActionEnableVoiceParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", params._pathParam(0), "actions", "enable_voice")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { enableVoiceHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

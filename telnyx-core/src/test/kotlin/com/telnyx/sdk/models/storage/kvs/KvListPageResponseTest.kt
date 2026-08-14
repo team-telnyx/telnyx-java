@@ -26,7 +26,7 @@ internal class KvListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    KvListPageResponse.Meta.builder()
+                    EdgeComputePaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)
@@ -48,7 +48,7 @@ internal class KvListPageResponseTest {
             )
         assertThat(kvListPageResponse.meta())
             .contains(
-                KvListPageResponse.Meta.builder()
+                EdgeComputePaginationMeta.builder()
                     .pageNumber(1L)
                     .pageSize(20L)
                     .totalPages(3L)
@@ -73,7 +73,7 @@ internal class KvListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    KvListPageResponse.Meta.builder()
+                    EdgeComputePaginationMeta.builder()
                         .pageNumber(1L)
                         .pageSize(20L)
                         .totalPages(3L)

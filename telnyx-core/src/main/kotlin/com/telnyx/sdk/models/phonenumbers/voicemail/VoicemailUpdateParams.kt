@@ -10,7 +10,12 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update voicemail settings for a phone number */
+/**
+ * Update voicemail settings for a phone number. You can also configure a custom greeting by setting
+ * the `greeting` object: use `mode` `custom_greeting` together with a `media_name` that points to
+ * an audio file uploaded through the Media Storage API, or `mode` `default` to use the standard
+ * system greeting.
+ */
 class VoicemailUpdateParams
 private constructor(
     private val phoneNumberId: String?,

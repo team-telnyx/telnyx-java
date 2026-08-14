@@ -11,7 +11,18 @@ internal class VoicemailUpdateParamsTest {
     fun create() {
         VoicemailUpdateParams.builder()
             .phoneNumberId("123455678900")
-            .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("1234").build())
+            .voicemailRequest(
+                VoicemailRequest.builder()
+                    .enabled(true)
+                    .greeting(
+                        VoicemailRequest.Greeting.builder()
+                            .mediaName("my_voicemail_greeting")
+                            .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                            .build()
+                    )
+                    .pin("1234")
+                    .build()
+            )
             .build()
     }
 
@@ -33,12 +44,35 @@ internal class VoicemailUpdateParamsTest {
         val params =
             VoicemailUpdateParams.builder()
                 .phoneNumberId("123455678900")
-                .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("1234").build())
+                .voicemailRequest(
+                    VoicemailRequest.builder()
+                        .enabled(true)
+                        .greeting(
+                            VoicemailRequest.Greeting.builder()
+                                .mediaName("my_voicemail_greeting")
+                                .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                                .build()
+                        )
+                        .pin("1234")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo(VoicemailRequest.builder().enabled(true).pin("1234").build())
+        assertThat(body)
+            .isEqualTo(
+                VoicemailRequest.builder()
+                    .enabled(true)
+                    .greeting(
+                        VoicemailRequest.Greeting.builder()
+                            .mediaName("my_voicemail_greeting")
+                            .mode(VoicemailRequest.Greeting.Mode.CUSTOM_GREETING)
+                            .build()
+                    )
+                    .pin("1234")
+                    .build()
+            )
     }
 
     @Test

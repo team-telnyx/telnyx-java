@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceParams
 import com.telnyx.sdk.models.simcards.actions.ActionSetPublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionValidateRegistrationCodesParams
 import org.junit.jupiter.api.Disabled
@@ -64,6 +65,7 @@ internal class ActionServiceAsyncTest {
             actionServiceAsync.bulkEnableVoice(
                 ActionBulkEnableVoiceParams.builder()
                     .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+                    .connectionId("123456789")
                     .build()
             )
 
@@ -102,11 +104,41 @@ internal class ActionServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun disableVoice() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val actionServiceAsync = client.simCards().actions()
+
+        val responseFuture = actionServiceAsync.disableVoice("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun enable() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.simCards().actions()
 
         val responseFuture = actionServiceAsync.enable("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun enableVoice() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val actionServiceAsync = client.simCards().actions()
+
+        val responseFuture =
+            actionServiceAsync.enableVoice(
+                ActionEnableVoiceParams.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .connectionId("123456789")
+                    .build()
+            )
 
         val response = responseFuture.get()
         response.validate()

@@ -88,11 +88,11 @@ internal class ActionTransferParamsTest {
                 ActionTransferParams.WebhookUrls.builder()
                     .putAdditionalProperty(
                         "call.answered",
-                        JsonValue.from("https://www.example.com/webhooks/answered"),
+                        JsonValue.from(listOf("https://www.example.com/webhooks/answered")),
                     )
                     .putAdditionalProperty(
                         "call.hangup",
-                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        JsonValue.from(listOf("https://www.example.com/webhooks/hangup")),
                     )
                     .build()
             )
@@ -190,11 +190,11 @@ internal class ActionTransferParamsTest {
                     ActionTransferParams.WebhookUrls.builder()
                         .putAdditionalProperty(
                             "call.answered",
-                            JsonValue.from("https://www.example.com/webhooks/answered"),
+                            JsonValue.from(listOf("https://www.example.com/webhooks/answered")),
                         )
                         .putAdditionalProperty(
                             "call.hangup",
-                            JsonValue.from("https://www.example.com/webhooks/hangup"),
+                            JsonValue.from(listOf("https://www.example.com/webhooks/hangup")),
                         )
                         .build()
                 )
@@ -285,11 +285,11 @@ internal class ActionTransferParamsTest {
                 ActionTransferParams.WebhookUrls.builder()
                     .putAdditionalProperty(
                         "call.answered",
-                        JsonValue.from("https://www.example.com/webhooks/answered"),
+                        JsonValue.from(listOf("https://www.example.com/webhooks/answered")),
                     )
                     .putAdditionalProperty(
                         "call.hangup",
-                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        JsonValue.from(listOf("https://www.example.com/webhooks/hangup")),
                     )
                     .build()
             )

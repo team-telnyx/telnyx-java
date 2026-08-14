@@ -342,6 +342,8 @@ import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
 import com.telnyx.sdk.services.async.VoiceDesignServiceAsyncImpl
 import com.telnyx.sdk.services.async.VoiceSdkCallReportServiceAsync
 import com.telnyx.sdk.services.async.VoiceSdkCallReportServiceAsyncImpl
+import com.telnyx.sdk.services.async.WebSearchServiceAsync
+import com.telnyx.sdk.services.async.WebSearchServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookServiceAsync
@@ -1082,6 +1084,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         PricingServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val webSearch: WebSearchServiceAsync by lazy {
+        WebSearchServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1647,6 +1653,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun emailValidations(): EmailValidationServiceAsync = emailValidations
 
     override fun pricing(): PricingServiceAsync = pricing
+
+    override fun webSearch(): WebSearchServiceAsync = webSearch
 
     override fun close() = clientOptions.close()
 
@@ -2412,6 +2420,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             PricingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val webSearch: WebSearchServiceAsync.WithRawResponse by lazy {
+            WebSearchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3035,5 +3047,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             emailValidations
 
         override fun pricing(): PricingServiceAsync.WithRawResponse = pricing
+
+        override fun webSearch(): WebSearchServiceAsync.WithRawResponse = webSearch
     }
 }
