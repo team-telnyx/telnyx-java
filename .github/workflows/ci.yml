@@ -86,7 +86,7 @@ jobs:
           PROJECT: telnyx-java
         run: ./scripts/upload-artifacts
   test-shard:
-    timeout-minutes: 30
+    timeout-minutes: 60
     name: test-shard (${{ matrix.name }})
     runs-on: ${{ github.repository == 'stainless-sdks/telnyx-java' && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
