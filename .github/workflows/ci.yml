@@ -116,7 +116,9 @@ jobs:
         uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2.12.0
 
       - name: Run ${{ matrix.name }} tests
-        run: ./gradlew ${{ matrix.tasks }}
+        run: |
+          ./gradlew ${{ matrix.tasks }} \
+            -Dorg.gradle.jvmargs="-Xms2g -Xmx8g -XX:+UseParallelGC -XX:InitialCodeCacheSize=256m -XX:ReservedCodeCacheSize=1G -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=2G -XX:TieredStopAtLevel=1 -XX:GCTimeRatio=4 -XX:CICompilerCount=4 -XX:+OptimizeStringConcat -XX:+UseStringDeduplication"
 
   test:
     timeout-minutes: 5
