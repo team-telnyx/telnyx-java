@@ -26,6 +26,8 @@ private constructor(
     private val callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent? =
         null,
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
+    private val artifactCompleted: ArtifactCompletedWebhookEvent? = null,
+    private val artifactFailed: ArtifactFailedWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
@@ -99,7 +101,10 @@ private constructor(
     private val hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
+    private val recordingAvailable: RecordingAvailableWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
+    private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
+    private val transcriptCompleted: TranscriptCompletedWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
     private val _json: JsonValue? = null,
 ) {
@@ -113,6 +118,11 @@ private constructor(
 
     fun callAiGatherPartialResults(): Optional<CallAiGatherPartialResultsWebhookEvent> =
         Optional.ofNullable(callAiGatherPartialResults)
+
+    fun artifactCompleted(): Optional<ArtifactCompletedWebhookEvent> =
+        Optional.ofNullable(artifactCompleted)
+
+    fun artifactFailed(): Optional<ArtifactFailedWebhookEvent> = Optional.ofNullable(artifactFailed)
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
@@ -290,8 +300,17 @@ private constructor(
     fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdateWebhookEvent> =
         Optional.ofNullable(numberOrderStatusUpdate)
 
+    fun recordingAvailable(): Optional<RecordingAvailableWebhookEvent> =
+        Optional.ofNullable(recordingAvailable)
+
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
+
+    fun sessionStatusChanged(): Optional<SessionStatusChangedWebhookEvent> =
+        Optional.ofNullable(sessionStatusChanged)
+
+    fun transcriptCompleted(): Optional<TranscriptCompletedWebhookEvent> =
+        Optional.ofNullable(transcriptCompleted)
 
     fun transcription(): Optional<TranscriptionWebhookEvent> = Optional.ofNullable(transcription)
 
@@ -300,6 +319,10 @@ private constructor(
     fun isCallAiGatherMessageHistoryUpdated(): Boolean = callAiGatherMessageHistoryUpdated != null
 
     fun isCallAiGatherPartialResults(): Boolean = callAiGatherPartialResults != null
+
+    fun isArtifactCompleted(): Boolean = artifactCompleted != null
+
+    fun isArtifactFailed(): Boolean = artifactFailed != null
 
     fun isCallAnswered(): Boolean = callAnswered != null
 
@@ -428,7 +451,13 @@ private constructor(
 
     fun isNumberOrderStatusUpdate(): Boolean = numberOrderStatusUpdate != null
 
+    fun isRecordingAvailable(): Boolean = recordingAvailable != null
+
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
+
+    fun isSessionStatusChanged(): Boolean = sessionStatusChanged != null
+
+    fun isTranscriptCompleted(): Boolean = transcriptCompleted != null
 
     fun isTranscription(): Boolean = transcription != null
 
@@ -440,6 +469,11 @@ private constructor(
 
     fun asCallAiGatherPartialResults(): CallAiGatherPartialResultsWebhookEvent =
         callAiGatherPartialResults.getOrThrow("callAiGatherPartialResults")
+
+    fun asArtifactCompleted(): ArtifactCompletedWebhookEvent =
+        artifactCompleted.getOrThrow("artifactCompleted")
+
+    fun asArtifactFailed(): ArtifactFailedWebhookEvent = artifactFailed.getOrThrow("artifactFailed")
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
@@ -613,8 +647,17 @@ private constructor(
     fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdateWebhookEvent =
         numberOrderStatusUpdate.getOrThrow("numberOrderStatusUpdate")
 
+    fun asRecordingAvailable(): RecordingAvailableWebhookEvent =
+        recordingAvailable.getOrThrow("recordingAvailable")
+
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
+
+    fun asSessionStatusChanged(): SessionStatusChangedWebhookEvent =
+        sessionStatusChanged.getOrThrow("sessionStatusChanged")
+
+    fun asTranscriptCompleted(): TranscriptCompletedWebhookEvent =
+        transcriptCompleted.getOrThrow("transcriptCompleted")
 
     fun asTranscription(): TranscriptionWebhookEvent = transcription.getOrThrow("transcription")
 
@@ -656,6 +699,8 @@ private constructor(
                 visitor.visitCallAiGatherMessageHistoryUpdated(callAiGatherMessageHistoryUpdated)
             callAiGatherPartialResults != null ->
                 visitor.visitCallAiGatherPartialResults(callAiGatherPartialResults)
+            artifactCompleted != null -> visitor.visitArtifactCompleted(artifactCompleted)
+            artifactFailed != null -> visitor.visitArtifactFailed(artifactFailed)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
             callConversationEnded != null ->
@@ -743,7 +788,10 @@ private constructor(
             inboundMessage != null -> visitor.visitInboundMessage(inboundMessage)
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
+            recordingAvailable != null -> visitor.visitRecordingAvailable(recordingAvailable)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
+            sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
+            transcriptCompleted != null -> visitor.visitTranscriptCompleted(transcriptCompleted)
             transcription != null -> visitor.visitTranscription(transcription)
             else -> visitor.unknown(_json)
         }
@@ -781,6 +829,16 @@ private constructor(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) {
                     callAiGatherPartialResults.validate()
+                }
+
+                override fun visitArtifactCompleted(
+                    artifactCompleted: ArtifactCompletedWebhookEvent
+                ) {
+                    artifactCompleted.validate()
+                }
+
+                override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) {
+                    artifactFailed.validate()
                 }
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) {
@@ -1109,10 +1167,28 @@ private constructor(
                     numberOrderStatusUpdate.validate()
                 }
 
+                override fun visitRecordingAvailable(
+                    recordingAvailable: RecordingAvailableWebhookEvent
+                ) {
+                    recordingAvailable.validate()
+                }
+
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) {
                     replacedLinkClick.validate()
+                }
+
+                override fun visitSessionStatusChanged(
+                    sessionStatusChanged: SessionStatusChangedWebhookEvent
+                ) {
+                    sessionStatusChanged.validate()
+                }
+
+                override fun visitTranscriptCompleted(
+                    transcriptCompleted: TranscriptCompletedWebhookEvent
+                ) {
+                    transcriptCompleted.validate()
                 }
 
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) {
@@ -1151,6 +1227,13 @@ private constructor(
                 override fun visitCallAiGatherPartialResults(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) = callAiGatherPartialResults.validity()
+
+                override fun visitArtifactCompleted(
+                    artifactCompleted: ArtifactCompletedWebhookEvent
+                ) = artifactCompleted.validity()
+
+                override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
+                    artifactFailed.validity()
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
@@ -1374,9 +1457,21 @@ private constructor(
                     numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
                 ) = numberOrderStatusUpdate.validity()
 
+                override fun visitRecordingAvailable(
+                    recordingAvailable: RecordingAvailableWebhookEvent
+                ) = recordingAvailable.validity()
+
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
+
+                override fun visitSessionStatusChanged(
+                    sessionStatusChanged: SessionStatusChangedWebhookEvent
+                ) = sessionStatusChanged.validity()
+
+                override fun visitTranscriptCompleted(
+                    transcriptCompleted: TranscriptCompletedWebhookEvent
+                ) = transcriptCompleted.validity()
 
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) =
                     transcription.validity()
@@ -1394,6 +1489,8 @@ private constructor(
             callAiGatherEnded == other.callAiGatherEnded &&
             callAiGatherMessageHistoryUpdated == other.callAiGatherMessageHistoryUpdated &&
             callAiGatherPartialResults == other.callAiGatherPartialResults &&
+            artifactCompleted == other.artifactCompleted &&
+            artifactFailed == other.artifactFailed &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
             callConversationEnded == other.callConversationEnded &&
@@ -1457,7 +1554,10 @@ private constructor(
             hostedNumberOrderEvent == other.hostedNumberOrderEvent &&
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
+            recordingAvailable == other.recordingAvailable &&
             replacedLinkClick == other.replacedLinkClick &&
+            sessionStatusChanged == other.sessionStatusChanged &&
+            transcriptCompleted == other.transcriptCompleted &&
             transcription == other.transcription
     }
 
@@ -1466,6 +1566,8 @@ private constructor(
             callAiGatherEnded,
             callAiGatherMessageHistoryUpdated,
             callAiGatherPartialResults,
+            artifactCompleted,
+            artifactFailed,
             callAnswered,
             callBridged,
             callConversationEnded,
@@ -1529,7 +1631,10 @@ private constructor(
             hostedNumberOrderEvent,
             inboundMessage,
             numberOrderStatusUpdate,
+            recordingAvailable,
             replacedLinkClick,
+            sessionStatusChanged,
+            transcriptCompleted,
             transcription,
         )
 
@@ -1541,6 +1646,9 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{callAiGatherMessageHistoryUpdated=$callAiGatherMessageHistoryUpdated}"
             callAiGatherPartialResults != null ->
                 "UnsafeUnwrapWebhookEvent{callAiGatherPartialResults=$callAiGatherPartialResults}"
+            artifactCompleted != null ->
+                "UnsafeUnwrapWebhookEvent{artifactCompleted=$artifactCompleted}"
+            artifactFailed != null -> "UnsafeUnwrapWebhookEvent{artifactFailed=$artifactFailed}"
             callAnswered != null -> "UnsafeUnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnsafeUnwrapWebhookEvent{callBridged=$callBridged}"
             callConversationEnded != null ->
@@ -1647,8 +1755,14 @@ private constructor(
             inboundMessage != null -> "UnsafeUnwrapWebhookEvent{inboundMessage=$inboundMessage}"
             numberOrderStatusUpdate != null ->
                 "UnsafeUnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
+            recordingAvailable != null ->
+                "UnsafeUnwrapWebhookEvent{recordingAvailable=$recordingAvailable}"
             replacedLinkClick != null ->
                 "UnsafeUnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
+            sessionStatusChanged != null ->
+                "UnsafeUnwrapWebhookEvent{sessionStatusChanged=$sessionStatusChanged}"
+            transcriptCompleted != null ->
+                "UnsafeUnwrapWebhookEvent{transcriptCompleted=$transcriptCompleted}"
             transcription != null -> "UnsafeUnwrapWebhookEvent{transcription=$transcription}"
             _json != null -> "UnsafeUnwrapWebhookEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid UnsafeUnwrapWebhookEvent")
@@ -1672,6 +1786,14 @@ private constructor(
         fun ofCallAiGatherPartialResults(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
         ) = UnsafeUnwrapWebhookEvent(callAiGatherPartialResults = callAiGatherPartialResults)
+
+        @JvmStatic
+        fun ofArtifactCompleted(artifactCompleted: ArtifactCompletedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(artifactCompleted = artifactCompleted)
+
+        @JvmStatic
+        fun ofArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(artifactFailed = artifactFailed)
 
         @JvmStatic
         fun ofCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
@@ -1966,8 +2088,20 @@ private constructor(
         ) = UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
 
         @JvmStatic
+        fun ofRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(recordingAvailable = recordingAvailable)
+
+        @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
             UnsafeUnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
+
+        @JvmStatic
+        fun ofSessionStatusChanged(sessionStatusChanged: SessionStatusChangedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(sessionStatusChanged = sessionStatusChanged)
+
+        @JvmStatic
+        fun ofTranscriptCompleted(transcriptCompleted: TranscriptCompletedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(transcriptCompleted = transcriptCompleted)
 
         @JvmStatic
         fun ofTranscription(transcription: TranscriptionWebhookEvent) =
@@ -1989,6 +2123,10 @@ private constructor(
         fun visitCallAiGatherPartialResults(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
         ): T
+
+        fun visitArtifactCompleted(artifactCompleted: ArtifactCompletedWebhookEvent): T
+
+        fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent): T
 
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
 
@@ -2156,7 +2294,13 @@ private constructor(
             numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
         ): T
 
+        fun visitRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent): T
+
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
+
+        fun visitSessionStatusChanged(sessionStatusChanged: SessionStatusChangedWebhookEvent): T
+
+        fun visitTranscriptCompleted(transcriptCompleted: TranscriptCompletedWebhookEvent): T
 
         fun visitTranscription(transcription: TranscriptionWebhookEvent): T
 
@@ -2206,6 +2350,12 @@ private constructor(
                                     _json = json,
                                 )
                             },
+                        tryDeserialize(node, jacksonTypeRef<ArtifactCompletedWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(artifactCompleted = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<ArtifactFailedWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(artifactFailed = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CallAnsweredWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callAnswered = it, _json = json)
                         },
@@ -2516,9 +2666,21 @@ private constructor(
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
                             },
+                        tryDeserialize(node, jacksonTypeRef<RecordingAvailableWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(recordingAvailable = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<SessionStatusChangedWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(sessionStatusChanged = it, _json = json)
+                            },
+                        tryDeserialize(node, jacksonTypeRef<TranscriptCompletedWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(transcriptCompleted = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<TranscriptionWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(transcription = it, _json = json)
                         },
@@ -2552,6 +2714,8 @@ private constructor(
                     generator.writeObject(value.callAiGatherMessageHistoryUpdated)
                 value.callAiGatherPartialResults != null ->
                     generator.writeObject(value.callAiGatherPartialResults)
+                value.artifactCompleted != null -> generator.writeObject(value.artifactCompleted)
+                value.artifactFailed != null -> generator.writeObject(value.artifactFailed)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
                 value.callConversationEnded != null ->
@@ -2645,7 +2809,12 @@ private constructor(
                 value.inboundMessage != null -> generator.writeObject(value.inboundMessage)
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)
+                value.recordingAvailable != null -> generator.writeObject(value.recordingAvailable)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
+                value.sessionStatusChanged != null ->
+                    generator.writeObject(value.sessionStatusChanged)
+                value.transcriptCompleted != null ->
+                    generator.writeObject(value.transcriptCompleted)
                 value.transcription != null -> generator.writeObject(value.transcription)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid UnsafeUnwrapWebhookEvent")

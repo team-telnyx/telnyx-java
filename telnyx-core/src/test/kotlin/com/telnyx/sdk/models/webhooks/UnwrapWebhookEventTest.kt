@@ -74,6 +74,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).contains(callAiGatherEnded)
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -137,7 +139,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -270,6 +275,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated())
             .contains(callAiGatherMessageHistoryUpdated)
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -333,7 +340,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -468,6 +478,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults())
             .contains(callAiGatherPartialResults)
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -531,7 +543,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -606,6 +621,276 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofArtifactCompleted() {
+        val artifactCompleted =
+            ArtifactCompletedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    ArtifactCompletedWebhookEvent.Data.builder()
+                        .artifactId("mtgart_4e7c...")
+                        .content(
+                            ArtifactCompletedWebhookEvent.Data.Content.builder()
+                                .text("text")
+                                .build()
+                        )
+                        .modelProvenance(
+                            ArtifactCompletedWebhookEvent.Data.ModelProvenance.builder()
+                                .model("model")
+                                .provider("provider")
+                                .build()
+                        )
+                        .sessionId("mtgsess_9b2f...")
+                        .type(ArtifactCompletedWebhookEvent.Data.Type.SUMMARY)
+                        .build()
+                )
+                .event(ArtifactCompletedWebhookEvent.Event.ARTIFACT_COMPLETED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofArtifactCompleted(artifactCompleted)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).contains(artifactCompleted)
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofArtifactCompletedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofArtifactCompleted(
+                ArtifactCompletedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        ArtifactCompletedWebhookEvent.Data.builder()
+                            .artifactId("mtgart_4e7c...")
+                            .content(
+                                ArtifactCompletedWebhookEvent.Data.Content.builder()
+                                    .text("text")
+                                    .build()
+                            )
+                            .modelProvenance(
+                                ArtifactCompletedWebhookEvent.Data.ModelProvenance.builder()
+                                    .model("model")
+                                    .provider("provider")
+                                    .build()
+                            )
+                            .sessionId("mtgsess_9b2f...")
+                            .type(ArtifactCompletedWebhookEvent.Data.Type.SUMMARY)
+                            .build()
+                    )
+                    .event(ArtifactCompletedWebhookEvent.Event.ARTIFACT_COMPLETED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofArtifactFailed() {
+        val artifactFailed =
+            ArtifactFailedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    ArtifactFailedWebhookEvent.Data.builder()
+                        .artifactId("mtgart_4e7c...")
+                        .sessionId("mtgsess_9b2f...")
+                        .type(ArtifactFailedWebhookEvent.Data.Type.SUMMARY)
+                        .build()
+                )
+                .event(ArtifactFailedWebhookEvent.Event.ARTIFACT_FAILED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofArtifactFailed(artifactFailed)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).contains(artifactFailed)
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofArtifactFailedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofArtifactFailed(
+                ArtifactFailedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        ArtifactFailedWebhookEvent.Data.builder()
+                            .artifactId("mtgart_4e7c...")
+                            .sessionId("mtgsess_9b2f...")
+                            .type(ArtifactFailedWebhookEvent.Data.Type.SUMMARY)
+                            .build()
+                    )
+                    .event(ArtifactFailedWebhookEvent.Event.ARTIFACT_FAILED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
     fun ofCallAnswered() {
         val callAnswered =
             CallAnsweredWebhookEvent.builder()
@@ -659,6 +944,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).contains(callAnswered)
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -722,7 +1009,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -826,6 +1116,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).contains(callBridged)
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -889,7 +1181,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -982,6 +1277,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).contains(callConversationEnded)
@@ -1045,7 +1342,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1155,6 +1455,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1219,7 +1521,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1338,6 +1643,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1401,7 +1708,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1511,6 +1821,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1575,7 +1887,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1666,6 +1981,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1730,7 +2047,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1816,6 +2136,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1879,7 +2201,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1957,6 +2282,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2020,7 +2347,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2096,6 +2426,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2159,7 +2491,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2233,6 +2568,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2296,7 +2633,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2373,6 +2713,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2436,7 +2778,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2558,6 +2903,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2621,7 +2968,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2749,6 +3099,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2812,7 +3164,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2917,6 +3272,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2980,7 +3337,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3093,6 +3453,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3156,7 +3518,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3236,6 +3601,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3300,7 +3667,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3381,6 +3751,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3444,7 +3816,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3528,6 +3903,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3592,7 +3969,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3679,6 +4059,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3743,7 +4125,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3852,6 +4237,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3915,7 +4302,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4051,6 +4441,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4114,7 +4506,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4226,6 +4621,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4289,7 +4686,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4371,6 +4771,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4434,7 +4836,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4510,6 +4915,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4573,7 +4980,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4662,6 +5072,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4725,7 +5137,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4824,6 +5239,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4888,7 +5305,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4978,6 +5398,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5041,7 +5463,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5119,6 +5544,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5182,7 +5609,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5260,6 +5690,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5323,7 +5755,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5397,6 +5832,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5460,7 +5897,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5529,6 +5969,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5592,7 +6034,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5661,6 +6106,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5724,7 +6171,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5796,6 +6246,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5859,7 +6311,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5932,6 +6387,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5995,7 +6452,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6077,6 +6537,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6140,7 +6602,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6221,6 +6686,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6284,7 +6751,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6354,6 +6824,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6417,7 +6889,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6490,6 +6965,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6553,7 +7030,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6616,6 +7096,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6679,7 +7161,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6741,6 +7226,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6804,7 +7291,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6879,6 +7369,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6942,7 +7434,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7011,6 +7506,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7074,7 +7571,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7147,6 +7647,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7211,7 +7713,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7288,6 +7793,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7352,7 +7859,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7437,6 +7947,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7501,7 +8013,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7590,6 +8105,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7654,7 +8171,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7739,6 +8259,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7803,7 +8325,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7888,6 +8413,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7952,7 +8479,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8028,6 +8558,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8091,7 +8623,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8160,6 +8695,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8224,7 +8761,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8317,6 +8857,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8380,7 +8922,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8471,6 +9016,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8534,7 +9081,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8598,6 +9148,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8661,7 +9213,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8825,6 +9380,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8888,7 +9445,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9070,6 +9630,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9133,7 +9695,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9227,6 +9792,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9290,7 +9857,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9382,6 +9952,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9445,7 +10017,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9535,6 +10110,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9598,7 +10175,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9688,6 +10268,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9751,7 +10333,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9849,6 +10434,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9912,7 +10499,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).contains(hostedNumberOrderEvent)
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -10111,6 +10701,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -10174,7 +10766,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).contains(inboundMessage)
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -10421,6 +11016,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -10484,7 +11081,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).contains(numberOrderStatusUpdate)
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -10595,25 +11195,28 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
-    fun ofReplacedLinkClick() {
-        val replacedLinkClick =
-            ReplacedLinkClickWebhookEvent.builder()
+    fun ofRecordingAvailable() {
+        val recordingAvailable =
+            RecordingAvailableWebhookEvent.builder()
+                .id("whdel_9f2c...")
                 .data(
-                    ReplacedLinkClick.builder()
-                        .messageId("7ee4241c-f127-47e5-9c34-3aac291f8058")
-                        .recordType("link_clicked")
-                        .timeClicked(OffsetDateTime.parse("2019-04-01T14:45:45.450Z"))
-                        .to("18445550001")
-                        .url("https://telnyx.com")
+                    RecordingAvailableWebhookEvent.Data.builder()
+                        .addRecordingType("video_mixed")
+                        .sessionId("mtgsess_9b2f...")
                         .build()
                 )
+                .event(RecordingAvailableWebhookEvent.Event.RECORDING_AVAILABLE)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
                 .build()
 
-        val unwrapWebhookEvent = UnwrapWebhookEvent.ofReplacedLinkClick(replacedLinkClick)
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofRecordingAvailable(recordingAvailable)
 
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -10677,7 +11280,131 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).contains(recordingAvailable)
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofRecordingAvailableRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofRecordingAvailable(
+                RecordingAvailableWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        RecordingAvailableWebhookEvent.Data.builder()
+                            .addRecordingType("video_mixed")
+                            .sessionId("mtgsess_9b2f...")
+                            .build()
+                    )
+                    .event(RecordingAvailableWebhookEvent.Event.RECORDING_AVAILABLE)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofReplacedLinkClick() {
+        val replacedLinkClick =
+            ReplacedLinkClickWebhookEvent.builder()
+                .data(
+                    ReplacedLinkClick.builder()
+                        .messageId("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                        .recordType("link_clicked")
+                        .timeClicked(OffsetDateTime.parse("2019-04-01T14:45:45.450Z"))
+                        .to("18445550001")
+                        .url("https://telnyx.com")
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofReplacedLinkClick(replacedLinkClick)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).contains(replacedLinkClick)
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -10696,6 +11423,258 @@ internal class UnwrapWebhookEventTest {
                             .url("https://telnyx.com")
                             .build()
                     )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofSessionStatusChanged() {
+        val sessionStatusChanged =
+            SessionStatusChangedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    SessionStatusChangedWebhookEvent.Data.builder()
+                        .recording(true)
+                        .sessionId("mtgsess_9b2f...")
+                        .status("status")
+                        .statusDetail("status_detail")
+                        .build()
+                )
+                .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofSessionStatusChanged(sessionStatusChanged)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).contains(sessionStatusChanged)
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofSessionStatusChangedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofSessionStatusChanged(
+                SessionStatusChangedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        SessionStatusChangedWebhookEvent.Data.builder()
+                            .recording(true)
+                            .sessionId("mtgsess_9b2f...")
+                            .status("status")
+                            .statusDetail("status_detail")
+                            .build()
+                    )
+                    .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofTranscriptCompleted() {
+        val transcriptCompleted =
+            TranscriptCompletedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    TranscriptCompletedWebhookEvent.Data.builder()
+                        .endedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .lastSeq(0L)
+                        .segmentCount(0L)
+                        .sessionId("mtgsess_9b2f...")
+                        .build()
+                )
+                .event(TranscriptCompletedWebhookEvent.Event.TRANSCRIPT_COMPLETED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofTranscriptCompleted(transcriptCompleted)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).contains(transcriptCompleted)
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofTranscriptCompletedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofTranscriptCompleted(
+                TranscriptCompletedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        TranscriptCompletedWebhookEvent.Data.builder()
+                            .endedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .lastSeq(0L)
+                            .segmentCount(0L)
+                            .sessionId("mtgsess_9b2f...")
+                            .build()
+                    )
+                    .event(TranscriptCompletedWebhookEvent.Event.TRANSCRIPT_COMPLETED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
                     .build()
             )
 
@@ -10751,6 +11730,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -10814,7 +11795,10 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).contains(transcription)
     }
 
