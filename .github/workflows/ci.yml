@@ -117,8 +117,11 @@ jobs:
 
       - name: Run ${{ matrix.name }} tests
         run: |
-          ./gradlew ${{ matrix.tasks }} \
-            -Dorg.gradle.jvmargs="-Xms2g -Xmx8g -XX:+UseParallelGC -XX:InitialCodeCacheSize=256m -XX:ReservedCodeCacheSize=1G -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=2G -XX:TieredStopAtLevel=1 -XX:GCTimeRatio=4 -XX:CICompilerCount=4 -XX:+OptimizeStringConcat -XX:+UseStringDeduplication"
+          kotlin_args=()
+          if ! grep -q -- '-Xmx8g' gradle.properties; then
+            kotlin_args+=("-Pkotlin.compiler.execution.strategy=in-process")
+          fi
+          ./gradlew ${{ matrix.tasks }} "${kotlin_args[@]}"
 
   test:
     timeout-minutes: 5
