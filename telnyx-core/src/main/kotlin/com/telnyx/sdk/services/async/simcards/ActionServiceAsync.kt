@@ -13,8 +13,12 @@ import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsResponse
 import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
 import com.telnyx.sdk.models.simcards.actions.ActionDisableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionEnableParams
 import com.telnyx.sdk.models.simcards.actions.ActionEnableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListPageAsync
 import com.telnyx.sdk.models.simcards.actions.ActionListParams
 import com.telnyx.sdk.models.simcards.actions.ActionRemovePublicIpParams
@@ -208,6 +212,49 @@ interface ActionServiceAsync {
         disable(id, ActionDisableParams.none(), requestOptions)
 
     /**
+     * This API disables voice calling on a SIM card. The SIM card will no longer be able to make or
+     * receive calls.<br/> The API will trigger an asynchronous operation called a SIM Card Action.
+     * The status of the SIM Card Action can be followed through the
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
+     */
+    fun disableVoice(id: String): CompletableFuture<ActionDisableVoiceResponse> =
+        disableVoice(id, ActionDisableVoiceParams.none())
+
+    /** @see disableVoice */
+    fun disableVoice(
+        id: String,
+        params: ActionDisableVoiceParams = ActionDisableVoiceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionDisableVoiceResponse> =
+        disableVoice(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see disableVoice */
+    fun disableVoice(
+        id: String,
+        params: ActionDisableVoiceParams = ActionDisableVoiceParams.none(),
+    ): CompletableFuture<ActionDisableVoiceResponse> =
+        disableVoice(id, params, RequestOptions.none())
+
+    /** @see disableVoice */
+    fun disableVoice(
+        params: ActionDisableVoiceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionDisableVoiceResponse>
+
+    /** @see disableVoice */
+    fun disableVoice(
+        params: ActionDisableVoiceParams
+    ): CompletableFuture<ActionDisableVoiceResponse> = disableVoice(params, RequestOptions.none())
+
+    /** @see disableVoice */
+    fun disableVoice(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionDisableVoiceResponse> =
+        disableVoice(id, ActionDisableVoiceParams.none(), requestOptions)
+
+    /**
      * This API enables a SIM card, connecting it to the network and making it possible to consume
      * data.<br/> To enable a SIM card, it must be associated with a SIM card group.<br/> The API
      * will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled
@@ -249,6 +296,49 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionEnableResponse> =
         enable(id, ActionEnableParams.none(), requestOptions)
+
+    /**
+     * This API enables voice calling on a SIM card. When a <code>connection_id</code> is provided,
+     * the SIM is associated with the specified Mobile Voice Connection. The connection must be
+     * owned by the same user and of type <code>mobile_voice</code>.<br/> The API will trigger an
+     * asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be
+     * followed through the
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
+     */
+    fun enableVoice(id: String): CompletableFuture<ActionEnableVoiceResponse> =
+        enableVoice(id, ActionEnableVoiceParams.none())
+
+    /** @see enableVoice */
+    fun enableVoice(
+        id: String,
+        params: ActionEnableVoiceParams = ActionEnableVoiceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionEnableVoiceResponse> =
+        enableVoice(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see enableVoice */
+    fun enableVoice(
+        id: String,
+        params: ActionEnableVoiceParams = ActionEnableVoiceParams.none(),
+    ): CompletableFuture<ActionEnableVoiceResponse> = enableVoice(id, params, RequestOptions.none())
+
+    /** @see enableVoice */
+    fun enableVoice(
+        params: ActionEnableVoiceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionEnableVoiceResponse>
+
+    /** @see enableVoice */
+    fun enableVoice(params: ActionEnableVoiceParams): CompletableFuture<ActionEnableVoiceResponse> =
+        enableVoice(params, RequestOptions.none())
+
+    /** @see enableVoice */
+    fun enableVoice(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionEnableVoiceResponse> =
+        enableVoice(id, ActionEnableVoiceParams.none(), requestOptions)
 
     /**
      * This API removes an existing public IP from a SIM card. <br/><br/> The API will trigger an
@@ -569,6 +659,49 @@ interface ActionServiceAsync {
             disable(id, ActionDisableParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post /sim_cards/{id}/actions/disable_voice`, but is
+         * otherwise the same as [ActionServiceAsync.disableVoice].
+         */
+        fun disableVoice(
+            id: String
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> =
+            disableVoice(id, ActionDisableVoiceParams.none())
+
+        /** @see disableVoice */
+        fun disableVoice(
+            id: String,
+            params: ActionDisableVoiceParams = ActionDisableVoiceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> =
+            disableVoice(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see disableVoice */
+        fun disableVoice(
+            id: String,
+            params: ActionDisableVoiceParams = ActionDisableVoiceParams.none(),
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> =
+            disableVoice(id, params, RequestOptions.none())
+
+        /** @see disableVoice */
+        fun disableVoice(
+            params: ActionDisableVoiceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>>
+
+        /** @see disableVoice */
+        fun disableVoice(
+            params: ActionDisableVoiceParams
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> =
+            disableVoice(params, RequestOptions.none())
+
+        /** @see disableVoice */
+        fun disableVoice(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionDisableVoiceResponse>> =
+            disableVoice(id, ActionDisableVoiceParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `post /sim_cards/{id}/actions/enable`, but is otherwise
          * the same as [ActionServiceAsync.enable].
          */
@@ -608,6 +741,47 @@ interface ActionServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ActionEnableResponse>> =
             enable(id, ActionEnableParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /sim_cards/{id}/actions/enable_voice`, but is
+         * otherwise the same as [ActionServiceAsync.enableVoice].
+         */
+        fun enableVoice(id: String): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> =
+            enableVoice(id, ActionEnableVoiceParams.none())
+
+        /** @see enableVoice */
+        fun enableVoice(
+            id: String,
+            params: ActionEnableVoiceParams = ActionEnableVoiceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> =
+            enableVoice(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see enableVoice */
+        fun enableVoice(
+            id: String,
+            params: ActionEnableVoiceParams = ActionEnableVoiceParams.none(),
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> =
+            enableVoice(id, params, RequestOptions.none())
+
+        /** @see enableVoice */
+        fun enableVoice(
+            params: ActionEnableVoiceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>>
+
+        /** @see enableVoice */
+        fun enableVoice(
+            params: ActionEnableVoiceParams
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> =
+            enableVoice(params, RequestOptions.none())
+
+        /** @see enableVoice */
+        fun enableVoice(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionEnableVoiceResponse>> =
+            enableVoice(id, ActionEnableVoiceParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /sim_cards/{id}/actions/remove_public_ip`, but is

@@ -26,6 +26,8 @@ import com.telnyx.sdk.services.blocking.storage.MigrationService
 import com.telnyx.sdk.services.blocking.storage.MigrationServiceImpl
 import com.telnyx.sdk.services.blocking.storage.MigrationSourceService
 import com.telnyx.sdk.services.blocking.storage.MigrationSourceServiceImpl
+import com.telnyx.sdk.services.blocking.storage.SqldbService
+import com.telnyx.sdk.services.blocking.storage.SqldbServiceImpl
 import java.util.function.Consumer
 
 /** Migrate data from an external provider into Telnyx Cloud Storage */
@@ -48,6 +50,8 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val cloudfs: CloudfService by lazy { CloudfServiceImpl(clientOptions) }
 
+    private val sqldbs: SqldbService by lazy { SqldbServiceImpl(clientOptions) }
+
     override fun withRawResponse(): StorageService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageService =
@@ -69,6 +73,9 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
      * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
      */
     override fun cloudfs(): CloudfService = cloudfs
+
+    /** Manage SQL databases and run SQL against them */
+    override fun sqldbs(): SqldbService = sqldbs
 
     override fun listMigrationSourceCoverage(
         params: StorageListMigrationSourceCoverageParams,
@@ -103,6 +110,10 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
             CloudfServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sqldbs: SqldbService.WithRawResponse by lazy {
+            SqldbServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): StorageService.WithRawResponse =
@@ -127,6 +138,9 @@ class StorageServiceImpl internal constructor(private val clientOptions: ClientO
          * Storage
          */
         override fun cloudfs(): CloudfService.WithRawResponse = cloudfs
+
+        /** Manage SQL databases and run SQL against them */
+        override fun sqldbs(): SqldbService.WithRawResponse = sqldbs
 
         private val listMigrationSourceCoverageHandler:
             Handler<StorageListMigrationSourceCoverageResponse> =

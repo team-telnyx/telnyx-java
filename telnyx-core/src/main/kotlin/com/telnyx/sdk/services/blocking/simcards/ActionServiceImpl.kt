@@ -24,8 +24,12 @@ import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsResponse
 import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
 import com.telnyx.sdk.models.simcards.actions.ActionDisableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionDisableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionEnableParams
 import com.telnyx.sdk.models.simcards.actions.ActionEnableResponse
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionEnableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListPage
 import com.telnyx.sdk.models.simcards.actions.ActionListPageResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListParams
@@ -93,12 +97,26 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /sim_cards/{id}/actions/disable
         withRawResponse().disable(params, requestOptions).parse()
 
+    override fun disableVoice(
+        params: ActionDisableVoiceParams,
+        requestOptions: RequestOptions,
+    ): ActionDisableVoiceResponse =
+        // post /sim_cards/{id}/actions/disable_voice
+        withRawResponse().disableVoice(params, requestOptions).parse()
+
     override fun enable(
         params: ActionEnableParams,
         requestOptions: RequestOptions,
     ): ActionEnableResponse =
         // post /sim_cards/{id}/actions/enable
         withRawResponse().enable(params, requestOptions).parse()
+
+    override fun enableVoice(
+        params: ActionEnableVoiceParams,
+        requestOptions: RequestOptions,
+    ): ActionEnableVoiceResponse =
+        // post /sim_cards/{id}/actions/enable_voice
+        withRawResponse().enableVoice(params, requestOptions).parse()
 
     override fun removePublicIp(
         params: ActionRemovePublicIpParams,
@@ -320,6 +338,37 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
+        private val disableVoiceHandler: Handler<ActionDisableVoiceResponse> =
+            jsonHandler<ActionDisableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun disableVoice(
+            params: ActionDisableVoiceParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionDisableVoiceResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", params._pathParam(0), "actions", "disable_voice")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { disableVoiceHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val enableHandler: Handler<ActionEnableResponse> =
             jsonHandler<ActionEnableResponse>(clientOptions.jsonMapper)
 
@@ -343,6 +392,37 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { enableHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val enableVoiceHandler: Handler<ActionEnableVoiceResponse> =
+            jsonHandler<ActionEnableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun enableVoice(
+            params: ActionEnableVoiceParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionEnableVoiceResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", params._pathParam(0), "actions", "enable_voice")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { enableVoiceHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

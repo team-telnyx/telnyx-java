@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.blocking.storage.CloudfService
 import com.telnyx.sdk.services.blocking.storage.KvService
 import com.telnyx.sdk.services.blocking.storage.MigrationService
 import com.telnyx.sdk.services.blocking.storage.MigrationSourceService
+import com.telnyx.sdk.services.blocking.storage.SqldbService
 import java.util.function.Consumer
 
 /** Migrate data from an external provider into Telnyx Cloud Storage */
@@ -46,6 +47,9 @@ interface StorageService {
      * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
      */
     fun cloudfs(): CloudfService
+
+    /** Manage SQL databases and run SQL against them */
+    fun sqldbs(): SqldbService
 
     /** List the external storage providers and regions supported as migration sources. */
     fun listMigrationSourceCoverage(): StorageListMigrationSourceCoverageResponse =
@@ -98,6 +102,9 @@ interface StorageService {
          * Storage
          */
         fun cloudfs(): CloudfService.WithRawResponse
+
+        /** Manage SQL databases and run SQL against them */
+        fun sqldbs(): SqldbService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /storage/migration_source_coverage`, but is

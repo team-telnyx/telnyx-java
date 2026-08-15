@@ -13,11 +13,33 @@ internal class VoicemailCreateResponseTest {
     fun create() {
         val voicemailCreateResponse =
             VoicemailCreateResponse.builder()
-                .data(VoicemailPrefResponse.builder().enabled(true).pin("1234").build())
+                .data(
+                    VoicemailPrefResponse.builder()
+                        .enabled(true)
+                        .greeting(
+                            VoicemailPrefResponse.Greeting.builder()
+                                .mediaName("my_voicemail_greeting")
+                                .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                                .build()
+                        )
+                        .pin("1234")
+                        .build()
+                )
                 .build()
 
         assertThat(voicemailCreateResponse.data())
-            .contains(VoicemailPrefResponse.builder().enabled(true).pin("1234").build())
+            .contains(
+                VoicemailPrefResponse.builder()
+                    .enabled(true)
+                    .greeting(
+                        VoicemailPrefResponse.Greeting.builder()
+                            .mediaName("my_voicemail_greeting")
+                            .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                            .build()
+                    )
+                    .pin("1234")
+                    .build()
+            )
     }
 
     @Test
@@ -25,7 +47,18 @@ internal class VoicemailCreateResponseTest {
         val jsonMapper = jsonMapper()
         val voicemailCreateResponse =
             VoicemailCreateResponse.builder()
-                .data(VoicemailPrefResponse.builder().enabled(true).pin("1234").build())
+                .data(
+                    VoicemailPrefResponse.builder()
+                        .enabled(true)
+                        .greeting(
+                            VoicemailPrefResponse.Greeting.builder()
+                                .mediaName("my_voicemail_greeting")
+                                .mode(VoicemailPrefResponse.Greeting.Mode.CUSTOM_GREETING)
+                                .build()
+                        )
+                        .pin("1234")
+                        .build()
+                )
                 .build()
 
         val roundtrippedVoicemailCreateResponse =

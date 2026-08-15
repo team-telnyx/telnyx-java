@@ -12,6 +12,7 @@ import com.telnyx.sdk.services.async.storage.CloudfServiceAsync
 import com.telnyx.sdk.services.async.storage.KvServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationServiceAsync
 import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsync
+import com.telnyx.sdk.services.async.storage.SqldbServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -46,6 +47,9 @@ interface StorageServiceAsync {
      * Manage CloudFS filesystems — JuiceFS-compatible filesystems backed by Telnyx Cloud Storage
      */
     fun cloudfs(): CloudfServiceAsync
+
+    /** Manage SQL databases and run SQL against them */
+    fun sqldbs(): SqldbServiceAsync
 
     /** List the external storage providers and regions supported as migration sources. */
     fun listMigrationSourceCoverage():
@@ -103,6 +107,9 @@ interface StorageServiceAsync {
          * Storage
          */
         fun cloudfs(): CloudfServiceAsync.WithRawResponse
+
+        /** Manage SQL databases and run SQL against them */
+        fun sqldbs(): SqldbServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /storage/migration_source_coverage`, but is

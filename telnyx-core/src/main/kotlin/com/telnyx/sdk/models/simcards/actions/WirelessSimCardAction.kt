@@ -80,6 +80,8 @@ private constructor(
      *   <code>standby</code> status to the <code>enabled</code> status after it consumes data.</li>
      * <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>
      * <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>
+     * <li><code>enable_voice</code> - enable voice calling on the SIM card</li>
+     * <li><code>disable_voice</code> - disable voice calling on the SIM card</li>
      * </ul>
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -253,6 +255,8 @@ private constructor(
          *   data.</li>
          * <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>
          * <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>
+         * <li><code>enable_voice</code> - enable voice calling on the SIM card</li>
+         * <li><code>disable_voice</code> - disable voice calling on the SIM card</li>
          * </ul>
          */
         fun actionType(actionType: ActionType) = actionType(JsonField.of(actionType))
@@ -434,6 +438,8 @@ private constructor(
      *   <code>standby</code> status to the <code>enabled</code> status after it consumes data.</li>
      * <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>
      * <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>
+     * <li><code>enable_voice</code> - enable voice calling on the SIM card</li>
+     * <li><code>disable_voice</code> - disable voice calling on the SIM card</li>
      * </ul>
      */
     class ActionType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -458,6 +464,10 @@ private constructor(
 
             @JvmField val SET_STANDBY = of("set_standby")
 
+            @JvmField val ENABLE_VOICE = of("enable_voice")
+
+            @JvmField val DISABLE_VOICE = of("disable_voice")
+
             @JvmStatic fun of(value: String) = ActionType(JsonField.of(value))
         }
 
@@ -467,6 +477,8 @@ private constructor(
             ENABLE_STANDBY_SIM_CARD,
             DISABLE,
             SET_STANDBY,
+            ENABLE_VOICE,
+            DISABLE_VOICE,
         }
 
         /**
@@ -483,6 +495,8 @@ private constructor(
             ENABLE_STANDBY_SIM_CARD,
             DISABLE,
             SET_STANDBY,
+            ENABLE_VOICE,
+            DISABLE_VOICE,
             /**
              * An enum member indicating that [ActionType] was instantiated with an unknown value.
              */
@@ -502,6 +516,8 @@ private constructor(
                 ENABLE_STANDBY_SIM_CARD -> Value.ENABLE_STANDBY_SIM_CARD
                 DISABLE -> Value.DISABLE
                 SET_STANDBY -> Value.SET_STANDBY
+                ENABLE_VOICE -> Value.ENABLE_VOICE
+                DISABLE_VOICE -> Value.DISABLE_VOICE
                 else -> Value._UNKNOWN
             }
 
@@ -520,6 +536,8 @@ private constructor(
                 ENABLE_STANDBY_SIM_CARD -> Known.ENABLE_STANDBY_SIM_CARD
                 DISABLE -> Known.DISABLE
                 SET_STANDBY -> Known.SET_STANDBY
+                ENABLE_VOICE -> Known.ENABLE_VOICE
+                DISABLE_VOICE -> Known.DISABLE_VOICE
                 else -> throw TelnyxInvalidDataException("Unknown ActionType: $value")
             }
 
