@@ -81,13 +81,14 @@ class MavenPublicationGuardTest(unittest.TestCase):
                 with self.assertRaisesRegex(guard.GuardError, "invalid release version"):
                     guard.expected_urls(invalid)
 
-    def test_inventory_has_four_published_java_modules(self):
+    def test_inventory_has_all_published_java_modules(self):
         self.assertEqual(
             (
                 "telnyx",
                 "telnyx-client-okhttp",
                 "telnyx-core",
                 "telnyx-lib",
+                "telnyx-websocket",
             ),
             guard.MODULES,
         )

@@ -19,6 +19,7 @@ MODULES = (
     "telnyx-client-okhttp",
     "telnyx-core",
     "telnyx-lib",
+    "telnyx-websocket",
 )
 PRIMARY_SUFFIXES = (
     ".jar",
