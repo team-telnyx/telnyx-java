@@ -77,6 +77,7 @@ import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
+import com.telnyx.sdk.services.async.MeetingSessionServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsync
 import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
@@ -753,6 +754,8 @@ interface TelnyxClientAsync {
 
     fun webSearch(): WebSearchServiceAsync
 
+    fun meetingSessions(): MeetingSessionServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1313,5 +1316,7 @@ interface TelnyxClientAsync {
         fun pricing(): PricingServiceAsync.WithRawResponse
 
         fun webSearch(): WebSearchServiceAsync.WithRawResponse
+
+        fun meetingSessions(): MeetingSessionServiceAsync.WithRawResponse
     }
 }
