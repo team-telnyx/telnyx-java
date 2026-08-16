@@ -152,6 +152,8 @@ import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsyncImpl
 import com.telnyx.sdk.services.async.MediaServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsyncImpl
+import com.telnyx.sdk.services.async.MeetingSessionServiceAsync
+import com.telnyx.sdk.services.async.MeetingSessionServiceAsyncImpl
 import com.telnyx.sdk.services.async.MessageServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsyncImpl
 import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
@@ -1088,6 +1090,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WebSearchServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val meetingSessions: MeetingSessionServiceAsync by lazy {
+        MeetingSessionServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1655,6 +1661,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun pricing(): PricingServiceAsync = pricing
 
     override fun webSearch(): WebSearchServiceAsync = webSearch
+
+    override fun meetingSessions(): MeetingSessionServiceAsync = meetingSessions
 
     override fun close() = clientOptions.close()
 
@@ -2424,6 +2432,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WebSearchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val meetingSessions: MeetingSessionServiceAsync.WithRawResponse by lazy {
+            MeetingSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3049,5 +3061,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun pricing(): PricingServiceAsync.WithRawResponse = pricing
 
         override fun webSearch(): WebSearchServiceAsync.WithRawResponse = webSearch
+
+        override fun meetingSessions(): MeetingSessionServiceAsync.WithRawResponse = meetingSessions
     }
 }

@@ -3072,3 +3072,33 @@ Methods:
 
 - <code title="post /web_search/research">client.webSearch().research().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/websearch/ResearchService.kt">create</a>(params)</code>
 - <code title="get /web_search/research/{task_id}">client.webSearch().research().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/websearch/ResearchService.kt">retrieve</a>(params)</code>
+
+# MeetingSessions
+
+Methods:
+
+- <code title="post /meeting_sessions">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">create</a>(params)</code>
+- <code title="get /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieve</a>(params)</code>
+- <code title="patch /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">update</a>(params)</code>
+- <code title="get /meeting_sessions">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">list</a>(params)</code>
+- <code title="delete /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">delete</a>(params)</code>
+- <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">deleteRecordingMedia</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/events">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveEvents</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveRecordings</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveTranscript</a>(params)</code>
+
+## Actions
+
+Methods:
+
+- <code title="post /meeting_sessions/{id}/actions/send_chat">client.meetingSessions().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ActionService.kt">sendChat</a>(params)</code>
+- <code title="post /meeting_sessions/{id}/actions/speak">client.meetingSessions().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ActionService.kt">speak</a>(params)</code>
+- <code title="post /meeting_sessions/{id}/actions/stop_speaking">client.meetingSessions().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ActionService.kt">stopSpeaking</a>(params)</code>
+
+## Artifacts
+
+Methods:
+
+- <code title="post /meeting_sessions/{id}/artifacts">client.meetingSessions().artifacts().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ArtifactService.kt">create</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/artifacts/{artifact_id}">client.meetingSessions().artifacts().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ArtifactService.kt">retrieve</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/artifacts">client.meetingSessions().artifacts().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingsessions/ArtifactService.kt">list</a>(params)</code>

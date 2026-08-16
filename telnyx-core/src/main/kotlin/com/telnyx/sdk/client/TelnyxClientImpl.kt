@@ -152,6 +152,8 @@ import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.ManagedAccountServiceImpl
 import com.telnyx.sdk.services.blocking.MediaService
 import com.telnyx.sdk.services.blocking.MediaServiceImpl
+import com.telnyx.sdk.services.blocking.MeetingSessionService
+import com.telnyx.sdk.services.blocking.MeetingSessionServiceImpl
 import com.telnyx.sdk.services.blocking.MessageService
 import com.telnyx.sdk.services.blocking.MessageServiceImpl
 import com.telnyx.sdk.services.blocking.Messaging10dlcService
@@ -1044,6 +1046,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         WebSearchServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val meetingSessions: MeetingSessionService by lazy {
+        MeetingSessionServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1596,6 +1602,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun pricing(): PricingService = pricing
 
     override fun webSearch(): WebSearchService = webSearch
+
+    override fun meetingSessions(): MeetingSessionService = meetingSessions
 
     override fun close() = clientOptions.close()
 
@@ -2341,6 +2349,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             WebSearchServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val meetingSessions: MeetingSessionService.WithRawResponse by lazy {
+            MeetingSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2952,5 +2964,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun pricing(): PricingService.WithRawResponse = pricing
 
         override fun webSearch(): WebSearchService.WithRawResponse = webSearch
+
+        override fun meetingSessions(): MeetingSessionService.WithRawResponse = meetingSessions
     }
 }
