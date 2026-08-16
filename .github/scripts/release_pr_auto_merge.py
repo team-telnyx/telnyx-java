@@ -430,8 +430,12 @@ class ReleasePRAutoMergeGate:
             ]
             if successes:
                 continue
-            if any(check.get("status") != "completed" for check in candidates) or not candidates:
-                raise ChecksPending("required exact-head check pending or missing: %s" % name)
+            if (
+                any(check.get("status") != "completed" for check in candidates)
+                or not candidates
+                or all(check.get("conclusion") == "skipped" for check in candidates)
+            ):
+                raise ChecksPending("required exact-head check pending, skipped, or missing: %s" % name)
             raise GateError("required exact-head check failed: %s" % name)
 
     @staticmethod
