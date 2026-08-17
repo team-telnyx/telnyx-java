@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.88.0](https://github.com/team-telnyx/telnyx-java/compare/v6.87.0...v6.88.0) (2026-08-17)
+
+
+### Features
+
+* promote from staging 0d72898 ([2282010](https://github.com/team-telnyx/telnyx-java/commit/2282010d497febbdc737e5181bfa799040c6e824))
+
+
+### Bug Fixes
+
+* attest all published Java modules ([#225](https://github.com/team-telnyx/telnyx-java/issues/225)) ([fd73f65](https://github.com/team-telnyx/telnyx-java/commit/fd73f652a74990bc6d59c85ed48794865495aeb2))
+* wait past skipped duplicate checks ([#226](https://github.com/team-telnyx/telnyx-java/issues/226)) ([7a7073f](https://github.com/team-telnyx/telnyx-java/commit/7a7073ff1883833c78d39a561a427dbb1ab418a2))
+
 ## [6.87.0](https://github.com/team-telnyx/telnyx-java/compare/v6.86.0...v6.87.0) (2026-08-16)
 
 

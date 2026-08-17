@@ -138,8 +138,8 @@ interface MessagingProfileService {
         update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
     /**
-     * Returns messaging profiles owned by the authenticated account. Apply the documented filters
-     * and pagination parameters to narrow the result set.
+     * Lists messaging profiles owned by the authenticated account. Apply the documented filters and
+     * pagination parameters to narrow the result set.
      */
     fun list(): MessagingProfileListPage = list(MessagingProfileListParams.none())
 
