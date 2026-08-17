@@ -9,7 +9,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Returns messaging profiles owned by the authenticated account. Apply the documented filters and
+ * Lists messaging profiles owned by the authenticated account. Apply the documented filters and
  * pagination parameters to narrow the result set.
  */
 class MessagingProfileListParams

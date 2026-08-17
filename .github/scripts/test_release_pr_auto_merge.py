@@ -311,6 +311,25 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         client.snapshot["required_contexts"].append("new-policy")
         self.assert_blocked(client, "timed out")
 
+    def test_skipped_duplicate_can_become_successful_before_timeout(self):
+        skipped = FixtureClient.good_snapshot()
+        next(c for c in skipped["checks"] if c["name"] == "test").update(
+            status="completed", conclusion="skipped"
+        )
+        ready = FixtureClient.good_snapshot()
+        client = SequenceClient([skipped, ready, ready])
+        sleeps = []
+        result = self.gate(client, attempts=2, sleeps=sleeps).run(415, HEAD, True)
+        self.assertEqual(result["status"], "ready")
+        self.assertEqual(sleeps, [0])
+
+    def test_skipped_only_required_check_times_out_fail_closed(self):
+        client = FixtureClient()
+        next(c for c in client.snapshot["checks"] if c["name"] == "test").update(
+            status="completed", conclusion="skipped"
+        )
+        self.assert_blocked(client, "timed out")
+
     def test_pending_check_can_become_successful_before_timeout(self):
         pending = FixtureClient.good_snapshot()
         next(c for c in pending["checks"] if c["name"] == "build").update(
