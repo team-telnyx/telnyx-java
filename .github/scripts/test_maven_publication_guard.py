@@ -106,7 +106,8 @@ class MavenPublicationGuardTest(unittest.TestCase):
         workflow = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("runs-on: ubuntu-latest", workflow)
         self.assertIn("timeout-minutes: 60", workflow)
-        self.assertIn("-Xmx8g", workflow)
+        self.assertIn("-Xmx12g", workflow)
+        self.assertNotIn("-Xmx8g", workflow)
         self.assertIn("-Pkotlin.compiler.execution.strategy=in-process", workflow)
         self.assertIn("--no-daemon", workflow)
 
