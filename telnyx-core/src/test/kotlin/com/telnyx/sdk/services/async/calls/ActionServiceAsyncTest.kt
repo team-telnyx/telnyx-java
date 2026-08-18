@@ -1714,6 +1714,11 @@ internal class ActionServiceAsyncTest {
                     .answeringMachineDetectionConfig(
                         ActionTransferParams.AnsweringMachineDetectionConfig.builder()
                             .afterGreetingSilenceMillis(1000)
+                            .beepDetectionProfile(
+                                ActionTransferParams.AnsweringMachineDetectionConfig
+                                    .BeepDetectionProfile
+                                    .FREQ_ONLY
+                            )
                             .betweenWordsSilenceMillis(1000)
                             .greetingDurationMillis(1000)
                             .greetingSilenceDurationMillis(2000)

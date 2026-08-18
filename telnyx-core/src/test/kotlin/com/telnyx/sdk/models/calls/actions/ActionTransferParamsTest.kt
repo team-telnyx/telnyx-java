@@ -21,6 +21,10 @@ internal class ActionTransferParamsTest {
             .answeringMachineDetectionConfig(
                 ActionTransferParams.AnsweringMachineDetectionConfig.builder()
                     .afterGreetingSilenceMillis(1000)
+                    .beepDetectionProfile(
+                        ActionTransferParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                            .FREQ_ONLY
+                    )
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)
@@ -123,6 +127,11 @@ internal class ActionTransferParamsTest {
                 .answeringMachineDetectionConfig(
                     ActionTransferParams.AnsweringMachineDetectionConfig.builder()
                         .afterGreetingSilenceMillis(1000)
+                        .beepDetectionProfile(
+                            ActionTransferParams.AnsweringMachineDetectionConfig
+                                .BeepDetectionProfile
+                                .FREQ_ONLY
+                        )
                         .betweenWordsSilenceMillis(1000)
                         .greetingDurationMillis(1000)
                         .greetingSilenceDurationMillis(2000)
@@ -210,6 +219,10 @@ internal class ActionTransferParamsTest {
             .contains(
                 ActionTransferParams.AnsweringMachineDetectionConfig.builder()
                     .afterGreetingSilenceMillis(1000)
+                    .beepDetectionProfile(
+                        ActionTransferParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                            .FREQ_ONLY
+                    )
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)

@@ -22,6 +22,7 @@ class RimeVoiceSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val type: JsonField<Type>,
+    private val apiKeyRef: JsonField<String>,
     private val voiceSpeed: JsonField<Float>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -29,8 +30,11 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("api_key_ref")
+        @ExcludeMissing
+        apiKeyRef: JsonField<String> = JsonMissing.of(),
         @JsonProperty("voice_speed") @ExcludeMissing voiceSpeed: JsonField<Float> = JsonMissing.of(),
-    ) : this(type, voiceSpeed, mutableMapOf())
+    ) : this(type, apiKeyRef, voiceSpeed, mutableMapOf())
 
     /**
      * Voice settings provider type
@@ -39,6 +43,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
+
+    /**
+     * The `identifier` for an integration secret
+     * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * that refers to your Rime API key. Only required when using your own Rime account.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun apiKeyRef(): Optional<String> = apiKeyRef.getOptional("api_key_ref")
 
     /**
      * Speech speed multiplier. Default is 1.0.
@@ -54,6 +68,13 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+    /**
+     * Returns the raw JSON value of [apiKeyRef].
+     *
+     * Unlike [apiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("api_key_ref") @ExcludeMissing fun _apiKeyRef(): JsonField<String> = apiKeyRef
 
     /**
      * Returns the raw JSON value of [voiceSpeed].
@@ -91,12 +112,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var type: JsonField<Type>? = null
+        private var apiKeyRef: JsonField<String> = JsonMissing.of()
         private var voiceSpeed: JsonField<Float> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(rimeVoiceSettings: RimeVoiceSettings) = apply {
             type = rimeVoiceSettings.type
+            apiKeyRef = rimeVoiceSettings.apiKeyRef
             voiceSpeed = rimeVoiceSettings.voiceSpeed
             additionalProperties = rimeVoiceSettings.additionalProperties.toMutableMap()
         }
@@ -111,6 +134,22 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /**
+         * The `identifier` for an integration secret
+         * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * that refers to your Rime API key. Only required when using your own Rime account.
+         */
+        fun apiKeyRef(apiKeyRef: String) = apiKeyRef(JsonField.of(apiKeyRef))
+
+        /**
+         * Sets [Builder.apiKeyRef] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.apiKeyRef] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun apiKeyRef(apiKeyRef: JsonField<String>) = apply { this.apiKeyRef = apiKeyRef }
 
         /** Speech speed multiplier. Default is 1.0. */
         fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
@@ -158,6 +197,7 @@ private constructor(
         fun build(): RimeVoiceSettings =
             RimeVoiceSettings(
                 checkRequired("type", type),
+                apiKeyRef,
                 voiceSpeed,
                 additionalProperties.toMutableMap(),
             )
@@ -179,6 +219,7 @@ private constructor(
         }
 
         type().validate()
+        apiKeyRef()
         voiceSpeed()
         validated = true
     }
@@ -199,6 +240,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
             (if (voiceSpeed.asKnown().isPresent) 1 else 0)
 
     /** Voice settings provider type */
@@ -337,14 +379,17 @@ private constructor(
 
         return other is RimeVoiceSettings &&
             type == other.type &&
+            apiKeyRef == other.apiKeyRef &&
             voiceSpeed == other.voiceSpeed &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(type, voiceSpeed, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(type, apiKeyRef, voiceSpeed, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RimeVoiceSettings{type=$type, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
+        "RimeVoiceSettings{type=$type, apiKeyRef=$apiKeyRef, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
 }

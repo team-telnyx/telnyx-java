@@ -15,14 +15,43 @@ on:
       - 'stl-preview-base/**'
 
 jobs:
+  classify-production-ci:
+    name: classify production CI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: read
+      pull-requests: read
+      statuses: read
+    outputs:
+      run_full: ${{ steps.classify.outputs.run_full }}
+      reason: ${{ steps.classify.outputs.reason }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - id: classify
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/classify_production_ci.py --event-path "$GITHUB_EVENT_PATH"
+
   lint:
+    needs: classify-production-ci
     timeout-minutes: 30
     name: lint
     runs-on: ${{ github.repository == 'stainless-sdks/telnyx-java' && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    if: needs.classify-production-ci.outputs.run_full == 'true'
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Validate release CI policy
+        run: |-
+          python3 .github/scripts/test_release_pr_auto_merge.py -v
+          python3 .github/scripts/test_release_pr_ci_gate.py -v
+          python3 .github/scripts/test_classify_production_ci.py -v
+          python3 .github/scripts/test_validate_next_provenance.py -v
+          python3 .github/scripts/test_maven_publication_guard.py -v
 
       - name: Set up Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
@@ -40,13 +69,14 @@ jobs:
         run: ./scripts/lint
 
   build:
+    needs: classify-production-ci
     timeout-minutes: 30
     name: build
     permissions:
       contents: read
       id-token: write
     runs-on: ${{ github.repository == 'stainless-sdks/telnyx-java' && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    if: needs.classify-production-ci.outputs.run_full == 'true'
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -64,7 +94,10 @@ jobs:
         uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4.4.3
 
       - name: Build SDK
-        run: ./scripts/build
+        run: |-
+          ./scripts/build \
+            -Dorg.gradle.jvmargs="-Xmx12g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8" \
+            -Pkotlin.compiler.execution.strategy=in-process
 
       - name: Get GitHub OIDC Token
         if: |-
@@ -86,10 +119,11 @@ jobs:
           PROJECT: telnyx-java
         run: ./scripts/upload-artifacts
   test-shard:
+    needs: classify-production-ci
     timeout-minutes: 60
     name: test-shard (${{ matrix.name }})
     runs-on: ${{ github.repository == 'stainless-sdks/telnyx-java' && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
+    if: needs.classify-production-ci.outputs.run_full == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -127,8 +161,8 @@ jobs:
     timeout-minutes: 5
     name: test
     runs-on: ubuntu-latest
-    needs: test-shard
-    if: always() && (github.event_name == 'push' || github.event.pull_request.head.repo.fork)
+    needs: [classify-production-ci, test-shard]
+    if: always() && needs.classify-production-ci.outputs.run_full == 'true'
     steps:
       - name: Verify all test shards passed
         env:

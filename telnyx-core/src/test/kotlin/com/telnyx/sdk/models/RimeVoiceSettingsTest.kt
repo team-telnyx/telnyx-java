@@ -12,9 +12,14 @@ internal class RimeVoiceSettingsTest {
     @Test
     fun create() {
         val rimeVoiceSettings =
-            RimeVoiceSettings.builder().type(RimeVoiceSettings.Type.RIME).voiceSpeed(1.0f).build()
+            RimeVoiceSettings.builder()
+                .type(RimeVoiceSettings.Type.RIME)
+                .apiKeyRef("my_rime_api_key")
+                .voiceSpeed(1.0f)
+                .build()
 
         assertThat(rimeVoiceSettings.type()).isEqualTo(RimeVoiceSettings.Type.RIME)
+        assertThat(rimeVoiceSettings.apiKeyRef()).contains("my_rime_api_key")
         assertThat(rimeVoiceSettings.voiceSpeed()).contains(1.0f)
     }
 
@@ -22,7 +27,11 @@ internal class RimeVoiceSettingsTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val rimeVoiceSettings =
-            RimeVoiceSettings.builder().type(RimeVoiceSettings.Type.RIME).voiceSpeed(1.0f).build()
+            RimeVoiceSettings.builder()
+                .type(RimeVoiceSettings.Type.RIME)
+                .apiKeyRef("my_rime_api_key")
+                .voiceSpeed(1.0f)
+                .build()
 
         val roundtrippedRimeVoiceSettings =
             jsonMapper.readValue(
