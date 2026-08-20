@@ -15,7 +15,7 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
         val cloudfsFilesystemDetailResponseWrapper =
             CloudfsFilesystemDetailResponseWrapper.builder()
                 .data(
-                    CloudfsFilesystemDetailResponseWrapper.Data.builder()
+                    CloudfsFilesystemDetail.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .error("failed to create storage bucket")
@@ -35,7 +35,7 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
 
         assertThat(cloudfsFilesystemDetailResponseWrapper.data())
             .contains(
-                CloudfsFilesystemDetailResponseWrapper.Data.builder()
+                CloudfsFilesystemDetail.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                     .error("failed to create storage bucket")
@@ -59,7 +59,7 @@ internal class CloudfsFilesystemDetailResponseWrapperTest {
         val cloudfsFilesystemDetailResponseWrapper =
             CloudfsFilesystemDetailResponseWrapper.builder()
                 .data(
-                    CloudfsFilesystemDetailResponseWrapper.Data.builder()
+                    CloudfsFilesystemDetail.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .error("failed to create storage bucket")

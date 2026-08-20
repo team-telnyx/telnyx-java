@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.emailevents.EmailEventType
 import com.telnyx.sdk.models.emailmessages.MessageEvent
+import com.telnyx.sdk.models.emailmessages.SuppressedRecipient
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -70,7 +71,7 @@ internal class EmailMessageResponseTest {
                         .build()
                 )
                 .addSuppressed(
-                    EmailMessageResponse.Suppressed.builder()
+                    SuppressedRecipient.builder()
                         .overrideAllowed(true)
                         .reason("reason")
                         .scope("scope")
@@ -133,7 +134,7 @@ internal class EmailMessageResponseTest {
             )
         assertThat(emailMessageResponse.suppressed().getOrNull())
             .containsExactly(
-                EmailMessageResponse.Suppressed.builder()
+                SuppressedRecipient.builder()
                     .overrideAllowed(true)
                     .reason("reason")
                     .scope("scope")
@@ -199,7 +200,7 @@ internal class EmailMessageResponseTest {
                         .build()
                 )
                 .addSuppressed(
-                    EmailMessageResponse.Suppressed.builder()
+                    SuppressedRecipient.builder()
                         .overrideAllowed(true)
                         .reason("reason")
                         .scope("scope")

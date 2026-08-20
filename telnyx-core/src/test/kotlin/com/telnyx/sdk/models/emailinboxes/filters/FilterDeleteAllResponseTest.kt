@@ -14,20 +14,20 @@ internal class FilterDeleteAllResponseTest {
         val filterDeleteAllResponse =
             FilterDeleteAllResponse.builder()
                 .data(
-                    FilterDeleteAllResponse.Data.builder()
+                    InboxFilters.builder()
                         .addAllowlist("@example.com")
                         .addBlocklist("@example.com")
-                        .recordType(FilterDeleteAllResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                        .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                         .build()
                 )
                 .build()
 
         assertThat(filterDeleteAllResponse.data())
             .isEqualTo(
-                FilterDeleteAllResponse.Data.builder()
+                InboxFilters.builder()
                     .addAllowlist("@example.com")
                     .addBlocklist("@example.com")
-                    .recordType(FilterDeleteAllResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                    .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                     .build()
             )
     }
@@ -38,10 +38,10 @@ internal class FilterDeleteAllResponseTest {
         val filterDeleteAllResponse =
             FilterDeleteAllResponse.builder()
                 .data(
-                    FilterDeleteAllResponse.Data.builder()
+                    InboxFilters.builder()
                         .addAllowlist("@example.com")
                         .addBlocklist("@example.com")
-                        .recordType(FilterDeleteAllResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                        .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                         .build()
                 )
                 .build()

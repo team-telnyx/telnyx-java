@@ -16,7 +16,7 @@ internal class EmailValidationCreateResponseTest {
                 .data(
                     EmailValidationCreateResponse.Data.builder()
                         .checks(
-                            EmailValidationCreateResponse.Data.Checks.builder()
+                            EmailValidationChecks.builder()
                                 .disposable(
                                     EmailValidationCheck.builder()
                                         .pass(true)
@@ -42,7 +42,7 @@ internal class EmailValidationCreateResponseTest {
                                         .build()
                                 )
                                 .typo(
-                                    EmailValidationCreateResponse.Data.Checks.Typo.builder()
+                                    EmailValidationChecks.Typo.builder()
                                         .pass(true)
                                         .details("details")
                                         .suggestion("suggestion")
@@ -63,7 +63,7 @@ internal class EmailValidationCreateResponseTest {
             .isEqualTo(
                 EmailValidationCreateResponse.Data.builder()
                     .checks(
-                        EmailValidationCreateResponse.Data.Checks.builder()
+                        EmailValidationChecks.builder()
                             .disposable(
                                 EmailValidationCheck.builder().pass(true).details("details").build()
                             )
@@ -77,7 +77,7 @@ internal class EmailValidationCreateResponseTest {
                                 EmailValidationCheck.builder().pass(true).details("details").build()
                             )
                             .typo(
-                                EmailValidationCreateResponse.Data.Checks.Typo.builder()
+                                EmailValidationChecks.Typo.builder()
                                     .pass(true)
                                     .details("details")
                                     .suggestion("suggestion")
@@ -102,7 +102,7 @@ internal class EmailValidationCreateResponseTest {
                 .data(
                     EmailValidationCreateResponse.Data.builder()
                         .checks(
-                            EmailValidationCreateResponse.Data.Checks.builder()
+                            EmailValidationChecks.builder()
                                 .disposable(
                                     EmailValidationCheck.builder()
                                         .pass(true)
@@ -128,7 +128,7 @@ internal class EmailValidationCreateResponseTest {
                                         .build()
                                 )
                                 .typo(
-                                    EmailValidationCreateResponse.Data.Checks.Typo.builder()
+                                    EmailValidationChecks.Typo.builder()
                                         .pass(true)
                                         .details("details")
                                         .suggestion("suggestion")

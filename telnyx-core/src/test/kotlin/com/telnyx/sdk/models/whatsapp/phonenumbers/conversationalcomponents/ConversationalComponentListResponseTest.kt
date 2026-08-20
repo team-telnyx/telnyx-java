@@ -14,9 +14,9 @@ internal class ConversationalComponentListResponseTest {
         val conversationalComponentListResponse =
             ConversationalComponentListResponse.builder()
                 .data(
-                    ConversationalComponentListResponse.Data.builder()
+                    WhatsappConversationalComponent.builder()
                         .addCommand(
-                            ConversationalComponentListResponse.Data.Command.builder()
+                            WhatsappConversationalComponent.Command.builder()
                                 .command("command")
                                 .description("description")
                                 .build()
@@ -30,9 +30,9 @@ internal class ConversationalComponentListResponseTest {
 
         assertThat(conversationalComponentListResponse.data())
             .contains(
-                ConversationalComponentListResponse.Data.builder()
+                WhatsappConversationalComponent.builder()
                     .addCommand(
-                        ConversationalComponentListResponse.Data.Command.builder()
+                        WhatsappConversationalComponent.Command.builder()
                             .command("command")
                             .description("description")
                             .build()
@@ -50,9 +50,9 @@ internal class ConversationalComponentListResponseTest {
         val conversationalComponentListResponse =
             ConversationalComponentListResponse.builder()
                 .data(
-                    ConversationalComponentListResponse.Data.builder()
+                    WhatsappConversationalComponent.builder()
                         .addCommand(
-                            ConversationalComponentListResponse.Data.Command.builder()
+                            WhatsappConversationalComponent.Command.builder()
                                 .command("command")
                                 .description("description")
                                 .build()
