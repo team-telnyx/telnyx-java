@@ -29,14 +29,8 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Conversation flow as supplied by API clients (create / update).
- *
- * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique node/edge
- * IDs, that `start_node_id` references a real node, and that every edge's endpoints reference real
- * nodes.
- */
-class ConversationFlowReq
+/** Conversation flow as returned by the API. */
+class ConversationFlow
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val nodes: JsonField<List<Node>>,
@@ -55,8 +49,7 @@ private constructor(
     ) : this(nodes, startNodeId, edges, mutableMapOf())
 
     /**
-     * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node (`type:
-     * prompt`) or a tool node (`type: tool`).
+     * All nodes in the flow.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -72,7 +65,7 @@ private constructor(
     fun startNodeId(): String = startNodeId.getRequired("start_node_id")
 
     /**
-     * Directed transitions between nodes. May be empty for a single-node flow.
+     * Directed transitions between nodes.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -117,7 +110,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [ConversationFlowReq].
+         * Returns a mutable builder for constructing an instance of [ConversationFlow].
          *
          * The following fields are required:
          * ```java
@@ -128,7 +121,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ConversationFlowReq]. */
+    /** A builder for [ConversationFlow]. */
     class Builder internal constructor() {
 
         private var nodes: JsonField<MutableList<Node>>? = null
@@ -137,17 +130,14 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(conversationFlowReq: ConversationFlowReq) = apply {
-            nodes = conversationFlowReq.nodes.map { it.toMutableList() }
-            startNodeId = conversationFlowReq.startNodeId
-            edges = conversationFlowReq.edges.map { it.toMutableList() }
-            additionalProperties = conversationFlowReq.additionalProperties.toMutableMap()
+        internal fun from(conversationFlow: ConversationFlow) = apply {
+            nodes = conversationFlow.nodes.map { it.toMutableList() }
+            startNodeId = conversationFlow.startNodeId
+            edges = conversationFlow.edges.map { it.toMutableList() }
+            additionalProperties = conversationFlow.additionalProperties.toMutableMap()
         }
 
-        /**
-         * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node (`type:
-         * prompt`) or a tool node (`type: tool`).
-         */
+        /** All nodes in the flow. */
         fun nodes(nodes: List<Node>) = nodes(JsonField.of(nodes))
 
         /**
@@ -172,13 +162,13 @@ private constructor(
         }
 
         /** Alias for calling [addNode] with `Node.ofPrompt(prompt)`. */
-        fun addNode(prompt: FlowNodeReq) = addNode(Node.ofPrompt(prompt))
+        fun addNode(prompt: FlowNode) = addNode(Node.ofPrompt(prompt))
 
         /** Alias for calling [addNode] with `Node.ofTool(tool)`. */
-        fun addNode(tool: ToolNodeReq) = addNode(Node.ofTool(tool))
+        fun addNode(tool: ToolNode) = addNode(Node.ofTool(tool))
 
         /** Alias for calling [addNode] with `Node.ofSpeak(speak)`. */
-        fun addNode(speak: SpeakNodeReq) = addNode(Node.ofSpeak(speak))
+        fun addNode(speak: SpeakNode) = addNode(Node.ofSpeak(speak))
 
         /** ID of the node where the conversation begins. */
         fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
@@ -192,7 +182,7 @@ private constructor(
          */
         fun startNodeId(startNodeId: JsonField<String>) = apply { this.startNodeId = startNodeId }
 
-        /** Directed transitions between nodes. May be empty for a single-node flow. */
+        /** Directed transitions between nodes. */
         fun edges(edges: List<FlowEdge>) = edges(JsonField.of(edges))
 
         /**
@@ -236,7 +226,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ConversationFlowReq].
+         * Returns an immutable instance of [ConversationFlow].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -248,8 +238,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): ConversationFlowReq =
-            ConversationFlowReq(
+        fun build(): ConversationFlow =
+            ConversationFlow(
                 checkRequired("nodes", nodes).map { it.toImmutable() },
                 checkRequired("startNodeId", startNodeId),
                 (edges ?: JsonMissing.of()).map { it.toImmutable() },
@@ -267,7 +257,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): ConversationFlowReq = apply {
+    fun validate(): ConversationFlow = apply {
         if (validated) {
             return@apply
         }
@@ -297,47 +287,25 @@ private constructor(
             (if (startNodeId.asKnown().isPresent) 1 else 0) +
             (edges.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
-    /**
-     * One step in a conversation flow, as supplied by API clients.
-     *
-     * Each node carries the prompt, tool scope, and optional overrides for
-     * model/voice/transcription. Unset overrides cascade from the assistant.
-     */
+    /** One step in a conversation flow, as returned by the API. */
     @JsonDeserialize(using = Node.Deserializer::class)
     @JsonSerialize(using = Node.Serializer::class)
     class Node
     private constructor(
-        private val prompt: FlowNodeReq? = null,
-        private val tool: ToolNodeReq? = null,
-        private val speak: SpeakNodeReq? = null,
+        private val prompt: FlowNode? = null,
+        private val tool: ToolNode? = null,
+        private val speak: SpeakNode? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        /**
-         * One step in a conversation flow, as supplied by API clients.
-         *
-         * Each node carries the prompt, tool scope, and optional overrides for
-         * model/voice/transcription. Unset overrides cascade from the assistant.
-         */
-        fun prompt(): Optional<FlowNodeReq> = Optional.ofNullable(prompt)
+        /** One step in a conversation flow, as returned by the API. */
+        fun prompt(): Optional<FlowNode> = Optional.ofNullable(prompt)
 
-        /**
-         * A standalone tool step in a conversation flow, as supplied by clients.
-         *
-         * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM turn.
-         * Reaching it deterministically runs one shared tool (arguments filled from matching
-         * dynamic variables by name), then routes on the result via outgoing `tool_result` edges.
-         */
-        fun tool(): Optional<ToolNodeReq> = Optional.ofNullable(tool)
+        /** A standalone tool step in a conversation flow, as returned by the API. */
+        fun tool(): Optional<ToolNode> = Optional.ofNullable(tool)
 
-        /**
-         * A standalone scripted-message step in a flow, as supplied by clients.
-         *
-         * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM turn.
-         * Reaching it delivers `message` to the user verbatim (with `{{variable}}` interpolation),
-         * then routes via outgoing `llm` / `expression` edges.
-         */
-        fun speak(): Optional<SpeakNodeReq> = Optional.ofNullable(speak)
+        /** A standalone scripted-message step in a flow, as returned by the API. */
+        fun speak(): Optional<SpeakNode> = Optional.ofNullable(speak)
 
         fun isPrompt(): Boolean = prompt != null
 
@@ -345,31 +313,14 @@ private constructor(
 
         fun isSpeak(): Boolean = speak != null
 
-        /**
-         * One step in a conversation flow, as supplied by API clients.
-         *
-         * Each node carries the prompt, tool scope, and optional overrides for
-         * model/voice/transcription. Unset overrides cascade from the assistant.
-         */
-        fun asPrompt(): FlowNodeReq = prompt.getOrThrow("prompt")
+        /** One step in a conversation flow, as returned by the API. */
+        fun asPrompt(): FlowNode = prompt.getOrThrow("prompt")
 
-        /**
-         * A standalone tool step in a conversation flow, as supplied by clients.
-         *
-         * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM turn.
-         * Reaching it deterministically runs one shared tool (arguments filled from matching
-         * dynamic variables by name), then routes on the result via outgoing `tool_result` edges.
-         */
-        fun asTool(): ToolNodeReq = tool.getOrThrow("tool")
+        /** A standalone tool step in a conversation flow, as returned by the API. */
+        fun asTool(): ToolNode = tool.getOrThrow("tool")
 
-        /**
-         * A standalone scripted-message step in a flow, as supplied by clients.
-         *
-         * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM turn.
-         * Reaching it delivers `message` to the user verbatim (with `{{variable}}` interpolation),
-         * then routes via outgoing `llm` / `expression` edges.
-         */
-        fun asSpeak(): SpeakNodeReq = speak.getOrThrow("speak")
+        /** A standalone scripted-message step in a flow, as returned by the API. */
+        fun asSpeak(): SpeakNode = speak.getOrThrow("speak")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -385,7 +336,7 @@ private constructor(
          *
          * Optional<String> result = node.accept(new Node.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPrompt(FlowNodeReq prompt) {
+         *     public Optional<String> visitPrompt(FlowNode prompt) {
          *         return Optional.of(prompt.toString());
          *     }
          *
@@ -428,15 +379,15 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPrompt(prompt: FlowNodeReq) {
+                    override fun visitPrompt(prompt: FlowNode) {
                         prompt.validate()
                     }
 
-                    override fun visitTool(tool: ToolNodeReq) {
+                    override fun visitTool(tool: ToolNode) {
                         tool.validate()
                     }
 
-                    override fun visitSpeak(speak: SpeakNodeReq) {
+                    override fun visitSpeak(speak: SpeakNode) {
                         speak.validate()
                     }
                 }
@@ -462,11 +413,11 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPrompt(prompt: FlowNodeReq) = prompt.validity()
+                    override fun visitPrompt(prompt: FlowNode) = prompt.validity()
 
-                    override fun visitTool(tool: ToolNodeReq) = tool.validity()
+                    override fun visitTool(tool: ToolNode) = tool.validity()
 
-                    override fun visitSpeak(speak: SpeakNodeReq) = speak.validity()
+                    override fun visitSpeak(speak: SpeakNode) = speak.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -496,63 +447,27 @@ private constructor(
 
         companion object {
 
-            /**
-             * One step in a conversation flow, as supplied by API clients.
-             *
-             * Each node carries the prompt, tool scope, and optional overrides for
-             * model/voice/transcription. Unset overrides cascade from the assistant.
-             */
-            @JvmStatic fun ofPrompt(prompt: FlowNodeReq) = Node(prompt = prompt)
+            /** One step in a conversation flow, as returned by the API. */
+            @JvmStatic fun ofPrompt(prompt: FlowNode) = Node(prompt = prompt)
 
-            /**
-             * A standalone tool step in a conversation flow, as supplied by clients.
-             *
-             * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
-             * turn. Reaching it deterministically runs one shared tool (arguments filled from
-             * matching dynamic variables by name), then routes on the result via outgoing
-             * `tool_result` edges.
-             */
-            @JvmStatic fun ofTool(tool: ToolNodeReq) = Node(tool = tool)
+            /** A standalone tool step in a conversation flow, as returned by the API. */
+            @JvmStatic fun ofTool(tool: ToolNode) = Node(tool = tool)
 
-            /**
-             * A standalone scripted-message step in a flow, as supplied by clients.
-             *
-             * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
-             * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
-             * interpolation), then routes via outgoing `llm` / `expression` edges.
-             */
-            @JvmStatic fun ofSpeak(speak: SpeakNodeReq) = Node(speak = speak)
+            /** A standalone scripted-message step in a flow, as returned by the API. */
+            @JvmStatic fun ofSpeak(speak: SpeakNode) = Node(speak = speak)
         }
 
         /** An interface that defines how to map each variant of [Node] to a value of type [T]. */
         interface Visitor<out T> {
 
-            /**
-             * One step in a conversation flow, as supplied by API clients.
-             *
-             * Each node carries the prompt, tool scope, and optional overrides for
-             * model/voice/transcription. Unset overrides cascade from the assistant.
-             */
-            fun visitPrompt(prompt: FlowNodeReq): T
+            /** One step in a conversation flow, as returned by the API. */
+            fun visitPrompt(prompt: FlowNode): T
 
-            /**
-             * A standalone tool step in a conversation flow, as supplied by clients.
-             *
-             * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
-             * turn. Reaching it deterministically runs one shared tool (arguments filled from
-             * matching dynamic variables by name), then routes on the result via outgoing
-             * `tool_result` edges.
-             */
-            fun visitTool(tool: ToolNodeReq): T
+            /** A standalone tool step in a conversation flow, as returned by the API. */
+            fun visitTool(tool: ToolNode): T
 
-            /**
-             * A standalone scripted-message step in a flow, as supplied by clients.
-             *
-             * Unlike a prompt node, a speak node has no instructions or model — it isn't an LLM
-             * turn. Reaching it delivers `message` to the user verbatim (with `{{variable}}`
-             * interpolation), then routes via outgoing `llm` / `expression` edges.
-             */
-            fun visitSpeak(speak: SpeakNodeReq): T
+            /** A standalone scripted-message step in a flow, as returned by the API. */
+            fun visitSpeak(speak: SpeakNode): T
 
             /**
              * Maps an unknown variant of [Node] to a value of type [T].
@@ -576,17 +491,17 @@ private constructor(
 
                 when (type) {
                     "prompt" -> {
-                        return tryDeserialize(node, jacksonTypeRef<FlowNodeReq>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<FlowNode>())?.let {
                             Node(prompt = it, _json = json)
                         } ?: Node(_json = json)
                     }
                     "tool" -> {
-                        return tryDeserialize(node, jacksonTypeRef<ToolNodeReq>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<ToolNode>())?.let {
                             Node(tool = it, _json = json)
                         } ?: Node(_json = json)
                     }
                     "speak" -> {
-                        return tryDeserialize(node, jacksonTypeRef<SpeakNodeReq>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<SpeakNode>())?.let {
                             Node(speak = it, _json = json)
                         } ?: Node(_json = json)
                     }
@@ -619,7 +534,7 @@ private constructor(
             return true
         }
 
-        return other is ConversationFlowReq &&
+        return other is ConversationFlow &&
             nodes == other.nodes &&
             startNodeId == other.startNodeId &&
             edges == other.edges &&
@@ -633,5 +548,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ConversationFlowReq{nodes=$nodes, startNodeId=$startNodeId, edges=$edges, additionalProperties=$additionalProperties}"
+        "ConversationFlow{nodes=$nodes, startNodeId=$startNodeId, edges=$edges, additionalProperties=$additionalProperties}"
 }

@@ -9,6 +9,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.messages.MessagingError0b38e7044b
+import com.telnyx.sdk.models.messages.MessagingInboundMessagePayload
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -916,14 +917,14 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .from("+35319605860")
                                 .addSipHeader(
-                                    CallAnswered.Payload.SipHeader.builder()
-                                        .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    CallAnswered.Payload.SipHeader.builder()
-                                        .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -1050,14 +1051,14 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .from("+35319605860")
                                     .addSipHeader(
-                                        CallAnswered.Payload.SipHeader.builder()
-                                            .name(CallAnswered.Payload.SipHeader.Name.USER_TO_USER)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        CallAnswered.Payload.SipHeader.builder()
-                                            .name(CallAnswered.Payload.SipHeader.Name.DIVERSION)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
@@ -2875,14 +2876,14 @@ internal class UnwrapWebhookEventTest {
                                 .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                 .sipHangupCause("603")
                                 .addSipHeader(
-                                    CallHangup.Payload.SipHeader.builder()
-                                        .name(CallHangup.Payload.SipHeader.Name.USER_TO_USER)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    CallHangup.Payload.SipHeader.builder()
-                                        .name(CallHangup.Payload.SipHeader.Name.DIVERSION)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -3033,14 +3034,14 @@ internal class UnwrapWebhookEventTest {
                                     .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                     .sipHangupCause("603")
                                     .addSipHeader(
-                                        CallHangup.Payload.SipHeader.builder()
-                                            .name(CallHangup.Payload.SipHeader.Name.USER_TO_USER)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        CallHangup.Payload.SipHeader.builder()
-                                            .name(CallHangup.Payload.SipHeader.Name.DIVERSION)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
@@ -3244,14 +3245,14 @@ internal class UnwrapWebhookEventTest {
                                 .shakenStirAttestation("A")
                                 .shakenStirValidated(true)
                                 .addSipHeader(
-                                    CallInitiated.Payload.SipHeader.builder()
-                                        .name(CallInitiated.Payload.SipHeader.Name.USER_TO_USER)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.USER_TO_USER)
                                         .value("1234")
                                         .build()
                                 )
                                 .addSipHeader(
-                                    CallInitiated.Payload.SipHeader.builder()
-                                        .name(CallInitiated.Payload.SipHeader.Name.DIVERSION)
+                                    InboundSipHeader.builder()
+                                        .name(InboundSipHeader.Name.DIVERSION)
                                         .value("<sip:111@192.168.1.1>")
                                         .build()
                                 )
@@ -3385,14 +3386,14 @@ internal class UnwrapWebhookEventTest {
                                     .shakenStirAttestation("A")
                                     .shakenStirValidated(true)
                                     .addSipHeader(
-                                        CallInitiated.Payload.SipHeader.builder()
-                                            .name(CallInitiated.Payload.SipHeader.Name.USER_TO_USER)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.USER_TO_USER)
                                             .value("1234")
                                             .build()
                                     )
                                     .addSipHeader(
-                                        CallInitiated.Payload.SipHeader.builder()
-                                            .name(CallInitiated.Payload.SipHeader.Name.DIVERSION)
+                                        InboundSipHeader.builder()
+                                            .name(InboundSipHeader.Name.DIVERSION)
                                             .value("<sip:111@192.168.1.1>")
                                             .build()
                                     )
@@ -10574,41 +10575,36 @@ internal class UnwrapWebhookEventTest {
                         .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
-                            InboundMessageWebhookEvent.Data.Payload.builder()
+                            MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                 .addCc(
-                                    InboundMessageWebhookEvent.Data.Payload.Cc.builder()
+                                    MessagingInboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
                                         .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.Cc.LineType
-                                                .WIRELINE
+                                            MessagingInboundMessagePayload.Cc.LineType.WIRELINE
                                         )
                                         .phoneNumber("phone_number")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.Cc.Status.QUEUED
-                                        )
+                                        .status(MessagingInboundMessagePayload.Cc.Status.QUEUED)
                                         .build()
                                 )
                                 .completedAt(null)
                                 .cost(
-                                    InboundMessageWebhookEvent.Data.Payload.Cost.builder()
+                                    MessagingInboundMessagePayload.Cost.builder()
                                         .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
                                 .costBreakdown(
-                                    InboundMessageWebhookEvent.Data.Payload.CostBreakdown.builder()
+                                    MessagingInboundMessagePayload.CostBreakdown.builder()
                                         .carrierFee(
-                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                                .CarrierFee
+                                            MessagingInboundMessagePayload.CostBreakdown.CarrierFee
                                                 .builder()
                                                 .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
-                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                                .Rate
+                                            MessagingInboundMessagePayload.CostBreakdown.Rate
                                                 .builder()
                                                 .amount("0.00205")
                                                 .currency("USD")
@@ -10616,9 +10612,7 @@ internal class UnwrapWebhookEventTest {
                                         )
                                         .build()
                                 )
-                                .direction(
-                                    InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
-                                )
+                                .direction(MessagingInboundMessagePayload.Direction.INBOUND)
                                 .encoding("GSM-7")
                                 .addError(
                                     MessagingError0b38e7044b.builder()
@@ -10635,21 +10629,17 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .from(
-                                    InboundMessageWebhookEvent.Data.Payload.From.builder()
+                                    MessagingInboundMessagePayload.From.builder()
                                         .carrier("T-MOBILE USA, INC.")
                                         .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.From.LineType
-                                                .WIRELESS
+                                            MessagingInboundMessagePayload.From.LineType.WIRELESS
                                         )
                                         .phoneNumber("+18665550001")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.From.Status
-                                                .RECEIVED
-                                        )
+                                        .status(MessagingInboundMessagePayload.From.Status.RECEIVED)
                                         .build()
                                 )
                                 .addMedia(
-                                    InboundMessageWebhookEvent.Data.Payload.Media.builder()
+                                    MessagingInboundMessagePayload.Media.builder()
                                         .contentType("content_type")
                                         .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                         .size(0L)
@@ -10661,9 +10651,7 @@ internal class UnwrapWebhookEventTest {
                                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                .recordType(
-                                    InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
-                                )
+                                .recordType(MessagingInboundMessagePayload.RecordType.MESSAGE)
                                 .sentAt(null)
                                 .subject("From Telnyx!")
                                 .addTag("Greetings")
@@ -10672,20 +10660,14 @@ internal class UnwrapWebhookEventTest {
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
                                 .addTo(
-                                    InboundMessageWebhookEvent.Data.Payload.To.builder()
+                                    MessagingInboundMessagePayload.To.builder()
                                         .carrier("TELNYX LLC")
-                                        .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.To.LineType
-                                                .VO_IP
-                                        )
+                                        .lineType(MessagingInboundMessagePayload.To.LineType.VO_IP)
                                         .phoneNumber("+18445550001")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.To.Status
-                                                .DELIVERED
-                                        )
+                                        .status(MessagingInboundMessagePayload.To.Status.DELIVERED)
                                         .build()
                                 )
-                                .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
+                                .type(MessagingInboundMessagePayload.Type.SMS)
                                 .validUntil(null)
                                 .webhookFailoverUrl("https://backup.example.com/hooks")
                                 .webhookUrl("https://www.example.com/hooks")
@@ -10785,35 +10767,29 @@ internal class UnwrapWebhookEventTest {
                             .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
-                                InboundMessageWebhookEvent.Data.Payload.builder()
+                                MessagingInboundMessagePayload.builder()
                                     .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                     .addCc(
-                                        InboundMessageWebhookEvent.Data.Payload.Cc.builder()
+                                        MessagingInboundMessagePayload.Cc.builder()
                                             .carrier("carrier")
                                             .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.Cc.LineType
-                                                    .WIRELINE
+                                                MessagingInboundMessagePayload.Cc.LineType.WIRELINE
                                             )
                                             .phoneNumber("phone_number")
-                                            .status(
-                                                InboundMessageWebhookEvent.Data.Payload.Cc.Status
-                                                    .QUEUED
-                                            )
+                                            .status(MessagingInboundMessagePayload.Cc.Status.QUEUED)
                                             .build()
                                     )
                                     .completedAt(null)
                                     .cost(
-                                        InboundMessageWebhookEvent.Data.Payload.Cost.builder()
+                                        MessagingInboundMessagePayload.Cost.builder()
                                             .amount("0.0051")
                                             .currency("USD")
                                             .build()
                                     )
                                     .costBreakdown(
-                                        InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                            .builder()
+                                        MessagingInboundMessagePayload.CostBreakdown.builder()
                                             .carrierFee(
-                                                InboundMessageWebhookEvent.Data.Payload
-                                                    .CostBreakdown
+                                                MessagingInboundMessagePayload.CostBreakdown
                                                     .CarrierFee
                                                     .builder()
                                                     .amount("0.00305")
@@ -10821,9 +10797,7 @@ internal class UnwrapWebhookEventTest {
                                                     .build()
                                             )
                                             .rate(
-                                                InboundMessageWebhookEvent.Data.Payload
-                                                    .CostBreakdown
-                                                    .Rate
+                                                MessagingInboundMessagePayload.CostBreakdown.Rate
                                                     .builder()
                                                     .amount("0.00205")
                                                     .currency("USD")
@@ -10831,9 +10805,7 @@ internal class UnwrapWebhookEventTest {
                                             )
                                             .build()
                                     )
-                                    .direction(
-                                        InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
-                                    )
+                                    .direction(MessagingInboundMessagePayload.Direction.INBOUND)
                                     .encoding("GSM-7")
                                     .addError(
                                         MessagingError0b38e7044b.builder()
@@ -10850,22 +10822,20 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .from(
-                                        InboundMessageWebhookEvent.Data.Payload.From.builder()
+                                        MessagingInboundMessagePayload.From.builder()
                                             .carrier("T-MOBILE USA, INC.")
                                             .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.From
-                                                    .LineType
+                                                MessagingInboundMessagePayload.From.LineType
                                                     .WIRELESS
                                             )
                                             .phoneNumber("+18665550001")
                                             .status(
-                                                InboundMessageWebhookEvent.Data.Payload.From.Status
-                                                    .RECEIVED
+                                                MessagingInboundMessagePayload.From.Status.RECEIVED
                                             )
                                             .build()
                                     )
                                     .addMedia(
-                                        InboundMessageWebhookEvent.Data.Payload.Media.builder()
+                                        MessagingInboundMessagePayload.Media.builder()
                                             .contentType("content_type")
                                             .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                             .size(0L)
@@ -10877,9 +10847,7 @@ internal class UnwrapWebhookEventTest {
                                     .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                    .recordType(
-                                        InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
-                                    )
+                                    .recordType(MessagingInboundMessagePayload.RecordType.MESSAGE)
                                     .sentAt(null)
                                     .subject("From Telnyx!")
                                     .addTag("Greetings")
@@ -10888,20 +10856,18 @@ internal class UnwrapWebhookEventTest {
                                     .tcrCampaignRegistered("REGISTERED")
                                     .text("Hello, World!")
                                     .addTo(
-                                        InboundMessageWebhookEvent.Data.Payload.To.builder()
+                                        MessagingInboundMessagePayload.To.builder()
                                             .carrier("TELNYX LLC")
                                             .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.To.LineType
-                                                    .VO_IP
+                                                MessagingInboundMessagePayload.To.LineType.VO_IP
                                             )
                                             .phoneNumber("+18445550001")
                                             .status(
-                                                InboundMessageWebhookEvent.Data.Payload.To.Status
-                                                    .DELIVERED
+                                                MessagingInboundMessagePayload.To.Status.DELIVERED
                                             )
                                             .build()
                                     )
-                                    .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
+                                    .type(MessagingInboundMessagePayload.Type.SMS)
                                     .validUntil(null)
                                     .webhookFailoverUrl("https://backup.example.com/hooks")
                                     .webhookUrl("https://www.example.com/hooks")
