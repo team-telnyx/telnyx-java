@@ -21,7 +21,7 @@ class EnterprisePublic
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val billingAddress: JsonField<BillingAddress>,
+    private val billingAddress: JsonField<PhysicalAddress>,
     private val billingContact: JsonField<BillingContact>,
     private val brandedCallingEnabled: JsonField<Boolean>,
     private val corporateRegistrationNumber: JsonField<String>,
@@ -53,7 +53,7 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("billing_address")
         @ExcludeMissing
-        billingAddress: JsonField<BillingAddress> = JsonMissing.of(),
+        billingAddress: JsonField<PhysicalAddress> = JsonMissing.of(),
         @JsonProperty("billing_contact")
         @ExcludeMissing
         billingContact: JsonField<BillingContact> = JsonMissing.of(),
@@ -152,7 +152,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun billingAddress(): Optional<BillingAddress> = billingAddress.getOptional("billing_address")
+    fun billingAddress(): Optional<PhysicalAddress> = billingAddress.getOptional("billing_address")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -330,7 +330,7 @@ private constructor(
      */
     @JsonProperty("billing_address")
     @ExcludeMissing
-    fun _billingAddress(): JsonField<BillingAddress> = billingAddress
+    fun _billingAddress(): JsonField<PhysicalAddress> = billingAddress
 
     /**
      * Returns the raw JSON value of [billingContact].
@@ -564,7 +564,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
+        private var billingAddress: JsonField<PhysicalAddress> = JsonMissing.of()
         private var billingContact: JsonField<BillingContact> = JsonMissing.of()
         private var brandedCallingEnabled: JsonField<Boolean> = JsonMissing.of()
         private var corporateRegistrationNumber: JsonField<String> = JsonMissing.of()
@@ -630,17 +630,17 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun billingAddress(billingAddress: BillingAddress) =
+        fun billingAddress(billingAddress: PhysicalAddress) =
             billingAddress(JsonField.of(billingAddress))
 
         /**
          * Sets [Builder.billingAddress] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.billingAddress] with a well-typed [BillingAddress] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.billingAddress] with a well-typed [PhysicalAddress]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
+        fun billingAddress(billingAddress: JsonField<PhysicalAddress>) = apply {
             this.billingAddress = billingAddress
         }
 

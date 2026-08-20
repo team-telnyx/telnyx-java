@@ -207,7 +207,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun sendAt(): Optional<OffsetDateTime> = body.sendAt()
+    @Deprecated("Use scheduled_at instead.") fun sendAt(): Optional<OffsetDateTime> = body.sendAt()
 
     /**
      * Required unless `template_id` is supplied. When using a template, the template's subject is
@@ -394,7 +394,8 @@ private constructor(
      *
      * Unlike [sendAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated") fun _sendAt(): JsonField<OffsetDateTime> = body._sendAt()
+    @Deprecated("Use scheduled_at instead.")
+    fun _sendAt(): JsonField<OffsetDateTime> = body._sendAt()
 
     /**
      * Returns the raw JSON value of [subject].
@@ -856,7 +857,8 @@ private constructor(
         }
 
         /** Deprecated alias for `scheduled_at`. */
-        @Deprecated("deprecated") fun sendAt(sendAt: OffsetDateTime) = apply { body.sendAt(sendAt) }
+        @Deprecated("Use scheduled_at instead.")
+        fun sendAt(sendAt: OffsetDateTime) = apply { body.sendAt(sendAt) }
 
         /**
          * Sets [Builder.sendAt] to an arbitrary JSON value.
@@ -865,7 +867,7 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         fun sendAt(sendAt: JsonField<OffsetDateTime>) = apply { body.sendAt(sendAt) }
 
         /**
@@ -1421,7 +1423,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         fun sendAt(): Optional<OffsetDateTime> = sendAt.getOptional("send_at")
 
         /**
@@ -1628,7 +1630,7 @@ private constructor(
          *
          * Unlike [sendAt], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         @JsonProperty("send_at")
         @ExcludeMissing
         fun _sendAt(): JsonField<OffsetDateTime> = sendAt
@@ -2160,7 +2162,7 @@ private constructor(
             }
 
             /** Deprecated alias for `scheduled_at`. */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: OffsetDateTime) = sendAt(JsonField.of(sendAt))
 
             /**
@@ -2170,7 +2172,7 @@ private constructor(
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: JsonField<OffsetDateTime>) = apply { this.sendAt = sendAt }
 
             /**

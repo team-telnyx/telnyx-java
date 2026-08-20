@@ -400,7 +400,7 @@ private constructor(
 
             @JvmField val DOMAIN = of("domain")
 
-            @JvmField val minus_DOMAIN = of("-domain")
+            @JvmField val MINUS_DOMAIN = of("-domain")
 
             @JvmStatic fun of(value: String) = Sort(JsonField.of(value))
         }
@@ -410,7 +410,7 @@ private constructor(
             CREATED_AT,
             CREATED_AT_DESC,
             DOMAIN,
-            minus_DOMAIN,
+            MINUS_DOMAIN,
         }
 
         /**
@@ -426,7 +426,7 @@ private constructor(
             CREATED_AT,
             CREATED_AT_DESC,
             DOMAIN,
-            minus_DOMAIN,
+            MINUS_DOMAIN,
             /** An enum member indicating that [Sort] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -443,7 +443,7 @@ private constructor(
                 CREATED_AT -> Value.CREATED_AT
                 CREATED_AT_DESC -> Value.CREATED_AT_DESC
                 DOMAIN -> Value.DOMAIN
-                minus_DOMAIN -> Value.minus_DOMAIN
+                MINUS_DOMAIN -> Value.MINUS_DOMAIN
                 else -> Value._UNKNOWN
             }
 
@@ -461,7 +461,7 @@ private constructor(
                 CREATED_AT -> Known.CREATED_AT
                 CREATED_AT_DESC -> Known.CREATED_AT_DESC
                 DOMAIN -> Known.DOMAIN
-                minus_DOMAIN -> Known.minus_DOMAIN
+                MINUS_DOMAIN -> Known.MINUS_DOMAIN
                 else -> throw TelnyxInvalidDataException("Unknown Sort: $value")
             }
 

@@ -19,7 +19,7 @@ internal class EnterpriseListPageResponseTest {
                     EnterprisePublic.builder()
                         .id("4a6192a4-573d-446d-b3ce-aff9117272a6")
                         .billingAddress(
-                            BillingAddress.builder()
+                            PhysicalAddress.builder()
                                 .administrativeArea("IL")
                                 .city("Chicago")
                                 .country("US")
@@ -92,7 +92,7 @@ internal class EnterpriseListPageResponseTest {
                 EnterprisePublic.builder()
                     .id("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .billingAddress(
-                        BillingAddress.builder()
+                        PhysicalAddress.builder()
                             .administrativeArea("IL")
                             .city("Chicago")
                             .country("US")
@@ -170,7 +170,7 @@ internal class EnterpriseListPageResponseTest {
                     EnterprisePublic.builder()
                         .id("4a6192a4-573d-446d-b3ce-aff9117272a6")
                         .billingAddress(
-                            BillingAddress.builder()
+                            PhysicalAddress.builder()
                                 .administrativeArea("IL")
                                 .city("Chicago")
                                 .country("US")

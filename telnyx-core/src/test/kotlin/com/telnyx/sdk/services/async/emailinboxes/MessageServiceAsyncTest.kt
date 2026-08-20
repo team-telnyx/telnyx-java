@@ -73,7 +73,11 @@ internal class MessageServiceAsyncTest {
                     .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -86,7 +90,11 @@ internal class MessageServiceAsyncTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("string")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("subject")
                             .addTag("string")

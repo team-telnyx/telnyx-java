@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.enterprises.BillingAddress
 import com.telnyx.sdk.models.enterprises.BillingContact
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
@@ -24,7 +23,7 @@ internal class EnterpriseServiceAsyncTest {
             enterpriseServiceAsync.create(
                 EnterpriseCreateParams.builder()
                     .billingAddress(
-                        BillingAddress.builder()
+                        PhysicalAddress.builder()
                             .administrativeArea("IL")
                             .city("Chicago")
                             .country("US")
@@ -109,7 +108,7 @@ internal class EnterpriseServiceAsyncTest {
                 EnterpriseUpdateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .billingAddress(
-                        BillingAddress.builder()
+                        PhysicalAddress.builder()
                             .administrativeArea("IL")
                             .city("Chicago")
                             .country("US")

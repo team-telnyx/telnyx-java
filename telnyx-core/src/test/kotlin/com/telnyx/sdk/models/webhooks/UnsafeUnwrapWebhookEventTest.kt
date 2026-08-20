@@ -10656,7 +10656,11 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
-                                        .meta(JsonValue.from(mapOf<String, Any>()))
+                                        .meta(
+                                            MessagingError0b38e7044b.Meta.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .build()
+                                        )
                                         .source(
                                             MessagingError0b38e7044b.Source.builder()
                                                 .parameter("parameter")
@@ -10849,7 +10853,14 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             .code("code")
                                             .title("title")
                                             .detail("detail")
-                                            .meta(JsonValue.from(mapOf<String, Any>()))
+                                            .meta(
+                                                MessagingError0b38e7044b.Meta.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar"),
+                                                    )
+                                                    .build()
+                                            )
                                             .source(
                                                 MessagingError0b38e7044b.Source.builder()
                                                     .parameter("parameter")

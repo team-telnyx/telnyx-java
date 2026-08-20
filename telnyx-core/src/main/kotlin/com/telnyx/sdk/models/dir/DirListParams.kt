@@ -395,7 +395,7 @@ private constructor(
 
             @JvmField val DISPLAY_NAME = of("display_name")
 
-            @JvmField val minus_DISPLAY_NAME = of("-display_name")
+            @JvmField val MINUS_DISPLAY_NAME = of("-display_name")
 
             @JvmField val STATUS = of("status")
 
@@ -411,7 +411,7 @@ private constructor(
             UPDATED_AT,
             UPDATED_AT_DESC,
             DISPLAY_NAME,
-            minus_DISPLAY_NAME,
+            MINUS_DISPLAY_NAME,
             STATUS,
             STATUS_DESC,
         }
@@ -431,7 +431,7 @@ private constructor(
             UPDATED_AT,
             UPDATED_AT_DESC,
             DISPLAY_NAME,
-            minus_DISPLAY_NAME,
+            MINUS_DISPLAY_NAME,
             STATUS,
             STATUS_DESC,
             /** An enum member indicating that [Sort] was instantiated with an unknown value. */
@@ -452,7 +452,7 @@ private constructor(
                 UPDATED_AT -> Value.UPDATED_AT
                 UPDATED_AT_DESC -> Value.UPDATED_AT_DESC
                 DISPLAY_NAME -> Value.DISPLAY_NAME
-                minus_DISPLAY_NAME -> Value.minus_DISPLAY_NAME
+                MINUS_DISPLAY_NAME -> Value.MINUS_DISPLAY_NAME
                 STATUS -> Value.STATUS
                 STATUS_DESC -> Value.STATUS_DESC
                 else -> Value._UNKNOWN
@@ -474,7 +474,7 @@ private constructor(
                 UPDATED_AT -> Known.UPDATED_AT
                 UPDATED_AT_DESC -> Known.UPDATED_AT_DESC
                 DISPLAY_NAME -> Known.DISPLAY_NAME
-                minus_DISPLAY_NAME -> Known.minus_DISPLAY_NAME
+                MINUS_DISPLAY_NAME -> Known.MINUS_DISPLAY_NAME
                 STATUS -> Known.STATUS
                 STATUS_DESC -> Known.STATUS_DESC
                 else -> throw TelnyxInvalidDataException("Unknown Sort: $value")

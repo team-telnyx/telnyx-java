@@ -30,7 +30,11 @@ internal class DraftServiceTest {
                     .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -43,7 +47,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("important")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update")
                             .addTag("string")
@@ -93,7 +101,11 @@ internal class DraftServiceTest {
                     .draftId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -106,7 +118,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("string")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update (revised)")
                             .addTag("string")
@@ -167,7 +183,11 @@ internal class DraftServiceTest {
                     .draftId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -180,7 +200,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("string")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update (revised)")
                             .addTag("string")
