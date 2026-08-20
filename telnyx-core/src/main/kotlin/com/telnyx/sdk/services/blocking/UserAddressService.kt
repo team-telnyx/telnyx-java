@@ -34,7 +34,7 @@ interface UserAddressService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserAddressService
 
-    /** Creates a user address. */
+    /** Creates a new user address from the provided details and returns the created address. */
     fun create(params: UserAddressCreateParams): UserAddressCreateResponse =
         create(params, RequestOptions.none())
 
@@ -75,7 +75,7 @@ interface UserAddressService {
     fun retrieve(id: String, requestOptions: RequestOptions): UserAddressRetrieveResponse =
         retrieve(id, UserAddressRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of your user addresses. */
+    /** Returns a paginated list of your user addresses, with support for filtering and sorting. */
     fun list(): UserAddressListPage = list(UserAddressListParams.none())
 
     /** @see list */

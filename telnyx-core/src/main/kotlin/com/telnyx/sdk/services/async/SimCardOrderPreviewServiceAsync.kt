@@ -25,7 +25,10 @@ interface SimCardOrderPreviewServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimCardOrderPreviewServiceAsync
 
-    /** Preview SIM card order purchases. */
+    /**
+     * Previews a SIM card order purchase, returning estimated costs and details before you place
+     * the order. The preview is processed asynchronously.
+     */
     fun preview(
         params: SimCardOrderPreviewPreviewParams
     ): CompletableFuture<SimCardOrderPreviewPreviewResponse> =

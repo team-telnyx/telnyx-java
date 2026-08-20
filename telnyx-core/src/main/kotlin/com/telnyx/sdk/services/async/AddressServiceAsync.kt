@@ -56,7 +56,10 @@ interface AddressServiceAsync {
      */
     fun actions(): ActionServiceAsync
 
-    /** Creates an address. */
+    /**
+     * Creates a new address on your account from the provided details, for use with services that
+     * require a physical address such as emergency calling and regulatory compliance.
+     */
     fun create(params: AddressCreateParams): CompletableFuture<AddressCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -101,7 +104,10 @@ interface AddressServiceAsync {
     ): CompletableFuture<AddressRetrieveResponse> =
         retrieve(id, AddressRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of your addresses. */
+    /**
+     * Returns a paginated list of the addresses on your account, with support for filtering and
+     * sorting.
+     */
     fun list(): CompletableFuture<AddressListPageAsync> = list(AddressListParams.none())
 
     /** @see list */
@@ -119,7 +125,7 @@ interface AddressServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AddressListPageAsync> =
         list(AddressListParams.none(), requestOptions)
 
-    /** Deletes an existing address. */
+    /** Permanently deletes the specified address from your account. */
     fun delete(id: String): CompletableFuture<AddressDeleteResponse> =
         delete(id, AddressDeleteParams.none())
 

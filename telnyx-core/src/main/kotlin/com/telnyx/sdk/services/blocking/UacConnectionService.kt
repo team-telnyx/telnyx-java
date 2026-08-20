@@ -137,7 +137,7 @@ interface UacConnectionService {
     fun list(requestOptions: RequestOptions): UacConnectionListPage =
         list(UacConnectionListParams.none(), requestOptions)
 
-    /** Deletes an existing UAC connection. */
+    /** Permanently deletes the specified UAC connection from your account. */
     fun delete(id: String): UacConnectionDeleteResponse =
         delete(id, UacConnectionDeleteParams.none())
 

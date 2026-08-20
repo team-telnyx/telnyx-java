@@ -55,7 +55,7 @@ interface WireguardInterfaceServiceAsync {
     ): CompletableFuture<WireguardInterfaceCreateResponse> =
         create(WireguardInterfaceCreateParams.none(), requestOptions)
 
-    /** Retrieve a WireGuard Interfaces. */
+    /** Returns the details of a single WireGuard interface by its identifier. */
     fun retrieve(id: String): CompletableFuture<WireguardInterfaceRetrieveResponse> =
         retrieve(id, WireguardInterfaceRetrieveParams.none())
 
@@ -93,7 +93,10 @@ interface WireguardInterfaceServiceAsync {
     ): CompletableFuture<WireguardInterfaceRetrieveResponse> =
         retrieve(id, WireguardInterfaceRetrieveParams.none(), requestOptions)
 
-    /** List all WireGuard Interfaces. */
+    /**
+     * Returns a paginated list of the WireGuard interfaces on your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<WireguardInterfaceListPageAsync> =
         list(WireguardInterfaceListParams.none())
 
@@ -112,7 +115,7 @@ interface WireguardInterfaceServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<WireguardInterfaceListPageAsync> =
         list(WireguardInterfaceListParams.none(), requestOptions)
 
-    /** Delete a WireGuard Interface. */
+    /** Deletes the specified WireGuard interface from its network. */
     fun delete(id: String): CompletableFuture<WireguardInterfaceDeleteResponse> =
         delete(id, WireguardInterfaceDeleteParams.none())
 

@@ -66,7 +66,7 @@ interface FaxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FaxCreateResponse
 
-    /** Retrieve the details of a single fax. */
+    /** Returns the details of a single fax, including its current status. */
     fun retrieve(id: String): FaxRetrieveResponse = retrieve(id, FaxRetrieveParams.none())
 
     /** @see retrieve */

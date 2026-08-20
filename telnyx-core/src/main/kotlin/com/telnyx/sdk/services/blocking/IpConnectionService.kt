@@ -33,7 +33,7 @@ interface IpConnectionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): IpConnectionService
 
-    /** Creates an IP connection. */
+    /** Creates a new IP-based SIP connection, which authenticates traffic by source IP address. */
     fun create(): IpConnectionCreateResponse = create(IpConnectionCreateParams.none())
 
     /** @see create */
@@ -112,7 +112,10 @@ interface IpConnectionService {
     fun update(id: String, requestOptions: RequestOptions): IpConnectionUpdateResponse =
         update(id, IpConnectionUpdateParams.none(), requestOptions)
 
-    /** Returns a list of your IP connections. */
+    /**
+     * Returns a paginated list of your IP-based SIP connections, with support for filtering and
+     * sorting.
+     */
     fun list(): IpConnectionListPage = list(IpConnectionListParams.none())
 
     /** @see list */
@@ -129,7 +132,7 @@ interface IpConnectionService {
     fun list(requestOptions: RequestOptions): IpConnectionListPage =
         list(IpConnectionListParams.none(), requestOptions)
 
-    /** Deletes an existing IP connection. */
+    /** Permanently deletes the specified IP connection from your account. */
     fun delete(id: String): IpConnectionDeleteResponse = delete(id, IpConnectionDeleteParams.none())
 
     /** @see delete */

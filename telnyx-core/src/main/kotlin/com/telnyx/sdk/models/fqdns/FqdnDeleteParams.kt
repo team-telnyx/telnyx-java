@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an FQDN. */
+/** Permanently deletes the specified FQDN record from its connection. */
 class FqdnDeleteParams
 private constructor(
     private val id: String?,

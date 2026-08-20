@@ -39,12 +39,19 @@ private constructor(
     /** Filter by profile UUID */
     fun filterProfileId(): Optional<String> = Optional.ofNullable(filterProfileId)
 
+    /**
+     * Filter domains by verification status: pending, verifying, verified, failed, degraded, or
+     * suspended.
+     */
     fun filterStatus(): Optional<EmailDomainStatus> = Optional.ofNullable(filterStatus)
 
+    /** Filter domains by type: custom, shared, or shared_inbound. */
     fun filterType(): Optional<EmailDomainType> = Optional.ofNullable(filterType)
 
+    /** Filter domains by whether they can currently receive inbound email. */
     fun filterUsableForInbound(): Optional<Boolean> = Optional.ofNullable(filterUsableForInbound)
 
+    /** Filter domains by whether they can currently be used to send email. */
     fun filterUsableForSending(): Optional<Boolean> = Optional.ofNullable(filterUsableForSending)
 
     /** Cursor for records after the provided value (cursor pagination) */
@@ -128,6 +135,10 @@ private constructor(
         fun filterProfileId(filterProfileId: Optional<String>) =
             filterProfileId(filterProfileId.getOrNull())
 
+        /**
+         * Filter domains by verification status: pending, verifying, verified, failed, degraded, or
+         * suspended.
+         */
         fun filterStatus(filterStatus: EmailDomainStatus?) = apply {
             this.filterStatus = filterStatus
         }
@@ -136,11 +147,13 @@ private constructor(
         fun filterStatus(filterStatus: Optional<EmailDomainStatus>) =
             filterStatus(filterStatus.getOrNull())
 
+        /** Filter domains by type: custom, shared, or shared_inbound. */
         fun filterType(filterType: EmailDomainType?) = apply { this.filterType = filterType }
 
         /** Alias for calling [Builder.filterType] with `filterType.orElse(null)`. */
         fun filterType(filterType: Optional<EmailDomainType>) = filterType(filterType.getOrNull())
 
+        /** Filter domains by whether they can currently receive inbound email. */
         fun filterUsableForInbound(filterUsableForInbound: Boolean?) = apply {
             this.filterUsableForInbound = filterUsableForInbound
         }
@@ -160,6 +173,7 @@ private constructor(
         fun filterUsableForInbound(filterUsableForInbound: Optional<Boolean>) =
             filterUsableForInbound(filterUsableForInbound.getOrNull())
 
+        /** Filter domains by whether they can currently be used to send email. */
         fun filterUsableForSending(filterUsableForSending: Boolean?) = apply {
             this.filterUsableForSending = filterUsableForSending
         }

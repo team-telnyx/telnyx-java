@@ -32,7 +32,10 @@ interface AuthenticationProviderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AuthenticationProviderService
 
-    /** Creates an authentication provider. */
+    /**
+     * Creates a new authentication provider for single sign-on, configured from the provided
+     * identity provider details, and returns the created resource.
+     */
     fun create(params: AuthenticationProviderCreateParams): AuthenticationProviderCreateResponse =
         create(params, RequestOptions.none())
 

@@ -56,7 +56,7 @@ interface InvoiceService {
     fun retrieve(id: String, requestOptions: RequestOptions): InvoiceRetrieveResponse =
         retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
 
-    /** Retrieve a paginated list of invoices. */
+    /** Returns a paginated list of your invoices, with support for sorting. */
     fun list(): InvoiceListPage = list(InvoiceListParams.none())
 
     /** @see list */

@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Dials a new conference participant */
+/**
+ * Dials a new participant into the specified conference and returns the created participant
+ * resource.
+ */
 class ParticipantParticipantsParams
 private constructor(
     private val accountSid: String,

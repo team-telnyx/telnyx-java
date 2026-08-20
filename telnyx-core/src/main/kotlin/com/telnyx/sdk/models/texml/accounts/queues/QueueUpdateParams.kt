@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a queue resource. */
+/** Updates the specified queue resource's settings and returns the updated queue. */
 class QueueUpdateParams
 private constructor(
     private val accountSid: String,

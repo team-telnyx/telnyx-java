@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new phone number extension. */
+/**
+ * Creates a phone number extension on the porting order, mapping extension ranges to one of the
+ * order's phone numbers.
+ */
 class PhoneNumberExtensionCreateParams
 private constructor(
     private val portingOrderId: String?,

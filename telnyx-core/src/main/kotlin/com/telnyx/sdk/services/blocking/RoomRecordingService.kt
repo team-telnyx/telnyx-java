@@ -90,7 +90,10 @@ interface RoomRecordingService {
     fun list(requestOptions: RequestOptions): RoomRecordingListPage =
         list(RoomRecordingListParams.none(), requestOptions)
 
-    /** Synchronously delete a Room Recording. */
+    /**
+     * Synchronously deletes the specified video room recording. The recording's media is removed
+     * permanently.
+     */
     fun delete(roomRecordingId: String) = delete(roomRecordingId, RoomRecordingDeleteParams.none())
 
     /** @see delete */

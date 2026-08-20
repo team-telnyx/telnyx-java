@@ -101,7 +101,7 @@ interface SiprecConnectorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SiprecConnectorResponse>
 
-    /** Deletes a stored SIPREC connector. */
+    /** Deletes the stored SIPREC connector with the specified connector name. */
     fun delete(connectorName: String): CompletableFuture<Void?> =
         delete(connectorName, SiprecConnectorDeleteParams.none())
 

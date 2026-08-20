@@ -32,7 +32,7 @@ interface SubNumberOrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SubNumberOrderService
 
-    /** Get an existing sub number order. */
+    /** Returns the details of an existing sub number order, with support for filtering. */
     fun retrieve(subNumberOrderId: String): SubNumberOrderRetrieveResponse =
         retrieve(subNumberOrderId, SubNumberOrderRetrieveParams.none())
 
@@ -67,7 +67,7 @@ interface SubNumberOrderService {
     ): SubNumberOrderRetrieveResponse =
         retrieve(subNumberOrderId, SubNumberOrderRetrieveParams.none(), requestOptions)
 
-    /** Updates a sub number order. */
+    /** Updates the requirements of an existing sub number order and returns the updated order. */
     fun update(subNumberOrderId: String): SubNumberOrderUpdateResponse =
         update(subNumberOrderId, SubNumberOrderUpdateParams.none())
 

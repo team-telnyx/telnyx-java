@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a specific customer service record. */
+/**
+ * Returns the details of a single customer service record (CSR) request, including its status and
+ * any retrieved record data.
+ */
 class CustomerServiceRecordRetrieveParams
 private constructor(
     private val customerServiceRecordId: String?,

@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a LOA configuration. */
+/**
+ * Creates a new LOA configuration with your company details and branding for use when generating
+ * LOA documents for porting orders.
+ */
 class LoaConfigurationCreateParams
 private constructor(
     private val body: Body,

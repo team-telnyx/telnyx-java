@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Network. */
+/** Permanently deletes the specified network from your account. */
 class NetworkDeleteParams
 private constructor(
     private val id: String?,

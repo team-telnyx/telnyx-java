@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Gets conference participant resource */
+/** Returns a single conference participant resource by call SID or participant label. */
 class ParticipantRetrieveParams
 private constructor(
     private val accountSid: String,

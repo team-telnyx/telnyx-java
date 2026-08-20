@@ -27,7 +27,10 @@ interface CountryCoverageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CountryCoverageService
 
-    /** Get country coverage */
+    /**
+     * Returns Telnyx service coverage information for every country, including which number types
+     * and features are available in each.
+     */
     fun retrieve(): CountryCoverageRetrieveResponse = retrieve(CountryCoverageRetrieveParams.none())
 
     /** @see retrieve */
@@ -45,7 +48,10 @@ interface CountryCoverageService {
     fun retrieve(requestOptions: RequestOptions): CountryCoverageRetrieveResponse =
         retrieve(CountryCoverageRetrieveParams.none(), requestOptions)
 
-    /** Get coverage for a specific country */
+    /**
+     * Returns Telnyx service coverage information for the specified country, including available
+     * number types and features.
+     */
     fun retrieveCountry(countryCode: String): CountryCoverageRetrieveCountryResponse =
         retrieveCountry(countryCode, CountryCoverageRetrieveCountryParams.none())
 

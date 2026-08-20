@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Synchronously delete a Room Recording. */
+/**
+ * Synchronously deletes the specified video room recording. The recording's media is removed
+ * permanently.
+ */
 class RoomRecordingDeleteParams
 private constructor(
     private val roomRecordingId: String?,

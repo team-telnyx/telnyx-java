@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Test a webhook tool for an assistant */
+/**
+ * Executes a test invocation of the specified webhook tool for the assistant and returns the
+ * outcome, so you can verify the webhook's behavior before relying on it in conversations.
+ */
 class ToolTestParams
 private constructor(
     private val assistantId: String,

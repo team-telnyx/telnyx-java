@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get user setup integrations */
+/** Returns the details of a single integration connection by its ID. */
 class ConnectionRetrieveParams
 private constructor(
     private val userConnectionId: String?,

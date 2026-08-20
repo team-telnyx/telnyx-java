@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new MCP server. */
+/** Creates a new MCP server configuration on your account and returns the created server. */
 class McpServerCreateParams
 private constructor(
     private val body: Body,

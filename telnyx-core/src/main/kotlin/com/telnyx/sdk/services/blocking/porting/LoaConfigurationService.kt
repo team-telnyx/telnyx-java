@@ -36,7 +36,10 @@ interface LoaConfigurationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LoaConfigurationService
 
-    /** Create a LOA configuration. */
+    /**
+     * Creates a new LOA configuration with your company details and branding for use when
+     * generating LOA documents for porting orders.
+     */
     fun create(params: LoaConfigurationCreateParams): LoaConfigurationCreateResponse =
         create(params, RequestOptions.none())
 
@@ -46,7 +49,10 @@ interface LoaConfigurationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LoaConfigurationCreateResponse
 
-    /** Retrieve a specific LOA configuration. */
+    /**
+     * Returns the details of a single LOA (Letter of Authorization) configuration by its
+     * identifier.
+     */
     fun retrieve(id: String): LoaConfigurationRetrieveResponse =
         retrieve(id, LoaConfigurationRetrieveParams.none())
 
@@ -78,7 +84,10 @@ interface LoaConfigurationService {
     fun retrieve(id: String, requestOptions: RequestOptions): LoaConfigurationRetrieveResponse =
         retrieve(id, LoaConfigurationRetrieveParams.none(), requestOptions)
 
-    /** Update a specific LOA configuration. */
+    /**
+     * Updates the specified LOA configuration with the provided fields and returns the updated
+     * configuration.
+     */
     fun update(id: String, params: LoaConfigurationUpdateParams): LoaConfigurationUpdateResponse =
         update(id, params, RequestOptions.none())
 
@@ -99,7 +108,10 @@ interface LoaConfigurationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LoaConfigurationUpdateResponse
 
-    /** List the LOA configurations. */
+    /**
+     * Returns a paginated list of your LOA (Letter of Authorization) configurations. LOA
+     * configurations customize the company details and branding used on generated LOA documents.
+     */
     fun list(): LoaConfigurationListPage = list(LoaConfigurationListParams.none())
 
     /** @see list */
@@ -117,7 +129,10 @@ interface LoaConfigurationService {
     fun list(requestOptions: RequestOptions): LoaConfigurationListPage =
         list(LoaConfigurationListParams.none(), requestOptions)
 
-    /** Delete a specific LOA configuration. */
+    /**
+     * Permanently deletes the specified LOA configuration so it can no longer be used when
+     * generating LOA documents.
+     */
     fun delete(id: String) = delete(id, LoaConfigurationDeleteParams.none())
 
     /** @see delete */
@@ -174,7 +189,10 @@ interface LoaConfigurationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** Preview a specific LOA configuration. */
+    /**
+     * Renders a preview of the LOA document produced by this configuration so you can verify
+     * company details and branding before using it on porting orders.
+     */
     @MustBeClosed
     fun preview1(id: String): HttpResponse = preview1(id, LoaConfigurationPreview1Params.none())
 

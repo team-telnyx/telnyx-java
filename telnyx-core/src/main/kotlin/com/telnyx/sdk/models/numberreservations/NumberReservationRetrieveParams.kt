@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Gets a single phone number reservation. */
+/**
+ * Returns the details of a single phone number reservation, including its status and the reserved
+ * numbers.
+ */
 class NumberReservationRetrieveParams
 private constructor(
     private val numberReservationId: String?,

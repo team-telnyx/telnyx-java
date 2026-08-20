@@ -78,7 +78,10 @@ interface KnowledgeBaseServiceAsync {
             requestOptions,
         )
 
-    /** Delete a knowledge base from a mission */
+    /**
+     * Detaches the specified knowledge base from the mission so its content is no longer available
+     * to agents in subsequent runs.
+     */
     fun deleteKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseDeleteKnowledgeBaseParams,
@@ -107,7 +110,7 @@ interface KnowledgeBaseServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Get a specific knowledge base by ID */
+    /** Returns the details of a single knowledge base attached to the specified mission. */
     fun getKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseGetKnowledgeBaseParams,
@@ -137,7 +140,10 @@ interface KnowledgeBaseServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<KnowledgeBaseGetKnowledgeBaseResponse>
 
-    /** List all knowledge bases for a mission */
+    /**
+     * Returns the knowledge bases attached to the specified mission. Knowledge bases provide
+     * reference content agents can draw on during runs.
+     */
     fun listKnowledgeBases(
         missionId: String
     ): CompletableFuture<KnowledgeBaseListKnowledgeBasesResponse> =
@@ -178,7 +184,7 @@ interface KnowledgeBaseServiceAsync {
     ): CompletableFuture<KnowledgeBaseListKnowledgeBasesResponse> =
         listKnowledgeBases(missionId, KnowledgeBaseListKnowledgeBasesParams.none(), requestOptions)
 
-    /** Update a knowledge base definition */
+    /** Replaces the definition of the specified knowledge base on this mission. */
     fun updateKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseUpdateKnowledgeBaseParams,

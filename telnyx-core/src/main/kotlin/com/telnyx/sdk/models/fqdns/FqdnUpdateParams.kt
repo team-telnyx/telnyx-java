@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the details of a specific FQDN. */
+/** Updates the details of the specified FQDN record and returns the updated FQDN. */
 class FqdnUpdateParams
 private constructor(
     private val id: String?,

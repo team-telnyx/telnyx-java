@@ -94,7 +94,10 @@ interface DialogflowConnectionServiceAsync {
     ): CompletableFuture<DialogflowConnectionResponse> =
         retrieve(connectionId, DialogflowConnectionRetrieveParams.none(), requestOptions)
 
-    /** Updates a stored Dialogflow Connection. */
+    /**
+     * Updates the stored Dialogflow connection for the specified connection and returns the updated
+     * configuration.
+     */
     fun update(
         connectionId: String,
         params: DialogflowConnectionUpdateParams,
@@ -120,7 +123,7 @@ interface DialogflowConnectionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DialogflowConnectionResponse>
 
-    /** Deletes a stored Dialogflow Connection. */
+    /** Deletes the stored Dialogflow connection for the specified connection. */
     fun delete(connectionId: String): CompletableFuture<Void?> =
         delete(connectionId, DialogflowConnectionDeleteParams.none())
 

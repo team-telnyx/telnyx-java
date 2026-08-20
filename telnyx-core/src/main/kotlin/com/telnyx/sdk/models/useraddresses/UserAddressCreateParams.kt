@@ -18,7 +18,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Creates a user address. */
+/** Creates a new user address from the provided details and returns the created address. */
 class UserAddressCreateParams
 private constructor(
     private val body: Body,

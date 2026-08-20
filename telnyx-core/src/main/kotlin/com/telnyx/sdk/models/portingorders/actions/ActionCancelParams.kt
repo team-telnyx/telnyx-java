@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Cancel a porting order */
+/** Requests cancellation of the porting order and returns the updated order. */
 class ActionCancelParams
 private constructor(
     private val id: String?,

@@ -68,7 +68,7 @@ interface VirtualCrossConnectService {
         virtualCrossConnectCreate: VirtualCrossConnectCreate
     ): VirtualCrossConnectCreateResponse = create(virtualCrossConnectCreate, RequestOptions.none())
 
-    /** Retrieve a Virtual Cross Connect. */
+    /** Returns the details of a single virtual cross connect by its identifier. */
     fun retrieve(id: String): VirtualCrossConnectRetrieveResponse =
         retrieve(id, VirtualCrossConnectRetrieveParams.none())
 
@@ -130,7 +130,10 @@ interface VirtualCrossConnectService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualCrossConnectUpdateResponse
 
-    /** List all Virtual Cross Connects. */
+    /**
+     * Returns a paginated list of the virtual cross connects on your account, with support for
+     * filtering.
+     */
     fun list(): VirtualCrossConnectListPage = list(VirtualCrossConnectListParams.none())
 
     /** @see list */
@@ -148,7 +151,7 @@ interface VirtualCrossConnectService {
     fun list(requestOptions: RequestOptions): VirtualCrossConnectListPage =
         list(VirtualCrossConnectListParams.none(), requestOptions)
 
-    /** Delete a Virtual Cross Connect. */
+    /** Deletes the specified virtual cross connect from your account. */
     fun delete(id: String): VirtualCrossConnectDeleteResponse =
         delete(id, VirtualCrossConnectDeleteParams.none())
 

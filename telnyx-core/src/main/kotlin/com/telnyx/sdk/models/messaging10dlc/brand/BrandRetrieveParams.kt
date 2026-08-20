@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a brand by `brandId`. */
+/**
+ * Returns the details of a 10DLC brand by its brandId, including the count of campaigns associated
+ * with the brand.
+ */
 class BrandRetrieveParams
 private constructor(
     private val brandId: String?,

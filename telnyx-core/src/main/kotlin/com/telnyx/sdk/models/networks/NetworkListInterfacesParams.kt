@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Interfaces for a Network. */
+/**
+ * Returns a paginated list of the interfaces attached to the specified network, with support for
+ * filtering.
+ */
 class NetworkListInterfacesParams
 private constructor(
     private val id: String?,

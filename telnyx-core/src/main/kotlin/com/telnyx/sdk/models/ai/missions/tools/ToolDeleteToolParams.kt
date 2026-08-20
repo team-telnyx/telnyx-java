@@ -11,7 +11,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a tool from a mission */
+/**
+ * Removes the specified tool from the mission so agents can no longer invoke it in subsequent runs.
+ */
 class ToolDeleteToolParams
 private constructor(
     private val missionId: String,

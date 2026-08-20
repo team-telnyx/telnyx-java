@@ -34,7 +34,10 @@ interface ReportServiceAsync {
     /** Messaging usage reports */
     fun mdrUsageReports(): MdrUsageReportServiceAsync
 
-    /** Fetch all Mdr records */
+    /**
+     * Returns message detail records (MDRs) matching the provided criteria, such as date range,
+     * direction, status, and message type.
+     */
     fun listMdrs(): CompletableFuture<ReportListMdrsResponse> =
         listMdrs(ReportListMdrsParams.none())
 
@@ -53,7 +56,10 @@ interface ReportServiceAsync {
     fun listMdrs(requestOptions: RequestOptions): CompletableFuture<ReportListMdrsResponse> =
         listMdrs(ReportListMdrsParams.none(), requestOptions)
 
-    /** Fetch all Wdr records */
+    /**
+     * Returns wireless detail records (WDRs) matching the provided criteria, such as date range,
+     * SIM card, IMSI, or phone number, with pagination and sorting.
+     */
     fun listWdrs(): CompletableFuture<ReportListWdrsPageAsync> =
         listWdrs(ReportListWdrsParams.none())
 

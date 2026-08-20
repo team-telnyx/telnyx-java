@@ -26,7 +26,10 @@ interface BillingBundleServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BillingBundleServiceAsync
 
-    /** Get a single bundle by ID. */
+    /**
+     * Returns the details of a single billing bundle by its ID, so you can inspect its contents
+     * before purchasing a user bundle.
+     */
     fun retrieve(bundleId: String): CompletableFuture<BillingBundleRetrieveResponse> =
         retrieve(bundleId, BillingBundleRetrieveParams.none())
 
@@ -63,7 +66,10 @@ interface BillingBundleServiceAsync {
     ): CompletableFuture<BillingBundleRetrieveResponse> =
         retrieve(bundleId, BillingBundleRetrieveParams.none(), requestOptions)
 
-    /** Get all allowed bundles. */
+    /**
+     * Returns a paginated list of the billing bundles available to your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<BillingBundleListPageAsync> = list(BillingBundleListParams.none())
 
     /** @see list */

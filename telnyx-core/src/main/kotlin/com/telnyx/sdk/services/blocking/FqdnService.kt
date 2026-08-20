@@ -33,7 +33,7 @@ interface FqdnService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FqdnService
 
-    /** Create a new FQDN object. */
+    /** Creates a new FQDN record and attaches it to the specified connection. */
     fun create(params: FqdnCreateParams): FqdnCreateResponse = create(params, RequestOptions.none())
 
     /** @see create */
@@ -72,7 +72,7 @@ interface FqdnService {
     fun retrieve(id: String, requestOptions: RequestOptions): FqdnRetrieveResponse =
         retrieve(id, FqdnRetrieveParams.none(), requestOptions)
 
-    /** Update the details of a specific FQDN. */
+    /** Updates the details of the specified FQDN record and returns the updated FQDN. */
     fun update(id: String): FqdnUpdateResponse = update(id, FqdnUpdateParams.none())
 
     /** @see update */
@@ -116,7 +116,7 @@ interface FqdnService {
     fun list(requestOptions: RequestOptions): FqdnListPage =
         list(FqdnListParams.none(), requestOptions)
 
-    /** Delete an FQDN. */
+    /** Permanently deletes the specified FQDN record from its connection. */
     fun delete(id: String): FqdnDeleteResponse = delete(id, FqdnDeleteParams.none())
 
     /** @see delete */

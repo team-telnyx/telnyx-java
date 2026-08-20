@@ -13,7 +13,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of your addresses. */
+/**
+ * Returns a paginated list of the addresses on your account, with support for filtering and
+ * sorting.
+ */
 class AddressListParams
 private constructor(
     private val filter: Filter?,

@@ -26,7 +26,10 @@ interface BillingBundleService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BillingBundleService
 
-    /** Get a single bundle by ID. */
+    /**
+     * Returns the details of a single billing bundle by its ID, so you can inspect its contents
+     * before purchasing a user bundle.
+     */
     fun retrieve(bundleId: String): BillingBundleRetrieveResponse =
         retrieve(bundleId, BillingBundleRetrieveParams.none())
 
@@ -58,7 +61,10 @@ interface BillingBundleService {
     fun retrieve(bundleId: String, requestOptions: RequestOptions): BillingBundleRetrieveResponse =
         retrieve(bundleId, BillingBundleRetrieveParams.none(), requestOptions)
 
-    /** Get all allowed bundles. */
+    /**
+     * Returns a paginated list of the billing bundles available to your account, with support for
+     * filtering.
+     */
     fun list(): BillingBundleListPage = list(BillingBundleListParams.none())
 
     /** @see list */

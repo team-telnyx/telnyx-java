@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a document. */
+/** Updates the specified document's attributes and returns the updated document. */
 class DocumentUpdateParams
 private constructor(
     private val documentId: String?,

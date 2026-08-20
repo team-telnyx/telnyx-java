@@ -72,7 +72,7 @@ interface SimCardService {
     fun retrieve(id: String, requestOptions: RequestOptions): SimCardRetrieveResponse =
         retrieve(id, SimCardRetrieveParams.none(), requestOptions)
 
-    /** Updates SIM card data */
+    /** Updates the specified SIM card's attributes and returns the updated SIM card. */
     fun update(simCardId: String, params: SimCardUpdateParams): SimCardUpdateResponse =
         update(simCardId, params, RequestOptions.none())
 

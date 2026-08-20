@@ -40,7 +40,10 @@ interface RoomService {
 
     fun sessions(): SessionService
 
-    /** Synchronously create a Room. */
+    /**
+     * Synchronously creates a new video room with the provided configuration and returns the
+     * created room.
+     */
     fun create(): RoomCreateResponse = create(RoomCreateParams.none())
 
     /** @see create */
@@ -91,7 +94,9 @@ interface RoomService {
     fun retrieve(roomId: String, requestOptions: RequestOptions): RoomRetrieveResponse =
         retrieve(roomId, RoomRetrieveParams.none(), requestOptions)
 
-    /** Synchronously update a Room. */
+    /**
+     * Synchronously updates the specified video room's configuration and returns the updated room.
+     */
     fun update(roomId: String): RoomUpdateResponse = update(roomId, RoomUpdateParams.none())
 
     /** @see update */

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes an existing IP connection. */
+/** Permanently deletes the specified IP connection from your account. */
 class IpConnectionDeleteParams
 private constructor(
     private val id: String?,

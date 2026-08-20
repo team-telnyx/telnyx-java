@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a specific MCP server by ID */
+/** Returns the configuration of a single MCP server attached to the specified mission. */
 class McpServerGetMcpServerParams
 private constructor(
     private val missionId: String,

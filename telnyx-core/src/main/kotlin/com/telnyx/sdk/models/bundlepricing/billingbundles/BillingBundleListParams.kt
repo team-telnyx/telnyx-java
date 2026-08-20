@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get all allowed bundles. */
+/**
+ * Returns a paginated list of the billing bundles available to your account, with support for
+ * filtering.
+ */
 class BillingBundleListParams
 private constructor(
     private val filter: Filter?,

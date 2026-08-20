@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get an existing phone number order. */
+/**
+ * Returns the details of an existing phone number order, including its status and the numbers
+ * included.
+ */
 class NumberOrderRetrieveParams
 private constructor(
     private val numberOrderId: String?,

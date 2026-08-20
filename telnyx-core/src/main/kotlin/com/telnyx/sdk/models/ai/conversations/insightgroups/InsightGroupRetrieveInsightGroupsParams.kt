@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get all insight groups */
+/**
+ * Returns a paginated list of your insight template groups. Groups organize related insight
+ * templates that are applied together when analyzing conversations.
+ */
 class InsightGroupRetrieveInsightGroupsParams
 private constructor(
     private val pageNumber: Long?,

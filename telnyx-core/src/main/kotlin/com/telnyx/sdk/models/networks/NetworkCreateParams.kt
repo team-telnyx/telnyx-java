@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create a new Network. */
+/**
+ * Creates a new private network, the container that links your WireGuard interfaces, gateways, and
+ * cross connects.
+ */
 class NetworkCreateParams
 private constructor(
     private val networkCreate: NetworkCreate,

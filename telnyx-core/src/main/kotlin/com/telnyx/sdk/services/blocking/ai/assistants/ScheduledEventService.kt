@@ -52,7 +52,7 @@ interface ScheduledEventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScheduledEventResponse
 
-    /** Retrieve a scheduled event by event ID */
+    /** Returns the details of a single scheduled event configured for the specified assistant. */
     fun retrieve(eventId: String, params: ScheduledEventRetrieveParams): ScheduledEventResponse =
         retrieve(eventId, params, RequestOptions.none())
 

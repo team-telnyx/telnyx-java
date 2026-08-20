@@ -27,7 +27,10 @@ interface RequirementServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequirementServiceAsync
 
-    /** Retrieve a document requirement record */
+    /**
+     * Returns a single document requirement record by its identifier, describing the documentation
+     * needed for number-related actions. A specific requirement version can be requested.
+     */
     fun retrieve(id: String): CompletableFuture<RequirementRetrieveResponse> =
         retrieve(id, RequirementRetrieveParams.none())
 

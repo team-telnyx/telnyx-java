@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes the Wireless Blocklist. */
+/** Permanently deletes the specified wireless blocklist from your account. */
 class WirelessBlocklistDeleteParams
 private constructor(
     private val id: String?,

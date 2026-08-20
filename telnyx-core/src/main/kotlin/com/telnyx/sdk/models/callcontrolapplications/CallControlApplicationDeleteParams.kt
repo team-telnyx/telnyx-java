@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a call control application. */
+/** Permanently deletes the specified call control application and its webhook configuration. */
 class CallControlApplicationDeleteParams
 private constructor(
     private val id: String?,

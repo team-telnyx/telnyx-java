@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all user tags. */
+/**
+ * Returns the user tags defined on your account, with support for filtering. Tags help organize
+ * resources such as phone numbers.
+ */
 class UserTagListParams
 private constructor(
     private val filter: Filter?,

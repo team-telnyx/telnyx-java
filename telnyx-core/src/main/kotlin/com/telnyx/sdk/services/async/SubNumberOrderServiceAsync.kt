@@ -32,7 +32,7 @@ interface SubNumberOrderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SubNumberOrderServiceAsync
 
-    /** Get an existing sub number order. */
+    /** Returns the details of an existing sub number order, with support for filtering. */
     fun retrieve(subNumberOrderId: String): CompletableFuture<SubNumberOrderRetrieveResponse> =
         retrieve(subNumberOrderId, SubNumberOrderRetrieveParams.none())
 
@@ -69,7 +69,7 @@ interface SubNumberOrderServiceAsync {
     ): CompletableFuture<SubNumberOrderRetrieveResponse> =
         retrieve(subNumberOrderId, SubNumberOrderRetrieveParams.none(), requestOptions)
 
-    /** Updates a sub number order. */
+    /** Updates the requirements of an existing sub number order and returns the updated order. */
     fun update(subNumberOrderId: String): CompletableFuture<SubNumberOrderUpdateResponse> =
         update(subNumberOrderId, SubNumberOrderUpdateParams.none())
 

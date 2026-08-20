@@ -34,7 +34,7 @@ interface UserAddressServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserAddressServiceAsync
 
-    /** Creates a user address. */
+    /** Creates a new user address from the provided details and returns the created address. */
     fun create(params: UserAddressCreateParams): CompletableFuture<UserAddressCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -80,7 +80,7 @@ interface UserAddressServiceAsync {
     ): CompletableFuture<UserAddressRetrieveResponse> =
         retrieve(id, UserAddressRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of your user addresses. */
+    /** Returns a paginated list of your user addresses, with support for filtering and sorting. */
     fun list(): CompletableFuture<UserAddressListPageAsync> = list(UserAddressListParams.none())
 
     /** @see list */

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a requirement type by id */
+/**
+ * Returns the details of a single requirement type by its identifier, describing a kind of
+ * documentation needed for regulatory purposes.
+ */
 class RequirementTypeRetrieveParams
 private constructor(
     private val id: String?,

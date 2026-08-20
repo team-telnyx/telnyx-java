@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all On-demand Credentials. */
+/**
+ * Returns a paginated list of the on-demand telephony credentials on your account, with support for
+ * filtering.
+ */
 class TelephonyCredentialListParams
 private constructor(
     private val filter: Filter?,

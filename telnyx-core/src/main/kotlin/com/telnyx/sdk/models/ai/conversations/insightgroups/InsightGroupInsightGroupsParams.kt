@@ -18,7 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a new insight group */
+/**
+ * Creates a new insight template group for organizing related insight templates, and returns the
+ * created group.
+ */
 class InsightGroupInsightGroupsParams
 private constructor(
     private val body: Body,

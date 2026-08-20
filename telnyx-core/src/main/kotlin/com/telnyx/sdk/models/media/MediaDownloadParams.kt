@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Downloads a stored media file. */
+/** Downloads the raw content of the specified stored media file. */
 class MediaDownloadParams
 private constructor(
     private val mediaName: String?,

@@ -52,7 +52,10 @@ interface DetailRecordsReportService {
     fun create(requestOptions: RequestOptions): DetailRecordsReportCreateResponse =
         create(DetailRecordsReportCreateParams.none(), requestOptions)
 
-    /** Returns one specific WDR report */
+    /**
+     * Returns a single Wireless Detail Record (WDR) report by its identifier, including its
+     * parameters and current status.
+     */
     fun retrieve(id: String): DetailRecordsReportRetrieveResponse =
         retrieve(id, DetailRecordsReportRetrieveParams.none())
 
@@ -102,7 +105,7 @@ interface DetailRecordsReportService {
     fun list(requestOptions: RequestOptions): DetailRecordsReportListResponse =
         list(DetailRecordsReportListParams.none(), requestOptions)
 
-    /** Deletes one specific WDR report. */
+    /** Permanently deletes the specified Wireless Detail Record (WDR) report. */
     fun delete(id: String): DetailRecordsReportDeleteResponse =
         delete(id, DetailRecordsReportDeleteParams.none())
 

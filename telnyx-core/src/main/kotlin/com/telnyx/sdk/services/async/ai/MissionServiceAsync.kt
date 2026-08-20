@@ -46,7 +46,10 @@ interface MissionServiceAsync {
 
     fun tools(): ToolServiceAsync
 
-    /** Create a new mission definition */
+    /**
+     * Creates a new mission definition from the provided configuration and returns the created
+     * mission. Execute the mission by starting runs against it.
+     */
     fun create(params: MissionCreateParams): CompletableFuture<MissionResponse> =
         create(params, RequestOptions.none())
 
@@ -91,7 +94,10 @@ interface MissionServiceAsync {
     ): CompletableFuture<MissionResponse> =
         retrieve(missionId, MissionRetrieveParams.none(), requestOptions)
 
-    /** List all missions for the organization */
+    /**
+     * Returns a paginated list of all mission definitions in your organization. Missions describe a
+     * goal and the tools, knowledge bases, and MCP servers agents may use to accomplish it.
+     */
     fun list(): CompletableFuture<MissionListPageAsync> = list(MissionListParams.none())
 
     /** @see list */
@@ -109,7 +115,10 @@ interface MissionServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<MissionListPageAsync> =
         list(MissionListParams.none(), requestOptions)
 
-    /** Clone an existing mission */
+    /**
+     * Creates a copy of the specified mission as a new mission definition, so you can iterate on
+     * its configuration without modifying the original.
+     */
     fun cloneMission(missionId: String): CompletableFuture<MissionCloneMissionResponse> =
         cloneMission(missionId, MissionCloneMissionParams.none())
 
@@ -146,7 +155,7 @@ interface MissionServiceAsync {
     ): CompletableFuture<MissionCloneMissionResponse> =
         cloneMission(missionId, MissionCloneMissionParams.none(), requestOptions)
 
-    /** Delete a mission */
+    /** Permanently deletes the specified mission definition and returns no content on success. */
     fun deleteMission(missionId: String): CompletableFuture<Void?> =
         deleteMission(missionId, MissionDeleteMissionParams.none())
 
@@ -178,7 +187,11 @@ interface MissionServiceAsync {
     fun deleteMission(missionId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         deleteMission(missionId, MissionDeleteMissionParams.none(), requestOptions)
 
-    /** List recent events across all missions */
+    /**
+     * Returns a paginated list of recent events across every mission in your organization,
+     * optionally filtered by event type. Useful for building activity feeds or monitoring
+     * dashboards.
+     */
     fun listEvents(): CompletableFuture<MissionListEventsPageAsync> =
         listEvents(MissionListEventsParams.none())
 
@@ -197,7 +210,10 @@ interface MissionServiceAsync {
     fun listEvents(requestOptions: RequestOptions): CompletableFuture<MissionListEventsPageAsync> =
         listEvents(MissionListEventsParams.none(), requestOptions)
 
-    /** Update a mission definition */
+    /**
+     * Replaces the specified mission's definition with the provided configuration and returns the
+     * updated mission.
+     */
     fun updateMission(missionId: String): CompletableFuture<MissionResponse> =
         updateMission(missionId, MissionUpdateMissionParams.none())
 

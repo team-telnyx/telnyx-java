@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Cancel a running or paused run */
+/**
+ * Cancels a running or paused run and returns the updated run object. A cancelled run stops
+ * executing; start a new run to execute the mission again.
+ */
 class RunCancelRunParams
 private constructor(
     private val missionId: String,

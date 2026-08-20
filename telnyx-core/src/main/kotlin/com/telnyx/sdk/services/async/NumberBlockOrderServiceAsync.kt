@@ -28,7 +28,10 @@ interface NumberBlockOrderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberBlockOrderServiceAsync
 
-    /** Creates a phone number block order. */
+    /**
+     * Creates an order for a block of consecutive phone numbers and returns the created order.
+     * Track fulfillment through the order's status.
+     */
     fun create(
         params: NumberBlockOrderCreateParams
     ): CompletableFuture<NumberBlockOrderCreateResponse> = create(params, RequestOptions.none())

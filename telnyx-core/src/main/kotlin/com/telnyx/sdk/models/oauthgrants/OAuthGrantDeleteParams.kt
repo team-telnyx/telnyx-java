@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Revoke an OAuth grant */
+/** Revokes the specified OAuth grant, withdrawing the access previously granted to the client. */
 class OAuthGrantDeleteParams
 private constructor(
     private val id: String?,

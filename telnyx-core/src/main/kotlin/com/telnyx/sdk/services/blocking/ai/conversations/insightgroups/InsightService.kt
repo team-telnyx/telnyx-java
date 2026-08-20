@@ -25,7 +25,7 @@ interface InsightService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightService
 
-    /** Assign an insight to a group */
+    /** Assigns the specified insight template to the specified insight template group. */
     fun assign(insightId: String, params: InsightAssignParams) =
         assign(insightId, params, RequestOptions.none())
 
@@ -42,7 +42,10 @@ interface InsightService {
     /** @see assign */
     fun assign(params: InsightAssignParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** Remove an insight from a group */
+    /**
+     * Removes the specified insight template from the specified group. The insight template itself
+     * is not deleted.
+     */
     fun deleteUnassign(insightId: String, params: InsightDeleteUnassignParams) =
         deleteUnassign(insightId, params, RequestOptions.none())
 

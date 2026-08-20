@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a notification setting. */
+/** Returns the details of a single notification setting by its identifier. */
 class NotificationSettingRetrieveParams
 private constructor(
     private val id: String?,

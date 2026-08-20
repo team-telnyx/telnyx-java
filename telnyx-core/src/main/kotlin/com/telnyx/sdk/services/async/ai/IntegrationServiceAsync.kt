@@ -29,7 +29,9 @@ interface IntegrationServiceAsync {
 
     fun connections(): ConnectionServiceAsync
 
-    /** Retrieve integration details */
+    /**
+     * Returns the details of a single available integration, including its configuration details.
+     */
     fun retrieve(integrationId: String): CompletableFuture<Integration> =
         retrieve(integrationId, IntegrationRetrieveParams.none())
 
@@ -64,7 +66,10 @@ interface IntegrationServiceAsync {
     ): CompletableFuture<Integration> =
         retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
-    /** List all available integrations. */
+    /**
+     * Returns the list of third-party integrations available to connect to your AI assistants and
+     * workflows.
+     */
     fun list(): CompletableFuture<IntegrationListResponse> = list(IntegrationListParams.none())
 
     /** @see list */

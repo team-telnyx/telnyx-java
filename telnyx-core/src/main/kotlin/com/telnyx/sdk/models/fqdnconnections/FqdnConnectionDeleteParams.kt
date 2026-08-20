@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes an FQDN connection. */
+/** Permanently deletes the specified FQDN connection from your account. */
 class FqdnConnectionDeleteParams
 private constructor(
     private val id: String?,

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch single MDR usage report by id. */
+/**
+ * Returns a single MDR (Message Detail Record) usage report by its identifier, including its
+ * parameters and current status.
+ */
 class MessagingRetrieveParams
 private constructor(
     private val id: String?,

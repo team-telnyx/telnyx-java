@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes an existing UAC connection. */
+/** Permanently deletes the specified UAC connection from your account. */
 class UacConnectionDeleteParams
 private constructor(
     private val id: String?,

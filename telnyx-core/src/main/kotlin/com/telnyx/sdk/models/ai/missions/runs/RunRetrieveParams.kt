@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get details of a specific run */
+/**
+ * Returns the full details of a single run, including its current status. Use this to poll an
+ * in-flight run or inspect the outcome of a completed one.
+ */
 class RunRetrieveParams
 private constructor(
     private val missionId: String,

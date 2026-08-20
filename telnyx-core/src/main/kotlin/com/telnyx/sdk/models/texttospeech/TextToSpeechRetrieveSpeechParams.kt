@@ -17,8 +17,8 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header. Send JSON
  * frames with text to synthesize; receive JSON frames containing base64-encoded audio chunks.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`, `resemble`,
- * `elevenlabs`, `xai`, `humain`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
+ * `xai`, `humain`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying provider, voice, and model.
@@ -48,9 +48,8 @@ private constructor(
 ) : Params {
 
     /**
-     * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are available for
-     * `Natural`/`NaturalHD` models. The `Ultra` model outputs PCM at 24kHz s16le or MP3 at 128kbps
-     * 24kHz.
+     * Audio output format override. Supported for Telnyx models. The `Ultra` model outputs PCM at
+     * 24kHz s16le or MP3 at 128kbps 24kHz.
      */
     fun audioFormat(): Optional<AudioFormat> = Optional.ofNullable(audioFormat)
 
@@ -58,7 +57,7 @@ private constructor(
     fun disableCache(): Optional<Boolean> = Optional.ofNullable(disableCache)
 
     /**
-     * Model identifier for the chosen provider. Examples: `Natural`, `NaturalHD`, `Ultra` (Telnyx);
+     * Model identifier for the chosen provider. Examples: `Ultra`, `KokoroTTS` (Telnyx);
      * `Polly.Generative` (AWS).
      */
     fun modelId(): Optional<String> = Optional.ofNullable(modelId)
@@ -74,10 +73,10 @@ private constructor(
 
     /**
      * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id` (e.g.
-     * `telnyx.NaturalHD.Telnyx_Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
-     * `Telnyx.Sukhan.urdu-professor`, or `azure.en-US-AvaMultilingualNeural`). When provided, the
-     * `provider`, `model_id`, and `voice_id` are extracted automatically. Takes precedence over
-     * individual `provider`/`model_id`/`voice_id` parameters.
+     * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`, or
+     * `azure.en-US-AvaMultilingualNeural`). When provided, the `provider`, `model_id`, and
+     * `voice_id` are extracted automatically. Takes precedence over individual
+     * `provider`/`model_id`/`voice_id` parameters.
      */
     fun voice(): Optional<String> = Optional.ofNullable(voice)
 
@@ -133,9 +132,8 @@ private constructor(
             }
 
         /**
-         * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are available
-         * for `Natural`/`NaturalHD` models. The `Ultra` model outputs PCM at 24kHz s16le or MP3 at
-         * 128kbps 24kHz.
+         * Audio output format override. Supported for Telnyx models. The `Ultra` model outputs PCM
+         * at 24kHz s16le or MP3 at 128kbps 24kHz.
          */
         fun audioFormat(audioFormat: AudioFormat?) = apply { this.audioFormat = audioFormat }
 
@@ -156,8 +154,8 @@ private constructor(
         fun disableCache(disableCache: Optional<Boolean>) = disableCache(disableCache.getOrNull())
 
         /**
-         * Model identifier for the chosen provider. Examples: `Natural`, `NaturalHD`, `Ultra`
-         * (Telnyx); `Polly.Generative` (AWS).
+         * Model identifier for the chosen provider. Examples: `Ultra`, `KokoroTTS` (Telnyx);
+         * `Polly.Generative` (AWS).
          */
         fun modelId(modelId: String?) = apply { this.modelId = modelId }
 
@@ -183,10 +181,10 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id` (e.g.
-         * `telnyx.NaturalHD.Telnyx_Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
-         * `Telnyx.Sukhan.urdu-professor`, or `azure.en-US-AvaMultilingualNeural`). When provided,
-         * the `provider`, `model_id`, and `voice_id` are extracted automatically. Takes precedence
-         * over individual `provider`/`model_id`/`voice_id` parameters.
+         * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`, or
+         * `azure.en-US-AvaMultilingualNeural`). When provided, the `provider`, `model_id`, and
+         * `voice_id` are extracted automatically. Takes precedence over individual
+         * `provider`/`model_id`/`voice_id` parameters.
          */
         fun voice(voice: String?) = apply { this.voice = voice }
 
@@ -334,9 +332,8 @@ private constructor(
             .build()
 
     /**
-     * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are available for
-     * `Natural`/`NaturalHD` models. The `Ultra` model outputs PCM at 24kHz s16le or MP3 at 128kbps
-     * 24kHz.
+     * Audio output format override. Supported for Telnyx models. The `Ultra` model outputs PCM at
+     * 24kHz s16le or MP3 at 128kbps 24kHz.
      */
     class AudioFormat @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -508,8 +505,6 @@ private constructor(
 
             @JvmField val MURFAI = of("murfai")
 
-            @JvmField val RIME = of("rime")
-
             @JvmField val RESEMBLE = of("resemble")
 
             @JvmField val XAI = of("xai")
@@ -527,7 +522,6 @@ private constructor(
             ELEVENLABS,
             MINIMAX,
             MURFAI,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -549,7 +543,6 @@ private constructor(
             ELEVENLABS,
             MINIMAX,
             MURFAI,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -572,7 +565,6 @@ private constructor(
                 ELEVENLABS -> Value.ELEVENLABS
                 MINIMAX -> Value.MINIMAX
                 MURFAI -> Value.MURFAI
-                RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
@@ -596,7 +588,6 @@ private constructor(
                 ELEVENLABS -> Known.ELEVENLABS
                 MINIMAX -> Known.MINIMAX
                 MURFAI -> Known.MURFAI
-                RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN

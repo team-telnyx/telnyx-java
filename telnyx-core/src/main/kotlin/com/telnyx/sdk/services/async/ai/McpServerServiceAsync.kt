@@ -30,7 +30,7 @@ interface McpServerServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerServiceAsync
 
-    /** Create a new MCP server. */
+    /** Creates a new MCP server configuration on your account and returns the created server. */
     fun create(params: McpServerCreateParams): CompletableFuture<McpServer> =
         create(params, RequestOptions.none())
 
@@ -75,7 +75,7 @@ interface McpServerServiceAsync {
     ): CompletableFuture<McpServer> =
         retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
-    /** Update an existing MCP server. */
+    /** Updates the specified MCP server's configuration and returns the updated server. */
     fun update(mcpServerId: String): CompletableFuture<McpServer> =
         update(mcpServerId, McpServerUpdateParams.none())
 
@@ -107,7 +107,10 @@ interface McpServerServiceAsync {
     fun update(mcpServerId: String, requestOptions: RequestOptions): CompletableFuture<McpServer> =
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
-    /** Retrieve a list of MCP servers. */
+    /**
+     * Returns a paginated list of the MCP servers configured on your account, with optional
+     * filtering by type or URL.
+     */
     fun list(): CompletableFuture<McpServerListPageAsync> = list(McpServerListParams.none())
 
     /** @see list */
@@ -125,7 +128,7 @@ interface McpServerServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<McpServerListPageAsync> =
         list(McpServerListParams.none(), requestOptions)
 
-    /** Delete a specific MCP server. */
+    /** Permanently deletes the specified MCP server configuration from your account. */
     fun delete(mcpServerId: String): CompletableFuture<Void?> =
         delete(mcpServerId, McpServerDeleteParams.none())
 

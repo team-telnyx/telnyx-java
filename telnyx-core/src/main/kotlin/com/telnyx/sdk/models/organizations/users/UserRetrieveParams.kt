@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a user in your organization. */
+/**
+ * Returns the details of a user in your organization, optionally including the groups the user
+ * belongs to.
+ */
 class UserRetrieveParams
 private constructor(
     private val id: String?,

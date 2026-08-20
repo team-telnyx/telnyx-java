@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new queue resource. */
+/** Creates a new queue resource for the account with the provided settings and returns it. */
 class QueueCreateParams
 private constructor(
     private val accountSid: String?,

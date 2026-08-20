@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete messaging usage report by id */
+/** Permanently deletes the specified messaging usage report by its identifier. */
 class MdrUsageReportDeleteParams
 private constructor(
     private val id: String?,

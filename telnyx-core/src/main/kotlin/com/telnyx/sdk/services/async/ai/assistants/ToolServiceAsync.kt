@@ -51,7 +51,9 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ToolAddResponse>
 
-    /** Detach a tool from an AI assistant. */
+    /**
+     * Detaches the specified tool from the AI assistant so the assistant can no longer invoke it.
+     */
     fun remove(toolId: String, params: ToolRemoveParams): CompletableFuture<ToolRemoveResponse> =
         remove(toolId, params, RequestOptions.none())
 
@@ -73,7 +75,10 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ToolRemoveResponse>
 
-    /** Test a webhook tool for an assistant */
+    /**
+     * Executes a test invocation of the specified webhook tool for the assistant and returns the
+     * outcome, so you can verify the webhook's behavior before relying on it in conversations.
+     */
     fun test(toolId: String, params: ToolTestParams): CompletableFuture<ToolTestResponse> =
         test(toolId, params, RequestOptions.none())
 

@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a list of opt-out blocks. */
+/**
+ * Returns a paginated list of opt-out blocks created when message recipients opt out. Supports
+ * filtering and optional redaction of recipient numbers.
+ */
 class MessagingOptoutListParams
 private constructor(
     private val createdAt: CreatedAt?,

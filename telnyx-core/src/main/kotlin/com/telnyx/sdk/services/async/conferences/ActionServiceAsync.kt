@@ -294,7 +294,10 @@ interface ActionServiceAsync {
     fun play(id: String, requestOptions: RequestOptions): CompletableFuture<ActionPlayResponse> =
         play(id, ActionPlayParams.none(), requestOptions)
 
-    /** Pause conference recording. */
+    /**
+     * Pauses the active recording of the specified conference. Resume it later with the
+     * record_resume action.
+     */
     fun recordPause(id: String): CompletableFuture<ActionRecordPauseResponse> =
         recordPause(id, ActionRecordPauseParams.none())
 
@@ -329,7 +332,10 @@ interface ActionServiceAsync {
     ): CompletableFuture<ActionRecordPauseResponse> =
         recordPause(id, ActionRecordPauseParams.none(), requestOptions)
 
-    /** Resume conference recording. */
+    /**
+     * Resumes a previously paused recording of the specified conference, continuing capture from
+     * the point it was paused.
+     */
     fun recordResume(id: String): CompletableFuture<ActionRecordResumeResponse> =
         recordResume(id, ActionRecordResumeParams.none())
 

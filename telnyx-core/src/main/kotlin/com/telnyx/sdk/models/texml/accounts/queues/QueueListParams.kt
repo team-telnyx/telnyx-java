@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists queue resources. */
+/**
+ * Returns a paginated list of queue resources for the account, with support for filtering by
+ * creation or update dates.
+ */
 class QueueListParams
 private constructor(
     private val accountSid: String?,

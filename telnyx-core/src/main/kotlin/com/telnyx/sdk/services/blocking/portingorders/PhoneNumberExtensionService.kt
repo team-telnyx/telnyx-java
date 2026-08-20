@@ -29,7 +29,10 @@ interface PhoneNumberExtensionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberExtensionService
 
-    /** Creates a new phone number extension. */
+    /**
+     * Creates a phone number extension on the porting order, mapping extension ranges to one of the
+     * order's phone numbers.
+     */
     fun create(
         portingOrderId: String,
         params: PhoneNumberExtensionCreateParams,
@@ -85,7 +88,7 @@ interface PhoneNumberExtensionService {
     fun list(portingOrderId: String, requestOptions: RequestOptions): PhoneNumberExtensionListPage =
         list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
-    /** Deletes a phone number extension. */
+    /** Deletes the specified phone number extension from the porting order. */
     fun delete(
         id: String,
         params: PhoneNumberExtensionDeleteParams,

@@ -61,7 +61,7 @@ interface InvoiceServiceAsync {
     ): CompletableFuture<InvoiceRetrieveResponse> =
         retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
 
-    /** Retrieve a paginated list of invoices. */
+    /** Returns a paginated list of your invoices, with support for sorting. */
     fun list(): CompletableFuture<InvoiceListPageAsync> = list(InvoiceListParams.none())
 
     /** @see list */

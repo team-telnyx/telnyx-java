@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the status of a plan step */
+/**
+ * Updates the status of a single plan step and returns the updated step. Typically called by the
+ * executing agent as it works through the plan.
+ */
 class PlanUpdateStepParams
 private constructor(
     private val missionId: String,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Download a document. */
+/** Downloads the raw file content of the specified document as originally uploaded. */
 class DocumentDownloadParams
 private constructor(
     private val id: String?,

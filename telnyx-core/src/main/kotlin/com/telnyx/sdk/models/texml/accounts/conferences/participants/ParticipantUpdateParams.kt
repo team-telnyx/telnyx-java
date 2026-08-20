@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a conference participant */
+/**
+ * Updates the specified conference participant, for example muting or holding them, and returns the
+ * updated participant.
+ */
 class ParticipantUpdateParams
 private constructor(
     private val accountSid: String,

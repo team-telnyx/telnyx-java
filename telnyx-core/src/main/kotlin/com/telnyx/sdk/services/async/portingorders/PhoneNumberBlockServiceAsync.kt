@@ -29,7 +29,10 @@ interface PhoneNumberBlockServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberBlockServiceAsync
 
-    /** Creates a new phone number block. */
+    /**
+     * Creates a phone number block on the porting order, representing a contiguous range of phone
+     * numbers to be ported together.
+     */
     fun create(
         portingOrderId: String,
         params: PhoneNumberBlockCreateParams,
@@ -91,7 +94,7 @@ interface PhoneNumberBlockServiceAsync {
     ): CompletableFuture<PhoneNumberBlockListPageAsync> =
         list(portingOrderId, PhoneNumberBlockListParams.none(), requestOptions)
 
-    /** Deletes a phone number block. */
+    /** Deletes the specified phone number block from the porting order. */
     fun delete(
         id: String,
         params: PhoneNumberBlockDeleteParams,

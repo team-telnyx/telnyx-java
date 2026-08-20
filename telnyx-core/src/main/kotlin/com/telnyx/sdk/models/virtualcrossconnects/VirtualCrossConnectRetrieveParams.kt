@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Virtual Cross Connect. */
+/** Returns the details of a single virtual cross connect by its identifier. */
 class VirtualCrossConnectRetrieveParams
 private constructor(
     private val id: String?,

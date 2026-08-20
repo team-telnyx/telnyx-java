@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new tool for a mission */
+/**
+ * Adds a new tool to the specified mission, defining an action agents can invoke during runs of
+ * this mission.
+ */
 class ToolCreateToolParams
 private constructor(
     private val missionId: String?,

@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Resume a paused run */
+/**
+ * Resumes a previously paused run and returns the updated run object, letting execution continue
+ * from where it was paused.
+ */
 class RunResumeRunParams
 private constructor(
     private val missionId: String,

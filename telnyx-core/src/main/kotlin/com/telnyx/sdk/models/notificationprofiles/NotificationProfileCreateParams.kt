@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a notification profile. */
+/**
+ * Creates a new notification profile, a named grouping used to organize notification settings, and
+ * returns it.
+ */
 class NotificationProfileCreateParams
 private constructor(
     private val notificationProfile: NotificationProfile?,

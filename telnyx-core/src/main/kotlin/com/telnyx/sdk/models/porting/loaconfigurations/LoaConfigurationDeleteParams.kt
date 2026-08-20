@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a specific LOA configuration. */
+/**
+ * Permanently deletes the specified LOA configuration so it can no longer be used when generating
+ * LOA documents.
+ */
 class LoaConfigurationDeleteParams
 private constructor(
     private val id: String?,

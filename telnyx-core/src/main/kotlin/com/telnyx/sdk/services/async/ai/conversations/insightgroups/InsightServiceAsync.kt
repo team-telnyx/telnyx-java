@@ -25,7 +25,7 @@ interface InsightServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightServiceAsync
 
-    /** Assign an insight to a group */
+    /** Assigns the specified insight template to the specified insight template group. */
     fun assign(insightId: String, params: InsightAssignParams): CompletableFuture<Void?> =
         assign(insightId, params, RequestOptions.none())
 
@@ -47,7 +47,10 @@ interface InsightServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Remove an insight from a group */
+    /**
+     * Removes the specified insight template from the specified group. The insight template itself
+     * is not deleted.
+     */
     fun deleteUnassign(
         insightId: String,
         params: InsightDeleteUnassignParams,

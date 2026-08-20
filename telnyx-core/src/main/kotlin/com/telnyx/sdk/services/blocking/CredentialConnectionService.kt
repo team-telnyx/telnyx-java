@@ -37,7 +37,10 @@ interface CredentialConnectionService {
     /** Credential connection operations */
     fun actions(): ActionService
 
-    /** Creates a credential connection. */
+    /**
+     * Creates a new credential-based SIP connection. Credential connections authenticate with a
+     * username and password rather than by IP address.
+     */
     fun create(params: CredentialConnectionCreateParams): CredentialConnectionCreateResponse =
         create(params, RequestOptions.none())
 

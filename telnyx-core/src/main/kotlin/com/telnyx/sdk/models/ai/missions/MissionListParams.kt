@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all missions for the organization */
+/**
+ * Returns a paginated list of all mission definitions in your organization. Missions describe a
+ * goal and the tools, knowledge bases, and MCP servers agents may use to accomplish it.
+ */
 class MissionListParams
 private constructor(
     private val pageNumber: Long?,

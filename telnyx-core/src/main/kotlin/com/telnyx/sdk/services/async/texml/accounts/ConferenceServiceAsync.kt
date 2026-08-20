@@ -36,7 +36,7 @@ interface ConferenceServiceAsync {
     /** TeXML REST Commands */
     fun participants(): ParticipantServiceAsync
 
-    /** Returns a conference resource. */
+    /** Returns a single conference resource for the account by its ConferenceSid. */
     fun retrieve(
         conferenceSid: String,
         params: ConferenceRetrieveParams,
@@ -61,7 +61,10 @@ interface ConferenceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ConferenceResource>
 
-    /** Updates a conference resource. */
+    /**
+     * Updates the specified conference resource, for example to modify its status, and returns the
+     * updated conference.
+     */
     fun update(
         conferenceSid: String,
         params: ConferenceUpdateParams,
@@ -85,7 +88,10 @@ interface ConferenceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ConferenceResource>
 
-    /** Lists conference resources. */
+    /**
+     * Returns a paginated list of conference resources for the account, with support for filtering
+     * by friendly name, status, and creation or update dates.
+     */
     fun retrieveConferences(
         accountSid: String
     ): CompletableFuture<ConferenceRetrieveConferencesResponse> =
@@ -125,7 +131,7 @@ interface ConferenceServiceAsync {
     ): CompletableFuture<ConferenceRetrieveConferencesResponse> =
         retrieveConferences(accountSid, ConferenceRetrieveConferencesParams.none(), requestOptions)
 
-    /** Lists conference recordings */
+    /** Returns the list of recordings made for the specified conference. */
     fun retrieveRecordings(
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsParams,

@@ -19,7 +19,7 @@ private constructor(
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[status],
      * filter[order_request_id], filter[country_code], filter[phone_number_type],
-     * filter[phone_numbers_count]
+     * filter[phone_numbers_count], filter[include_phone_numbers]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -57,7 +57,7 @@ private constructor(
         /**
          * Consolidated filter parameter (deepObject style). Originally: filter[status],
          * filter[order_request_id], filter[country_code], filter[phone_number_type],
-         * filter[phone_numbers_count]
+         * filter[phone_numbers_count], filter[include_phone_numbers]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -183,6 +183,9 @@ private constructor(
             .apply {
                 filter?.let {
                     it.countryCode().ifPresent { put("filter[country_code]", it) }
+                    it.includePhoneNumbers().ifPresent {
+                        put("filter[include_phone_numbers]", it.toString())
+                    }
                     it.orderRequestId().ifPresent { put("filter[order_request_id]", it) }
                     it.phoneNumberType().ifPresent { put("filter[phone_number_type]", it) }
                     it.phoneNumbersCount().ifPresent {
@@ -202,11 +205,12 @@ private constructor(
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[status],
      * filter[order_request_id], filter[country_code], filter[phone_number_type],
-     * filter[phone_numbers_count]
+     * filter[phone_numbers_count], filter[include_phone_numbers]
      */
     class Filter
     private constructor(
         private val countryCode: String?,
+        private val includePhoneNumbers: Boolean?,
         private val orderRequestId: String?,
         private val phoneNumberType: String?,
         private val phoneNumbersCount: Long?,
@@ -216,6 +220,12 @@ private constructor(
 
         /** ISO alpha-2 country code. */
         fun countryCode(): Optional<String> = Optional.ofNullable(countryCode)
+
+        /**
+         * Include the first 50 phone number objects in the results, including their per-number
+         * regulatory requirement statuses
+         */
+        fun includePhoneNumbers(): Optional<Boolean> = Optional.ofNullable(includePhoneNumbers)
 
         /** ID of the number order the sub number order belongs to */
         fun orderRequestId(): Optional<String> = Optional.ofNullable(orderRequestId)
@@ -244,6 +254,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var countryCode: String? = null
+            private var includePhoneNumbers: Boolean? = null
             private var orderRequestId: String? = null
             private var phoneNumberType: String? = null
             private var phoneNumbersCount: Long? = null
@@ -253,6 +264,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
                 countryCode = filter.countryCode
+                includePhoneNumbers = filter.includePhoneNumbers
                 orderRequestId = filter.orderRequestId
                 phoneNumberType = filter.phoneNumberType
                 phoneNumbersCount = filter.phoneNumbersCount
@@ -265,6 +277,29 @@ private constructor(
 
             /** Alias for calling [Builder.countryCode] with `countryCode.orElse(null)`. */
             fun countryCode(countryCode: Optional<String>) = countryCode(countryCode.getOrNull())
+
+            /**
+             * Include the first 50 phone number objects in the results, including their per-number
+             * regulatory requirement statuses
+             */
+            fun includePhoneNumbers(includePhoneNumbers: Boolean?) = apply {
+                this.includePhoneNumbers = includePhoneNumbers
+            }
+
+            /**
+             * Alias for [Builder.includePhoneNumbers].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun includePhoneNumbers(includePhoneNumbers: Boolean) =
+                includePhoneNumbers(includePhoneNumbers as Boolean?)
+
+            /**
+             * Alias for calling [Builder.includePhoneNumbers] with
+             * `includePhoneNumbers.orElse(null)`.
+             */
+            fun includePhoneNumbers(includePhoneNumbers: Optional<Boolean>) =
+                includePhoneNumbers(includePhoneNumbers.getOrNull())
 
             /** ID of the number order the sub number order belongs to */
             fun orderRequestId(orderRequestId: String?) = apply {
@@ -366,6 +401,7 @@ private constructor(
             fun build(): Filter =
                 Filter(
                     countryCode,
+                    includePhoneNumbers,
                     orderRequestId,
                     phoneNumberType,
                     phoneNumbersCount,
@@ -381,6 +417,7 @@ private constructor(
 
             return other is Filter &&
                 countryCode == other.countryCode &&
+                includePhoneNumbers == other.includePhoneNumbers &&
                 orderRequestId == other.orderRequestId &&
                 phoneNumberType == other.phoneNumberType &&
                 phoneNumbersCount == other.phoneNumbersCount &&
@@ -391,6 +428,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 countryCode,
+                includePhoneNumbers,
                 orderRequestId,
                 phoneNumberType,
                 phoneNumbersCount,
@@ -402,7 +440,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{countryCode=$countryCode, orderRequestId=$orderRequestId, phoneNumberType=$phoneNumberType, phoneNumbersCount=$phoneNumbersCount, status=$status, additionalProperties=$additionalProperties}"
+            "Filter{countryCode=$countryCode, includePhoneNumbers=$includePhoneNumbers, orderRequestId=$orderRequestId, phoneNumberType=$phoneNumberType, phoneNumbersCount=$phoneNumbersCount, status=$status, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

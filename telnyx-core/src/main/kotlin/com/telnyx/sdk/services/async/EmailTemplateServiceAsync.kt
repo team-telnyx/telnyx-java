@@ -82,7 +82,9 @@ interface EmailTemplateServiceAsync {
     ): CompletableFuture<EmailTemplateResponse> =
         retrieve(id, EmailTemplateRetrieveParams.none(), requestOptions)
 
-    /** Updates one or more template fields. */
+    /**
+     * Updates one or more fields of the specified email template and returns the updated template.
+     */
     fun update(
         id: String,
         params: EmailTemplateUpdateParams,

@@ -45,7 +45,10 @@ interface VerifyProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VerifyProfileData
 
-    /** Gets a single Verify profile. */
+    /**
+     * Returns the details of a single Verify profile by its ID, including its verification channel
+     * configuration.
+     */
     fun retrieve(verifyProfileId: String): VerifyProfileData =
         retrieve(verifyProfileId, VerifyProfileRetrieveParams.none())
 

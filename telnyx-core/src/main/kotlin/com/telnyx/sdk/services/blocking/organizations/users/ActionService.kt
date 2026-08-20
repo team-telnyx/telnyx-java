@@ -25,7 +25,7 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
-    /** Deletes a user in your organization. */
+    /** Removes the specified user from your organization and returns the result of the removal. */
     fun remove(id: String): ActionRemoveResponse = remove(id, ActionRemoveParams.none())
 
     /** @see remove */

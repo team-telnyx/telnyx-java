@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete insight by ID */
+/** Permanently deletes the specified insight template by its ID. */
 class InsightDeleteParams
 private constructor(
     private val insightId: String?,

@@ -34,7 +34,10 @@ interface ReportService {
     /** Messaging usage reports */
     fun mdrUsageReports(): MdrUsageReportService
 
-    /** Fetch all Mdr records */
+    /**
+     * Returns message detail records (MDRs) matching the provided criteria, such as date range,
+     * direction, status, and message type.
+     */
     fun listMdrs(): ReportListMdrsResponse = listMdrs(ReportListMdrsParams.none())
 
     /** @see listMdrs */
@@ -52,7 +55,10 @@ interface ReportService {
     fun listMdrs(requestOptions: RequestOptions): ReportListMdrsResponse =
         listMdrs(ReportListMdrsParams.none(), requestOptions)
 
-    /** Fetch all Wdr records */
+    /**
+     * Returns wireless detail records (WDRs) matching the provided criteria, such as date range,
+     * SIM card, IMSI, or phone number, with pagination and sorting.
+     */
     fun listWdrs(): ReportListWdrsPage = listWdrs(ReportListWdrsParams.none())
 
     /** @see listWdrs */

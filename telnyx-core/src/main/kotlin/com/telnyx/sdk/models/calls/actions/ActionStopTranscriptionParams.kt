@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Stop real-time transcription. */
+/**
+ * Stops real-time transcription on the call. Transcription webhooks cease once the command takes
+ * effect; the call itself is unaffected.
+ */
 class ActionStopTranscriptionParams
 private constructor(
     private val callControlId: String?,

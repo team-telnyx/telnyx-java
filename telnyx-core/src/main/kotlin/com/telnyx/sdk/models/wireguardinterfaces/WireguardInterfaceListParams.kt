@@ -8,7 +8,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all WireGuard Interfaces. */
+/**
+ * Returns a paginated list of the WireGuard interfaces on your account, with support for filtering.
+ */
 class WireguardInterfaceListParams
 private constructor(
     private val filter: Filter?,

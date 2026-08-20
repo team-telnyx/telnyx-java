@@ -32,7 +32,10 @@ interface AuthenticationProviderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AuthenticationProviderServiceAsync
 
-    /** Creates an authentication provider. */
+    /**
+     * Creates a new authentication provider for single sign-on, configured from the provided
+     * identity provider details, and returns the created resource.
+     */
     fun create(
         params: AuthenticationProviderCreateParams
     ): CompletableFuture<AuthenticationProviderCreateResponse> =

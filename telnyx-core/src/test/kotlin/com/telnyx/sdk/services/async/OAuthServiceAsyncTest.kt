@@ -84,7 +84,7 @@ internal class OAuthServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val oauthServiceAsync = client.oauth()
 
-        val future =
+        val responseFuture =
             oauthServiceAsync.retrieveAuthorize(
                 OAuthRetrieveAuthorizeParams.builder()
                     .clientId("client_id")
@@ -97,7 +97,7 @@ internal class OAuthServiceAsyncTest {
                     .build()
             )
 
-        val response = future.get()
+        val response = responseFuture.get()
     }
 
     @Disabled("Mock server tests are disabled")

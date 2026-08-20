@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Creates a dynamic emergency address. */
+/**
+ * Creates a dynamic emergency address, the validated physical location used when provisioning
+ * dynamic emergency endpoints.
+ */
 class DynamicEmergencyAddressCreateParams
 private constructor(
     private val dynamicEmergencyAddress: DynamicEmergencyAddress,

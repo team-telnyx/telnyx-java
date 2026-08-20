@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a notification channel. */
+/** Deletes the specified notification channel so notifications are no longer delivered to it. */
 class NotificationChannelDeleteParams
 private constructor(
     private val id: String?,

@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a knowledge base definition */
+/** Replaces the definition of the specified knowledge base on this mission. */
 class KnowledgeBaseUpdateKnowledgeBaseParams
 private constructor(
     private val missionId: String,

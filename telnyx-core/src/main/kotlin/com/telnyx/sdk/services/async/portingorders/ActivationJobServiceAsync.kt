@@ -29,7 +29,10 @@ interface ActivationJobServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActivationJobServiceAsync
 
-    /** Returns a porting activation job. */
+    /**
+     * Returns the details of a single activation job for the porting order, including its current
+     * status.
+     */
     fun retrieve(
         activationJobId: String,
         params: ActivationJobRetrieveParams,

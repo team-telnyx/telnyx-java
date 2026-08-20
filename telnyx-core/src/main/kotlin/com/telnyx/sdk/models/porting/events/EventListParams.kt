@@ -14,7 +14,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of all porting events. */
+/**
+ * Returns a paginated list of porting-related events on your account, such as status changes on
+ * porting orders. Supports filtering and is useful for auditing or reconciling webhook deliveries.
+ */
 class EventListParams
 private constructor(
     private val filter: Filter?,

@@ -17,7 +17,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a stored media file. */
+/** Updates the specified stored media file and returns the updated resource. */
 class MediaUpdateParams
 private constructor(
     private val mediaName: String?,

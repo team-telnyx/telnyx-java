@@ -25,7 +25,10 @@ interface GlobalIpProtocolService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpProtocolService
 
-    /** List all Global IP Protocols */
+    /**
+     * Returns the network protocols supported for Global IP traffic, for use when configuring
+     * Global IP resources.
+     */
     fun list(): GlobalIpProtocolListResponse = list(GlobalIpProtocolListParams.none())
 
     /** @see list */

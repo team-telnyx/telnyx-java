@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve an existing call queue */
+/** Returns the details of an existing call queue, including its current configuration. */
 class QueueRetrieveParams
 private constructor(
     private val queueName: String?,

@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a scheduled event by event ID */
+/** Returns the details of a single scheduled event configured for the specified assistant. */
 class ScheduledEventRetrieveParams
 private constructor(
     private val assistantId: String,

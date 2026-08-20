@@ -18,7 +18,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a new call queue. */
+/** Creates a new call queue with the provided configuration and returns the created queue. */
 class QueueCreateParams
 private constructor(
     private val body: Body,

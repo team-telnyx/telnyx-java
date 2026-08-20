@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Authorize or reject portout request */
+/**
+ * Updates the status of the specified port-out request, using the status path segment to authorize
+ * or reject the port-out.
+ */
 class PortoutUpdateStatusParams
 private constructor(
     private val id: String,

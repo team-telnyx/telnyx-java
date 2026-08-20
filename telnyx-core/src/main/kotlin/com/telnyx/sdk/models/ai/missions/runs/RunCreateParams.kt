@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Start a new run for a mission */
+/**
+ * Starts a new run of the specified mission and returns the created run object. Track its progress
+ * through the run detail, plan, and events endpoints.
+ */
 class RunCreateParams
 private constructor(
     private val missionId: String?,

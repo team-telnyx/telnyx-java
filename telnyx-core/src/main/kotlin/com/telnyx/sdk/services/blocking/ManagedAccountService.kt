@@ -83,7 +83,7 @@ interface ManagedAccountService {
     fun retrieve(id: String, requestOptions: RequestOptions): ManagedAccountRetrieveResponse =
         retrieve(id, ManagedAccountRetrieveParams.none(), requestOptions)
 
-    /** Update a single managed account. */
+    /** Updates the specified managed account's attributes and returns the updated account. */
     fun update(id: String): ManagedAccountUpdateResponse =
         update(id, ManagedAccountUpdateParams.none())
 

@@ -39,7 +39,10 @@ interface ReportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ReportCreateResponse>
 
-    /** Retrieve a specific report generated. */
+    /**
+     * Returns the details of a previously requested port-out report, including its status and
+     * parameters.
+     */
     fun retrieve(id: String): CompletableFuture<ReportRetrieveResponse> =
         retrieve(id, ReportRetrieveParams.none())
 

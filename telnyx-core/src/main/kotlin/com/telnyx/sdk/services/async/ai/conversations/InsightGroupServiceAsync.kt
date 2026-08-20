@@ -35,7 +35,10 @@ interface InsightGroupServiceAsync {
     /** Manage historical AI assistant conversations */
     fun insights(): InsightServiceAsync
 
-    /** Get insight group by ID */
+    /**
+     * Returns the details of a single insight template group, including the insight templates
+     * assigned to it.
+     */
     fun retrieve(groupId: String): CompletableFuture<InsightTemplateGroupDetail> =
         retrieve(groupId, InsightGroupRetrieveParams.none())
 
@@ -72,7 +75,7 @@ interface InsightGroupServiceAsync {
     ): CompletableFuture<InsightTemplateGroupDetail> =
         retrieve(groupId, InsightGroupRetrieveParams.none(), requestOptions)
 
-    /** Update an insight template group */
+    /** Updates the specified insight template group and returns the updated group. */
     fun update(groupId: String): CompletableFuture<InsightTemplateGroupDetail> =
         update(groupId, InsightGroupUpdateParams.none())
 
@@ -108,7 +111,7 @@ interface InsightGroupServiceAsync {
     ): CompletableFuture<InsightTemplateGroupDetail> =
         update(groupId, InsightGroupUpdateParams.none(), requestOptions)
 
-    /** Delete insight group by ID */
+    /** Permanently deletes the specified insight template group by its ID. */
     fun delete(groupId: String): CompletableFuture<Void?> =
         delete(groupId, InsightGroupDeleteParams.none())
 
@@ -140,7 +143,10 @@ interface InsightGroupServiceAsync {
     fun delete(groupId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(groupId, InsightGroupDeleteParams.none(), requestOptions)
 
-    /** Create a new insight group */
+    /**
+     * Creates a new insight template group for organizing related insight templates, and returns
+     * the created group.
+     */
     fun insightGroups(
         params: InsightGroupInsightGroupsParams
     ): CompletableFuture<InsightTemplateGroupDetail> = insightGroups(params, RequestOptions.none())
@@ -151,7 +157,10 @@ interface InsightGroupServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InsightTemplateGroupDetail>
 
-    /** Get all insight groups */
+    /**
+     * Returns a paginated list of your insight template groups. Groups organize related insight
+     * templates that are applied together when analyzing conversations.
+     */
     fun retrieveInsightGroups(): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync> =
         retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none())
 

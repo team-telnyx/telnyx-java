@@ -31,7 +31,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new insight */
+/**
+ * Creates a new insight template defining an analysis to run over conversations, and returns the
+ * created template.
+ */
 class InsightCreateParams
 private constructor(
     private val body: Body,

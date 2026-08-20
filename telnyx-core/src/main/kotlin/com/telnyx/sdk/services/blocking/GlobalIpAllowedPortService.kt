@@ -25,7 +25,10 @@ interface GlobalIpAllowedPortService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpAllowedPortService
 
-    /** List all Global IP Allowed Ports */
+    /**
+     * Returns the ports allowed for Global IP traffic, for use when configuring Global IP
+     * resources.
+     */
     fun list(): GlobalIpAllowedPortListResponse = list(GlobalIpAllowedPortListParams.none())
 
     /** @see list */

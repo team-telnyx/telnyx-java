@@ -25,7 +25,10 @@ interface SimCardOrderPreviewService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimCardOrderPreviewService
 
-    /** Preview SIM card order purchases. */
+    /**
+     * Previews a SIM card order purchase, returning estimated costs and details before you place
+     * the order. The preview is processed asynchronously.
+     */
     fun preview(params: SimCardOrderPreviewPreviewParams): SimCardOrderPreviewPreviewResponse =
         preview(params, RequestOptions.none())
 

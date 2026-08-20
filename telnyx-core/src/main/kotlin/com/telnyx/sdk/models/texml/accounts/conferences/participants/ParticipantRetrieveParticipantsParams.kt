@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists conference participants */
+/** Returns the list of participants currently in the specified conference. */
 class ParticipantRetrieveParticipantsParams
 private constructor(
     private val accountSid: String,

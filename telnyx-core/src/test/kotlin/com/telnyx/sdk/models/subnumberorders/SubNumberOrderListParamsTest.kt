@@ -14,6 +14,7 @@ internal class SubNumberOrderListParamsTest {
             .filter(
                 SubNumberOrderListParams.Filter.builder()
                     .countryCode("US")
+                    .includePhoneNumbers(true)
                     .orderRequestId("12ade33a-21c0-473b-b055-b3c836e1c293")
                     .phoneNumberType("local")
                     .phoneNumbersCount(1L)
@@ -30,6 +31,7 @@ internal class SubNumberOrderListParamsTest {
                 .filter(
                     SubNumberOrderListParams.Filter.builder()
                         .countryCode("US")
+                        .includePhoneNumbers(true)
                         .orderRequestId("12ade33a-21c0-473b-b055-b3c836e1c293")
                         .phoneNumberType("local")
                         .phoneNumbersCount(1L)
@@ -44,6 +46,7 @@ internal class SubNumberOrderListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[country_code]", "US")
+                    .put("filter[include_phone_numbers]", "true")
                     .put("filter[order_request_id]", "12ade33a-21c0-473b-b055-b3c836e1c293")
                     .put("filter[phone_number_type]", "local")
                     .put("filter[phone_numbers_count]", "1")

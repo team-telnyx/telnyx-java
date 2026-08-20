@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Global IP assignments. */
+/**
+ * Returns a paginated list of your Global IP assignments, the links between Global IPs and the
+ * WireGuard peers that receive their traffic.
+ */
 class GlobalIpAssignmentListParams
 private constructor(
     private val pageNumber: Long?,

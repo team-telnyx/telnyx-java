@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a single SIM card order by its ID. */
+/** Returns the details of a single SIM card order by its ID, including its status. */
 class SimCardOrderRetrieveParams
 private constructor(
     private val id: String?,

@@ -8,7 +8,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List recent runs across all missions */
+/**
+ * Returns a paginated list of recent runs across every mission in your organization, optionally
+ * filtered by run status. Useful for monitoring overall mission activity without querying each
+ * mission individually.
+ */
 class RunListRunsParams
 private constructor(
     private val pageNumber: Long?,

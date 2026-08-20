@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a comment on a portout request. */
+/** Creates a comment on the specified port-out request and returns the created comment. */
 class CommentCreateParams
 private constructor(
     private val id: String?,

@@ -24,7 +24,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new AI Assistant. */
+/**
+ * Creates a new AI assistant from the provided configuration, including its model, instructions,
+ * and attached tools, and returns the created assistant.
+ */
 class AssistantCreateParams
 private constructor(
     private val body: Body,

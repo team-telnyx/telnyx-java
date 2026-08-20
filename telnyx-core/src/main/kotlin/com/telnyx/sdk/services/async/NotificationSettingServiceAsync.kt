@@ -32,7 +32,10 @@ interface NotificationSettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationSettingServiceAsync
 
-    /** Add a notification setting. */
+    /**
+     * Adds a notification setting that enables delivery of a notification event type to a
+     * notification profile.
+     */
     fun create(): CompletableFuture<NotificationSettingCreateResponse> =
         create(NotificationSettingCreateParams.none())
 
@@ -71,7 +74,7 @@ interface NotificationSettingServiceAsync {
     ): CompletableFuture<NotificationSettingCreateResponse> =
         create(NotificationSettingCreateParams.none(), requestOptions)
 
-    /** Get a notification setting. */
+    /** Returns the details of a single notification setting by its identifier. */
     fun retrieve(id: String): CompletableFuture<NotificationSettingRetrieveResponse> =
         retrieve(id, NotificationSettingRetrieveParams.none())
 
@@ -109,7 +112,10 @@ interface NotificationSettingServiceAsync {
     ): CompletableFuture<NotificationSettingRetrieveResponse> =
         retrieve(id, NotificationSettingRetrieveParams.none(), requestOptions)
 
-    /** List notification settings. */
+    /**
+     * Returns a paginated list of your notification settings, which map notification event types to
+     * profiles and channels.
+     */
     fun list(): CompletableFuture<NotificationSettingListPageAsync> =
         list(NotificationSettingListParams.none())
 
@@ -128,7 +134,7 @@ interface NotificationSettingServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<NotificationSettingListPageAsync> =
         list(NotificationSettingListParams.none(), requestOptions)
 
-    /** Delete a notification setting. */
+    /** Deletes the specified notification setting, disabling that notification delivery. */
     fun delete(id: String): CompletableFuture<NotificationSettingDeleteResponse> =
         delete(id, NotificationSettingDeleteParams.none())
 

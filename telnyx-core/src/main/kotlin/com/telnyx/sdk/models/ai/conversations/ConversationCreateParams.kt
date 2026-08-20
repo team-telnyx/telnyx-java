@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new AI Conversation. */
+/**
+ * Creates a new AI conversation, the container for messages exchanged with an assistant, and
+ * returns the created conversation.
+ */
 class ConversationCreateParams
 private constructor(
     private val body: Body,

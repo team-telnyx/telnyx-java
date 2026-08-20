@@ -36,7 +36,10 @@ interface SimCardGroupService {
 
     fun actions(): ActionService
 
-    /** Creates a new SIM card group object */
+    /**
+     * Creates a new SIM card group and returns it. Groups let you apply shared settings to a set of
+     * SIM cards.
+     */
     fun create(params: SimCardGroupCreateParams): SimCardGroupCreateResponse =
         create(params, RequestOptions.none())
 
@@ -77,7 +80,7 @@ interface SimCardGroupService {
     fun retrieve(id: String, requestOptions: RequestOptions): SimCardGroupRetrieveResponse =
         retrieve(id, SimCardGroupRetrieveParams.none(), requestOptions)
 
-    /** Updates a SIM card group */
+    /** Updates the specified SIM card group's attributes and returns the updated group. */
     fun update(id: String): SimCardGroupUpdateResponse = update(id, SimCardGroupUpdateParams.none())
 
     /** @see update */
@@ -124,7 +127,7 @@ interface SimCardGroupService {
     fun list(requestOptions: RequestOptions): SimCardGroupListPage =
         list(SimCardGroupListParams.none(), requestOptions)
 
-    /** Permanently deletes a SIM card group */
+    /** Permanently deletes the specified SIM card group from your account. */
     fun delete(id: String): SimCardGroupDeleteResponse = delete(id, SimCardGroupDeleteParams.none())
 
     /** @see delete */

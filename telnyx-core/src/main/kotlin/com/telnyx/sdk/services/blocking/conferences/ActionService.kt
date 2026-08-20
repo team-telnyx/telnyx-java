@@ -269,7 +269,10 @@ interface ActionService {
     fun play(id: String, requestOptions: RequestOptions): ActionPlayResponse =
         play(id, ActionPlayParams.none(), requestOptions)
 
-    /** Pause conference recording. */
+    /**
+     * Pauses the active recording of the specified conference. Resume it later with the
+     * record_resume action.
+     */
     fun recordPause(id: String): ActionRecordPauseResponse =
         recordPause(id, ActionRecordPauseParams.none())
 
@@ -300,7 +303,10 @@ interface ActionService {
     fun recordPause(id: String, requestOptions: RequestOptions): ActionRecordPauseResponse =
         recordPause(id, ActionRecordPauseParams.none(), requestOptions)
 
-    /** Resume conference recording. */
+    /**
+     * Resumes a previously paused recording of the specified conference, continuing capture from
+     * the point it was paused.
+     */
     fun recordResume(id: String): ActionRecordResumeResponse =
         recordResume(id, ActionRecordResumeParams.none())
 

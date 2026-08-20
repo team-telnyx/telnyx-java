@@ -33,7 +33,10 @@ interface CallControlApplicationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallControlApplicationServiceAsync
 
-    /** Create a call control application. */
+    /**
+     * Creates a call control application, which defines the webhook endpoints and settings used to
+     * control calls on associated connections.
+     */
     fun create(
         params: CallControlApplicationCreateParams
     ): CompletableFuture<CallControlApplicationCreateResponse> =
@@ -131,7 +134,7 @@ interface CallControlApplicationServiceAsync {
     ): CompletableFuture<CallControlApplicationListPageAsync> =
         list(CallControlApplicationListParams.none(), requestOptions)
 
-    /** Deletes a call control application. */
+    /** Permanently deletes the specified call control application and its webhook configuration. */
     fun delete(id: String): CompletableFuture<CallControlApplicationDeleteResponse> =
         delete(id, CallControlApplicationDeleteParams.none())
 

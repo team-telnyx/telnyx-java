@@ -52,7 +52,10 @@ interface NumberReservationServiceAsync {
     fun create(requestOptions: RequestOptions): CompletableFuture<NumberReservationCreateResponse> =
         create(NumberReservationCreateParams.none(), requestOptions)
 
-    /** Gets a single phone number reservation. */
+    /**
+     * Returns the details of a single phone number reservation, including its status and the
+     * reserved numbers.
+     */
     fun retrieve(
         numberReservationId: String
     ): CompletableFuture<NumberReservationRetrieveResponse> =

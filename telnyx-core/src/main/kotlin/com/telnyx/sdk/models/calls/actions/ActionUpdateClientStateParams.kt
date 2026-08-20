@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates client state */
+/**
+ * Updates the client state associated with the call. Client state is an opaque value echoed back in
+ * subsequent webhooks for the call, letting you correlate events with your application's state.
+ */
 class ActionUpdateClientStateParams
 private constructor(
     private val callControlId: String?,

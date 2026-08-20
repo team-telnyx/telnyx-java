@@ -18,7 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a new IP object. */
+/**
+ * Creates a new IP record for use with IP-based connections, associating an IP address with the
+ * specified connection.
+ */
 class IpCreateParams
 private constructor(
     private val body: Body,

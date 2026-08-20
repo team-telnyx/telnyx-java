@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Permanently deletes a SIM card group */
+/** Permanently deletes the specified SIM card group from your account. */
 class SimCardGroupDeleteParams
 private constructor(
     private val id: String?,

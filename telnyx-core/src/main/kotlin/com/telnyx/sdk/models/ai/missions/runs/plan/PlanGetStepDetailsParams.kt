@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get details of a specific plan step */
+/** Returns the details of a single plan step within a run's plan, including its status. */
 class PlanGetStepDetailsParams
 private constructor(
     private val missionId: String,

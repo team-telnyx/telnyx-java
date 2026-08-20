@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Clone an existing mission */
+/**
+ * Creates a copy of the specified mission as a new mission definition, so you can iterate on its
+ * configuration without modifying the original.
+ */
 class MissionCloneMissionParams
 private constructor(
     private val missionId: String?,

@@ -8,7 +8,10 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Creates a dynamic emergency endpoints. */
+/**
+ * Creates a dynamic emergency endpoint, associating a callback number and location with a device
+ * for emergency calling.
+ */
 class DynamicEmergencyEndpointCreateParams
 private constructor(
     private val dynamicEmergencyEndpoint: DynamicEmergencyEndpoint,

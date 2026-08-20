@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a queue resource. */
+/** Permanently deletes the specified queue resource from the account. */
 class QueueDeleteParams
 private constructor(
     private val accountSid: String,

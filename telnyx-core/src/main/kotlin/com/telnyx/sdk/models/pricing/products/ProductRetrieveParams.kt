@@ -26,6 +26,10 @@ private constructor(
 
     fun slug(): Optional<String> = Optional.ofNullable(slug)
 
+    /**
+     * Two-letter ISO 3166-1 alpha-2 country code (uppercase, e.g. US) to filter pricing to a single
+     * country.
+     */
     fun filterCountryIso(): Optional<String> = Optional.ofNullable(filterCountryIso)
 
     /** Page number (1-based). */
@@ -76,6 +80,10 @@ private constructor(
         /** Alias for calling [Builder.slug] with `slug.orElse(null)`. */
         fun slug(slug: Optional<String>) = slug(slug.getOrNull())
 
+        /**
+         * Two-letter ISO 3166-1 alpha-2 country code (uppercase, e.g. US) to filter pricing to a
+         * single country.
+         */
         fun filterCountryIso(filterCountryIso: String?) = apply {
             this.filterCountryIso = filterCountryIso
         }

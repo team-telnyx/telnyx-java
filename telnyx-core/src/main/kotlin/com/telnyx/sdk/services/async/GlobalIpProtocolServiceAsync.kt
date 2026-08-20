@@ -25,7 +25,10 @@ interface GlobalIpProtocolServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpProtocolServiceAsync
 
-    /** List all Global IP Protocols */
+    /**
+     * Returns the network protocols supported for Global IP traffic, for use when configuring
+     * Global IP resources.
+     */
     fun list(): CompletableFuture<GlobalIpProtocolListResponse> =
         list(GlobalIpProtocolListParams.none())
 

@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a tool definition */
+/** Replaces the definition of the specified tool on this mission. */
 class ToolUpdateToolParams
 private constructor(
     private val missionId: String,

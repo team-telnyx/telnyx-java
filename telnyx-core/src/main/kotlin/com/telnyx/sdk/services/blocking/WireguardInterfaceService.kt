@@ -52,7 +52,7 @@ interface WireguardInterfaceService {
     fun create(requestOptions: RequestOptions): WireguardInterfaceCreateResponse =
         create(WireguardInterfaceCreateParams.none(), requestOptions)
 
-    /** Retrieve a WireGuard Interfaces. */
+    /** Returns the details of a single WireGuard interface by its identifier. */
     fun retrieve(id: String): WireguardInterfaceRetrieveResponse =
         retrieve(id, WireguardInterfaceRetrieveParams.none())
 
@@ -84,7 +84,10 @@ interface WireguardInterfaceService {
     fun retrieve(id: String, requestOptions: RequestOptions): WireguardInterfaceRetrieveResponse =
         retrieve(id, WireguardInterfaceRetrieveParams.none(), requestOptions)
 
-    /** List all WireGuard Interfaces. */
+    /**
+     * Returns a paginated list of the WireGuard interfaces on your account, with support for
+     * filtering.
+     */
     fun list(): WireguardInterfaceListPage = list(WireguardInterfaceListParams.none())
 
     /** @see list */
@@ -102,7 +105,7 @@ interface WireguardInterfaceService {
     fun list(requestOptions: RequestOptions): WireguardInterfaceListPage =
         list(WireguardInterfaceListParams.none(), requestOptions)
 
-    /** Delete a WireGuard Interface. */
+    /** Deletes the specified WireGuard interface from its network. */
     fun delete(id: String): WireguardInterfaceDeleteResponse =
         delete(id, WireguardInterfaceDeleteParams.none())
 

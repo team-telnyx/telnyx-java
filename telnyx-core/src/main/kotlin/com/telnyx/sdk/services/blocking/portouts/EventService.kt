@@ -29,7 +29,7 @@ interface EventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
-    /** Show a specific port-out event. */
+    /** Returns the details of a single port-out event, including its type and payload. */
     fun retrieve(id: String): EventRetrieveResponse = retrieve(id, EventRetrieveParams.none())
 
     /** @see retrieve */
@@ -59,7 +59,10 @@ interface EventService {
     fun retrieve(id: String, requestOptions: RequestOptions): EventRetrieveResponse =
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of all port-out events. */
+    /**
+     * Returns a paginated list of port-out events on your account, such as status changes on
+     * port-out requests, with support for filtering.
+     */
     fun list(): EventListPage = list(EventListParams.none())
 
     /** @see list */
@@ -76,7 +79,10 @@ interface EventService {
     fun list(requestOptions: RequestOptions): EventListPage =
         list(EventListParams.none(), requestOptions)
 
-    /** Republish a specific port-out event. */
+    /**
+     * Republishes the specified port-out event, triggering re-delivery of the corresponding webhook
+     * to your account.
+     */
     fun republish(id: String) = republish(id, EventRepublishParams.none())
 
     /** @see republish */

@@ -33,7 +33,7 @@ interface FqdnServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FqdnServiceAsync
 
-    /** Create a new FQDN object. */
+    /** Creates a new FQDN record and attaches it to the specified connection. */
     fun create(params: FqdnCreateParams): CompletableFuture<FqdnCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -78,7 +78,7 @@ interface FqdnServiceAsync {
     ): CompletableFuture<FqdnRetrieveResponse> =
         retrieve(id, FqdnRetrieveParams.none(), requestOptions)
 
-    /** Update the details of a specific FQDN. */
+    /** Updates the details of the specified FQDN record and returns the updated FQDN. */
     fun update(id: String): CompletableFuture<FqdnUpdateResponse> =
         update(id, FqdnUpdateParams.none())
 
@@ -127,7 +127,7 @@ interface FqdnServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<FqdnListPageAsync> =
         list(FqdnListParams.none(), requestOptions)
 
-    /** Delete an FQDN. */
+    /** Permanently deletes the specified FQDN record from its connection. */
     fun delete(id: String): CompletableFuture<FqdnDeleteResponse> =
         delete(id, FqdnDeleteParams.none())
 

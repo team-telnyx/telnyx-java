@@ -61,7 +61,10 @@ interface BrandServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TelnyxBrand>
 
-    /** Retrieve a brand by `brandId`. */
+    /**
+     * Returns the details of a 10DLC brand by its brandId, including the count of campaigns
+     * associated with the brand.
+     */
     fun retrieve(brandId: String): CompletableFuture<BrandRetrieveResponse> =
         retrieve(brandId, BrandRetrieveParams.none())
 

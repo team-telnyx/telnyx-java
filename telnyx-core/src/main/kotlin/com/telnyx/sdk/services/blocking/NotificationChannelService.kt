@@ -34,7 +34,10 @@ interface NotificationChannelService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationChannelService
 
-    /** Create a notification channel. */
+    /**
+     * Creates a new notification channel defining where notifications are delivered, and returns
+     * the created channel.
+     */
     fun create(): NotificationChannelCreateResponse = create(NotificationChannelCreateParams.none())
 
     /** @see create */
@@ -68,7 +71,7 @@ interface NotificationChannelService {
     fun create(requestOptions: RequestOptions): NotificationChannelCreateResponse =
         create(NotificationChannelCreateParams.none(), requestOptions)
 
-    /** Get a notification channel. */
+    /** Returns the details of a single notification channel by its identifier. */
     fun retrieve(id: String): NotificationChannelRetrieveResponse =
         retrieve(id, NotificationChannelRetrieveParams.none())
 
@@ -100,7 +103,7 @@ interface NotificationChannelService {
     fun retrieve(id: String, requestOptions: RequestOptions): NotificationChannelRetrieveResponse =
         retrieve(id, NotificationChannelRetrieveParams.none(), requestOptions)
 
-    /** Update a notification channel. */
+    /** Updates the specified notification channel and returns the updated channel. */
     fun update(
         notificationChannelId: String,
         params: NotificationChannelUpdateParams,
@@ -128,7 +131,10 @@ interface NotificationChannelService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): NotificationChannelUpdateResponse
 
-    /** List notification channels. */
+    /**
+     * Returns a paginated list of your notification channels, the destinations that receive
+     * notifications.
+     */
     fun list(): NotificationChannelListPage = list(NotificationChannelListParams.none())
 
     /** @see list */
@@ -146,7 +152,9 @@ interface NotificationChannelService {
     fun list(requestOptions: RequestOptions): NotificationChannelListPage =
         list(NotificationChannelListParams.none(), requestOptions)
 
-    /** Delete a notification channel. */
+    /**
+     * Deletes the specified notification channel so notifications are no longer delivered to it.
+     */
     fun delete(id: String): NotificationChannelDeleteResponse =
         delete(id, NotificationChannelDeleteParams.none())
 

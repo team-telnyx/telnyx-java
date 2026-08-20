@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Unlink a Telnyx agent from a run */
+/**
+ * Unlinks the specified Telnyx agent from the run so it no longer participates in execution. The
+ * run itself and its history are unaffected.
+ */
 class TelnyxAgentUnlinkParams
 private constructor(
     private val missionId: String,

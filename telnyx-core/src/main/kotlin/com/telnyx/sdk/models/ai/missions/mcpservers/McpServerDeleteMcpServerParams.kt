@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an MCP server from a mission */
+/**
+ * Removes the specified MCP server from the mission, revoking agent access to its tools in
+ * subsequent runs.
+ */
 class McpServerDeleteMcpServerParams
 private constructor(
     private val missionId: String,

@@ -53,7 +53,7 @@ interface WireguardPeerServiceAsync {
     fun create(requestOptions: RequestOptions): CompletableFuture<WireguardPeerCreateResponse> =
         create(WireguardPeerCreateParams.none(), requestOptions)
 
-    /** Retrieve the WireGuard peer. */
+    /** Returns the details of a single WireGuard peer by its identifier. */
     fun retrieve(id: String): CompletableFuture<WireguardPeerRetrieveResponse> =
         retrieve(id, WireguardPeerRetrieveParams.none())
 
@@ -90,7 +90,7 @@ interface WireguardPeerServiceAsync {
     ): CompletableFuture<WireguardPeerRetrieveResponse> =
         retrieve(id, WireguardPeerRetrieveParams.none(), requestOptions)
 
-    /** Update the WireGuard peer. */
+    /** Updates the specified WireGuard peer and returns the updated peer. */
     fun update(
         id: String,
         params: WireguardPeerUpdateParams,
@@ -114,7 +114,7 @@ interface WireguardPeerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireguardPeerUpdateResponse>
 
-    /** List all WireGuard peers. */
+    /** Returns a paginated list of your WireGuard peers, with support for filtering. */
     fun list(): CompletableFuture<WireguardPeerListPageAsync> = list(WireguardPeerListParams.none())
 
     /** @see list */
@@ -132,7 +132,7 @@ interface WireguardPeerServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<WireguardPeerListPageAsync> =
         list(WireguardPeerListParams.none(), requestOptions)
 
-    /** Delete the WireGuard peer. */
+    /** Deletes the specified WireGuard peer from its interface. */
     fun delete(id: String): CompletableFuture<WireguardPeerDeleteResponse> =
         delete(id, WireguardPeerDeleteParams.none())
 

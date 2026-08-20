@@ -37,7 +37,10 @@ interface FqdnConnectionServiceAsync {
     /** FQDN connection operations */
     fun fqdnAuthentication(): FqdnAuthenticationServiceAsync
 
-    /** Creates a FQDN connection. */
+    /**
+     * Creates a new FQDN-based SIP connection. FQDN connections authenticate by your registered
+     * domain names rather than static IP addresses.
+     */
     fun create(
         params: FqdnConnectionCreateParams
     ): CompletableFuture<FqdnConnectionCreateResponse> = create(params, RequestOptions.none())
@@ -140,7 +143,7 @@ interface FqdnConnectionServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<FqdnConnectionListPageAsync> =
         list(FqdnConnectionListParams.none(), requestOptions)
 
-    /** Deletes an FQDN connection. */
+    /** Permanently deletes the specified FQDN connection from your account. */
     fun delete(id: String): CompletableFuture<FqdnConnectionDeleteResponse> =
         delete(id, FqdnConnectionDeleteParams.none())
 
