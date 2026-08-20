@@ -11,6 +11,7 @@ internal class CanaryDeployCreateParamsTest {
     fun create() {
         CanaryDeployCreateParams.builder()
             .assistantId("assistant_id")
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .canaryDeploy(
                 CanaryDeploy.builder()
                     .addRule(
@@ -54,10 +55,68 @@ internal class CanaryDeployCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            CanaryDeployCreateParams.builder()
+                .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .canaryDeploy(
+                    CanaryDeploy.builder()
+                        .addRule(
+                            RuleInput.builder()
+                                .serve(
+                                    Serve.builder()
+                                        .addRollout(
+                                            RolloutSlot.builder()
+                                                .versionId("Version Id")
+                                                .weight(0.0)
+                                                .build()
+                                        )
+                                        .versionId("Version Id")
+                                        .build()
+                                )
+                                .addMatch(
+                                    Clause.builder()
+                                        .attribute("Attribute")
+                                        .operator(Clause.Operator.IN)
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            CanaryDeployCreateParams.builder()
+                .assistantId("assistant_id")
+                .canaryDeploy(CanaryDeploy.builder().build())
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             CanaryDeployCreateParams.builder()
                 .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .canaryDeploy(
                     CanaryDeploy.builder()
                         .addRule(

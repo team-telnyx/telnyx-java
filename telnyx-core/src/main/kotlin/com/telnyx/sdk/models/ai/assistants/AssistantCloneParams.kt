@@ -14,12 +14,15 @@ import kotlin.jvm.optionals.getOrNull
 class AssistantCloneParams
 private constructor(
     private val assistantId: String?,
+    private val idempotencyKey: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -44,6 +47,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var assistantId: String? = null
+        private var idempotencyKey: String? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -52,6 +56,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(assistantCloneParams: AssistantCloneParams) = apply {
             assistantId = assistantCloneParams.assistantId
+            idempotencyKey = assistantCloneParams.idempotencyKey
             additionalHeaders = assistantCloneParams.additionalHeaders.toBuilder()
             additionalQueryParams = assistantCloneParams.additionalQueryParams.toBuilder()
             additionalBodyProperties = assistantCloneParams.additionalBodyProperties.toMutableMap()
@@ -61,6 +66,12 @@ private constructor(
 
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -191,6 +202,7 @@ private constructor(
         fun build(): AssistantCloneParams =
             AssistantCloneParams(
                 assistantId,
+                idempotencyKey,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -206,7 +218,13 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -217,6 +235,7 @@ private constructor(
 
         return other is AssistantCloneParams &&
             assistantId == other.assistantId &&
+            idempotencyKey == other.idempotencyKey &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -225,11 +244,12 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             assistantId,
+            idempotencyKey,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "AssistantCloneParams{assistantId=$assistantId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AssistantCloneParams{assistantId=$assistantId, idempotencyKey=$idempotencyKey, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -25,6 +25,7 @@ internal class CanaryDeployServiceTest {
             canaryDeployService.create(
                 CanaryDeployCreateParams.builder()
                     .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .canaryDeploy(
                         CanaryDeploy.builder()
                             .addRule(

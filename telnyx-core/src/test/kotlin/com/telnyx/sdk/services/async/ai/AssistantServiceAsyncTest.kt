@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
+import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
@@ -51,6 +52,7 @@ internal class AssistantServiceAsyncTest {
         val inferenceEmbeddingFuture =
             assistantServiceAsync.create(
                 AssistantCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .instructions("instructions")
                     .name("name")
                     .conversationFlow(
@@ -1159,7 +1161,13 @@ internal class AssistantServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
-        val inferenceEmbeddingFuture = assistantServiceAsync.clone("assistant_id")
+        val inferenceEmbeddingFuture =
+            assistantServiceAsync.clone(
+                AssistantCloneParams.builder()
+                    .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
 
         val inferenceEmbedding = inferenceEmbeddingFuture.get()
         inferenceEmbedding.validate()
@@ -1185,6 +1193,7 @@ internal class AssistantServiceAsyncTest {
         val assistantsListFuture =
             assistantServiceAsync.imports(
                 AssistantImportsParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .apiKeyRef("string")
                     .provider(AssistantImportsParams.Provider.ELEVENLABS)
                     .addImportId("string")
@@ -1205,6 +1214,7 @@ internal class AssistantServiceAsyncTest {
             assistantServiceAsync.sendSms(
                 AssistantSendSmsParams.builder()
                     .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("From")
                     .to("To")
                     .conversationMetadata(

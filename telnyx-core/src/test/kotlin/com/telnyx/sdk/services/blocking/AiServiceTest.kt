@@ -48,6 +48,7 @@ internal class AiServiceTest {
         val response =
             aiService.summarize(
                 AiSummarizeParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .bucket("string")
                     .filename("string")
                     .systemPrompt("string")

@@ -11,6 +11,7 @@ internal class McpServerCreateParamsTest {
     @Test
     fun create() {
         McpServerCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .name("Name")
             .type("Type")
             .url("Url")
@@ -20,9 +21,41 @@ internal class McpServerCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            McpServerCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .name("Name")
+                .type("Type")
+                .url("Url")
+                .addAllowedTool("string")
+                .apiKeyRef("api_key_ref")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = McpServerCreateParams.builder().name("Name").type("Type").url("Url").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             McpServerCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .name("Name")
                 .type("Type")
                 .url("Url")

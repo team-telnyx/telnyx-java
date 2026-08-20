@@ -25,6 +25,7 @@ internal class ScheduledEventServiceTest {
             scheduledEventService.create(
                 ScheduledEventCreateParams.builder()
                     .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .scheduledAtFixedDatetime(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                     .telnyxAgentTarget("telnyx_agent_target")
                     .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)

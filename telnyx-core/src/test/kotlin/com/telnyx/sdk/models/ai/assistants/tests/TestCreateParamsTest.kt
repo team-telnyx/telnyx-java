@@ -10,6 +10,7 @@ internal class TestCreateParamsTest {
     @Test
     fun create() {
         TestCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .destination("+15551234567")
             .instructions(
                 "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
@@ -35,9 +36,76 @@ internal class TestCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            TestCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .destination("+15551234567")
+                .instructions(
+                    "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
+                )
+                .name("Customer Support Bot Test")
+                .addRubric(
+                    TestCreateParams.Rubric.builder()
+                        .criteria("Assistant responds within 30 seconds")
+                        .name("Response Time")
+                        .build()
+                )
+                .addRubric(
+                    TestCreateParams.Rubric.builder()
+                        .criteria("Provides correct product information")
+                        .name("Accuracy")
+                        .build()
+                )
+                .description("description")
+                .maxDurationSeconds(1L)
+                .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
+                .testSuite("test_suite")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            TestCreateParams.builder()
+                .destination("+15551234567")
+                .instructions(
+                    "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
+                )
+                .name("Customer Support Bot Test")
+                .addRubric(
+                    TestCreateParams.Rubric.builder()
+                        .criteria("Assistant responds within 30 seconds")
+                        .name("Response Time")
+                        .build()
+                )
+                .addRubric(
+                    TestCreateParams.Rubric.builder()
+                        .criteria("Provides correct product information")
+                        .name("Accuracy")
+                        .build()
+                )
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             TestCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .destination("+15551234567")
                 .instructions(
                     "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."

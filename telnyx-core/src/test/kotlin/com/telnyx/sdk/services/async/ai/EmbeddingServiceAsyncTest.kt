@@ -21,6 +21,7 @@ internal class EmbeddingServiceAsyncTest {
         val embeddingResponseFuture =
             embeddingServiceAsync.create(
                 EmbeddingCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .bucketName("Bucket Name")
                     .documentChunkOverlapSize(512L)
                     .documentChunkSize(1024L)
@@ -85,7 +86,11 @@ internal class EmbeddingServiceAsyncTest {
 
         val embeddingResponseFuture =
             embeddingServiceAsync.url(
-                EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
+                EmbeddingUrlParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .bucketName("Bucket Name")
+                    .url("URL")
+                    .build()
             )
 
         val embeddingResponse = embeddingResponseFuture.get()

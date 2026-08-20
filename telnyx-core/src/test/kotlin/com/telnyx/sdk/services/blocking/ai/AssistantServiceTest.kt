@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
+import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
@@ -51,6 +52,7 @@ internal class AssistantServiceTest {
         val inferenceEmbedding =
             assistantService.create(
                 AssistantCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .instructions("instructions")
                     .name("name")
                     .conversationFlow(
@@ -1153,7 +1155,13 @@ internal class AssistantServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
-        val inferenceEmbedding = assistantService.clone("assistant_id")
+        val inferenceEmbedding =
+            assistantService.clone(
+                AssistantCloneParams.builder()
+                    .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
 
         inferenceEmbedding.validate()
     }
@@ -1176,6 +1184,7 @@ internal class AssistantServiceTest {
         val assistantsList =
             assistantService.imports(
                 AssistantImportsParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .apiKeyRef("string")
                     .provider(AssistantImportsParams.Provider.ELEVENLABS)
                     .addImportId("string")
@@ -1195,6 +1204,7 @@ internal class AssistantServiceTest {
             assistantService.sendSms(
                 AssistantSendSmsParams.builder()
                     .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("From")
                     .to("To")
                     .conversationMetadata(
