@@ -2876,12 +2876,12 @@ Methods:
 - <code title="get /email_blocks/{id}/events">client.emailBlocks().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailBlockService.kt">retrieveEvents</a>(params)</code>
 - <code title="get /email_blocks/export">client.emailBlocks().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailBlockService.kt">retrieveExport</a>(params)</code>
 
-## Import
+## Imports
 
 Methods:
 
-- <code title="post /email_blocks/import">client.emailBlocks().import\_().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/emailblocks/ImportService.kt">create</a>(params)</code>
-- <code title="get /email_blocks/import/{id}">client.emailBlocks().import\_().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/emailblocks/ImportService.kt">retrieve</a>(params)</code>
+- <code title="post /email_blocks/import">client.emailBlocks().imports().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/emailblocks/ImportService.kt">create</a>(params)</code>
+- <code title="get /email_blocks/import/{id}">client.emailBlocks().imports().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/emailblocks/ImportService.kt">retrieve</a>(params)</code>
 
 # EmailDomains
 

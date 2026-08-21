@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.emailblocks.import_.EmailBlockImportResponse
-import com.telnyx.sdk.models.emailblocks.import_.ImportCreateParams
-import com.telnyx.sdk.models.emailblocks.import_.ImportRetrieveParams
+import com.telnyx.sdk.models.emailblocks.imports.EmailBlockImportResponse
+import com.telnyx.sdk.models.emailblocks.imports.ImportCreateParams
+import com.telnyx.sdk.models.emailblocks.imports.ImportRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull

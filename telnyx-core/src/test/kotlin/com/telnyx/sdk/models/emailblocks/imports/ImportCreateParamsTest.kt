@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailblocks.import_
+package com.telnyx.sdk.models.emailblocks.imports
 
 import com.telnyx.sdk.core.MultipartField
 import java.io.InputStream

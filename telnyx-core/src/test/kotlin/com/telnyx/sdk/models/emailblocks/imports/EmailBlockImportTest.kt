@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailblocks.import_
+package com.telnyx.sdk.models.emailblocks.imports
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue

@@ -3,7 +3,7 @@
 package com.telnyx.sdk.services.blocking.emailblocks
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.emailblocks.import_.ImportCreateParams
+import com.telnyx.sdk.models.emailblocks.imports.ImportCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -13,7 +13,7 @@ internal class ImportServiceTest {
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val importService = client.emailBlocks().import_()
+        val importService = client.emailBlocks().imports()
 
         val emailBlockImportResponse =
             importService.create(
@@ -30,7 +30,7 @@ internal class ImportServiceTest {
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val importService = client.emailBlocks().import_()
+        val importService = client.emailBlocks().imports()
 
         val emailBlockImportResponse =
             importService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

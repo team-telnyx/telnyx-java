@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailblocks.import_
+package com.telnyx.sdk.models.emailblocks.imports
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

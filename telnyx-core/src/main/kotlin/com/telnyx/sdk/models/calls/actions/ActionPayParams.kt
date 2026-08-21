@@ -1784,17 +1784,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val USD = of("USD")
+            @JvmField val USD_UPPERCASE = of("USD")
 
-            @JvmField val USD_2 = of("usd")
+            @JvmField val USD_LOWERCASE = of("usd")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
 
         /** An enum containing [Currency]'s known values. */
         enum class Known {
-            USD,
-            USD_2,
+            USD_UPPERCASE,
+            USD_LOWERCASE,
         }
 
         /**
@@ -1807,8 +1807,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            USD,
-            USD_2,
+            USD_UPPERCASE,
+            USD_LOWERCASE,
             /** An enum member indicating that [Currency] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1822,8 +1822,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                USD -> Value.USD
-                USD_2 -> Value.USD_2
+                USD_UPPERCASE -> Value.USD_UPPERCASE
+                USD_LOWERCASE -> Value.USD_LOWERCASE
                 else -> Value._UNKNOWN
             }
 
@@ -1838,8 +1838,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                USD -> Known.USD
-                USD_2 -> Known.USD_2
+                USD_UPPERCASE -> Known.USD_UPPERCASE
+                USD_LOWERCASE -> Known.USD_LOWERCASE
                 else -> throw TelnyxInvalidDataException("Unknown Currency: $value")
             }
 

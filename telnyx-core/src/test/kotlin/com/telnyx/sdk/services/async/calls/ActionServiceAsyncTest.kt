@@ -737,7 +737,7 @@ internal class ActionServiceAsyncTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .connectorName("Default")
-                    .currency(ActionPayParams.Currency.USD)
+                    .currency(ActionPayParams.Currency.USD_UPPERCASE)
                     .description("Order 12345")
                     .interDigitTimeoutMillis(5000)
                     .language("en-US")

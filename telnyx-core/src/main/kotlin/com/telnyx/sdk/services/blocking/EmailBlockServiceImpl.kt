@@ -41,7 +41,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         WithRawResponseImpl(clientOptions)
     }
 
-    private val import_: ImportService by lazy { ImportServiceImpl(clientOptions) }
+    private val imports: ImportService by lazy { ImportServiceImpl(clientOptions) }
 
     override fun withRawResponse(): EmailBlockService.WithRawResponse = withRawResponse
 
@@ -49,7 +49,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         EmailBlockServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     /** Async CSV import of competitor suppression lists. */
-    override fun import_(): ImportService = import_
+    override fun imports(): ImportService = imports
 
     override fun create(
         params: EmailBlockCreateParams,
@@ -99,7 +99,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val import_: ImportService.WithRawResponse by lazy {
+        private val imports: ImportService.WithRawResponse by lazy {
             ImportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
@@ -111,7 +111,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
             )
 
         /** Async CSV import of competitor suppression lists. */
-        override fun import_(): ImportService.WithRawResponse = import_
+        override fun imports(): ImportService.WithRawResponse = imports
 
         private val createHandler: Handler<EmailBlockResponse> =
             jsonHandler<EmailBlockResponse>(clientOptions.jsonMapper)

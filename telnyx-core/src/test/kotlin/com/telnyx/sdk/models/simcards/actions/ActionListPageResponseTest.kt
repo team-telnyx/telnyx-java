@@ -26,7 +26,9 @@ internal class ActionListPageResponseTest {
                         .status(
                             WirelessSimCardAction.Status.builder()
                                 .reason("The data limit was exceeded.")
-                                .value(WirelessSimCardAction.Status.Value_.COMPLETED)
+                                .value(
+                                    WirelessSimCardAction.Status.SimCardActionStatusValue.COMPLETED
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -54,7 +56,7 @@ internal class ActionListPageResponseTest {
                     .status(
                         WirelessSimCardAction.Status.builder()
                             .reason("The data limit was exceeded.")
-                            .value(WirelessSimCardAction.Status.Value_.COMPLETED)
+                            .value(WirelessSimCardAction.Status.SimCardActionStatusValue.COMPLETED)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -87,7 +89,9 @@ internal class ActionListPageResponseTest {
                         .status(
                             WirelessSimCardAction.Status.builder()
                                 .reason("The data limit was exceeded.")
-                                .value(WirelessSimCardAction.Status.Value_.COMPLETED)
+                                .value(
+                                    WirelessSimCardAction.Status.SimCardActionStatusValue.COMPLETED
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

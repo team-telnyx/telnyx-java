@@ -42,7 +42,7 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
         WithRawResponseImpl(clientOptions)
     }
 
-    private val import_: ImportServiceAsync by lazy { ImportServiceAsyncImpl(clientOptions) }
+    private val imports: ImportServiceAsync by lazy { ImportServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): EmailBlockServiceAsync.WithRawResponse = withRawResponse
 
@@ -50,7 +50,7 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
         EmailBlockServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     /** Async CSV import of competitor suppression lists. */
-    override fun import_(): ImportServiceAsync = import_
+    override fun imports(): ImportServiceAsync = imports
 
     override fun create(
         params: EmailBlockCreateParams,
@@ -100,7 +100,7 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val import_: ImportServiceAsync.WithRawResponse by lazy {
+        private val imports: ImportServiceAsync.WithRawResponse by lazy {
             ImportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
@@ -112,7 +112,7 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
             )
 
         /** Async CSV import of competitor suppression lists. */
-        override fun import_(): ImportServiceAsync.WithRawResponse = import_
+        override fun imports(): ImportServiceAsync.WithRawResponse = imports
 
         private val createHandler: Handler<EmailBlockResponse> =
             jsonHandler<EmailBlockResponse>(clientOptions.jsonMapper)

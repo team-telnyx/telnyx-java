@@ -34,7 +34,7 @@ interface EmailBlockServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmailBlockServiceAsync
 
     /** Async CSV import of competitor suppression lists. */
-    fun import_(): ImportServiceAsync
+    fun imports(): ImportServiceAsync
 
     /**
      * Creates a suppression with `reason: manual_block` and `source: manual`. Caller-supplied
@@ -249,7 +249,7 @@ interface EmailBlockServiceAsync {
         ): EmailBlockServiceAsync.WithRawResponse
 
         /** Async CSV import of competitor suppression lists. */
-        fun import_(): ImportServiceAsync.WithRawResponse
+        fun imports(): ImportServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /email_blocks`, but is otherwise the same as

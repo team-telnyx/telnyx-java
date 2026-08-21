@@ -23,7 +23,7 @@ internal class MessageServiceAsyncTest {
                 MessageUpdateParams.builder()
                     .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .readAt(MessageUpdateParams.ReadAt.UnionMember0.TRUE)
+                    .readAt(MessageUpdateParams.ReadAt.ServerReadTime.TRUE)
                     .build()
             )
 

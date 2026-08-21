@@ -5,9 +5,9 @@ package com.telnyx.sdk.services.async.emailblocks
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailblocks.import_.EmailBlockImportResponse
-import com.telnyx.sdk.models.emailblocks.import_.ImportCreateParams
-import com.telnyx.sdk.models.emailblocks.import_.ImportRetrieveParams
+import com.telnyx.sdk.models.emailblocks.imports.EmailBlockImportResponse
+import com.telnyx.sdk.models.emailblocks.imports.ImportCreateParams
+import com.telnyx.sdk.models.emailblocks.imports.ImportRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
