@@ -9,12 +9,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class EmailInboxListResponseTest {
+internal class EmailInboxListPageResponseTest {
 
     @Test
     fun create() {
-        val emailInboxListResponse =
-            EmailInboxListResponse.builder()
+        val emailInboxListPageResponse =
+            EmailInboxListPageResponse.builder()
                 .addData(
                     EmailInbox.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -33,14 +33,14 @@ internal class EmailInboxListResponseTest {
                         .build()
                 )
                 .meta(
-                    EmailInboxListResponse.Meta.builder()
+                    EmailInboxListPageResponse.Meta.builder()
                         .pageSize(1L)
                         .pageCursor("page_cursor")
                         .build()
                 )
                 .build()
 
-        assertThat(emailInboxListResponse.data())
+        assertThat(emailInboxListPageResponse.data())
             .containsExactly(
                 EmailInbox.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -58,17 +58,20 @@ internal class EmailInboxListResponseTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(emailInboxListResponse.meta())
+        assertThat(emailInboxListPageResponse.meta())
             .isEqualTo(
-                EmailInboxListResponse.Meta.builder().pageSize(1L).pageCursor("page_cursor").build()
+                EmailInboxListPageResponse.Meta.builder()
+                    .pageSize(1L)
+                    .pageCursor("page_cursor")
+                    .build()
             )
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val emailInboxListResponse =
-            EmailInboxListResponse.builder()
+        val emailInboxListPageResponse =
+            EmailInboxListPageResponse.builder()
                 .addData(
                     EmailInbox.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -87,19 +90,19 @@ internal class EmailInboxListResponseTest {
                         .build()
                 )
                 .meta(
-                    EmailInboxListResponse.Meta.builder()
+                    EmailInboxListPageResponse.Meta.builder()
                         .pageSize(1L)
                         .pageCursor("page_cursor")
                         .build()
                 )
                 .build()
 
-        val roundtrippedEmailInboxListResponse =
+        val roundtrippedEmailInboxListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(emailInboxListResponse),
-                jacksonTypeRef<EmailInboxListResponse>(),
+                jsonMapper.writeValueAsString(emailInboxListPageResponse),
+                jacksonTypeRef<EmailInboxListPageResponse>(),
             )
 
-        assertThat(roundtrippedEmailInboxListResponse).isEqualTo(emailInboxListResponse)
+        assertThat(roundtrippedEmailInboxListPageResponse).isEqualTo(emailInboxListPageResponse)
     }
 }

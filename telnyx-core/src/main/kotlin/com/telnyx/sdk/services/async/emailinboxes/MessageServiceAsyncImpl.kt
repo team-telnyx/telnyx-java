@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.drafts.EmailDraftResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageDraftsParams
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPageAsync
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPageResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageListParams
-import com.telnyx.sdk.models.emailinboxes.messages.MessageListResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateParams
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateResponse
 import com.telnyx.sdk.services.async.emailinboxes.messages.ActionServiceAsync
@@ -68,7 +69,7 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: MessageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         // get /email_inboxes/{inbox_id}/messages
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -151,13 +152,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<MessageListResponse> =
-            jsonHandler<MessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessageListPageResponse> =
+            jsonHandler<MessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -179,6 +180,14 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MessageListPageAsync.builder()
+                                    .service(MessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

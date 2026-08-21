@@ -14,15 +14,16 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.emailinboxes.drafts.EmailMessage
 import com.telnyx.sdk.models.emailinboxes.threads.EmailPaginationMeta
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class EmailMessageRetrieveEventsResponse
+class EmailMessageListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<MessageEvent>>,
+    private val data: JsonField<List<EmailMessage>>,
     private val meta: JsonField<EmailPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +32,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<MessageEvent>> = JsonMissing.of(),
+        data: JsonField<List<EmailMessage>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<EmailPaginationMeta> = JsonMissing.of(),
@@ -41,7 +42,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<MessageEvent> = data.getRequired("data")
+    fun data(): List<EmailMessage> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -54,7 +55,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<MessageEvent>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailMessage>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -78,8 +79,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [EmailMessageRetrieveEventsResponse].
+         * Returns a mutable builder for constructing an instance of [EmailMessageListPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -90,41 +90,39 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailMessageRetrieveEventsResponse]. */
+    /** A builder for [EmailMessageListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<MessageEvent>>? = null
+        private var data: JsonField<MutableList<EmailMessage>>? = null
         private var meta: JsonField<EmailPaginationMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailMessageRetrieveEventsResponse: EmailMessageRetrieveEventsResponse) =
-            apply {
-                data = emailMessageRetrieveEventsResponse.data.map { it.toMutableList() }
-                meta = emailMessageRetrieveEventsResponse.meta
-                additionalProperties =
-                    emailMessageRetrieveEventsResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(emailMessageListPageResponse: EmailMessageListPageResponse) = apply {
+            data = emailMessageListPageResponse.data.map { it.toMutableList() }
+            meta = emailMessageListPageResponse.meta
+            additionalProperties = emailMessageListPageResponse.additionalProperties.toMutableMap()
+        }
 
-        fun data(data: List<MessageEvent>) = data(JsonField.of(data))
+        fun data(data: List<EmailMessage>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<MessageEvent>` value
+         * You should usually call [Builder.data] with a well-typed `List<EmailMessage>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<MessageEvent>>) = apply {
+        fun data(data: JsonField<List<EmailMessage>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MessageEvent] to [Builder.data].
+         * Adds a single [EmailMessage] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: MessageEvent) = apply {
+        fun addData(data: EmailMessage) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -162,7 +160,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EmailMessageRetrieveEventsResponse].
+         * Returns an immutable instance of [EmailMessageListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -174,8 +172,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EmailMessageRetrieveEventsResponse =
-            EmailMessageRetrieveEventsResponse(
+        fun build(): EmailMessageListPageResponse =
+            EmailMessageListPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -192,7 +190,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): EmailMessageRetrieveEventsResponse = apply {
+    fun validate(): EmailMessageListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -225,7 +223,7 @@ private constructor(
             return true
         }
 
-        return other is EmailMessageRetrieveEventsResponse &&
+        return other is EmailMessageListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -236,5 +234,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailMessageRetrieveEventsResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "EmailMessageListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.drafts.EmailDraftResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageDraftsParams
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPageAsync
 import com.telnyx.sdk.models.emailinboxes.messages.MessageListParams
-import com.telnyx.sdk.models.emailinboxes.messages.MessageListResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateParams
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateResponse
 import com.telnyx.sdk.services.async.emailinboxes.messages.ActionServiceAsync
@@ -75,7 +75,7 @@ interface MessageServiceAsync {
      * `filter[search]` performs PostgreSQL full-text search over the subject, plain-text body, and
      * HTML body. Filters compose with stable cursor pagination.
      */
-    fun list(inboxId: String): CompletableFuture<MessageListResponse> =
+    fun list(inboxId: String): CompletableFuture<MessageListPageAsync> =
         list(inboxId, MessageListParams.none())
 
     /** @see list */
@@ -83,30 +83,30 @@ interface MessageServiceAsync {
         inboxId: String,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see list */
     fun list(
         inboxId: String,
         params: MessageListParams = MessageListParams.none(),
-    ): CompletableFuture<MessageListResponse> = list(inboxId, params, RequestOptions.none())
+    ): CompletableFuture<MessageListPageAsync> = list(inboxId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessageListResponse>
+    ): CompletableFuture<MessageListPageAsync>
 
     /** @see list */
-    fun list(params: MessageListParams): CompletableFuture<MessageListResponse> =
+    fun list(params: MessageListParams): CompletableFuture<MessageListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         inboxId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessageListResponse> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(inboxId, MessageListParams.none(), requestOptions)
 
     /**
@@ -201,7 +201,7 @@ interface MessageServiceAsync {
          * Returns a raw HTTP response for `get /email_inboxes/{inbox_id}/messages`, but is
          * otherwise the same as [MessageServiceAsync.list].
          */
-        fun list(inboxId: String): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        fun list(inboxId: String): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(inboxId, MessageListParams.none())
 
         /** @see list */
@@ -209,33 +209,33 @@ interface MessageServiceAsync {
             inboxId: String,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
         /** @see list */
         fun list(
             inboxId: String,
             params: MessageListParams = MessageListParams.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(inboxId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>>
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessageListParams
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             inboxId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(inboxId, MessageListParams.none(), requestOptions)
 
         /**

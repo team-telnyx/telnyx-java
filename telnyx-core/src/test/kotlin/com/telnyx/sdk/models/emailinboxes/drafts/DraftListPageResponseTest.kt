@@ -10,12 +10,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class DraftListResponseTest {
+internal class DraftListPageResponseTest {
 
     @Test
     fun create() {
-        val draftListResponse =
-            DraftListResponse.builder()
+        val draftListPageResponse =
+            DraftListPageResponse.builder()
                 .addData(
                     EmailDraft.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -59,7 +59,7 @@ internal class DraftListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        assertThat(draftListResponse.data())
+        assertThat(draftListPageResponse.data())
             .containsExactly(
                 EmailDraft.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -100,15 +100,15 @@ internal class DraftListResponseTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(draftListResponse.meta())
+        assertThat(draftListPageResponse.meta())
             .isEqualTo(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val draftListResponse =
-            DraftListResponse.builder()
+        val draftListPageResponse =
+            DraftListPageResponse.builder()
                 .addData(
                     EmailDraft.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -152,12 +152,12 @@ internal class DraftListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        val roundtrippedDraftListResponse =
+        val roundtrippedDraftListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(draftListResponse),
-                jacksonTypeRef<DraftListResponse>(),
+                jsonMapper.writeValueAsString(draftListPageResponse),
+                jacksonTypeRef<DraftListPageResponse>(),
             )
 
-        assertThat(roundtrippedDraftListResponse).isEqualTo(draftListResponse)
+        assertThat(roundtrippedDraftListPageResponse).isEqualTo(draftListPageResponse)
     }
 }

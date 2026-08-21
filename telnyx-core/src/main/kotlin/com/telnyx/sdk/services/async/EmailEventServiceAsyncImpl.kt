@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.emailevents.EmailEventListPageAsync
+import com.telnyx.sdk.models.emailevents.EmailEventListPageResponse
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
-import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.concurrent.CompletableFuture
@@ -37,7 +38,7 @@ class EmailEventServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: EmailEventListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailEventListResponse> =
+    ): CompletableFuture<EmailEventListPageAsync> =
         // get /email_events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -61,13 +62,13 @@ class EmailEventServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<EmailEventListResponse> =
-            jsonHandler<EmailEventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailEventListPageResponse> =
+            jsonHandler<EmailEventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailEventListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -86,6 +87,14 @@ class EmailEventServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailEventListPageAsync.builder()
+                                    .service(EmailEventServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -8,12 +8,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class RecipientListResponseTest {
+internal class RecipientListPageResponseTest {
 
     @Test
     fun create() {
-        val recipientListResponse =
-            RecipientListResponse.builder()
+        val recipientListPageResponse =
+            RecipientListPageResponse.builder()
                 .addData(
                     EmailRecipient.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,14 +31,14 @@ internal class RecipientListResponseTest {
                         .build()
                 )
                 .meta(
-                    RecipientListResponse.Meta.builder()
+                    RecipientListPageResponse.Meta.builder()
                         .pageSize(1L)
                         .pageCursor("page_cursor")
                         .build()
                 )
                 .build()
 
-        assertThat(recipientListResponse.data())
+        assertThat(recipientListPageResponse.data())
             .containsExactly(
                 EmailRecipient.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -55,17 +55,20 @@ internal class RecipientListResponseTest {
                     .smtpResponse("smtp_response")
                     .build()
             )
-        assertThat(recipientListResponse.meta())
+        assertThat(recipientListPageResponse.meta())
             .isEqualTo(
-                RecipientListResponse.Meta.builder().pageSize(1L).pageCursor("page_cursor").build()
+                RecipientListPageResponse.Meta.builder()
+                    .pageSize(1L)
+                    .pageCursor("page_cursor")
+                    .build()
             )
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val recipientListResponse =
-            RecipientListResponse.builder()
+        val recipientListPageResponse =
+            RecipientListPageResponse.builder()
                 .addData(
                     EmailRecipient.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -83,19 +86,19 @@ internal class RecipientListResponseTest {
                         .build()
                 )
                 .meta(
-                    RecipientListResponse.Meta.builder()
+                    RecipientListPageResponse.Meta.builder()
                         .pageSize(1L)
                         .pageCursor("page_cursor")
                         .build()
                 )
                 .build()
 
-        val roundtrippedRecipientListResponse =
+        val roundtrippedRecipientListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(recipientListResponse),
-                jacksonTypeRef<RecipientListResponse>(),
+                jsonMapper.writeValueAsString(recipientListPageResponse),
+                jacksonTypeRef<RecipientListPageResponse>(),
             )
 
-        assertThat(roundtrippedRecipientListResponse).isEqualTo(recipientListResponse)
+        assertThat(roundtrippedRecipientListPageResponse).isEqualTo(recipientListPageResponse)
     }
 }

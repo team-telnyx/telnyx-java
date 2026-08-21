@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.EmailInboxCreateParams
 import com.telnyx.sdk.models.emailinboxes.EmailInboxDeleteParams
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPageAsync
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPageResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxListParams
-import com.telnyx.sdk.models.emailinboxes.EmailInboxListResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxRetrieveParams
 import com.telnyx.sdk.services.async.emailinboxes.DraftServiceAsync
@@ -96,7 +97,7 @@ class EmailInboxServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: EmailInboxListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailInboxListResponse> =
+    ): CompletableFuture<EmailInboxListPageAsync> =
         // get /email_inboxes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -220,13 +221,13 @@ class EmailInboxServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<EmailInboxListResponse> =
-            jsonHandler<EmailInboxListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailInboxListPageResponse> =
+            jsonHandler<EmailInboxListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailInboxListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailInboxListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailInboxListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -245,6 +246,14 @@ class EmailInboxServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailInboxListPageAsync.builder()
+                                    .service(EmailInboxServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

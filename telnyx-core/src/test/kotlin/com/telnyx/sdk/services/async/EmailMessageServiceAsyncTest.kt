@@ -8,8 +8,6 @@ import com.telnyx.sdk.models.emailmessages.AttachmentRequest
 import com.telnyx.sdk.models.emailmessages.EmailMessageBatchParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
 import com.telnyx.sdk.models.emailmessages.TrackingSettings
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -100,13 +98,10 @@ internal class EmailMessageServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val emailMessageServiceAsync = client.emailMessages()
 
-        val emailMessagesFuture =
-            emailMessageServiceAsync.list(
-                EmailMessageListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
-            )
+        val pageFuture = emailMessageServiceAsync.list()
 
-        val emailMessages = emailMessagesFuture.get()
-        emailMessages.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -273,16 +268,10 @@ internal class EmailMessageServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val emailMessageServiceAsync = client.emailMessages()
 
-        val responseFuture =
-            emailMessageServiceAsync.retrieveEvents(
-                EmailMessageRetrieveEventsParams.builder()
-                    .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .pageCursor("page_cursor")
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture =
+            emailMessageServiceAsync.retrieveEvents("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

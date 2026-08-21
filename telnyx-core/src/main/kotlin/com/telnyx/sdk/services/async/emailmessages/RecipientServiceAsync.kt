@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.emailmessages
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPageAsync
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,7 +62,7 @@ interface RecipientServiceAsync {
      * addresses are redacted (returned as null) to protect BCC privacy. Default page size is 25,
      * maximum is 100.
      */
-    fun list(emailId: String): CompletableFuture<RecipientListResponse> =
+    fun list(emailId: String): CompletableFuture<RecipientListPageAsync> =
         list(emailId, RecipientListParams.none())
 
     /** @see list */
@@ -70,30 +70,30 @@ interface RecipientServiceAsync {
         emailId: String,
         params: RecipientListParams = RecipientListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecipientListResponse> =
+    ): CompletableFuture<RecipientListPageAsync> =
         list(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see list */
     fun list(
         emailId: String,
         params: RecipientListParams = RecipientListParams.none(),
-    ): CompletableFuture<RecipientListResponse> = list(emailId, params, RequestOptions.none())
+    ): CompletableFuture<RecipientListPageAsync> = list(emailId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RecipientListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecipientListResponse>
+    ): CompletableFuture<RecipientListPageAsync>
 
     /** @see list */
-    fun list(params: RecipientListParams): CompletableFuture<RecipientListResponse> =
+    fun list(params: RecipientListParams): CompletableFuture<RecipientListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         emailId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecipientListResponse> =
+    ): CompletableFuture<RecipientListPageAsync> =
         list(emailId, RecipientListParams.none(), requestOptions)
 
     /**
@@ -145,7 +145,7 @@ interface RecipientServiceAsync {
          * Returns a raw HTTP response for `get /email_messages/{email_id}/recipients`, but is
          * otherwise the same as [RecipientServiceAsync.list].
          */
-        fun list(emailId: String): CompletableFuture<HttpResponseFor<RecipientListResponse>> =
+        fun list(emailId: String): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> =
             list(emailId, RecipientListParams.none())
 
         /** @see list */
@@ -153,33 +153,33 @@ interface RecipientServiceAsync {
             emailId: String,
             params: RecipientListParams = RecipientListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> =
             list(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see list */
         fun list(
             emailId: String,
             params: RecipientListParams = RecipientListParams.none(),
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> =
             list(emailId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: RecipientListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>>
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>>
 
         /** @see list */
         fun list(
             params: RecipientListParams
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             emailId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> =
             list(emailId, RecipientListParams.none(), requestOptions)
     }
 }

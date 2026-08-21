@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfDeleteParams
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPage
 import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfRetrieveParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfsFilesystemDetailResponseWrapper
@@ -136,20 +136,20 @@ interface CloudfService {
      * cursor-based pagination: fetch the next page by passing `meta.cursors.after` as
      * `page[after]`, or follow the `meta.next` URL.
      */
-    fun list(): CloudfListResponse = list(CloudfListParams.none())
+    fun list(): CloudfListPage = list(CloudfListParams.none())
 
     /** @see list */
     fun list(
         params: CloudfListParams = CloudfListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CloudfListResponse
+    ): CloudfListPage
 
     /** @see list */
-    fun list(params: CloudfListParams = CloudfListParams.none()): CloudfListResponse =
+    fun list(params: CloudfListParams = CloudfListParams.none()): CloudfListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CloudfListResponse =
+    fun list(requestOptions: RequestOptions): CloudfListPage =
         list(CloudfListParams.none(), requestOptions)
 
     /**
@@ -319,25 +319,24 @@ interface CloudfService {
          * Returns a raw HTTP response for `get /storage/cloudfs`, but is otherwise the same as
          * [CloudfService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<CloudfListResponse> = list(CloudfListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<CloudfListPage> = list(CloudfListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CloudfListParams = CloudfListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CloudfListResponse>
+        ): HttpResponseFor<CloudfListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CloudfListParams = CloudfListParams.none()
-        ): HttpResponseFor<CloudfListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CloudfListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CloudfListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CloudfListPage> =
             list(CloudfListParams.none(), requestOptions)
 
         /**

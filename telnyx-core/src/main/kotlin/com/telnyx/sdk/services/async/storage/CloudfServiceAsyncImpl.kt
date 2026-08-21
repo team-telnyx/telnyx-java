@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfDeleteParams
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPageAsync
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPageResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfRetrieveParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfsFilesystemDetailResponseWrapper
@@ -74,7 +75,7 @@ class CloudfServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: CloudfListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CloudfListResponse> =
+    ): CompletableFuture<CloudfListPageAsync> =
         // get /storage/cloudfs
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -206,13 +207,13 @@ class CloudfServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<CloudfListResponse> =
-            jsonHandler<CloudfListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CloudfListPageResponse> =
+            jsonHandler<CloudfListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CloudfListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CloudfListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CloudfListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -231,6 +232,14 @@ class CloudfServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CloudfListPageAsync.builder()
+                                    .service(CloudfServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

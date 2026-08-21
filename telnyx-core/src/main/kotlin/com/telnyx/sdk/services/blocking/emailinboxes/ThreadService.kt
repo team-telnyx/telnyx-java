@@ -6,7 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailinboxes.threads.ThreadListPage
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadListParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveResponse
@@ -63,33 +63,30 @@ interface ThreadService {
     ): ThreadRetrieveResponse
 
     /** Lists thread summaries newest first using stable cursor pagination. */
-    fun list(inboxId: String): InboundThreadListResponse = list(inboxId, ThreadListParams.none())
+    fun list(inboxId: String): ThreadListPage = list(inboxId, ThreadListParams.none())
 
     /** @see list */
     fun list(
         inboxId: String,
         params: ThreadListParams = ThreadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundThreadListResponse = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
+    ): ThreadListPage = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see list */
-    fun list(
-        inboxId: String,
-        params: ThreadListParams = ThreadListParams.none(),
-    ): InboundThreadListResponse = list(inboxId, params, RequestOptions.none())
+    fun list(inboxId: String, params: ThreadListParams = ThreadListParams.none()): ThreadListPage =
+        list(inboxId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ThreadListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundThreadListResponse
+    ): ThreadListPage
 
     /** @see list */
-    fun list(params: ThreadListParams): InboundThreadListResponse =
-        list(params, RequestOptions.none())
+    fun list(params: ThreadListParams): ThreadListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(inboxId: String, requestOptions: RequestOptions): InboundThreadListResponse =
+    fun list(inboxId: String, requestOptions: RequestOptions): ThreadListPage =
         list(inboxId, ThreadListParams.none(), requestOptions)
 
     /** A view of [ThreadService] that provides access to raw HTTP responses for each method. */
@@ -145,7 +142,7 @@ interface ThreadService {
          * the same as [ThreadService.list].
          */
         @MustBeClosed
-        fun list(inboxId: String): HttpResponseFor<InboundThreadListResponse> =
+        fun list(inboxId: String): HttpResponseFor<ThreadListPage> =
             list(inboxId, ThreadListParams.none())
 
         /** @see list */
@@ -154,7 +151,7 @@ interface ThreadService {
             inboxId: String,
             params: ThreadListParams = ThreadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundThreadListResponse> =
+        ): HttpResponseFor<ThreadListPage> =
             list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
         /** @see list */
@@ -162,26 +159,23 @@ interface ThreadService {
         fun list(
             inboxId: String,
             params: ThreadListParams = ThreadListParams.none(),
-        ): HttpResponseFor<InboundThreadListResponse> = list(inboxId, params, RequestOptions.none())
+        ): HttpResponseFor<ThreadListPage> = list(inboxId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ThreadListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundThreadListResponse>
+        ): HttpResponseFor<ThreadListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ThreadListParams): HttpResponseFor<InboundThreadListResponse> =
+        fun list(params: ThreadListParams): HttpResponseFor<ThreadListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            inboxId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundThreadListResponse> =
+        fun list(inboxId: String, requestOptions: RequestOptions): HttpResponseFor<ThreadListPage> =
             list(inboxId, ThreadListParams.none(), requestOptions)
     }
 }

@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPage
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPageResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -67,7 +68,7 @@ class DraftServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /email_inboxes/{inbox_id}/drafts/{draft_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: DraftListParams, requestOptions: RequestOptions): DraftListResponse =
+    override fun list(params: DraftListParams, requestOptions: RequestOptions): DraftListPage =
         // get /email_inboxes/{inbox_id}/drafts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -205,13 +206,13 @@ class DraftServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<DraftListResponse> =
-            jsonHandler<DraftListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DraftListPageResponse> =
+            jsonHandler<DraftListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DraftListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DraftListResponse> {
+        ): HttpResponseFor<DraftListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -231,6 +232,13 @@ class DraftServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DraftListPage.builder()
+                            .service(DraftServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

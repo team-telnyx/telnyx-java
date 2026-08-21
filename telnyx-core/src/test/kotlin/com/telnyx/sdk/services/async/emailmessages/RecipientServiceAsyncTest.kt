@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async.emailmessages
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -34,18 +33,9 @@ internal class RecipientServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val recipientServiceAsync = client.emailMessages().recipients()
 
-        val recipientsFuture =
-            recipientServiceAsync.list(
-                RecipientListParams.builder()
-                    .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .kind(RecipientListParams.Kind.TO)
-                    .pageCursor("page_cursor")
-                    .pageSize(1L)
-                    .status(RecipientListParams.Status.QUEUED)
-                    .build()
-            )
+        val pageFuture = recipientServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val recipients = recipientsFuture.get()
-        recipients.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailtemplates
+package com.telnyx.sdk.models.emailblocks
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,16 +14,15 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.emailinboxes.threads.EmailPaginationMeta
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class EmailTemplateListResponse
+class EmailBlockRetrieveEventsPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EmailTemplate>>,
-    private val meta: JsonField<EmailPaginationMeta>,
+    private val data: JsonField<List<EmailBlockRetrieveEventsResponse>>,
+    private val meta: JsonField<OffsetMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,37 +30,37 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<EmailTemplate>> = JsonMissing.of(),
-        @JsonProperty("meta")
-        @ExcludeMissing
-        meta: JsonField<EmailPaginationMeta> = JsonMissing.of(),
+        data: JsonField<List<EmailBlockRetrieveEventsResponse>> = JsonMissing.of(),
+        @JsonProperty("meta") @ExcludeMissing meta: JsonField<OffsetMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<EmailTemplate> = data.getRequired("data")
+    fun data(): List<EmailBlockRetrieveEventsResponse> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meta(): EmailPaginationMeta = meta.getRequired("meta")
+    fun meta(): OffsetMeta = meta.getRequired("meta")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailTemplate>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<EmailBlockRetrieveEventsResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<EmailPaginationMeta> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<OffsetMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -78,7 +77,8 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [EmailTemplateListResponse].
+         * Returns a mutable builder for constructing an instance of
+         * [EmailBlockRetrieveEventsPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -89,55 +89,57 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailTemplateListResponse]. */
+    /** A builder for [EmailBlockRetrieveEventsPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EmailTemplate>>? = null
-        private var meta: JsonField<EmailPaginationMeta>? = null
+        private var data: JsonField<MutableList<EmailBlockRetrieveEventsResponse>>? = null
+        private var meta: JsonField<OffsetMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailTemplateListResponse: EmailTemplateListResponse) = apply {
-            data = emailTemplateListResponse.data.map { it.toMutableList() }
-            meta = emailTemplateListResponse.meta
-            additionalProperties = emailTemplateListResponse.additionalProperties.toMutableMap()
+        internal fun from(
+            emailBlockRetrieveEventsPageResponse: EmailBlockRetrieveEventsPageResponse
+        ) = apply {
+            data = emailBlockRetrieveEventsPageResponse.data.map { it.toMutableList() }
+            meta = emailBlockRetrieveEventsPageResponse.meta
+            additionalProperties =
+                emailBlockRetrieveEventsPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EmailTemplate>) = data(JsonField.of(data))
+        fun data(data: List<EmailBlockRetrieveEventsResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EmailTemplate>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<EmailBlockRetrieveEventsResponse>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<EmailTemplate>>) = apply {
+        fun data(data: JsonField<List<EmailBlockRetrieveEventsResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EmailTemplate] to [Builder.data].
+         * Adds a single [EmailBlockRetrieveEventsResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EmailTemplate) = apply {
+        fun addData(data: EmailBlockRetrieveEventsResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
                 }
         }
 
-        fun meta(meta: EmailPaginationMeta) = meta(JsonField.of(meta))
+        fun meta(meta: OffsetMeta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [EmailPaginationMeta] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.meta] with a well-typed [OffsetMeta] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun meta(meta: JsonField<EmailPaginationMeta>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<OffsetMeta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -159,7 +161,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EmailTemplateListResponse].
+         * Returns an immutable instance of [EmailBlockRetrieveEventsPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -171,8 +173,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EmailTemplateListResponse =
-            EmailTemplateListResponse(
+        fun build(): EmailBlockRetrieveEventsPageResponse =
+            EmailBlockRetrieveEventsPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -189,7 +191,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): EmailTemplateListResponse = apply {
+    fun validate(): EmailBlockRetrieveEventsPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -222,7 +224,7 @@ private constructor(
             return true
         }
 
-        return other is EmailTemplateListResponse &&
+        return other is EmailBlockRetrieveEventsPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -233,5 +235,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailTemplateListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "EmailBlockRetrieveEventsPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

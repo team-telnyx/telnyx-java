@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailinboxes.threads.ThreadListPageAsync
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadListParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveResponse
@@ -59,7 +60,7 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: ThreadListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundThreadListResponse> =
+    ): CompletableFuture<ThreadListPageAsync> =
         // get /email_inboxes/{inbox_id}/threads
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -130,7 +131,7 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun list(
             params: ThreadListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundThreadListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ThreadListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -152,6 +153,14 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ThreadListPageAsync.builder()
+                                    .service(ThreadServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

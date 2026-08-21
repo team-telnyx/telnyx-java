@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfDeleteParams
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPage
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPageResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfRetrieveParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfsFilesystemDetailResponseWrapper
@@ -70,10 +71,7 @@ class CloudfServiceImpl internal constructor(private val clientOptions: ClientOp
         // patch /storage/cloudfs/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: CloudfListParams,
-        requestOptions: RequestOptions,
-    ): CloudfListResponse =
+    override fun list(params: CloudfListParams, requestOptions: RequestOptions): CloudfListPage =
         // get /storage/cloudfs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -196,13 +194,13 @@ class CloudfServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<CloudfListResponse> =
-            jsonHandler<CloudfListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CloudfListPageResponse> =
+            jsonHandler<CloudfListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CloudfListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CloudfListResponse> {
+        ): HttpResponseFor<CloudfListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -219,6 +217,13 @@ class CloudfServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CloudfListPage.builder()
+                            .service(CloudfServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

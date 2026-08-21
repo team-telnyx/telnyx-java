@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailmessages
+package com.telnyx.sdk.models.emailinboxes.messages
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,16 +14,16 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.emailinboxes.drafts.EmailMessage
 import com.telnyx.sdk.models.emailinboxes.threads.EmailPaginationMeta
+import com.telnyx.sdk.models.webhooks.InboundMessage
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class EmailMessageListResponse
+class MessageListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EmailMessage>>,
+    private val data: JsonField<List<InboundMessage>>,
     private val meta: JsonField<EmailPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -32,7 +32,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<EmailMessage>> = JsonMissing.of(),
+        data: JsonField<List<InboundMessage>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<EmailPaginationMeta> = JsonMissing.of(),
@@ -42,7 +42,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<EmailMessage> = data.getRequired("data")
+    fun data(): List<InboundMessage> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -55,7 +55,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailMessage>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<InboundMessage>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -79,7 +79,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [EmailMessageListResponse].
+         * Returns a mutable builder for constructing an instance of [MessageListPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -90,39 +90,39 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailMessageListResponse]. */
+    /** A builder for [MessageListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EmailMessage>>? = null
+        private var data: JsonField<MutableList<InboundMessage>>? = null
         private var meta: JsonField<EmailPaginationMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailMessageListResponse: EmailMessageListResponse) = apply {
-            data = emailMessageListResponse.data.map { it.toMutableList() }
-            meta = emailMessageListResponse.meta
-            additionalProperties = emailMessageListResponse.additionalProperties.toMutableMap()
+        internal fun from(messageListPageResponse: MessageListPageResponse) = apply {
+            data = messageListPageResponse.data.map { it.toMutableList() }
+            meta = messageListPageResponse.meta
+            additionalProperties = messageListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EmailMessage>) = data(JsonField.of(data))
+        fun data(data: List<InboundMessage>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EmailMessage>` value
+         * You should usually call [Builder.data] with a well-typed `List<InboundMessage>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<EmailMessage>>) = apply {
+        fun data(data: JsonField<List<InboundMessage>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EmailMessage] to [Builder.data].
+         * Adds a single [InboundMessage] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EmailMessage) = apply {
+        fun addData(data: InboundMessage) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -160,7 +160,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EmailMessageListResponse].
+         * Returns an immutable instance of [MessageListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -172,8 +172,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EmailMessageListResponse =
-            EmailMessageListResponse(
+        fun build(): MessageListPageResponse =
+            MessageListPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -190,7 +190,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): EmailMessageListResponse = apply {
+    fun validate(): MessageListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -223,7 +223,7 @@ private constructor(
             return true
         }
 
-        return other is EmailMessageListResponse &&
+        return other is MessageListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -234,5 +234,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailMessageListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "MessageListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

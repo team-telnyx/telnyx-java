@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.collections.CollectionCreateParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettings
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettingsWrapper
@@ -124,25 +123,9 @@ internal class CollectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val collectionServiceAsync = client.ai().collections()
 
-        val responseFuture =
-            collectionServiceAsync.retrieveDocuments(
-                CollectionRetrieveDocumentsParams.builder()
-                    .slug("support-transcripts")
-                    .filter(
-                        CollectionRetrieveDocumentsParams.Filter.builder()
-                            .putAdditionalProperty("foo", "bar")
-                            .build()
-                    )
-                    .pageNumber(1L)
-                    .pageSize(20L)
-                    .query("customer called about billing issue")
-                    .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.HYBRID)
-                    .sources("voice,message")
-                    .topK(10L)
-                    .build()
-            )
+        val pageFuture = collectionServiceAsync.retrieveDocuments("support-transcripts")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

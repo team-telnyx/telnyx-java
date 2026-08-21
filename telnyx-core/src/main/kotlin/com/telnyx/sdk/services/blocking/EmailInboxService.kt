@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.EmailInboxCreateParams
 import com.telnyx.sdk.models.emailinboxes.EmailInboxDeleteParams
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPage
 import com.telnyx.sdk.models.emailinboxes.EmailInboxListParams
-import com.telnyx.sdk.models.emailinboxes.EmailInboxListResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxRetrieveParams
 import com.telnyx.sdk.services.blocking.emailinboxes.DraftService
@@ -112,20 +112,20 @@ interface EmailInboxService {
         retrieve(id, EmailInboxRetrieveParams.none(), requestOptions)
 
     /** Lists the account's non-deleted inboxes newest first using stable cursor pagination. */
-    fun list(): EmailInboxListResponse = list(EmailInboxListParams.none())
+    fun list(): EmailInboxListPage = list(EmailInboxListParams.none())
 
     /** @see list */
     fun list(
         params: EmailInboxListParams = EmailInboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailInboxListResponse
+    ): EmailInboxListPage
 
     /** @see list */
-    fun list(params: EmailInboxListParams = EmailInboxListParams.none()): EmailInboxListResponse =
+    fun list(params: EmailInboxListParams = EmailInboxListParams.none()): EmailInboxListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EmailInboxListResponse =
+    fun list(requestOptions: RequestOptions): EmailInboxListPage =
         list(EmailInboxListParams.none(), requestOptions)
 
     /**
@@ -264,24 +264,24 @@ interface EmailInboxService {
          * [EmailInboxService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EmailInboxListResponse> = list(EmailInboxListParams.none())
+        fun list(): HttpResponseFor<EmailInboxListPage> = list(EmailInboxListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailInboxListParams = EmailInboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailInboxListResponse>
+        ): HttpResponseFor<EmailInboxListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailInboxListParams = EmailInboxListParams.none()
-        ): HttpResponseFor<EmailInboxListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailInboxListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailInboxListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailInboxListPage> =
             list(EmailInboxListParams.none(), requestOptions)
 
         /**

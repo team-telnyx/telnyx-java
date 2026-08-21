@@ -11,12 +11,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class EmailMessageRetrieveEventsResponseTest {
+internal class EmailMessageRetrieveEventsPageResponseTest {
 
     @Test
     fun create() {
-        val emailMessageRetrieveEventsResponse =
-            EmailMessageRetrieveEventsResponse.builder()
+        val emailMessageRetrieveEventsPageResponse =
+            EmailMessageRetrieveEventsPageResponse.builder()
                 .addData(
                     MessageEvent.builder()
                         .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -31,7 +31,7 @@ internal class EmailMessageRetrieveEventsResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        assertThat(emailMessageRetrieveEventsResponse.data())
+        assertThat(emailMessageRetrieveEventsPageResponse.data())
             .containsExactly(
                 MessageEvent.builder()
                     .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,15 +43,15 @@ internal class EmailMessageRetrieveEventsResponseTest {
                     )
                     .build()
             )
-        assertThat(emailMessageRetrieveEventsResponse.meta())
+        assertThat(emailMessageRetrieveEventsPageResponse.meta())
             .isEqualTo(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val emailMessageRetrieveEventsResponse =
-            EmailMessageRetrieveEventsResponse.builder()
+        val emailMessageRetrieveEventsPageResponse =
+            EmailMessageRetrieveEventsPageResponse.builder()
                 .addData(
                     MessageEvent.builder()
                         .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -66,13 +66,13 @@ internal class EmailMessageRetrieveEventsResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        val roundtrippedEmailMessageRetrieveEventsResponse =
+        val roundtrippedEmailMessageRetrieveEventsPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(emailMessageRetrieveEventsResponse),
-                jacksonTypeRef<EmailMessageRetrieveEventsResponse>(),
+                jsonMapper.writeValueAsString(emailMessageRetrieveEventsPageResponse),
+                jacksonTypeRef<EmailMessageRetrieveEventsPageResponse>(),
             )
 
-        assertThat(roundtrippedEmailMessageRetrieveEventsResponse)
-            .isEqualTo(emailMessageRetrieveEventsResponse)
+        assertThat(roundtrippedEmailMessageRetrieveEventsPageResponse)
+            .isEqualTo(emailMessageRetrieveEventsPageResponse)
     }
 }

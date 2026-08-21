@@ -23,8 +23,9 @@ import com.telnyx.sdk.models.emailblocks.EmailBlockListPageAsync
 import com.telnyx.sdk.models.emailblocks.EmailBlockListPageResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockListParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockResponse
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPageAsync
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsParams
-import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveExportParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveParams
 import com.telnyx.sdk.services.async.emailblocks.ImportServiceAsync
@@ -82,7 +83,7 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
     override fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         // get /email_blocks/{id}/events
         withRawResponse().retrieveEvents(params, requestOptions).thenApply { it.parse() }
 
@@ -249,13 +250,13 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val retrieveEventsHandler: Handler<EmailBlockRetrieveEventsResponse> =
-            jsonHandler<EmailBlockRetrieveEventsResponse>(clientOptions.jsonMapper)
+        private val retrieveEventsHandler: Handler<EmailBlockRetrieveEventsPageResponse> =
+            jsonHandler<EmailBlockRetrieveEventsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -277,6 +278,14 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailBlockRetrieveEventsPageAsync.builder()
+                                    .service(EmailBlockServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailmessages.recipients
+package com.telnyx.sdk.models.ai
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -16,13 +16,13 @@ import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class RecipientListResponse
+/** Search response following the standard Telnyx V2 API format. */
+class AiRetrieveConversationHistoriesPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EmailRecipient>>,
+    private val data: JsonField<List<AiRetrieveConversationHistoriesResponse>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,17 +31,21 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<EmailRecipient>> = JsonMissing.of(),
+        data: JsonField<List<AiRetrieveConversationHistoriesResponse>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
+     * Ranked list of matching text chunks, sorted by cosine similarity score descending.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<EmailRecipient> = data.getRequired("data")
+    fun data(): List<AiRetrieveConversationHistoriesResponse> = data.getRequired("data")
 
     /**
+     * Pagination metadata following the standard Telnyx V2 API format.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -52,7 +56,9 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailRecipient>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<AiRetrieveConversationHistoriesResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -76,7 +82,8 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [RecipientListResponse].
+         * Returns a mutable builder for constructing an instance of
+         * [AiRetrieveConversationHistoriesPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -87,45 +94,50 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RecipientListResponse]. */
+    /** A builder for [AiRetrieveConversationHistoriesPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EmailRecipient>>? = null
+        private var data: JsonField<MutableList<AiRetrieveConversationHistoriesResponse>>? = null
         private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(recipientListResponse: RecipientListResponse) = apply {
-            data = recipientListResponse.data.map { it.toMutableList() }
-            meta = recipientListResponse.meta
-            additionalProperties = recipientListResponse.additionalProperties.toMutableMap()
+        internal fun from(
+            aiRetrieveConversationHistoriesPageResponse: AiRetrieveConversationHistoriesPageResponse
+        ) = apply {
+            data = aiRetrieveConversationHistoriesPageResponse.data.map { it.toMutableList() }
+            meta = aiRetrieveConversationHistoriesPageResponse.meta
+            additionalProperties =
+                aiRetrieveConversationHistoriesPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EmailRecipient>) = data(JsonField.of(data))
+        /** Ranked list of matching text chunks, sorted by cosine similarity score descending. */
+        fun data(data: List<AiRetrieveConversationHistoriesResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EmailRecipient>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<AiRetrieveConversationHistoriesResponse>` value instead. This method is primarily
+         * for setting the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<EmailRecipient>>) = apply {
+        fun data(data: JsonField<List<AiRetrieveConversationHistoriesResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EmailRecipient] to [Builder.data].
+         * Adds a single [AiRetrieveConversationHistoriesResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EmailRecipient) = apply {
+        fun addData(data: AiRetrieveConversationHistoriesResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
                 }
         }
 
+        /** Pagination metadata following the standard Telnyx V2 API format. */
         fun meta(meta: Meta) = meta(JsonField.of(meta))
 
         /**
@@ -156,7 +168,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RecipientListResponse].
+         * Returns an immutable instance of [AiRetrieveConversationHistoriesPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -168,8 +180,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): RecipientListResponse =
-            RecipientListResponse(
+        fun build(): AiRetrieveConversationHistoriesPageResponse =
+            AiRetrieveConversationHistoriesPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -186,7 +198,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): RecipientListResponse = apply {
+    fun validate(): AiRetrieveConversationHistoriesPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -214,35 +226,69 @@ private constructor(
         (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Pagination metadata following the standard Telnyx V2 API format. */
     class Meta
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val pageNumber: JsonField<Long>,
         private val pageSize: JsonField<Long>,
-        private val pageCursor: JsonField<String>,
+        private val totalPages: JsonField<Long>,
+        private val totalResults: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("page_cursor")
+            @JsonProperty("page_number")
             @ExcludeMissing
-            pageCursor: JsonField<String> = JsonMissing.of(),
-        ) : this(pageSize, pageCursor, mutableMapOf())
+            pageNumber: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_pages")
+            @ExcludeMissing
+            totalPages: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_results")
+            @ExcludeMissing
+            totalResults: JsonField<Long> = JsonMissing.of(),
+        ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
 
         /**
+         * Current page number (1-based), matching the requested page[number].
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pageNumber(): Long = pageNumber.getRequired("page_number")
+
+        /**
+         * Number of results per page, matching the requested page[size].
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun pageSize(): Long = pageSize.getRequired("page_size")
 
         /**
-         * Cursor for the next page. Absent when there are no more results.
+         * Total number of pages.
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun pageCursor(): Optional<String> = pageCursor.getOptional("page_cursor")
+        fun totalPages(): Long = totalPages.getRequired("total_pages")
+
+        /**
+         * Total number of matching results across all queried regions.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun totalResults(): Long = totalResults.getRequired("total_results")
+
+        /**
+         * Returns the raw JSON value of [pageNumber].
+         *
+         * Unlike [pageNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("page_number") @ExcludeMissing fun _pageNumber(): JsonField<Long> = pageNumber
 
         /**
          * Returns the raw JSON value of [pageSize].
@@ -252,13 +298,21 @@ private constructor(
         @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
 
         /**
-         * Returns the raw JSON value of [pageCursor].
+         * Returns the raw JSON value of [totalPages].
          *
-         * Unlike [pageCursor], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("page_cursor")
+        @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Long> = totalPages
+
+        /**
+         * Returns the raw JSON value of [totalResults].
+         *
+         * Unlike [totalResults], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("total_results")
         @ExcludeMissing
-        fun _pageCursor(): JsonField<String> = pageCursor
+        fun _totalResults(): JsonField<Long> = totalResults
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -279,7 +333,10 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .pageNumber()
              * .pageSize()
+             * .totalPages()
+             * .totalResults()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -288,17 +345,34 @@ private constructor(
         /** A builder for [Meta]. */
         class Builder internal constructor() {
 
+            private var pageNumber: JsonField<Long>? = null
             private var pageSize: JsonField<Long>? = null
-            private var pageCursor: JsonField<String> = JsonMissing.of()
+            private var totalPages: JsonField<Long>? = null
+            private var totalResults: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(meta: Meta) = apply {
+                pageNumber = meta.pageNumber
                 pageSize = meta.pageSize
-                pageCursor = meta.pageCursor
+                totalPages = meta.totalPages
+                totalResults = meta.totalResults
                 additionalProperties = meta.additionalProperties.toMutableMap()
             }
 
+            /** Current page number (1-based), matching the requested page[number]. */
+            fun pageNumber(pageNumber: Long) = pageNumber(JsonField.of(pageNumber))
+
+            /**
+             * Sets [Builder.pageNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pageNumber] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
+
+            /** Number of results per page, matching the requested page[size]. */
             fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
 
             /**
@@ -310,20 +384,31 @@ private constructor(
              */
             fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
 
-            /** Cursor for the next page. Absent when there are no more results. */
-            fun pageCursor(pageCursor: String?) = pageCursor(JsonField.ofNullable(pageCursor))
-
-            /** Alias for calling [Builder.pageCursor] with `pageCursor.orElse(null)`. */
-            fun pageCursor(pageCursor: Optional<String>) = pageCursor(pageCursor.getOrNull())
+            /** Total number of pages. */
+            fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
 
             /**
-             * Sets [Builder.pageCursor] to an arbitrary JSON value.
+             * Sets [Builder.totalPages] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.pageCursor] with a well-typed [String] value
+             * You should usually call [Builder.totalPages] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
+
+            /** Total number of matching results across all queried regions. */
+            fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
+
+            /**
+             * Sets [Builder.totalResults] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalResults] with a well-typed [Long] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun pageCursor(pageCursor: JsonField<String>) = apply { this.pageCursor = pageCursor }
+            fun totalResults(totalResults: JsonField<Long>) = apply {
+                this.totalResults = totalResults
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -351,15 +436,20 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .pageNumber()
              * .pageSize()
+             * .totalPages()
+             * .totalResults()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Meta =
                 Meta(
+                    checkRequired("pageNumber", pageNumber),
                     checkRequired("pageSize", pageSize),
-                    pageCursor,
+                    checkRequired("totalPages", totalPages),
+                    checkRequired("totalResults", totalResults),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -380,8 +470,10 @@ private constructor(
                 return@apply
             }
 
+            pageNumber()
             pageSize()
-            pageCursor()
+            totalPages()
+            totalResults()
             validated = true
         }
 
@@ -401,8 +493,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (pageSize.asKnown().isPresent) 1 else 0) +
-                (if (pageCursor.asKnown().isPresent) 1 else 0)
+            (if (pageNumber.asKnown().isPresent) 1 else 0) +
+                (if (pageSize.asKnown().isPresent) 1 else 0) +
+                (if (totalPages.asKnown().isPresent) 1 else 0) +
+                (if (totalResults.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -410,19 +504,21 @@ private constructor(
             }
 
             return other is Meta &&
+                pageNumber == other.pageNumber &&
                 pageSize == other.pageSize &&
-                pageCursor == other.pageCursor &&
+                totalPages == other.totalPages &&
+                totalResults == other.totalResults &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(pageSize, pageCursor, additionalProperties)
+            Objects.hash(pageNumber, pageSize, totalPages, totalResults, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Meta{pageSize=$pageSize, pageCursor=$pageCursor, additionalProperties=$additionalProperties}"
+            "Meta{pageNumber=$pageNumber, pageSize=$pageSize, totalPages=$totalPages, totalResults=$totalResults, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -430,7 +526,7 @@ private constructor(
             return true
         }
 
-        return other is RecipientListResponse &&
+        return other is AiRetrieveConversationHistoriesPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -441,5 +537,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RecipientListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "AiRetrieveConversationHistoriesPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

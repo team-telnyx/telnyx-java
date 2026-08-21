@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailinboxes
+package com.telnyx.sdk.models.emailmessages.recipients
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -19,17 +19,19 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class EmailInboxListResponse
+class RecipientListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EmailInbox>>,
+    private val data: JsonField<List<EmailRecipient>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<List<EmailInbox>> = JsonMissing.of(),
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<List<EmailRecipient>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -37,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<EmailInbox> = data.getRequired("data")
+    fun data(): List<EmailRecipient> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -50,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailInbox>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailRecipient>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -74,7 +76,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [EmailInboxListResponse].
+         * Returns a mutable builder for constructing an instance of [RecipientListPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -85,39 +87,39 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailInboxListResponse]. */
+    /** A builder for [RecipientListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EmailInbox>>? = null
+        private var data: JsonField<MutableList<EmailRecipient>>? = null
         private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailInboxListResponse: EmailInboxListResponse) = apply {
-            data = emailInboxListResponse.data.map { it.toMutableList() }
-            meta = emailInboxListResponse.meta
-            additionalProperties = emailInboxListResponse.additionalProperties.toMutableMap()
+        internal fun from(recipientListPageResponse: RecipientListPageResponse) = apply {
+            data = recipientListPageResponse.data.map { it.toMutableList() }
+            meta = recipientListPageResponse.meta
+            additionalProperties = recipientListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EmailInbox>) = data(JsonField.of(data))
+        fun data(data: List<EmailRecipient>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EmailInbox>` value
+         * You should usually call [Builder.data] with a well-typed `List<EmailRecipient>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<EmailInbox>>) = apply {
+        fun data(data: JsonField<List<EmailRecipient>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [EmailInbox] to [Builder.data].
+         * Adds a single [EmailRecipient] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: EmailInbox) = apply {
+        fun addData(data: EmailRecipient) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -154,7 +156,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EmailInboxListResponse].
+         * Returns an immutable instance of [RecipientListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -166,8 +168,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EmailInboxListResponse =
-            EmailInboxListResponse(
+        fun build(): RecipientListPageResponse =
+            RecipientListPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -184,7 +186,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): EmailInboxListResponse = apply {
+    fun validate(): RecipientListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -235,7 +237,7 @@ private constructor(
         fun pageSize(): Long = pageSize.getRequired("page_size")
 
         /**
-         * Cursor for the next inbox page, when more results are available.
+         * Cursor for the next page. Absent when there are no more results.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -308,8 +310,11 @@ private constructor(
              */
             fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
 
-            /** Cursor for the next inbox page, when more results are available. */
-            fun pageCursor(pageCursor: String) = pageCursor(JsonField.of(pageCursor))
+            /** Cursor for the next page. Absent when there are no more results. */
+            fun pageCursor(pageCursor: String?) = pageCursor(JsonField.ofNullable(pageCursor))
+
+            /** Alias for calling [Builder.pageCursor] with `pageCursor.orElse(null)`. */
+            fun pageCursor(pageCursor: Optional<String>) = pageCursor(pageCursor.getOrNull())
 
             /**
              * Sets [Builder.pageCursor] to an arbitrary JSON value.
@@ -425,7 +430,7 @@ private constructor(
             return true
         }
 
-        return other is EmailInboxListResponse &&
+        return other is RecipientListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -436,5 +441,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailInboxListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "RecipientListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

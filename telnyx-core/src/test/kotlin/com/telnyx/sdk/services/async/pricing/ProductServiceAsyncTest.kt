@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async.pricing
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.pricing.products.ProductRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -15,18 +14,10 @@ internal class ProductServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val productServiceAsync = client.pricing().products()
 
-        val productFuture =
-            productServiceAsync.retrieve(
-                ProductRetrieveParams.builder()
-                    .slug("slug")
-                    .filterCountryIso("SE")
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = productServiceAsync.retrieve("slug")
 
-        val product = productFuture.get()
-        product.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

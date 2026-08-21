@@ -6,7 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -146,18 +145,10 @@ internal class DraftServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val draftServiceAsync = client.emailInboxes().drafts()
 
-        val draftsFuture =
-            draftServiceAsync.list(
-                DraftListParams.builder()
-                    .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .filterStatus(DraftListParams.FilterStatus.DRAFT)
-                    .pageAfter("page[after]")
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = draftServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val drafts = draftsFuture.get()
-        drafts.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

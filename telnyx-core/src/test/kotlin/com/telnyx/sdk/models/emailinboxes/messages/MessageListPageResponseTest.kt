@@ -13,12 +13,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class MessageListResponseTest {
+internal class MessageListPageResponseTest {
 
     @Test
     fun create() {
-        val messageListResponse =
-            MessageListResponse.builder()
+        val messageListPageResponse =
+            MessageListPageResponse.builder()
                 .addData(
                     InboundMessage.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -91,7 +91,7 @@ internal class MessageListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        assertThat(messageListResponse.data())
+        assertThat(messageListPageResponse.data())
             .containsExactly(
                 InboundMessage.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -161,15 +161,15 @@ internal class MessageListResponseTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(messageListResponse.meta())
+        assertThat(messageListPageResponse.meta())
             .isEqualTo(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val messageListResponse =
-            MessageListResponse.builder()
+        val messageListPageResponse =
+            MessageListPageResponse.builder()
                 .addData(
                     InboundMessage.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -242,12 +242,12 @@ internal class MessageListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        val roundtrippedMessageListResponse =
+        val roundtrippedMessageListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(messageListResponse),
-                jacksonTypeRef<MessageListResponse>(),
+                jsonMapper.writeValueAsString(messageListPageResponse),
+                jacksonTypeRef<MessageListPageResponse>(),
             )
 
-        assertThat(roundtrippedMessageListResponse).isEqualTo(messageListResponse)
+        assertThat(roundtrippedMessageListPageResponse).isEqualTo(messageListPageResponse)
     }
 }

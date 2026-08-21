@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPage
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveResponse
 import java.util.function.Consumer
@@ -59,33 +59,32 @@ interface RecipientService {
      * addresses are redacted (returned as null) to protect BCC privacy. Default page size is 25,
      * maximum is 100.
      */
-    fun list(emailId: String): RecipientListResponse = list(emailId, RecipientListParams.none())
+    fun list(emailId: String): RecipientListPage = list(emailId, RecipientListParams.none())
 
     /** @see list */
     fun list(
         emailId: String,
         params: RecipientListParams = RecipientListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecipientListResponse = list(params.toBuilder().emailId(emailId).build(), requestOptions)
+    ): RecipientListPage = list(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see list */
     fun list(
         emailId: String,
         params: RecipientListParams = RecipientListParams.none(),
-    ): RecipientListResponse = list(emailId, params, RequestOptions.none())
+    ): RecipientListPage = list(emailId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RecipientListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecipientListResponse
+    ): RecipientListPage
 
     /** @see list */
-    fun list(params: RecipientListParams): RecipientListResponse =
-        list(params, RequestOptions.none())
+    fun list(params: RecipientListParams): RecipientListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(emailId: String, requestOptions: RequestOptions): RecipientListResponse =
+    fun list(emailId: String, requestOptions: RequestOptions): RecipientListPage =
         list(emailId, RecipientListParams.none(), requestOptions)
 
     /** A view of [RecipientService] that provides access to raw HTTP responses for each method. */
@@ -136,7 +135,7 @@ interface RecipientService {
          * otherwise the same as [RecipientService.list].
          */
         @MustBeClosed
-        fun list(emailId: String): HttpResponseFor<RecipientListResponse> =
+        fun list(emailId: String): HttpResponseFor<RecipientListPage> =
             list(emailId, RecipientListParams.none())
 
         /** @see list */
@@ -145,7 +144,7 @@ interface RecipientService {
             emailId: String,
             params: RecipientListParams = RecipientListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecipientListResponse> =
+        ): HttpResponseFor<RecipientListPage> =
             list(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see list */
@@ -153,18 +152,18 @@ interface RecipientService {
         fun list(
             emailId: String,
             params: RecipientListParams = RecipientListParams.none(),
-        ): HttpResponseFor<RecipientListResponse> = list(emailId, params, RequestOptions.none())
+        ): HttpResponseFor<RecipientListPage> = list(emailId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RecipientListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecipientListResponse>
+        ): HttpResponseFor<RecipientListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: RecipientListParams): HttpResponseFor<RecipientListResponse> =
+        fun list(params: RecipientListParams): HttpResponseFor<RecipientListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -172,7 +171,7 @@ interface RecipientService {
         fun list(
             emailId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecipientListResponse> =
+        ): HttpResponseFor<RecipientListPage> =
             list(emailId, RecipientListParams.none(), requestOptions)
     }
 }

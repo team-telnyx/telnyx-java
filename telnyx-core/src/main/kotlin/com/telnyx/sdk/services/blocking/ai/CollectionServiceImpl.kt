@@ -24,8 +24,9 @@ import com.telnyx.sdk.models.ai.collections.CollectionListPage
 import com.telnyx.sdk.models.ai.collections.CollectionListPageResponse
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
+import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPage
+import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageResponse
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsResponse
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.blocking.ai.collections.SettingService
@@ -110,7 +111,7 @@ class CollectionServiceImpl internal constructor(private val clientOptions: Clie
     override fun retrieveDocuments(
         params: CollectionRetrieveDocumentsParams,
         requestOptions: RequestOptions,
-    ): CollectionRetrieveDocumentsResponse =
+    ): CollectionRetrieveDocumentsPage =
         // get /ai/collections/{slug}/documents
         withRawResponse().retrieveDocuments(params, requestOptions).parse()
 
@@ -324,13 +325,13 @@ class CollectionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val retrieveDocumentsHandler: Handler<CollectionRetrieveDocumentsResponse> =
-            jsonHandler<CollectionRetrieveDocumentsResponse>(clientOptions.jsonMapper)
+        private val retrieveDocumentsHandler: Handler<CollectionRetrieveDocumentsPageResponse> =
+            jsonHandler<CollectionRetrieveDocumentsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveDocuments(
             params: CollectionRetrieveDocumentsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse> {
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("slug", params.slug().getOrNull())
@@ -350,6 +351,13 @@ class CollectionServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CollectionRetrieveDocumentsPage.builder()
+                            .service(CollectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

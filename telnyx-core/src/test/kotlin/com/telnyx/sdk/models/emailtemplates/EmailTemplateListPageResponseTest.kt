@@ -9,12 +9,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class EmailTemplateListResponseTest {
+internal class EmailTemplateListPageResponseTest {
 
     @Test
     fun create() {
-        val emailTemplateListResponse =
-            EmailTemplateListResponse.builder()
+        val emailTemplateListPageResponse =
+            EmailTemplateListPageResponse.builder()
                 .addData(
                     EmailTemplate.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,7 +31,7 @@ internal class EmailTemplateListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        assertThat(emailTemplateListResponse.data())
+        assertThat(emailTemplateListPageResponse.data())
             .containsExactly(
                 EmailTemplate.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -45,15 +45,15 @@ internal class EmailTemplateListResponseTest {
                     .addVariable("string")
                     .build()
             )
-        assertThat(emailTemplateListResponse.meta())
+        assertThat(emailTemplateListPageResponse.meta())
             .isEqualTo(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val emailTemplateListResponse =
-            EmailTemplateListResponse.builder()
+        val emailTemplateListPageResponse =
+            EmailTemplateListPageResponse.builder()
                 .addData(
                     EmailTemplate.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -70,12 +70,13 @@ internal class EmailTemplateListResponseTest {
                 .meta(EmailPaginationMeta.builder().pageSize(1L).pageCursor("page_cursor").build())
                 .build()
 
-        val roundtrippedEmailTemplateListResponse =
+        val roundtrippedEmailTemplateListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(emailTemplateListResponse),
-                jacksonTypeRef<EmailTemplateListResponse>(),
+                jsonMapper.writeValueAsString(emailTemplateListPageResponse),
+                jacksonTypeRef<EmailTemplateListPageResponse>(),
             )
 
-        assertThat(roundtrippedEmailTemplateListResponse).isEqualTo(emailTemplateListResponse)
+        assertThat(roundtrippedEmailTemplateListPageResponse)
+            .isEqualTo(emailTemplateListPageResponse)
     }
 }

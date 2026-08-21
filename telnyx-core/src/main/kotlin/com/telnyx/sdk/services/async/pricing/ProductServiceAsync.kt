@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.pricing.products.ProductListPageAsync
 import com.telnyx.sdk.models.pricing.products.ProductListParams
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePageAsync
 import com.telnyx.sdk.models.pricing.products.ProductRetrieveParams
-import com.telnyx.sdk.models.pricing.products.ProductRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,7 +34,7 @@ interface ProductServiceAsync {
      * pricing. Some products use rate decks (pricing_type: rate_deck) where rates are determined
      * dynamically.
      */
-    fun retrieve(slug: String): CompletableFuture<ProductRetrieveResponse> =
+    fun retrieve(slug: String): CompletableFuture<ProductRetrievePageAsync> =
         retrieve(slug, ProductRetrieveParams.none())
 
     /** @see retrieve */
@@ -42,30 +42,30 @@ interface ProductServiceAsync {
         slug: String,
         params: ProductRetrieveParams = ProductRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ProductRetrieveResponse> =
+    ): CompletableFuture<ProductRetrievePageAsync> =
         retrieve(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         slug: String,
         params: ProductRetrieveParams = ProductRetrieveParams.none(),
-    ): CompletableFuture<ProductRetrieveResponse> = retrieve(slug, params, RequestOptions.none())
+    ): CompletableFuture<ProductRetrievePageAsync> = retrieve(slug, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ProductRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ProductRetrieveResponse>
+    ): CompletableFuture<ProductRetrievePageAsync>
 
     /** @see retrieve */
-    fun retrieve(params: ProductRetrieveParams): CompletableFuture<ProductRetrieveResponse> =
+    fun retrieve(params: ProductRetrieveParams): CompletableFuture<ProductRetrievePageAsync> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         slug: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ProductRetrieveResponse> =
+    ): CompletableFuture<ProductRetrievePageAsync> =
         retrieve(slug, ProductRetrieveParams.none(), requestOptions)
 
     /**
@@ -107,7 +107,7 @@ interface ProductServiceAsync {
          * Returns a raw HTTP response for `get /pricing/products/{slug}`, but is otherwise the same
          * as [ProductServiceAsync.retrieve].
          */
-        fun retrieve(slug: String): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> =
+        fun retrieve(slug: String): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> =
             retrieve(slug, ProductRetrieveParams.none())
 
         /** @see retrieve */
@@ -115,33 +115,33 @@ interface ProductServiceAsync {
             slug: String,
             params: ProductRetrieveParams = ProductRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> =
             retrieve(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             slug: String,
             params: ProductRetrieveParams = ProductRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> =
             retrieve(slug, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: ProductRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>>
 
         /** @see retrieve */
         fun retrieve(
             params: ProductRetrieveParams
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             slug: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> =
             retrieve(slug, ProductRetrieveParams.none(), requestOptions)
 
         /**

@@ -24,10 +24,12 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPage
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageListResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPage
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
 import com.telnyx.sdk.services.blocking.emailmessages.RecipientService
@@ -72,7 +74,7 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: EmailMessageListParams,
         requestOptions: RequestOptions,
-    ): EmailMessageListResponse =
+    ): EmailMessageListPage =
         // get /email_messages
         withRawResponse().list(params, requestOptions).parse()
 
@@ -103,7 +105,7 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
     override fun retrieveEvents(
         params: EmailMessageRetrieveEventsParams,
         requestOptions: RequestOptions,
-    ): EmailMessageRetrieveEventsResponse =
+    ): EmailMessageRetrieveEventsPage =
         // get /email_messages/{email_id}/events
         withRawResponse().retrieveEvents(params, requestOptions).parse()
 
@@ -188,13 +190,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<EmailMessageListResponse> =
-            jsonHandler<EmailMessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailMessageListPageResponse> =
+            jsonHandler<EmailMessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailMessageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailMessageListResponse> {
+        ): HttpResponseFor<EmailMessageListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -211,6 +213,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailMessageListPage.builder()
+                            .service(EmailMessageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -319,13 +328,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val retrieveEventsHandler: Handler<EmailMessageRetrieveEventsResponse> =
-            jsonHandler<EmailMessageRetrieveEventsResponse>(clientOptions.jsonMapper)
+        private val retrieveEventsHandler: Handler<EmailMessageRetrieveEventsPageResponse> =
+            jsonHandler<EmailMessageRetrieveEventsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse> {
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -345,6 +354,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailMessageRetrieveEventsPage.builder()
+                            .service(EmailMessageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

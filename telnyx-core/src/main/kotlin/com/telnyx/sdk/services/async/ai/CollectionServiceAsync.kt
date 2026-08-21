@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.ai.collections.CollectionEnvelope
 import com.telnyx.sdk.models.ai.collections.CollectionListPageAsync
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
+import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageAsync
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsResponse
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.async.ai.collections.SettingServiceAsync
@@ -250,7 +250,7 @@ interface CollectionServiceAsync {
      * - `GET
      *   /v2/ai/collections/my-collection/documents?query=outage&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
      */
-    fun retrieveDocuments(slug: String): CompletableFuture<CollectionRetrieveDocumentsResponse> =
+    fun retrieveDocuments(slug: String): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
         retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
 
     /** @see retrieveDocuments */
@@ -258,33 +258,33 @@ interface CollectionServiceAsync {
         slug: String,
         params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsResponse> =
+    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
         retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         slug: String,
         params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsResponse> =
+    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
         retrieveDocuments(slug, params, RequestOptions.none())
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         params: CollectionRetrieveDocumentsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsResponse>
+    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync>
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         params: CollectionRetrieveDocumentsParams
-    ): CompletableFuture<CollectionRetrieveDocumentsResponse> =
+    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
         retrieveDocuments(params, RequestOptions.none())
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         slug: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionRetrieveDocumentsResponse> =
+    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
         retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
 
     /**
@@ -518,7 +518,7 @@ interface CollectionServiceAsync {
          */
         fun retrieveDocuments(
             slug: String
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
             retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
 
         /** @see retrieveDocuments */
@@ -526,33 +526,33 @@ interface CollectionServiceAsync {
             slug: String,
             params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
             retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see retrieveDocuments */
         fun retrieveDocuments(
             slug: String,
             params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
             retrieveDocuments(slug, params, RequestOptions.none())
 
         /** @see retrieveDocuments */
         fun retrieveDocuments(
             params: CollectionRetrieveDocumentsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>>
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>>
 
         /** @see retrieveDocuments */
         fun retrieveDocuments(
             params: CollectionRetrieveDocumentsParams
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
             retrieveDocuments(params, RequestOptions.none())
 
         /** @see retrieveDocuments */
         fun retrieveDocuments(
             slug: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
             retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
     }
 }

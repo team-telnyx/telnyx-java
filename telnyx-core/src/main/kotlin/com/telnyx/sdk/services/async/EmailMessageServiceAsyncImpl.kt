@@ -24,10 +24,12 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPageAsync
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageListResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageAsync
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
 import com.telnyx.sdk.services.async.emailmessages.RecipientServiceAsync
@@ -75,7 +77,7 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: EmailMessageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailMessageListResponse> =
+    ): CompletableFuture<EmailMessageListPageAsync> =
         // get /email_messages
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -110,7 +112,7 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
     override fun retrieveEvents(
         params: EmailMessageRetrieveEventsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         // get /email_messages/{email_id}/events
         withRawResponse().retrieveEvents(params, requestOptions).thenApply { it.parse() }
 
@@ -201,13 +203,13 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<EmailMessageListResponse> =
-            jsonHandler<EmailMessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailMessageListPageResponse> =
+            jsonHandler<EmailMessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailMessageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailMessageListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailMessageListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -226,6 +228,14 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailMessageListPageAsync.builder()
+                                    .service(EmailMessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -347,13 +357,13 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val retrieveEventsHandler: Handler<EmailMessageRetrieveEventsResponse> =
-            jsonHandler<EmailMessageRetrieveEventsResponse>(clientOptions.jsonMapper)
+        private val retrieveEventsHandler: Handler<EmailMessageRetrieveEventsPageResponse> =
+            jsonHandler<EmailMessageRetrieveEventsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -375,6 +385,14 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailMessageRetrieveEventsPageAsync.builder()
+                                    .service(EmailMessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

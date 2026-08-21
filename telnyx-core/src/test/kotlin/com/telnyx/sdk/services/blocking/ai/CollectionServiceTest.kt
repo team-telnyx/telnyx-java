@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.collections.CollectionCreateParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettings
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettingsWrapper
@@ -117,24 +116,8 @@ internal class CollectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val collectionService = client.ai().collections()
 
-        val response =
-            collectionService.retrieveDocuments(
-                CollectionRetrieveDocumentsParams.builder()
-                    .slug("support-transcripts")
-                    .filter(
-                        CollectionRetrieveDocumentsParams.Filter.builder()
-                            .putAdditionalProperty("foo", "bar")
-                            .build()
-                    )
-                    .pageNumber(1L)
-                    .pageSize(20L)
-                    .query("customer called about billing issue")
-                    .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.HYBRID)
-                    .sources("voice,message")
-                    .topK(10L)
-                    .build()
-            )
+        val page = collectionService.retrieveDocuments("support-transcripts")
 
-        response.validate()
+        page.response().validate()
     }
 }

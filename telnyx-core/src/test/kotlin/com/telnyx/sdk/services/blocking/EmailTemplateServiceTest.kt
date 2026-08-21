@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateUpdateParams
@@ -79,12 +78,9 @@ internal class EmailTemplateServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val emailTemplateService = client.emailTemplates()
 
-        val emailTemplates =
-            emailTemplateService.list(
-                EmailTemplateListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
-            )
+        val page = emailTemplateService.list()
 
-        emailTemplates.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

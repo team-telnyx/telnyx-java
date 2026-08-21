@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailinboxes.messages
+package com.telnyx.sdk.models.emailinboxes.drafts
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -15,24 +15,21 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.emailinboxes.threads.EmailPaginationMeta
-import com.telnyx.sdk.models.webhooks.InboundMessage
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class MessageListResponse
+class DraftListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<InboundMessage>>,
+    private val data: JsonField<List<EmailDraft>>,
     private val meta: JsonField<EmailPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data")
-        @ExcludeMissing
-        data: JsonField<List<InboundMessage>> = JsonMissing.of(),
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<EmailDraft>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<EmailPaginationMeta> = JsonMissing.of(),
@@ -42,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<InboundMessage> = data.getRequired("data")
+    fun data(): List<EmailDraft> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -55,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<InboundMessage>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EmailDraft>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -79,7 +76,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MessageListResponse].
+         * Returns a mutable builder for constructing an instance of [DraftListPageResponse].
          *
          * The following fields are required:
          * ```java
@@ -90,39 +87,39 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MessageListResponse]. */
+    /** A builder for [DraftListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<InboundMessage>>? = null
+        private var data: JsonField<MutableList<EmailDraft>>? = null
         private var meta: JsonField<EmailPaginationMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(messageListResponse: MessageListResponse) = apply {
-            data = messageListResponse.data.map { it.toMutableList() }
-            meta = messageListResponse.meta
-            additionalProperties = messageListResponse.additionalProperties.toMutableMap()
+        internal fun from(draftListPageResponse: DraftListPageResponse) = apply {
+            data = draftListPageResponse.data.map { it.toMutableList() }
+            meta = draftListPageResponse.meta
+            additionalProperties = draftListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<InboundMessage>) = data(JsonField.of(data))
+        fun data(data: List<EmailDraft>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<InboundMessage>` value
+         * You should usually call [Builder.data] with a well-typed `List<EmailDraft>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<List<InboundMessage>>) = apply {
+        fun data(data: JsonField<List<EmailDraft>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [InboundMessage] to [Builder.data].
+         * Adds a single [EmailDraft] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: InboundMessage) = apply {
+        fun addData(data: EmailDraft) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -160,7 +157,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MessageListResponse].
+         * Returns an immutable instance of [DraftListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -172,8 +169,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MessageListResponse =
-            MessageListResponse(
+        fun build(): DraftListPageResponse =
+            DraftListPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("meta", meta),
                 additionalProperties.toMutableMap(),
@@ -190,7 +187,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): MessageListResponse = apply {
+    fun validate(): DraftListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -223,7 +220,7 @@ private constructor(
             return true
         }
 
-        return other is MessageListResponse &&
+        return other is DraftListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -234,5 +231,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "DraftListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

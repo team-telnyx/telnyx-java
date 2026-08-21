@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailinboxes.threads.ThreadListPage
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadListParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveResponse
@@ -55,10 +56,7 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /email_inboxes/{inbox_id}/threads/{thread_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ThreadListParams,
-        requestOptions: RequestOptions,
-    ): InboundThreadListResponse =
+    override fun list(params: ThreadListParams, requestOptions: RequestOptions): ThreadListPage =
         // get /email_inboxes/{inbox_id}/threads
         withRawResponse().list(params, requestOptions).parse()
 
@@ -126,7 +124,7 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun list(
             params: ThreadListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundThreadListResponse> {
+        ): HttpResponseFor<ThreadListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -146,6 +144,13 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ThreadListPage.builder()
+                            .service(ThreadServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
